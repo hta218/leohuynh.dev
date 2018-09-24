@@ -8,7 +8,8 @@ html {
 
 body {
   color: #444;
-  font-family: 'Alegreya', serif;
+  font-family: 'Exo', sans-serif;
+  font-size: 0.95rem;
   background: #fafafa;
   color: #444;
   line-height: 180%;
@@ -45,8 +46,7 @@ body {
     content: "";
   }
 
-  pre,
-  blockquote {
+  pre, blockquote {
     border: 1px solid #999;
     page-break-inside: avoid;
   }
@@ -55,8 +55,7 @@ body {
     display: table-header-group;
   } */
 
-  tr,
-  img {
+  tr, img {
     page-break-inside: avoid;
   }
 
@@ -64,22 +63,15 @@ body {
     max-width: 100% !important;
   }
 
-  p,
-  h2,
-  h3 {
+  p, h2, h3 {
     orphans: 3;
     widows: 3;
   }
 
-  h2,
-  h3 {
+  h2, h3 {
     page-break-after: avoid;
   }
 }
-
-/* html {
-  font-size: 12px;
-} */
 
 @media screen and (min-width: 32rem) and (max-width: 48rem) {
   html {
@@ -128,7 +120,7 @@ table tr th :last-child, table tr td :last-child {
 /* end of table css */
 
 p {
-  font-size: 1rem;
+  font-size: 0.95rem;
   margin-bottom: 1.3rem;
 }
 
@@ -162,7 +154,7 @@ h5 {
 
 /* This tag I use for post's date n tags only*/
 h6 {
-  font-size: 19px;
+  font-size: 16px;
   max-width: 36rem;
   margin: 0 auto 50px;
 }
