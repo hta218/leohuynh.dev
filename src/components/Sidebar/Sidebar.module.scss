@@ -1,0 +1,39 @@
+@import '../../assets/scss/variables';
+@import '../../assets/scss/mixins';
+
+.sidebar {
+    width: 100%;
+    &__inner {
+        position: relative;
+        padding: 25px 20px 0;
+    }
+}
+
+@include breakpoint-sm {
+    .sidebar {
+        lost-column: 5/12;
+        &__inner {
+            padding: 30px 20px 0;
+            &:after {
+                background: $color-gray-border;
+                background: linear-gradient(to bottom, $color-gray-border 0%, $color-gray-border 48%, $color-white 100%);
+                position: absolute;
+                content: '';
+                width: 1px;
+                height: 540px;
+                top: 30px;
+                right: -10px;
+                bottom: 0;
+            }
+        }
+    }
+}
+
+@include breakpoint-md {
+    .sidebar {
+        lost-column: 1/3;
+        &__inner {
+            padding: 40px;
+        }
+    }
+}

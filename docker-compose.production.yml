@@ -1,0 +1,12 @@
+version: '2'
+services:
+  web:
+    image: alxshelepenok/gatsby-starter-lumen:production
+    build:
+      context: ./
+      dockerfile: Dockerfile.production
+    tty: true
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - "80:80"

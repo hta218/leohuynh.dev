@@ -1,0 +1,87 @@
+@import '../../../assets/scss/variables';
+@import '../../../assets/scss/mixins';
+
+.content {
+  max-width: $layout-post-single-width;
+  padding: 0 15px;
+  margin: 0 auto;
+
+  &__title {
+    font-size: $typographic-base-font-size * 2;
+    max-width: $layout-post-width;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: 600;
+    text-align: center;
+    @include line-height(1.65);
+    @include margin-top(1);
+    @include margin-bottom(0)
+  }
+
+  &__body {
+    & figure {
+      @include margin-bottom(1);
+
+      & blockquote {
+        font-style: italic;
+        text-align: center;
+        margin-top: 0;
+        @include padding(1, 0);
+
+        & p {
+          max-width: $layout-post-width;
+          font-size: $typographic-base-font-size * 1.6817;
+          margin-top: 0;
+          @include margin-bottom(1);
+          @include line-height(1.5)
+        }
+
+      }
+
+    }
+
+    & a {
+      text-decoration: underline
+    }
+
+    & * {
+      max-width: $layout-post-width;
+      margin-left: auto;
+      margin-right: auto
+    }
+
+    & img {
+      max-width: 100%;
+    }
+
+  }
+
+}
+
+@include breakpoint-md {
+  .content {
+    padding: 0;
+
+    &__title {
+      font-size: $typographic-base-font-size * 3;
+      @include line-height(2.25);
+      @include margin-top(2.25);
+      @include margin-bottom(1.5)
+    }
+
+    &__body {
+      font-size: $typographic-base-font-size * 1.125;
+      @include line-height(1.125);
+      @include margin-bottom(1.125);
+
+      & p {
+        font-size: $typographic-base-font-size * 1.125;
+        @include line-height(1.125);
+        @include margin-bottom(1.125)
+      }
+
+    }
+
+  }
+
+}

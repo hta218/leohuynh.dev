@@ -1,0 +1,82 @@
+version: 2
+
+defaults: &defaults
+  docker:
+    - image: circleci/node:10.19.0
+  working_directory: ~/gatsby-starter-lumen
+
+jobs:
+  install:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - dependencies-{{ checksum "yarn.lock" }}
+      - run: yarn install --frozen-lockfile
+      - save_cache:
+          paths:
+            - node_modules
+          key: dependencies-{{ checksum "yarn.lock" }}
+
+  lint:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - dependencies-{{ checksum "yarn.lock" }}
+      - run: yarn lint
+
+  test:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - dependencies-{{ checksum "yarn.lock" }}
+      - run: yarn test --runInBand --no-cache
+
+  coverage:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - dependencies-{{ checksum "yarn.lock" }}
+      - run: yarn test:coverage --runInBand --no-cache
+      - save_cache:
+          key: coverage-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - coverage
+
+  codecov:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - dependencies-{{ checksum "yarn.lock" }}
+      - restore_cache:
+          keys:
+            - coverage-output-{{ .Environment.CIRCLE_SHA1 }}
+      - run: yarn global add codecov
+      - run: yarn codecov
+    
+workflows:
+  version: 2
+  test:
+    jobs:
+      - install
+      - lint:
+          requires:
+            - install
+      - test:
+          requires:
+            - install
+      - coverage:
+          requires:
+            - install
+      - codecov:
+          requires:
+            - coverage
