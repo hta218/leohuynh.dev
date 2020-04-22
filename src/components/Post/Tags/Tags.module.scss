@@ -5,6 +5,7 @@
   @include margin-bottom(.5);
   max-width: $layout-post-width;
   margin: 0 auto;
+  padding: 0 15px;
 
   &__list {
     list-style: none;

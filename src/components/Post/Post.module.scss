@@ -8,7 +8,6 @@
     background-size: cover;
     background-position: 50% 50%;
     background-repeat: no-repeat;
-    margin-left: calc((100vw - 1070px) * -0.5);
   }
 
   &__title {
@@ -17,6 +16,7 @@
     margin-left: auto;
     margin-right: auto;
     font-weight: 600;
+    padding: 0 15px;
     @include line-height(1.65);
     @include margin-top(0.75);
     @include margin-bottom(0.75)
@@ -36,7 +36,7 @@
 
   &__home-button {
     display: block;
-    max-width: 90px;
+    max-width: 120px;
     height: $button-height;
     padding: 0 24px;
     line-height: $button-height;
@@ -61,10 +61,6 @@
 
 @include breakpoint-md {
   .post {
-    &__footer {
-      padding: 0;
-    }
-
     &__comments {
       padding: 0;
     }
@@ -76,7 +72,13 @@
       top: 30px;
       left: 30px
     }
-
   }
+}
 
+@include breakpoint-lg {
+  .post {
+    &__header-image {
+      margin-left: calc((100vw - #{$layout-width}) * -0.5);
+    }
+  }
 }

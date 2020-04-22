@@ -35,6 +35,7 @@ export const query = graphql`
         tags
         title
         socialImage
+        headerImage
       }
       timeToRead
     }

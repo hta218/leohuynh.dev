@@ -25,6 +25,20 @@ Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aen
 + Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
 + Aliquam tincidunt mauris eu risus.
 
+```javascript
+try {
+	const foo = "test"
+	function getName(id) {
+		const name = document.querySelector(`item-${id}`).getAttribute('name')
+		return name
+	}
+
+	const arr = [2, 3, 4]
+	const time2 = arr.map(item => item * 2)
+
+} catch(e) { console.error("PF Error:: ", e) }
+```
+
 Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. 
 
 <figure>

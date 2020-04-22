@@ -16,13 +16,13 @@ module.exports = {
       path: '/'
     },
     {
-      label: 'About me',
-      path: '/pages/about'
-    },
-    {
       label: 'My resume',
       path: '/pages/resume'
-    }
+    },
+    {
+      label: 'About this blog',
+      path: '/pages/about-this-blog'
+    },
   ],
   author: {
     name: 'Leo Blog',

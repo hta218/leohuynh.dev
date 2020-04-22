@@ -4,6 +4,6 @@
 .meta {
   max-width: $layout-post-width;
   margin: 0 auto;
-  // @include margin-top(1);
   @include margin-bottom(2);
+  padding: 0 15px;
 }
