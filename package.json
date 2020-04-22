@@ -9,16 +9,12 @@
     "build": "yarn run clean && gatsby build",
     "deploy": "yarn run clean && gatsby build --prefix-paths && gh-pages -d public",
     "clean": "rimraf .cache public",
-    "flow": "flow",
     "lint:js": "eslint --cache --ext .js,.jsx .",
     "lint:scss": "stylelint \"src/**/*.scss\"",
-    "lint": "concurrently \"yarn run lint:js\" \"yarn run lint:scss\" \"yarn flow\"",
-    "test": "jest --config ./jest/jest-config.js",
-    "test:coverage": "jest --coverage --config ./jest/jest-config.js",
-    "test:watch": "jest --watch --config ./jest/jest-config.js"
+    "lint": "concurrently \"yarn run lint:js\" \"yarn run lint:scss\""
   },
   "repository": "https://github.com/hta218/leo-blog",
-  "author": "Leo Huynh <huynhtuananh21895@gmail.com>",
+  "author": "Tuan Anh Huynh <huynhtuananh21895@gmail.com>",
   "license": "MIT",
   "keywords": [
     "gatsby",
