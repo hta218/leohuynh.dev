@@ -32,7 +32,6 @@
     "react",
     "theme",
     "starter",
-    "disqus"
   ],
   "dependencies": {
     "bluebird": "^3.7.2",
@@ -71,9 +70,9 @@
     "normalize-scss": "^7.0.1",
     "prismjs": "^1.20.0",
     "react": "^16.13.1",
-    "react-disqus-comments": "^1.4.0",
     "react-dom": "^16.13.1",
-    "react-helmet": "^5.2.1"
+    "react-helmet": "^5.2.1",
+    "remark-ninja-react": "^2.3.8"
   },
   "devDependencies": {
     "@babel/core": "7.9.0",

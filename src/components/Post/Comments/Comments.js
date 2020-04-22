@@ -1,21 +1,14 @@
 // @flow strict
 import React from 'react';
-import ReactDisqusComments from 'react-disqus-comments';
+import NinjaComments from 'remark-ninja-react';
 import { useSiteMetadata } from '../../../hooks';
 
 const Comments = ({ postTitle, postSlug }) => {
-  const { url, disqusShortname } = useSiteMetadata();
-
-  if (!disqusShortname) {
-    return null;
-  }
+  const { url } = useSiteMetadata();
 
   return (
-    <ReactDisqusComments
-      shortname={disqusShortname}
-      identifier={postTitle}
-      title={postTitle}
-      url={url + postSlug}
+    <NinjaComments
+      siteId={"ec72f46b-042c-43ff-9fe0-1b26192462b8"}
     />
   );
 };

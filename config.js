@@ -6,7 +6,6 @@ module.exports = {
   title: "Leo's Blog",
   subtitle: "Coding and all other stuff related to a dev's life through a keyboard",
   copyright: "2020 © Leo's Blog - All rights reserved.",
-  disqusShortname: 'Comments',
   postsPerPage: 4,
   googleAnalyticsId: 'UA-164140501-1',
   // useKatex: true,

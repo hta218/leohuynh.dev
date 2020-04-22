@@ -3342,7 +3342,7 @@ aws4@^1.8.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.8.0.tgz#f0e003d9ca9e7f59c7a508945d7b2ef9a04a542f"
 
-axios@^0.19.2:
+axios@^0.19.0, axios@^0.19.2:
   version "0.19.2"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.19.2.tgz#3ea36c5d8818d0d5f8a8a97a6d36b86cdc00cb27"
   integrity sha512-fjgm5MvRHLhx+osE2xoekY70AhARk3a6hkN+3Io1jc00jtquGvxYlKlsFUhmUET0V5te6CcZI7lcv2Ym61mjHA==
@@ -14066,10 +14066,6 @@ react-dev-utils@^9.1.0:
     strip-ansi "5.2.0"
     text-table "0.2.0"
 
-react-disqus-comments@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/react-disqus-comments/-/react-disqus-comments-1.4.0.tgz#bf56ff319a35d086f3070d31a4f70ed21ce3a958"
-
 react-dnd-html5-backend@^7.2.0:
   version "7.7.0"
   resolved "https://registry.yarnpkg.com/react-dnd-html5-backend/-/react-dnd-html5-backend-7.7.0.tgz#e2b8ea61a1bc34ba743b89cafcda6213b006c06a"
@@ -14816,6 +14812,13 @@ rehype-stringify@^5.0.0:
 relateurl@0.2.x:
   version "0.2.7"
   resolved "https://registry.yarnpkg.com/relateurl/-/relateurl-0.2.7.tgz#54dbf377e51440aca90a4cd274600d3ff2d888a9"
+
+remark-ninja-react@^2.3.8:
+  version "2.3.8"
+  resolved "https://registry.yarnpkg.com/remark-ninja-react/-/remark-ninja-react-2.3.8.tgz#3ee3978de160174523a25f54dcd214cd6cca3008"
+  integrity sha512-0b9ZDUvLRShZrvlwHUSI96fonbptzeRQU4YggycilnPpCNBzt2amPV3zc8xUSMIfyf/EuT8gCQ3xYCCrlFT+DQ==
+  dependencies:
+    axios "^0.19.0"
 
 remark-parse@^1.1.0:
   version "1.1.0"
