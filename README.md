@@ -1,4 +1,4 @@
-#  🏡 My house on the ☁️: [https://leohuynh.dev](https://leohuynh.dev)
+#  My 🏡 on the ☁️ [https://leohuynh.dev](https://leohuynh.dev)
 
 ## First thing first
 I don't create this from scratch, this blog built with [Gatsby](https://www.gatsbyjs.org/), using [Gatsby Starter Lumen](https://github.com/alxshelepenok/gatsby-starter-lumen). I've added many things to personalize it.
