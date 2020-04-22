@@ -1186,14 +1186,6 @@
     levenary "^1.1.1"
     semver "^5.5.0"
 
-"@babel/preset-flow@^7.8.3":
-  version "7.9.0"
-  resolved "https://registry.yarnpkg.com/@babel/preset-flow/-/preset-flow-7.9.0.tgz#fee847c3e090b0b2d9227c1949e4da1d1379280d"
-  integrity sha512-88uSmlshIrlmPkNkEcx3UpSZ6b8n0UGBq0/0ZMZCF/uxAW0XIAUuDHBhIOAh0pvweafH4RxOwi/H3rWhtqOYPA==
-  dependencies:
-    "@babel/helper-plugin-utils" "^7.8.3"
-    "@babel/plugin-transform-flow-strip-types" "^7.9.0"
-
 "@babel/preset-modules@^0.1.3":
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/@babel/preset-modules/-/preset-modules-0.1.3.tgz#13242b53b5ef8c883c3cf7dddd55b36ce80fbc72"
@@ -4708,7 +4700,7 @@ commander@2.17.x:
   version "2.17.1"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.17.1.tgz#bd77ab7de6de94205ceacc72f1716d29f20a77bf"
 
-commander@^2.11.0, commander@^2.18.0, commander@^2.19.0, commander@^2.20.0:
+commander@^2.11.0, commander@^2.18.0, commander@^2.20.0:
   version "2.20.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.0.tgz#d58bb2b5c1ee8f87b0d340027e9e94e222c5a422"
 
@@ -7507,14 +7499,6 @@ gatsby-plugin-feed@^2.4.1:
     lodash.merge "^4.6.2"
     rss "^1.2.2"
 
-gatsby-plugin-flow@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-flow/-/gatsby-plugin-flow-1.2.1.tgz#c72cfe3499977c170cf9c945b299eb6c87d57a32"
-  integrity sha512-zMW7Agp+jdynorH/wav17sAnZn8Ryiz54HHNr4UM8lUGji0D4/RRL2ZhDtPugtdSDGTnQZQ4FGt1bmmDKw/gug==
-  dependencies:
-    "@babel/preset-flow" "^7.8.3"
-    "@babel/runtime" "^7.8.7"
-
 gatsby-plugin-google-gtag@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-google-gtag/-/gatsby-plugin-google-gtag-2.0.0.tgz#0df0f4a7bdf6900387b4bec2de1d19b70f758c5e"
@@ -7702,15 +7686,6 @@ gatsby-remark-images@^3.2.2:
     query-string "^6.11.1"
     unist-util-select "^1.5.0"
     unist-util-visit-parents "^2.1.2"
-
-gatsby-remark-katex@^3.2.1:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/gatsby-remark-katex/-/gatsby-remark-katex-3.2.1.tgz#b9b6707fd3894c5fe5c74d329072070b3c563f9c"
-  integrity sha512-r75ToIEto//BSWSe/u2SdTpHah5Hl3UeeuA1PaaVkDz9IDM4nhuH06opokrjRnVi33/L4uxUxquvAUh7mviyjA==
-  dependencies:
-    "@babel/runtime" "^7.8.7"
-    remark-math "^1.0.6"
-    unist-util-visit "^1.4.1"
 
 gatsby-remark-prismjs@^3.4.1:
   version "3.4.1"
@@ -10570,13 +10545,6 @@ jsx-ast-utils@^2.2.3:
 jwt-decode@^2.1.0, jwt-decode@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/jwt-decode/-/jwt-decode-2.2.0.tgz#7d86bd56679f58ce6a84704a657dd392bba81a79"
-
-katex@^0.11.1:
-  version "0.11.1"
-  resolved "https://registry.yarnpkg.com/katex/-/katex-0.11.1.tgz#df30ca40c565c9df01a466a00d53e079e84ffaa2"
-  integrity sha512-5oANDICCTX0NqYIyAiFCCwjQ7ERu3DQG2JFHLbYOf+fXaMoH8eg/zOq5WSYJsKMi/QebW+Eh3gSM+oss1H/bww==
-  dependencies:
-    commander "^2.19.0"
 
 kebab-hash@^0.1.2:
   version "0.1.2"
@@ -14848,13 +14816,6 @@ rehype-stringify@^5.0.0:
 relateurl@0.2.x:
   version "0.2.7"
   resolved "https://registry.yarnpkg.com/relateurl/-/relateurl-0.2.7.tgz#54dbf377e51440aca90a4cd274600d3ff2d888a9"
-
-remark-math@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/remark-math/-/remark-math-1.0.6.tgz#49eb3dd15d298734c9ae21673115389793af4d1b"
-  integrity sha512-I43wU/QOQpXvVFXKjA4FHp5xptK65+5F6yolm8+69/JV0EqSOB64wURUZ3JK50JtnTL8FvwLiH2PZ+fvsBxviA==
-  dependencies:
-    trim-trailing-lines "^1.1.0"
 
 remark-parse@^1.1.0:
   version "1.1.0"

@@ -1,6 +1,11 @@
 /** 
  * Generic
  */
+
+html, body {
+  overflow-x: hidden;
+}
+
 html {
   font-size: $typographic-root-font-size;
 }

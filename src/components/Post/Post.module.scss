@@ -35,7 +35,7 @@
   }
 
   &__home-button {
-    display: block;
+    display: none;
     max-width: 120px;
     height: $button-height;
     padding: 0 24px;
@@ -66,6 +66,7 @@
     }
 
     &__home-button {
+      display: block;
       position: fixed;
       max-width: auto;
       margin: 0;

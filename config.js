@@ -9,7 +9,7 @@ module.exports = {
   disqusShortname: 'Comments',
   postsPerPage: 4,
   googleAnalyticsId: 'UA-164140501-1',
-  useKatex: true,
+  // useKatex: true,
   menu: [
     {
       label: 'Articles',
