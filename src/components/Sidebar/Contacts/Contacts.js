@@ -5,7 +5,6 @@ import Icon from '../../Icon';
 import styles from './Contacts.module.scss';
 
 const Contacts = ({ contacts }) => {
-  console.log(contacts)
   return (
     <div className={styles['contacts']}>
       <ul className={styles['contacts__list']}>

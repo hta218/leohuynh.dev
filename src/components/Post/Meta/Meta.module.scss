@@ -2,8 +2,8 @@
 @import '../../../assets/scss/mixins';
 
 .meta {
-  &__date {
-    font-style: italic;
-  }
-
+  max-width: $layout-post-width;
+  margin: 0 auto;
+  // @include margin-top(1);
+  @include margin-bottom(2);
 }

@@ -1,8 +1,8 @@
 {
-  "version": "3.0.3",
+  "version": "1.0.0",
   "homepage": "https://leohuynh.dev",
-  "name": "gatsby-starter-lumen",
-  "description": "A minimal, lightweight and mobile-first starter for creating blazing-fast static blogs",
+  "name": "leo-blog",
+  "description": "Leo's Blog",
   "main": "n/a",
   "scripts": {
     "develop": "yarn run clean && gatsby develop",
@@ -17,8 +17,8 @@
     "test:coverage": "jest --coverage --config ./jest/jest-config.js",
     "test:watch": "jest --watch --config ./jest/jest-config.js"
   },
-  "repository": "https://github.com/alxshelepenok/gatsby-starter-lumen",
-  "author": "Alexander Shelepenok <alxshelepenok@gmail.com>",
+  "repository": "https://github.com/hta218/leo-blog",
+  "author": "Leo Huynh <huynhtuananh21895@gmail.com>",
   "license": "MIT",
   "keywords": [
     "gatsby",
@@ -42,6 +42,7 @@
     "bluebird": "^3.7.2",
     "classnames": "^2.2.6",
     "codecov": "^3.6.5",
+    "date-fns": "^2.12.0",
     "gatsby": "^2.20.12",
     "gatsby-link": "^2.3.2",
     "gatsby-plugin-catch-links": "^2.2.1",
@@ -72,7 +73,6 @@
     "invariant": "^2.2.4",
     "katex": "^0.11.1",
     "lodash": "^4.17.15",
-    "moment": "^2.24.0",
     "netlify-cms-app": "^2.12.3",
     "node-sass": "^4.13.1",
     "normalize-scss": "^7.0.1",

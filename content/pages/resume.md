@@ -1,7 +1,7 @@
 ---
 title: "Resume"
 template: "page"
-socialImage: "/media/image-4.jpg"
+socialImage: "/logo.png"
 ---
 
 ## Tuan Anh Huynh (Leo)
@@ -100,10 +100,12 @@ __Project__: Check You In
  - Degree grade: Good – GPA 2.67
 
  ## Pastimes and Activities
- - I used to be a past-time programming instructor at MindX Coding School, I teach Python fundamentals and Python web development (Video)
+ - I used to be a past-time programming instructor at MindX Technology & Startup School, I teach Python fundamentals and Python web development (Video)
  - I’m keen on reading books, IT blogs, Medium and Quora
  - I love playing sports, especially swimming, football, volleyball and ping-pong (table tennis)
  - PES is my favorite game
 
 ---
-Full CV can be found [here](https://docs.google.com/document/d/18oX3iPu_sk4vWVLizhlD5z2LavbQ9b6Ry7-EP_qGvfg/edit#).
+Last updated on Mar 2020
+
+Latest and full version can be found [here](https://docs.google.com/document/d/18oX3iPu_sk4vWVLizhlD5z2LavbQ9b6Ry7-EP_qGvfg/edit#).

@@ -1,6 +1,9 @@
 /**
  * Padding
  */
+ @mixin padding-top($number) {
+    padding-top: #{ $number * $typographic-leading + "px"};
+}
 
 @mixin padding($top, $right, $bottom:null, $left:null) {
     @if $left==null and $bottom==null {

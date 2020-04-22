@@ -15,19 +15,19 @@ const Author = () => (
     </Link>
 
     <h1 className={styles['author__title']}>
-      <Link className={styles['author__title-link']} to="/">Tuan Anh Huynh (Leo)</Link>
+      <Link className={styles['author__title-link']} to="/">Hi, I'm Leo 👋</Link>
     </h1>
 
-    <p className={styles['author__subtitle']}>I like coding, I do stuff related to JS, working mostly with React/Node and Vanilla JS.</p>
+    <p className={styles['author__subtitle']}>I like coding, I do stuff related to JS, I work mainly with React/Node and Vanilla JS.</p>
     <p className={styles['author__subtitle']}>
-      I'm an ex-programming-instructor at
+      I'm an ex-coding-instructor at {' '}
       <a
         className={styles['author__title-link']}
         href="https://mindx.edu.vn/"
         rel="noopener noreferrer"
         target="_blank"
       >
-        &nbsp;MindX Technology & Startup School&nbsp;
+        MindX Technology & Startup School&nbsp;
       </a>
       (aka Techkids).
       <br />

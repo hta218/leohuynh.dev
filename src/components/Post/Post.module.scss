@@ -2,10 +2,30 @@
 @import '../../assets/scss/mixins';
 
 .post {
-  &__footer {
+  &__header-image {
+    width: 100vw;
+    height: 60vh;
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    margin-left: calc((100vw - 1070px) * -0.5);
+  }
+
+  &__title {
+    font-size: $typographic-base-font-size * 2;
     max-width: $layout-post-width;
-    margin: 0 auto;
-    padding: 0 15px;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: 600;
+    @include line-height(1.65);
+    @include margin-top(0.75);
+    @include margin-bottom(0.75)
+  }
+  
+  &__content {
+    margin-top: -100px;
+    background: $color-background;
+    @include padding-top(1.5);
   }
 
   &__comments {

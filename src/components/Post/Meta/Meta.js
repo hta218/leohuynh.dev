@@ -1,15 +1,13 @@
 // @flow strict
 import React from 'react';
-import moment from 'moment';
+import { format } from 'date-fns'
 import styles from './Meta.module.scss';
 
-type Props = {
-  date: string
-};
-
-const Meta = ({ date }: Props) => (
+const Meta = ({ date, time }) => (
   <div className={styles['meta']}>
-    <p className={styles['meta__date']}>Published {moment(date).format('D MMM YYYY')}</p>
+    <p className={styles['meta__date']}>
+      📅 {format(new Date(date), 'MMMM dd, yyyy')} - ⏱️{time} min{time > 1 && 's'} read
+    </p>
   </div>
 );
 

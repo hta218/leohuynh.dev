@@ -3,6 +3,8 @@
 
 .tags {
   @include margin-bottom(.5);
+  max-width: $layout-post-width;
+  margin: 0 auto;
 
   &__list {
     list-style: none;
@@ -11,17 +13,14 @@
 
     &-item {
       display: inline-block;
-      margin: 10px 5px;
-
+      margin: 0px 5px;
+      font-weight: bold;
       &-link {
+        color: $color-secondary;
         display: inline-block;
         height: $button-height;
-        padding: 0 24px;
         line-height: $button-height;
-        border: 1px solid $color-gray-border;
         text-decoration: none;
-        border-radius: $button-border-radius;
-        color: $color-base;
 
         &:hover,
         &:focus {

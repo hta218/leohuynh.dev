@@ -1,0 +1,21 @@
+@import '../../assets/scss/variables';
+@import '../../assets/scss/mixins';
+
+.footer {
+  @include margin-bottom(1);
+  padding: 20px 0 40px 0;
+  margin: 0 auto;
+  max-width: $layout-post-width;
+  border-top: 1px solid $color-gray-border;
+
+  .reachout {
+    text-align: center;
+    color: $color-gray;
+  }
+  ul {
+    justify-content: center;
+  }
+  div:last-child { 
+    text-align: center; 
+  }
+}
