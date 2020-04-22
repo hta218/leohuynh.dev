@@ -1,0 +1,65 @@
+@import '../../../assets/scss/variables';
+@import '../../../assets/scss/mixins';
+
+.comments {
+  &__questions {
+    a {
+      cursor: pointer;
+      &:hover { border-bottom: 1px solid $color-secondary; }
+    }
+  }
+  form {
+    @include margin-bottom(2);
+    div:first-child {
+      @include margin-bottom(0.5);
+    }
+    div:last-child {
+      text-align: left;
+    }
+  }
+
+  & input[type="submit"] {
+    float: right;
+    background-color: #28a745;
+    border-color: #28a745;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: $typographic-base-font-size;
+    border-radius: 2px;
+    transition: background-color .15s ease-in-out, border-color .15s ease-in-out;
+
+    &:hover {
+      background-color: #0069d9;
+      border-color: #0062cc;
+    }
+  }
+
+  & input:not([type="submit"]), textarea {
+    display: block;
+    box-sizing: border-box;
+    color: #495057;
+    font-size: $typographic-base-font-size;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 2px;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    
+    &:focus {
+      border-color: $color-primary;
+      outline: 0;
+    }
+  }
+
+  & input:not([type="submit"]) {
+    padding: 0 10px;
+    height: calc(1.5em + .75rem + 2px);
+  }
+
+  & textarea {
+    padding: 10px;
+    line-height: 1.5;
+    overflow: auto;
+    resize: vertical;
+    height: 100px;
+  }
+}

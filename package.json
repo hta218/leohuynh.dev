@@ -31,7 +31,7 @@
     "minimal",
     "react",
     "theme",
-    "starter",
+    "starter"
   ],
   "dependencies": {
     "bluebird": "^3.7.2",

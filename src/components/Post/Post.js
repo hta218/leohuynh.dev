@@ -25,8 +25,9 @@ const Post = ({ post }) => {
         <Meta date={date} time={time} />
         <Content body={html} />
       </div>
+      <hr />
       <div className={styles['post__comments']}>
-        <Comments postSlug={slug} postTitle={post.frontmatter.title} />
+        <Comments postSlug={slug} />
       </div>
     </div>
   );
