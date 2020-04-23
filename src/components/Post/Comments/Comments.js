@@ -1,10 +1,10 @@
 // @flow strict
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { withPrefix } from 'gatsby';
 import NinjaComments from 'remark-ninja-react';
 import secretConfs from '../../../../secrets'
 import styles from './Comments.module.scss';
-
+console.log(styles)
 const Comments = ({ postSlug }) => {
   const commentsRef = useRef()
 
@@ -13,7 +13,6 @@ const Comments = ({ postSlug }) => {
       const $comments = commentsRef.current
       const $name = $comments.querySelector("input#rn-author-name")
       const $email = $comments.querySelector("input#rn-author-email")
-      const $submit = $comments.querySelector('input[type="submit"]')
       const $cmtArea = $comments.querySelector("textarea")
       if ($name) {
         $name.placeholder = "Để trống nếu bạn muốn ẩn danh"
@@ -21,8 +20,7 @@ const Comments = ({ postSlug }) => {
         $email.placeholder = "Để trống nếu bạn muốn ẩn danh"
         $cmtArea.previousElementSibling.textContent = "Bình luận"
         $cmtArea.placeholder = "Lắc não trc nhé :D"
-        $submit.value = "Submit 🔪"
-        
+
         $comments.querySelectorAll(".rn-comment-item").forEach($item => {
           const $img = $item.querySelector("img")
           if ($img.alt === "Avatar for ") {

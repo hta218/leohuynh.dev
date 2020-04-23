@@ -15,7 +15,7 @@ const Author = () => (
     </Link>
 
     <h1 className={styles['author__title']}>
-      <Link className={styles['author__title-link']} to="/">Hi, I'm Leo 👋</Link>
+      <Link className={styles['author__title-link']} to="/">Hi 👋 I'm Tuan Anh (aka Leo) </Link>
     </h1>
 
     <p className={styles['author__subtitle']}>I like coding, I do stuff related to JS, I work mainly with React/Node and Vanilla JS.</p>

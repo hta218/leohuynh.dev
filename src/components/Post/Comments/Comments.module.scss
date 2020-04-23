@@ -16,6 +16,14 @@
     div:last-child {
       text-align: left;
     }
+
+    span {
+      float: right;
+      margin-top: 10px;
+      margin-right: 10px;
+      height: 43px;
+      line-height: 43px;
+    }
   }
 
   & input[type="submit"] {
@@ -23,7 +31,7 @@
     background-color: #28a745;
     border-color: #28a745;
     border: 1px solid transparent;
-    padding: .375rem .75rem;
+    padding: 10px;
     font-size: $typographic-base-font-size;
     border-radius: 2px;
     transition: background-color .15s ease-in-out, border-color .15s ease-in-out;
