@@ -9,7 +9,7 @@ const Footer = () => {
   const { author: { contacts }, copyright } = useSiteMetadata();
 
   return <div className={styles['footer']}>
-    <p className={styles['reachout']}>Thanks for reading! Find me on your favorite social network ✌️</p>
+    <p className={styles['reachout']}>Find me on your favorite social network ✌️</p>
     <Contacts contacts={contacts} />
     <Copyright copyright={copyright} />
   </div>

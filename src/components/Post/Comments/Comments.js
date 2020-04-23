@@ -1,10 +1,9 @@
-// @flow strict
 import React, { useRef, useEffect } from 'react';
 import { withPrefix } from 'gatsby';
 import NinjaComments from 'remark-ninja-react';
 import secretConfs from '../../../../secrets'
 import styles from './Comments.module.scss';
-console.log(styles)
+
 const Comments = ({ postSlug }) => {
   const commentsRef = useRef()
 

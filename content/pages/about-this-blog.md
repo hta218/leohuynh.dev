@@ -15,6 +15,6 @@ My blog is not the [original version](https://lumen.netlify.com) of this starter
 
 ### Images
 
-All images from this blog are from [Unsplash](https://unsplash.com/) - thanks for the free resources!
+All images from this blog are from [Unsplash](https://unsplash.com/) and [Giphy](https://giphy.com/) - thanks for the free resources!
 
 ---

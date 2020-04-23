@@ -15,7 +15,7 @@ const Author = () => (
     </Link>
 
     <h1 className={styles['author__title']}>
-      <Link className={styles['author__title-link']} to="/">Hi 👋 I'm Tuan Anh (aka Leo) </Link>
+      <Link className={styles['author__title-link']} to="/">Hi 👋 I'm Tuan Anh (Leo) </Link>
     </h1>
 
     <p className={styles['author__subtitle']}>I like coding, I do stuff related to JS, I work mainly with React/Node and Vanilla JS.</p>
@@ -43,7 +43,8 @@ const Author = () => (
       {' '}(Top 3 page builder app on Shopify app store).
     </p>
     <p className={styles['author__subtitle']}>
-      Becoming a software engineer at
+      {/* I will become a software engineer at */}
+      I'm moving into
       <a
         className={styles['author__title-link']}
         href="https://coccoc.com/" target="_blank"
@@ -51,7 +52,7 @@ const Author = () => (
       >
         &nbsp;Coc Coc&nbsp;
       </a>
-      (starting from May 2020).
+      as a software engineer from May 2020.
     </p>
   </div>
 );

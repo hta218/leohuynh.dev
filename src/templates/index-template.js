@@ -36,7 +36,7 @@ const IndexTemplate = ({ data, pageContext }) => {
         />
       </Page>
     </Layout>
-    <Footer />
+    {/* <Footer /> */}
   </>;
 };
 
