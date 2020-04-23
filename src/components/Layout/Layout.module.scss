@@ -3,4 +3,5 @@
 
 .layout {
     lost-center: $layout-width;
+    @include margin-bottom(1);
 }

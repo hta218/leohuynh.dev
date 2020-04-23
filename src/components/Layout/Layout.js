@@ -21,7 +21,10 @@ const Layout = ({
         <html lang="en" />
         <title>{title}</title>
         <meta name="description" content={description} />
+        <meta property="og:description" content={description} />
         <meta property="og:site_name" content={title} />
+        <meta property="og:title" content={title} />
+        <meta property="og:type" content="article" />
         <meta property="og:image" content={metaImageUrl} />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content={title} />
