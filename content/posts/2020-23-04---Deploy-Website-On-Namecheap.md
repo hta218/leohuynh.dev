@@ -11,9 +11,9 @@ tags:
   - "hosting"
   - "dns"
   - "namecheap"
-description: "German inventor Johannes Gutenberg developed a method of movable type and used it to create one of the western world’s first major printed books, the “Forty–Two–Line” Bible."
-socialImage: "/media/gutenberg.jpg"
-headerImage: "https://images.unsplash.com/photo-1587270804625-48c99a3cc707?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2550&q=80"
+description: "Trước giờ mình luôn muốn sở hữu 1 site cá nhân, nhưng vì mình không có thời gian nên đợt này nghỉ việc, ở nhà cách ly mới tìm hiểu để làm đc..."
+socialImage: "/media/header1.jpeg"
+headerImage: "/media/header1.jpeg"
 ---
 
 Trước giờ mình luôn muốn sở hữu 1 site cá nhân, nhưng vì mình ~~lười~~ không có thời gian nên đợt này nghỉ việc, ở nhà cách ly mới tìm hiểu để làm đc.
@@ -38,7 +38,7 @@ Lúc đầu mình nghĩ chỉ cần mua 1 tên miền (**domain**) rồi đẩy 
 Nếu domain là địa chỉ nhà thì hosting chính là ngôi nhà của mình.
 - **Platform** 💻: là những công cụ để build trang web, sản phẩm chính là phần source code của website.
 
-=> cần mua domain và hosting để có 1 trang hoàn chỉnh.
+=> cần mua **domain** và **hosting** để có 1 trang hoàn chỉnh.
 
 Mình quyết định mua cả 2 trên namecheap ~~do chưa có nhiều kinh nghiệm~~ cho tiện config và có gì còn dễ hỏi support bên họ 😄.
 
@@ -73,13 +73,13 @@ Chính là nhờ DNS (Mình k đi sâu vào khái niệm này)
 ## Activate SSL Certificate
 Nếu anh em k mua **PositiveSSL** có thể bỏ qua phần này nhé.
 
-SSL (**Secure Sockets Layer**) là 1 lớp bảo mật cho website, bảo vệ website bằng HTTPS với 2 nhiệm vụ chính:
+**SSL** (Secure Sockets Layer) là 1 lớp bảo mật cho website, bảo vệ website bằng **HTTPS** với 2 nhiệm vụ chính:
 - Đảm bảo data đến và đi từ website luôn đc mã hóa.
 - Kiểm duyệt data đến và đi có nội dung chính xác.
 
 ![SSL certificate](/media/https.png)
 
-Trang nào có SSL Certificate sẽ đc gắn cờ **Secured** trên Web browser, đảm bảo sự tin tưởng khi truy cập.
+Trang nào có **SSL Certificate** sẽ đc gắn cờ **Secured** trên Web browser, đảm bảo sự tin tưởng khi truy cập.
 
 Mình sẽ hướng dẫn anh em cách đơn giản nhất đó là sử dụng **cPanel** của **namecheap**:
 
@@ -90,16 +90,14 @@ Mình sẽ hướng dẫn anh em cách đơn giản nhất đó là sử dụng 
 - Trong **cPanel** mở **Namecheap SSL**.
 - Click **Activate** PossitiveSSL.
 
-![Go to cPanel](/media/cpanel2.png)
-
 Đợi khoảng 5-10' rồi ấn **sync** để xem đã **activate** thành công chưa nhé (nếu chưa thì anh em đợi thêm rồi **sync** lại cho đến khi status chuyển sang **active** là đc).
 
 ![Go to cPanel](/media/cpanel3.png)
 
 ## Tạm kết
-Đến đây anh em đã hoàn thiện đc 90% website của mình rồi 😮, phần sau mình sẽ hướng dẫn 90% còn lại 😢 bao gồm:
-- Tìm hiểu cấu trúc thư mục trên server (web hosting).
+Đến đây anh em đã hoàn thiện đc 90% website của mình rồi 😮, phần tiếp theo mình sẽ hướng dẫn 90% còn lại 😢 bao gồm:
+- Tìm hiểu cấu trúc thư mục trên server (**web hosting**).
 - Sử dụngdụng [FileZilla](https://filezilla-project.org/) để đẩy code lên server.
-- Set up 2FA (Tow Factor Authentication - hay bảo mật 2 lớp) để tăng bảo mật.
+- Set up 2FA (**Two Factor Authentication** - hay bảo mật 2 lớp) để tăng bảo mật.
 
 Rất cảm ơn anh em đã kiên nhẫn đọc đến đây 🙏, để lại suy nghĩ cho mình dưới phần bình luận nhé. Thanks you so much!

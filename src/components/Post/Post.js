@@ -25,8 +25,12 @@ const Post = ({ post }) => {
         <Meta date={date} time={time} />
         <Content body={html} />
       </div>
+
       <br />
       <hr />
+
+      <div className="post__image-lightbox"><img role="presentation" /></div>
+
       <div className={styles['post__comments']}>
         <Comments postSlug={slug} />
       </div>
