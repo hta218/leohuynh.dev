@@ -3,7 +3,7 @@ title: "Deploy và cấu hình website trên namecheap trong vòng 1 nốt nhạ
 date: "2020-04-23T16:20:03.284Z"
 template: "post"
 draft: false
-slug: "depoy-and-config-website-on-name-cheap-part-1"
+slug: "deploy-and-config-website-on-namecheap-part-1"
 category: "Tutorials"
 tags:
   - "deployment"
@@ -12,8 +12,8 @@ tags:
   - "dns"
   - "namecheap"
 description: "Trước giờ mình luôn muốn sở hữu 1 site cá nhân, nhưng vì mình không có thời gian nên đợt này nghỉ việc, ở nhà cách ly mới tìm hiểu để làm đc..."
-socialImage: "/media/header1.jpeg"
-headerImage: "/media/header1.jpeg"
+socialImage: "/media/header1.jpg"
+headerImage: "/media/header1.jpg"
 ---
 
 Trước giờ mình luôn muốn sở hữu 1 site cá nhân, nhưng vì mình ~~lười~~ không có thời gian nên đợt này nghỉ việc, ở nhà cách ly mới tìm hiểu để làm đc.
@@ -22,7 +22,7 @@ Bài này mình chỉ hướng dẫn anh em cách config **domain** và **web ho
 
 ## Tại sao có tutorial này?
 
-Mặc dù [namecheap](https://www.namecheap.com/resource-center/tutorials/building-your-first-website/) đã có hướng dẫn đầy đủ để build 1 website from scratch nhưng bơi 🏊 trong 1 đống document là k dễ dàng gì.
+Mặc dù namecheap đã có [hướng dẫn](https://www.namecheap.com/resource-center/tutorials/building-your-first-website/) đầy đủ để build 1 website from scratch nhưng bơi 🏊 trong 1 đống document là k dễ dàng gì.
 
 ![Kid swimming](/media/swim.gif)
 
@@ -42,7 +42,7 @@ Nếu domain là địa chỉ nhà thì hosting chính là ngôi nhà của mìn
 
 Mình quyết định mua cả 2 trên namecheap ~~do chưa có nhiều kinh nghiệm~~ cho tiện config và có gì còn dễ hỏi support bên họ 😄.
 
-Anh em lên [https://www.namecheap.com/domains/](https://www.namecheap.com/domains/) (nhớ tạo account trc nhé), search domain, click **Add To Cart** thì namecheap sẽ gợi ý mùa cùng **Web Hosting** và **PositiveSSL** (cái này để bảo mật cho site của mình, giải thích rõ hơn [ở dưới](#activate-ssl-certificate)).
+Anh em lên [https://www.namecheap.com/domains/](https://www.namecheap.com/domains/) (nhớ tạo account trc nhé), search domain, click **Add To Cart** thì namecheap sẽ gợi ý mua cùng **Web Hosting** và **PositiveSSL** (cái này để bảo mật cho site của mình, giải thích rõ hơn [ở dưới](#activate-ssl-certificate)).
 
 ![namecheap domain search](/media/namecheap1.png)
 
@@ -55,7 +55,7 @@ Nhà và địa chỉ tất nhiên ở 1 nơi rồi, tại sao phải connect l�
 
 Lí do đơn giản là vì địa chỉ nhà (**Web hosting**) thực chất là 1 dãy số (**IP Address**, vd: **127.0.0.1**) chúng ta đi đến địa chỉ này mới thực sự là truy cập vào website.
 
-Cần connect **domain name** với **hosting** để có thể đến đúng nơi bằng địa chỉ dễ nhớ.
+=> cần connect **domain name** với **hosting** để có thể đến đúng nơi bằng địa chỉ dễ nhớ.
 
 ![name cheap dns](/media/dns.jpg)
 
@@ -97,7 +97,7 @@ Mình sẽ hướng dẫn anh em cách đơn giản nhất đó là sử dụng 
 ## Tạm kết
 Đến đây anh em đã hoàn thiện đc 90% website của mình rồi 😮, phần tiếp theo mình sẽ hướng dẫn 90% còn lại 😢 bao gồm:
 - Tìm hiểu cấu trúc thư mục trên server (**web hosting**).
-- Sử dụngdụng [FileZilla](https://filezilla-project.org/) để đẩy code lên server.
+- Sử dụng [FileZilla](https://filezilla-project.org/) để đẩy code lên server.
 - Set up 2FA (**Two Factor Authentication** - hay bảo mật 2 lớp) để tăng bảo mật.
 
 Rất cảm ơn anh em đã kiên nhẫn đọc đến đây 🙏, để lại suy nghĩ cho mình dưới phần bình luận nhé. Thanks you so much!
