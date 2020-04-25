@@ -109,6 +109,10 @@ a {
 
 }
 
+// a:not([class*="Tags"]):not([class*="category"]):not([class*="home-button"]):not([class*="Feed"]):not([class*="Menu"]):hover {
+//   border-bottom: 1px solid $typographic-link-s-font-color;
+// }
+
 b,
 strong {
   font-weight: 600;

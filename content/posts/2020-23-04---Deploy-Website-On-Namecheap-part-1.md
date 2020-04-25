@@ -3,7 +3,7 @@ title: "Deploy và cấu hình website trên namecheap trong vòng 1 nốt nhạ
 date: "2020-04-23T16:20:03.284Z"
 template: "post"
 draft: false
-slug: "deploy-and-config-website-on-namecheap-part-1"
+slug: "depoy-and-config-website-on-name-cheap-part-1"
 category: "Tutorials"
 tags:
   - "deployment"
@@ -95,7 +95,7 @@ Mình sẽ hướng dẫn anh em cách đơn giản nhất đó là sử dụng 
 ![Go to cPanel](/media/cpanel3.png)
 
 ## Tạm kết
-Đến đây anh em đã hoàn thiện đc 90% website của mình rồi 😮, phần tiếp theo mình sẽ hướng dẫn 90% còn lại 😢 bao gồm:
+Đến đây anh em đã hoàn thiện đc 90% website của mình rồi 😮, [phần tiếp theo](/posts/deploy-and-config-website-on-namecheap-part-2) mình sẽ hướng dẫn ~~90%~~ 10% còn lại 😢 bao gồm:
 - Tìm hiểu cấu trúc thư mục trên server (**web hosting**).
 - Sử dụng [FileZilla](https://filezilla-project.org/) để đẩy code lên server.
 - Set up 2FA (**Two Factor Authentication** - hay bảo mật 2 lớp) để tăng bảo mật.

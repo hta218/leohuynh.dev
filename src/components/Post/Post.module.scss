@@ -2,6 +2,10 @@
 @import '../../assets/scss/mixins';
 
 .post {
+  a:not([class*="Tags"]):not([class*="home-button"]):hover {
+    border-bottom: 1px solid $typographic-link-s-font-color;
+  }
+
   &__header-image {
     width: 100vw;
     height: 60vh;
@@ -42,6 +46,7 @@
     line-height: $button-height;
     text-align: center;
     color: $color-base;
+    background-color: $color-background;
     border: 1px solid $color-gray-border;
     border-radius: $button-border-radius;
     font-size: $typographic-base-font-size;
