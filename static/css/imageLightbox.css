@@ -35,7 +35,8 @@ html.prevent-scroll {
 }
 
 .post__image-lightbox img {
-  max-width: 80%;
+  max-width: 90%;
+  max-height: 90%;
 }
 
 .post__image-lightbox.show {
