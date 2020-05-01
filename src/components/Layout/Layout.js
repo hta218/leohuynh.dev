@@ -13,7 +13,8 @@ const Layout = ({
 }) => {
   const { author, url } = useSiteMetadata();
   const metaImage = socialImage != null ? socialImage : author.photo;
-  const metaImageUrl = url + withPrefix(metaImage);
+  // const metaImageUrl = url + withPrefix(metaImage);
+  const metaImageUrl = metaImage;
 
   return (
     <div className={styles.layout}>

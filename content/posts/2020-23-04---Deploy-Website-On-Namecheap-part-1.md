@@ -12,8 +12,8 @@ tags:
   - "dns"
   - "namecheap"
 description: "Trước giờ mình luôn muốn sở hữu 1 site cá nhân, nhưng vì mình không có thời gian nên đợt này nghỉ việc, ở nhà cách ly mới tìm hiểu để làm đc..."
-socialImage: "/media/header1.jpg"
-headerImage: "/media/header1.jpg"
+socialImage: "https://images.unsplash.com/photo-1505238680356-667803448bb6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2550&q=80"
+headerImage: "https://images.unsplash.com/photo-1505238680356-667803448bb6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2550&q=80"
 ---
 
 Trước giờ mình luôn muốn sở hữu 1 site cá nhân, nhưng vì mình ~~lười~~ không có thời gian nên đợt này nghỉ việc, ở nhà cách ly mới tìm hiểu để làm đc.
