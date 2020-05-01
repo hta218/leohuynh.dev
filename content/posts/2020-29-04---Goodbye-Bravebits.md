@@ -53,7 +53,7 @@ Công ty chu cấp đầy đủ trang thiết bị (Mac, phụ kiện ...) cho a
 
 Các xếp 3,4 tháng 1 lần lại tổ chức đi chơi, nhậu... thay đổi không khí
 
-<div style="display: flex;">
+<div style="display: flex; height: 160px;">
   <img src="https://i.imgur.com/gWCrENW.jpg" alt="Cao bang" width="33.33%"/>
   <img src="https://i.imgur.com/g6ODlLx.jpg" alt="Tam Dao" width="33.33%"/>
   <img src="https://i.imgur.com/Vk320YN.jpg" alt="Quy Nhon" width="33.33%"/>
@@ -100,14 +100,14 @@ Có thể nói Minh là người mà mình ấn tượng nhất khi vào công t
 
 #### Và những người anh em trên bến dưới thuyền khác
 
-<div style="display: flex;">
+<div style="display: flex; height: 160px;">
   <img src="https://i.imgur.com/MMPfTJt.jpg" style="object-fit: cover;" alt="A Phong" width="33.33%"/>
   <img src="https://i.imgur.com/Vk320YN.jpg" style="object-fit: cover;" alt="Dung - Bao" width="33.33%"/>
   <img src="https://i.imgur.com/bxZe3JI.jpg" style="object-fit: cover;" alt="Huong" width="33.33%"/>
 </div>
 <p style="text-align: center; margin-top: 10px;"><small><i>Anh Phong - Anh Dũng - Liquid Leader, Bảo - Hưởng</i></small></p>
 
-<div style="display: flex;">
+<div style="display: flex; height: 160px;">
   <img src="https://i.imgur.com/LQbo7bz.jpg" style="object-fit: cover;" alt="Duy Anh" width="33.33%"/>
   <img src="https://i.imgur.com/hx17EDB.jpg" style="object-fit: cover;" alt="Hung" width="33.33%"/>
   <img src="https://i.imgur.com/RgZeMTl.jpg" style="object-fit: cover;" alt="Viet Anh - a Quyet" width="33.33%"/>
@@ -118,7 +118,7 @@ Công ty nhân viên ít nhưng rất nhiều leader 😆😆
 
 ## Kết bài
 
-<div style="display: flex;">
+<div style="display: flex; height: 160px;">
   <img src="/media/bb2.jpg" style="object-fit: cover;" alt="view" width="33.33%"/>
   <img src="https://i.imgur.com/ZWlhVYR.jpg" style="object-fit: cover;" alt="decor" width="33.33%"/>
   <img src="https://i.imgur.com/ee9BtGn.jpg" style="object-fit: cover;" alt="decor" width="33.33%"/>
