@@ -11,7 +11,7 @@ html {
 }
 
 body {
-  margin: 0 0 0 calc(100vw - 100%);
+  margin: 0;
   font-family: $typographic-font-family;
   color: $typographic-base-font-color;
   line-height: $typographic-base-line-height;
@@ -134,6 +134,11 @@ p {
   @include line-height(1);
   @include margin-bottom(0.4);
   @include margin-top(0.4);
+}
+
+p.img-description {
+  text-align: center;
+  @include margin-top(-0.8);
 }
 
 blockquote {

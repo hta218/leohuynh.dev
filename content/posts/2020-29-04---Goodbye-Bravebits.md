@@ -18,7 +18,7 @@ headerImage: "https://images.unsplash.com/photo-1455849318743-b2233052fcff?ixlib
 
 Mình mới kết thúc 1 năm 8 tháng ~~fix bug~~ học tập và làm việc ở [Bravebits](https://www.bravebits.co/) (12/08/2018 - 17/04/2020)
 
-<img src="/media/sad.gif" alt="Sad" height="500"/>
+<img src="/media/sad.gif" alt="Sad" height="400"/>
 
 <br/>
 
@@ -39,13 +39,14 @@ Phỏng vấn về mình thấy hơi thiếu chuyên nghiệp nên k có ý đ�
 ## Đi làm
 
 ![Team](/media/bb1.jpg)
-<p style="text-align: center; margin-top: -20px;"><small><i>Mình (áo kẻ) trong 1 buổi họp cùng team</i></small></p>
+
+<p class="img-description"><small><i>Mình (áo kẻ) trong 1 buổi họp cùng team</i></small></p>
 
 Chính thức bắt đầu 1 cuộc sống giờ giấc, healthy và balance. Tháng đầu tiên mình đc giao học công nghệ, làm quen với app. Cảm thấy khá may mắn vì những thứ đc học đều là những thứ mình thích, sản phẩm chính ([PageFly](https://apps.shopify.com/pagefly) - top 3 page builder app, >25k users 👏) khá xịn công việc lại đc support bởi những anh em có rất nhiều kinh nghiệm và làm việc toàn chat với khách tây nên mấy tháng đầu kiến thức và trình tiếng anh của mình tăng vèo vèo...
 
 ![setup](https://i.imgur.com/1A37Mgr.jpg)
 
-<p style="text-align: center; margin-top: -20px;"><small><i>Set up những ngày đầu đi làm</i></small></p>
+<p style="text-align: center; "><small><i>Set up những ngày đầu đi làm</i></small></p>
 
 Công ty chu cấp đầy đủ trang thiết bị (Mac, phụ kiện ...) cho anh em làm việc, cơm công ty (*gần bằng cơm gấu nhà mình nấu*) rất ngon ~~vào mấy tháng mà tăng 5kg 🐷~~, lại thêm có sẵn bàn bóng bàn, máy PS cho anh em giải trí.
 
@@ -63,17 +64,17 @@ Các xếp 3,4 tháng 1 lần lại tổ chức đi chơi, nhậu... thay đổi
 
 ![My Dinh](https://i.imgur.com/IUR9Cfo.jpg)
 
-<p style="text-align: center; margin-top: -20px;"><small><i>SVĐ Mỹ Đình - VN vs Malay</i></small></p>
+<p style="text-align: center; "><small><i>SVĐ Mỹ Đình - VN vs Malay</i></small></p>
 
 ![iD8 singapore](https://i.imgur.com/TujcCah.jpg)
 
-<p style="text-align: center; margin-top: -20px;"><small><i>Facebook iD8 - Singapore</i></small></p>
+<p style="text-align: center; "><small><i>Facebook iD8 - Singapore</i></small></p>
 
 Quá trình làm việc cứ đều như vắt tranh, 8h đến công ty mở máy tính ra ~~lướt youtube~~ check **Crisp** support khách hàng, trong ngày tập trung vào ~~fix bug~~ dev các feature mới, thỉnh thoảng ~~check fb~~ hỗ trợ đội support, chiều đến lại code, họp, ăn rồi ~~đá pes~~ về...
 
 ![BB choice awards](https://i.imgur.com/OMY0EOL.jpg)
 
-<p style="text-align: center; margin-top: -20px;"><small><i>BB Choice Awards 2019</i></small></p>
+<p style="text-align: center; "><small><i>BB Choice Awards 2019</i></small></p>
 
 
 ## Đồng nghiệp
@@ -135,4 +136,4 @@ Chúc các anh chị em ở lại luôn mạnh giỏi, thành công, chúc công
 
 ![Bye](https://media.giphy.com/media/xUPGcGyYhQTYtDtwBy/giphy.gif)
 
-Tạm biệt Bravebits 👋 👋 👋 
+Tạm biệt Bravebits 👋 👋 👋
