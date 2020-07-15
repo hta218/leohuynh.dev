@@ -12,7 +12,7 @@ const Footer = () => {
     <p className={styles['reachout']}>Find me on your favorite social network ✌️</p>
     <Contacts contacts={contacts} />
     <Copyright copyright={copyright} />
-  </div>
+  </div>;
 };
 
 export default Footer;

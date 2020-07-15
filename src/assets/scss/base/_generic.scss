@@ -1,9 +1,11 @@
-/** 
+/**
  * Generic
  */
 
-html, body {
-  overflow-x: hidden;
+html, html > body {
+	overflow-x: hidden;
+	margin: 0;
+	padding: 0;
 }
 
 html {
@@ -80,7 +82,9 @@ img {
   border: 0;
   max-width: 100%;
   display: block;
-  margin: inherit auto;
+	margin: inherit auto;
+	object-fit: cover;
+	object-position: center;
 }
 
 hr {
@@ -136,9 +140,15 @@ p {
   @include margin-top(0.4);
 }
 
-p.img-description {
+div.img-group {
+	display: flex;
+	height: 160px;
+}
+
+small {
+	display: block;
+	font-style: italic;
   text-align: center;
-  @include margin-top(-0.8);
 }
 
 blockquote {
@@ -172,6 +182,15 @@ figcaption {
 .anchor {
   margin-left: -30px !important;
   padding-right: 14px !important;
+}
+
+@include breakpoint-md {
+	small {
+		@include margin-top(-0.8);
+	}
+	div.img-group {
+		padding-bottom: 15px;
+	}
 }
 
 @include breakpoint-sm {
