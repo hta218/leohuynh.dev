@@ -9,7 +9,6 @@ import styles from './Post.module.scss';
 
 
 const Post = ({ post }) => {
-  console.log("Post data", post)
   const { html, timeToRead: time } = post;
   const { tagSlugs, slug } = post.fields;
   const { tags, title, date, headerImage } = post.frontmatter;

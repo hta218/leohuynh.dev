@@ -18,7 +18,7 @@ headerImage: "https://images.unsplash.com/photo-1455849318743-b2233052fcff?ixlib
 
 Mình mới kết thúc 1 năm 8 tháng ~~fix bug~~ học tập và làm việc ở [Bravebits](https://www.bravebits.co/) (12/08/2018 - 17/04/2020)
 
-<img src="/media/sad.gif" alt="Sad" height="400"/>
+<img src="/media/sad.gif" alt="Sad" width="400"/>
 
 <br/>
 

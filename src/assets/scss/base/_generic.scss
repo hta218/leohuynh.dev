@@ -2,8 +2,10 @@
  * Generic
  */
 
-html, body {
+html, html > body {
   overflow-x: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 html {
@@ -138,7 +140,6 @@ p {
 
 p.img-description {
   text-align: center;
-  @include margin-top(-0.8);
 }
 
 blockquote {
