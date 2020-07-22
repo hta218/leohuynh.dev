@@ -20,8 +20,6 @@ Mình mới kết thúc 1 năm 8 tháng ~~fix bug~~ học tập và làm việc 
 
 <img src="/media/sad.gif" alt="Sad" width="400"/>
 
-<br/>
-
 Dưới đây là đôi lời tâm sự chia sẻ về quá trình làm việc ở BB, nơi mình đã học đc vô số điểu bổ ích cả về công việc và cuộc sống.
 
 ## Phỏng vấn như đi chơi
@@ -40,13 +38,13 @@ Phỏng vấn về mình thấy hơi thiếu chuyên nghiệp nên k có ý đ�
 
 ![Team](/media/bb1.jpg)
 
-<p class="img-description"><small><i>Mình (áo kẻ) trong 1 buổi họp cùng team</i></small></p>
+<small>Mình (áo kẻ) trong 1 buổi họp cùng team</small>
 
 Chính thức bắt đầu 1 cuộc sống giờ giấc, healthy và balance. Tháng đầu tiên mình đc giao học công nghệ, làm quen với app. Cảm thấy khá may mắn vì những thứ đc học đều là những thứ mình thích, sản phẩm chính ([PageFly](https://apps.shopify.com/pagefly) - top 3 page builder app, >25k users 👏) khá xịn công việc lại đc support bởi những anh em có rất nhiều kinh nghiệm và làm việc toàn chat với khách tây nên mấy tháng đầu kiến thức và trình tiếng anh của mình tăng vèo vèo...
 
 ![setup](https://i.imgur.com/1A37Mgr.jpg)
 
-<p style="text-align: center; "><small><i>Set up những ngày đầu đi làm</i></small></p>
+<small>Set up những ngày đầu đi làm</small>
 
 Công ty chu cấp đầy đủ trang thiết bị (Mac, phụ kiện ...) cho anh em làm việc, cơm công ty (*gần bằng cơm gấu nhà mình nấu*) rất ngon ~~vào mấy tháng mà tăng 5kg 🐷~~, lại thêm có sẵn bàn bóng bàn, máy PS cho anh em giải trí.
 
@@ -54,28 +52,27 @@ Công ty chu cấp đầy đủ trang thiết bị (Mac, phụ kiện ...) cho a
 
 Các xếp 3,4 tháng 1 lần lại tổ chức đi chơi, nhậu... thay đổi không khí
 
-<div style="display: flex; height: 160px;">
+<div class="img-group">
   <img src="https://i.imgur.com/gWCrENW.jpg" alt="Cao bang" width="33.33%"/>
   <img src="https://i.imgur.com/g6ODlLx.jpg" alt="Tam Dao" width="33.33%"/>
   <img src="https://i.imgur.com/Vk320YN.jpg" alt="Quy Nhon" width="33.33%"/>
 </div>
-<p style="text-align: center; margin-top: 10px;"><small><i>Cao bằng - Tam đảo - Quy nhơn</i></small></p>
 
+<small>Cao bằng - Tam đảo - Quy nhơn</small>
 
 ![My Dinh](https://i.imgur.com/IUR9Cfo.jpg)
 
-<p style="text-align: center; "><small><i>SVĐ Mỹ Đình - VN vs Malay</i></small></p>
+<small>SVĐ Mỹ Đình - VN vs Malay</small>
 
 ![iD8 singapore](https://i.imgur.com/TujcCah.jpg)
 
-<p style="text-align: center; "><small><i>Facebook iD8 - Singapore</i></small></p>
+<small>Facebook iD8 - Singapore</small>
 
 Quá trình làm việc cứ đều như vắt tranh, 8h đến công ty mở máy tính ra ~~lướt youtube~~ check **Crisp** support khách hàng, trong ngày tập trung vào ~~fix bug~~ dev các feature mới, thỉnh thoảng ~~check fb~~ hỗ trợ đội support, chiều đến lại code, họp, ăn rồi ~~đá pes~~ về...
 
 ![BB choice awards](https://i.imgur.com/OMY0EOL.jpg)
 
-<p style="text-align: center; "><small><i>BB Choice Awards 2019</i></small></p>
-
+<small>BB Choice Awards 2019</small>
 
 ## Đồng nghiệp
 
@@ -83,8 +80,9 @@ Quá trình làm việc cứ đều như vắt tranh, 8h đến công ty mở m�
 
 #### Anh Quang (PM) - không chơi fb
 
-<img src="https://i.imgur.com/U3cdKsZ.jpg" alt="Anh Quang" width="450px"/>
-<p style="text-align: center; margin-top: 10px;"><small><i>Vịnh bắc bộ chưa tìm được người giỏi CSS hơn anh</i></small></p>
+<p><img src="https://i.imgur.com/U3cdKsZ.jpg" alt="Anh Quang" width="450px"/></p>
+
+<small>Vịnh bắc bộ chưa tìm được người giỏi CSS hơn anh</small>
 
 
 Một người xếp tốt nhất từ trc đến giờ đc làm việc cùng, tuy anh hơi già và ít tóc nhưng anh luôn quan tâm đến anh em, thường xuyên hỏi thăm công việc, cuộc sống và rất chu đáo với anh em.
@@ -101,30 +99,33 @@ Có thể nói Minh là người mà mình ấn tượng nhất khi vào công t
 
 #### Và những người anh em trên bến dưới thuyền khác
 
-<div style="display: flex; height: 160px;">
+<div class="img-group">
   <img src="https://i.imgur.com/MMPfTJt.jpg" style="object-fit: cover;" alt="A Phong" width="33.33%"/>
   <img src="https://i.imgur.com/Vk320YN.jpg" style="object-fit: cover;" alt="Dung - Bao" width="33.33%"/>
   <img src="https://i.imgur.com/bxZe3JI.jpg" style="object-fit: cover;" alt="Huong" width="33.33%"/>
 </div>
-<p style="text-align: center; margin-top: 10px;"><small><i>Anh Phong - Anh Dũng - Liquid Leader, Bảo - Hưởng</i></small></p>
 
-<div style="display: flex; height: 160px;">
+<small>Anh Phong - Anh Dũng - Liquid Leader, Bảo - Hưởng</small>
+
+<div class="img-group">
   <img src="https://i.imgur.com/LQbo7bz.jpg" style="object-fit: cover;" alt="Duy Anh" width="33.33%"/>
   <img src="https://i.imgur.com/hx17EDB.jpg" style="object-fit: cover;" alt="Hung" width="33.33%"/>
   <img src="https://i.imgur.com/RgZeMTl.jpg" style="object-fit: cover;" alt="Viet Anh - a Quyet" width="33.33%"/>
 </div>
-<p style="text-align: center; margin-top: 10px;"><small><i>Duy Anh - Hùng - Việt Anh, Anh Quyết - Trưởng phòng IT</i></small></p>
+
+<small>Duy Anh - Hùng - Việt Anh, Anh Quyết - Trưởng phòng IT</small>
 
 Công ty nhân viên ít nhưng rất nhiều leader 😆😆
 
 ## Kết bài
 
-<div style="display: flex; height: 160px;">
+<div class="img-group">
   <img src="/media/bb2.jpg" style="object-fit: cover;" alt="view" width="33.33%"/>
   <img src="https://i.imgur.com/ZWlhVYR.jpg" style="object-fit: cover;" alt="decor" width="33.33%"/>
   <img src="https://i.imgur.com/ee9BtGn.jpg" style="object-fit: cover;" alt="decor" width="33.33%"/>
 </div>
-<p style="text-align: center; margin-top: 10px;"><small><i>Chia tay view đẹp từ văn phòng</i></small></p>
+
+<small>Chia tay view đẹp từ văn phòng</small>
 
 Khen thì nhiều nhưng sạn thì cũng cũng có 1 ít: nhiều lúc lương thưởng chưa đc hợp lý, cũng có đồng nghiệp this đồng nghiệp that, có những đợt anh em phải OT nhiều. Công ty bé nên dev đôi lúc phải cân thêm những việc khác k tập trung đc vào code, cty chưa biết giữ người giỏi...
 

@@ -16,7 +16,7 @@ const Sidebar = ({ isIndex }) => {
         <Author author={author} isIndex={isIndex} />
         <Menu menu={menu} />
         <Contacts contacts={author.contacts} />
-        <Copyright copyright={copyright} />
+        <Copyright copyright={copyright} linkToHome={false}/>
       </div>
     </div>
   );

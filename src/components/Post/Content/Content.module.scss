@@ -71,8 +71,8 @@
       & p {
         font-size: $typographic-base-font-size * 1.125;
         @include line-height(1.125);
-        @include margin-bottom(1.125)
-      }
+				@include margin-bottom(1.125)
+			}
       & blockquote {
         & p {
           font-size: $typographic-base-font-size;
