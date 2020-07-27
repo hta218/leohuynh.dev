@@ -43,16 +43,14 @@ const Author = () => (
       {' '}(Top 3 page builder app on Shopify app store).
     </p>
     <p className={styles['author__subtitle']}>
-      {/* I will become a software engineer at */}
-      I'm moving into
+      Currently a Software Engineer in an awesome team at
       <a
-        className={styles['author__title-link']}
+        className={styles['author__firm']}
         href="https://coccoc.com/" target="_blank"
         rel="noopener noreferrer"
       >
-        &nbsp;Coc Coc&nbsp;
+        &nbsp;Coc Coc.
       </a>
-      as a software engineer from May 2020.
     </p>
   </div>
 );

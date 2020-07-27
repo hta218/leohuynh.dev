@@ -25,7 +25,11 @@
 
     }
 
-  }
+	}
+
+	&__firm {
+		color: green;
+	}
 
   &__subtitle {
     color: $color-gray;
