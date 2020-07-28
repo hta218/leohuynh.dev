@@ -6,25 +6,26 @@ draft: false
 slug: "viec-tim-dev-nhu-the-nao"
 category: "Chuyện công việc"
 tags:
-  - "Công việc"
-  - "CV"
-  - "Linkedin"
-  - "Jobs"
+  - "job"
+  - "cv"
+  - "linkedin"
 description: "Hiện nay nhu cầu tuyển dụng ngành IT rất cao, là 1 software engineer bạn cần chuẩn bị những gì để có 1 công việc tốt và luôn được nhà tuyển dụng săn đón..."
 socialImage: "/media/work.jpeg"
 headerImage: "/media/work.jpeg"
 ---
 
-Có thể anh em ~~đã~~ chưa biết, mình mới chuyển công ty sang làm tại [Cốc Cốc](https://coccoc.com), trải qua 2 tháng thử việc hiện nay mình đã là 1 nhân viên chính thức 👏👏👏
+Có thể anh em ~~đã~~ chưa biết, mình mới chuyển công ty sang làm tại [Cốc Cốc](https://coccoc.com), trải qua 2 tháng thử việc hiện nay mình đã là 1 nhân viên chính thức  🎉 🎉 🎉
 
 
 ![Congratulations](/media/congrat.gif "Congratulations")
 
 Để có đc cơ hội này mình cũng đã trải qua cơ số cuộc phỏng vấn hay có, dở có. Bài này mình muốn chia sẻ với anh em cách chuẩn bị profile + phỏng vấn để có đc 1 công việc tốt nhé  😎!
 
-Theo mình thấy, hiện nay nhu cầu tuyển dụng ngành IT là rất cao và sự thiếu hụt nhân lực cung < cầu sẽ còn kéo dài, do vậy chỉ cần có trình độ lập trình trên trung bình là hoàn toàn có thể tìm đc rất nhiều vị trí ứng tuyển với mức lương mình cho là ổn so với các ngành khác mà không cần nhờ vả hay quan hệ gì.
+---
 
-Vậy làm sao để dev tìm đc công việc mà mình mong muốn?
+Theo mình thấy, nhu cầu tuyển dụng ngành IT hiện nay là rất cao, sự thiếu hụt nhân lực cung < cầu sẽ còn kéo dài, do vậy chỉ cần có trình độ lập trình trên trung bình là hoàn toàn có thể tìm đc rất nhiều vị trí ứng tuyển với mức lương mình cho là ổn so với các ngành khác mà không cần nhờ vả hay quan hệ gì.
+
+Vậy làm sao để dev tìm đc công việc mà mình mong muốn 🤔?
 
 > Câu trả lời chính là ở cách bạn chuẩn bị chiếc **profile** của mình!
 
@@ -33,7 +34,9 @@ Vậy làm sao để dev tìm đc công việc mà mình mong muốn?
 
 ### Do's 👍
 
-*  CV của bạn phải có đầy đủ nội dung cần thiết cho nhà tuyển dụng, theo mình 2 phần quan trọng nhất là **kỹ năng (skill)** và **kinh nghiệm làm việc (working experiences)**, các bạn hãy trình bày hết những skill mà mình có (nhớ là chỉ những gì mình biết thôi nha, chém gió đến lúc người ta hỏi không trả lời đc là xấu hổ lắm đấy 😁😁), kinh nghiệm làm việc ở đây chính là những **project** mà bạn đã kinh qua ở các cty trc hay kể cả đồ án, bài tập lớn trong trường đại học, bạn đã làm những gì, phụ trách công việc nào, có thành quả nào không?...
+*  CV của bạn phải có đầy đủ nội dung cần thiết cho nhà tuyển dụng, theo mình 2 phần quan trọng nhất là **kỹ năng (skill)** và **kinh nghiệm làm việc (working experiences)**, các bạn hãy trình bày hết những skill mà mình có (nhớ là chỉ những gì mình biết thôi nha, chém gió đến lúc người ta hỏi không trả lời đc là xấu hổ lắm đấy 😁😁), kinh nghiệm làm việc ở đây chính là những **project** mà bạn đã kinh qua ở các cty trc, hay kể cả đồ án, bài tập lớn trong trường đại học.
+<br/>
+Bạn đã làm những gì, phụ trách công việc nào, có thành quả gì không?...
 
 * Sắp xếp nội dung trong cv sao cho hợp lý, **Kỹ năng** và **Kinh nghiệm làm việc** là 2 phần đáng chú ý nhất, hãy xếp lên đầu, các phần còn lại như **học tập**, **thành tích**, **side project** hay **sở thích** thì hãy xếp xuống cuối, vì chúng k đc nhiều sự quan tâm, với mình những phần này cho vào chỉ để cv đẹp hơn thôi.
 
@@ -43,7 +46,7 @@ Vậy làm sao để dev tìm đc công việc mà mình mong muốn?
 
 ### Don'ts  👎
 
-* Đừng kể tất cả những công nghệ mà bạn từng tiếp xúc, chỉ list những thứ mình đã kinh qua và có kinh nghiệm làm việc. Nếu bạn k hiểu về 1 skill mình viết trong cv thì sẽ k thể trả đc lời khi đc nhà tuyển dụng hỏi
+* Đừng kể tất cả những công nghệ mà bạn từng tiếp xúc, chỉ list những thứ mình đã kinh qua và có kinh nghiệm làm việc. Nếu bạn k hiểu về 1 skill mình viết trong cv thì sẽ k thể trả lời khi đc nhà tuyển dụng hỏi
 
 * Không thêm thông tin dư thừa: các tài khoản mạng xã hội như **facebook** hay **instagram** không nên đưa vào vì không ai quan tâm đến chúng cả thậm chí còn thể hiện sự thiếu chuyên nghiệp với nhà tuyển dụng. Các bạn chỉ nên để những profile cá nhân như **Github**, **Linkedin** hay các kênh contact cho công việc như **Skype** hay **Telegram**...
 
@@ -57,6 +60,9 @@ Vậy làm sao để dev tìm đc công việc mà mình mong muốn?
 	<br/>
 	Progress bars or rankings to show off levels of skill are bullshit, never use them!
 
+
+Nếu k muốn tự viết anh em hoàn toàn có thể tìm các **cv generator tool**, tuy nhiên mình khuyến khích anh em tự viết vì mình sẽ tiện nhất cho mình để customize theo ý muốn.
+
 ## Tìm cơ hội
 
 Mông má xong rồi thì ra chợ tìm mối thôi!
@@ -67,7 +73,7 @@ Các kênh tuyển dụng là nơi dễ tìm kiếm cơ hội nhất, hãy tạo
 * https://topdev.vn
 * https://www.vietnamworks.com
 
-1 số kênh bằng tiếng anh
+1 số kênh bằng tiếng anh:
 
 * https://www.linkedin.com
 * https://glints.com
@@ -81,13 +87,13 @@ Chú ý tạo profile đầy đủ, upload cv và điền công việc mong mu�
 
 ## Kinh nghiệm bản thân
 
-Cá nhân mình thấy quan trọng nhất chính là **linkedin**, anh em hãy chú ý chuẩn bị 1 profile thật sáng sủa và đầy đủ ở đây (thậm chí còn có thể export cv từ profile **linkedin** hoặc import profile sang các kênh tuyển dụng khác)
+Cá nhân mình thấy quan trọng nhất chính là **Linkedin**, anh em hãy chú ý chuẩn bị 1 profile thật sáng sủa và đầy đủ ở đây (thậm chí còn có thể export cv từ profile **Linkedin** hoặc import profile sang các kênh tuyển dụng khác)
 
-Hãy connect với thật nhiều người trong ngành, dev, hr... mở rộng connection sẽ giúp các bạn nhận đc nhiều cơ hội tốt hơn.
+Hãy connect với thật nhiều người trong ngành, dev, hr, sale... mở rộng connection sẽ giúp các bạn nhận đc nhiều cơ hội tốt hơn.
 
 Bật chế độ **Open for opportunity** để hr tìm đến bạn dễ dàng hơn (tuy nhiên khi có việc rồi anh em có thể tắt đi, vì các em hr spam tin nhắn và gọi điện nhiều lắm)
 
-Để chủ động hơn trong tìm kiếm cơ hội anh em có thể post bài như mình
+Để chủ động hơn trong tìm kiếm cơ hội anh em có thể [post bài](https://www.linkedin.com/posts/hta218_webdeveloper-nodejs-reactjs-activity-6650609183601328128-pIci) như mình
 
 ![Linkedin post](/media/linkedin-post.png)
 
@@ -105,14 +111,16 @@ Sau đó là hàng loạt tin nhắn và cuộc gọi của hr trên mọi mặt
   <img src="/media/linkedin5.jpg" width="33.33%"/>
 </div>
 
-Kinh nghiệm của mình là các bạn hãy hỏi hr đưa JD trc, sau đó đến range lương cho vị trí đó ở cty, nếu phù hợp thì mình mới apply.
+Kinh nghiệm của mình là các bạn hãy hỏi hr đưa **Job Description (JD)** trc, các bạn nên đọc kĩ để xem có fit với khả năng của mình k, cũng như công việc có phải là những việc mình thích hay k, công nghệ có cũ quá k...
 
-Còn nếu đã xin JD rồi mà thấy k phù hợp thì các bạn cũng nên trả lời hr nhé, vì dù gì họ cũng đã mất công đưa thông tin cho mình rồi 😃.
+Tiếp theo hỏi range lương cho vị trí đó ở cty, nếu phù hợp thì mình mới apply.
+
+Nếu đã xin JD rồi mà thấy k phù hợp thì các bạn cũng nên trả lời hr nhé, vì dù gì họ cũng đã mất công đưa thông tin cho mình rồi 😃.
 
 ![Linkedin JD](/media/linkedin-jd.png)
 
-<small>JD mà mình nhận đc</small>
+<small>JD mà mình nhận đc (vẫn còn nhiều nữa 😅)</small>
 
 Các bạn thấy đấy, chỉ cần chuẩn bị 1 [profile](https://www.linkedin.com/in/hta218/) tốt và biết pr bản thân 1 chút là cơ hội đã tìm đến với mình rất nhiều rồi.
 
-Phần này mình chia sẻ cách chuẩn bị profile để có nhiều cơ hội hơn, phần tiếp theo mình sẽ chia sẻ quá trình phỏng vấn, test, deal lương và xách mông đi làm nhé!
+Hi vọng sau phần này anh em nào đang có ý định nhảy việc sẽ tút tát lại profile của mình để có nhiều cơ hội hơn, phần tiếp theo mình sẽ chia sẻ quá trình phỏng vấn, cách chọn công ty, deal lương và xách mông đi làm nhé!
