@@ -30,7 +30,9 @@ Vậy làm sao để dev tìm đc công việc mà mình mong muốn 🤔?
 > Câu trả lời chính là ở cách bạn chuẩn bị chiếc **profile** của mình!
 
 ## Viết CV
-**CV** chính là thứ tối thiểu nhưng lại cực kì quan trọng để bạn có đc 1 công việc, nếu chưa có bạn có thể google ngay từ khóa **software developer/software engineer cv template** có rất nhiều mẫu để anh em có thể tham khảo và viết theo, tuy nhiên cần chú ý lựa chọn mẫu nào không quá màu mè, chỉ cần đơn giản, bố cục rõ ràng, dễ nhìn dễ đọc là đủ.
+**CV** chính là thứ tối thiểu nhưng lại cực kì quan trọng để bạn có đc 1 công việc, nếu chưa có bạn có thể google ngay từ khóa **software developer/software engineer cv template** có rất nhiều mẫu để anh em có thể tham khảo và viết theo, tuy nhiên cần chú ý lựa chọn mẫu nào không quá màu mè, chỉ cần đơn giản, bố cục rõ ràng, dễ nhìn dễ đọc là đủ...
+
+Nên viết CV như thế nào?
 
 ### Do's 👍
 
@@ -40,7 +42,7 @@ Bạn đã làm những gì, phụ trách công việc nào, có thành quả g�
 
 * Sắp xếp nội dung trong cv sao cho hợp lý, **Kỹ năng** và **Kinh nghiệm làm việc** là 2 phần đáng chú ý nhất, hãy xếp lên đầu, các phần còn lại như **học tập**, **thành tích**, **side project** hay **sở thích** thì hãy xếp xuống cuối, vì chúng k đc nhiều sự quan tâm, với mình những phần này cho vào chỉ để cv đẹp hơn thôi.
 
-* Ngoài ra những thông tin thêm như điểm số, thành tích học tập, giải thưởng trong các cuộc thi hoặc recommendations từ ex-senior/ex-leader cũng là 1 lợi thế  (cái này thì mình k có 😅)
+* Ngoài ra những thông tin thêm như điểm số, thành tích học tập, giải thưởng trong các cuộc thi hoặc recommendations từ **ex-senior/ex-leader** cũng là 1 lợi thế  (cái này thì mình k có 😅)
 
 * Nếu có khả năng tốt nhất nên viết CV của bạn bằng tiếng anh, theo mình đây là 1 điểm cộng lớn cho dev, vì ngành này tiếng anh là thực sự quan trọng
 
@@ -48,7 +50,7 @@ Bạn đã làm những gì, phụ trách công việc nào, có thành quả g�
 
 * Đừng kể tất cả những công nghệ mà bạn từng tiếp xúc, chỉ list những thứ mình đã kinh qua và có kinh nghiệm làm việc. Nếu bạn k hiểu về 1 skill mình viết trong cv thì sẽ k thể trả lời khi đc nhà tuyển dụng hỏi
 
-* Không thêm thông tin dư thừa: các tài khoản mạng xã hội như **facebook** hay **instagram** không nên đưa vào vì không ai quan tâm đến chúng cả thậm chí còn thể hiện sự thiếu chuyên nghiệp với nhà tuyển dụng. Các bạn chỉ nên để những profile cá nhân như **Github**, **Linkedin** hay các kênh contact cho công việc như **Skype** hay **Telegram**...
+* Không thêm thông tin dư thừa: các tài khoản mạng xã hội như **facebook** hay **instagram** không nên đưa vào vì không ai quan tâm đến chúng cả thậm chí còn thể hiện sự thiếu chuyên nghiệp với nhà tuyển dụng. Các bạn chỉ nên để những profile cá nhân như [Github](https://github.com/hta218), [Linkedin](https://www.linkedin.com/in/hta218/) hay các kênh contact cho công việc như **Skype** hay **Telegram**...
 
 * Nếu để ảnh trong cv đừng nên để ảnh thiếu nghiêm túc, hãy chọn ảnh nghiêm túc của bạn hoặc có thể k cần ảnh trong cv, ng ta quan tâm đến bạn có làm đc việc k chứ k ai quan tâm bạn có đẹp chai khoai to hay k đâu (trừ vợ  😸)
 
@@ -61,7 +63,7 @@ Bạn đã làm những gì, phụ trách công việc nào, có thành quả g�
 	Progress bars or rankings to show off levels of skill are bullshit, never use them!
 
 
-Nếu k muốn tự viết anh em hoàn toàn có thể tìm các **cv generator tool**, tuy nhiên mình khuyến khích anh em tự viết vì mình sẽ tiện nhất cho mình để customize theo ý muốn.
+Nếu k muốn tự viết anh em hoàn toàn có thể tìm các **cv generator tool**, tuy nhiên mình khuyến khích anh em tự viết vì sẽ tiện nhất để customize theo ý muốn.
 
 ## Tìm cơ hội
 
@@ -79,7 +81,7 @@ Các kênh tuyển dụng là nơi dễ tìm kiếm cơ hội nhất, hãy tạo
 * https://glints.com
 * https://www.glassdoor.com
 
-Chú ý tạo profile đầy đủ, upload cv và điền công việc mong muốn. Có thể bật thông báo hoặc subscribe để nhận thông tin về mail.
+Chú ý tạo **profile** đầy đủ, **upload cv** và điền công việc mong muốn. Có thể bật thông báo hoặc subscribe để nhận thông tin về mail.
 
 Đảm bảo ngày nào cũng có các em hr xinh tươi gọi điện, nhắn tin mời về làm việc
 
@@ -111,11 +113,11 @@ Sau đó là hàng loạt tin nhắn và cuộc gọi của hr trên mọi mặt
   <img src="/media/linkedin5.jpg" width="33.33%"/>
 </div>
 
-Kinh nghiệm của mình là các bạn hãy hỏi hr đưa **Job Description (JD)** trc, các bạn nên đọc kĩ để xem có fit với khả năng của mình k, cũng như công việc có phải là những việc mình thích hay k, công nghệ có cũ quá k...
+Kinh nghiệm của mình là các bạn hãy hỏi hr đưa **Job Description (JD)** trc, các bạn nên đọc kĩ để xem có fit với khả năng của mình k, cũng như công việc có phải là những việc thử thách, mình muốn làm hay k, công nghệ có phù hợp k...
 
-Tiếp theo hỏi range lương cho vị trí đó ở cty, nếu phù hợp thì mình mới apply.
+Tiếp theo hỏi **range lương** cho vị trí đó ở cty, nếu ~~cao~~ phù hợp thì mình apply ngay thôi.
 
-Nếu đã xin JD rồi mà thấy k phù hợp thì các bạn cũng nên trả lời hr nhé, vì dù gì họ cũng đã mất công đưa thông tin cho mình rồi 😃.
+Khi đã xin JD rồi mà thấy k phù hợp thì các bạn cũng nên trả lời hr nhé, vì dù gì họ cũng đã mất công đưa thông tin cho mình rồi 😃.
 
 ![Linkedin JD](/media/linkedin-jd.png)
 
@@ -123,4 +125,4 @@ Nếu đã xin JD rồi mà thấy k phù hợp thì các bạn cũng nên trả
 
 Các bạn thấy đấy, chỉ cần chuẩn bị 1 [profile](https://www.linkedin.com/in/hta218/) tốt và biết pr bản thân 1 chút là cơ hội đã tìm đến với mình rất nhiều rồi.
 
-Hi vọng sau phần này anh em nào đang có ý định nhảy việc sẽ tút tát lại profile của mình để có nhiều cơ hội hơn, phần tiếp theo mình sẽ chia sẻ quá trình phỏng vấn, cách chọn công ty, deal lương và xách mông đi làm nhé!
+Hi vọng sau phần này anh em nào đang có ý định nhảy việc sẽ tút tát lại **profile** của mình để có nhiều cơ hội hơn, phần tiếp theo mình sẽ chia sẻ quá trình phỏng vấn, cách chọn công ty, deal lương và xách mông đi làm nhé!
