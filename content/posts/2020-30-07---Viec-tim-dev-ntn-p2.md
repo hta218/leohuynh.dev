@@ -1,23 +1,48 @@
 ---
-title: "Việc tìm dev như thế nào? [Part 1] - Chuẩn bị profile"
-date: "2020-07-22T22:12:03.284Z"
+title: "Việc tìm dev như thế nào? [Part 2] - Phỏng vấn, nhận offer và đi làm"
+date: "2020-07-30T22:12:03.284Z"
 template: "post"
 draft: false
-slug: "viec-tim-dev-nhu-the-nao"
+slug: "viec-tim-dev-nhu-the-nao-part-2"
 category: "Chuyện công việc"
 tags:
   - "job"
-  - "cv"
-  - "linkedin"
+  - "interview"
+  - "online-interview"
+  - "offer"
+  - "salary"
+  - "negotiation"
 description: "Hiện nay nhu cầu tuyển dụng ngành IT rất cao, là 1 software engineer bạn cần chuẩn bị những gì để có 1 công việc tốt và luôn được nhà tuyển dụng săn đón..."
-socialImage: "/media/work.jpeg"
-headerImage: "/media/work.jpeg"
+socialImage: "/media/interview.jpeg"
+headerImage: "/media/interview.jpeg"
 ---
 
-Có thể anh em ~~đã~~ chưa biết, mình mới chuyển công ty sang làm tại [Cốc Cốc](https://coccoc.com), trải qua 2 tháng thử việc hiện nay mình đã là 1 nhân viên chính thức  🎉 🎉 🎉
+[Phần trước](/posts/viec-tim-dev-nhu-the-nao) mình đã chia sẻ với anh em cách chuẩn bị **profile**, viết **CV**, nhận **Job Description** và apply vào vị trí mình mong muốn, nếu đc gọi phỏng vấn thì anh em có thể tham khảo các kinh nghiệm phỏng vấn, deal lương của mình để nhận đc offer tốt nhé
+
+## Timing ⏰
+
+Mình chọn đc 1 số vị trí phù hợp để ứng tuyển và nhận đc lời mời phỏng vấn ngay
+
+![Interview Calendar](/media/interview1.png)
+
+<small>1 vài chiếc interview</small>
+
+* Vì mình phỏng vấn vào đợt cách ly xã hội, hầu hết công ty đều **work from home** nên tất cả đều là **online interview**, chính vì vậy mình có thể sắp xếp đc 2 shot phỏng vấn 1 buổi do k mất thời gian đi lại và chuẩn bị nhiều.
+<br/>
+Nếu anh em phỏng vấn offline thì chỉ nên hẹn 1 lần phỏng vấn 1 buổi thôi nhé, thời gian nói chuyện làm quen, test, phỏng vấn là khá mất thời gian đấy. Mình không thể đảm bảo đc sẽ mất 1 hay 2 tiếng nên nếu mất quá nhiều thời gian là đến muộn buổi phỏng vấn tiếp theo thì dễ bị 1 điểm trừ nhé 😅
+
+* Nếu có nhiều buổi phỏng vấn thì anh em nên chủ động note lại vào calendar, tải cả app để nhắc nhở mình khỏi quên nhé
+
+* Nếu đã nghỉ hẳn việc thì tốt nhất nên sắp xếp phỏng vấn trong 1,2 tuần thôi nhé, nghỉ nhiều thì k có tiền tiêu :)). Phỏng vấn trong lúc còn đi làm thì nên cách ngày ra k có xếp cũ quạo nha 😅😅
+
+## Kiến thức
+
+Hãy chủ động xem lại và nắm chắc các kiến thức của ngôn ngữ, framework mình làm
 
 
-![Congratulations](/media/congrat.gif "Congratulations")
+Cho dù anh em xác định nhảy việc hay chỉ định đi phỏng vấn để định giá lại bản thân trên thị trường thì đều nên chú ý những điều này:
+
+* Sắp xếp thời gian cho các cuộc phỏng vấn cách nhau đủ để chuẩn bị (đi lại, tìm công ty, đến sớm), vì đa số k thể phỏng vấn quá sớm/muộn nên chỉ hẹn 1 buổi phỏng vấn 1 ngày (giới thiệu, làm test và phỏng vấn mất khá nhiều thời gian)
 
 Để có đc cơ hội này mình cũng đã trải qua cơ số cuộc phỏng vấn hay có, dở có. Bài này mình muốn chia sẻ với anh em cách chuẩn bị profile + phỏng vấn để có đc 1 công việc tốt nhé  😎!
 
@@ -125,4 +150,4 @@ Khi đã xin JD rồi mà thấy k phù hợp thì các bạn cũng nên trả l
 
 Các bạn thấy đấy, chỉ cần chuẩn bị 1 [profile](https://www.linkedin.com/in/hta218/) tốt và biết pr bản thân 1 chút là cơ hội đã tìm đến với mình rất nhiều rồi.
 
-Hi vọng sau phần này anh em nào đang có ý định nhảy việc sẽ tút tát lại **profile** của mình để có nhiều cơ hội hơn, [phần tiếp theo](/posts/viec-tim-dev-nhu-the-nao-part-2) mình sẽ chia sẻ quá trình phỏng vấn, cách chọn công ty, deal lương và xách mông đi làm nhé!
+Hi vọng sau phần này anh em nào đang có ý định nhảy việc sẽ tút tát lại **profile** của mình để có nhiều cơ hội hơn, phần tiếp theo mình sẽ chia sẻ quá trình phỏng vấn, cách chọn công ty, deal lương và xách mông đi làm nhé!
