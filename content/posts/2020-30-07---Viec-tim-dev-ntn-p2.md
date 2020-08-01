@@ -31,7 +31,7 @@ Mình chọn đc 1 số vị trí phù hợp để ứng tuyển và nhận đc 
 <br/>
 Nếu anh em phỏng vấn offline thì chỉ nên hẹn 1 lần phỏng vấn 1 buổi thôi nhé, thời gian nói chuyện làm quen, test, phỏng vấn là khá mất thời gian đấy. Mình không thể đảm bảo đc sẽ mất 1 hay 2 tiếng nên nếu mất quá nhiều thời gian là đến muộn buổi phỏng vấn tiếp theo thì dễ bị 1 điểm trừ nhé 😅
 
-* Nếu có nhiều buổi phỏng vấn thì anh em nên chủ động note lại vào calendar, tải cả app để nhắc nhở mình khỏi quên nhé
+* Nếu có nhiều buổi phỏng vấn thì anh em nên chủ động note lại vào calendar, tải cả app để nhắc nhở mình khỏi quên và vào đúng giờ nhé
 
 * Nếu đã nghỉ hẳn việc thì tốt nhất nên sắp xếp phỏng vấn trong 1,2 tuần thôi nhé, nghỉ nhiều thì k có tiền tiêu :)). Phỏng vấn trong lúc còn đi làm thì nên cách ngày ra k có xếp cũ quạo nha 😅😅
 
