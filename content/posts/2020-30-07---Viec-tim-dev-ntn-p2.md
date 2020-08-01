@@ -17,7 +17,7 @@ socialImage: "/media/interview.jpeg"
 headerImage: "/media/interview.jpeg"
 ---
 
-[Phần trước](/posts/viec-tim-dev-nhu-the-nao) mình đã chia sẻ với anh em cách chuẩn bị **profile**, viết **CV**, nhận **Job Description** và apply vào vị trí mình mong muốn, nếu đc gọi phỏng vấn thì anh em có thể tham khảo các kinh nghiệm phỏng vấn, deal lương của mình để nhận đc offer tốt nhé
+[Phần trước](/posts/viec-tim-dev-nhu-the-nao) mình đã chia sẻ với anh em cách chuẩn bị **profile**, viết **CV**, nhận **Job Description** và apply vào vị trí mình mong muốn, nếu đc gọi phỏng vấn thì anh em có thể tham khảo các kinh nghiệm phỏng vấn, deal lương của mình để nhận đc offer tốt nhé.
 
 ## Timing ⏰
 
@@ -27,17 +27,19 @@ Mình chọn đc 1 số vị trí phù hợp để ứng tuyển và nhận đc 
 
 <small>1 vài chiếc interview</small>
 
-* Vì mình phỏng vấn vào đợt cách ly xã hội, hầu hết công ty đều **work from home** nên tất cả đều là **online interview**, chính vì vậy mình có thể sắp xếp đc 2 shot phỏng vấn 1 buổi do k mất thời gian đi lại và chuẩn bị nhiều.
-<br/>
-Nếu anh em phỏng vấn offline thì chỉ nên hẹn 1 lần phỏng vấn 1 buổi thôi nhé, thời gian nói chuyện làm quen, test, phỏng vấn là khá mất thời gian đấy. Mình không thể đảm bảo đc sẽ mất 1 hay 2 tiếng nên nếu mất quá nhiều thời gian là đến muộn buổi phỏng vấn tiếp theo thì dễ bị 1 điểm trừ nhé 😅
+* Nếu anh em phỏng vấn offline thì chỉ nên hẹn 1 lần phỏng vấn 1 buổi thôi nhé, thời gian nói chuyện làm quen, test, phỏng vấn là khá mất thời gian đấy. Mình không thể đảm bảo đc sẽ mất 1 hay 2 tiếng nên nếu mất quá nhiều thời gian là đến muộn buổi phỏng vấn tiếp theo thì dễ bị 1 điểm trừ nhé 😅
 
-* Nếu có nhiều buổi phỏng vấn thì anh em nên chủ động note lại vào calendar, tải cả app để nhắc nhở mình khỏi quên nhé
 
-* Nếu đã nghỉ hẳn việc thì tốt nhất nên sắp xếp phỏng vấn trong 1,2 tuần thôi nhé, nghỉ nhiều thì k có tiền tiêu :)). Phỏng vấn trong lúc còn đi làm thì nên cách ngày ra k có xếp cũ quạo nha 😅😅
+* Vì mình phỏng vấn vào đợt cách ly xã hội, hầu hết công ty đều **work from home** nên tất cả đều là **online interview**, nếu anh em cũng phỏng vấn online thì có thể sắp xếp đc 2 shot phỏng vấn 1 buổi do k mất thời gian đi lại và chuẩn bị nhiều, chú ý hẹn lịch cách nhau 1,5h - 2h để đủ thời gian nhé
+
+
+* Nếu có nhiều buổi phỏng vấn thì anh em nên chủ động note lại vào calendar, tải cả app để nhắc nhở mình khỏi quên
+
+* Tốt nhất nên sắp xếp phỏng vấn trong 1,2 tuần nếu anh em đã nghỉ hẳn việc nhé, nghỉ nhiều thì k có tiền tiêu :)). Phỏng vấn trong lúc còn đi làm thì nên cách ngày ra k có xếp cũ quạo nha 😅😅
 
 ## Kiến thức
 
-Hãy chủ động xem lại và nắm chắc các kiến thức của ngôn ngữ, framework mình làm
+Hãy chủ động xem lại và nắm chắc các kiến thức của công nghệ, ngôn ngữ, framework... mình làm
 
 
 Cho dù anh em xác định nhảy việc hay chỉ định đi phỏng vấn để định giá lại bản thân trên thị trường thì đều nên chú ý những điều này:
