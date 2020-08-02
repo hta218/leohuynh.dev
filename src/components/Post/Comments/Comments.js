@@ -19,7 +19,7 @@ const Comments = ({ postSlug }) => {
 					$name.previousElementSibling.textContent = "Tên"
 					$email.placeholder = "Để trống nếu bạn muốn ẩn danh"
 					$cmtArea.previousElementSibling.textContent = "Bình luận"
-					$cmtArea.placeholder = "Lắc não trc nhé :D"
+					$cmtArea.placeholder = "Lắc não trước nhé :D"
 
 					$comments.querySelectorAll(".rn-comment-item").forEach($item => {
 						const $img = $item.querySelector("img")
@@ -49,7 +49,7 @@ const Comments = ({ postSlug }) => {
 				<a onClick={handleClick}>Công khai 😎</a>
 				{' '} hoặc {' '}
 				<a onClick={handleClick}>Ẩn danh 👻</a>
-				{' '} đều đc nhé!
+				{' '} đều được nhé!
       </h5>
 			<NinjaComments
 				siteId={secretConfs.ninjaCommentSiteId}

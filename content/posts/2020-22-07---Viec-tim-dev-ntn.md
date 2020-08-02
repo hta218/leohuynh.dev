@@ -1,6 +1,6 @@
 ---
 title: "Việc tìm dev như thế nào? [Part 1] - Chuẩn bị profile"
-date: "2020-07-22T22:12:03.284Z"
+date: "2020-07-28"
 template: "post"
 draft: false
 slug: "viec-tim-dev-nhu-the-nao"
