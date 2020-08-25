@@ -1,20 +1,29 @@
 ---
-title: "Johannes Gutenberg: The Birth of Movable Type"
-date: "2017-08-18T22:12:03.284Z"
+title: "Cài đặt shortcut cho đường dẫn (path alias) trong Node.js server"
+date: "2020-08-26T22:12:03.284Z"
 template: "post"
-draft: true
-slug: "the-birth-of-movable-type"
-category: "Typography"
+draft: false
+slug: "set-up-path-aliases-in-nodejs"
+category: "Tutorial"
 tags:
-  - "Open source"
-  - "Gatsby"
-  - "Typography"
+  - "alias"
+  - "path-aliases"
+  - "nodejs"
+  - "typescript"
+  - "tsconfig.json"
+  - "javascript"
 description: "hehehe"
 socialImage: "/media/gutenberg.jpg"
 headerImage: "https://images.unsplash.com/photo-1587270804625-48c99a3cc707?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2550&q=80"
 ---
 
-German inventor Johannes Gutenberg developed a method of movable type and used it to create one of the western world’s first major printed books, the “Forty–Two–Line” Bible.
+Dạo gần đây mình đang code 1 con **pet project** sử dụng **nodejs** ở **back-end**, vừa để tự học thêm trong thời gian rảnh vừa khỏi quên kiến thức thì mình gặp phải 1 vấn để rất nhức nhối liên quan đến đường dẫn (**path**) mà có thể anh em đã gặp phải nhiều rồi...
+
+```javascript
+import { saveUser } from '../../../../../models/User'
+```
+
+Code này hẳn đã khiến nhiều anh em đau đầu khi không thể biết được cần phải đi ra, đi vào bao nhiêu **folder** để tìm đúng **file** mong muốn 😭😭
 
 # Headers
 
