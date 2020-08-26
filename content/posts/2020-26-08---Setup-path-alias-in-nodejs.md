@@ -12,13 +12,13 @@ tags:
   - "typescript"
   - "tsconfig"
   - "javascript"
-description: "Nếu như có thể định nghĩa alias (có thể hiểu đơn giản là shortcut) cho những module mà chúng ta thường xuyên phải import trong toàn bộ project thì code sẽ đơn giản như thế nào...
+description: "Nếu như có thể định nghĩa alias (hiểu đơn giản là shortcut) cho những module mà chúng ta thường xuyên phải import trong toàn bộ project thì code sẽ đơn giản như thế nào...
 "
 socialImage: "/media/road.jpg"
 headerImage: "/media/road.jpg"
 ---
 
-Dạo gần đây mình đang code 1 con **pet project** sử dụng **nodejs** ở **back-end**, vừa để tự học thêm trong thời gian rảnh vừa khỏi quên kiến thức, thì gặp phải 1 vấn để rất nhức nhối liên quan đến đường dẫn (**path**) mà có thể anh em đã gặp phải nhiều rồi...
+Dạo gần đây mình đang code 1 **pet project** sử dụng **nodejs** ở **back-end**, vừa để tự học thêm trong thời gian rảnh vừa khỏi quên kiến thức, thì gặp phải 1 vấn để rất nhức nhối liên quan đến đường dẫn (**path**) mà có thể anh em đã gặp phải nhiều rồi...
 
 ```javascript
 import { saveUser } from '../../../../../models/User'
@@ -27,7 +27,7 @@ import homeController from '../../../../../controllers/home'
 
 Code này hẳn đã khiến nhiều anh em đau đầu khi không thể biết được cần phải đi ra, đi vào bao nhiêu **folder** để tìm đúng **file** mong muốn 😭😭, nếu chẳng may cần chuyển chỗ 1 folder thì sẽ phải update lại **path** ở tất cả những file **import** module đó 😤
 
-Nhưng nếu chúng ta có thể định nghĩa **alias** (có thể hiểu đơn giản là 1 **shortcut**) cho những **module** mà chúng ta thường xuyên phải **import** trong toàn bộ project thì sao?
+Nhưng nếu chúng ta có thể định nghĩa **alias** (hiểu đơn giản là **shortcut**) cho những **module** thường xuyên phải **import** trong toàn bộ project thì sao?
 
 Ví dụ như này:
 
@@ -70,7 +70,7 @@ Trong đó `@controllers` hay `@models` chính là **alias** cho module của c�
 
 Bây giờ bạn hoàn toàn có thể sử dụng **alias** đã config trong project rồi, nhưng JS sẽ không **resolve** được module import với lỗi sau
 
-> Error: Cannot find module ‘@models/User’
+> [Node] Error: Cannot find module '@models/User'
 
 ## Cài đặt module-alias package
 
