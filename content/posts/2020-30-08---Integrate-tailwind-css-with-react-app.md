@@ -89,8 +89,8 @@ mkdir src/styles && touch src/styles/tailwind.css
 @tailwind components;
 
 @tailwind utilities;
-
 ```
+<small>tailwind.css</small>
 
 > **Folder** chứa file **tailwind.css** các bạn có thể đặt tùy ý theo **project** của mình nhé, có thể là `src/static`, `src/assets`, `src/styles` ...
 

@@ -185,6 +185,7 @@ module.exports = {
         cache_busting_mode: 'name'
       },
     },
+    'gatsby-plugin-offline',
     'gatsby-plugin-catch-links',
     'gatsby-plugin-react-helmet',
     {
