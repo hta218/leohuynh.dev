@@ -18,7 +18,7 @@ headerImage: "https://images.unsplash.com/photo-1579484955380-8859fccd3d8b?ixlib
 
 Ở [phần trước](/posts/depoy-and-config-website-on-name-cheap-part-1) mình đã hướng dẫn anh em mua và connect **domain** với **hosting**,  activate **SSL Certificate**.
 
-Phần này mình sẽ hướng dẫn cách đẩy code lên **server** để website go live nhé 🚀 
+Phần này mình sẽ hướng dẫn cách đẩy code lên **server** để website go live nhé 🚀
 
 ## Trên server có những gì 👀?
 Để tìm hiểu cấu trúc folder trên server anh em vào **cPanel** (bài trc mình có hướng dẫn cách vào). Mở **File Manager** trong section **Files**
@@ -78,7 +78,7 @@ Trong **FileZilla** gồm 2 phần:
 
 ![Close](/media/filezilla2.png)
 
-Chọn tất cả file ở **Local** và kéo sang **Remote** là ... xong  🎉 
+Chọn tất cả file ở **Local** và kéo sang **Remote** là ... xong  🎉
 
 Bây giờ chỉ việc mở site của mình ra kiểm tra thành quả rồi fix lỗi typo thôi 😆😆😆
 
@@ -107,7 +107,7 @@ Nếu k muốn mua chúng ta hoàn toàn có thể sử dụng các **Free Hosti
 
 Anh em có suy nghĩ gì thì để lại dưới phần comment nhé! (**Email** chỉ để generate [Gravatar](https://gravatar.com/) thôi, mình k spam gì đâu 😉).
 
-#### Tham khảo
+## Tham khảo
 
 - [https://www.namecheap.com/resource-center/tutorials/building-your-first-website/](https://www.namecheap.com/resource-center/tutorials/building-your-first-website/)
 - [https://www.namecheap.com/support/knowledgebase/article.aspx/1279/205/how-to-set-up-filezilla/](https://www.namecheap.com/support/knowledgebase/article.aspx/1279/205/how-to-set-up-filezilla/)
