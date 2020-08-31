@@ -1,20 +1,57 @@
 ---
-title: "Johannes Gutenberg: The Birth of Movable Type"
-date: "2020-08-18T22:12:03.284Z"
+title: "Tích hợp Tailwind CSS vào React application"
+date: "2020-08-30T22:12:03.284Z"
 template: "post"
-draft: true
-slug: "the-birth-of-movable-type"
-category: "Typography"
+draft: false
+slug: "integrate-tailwind-css-with-react-application"
+category: "Tutorial"
 tags:
-  - "Open source"
-  - "Gatsby"
-  - "Typography"
-description: "hehehe"
-socialImage: "/media/gutenberg.jpg"
-headerImage: "/media/gutenberg.jpg"
+  - "integration"
+  - "tailwind-css"
+  - "postcss"
+  - "react"
+description: "Tailwind CSS là 1 low-level CSS framework rất dễ tùy biến, không như các framework khác khi tập trung vào các pre-design components như buttons, cards, modals... có thể giúp bạn phát triển nhanh ban đầu nhưng sau đó sẽ rất mất công để custom các component có sẵn, Tailwind tập trung vào low-level utility classes..."
+socialImage: "/media/css.jpg"
+headerImage: "/media/css.jpg"
 ---
 
-German inventor Johannes Gutenberg developed a method of movable type and used it to create one of the western world’s first major printed books, the “Forty–Two–Line” Bible.
+[Tailwind CSS](https://tailwindcss.com/) là 1 **low-level** CSS framework rất dễ tùy biến, không như những framework, UI Kits khác khi tập trung vào các **pre-design components** (buttons, cards, modals...) có thể giúp bạn phát triển nhanh ban đầu nhưng sau đó sẽ rất mất công để custom styling cho các component đó. Tailwind tập trung vào low-level utility classes (**utility-first**) giúp bạn tự build hoàn toàn design của mình mà không phải lo lắng về việc **override** các **style** có sẵn.
+
+![Tailwind CSS example](/media/tailwindcss.png)
+
+<small style="padding: 0px 30px">Khá giống với **Bootstrap** nhưng bộ utility class của **Tailwind CSS** phong phú hơn rất nhiều</small>
+
+Bài này mình sẽ hướng dẫn anh em cách để tích hợp Tailwind CSS vào React app nhé  😄 😄
+
+## Tạo react app
+
+Nếu anh em đã có sẵn react app rồi thì có thể chuyển sang bước [tiếp theo](#thêm-dependencies) nhé
+
+Cách đơn giản nhất để tạo react app là sử dụng [creat-react-app](https://create-react-app.dev/docs/getting-started/) script với `npx`
+
+```bash
+npx create-react-app my-app && cd my-app
+```
+
+Sử dụng `npx` anh em có thể chạy `creat-react-app` script mà không cần phải cài **package** này
+
+## Thêm dependencies
+
+Cài đặt các **dependency** sau để set up **Tailwind CSS**
+
+```bash
+yarn add tailwindcss postcss-cli autoprefixer -D
+## hoặc npm install tailwindcss postcss-cli autoprefixer --save-dev
+```
+
+Ở đây ngoài **Tailwind CSS** chúng ta cài thêm:
+ - [PostCSS](https://github.com/postcss/postcss): 1 công cụ để phân tích và chuyển đổi **styling** bằng các **JS plugin**, giúp bạn gợi ý **CSS**, hỗ trợ **variables** và **mixins**, biên dịch các CSS mới...
+ - [Autoprefixer](https://github.com/postcss/autoprefixer): 1 plugin của **PostCSS** hỗ trợ việc thêm các [vendor prefix](https://www.lifewire.com/css-vendor-prefixes-3466867)(`-webkit-`, `-moz-`, `-ms-`, `-o-`,...) bằng cách lấy thông tin từ [Can I Use](https://caniuse.com/) để CSS bạn viết có thể tương thích ở nhiều trình duyệt khác nhau
+
+## Config PostCSS
+
+
+
 
 # Headers
 
@@ -305,8 +342,3 @@ Or, in pure Markdown, but losing the image sizing and border:
 
 [![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](http://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE)
 Referencing a bug by #bugID in your git commit links it to the slip. For example #1.
-
-
-#### Tham khảo
-
-- [https://www.namecheap.com/resource-center/tutorials/building-your-first-website/](https://www.namecheap.com/resource-center/tutorials/building-your-first-website/)

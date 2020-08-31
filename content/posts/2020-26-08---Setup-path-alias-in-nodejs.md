@@ -105,3 +105,11 @@ Bây giờ anh em chỉ cần reload **IDE**, **start project** và có thể x�
 **VS Code** support luôn tính năng này bằng cách đọc file **tsconfig.json**, chỉ cần **reload** lại là được.
 
 Chúc anh em thành công!
+
+## Tham khảo
+
+- [https://medium.com/zero-equals-false/how-to-use-module-path-aliases-in-visual-studio-typescript-and-javascript-e7851df8eeaa](https://medium.com/zero-equals-false/how-to-use-module-path-aliases-in-visual-studio-typescript-and-javascript-e7851df8eeaa)
+- [https://dev.to/larswaechter/path-aliases-with-typescript-in-nodejs-4353](https://dev.to/larswaechter/path-aliases-with-typescript-in-nodejs-4353)
+
+
+

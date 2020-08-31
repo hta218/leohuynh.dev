@@ -192,6 +192,14 @@ figcaption {
 	div.img-group {
 		padding-bottom: 15px;
 	}
+
+	div.gatsby-highlight {
+		@include margin-bottom(1.125);
+
+		.token.comment {
+			font-style: italic;
+		}
+	}
 }
 
 @include breakpoint-sm {
