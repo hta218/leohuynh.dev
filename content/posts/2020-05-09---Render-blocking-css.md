@@ -10,9 +10,9 @@ tags:
   - "render-blocking-css"
   - "perfomance"
   - "chrome-performance-api"
-description: "hehehe"
-socialImage: "/media/blank.jpg"
-headerImage: "https://images.unsplash.com/photo-1444084316824-dc26d6657664?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2550&q=80"
+description: "Mỗi file CSS mà website của bạn tải sẽ tăng thêm thời gian vào first-paint của page, có nghĩa là user sẽ phải đợi lâu hơn để nhìn thấy content nếu trang của bạn phải tải nhiều CSS. Vậy phải làm thế nào để hạn chế được render blocking css?"
+socialImage: "/media/book-header.jpg"
+headerImage: "/media/book-header.jpg"
 ---
 
 **CSS** được **browser** xem là 1 trong những **render blocking resources** - những tài nguyên mà trang của bạn bắt buộc phải tải thì người dùng mới có thể nhìn thấy nội dung được
@@ -75,7 +75,7 @@ Giá trị của **media** bắt buộc phải là 1 [media type](https://develo
 
 ### Combine css or inline css
 
-1 cách khá hiệu quả là các bạn có thể để trực tiếp **CSS** vào trong 1 thẻ `style` trên **header** của **document** nếu **CSS** không quá to, cách này cải thiện **performance** rất tốt khi chỉ cần **DOM** load xong là có thể hiện thị ngay được rồi
+1 cách khá hiệu quả là các bạn có thể để trực tiếp **CSS** vào trong 1 thẻ `style` trên **header** của **document** nếu **CSS** không quá to, cách này cải thiện **performance** rất tốt khi chỉ cần **DOM** load xong là có thể hiển thị ngay được rồi
 
 Hoặc có thể hạn chế tải nhiều file **CSS** quá. Thông thường khi **code** các **dev** sẽ có xu hướng tách ra nhiều file **CSS** khác nhau theo **component**, **module**... để dễ quản lý, tuy nhiên việc **load** nhiều file **CSS** sẽ lâu hơn so với chỉ **load** 1 hoặc 2 file
 
@@ -160,7 +160,7 @@ if (window.performance) {
 
 Có thể thấy sự khác biệt rõ rệt với **page rendering time**, ảnh hưởng trực tiếp đến **user's experience** khi **webpage** phải tải quá nhiều **CSS** không cần thiết, vì vậy chúng ta cần phải rất chú ý đến **resource** này.
 
-Có nhiều biện pháp để tránh **Render Blocking CSS** như: sủ dụng **media type** hoặc **media query**, **combine CSS**, **inline CSS**, những thay đổi này tuy nhỏ nhưng ảnh hưởng rất tốt đến **perfomance**
+Có nhiều biện pháp để tránh **Render Blocking CSS** như: sử dụng **media type** hoặc **media query**, **combine CSS**, **inline CSS**, những thay đổi này tuy nhỏ nhưng ảnh hưởng rất tốt đến **perfomance**
 
 ## Tham khảo
 
