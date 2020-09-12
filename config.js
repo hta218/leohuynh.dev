@@ -3,7 +3,7 @@
 module.exports = {
   url: 'https://leohuynh.dev',
   pathPrefix: '/',
-  title: "Leo's Blog - Chuyện đi code của Tuấn Anh",
+  title: "Leo's Blog - Leo's coding journey",
   subtitle: "Coding and all other stuff related to a dev's life",
   copyright: "2020 © Leo's Blog - All rights reserved.",
   postsPerPage: 4,
