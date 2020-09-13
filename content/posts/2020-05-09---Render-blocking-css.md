@@ -1,6 +1,6 @@
 ---
 title: "Tìm hiểu về Render Blocking CSS và đo page rendering time với Chrome Performance API"
-date: "2020-09-05T22:12:03.284Z"
+date: "2020-09-12T02:12:03.284Z"
 template: "post"
 draft: false
 slug: "render-blocking-css-and-chrome-performance-api"
@@ -45,19 +45,19 @@ Khi muốn **load css** vào **web page** của mình chúng ta sẽ sử dụng
 
 ```html
 <link href="style.css" rel="stylesheet">
-<link href="modal.css" rel="stylesheet">
+<link href="print.css" rel="stylesheet">
 <link href="style.mobile.css" rel="stylesheet">
 ```
 
 **Browser** sau khi load xong **HTML** sẽ tải thêm 3 file **CSS** này nữa và chỉ hiển thị nội dung sau khi đã tải xong tất cả
 
-Tuy nhiên `modal.css` chỉ dùng cho **content** bên trong modal - nội dung **user** chưa nhìn thấy ngay và `style.mobile.css` là những **style** chỉ **apply** trên **mobile** mà thôi
+Tuy nhiên `print.css` chỉ dùng khi in **document** (**Ctrl/Cmd + P**) và `style.mobile.css` là những **style** chỉ **apply** trên **mobile** mà thôi
 
 Trong trường hợp này chúng ta có thể sử dụng [media attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#attr-media)
 
 ```html
 <link href="style.css" rel="stylesheet">
-<link href="modal.css" media="print" rel="stylesheet">
+<link href="print.css" media="print" rel="stylesheet">
 <link href="style.mobile.css" media="(max-width: 568px)" rel="stylesheet">
 ```
 
@@ -65,7 +65,7 @@ Lúc này **browser** sẽ hiểu rằng chỉ cần tải xong file **style.css
 
 Đối với **link** sử dụng **media attribute**:
 
-- `media="print"`: những **style** trong file này sẽ chỉ apply sau khi **document** đã được **print** (**render**) xong, không **block** lần **render** đầu tiên khi tải trang
+- `media="print"`: những **style** trong file này sẽ chỉ **apply** khi in **document**, không cần cho **render** nên sẽ không **block** lần **render** đầu tiên khi tải trang
 
 - `media="(max-width: 568px)"`: những **style** này chỉ **apply** trên những **device** với `max-witdh = 568px` và cũng không **block** lần **render** đầu tiên khi tải trang trên **desktop/tablet device**
 
