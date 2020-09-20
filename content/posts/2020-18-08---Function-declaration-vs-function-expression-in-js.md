@@ -1,5 +1,5 @@
 ---
-title: "Javascipt - function declaration vs function expression"
+title: "Javascript - function declaration vs function expression"
 date: "2020-09-16T22:12:03.284Z"
 template: "post"
 draft: false
@@ -19,7 +19,7 @@ socialImage: "/media/singapore.jpg"
 headerImage: "/media/singapore.jpg"
 ---
 
-Post này chỉ là 1 note nhỏ của mình cho những **dev** hay quên về 2 khái niệm **function declaration** và **function expression** để mỗi lần nhắc đến chỉ việc vào đây xem lại chứ không cần phải **google** nữa 😅😅
+Post này chỉ là 1 **note** nhỏ của mình cho những **dev** hay quên về 2 khái niệm **function declaration** và **function expression** để mỗi lần nhắc đến chỉ việc vào đây xem lại chứ không cần phải **google** nữa 😅😅
 
 
 ![Take note](/media/take-note.gif)
@@ -33,7 +33,7 @@ function doSomething() {} // function declaration
 // hoặc
 const doSomething = function() {} // function expression
 
-// hoặc 
+// hoặc
 const doSomething = () => {} // function expression
 
 ```
@@ -64,7 +64,7 @@ const doSomething = () => {}
 
 > **Hoisting** chỉ áp dụng **function declarations**, không áp dụng cho **function expressions**
 
-Có thế hiểu đơn gian qua ví dụ sau:
+Có thế hiểu đơn giản qua ví dụ sau:
 
 ```js
 sayHello() // => "Hello"
@@ -107,7 +107,7 @@ Tuy nhiên có 1 số trường hợp đặc biệt để sử dụng **function
 
 ## Callback
 
-1 trường hợp sử dụng **function expressions** nữa đó là dùng làm **callback function**
+1 trường hợp sử dụng **function expression** nữa đó là dùng làm **callback**
 
 ```js
 buttonElement.addEventListener('click', function(e) {

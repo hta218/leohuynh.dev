@@ -4,7 +4,7 @@ date: "2020-04-23T16:20:03.284Z"
 template: "post"
 draft: false
 slug: "depoy-and-config-website-on-name-cheap-part-1"
-category: "Tutorials"
+category: "Tutorial"
 tags:
   - "deployment"
   - "domain"

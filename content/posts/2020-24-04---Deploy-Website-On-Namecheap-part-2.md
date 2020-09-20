@@ -4,7 +4,7 @@ date: "2020-04-25T16:20:03.284Z"
 template: "post"
 draft: false
 slug: "deploy-and-config-website-on-namecheap-part-2"
-category: "Tutorials"
+category: "Tutorial"
 tags:
   - "deployment"
   - "domain"
