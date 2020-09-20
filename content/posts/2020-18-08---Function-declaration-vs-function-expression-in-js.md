@@ -14,9 +14,9 @@ tags:
   - "arrow-function"
   - "es5"
   - "es6"
-description: "hehehe"
-socialImage: "/media/gutenberg.jpg"
-headerImage: "https://images.unsplash.com/photo-1599178267284-424ea9e94d43?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2251&q=80"
+description: "Phân biệt 2 khái niệm cơ bản trong Javascript - Function Declaration vs Function Expression và các trường hợp sử dụng"
+socialImage: "/media/singapore.jpg"
+headerImage: "/media/singapore.jpg"
 ---
 
 Post này chỉ là 1 note nhỏ của mình cho những **dev** hay quên về 2 khái niệm **function declaration** và **function expression** để mỗi lần nhắc đến chỉ việc vào đây xem lại chứ không cần phải **google** nữa 😅😅
