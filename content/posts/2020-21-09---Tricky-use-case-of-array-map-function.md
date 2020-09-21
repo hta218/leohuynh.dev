@@ -1,9 +1,9 @@
 ---
-title: "Tricky use case of Array.prototype.map function"
+title: "Tricky use case of Array.prototype.map in JS"
 date: "2020-09-21T22:12:03.284Z"
 template: "post"
 draft: false
-slug: "tricky-use-case-of-array-map-function"
+slug: "tricky-use-case-of-array-map-in-js"
 category: "Javascript"
 tags:
   - "javascript"
@@ -11,15 +11,14 @@ tags:
   - "map"
   - "functional-programming"
   - "use-cases"
-  - "trick"
-description: "hehehe"
-socialImage: "/media/gutenberg.jpg"
-headerImage: "/media/gutenberg.jpg"
+description: "If you are familiar with functional programming, Array.prototype.map must be a function that you work with every day. We encountered a tricky use case of it at Cốc Cốc recently, it took me a while to figure out, and here's the answer..."
+socialImage: "/media/header-book-n-coffee.jpg"
+headerImage: "/media/header-book-n-coffee.jpg"
 ---
 
-If you familiar with [functional programming](https://en.wikipedia.org/wiki/Functional_programming), **Array.prototype.map** must be a **function** that you work with everyday.
+If you are familiar with [functional programming](https://en.wikipedia.org/wiki/Functional_programming), **Array.prototype.map** must be a **function** that you work with every day.
 
-For me **map()** is a powerful function, but there might be some tricky use case of it that you not know about!
+For me, **map()** is a powerful function, but there might be some tricky use case of it that you don't know about!
 
 Let's walk through some basic knowledge
 
@@ -102,7 +101,7 @@ console.log(idsInNumber); // => ???
 
 You might expect the result is `[1, 2, 3, 4]`, but the actual result is `[1, NaN, NaN, NaN]` 😮😮
 
-We encountered this problem at [Cốc Cốc](https://coccoc.com/) recently, it took me a while to figure out and here the answer...
+We encountered this problem at [Cốc Cốc](https://coccoc.com/) recently, it took me a while to figure out, and here's the answer...
 
 Usually, we use **map()** callback with 1 **argument** (the element being traversed), but **Array.prototype.map** passes 3 arguments:
 
@@ -146,18 +145,32 @@ Hence, the **iteration** steps of **map()** look like this:
 
 ## Solution
 
-As you've known the source of the problem, the solution is just do not pass all the **map()**'s arguments to your **callback** if you not sure how it work
+As you've known the source of the problem, the solution is do not pass all the **map()**'s arguments to your **callback** if you not sure how it work
+
+- Be sure to pass only the arguments that your callback needs
 
 ```js
-// Be sure to pass only the arguments that your callback needs
-["1", "2", "3", "4"].map(numb => parseInt(numb)); // => [1, 2, 3, 4]
+function returnInt(element) {
+  return parseInt(element, 10)
+}
 
-// A simpler way to achieve our case like Airbnb style guide
-// https://github.com/airbnb/javascript#coercion--numbers
-["1", "2", "3", "4"].map(Number); // => [1, 2, 3, 4]
+["1", "2", "3", "4"].map(returnInt);
+// => [1, 2, 3, 4]
+
+// Same as above, but using the concise arrow function syntax
+// Better use this if you don't need to re-use the callback
+["1", "2", "3", "4"].map(numb => parseInt(numb, 10));
+// => [1, 2, 3, 4]
 ```
 
-And that's all I knew about **Array.prototype.map** function, feel free to share your use case in the comment section 👇
+- A simpler way to achieve our case like [Airbnb style guide](https://github.com/airbnb/javascript#coercion--numbers)
+
+```js
+["1", "2", "3", "4"].map(Number);
+// => [1, 2, 3, 4]
+```
+
+And that's what I know about **Array.prototype.map** function, feel free to share your use case in the comment section 👇
 
 Happy coding!
 
@@ -170,3 +183,5 @@ Happy coding!
 - [A JavaScript Optional Argument Hazard](http://www.wirfs-brock.com/allen/posts/166)
 
 - [https://codesource.io/use-cases-of-array-map-you-should-know](https://codesource.io/use-cases-of-array-map-you-should-know)
+
+- [https://github.com/airbnb/javascript#coercion--numbers](https://github.com/airbnb/javascript#coercion--numbers)
