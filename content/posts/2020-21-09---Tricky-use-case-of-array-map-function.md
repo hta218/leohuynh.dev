@@ -46,17 +46,17 @@ What can we do using **map()** function:
 const ages = devs.map(dev => {
 	const currentYear = new Date().getFullYear()
 	return currentYear - dev.yob
-})
+});
 
-console.log(ages) // => [25, 25, 24, 23]
+console.log(ages); // => [25, 25, 24, 23]
 ```
 
 - Extracting values from array of objects
 
 ```js
-const names = devs.map(dev => dev.name)
+const names = devs.map(dev => dev.name);
 
-console.log(names) // => ["Leo", "Paul", "Jesse", "Ken"]
+console.log(names); // => ["Leo", "Paul", "Jesse", "Ken"]
 ```
 
 - Rendering list in React application
@@ -82,11 +82,11 @@ It is common to pass the pre-defined **callback** function as **map()** argument
 ```js
 const extractId = (dev) => {
 	return dev.id
-}
+};
 
 const ids = devs.map(extractId);
 
-console.log(ids) // => ["1", "2", "3", "4"]
+console.log(ids); // => ["1", "2", "3", "4"]
 ```
 
 But this habit may lead to unexpected behaviors with **functions** that take additional **arguments**.
@@ -97,7 +97,7 @@ Consider this case - we need to get all **ids** as **numbers**:
 // ids = ["1", "2", "3", "4"]
 const idsInNumber = ids.map(parseInt);
 
-console.log(idsInNumber) // => ???
+console.log(idsInNumber); // => ???
 ```
 
 You might expect the result is `[1, 2, 3, 4]`, but the actual result is `[1, NaN, NaN, NaN]` 😮😮
@@ -123,10 +123,10 @@ parseInt(string [, radix])
 For example:
 
 ```js
-parseInt("10") // => 10
-parseInt("10", 10) // => 10
-parseInt("10", 2) // => 2
-parseInt("10", 4) // => 4
+parseInt("10"); // => 10
+parseInt("10", 10); // => 10
+parseInt("10", 2); // => 2
+parseInt("10", 4); // => 4
 ```
 
 And here you can see the source of confusion 👀!
@@ -138,10 +138,10 @@ Hence, the **iteration** steps of **map()** look like this:
 ```js
 // map(parseInt) => map(parseInt(value, index))
 
-/* index is 0 */ parseInt("1", 0) // => 1
-/* index is 1 */ parseInt("2", 1) // => NaN
-/* index is 2 */ parseInt("3", 2) // => NaN
-/* index is 3 */ parseInt("4", 3) // => NaN
+/* index is 0 */ parseInt("1", 0); // => 1
+/* index is 1 */ parseInt("2", 1); // => NaN
+/* index is 2 */ parseInt("3", 2); // => NaN
+/* index is 3 */ parseInt("4", 3); // => NaN
 ```
 
 ## Solution
@@ -150,11 +150,11 @@ As you've known the source of the problem, the solution is just do not pass all 
 
 ```js
 // Be sure to pass only the arguments that your callback needs
-["1", "2", "3", "4"].map(numb => parseInt(numb)) // => [1, 2, 3, 4]
+["1", "2", "3", "4"].map(numb => parseInt(numb)); // => [1, 2, 3, 4]
 
 // A simpler way to achieve our case like Airbnb style guide
 // https://github.com/airbnb/javascript#coercion--numbers
-["1", "2", "3", "4"].map(Number) // => [1, 2, 3, 4]
+["1", "2", "3", "4"].map(Number); // => [1, 2, 3, 4]
 ```
 
 And that's all I knew about **Array.prototype.map** function, feel free to share your use case in the comment section 👇
