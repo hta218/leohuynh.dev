@@ -145,9 +145,9 @@ Hence, the **iteration** steps of **map()** look like this:
 
 ## Solution
 
-As you've known the source of the problem, the solution is do not pass all the **map()**'s arguments to your **callback** if you not sure how it work
+As you've known the source of the problem, the solution is not to pass all of the **map()**'s arguments to your **callback** if you're not sure how it works
 
-- Be sure to pass only the arguments that your callback needs
+- Passing only the arguments that your callback needs
 
 ```js
 function returnInt(element) {
