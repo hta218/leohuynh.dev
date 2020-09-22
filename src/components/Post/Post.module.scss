@@ -8,7 +8,7 @@
 
   &__header-image {
     width: 100vw;
-    height: 60vh;
+    height: 75vh;
     background-size: cover;
     background-position: 50% 50%;
     background-repeat: no-repeat;
@@ -25,7 +25,7 @@
     @include margin-top(0.75);
     @include margin-bottom(0.75)
   }
-  
+
   &__content {
     margin-top: -100px;
     background: $color-background;
