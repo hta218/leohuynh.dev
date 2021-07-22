@@ -7,3 +7,5 @@ npm-debug.log
 .idea
 gatsby-starter-lumen.iml
 .env
+
+.vscode/
