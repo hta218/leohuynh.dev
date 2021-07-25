@@ -1,7 +1,7 @@
 import Image from './Image'
 import Link from './Link'
 
-const Card = ({ title, description, imgSrc, href }) => (
+const Card = ({ title, description, imgSrc, href, repoName }) => (
   <div className="p-4 md:w-1/2 md" style={{ maxWidth: '544px' }}>
     <div className="h-full overflow-hidden border-2 border-gray-200 rounded-md border-opacity-60 dark:border-gray-700">
       {href ? (
@@ -24,15 +24,24 @@ const Card = ({ title, description, imgSrc, href }) => (
         />
       )}
       <div className="p-6">
-        <h2 className="mb-3 text-2xl font-bold leading-8 tracking-tight">
-          {href ? (
-            <Link href={href} aria-label={`Link to ${title}`}>
-              {title}
-            </Link>
-          ) : (
-            title
-          )}
-        </h2>
+        <div className="flex justify-between">
+          <h2 className="mb-3 text-2xl font-bold leading-8 tracking-tight">
+            {href ? (
+              <Link href={href} aria-label={`Link to ${title}`}>
+                {title}
+              </Link>
+            ) : (
+              title
+            )}
+          </h2>
+          <Image
+            alt={title}
+            src={`https://img.shields.io/github/stars/hta218/${repoName}.svg?style=social&label=Star&maxAge=2592000`}
+            className="object-cover object-center"
+            width={74}
+            height={28}
+          />
+        </div>
         <p className="mb-3 prose text-gray-500 max-w-none dark:text-gray-400">{description}</p>
         {href && (
           <Link
