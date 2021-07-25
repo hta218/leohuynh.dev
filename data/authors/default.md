@@ -1,12 +1,12 @@
 ---
-name: Tails Azimuth
+name: Leo Huynh
 avatar: /static/images/avatar.png
-occupation: Professor of Atmospheric Science
-company: Stanford University
-email: address@yoursite.com
-twitter: https://twitter.com/Twitter
+occupation: Software Engineer
+company: Insights Studio
+email: leo@insights.com
+twitter: https://twitter.com/hta218_
 linkedin: https://www.linkedin.com
-github: https://github.com
+github: https://github.com/hta218
 ---
 
 Tails Azimuth is a professor of atmospheric sciences at the Stanford AI Lab. His research interests includes complexity modelling of tailwinds, headwinds and crosswinds.
