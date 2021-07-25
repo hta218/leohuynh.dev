@@ -27,6 +27,10 @@
   content: attr(line);
 }
 
+.prose-lg pre {
+  margin-top: 1em;
+}
+
 html {
   scroll-behavior: smooth;
 }

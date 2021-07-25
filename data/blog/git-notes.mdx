@@ -16,6 +16,124 @@ Post này dành cho anh em thích làm việc với `git` qua `command-line` gi�
 
 ## Git alias
 
+> Git aliases are a powerful workflow tool that create shortcuts to frequently used Git commands
+
+### <Twemoji emoji="eyes" /> <Twemoji emoji="exclamation question mark" />
+
+`git alias` hiểu đơn giản là tạo _shortcut_ (`command` ngắn hơn) cho những `command` dài để gõ cho nhanh
+
+#### Syntax
+
+```bash
+$ git config --global alias.<shortcut> <original-command>
+```
+
+<Twemoji emoji="warning" /> Chú ý flag `--global` để sử dụng ở tất cả *project*, nếu không thì `alias`
+sẽ chỉ work trên project hiện tại bạn đang làm việc cùng thôi nhé!
+
+<Twemoji emoji="warning" /> Sử dụng `quotes` (dấu nháy `''` nếu `original-command` có chứa `space` (dấu
+`cách`))
+
+Mình `alias` hầu hết các `command` mà mình thường xuyên làm việc
+
+- **Git status**
+
+  Kiểm tra những thay đổi trước khi `commit`
+
+  ```bash
+  $ git config --global alias.st status
+  ```
+
+  ```bash
+  # Now instead of `git status`, use `git st`
+  $ git st
+  On branch v2
+  Changes not staged for commit:
+    (use "git add <file>..." to update what will be committed)
+    (use "git restore <file>..." to discard changes in working directory)
+          modified:   components/Twemoji.js
+          modified:   css/tailwind.css
+          modified:   data/blog/git-notes.mdx
+
+  no changes added to commit (use "git add" and/or "git commit -a")
+  ```
+
+  > Tip: dùng `git st` với flag `--short` hay `-s` để xem short-format của những thay đổi và `alias` luôn `command` này
+
+  ```bash
+  $ git config --global alias.s 'status --short'
+  ```
+
+  ```bash
+  # Now instead of `git st`, use `git s`
+  $ git s
+  M components/Twemoji.js
+  M css/tailwind.css
+  M css/twemoji.css
+  M data/blog/git-notes.mdx
+  ```
+
+  Dễ xem hơn hẳn đúng không <Twemoji emoji="beaming face with smiling eyes" />
+
+- **Git commit**
+
+  ```bash
+  $ git config --global alias.cm 'commit -m'
+  ```
+
+  Commit changes (chú ý `add/stage` changes trước)
+
+  ```bash
+  $ git cm "Initial commit"
+  ```
+
+  > Tip: nếu chỉ sửa các file có sẵn mà không thêm mới hoặc xóa file thì có thể dùng flag `--all` hoặc `-a` để không phải `add/stage` changes trước khi `commit`
+
+  ```bash
+  $ git config --global alias.cam 'commit -am'
+  ```
+
+  ```bash
+  # Now instead of 2 git commands
+  $ git add style.css # `style.css` is already existed, not new file!
+  $ git cm "Update style"
+
+  # Use only 1 command
+  $ git cam "Update style"
+  ```
+
+- **Git stash**
+
+  > Stash the changes in a dirty working directory away <Twemoji emoji="grinning face with sweat" />
+
+  Đúng như định nghĩa, `git stash` dùng khi muốn cất những thay đổi đi. Dùng trước khi `pull` code mới về
+
+  ```bash
+  # Ngắn quá rồi nên không cần `alias` nữa
+  $ git stash
+  ```
+
+  Apply những thay đổi vừa cất sau khi `pull`
+
+  ```bash
+  $ git stash pop
+  ```
+
+  Alias `command` này
+
+  ```bash
+  $ git config --global alias.sp 'stash pop'
+
+  # Now
+  $ git sp
+  # Is equal
+  $ git stash pop
+  ```
+
+- **Git `pull/push`**
+
+  Luôn [`pull rebase`](https://www.atlassian.com/git/tutorials/merging-vs-rebasing) và `force push` để có 1 clean commit tree nhé anh em
+
 - [Demo Blog](https://tailwind-nextjs-starter-blog.vercel.app/) - this repo
 - [My personal blog](https://www.timlrx.com) - modified to auto-generate blog posts with dates
 

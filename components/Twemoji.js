@@ -1,4 +1,4 @@
-const { default: kebabCase } = require('@/lib/utils/kebabCase')
+import kebabCase from '@/lib/utils/kebabCase'
 
 const Twemoji = ({ emoji }) => {
   const twaClass = kebabCase(emoji)
