@@ -1,14 +1,14 @@
 ---
 title: 'Vài notes khi làm việc với git'
 date: '2021-07-22'
-tags: ['git', 'git-note', 'git-alias', 'git-workflow']
+tags: ['git', 'git-notes', 'git-alias', 'git-workflow']
 draft: false
-summary: 'Looking for a performant, out of the box template, with all the best in web technology to support your blogging needs? Checkout the Tailwind Nextjs Starter Blog template.'
-images: ['/static/images/canada/mountains.jpg', '/static/images/canada/toronto.jpg']
+summary: 'Vài notes bổ ích cho những dev thích làm việc với git qua command-line'
+images: ['/static/images/git-notes.jpg']
 authors: ['default']
 ---
 
-![tailwind-nextjs-banner](/static/images/git-notes.jpg)
+![git-notes](/static/images/git-notes.jpg)
 
 import Twemoji from './Twemoji.js'
 
@@ -67,10 +67,9 @@ Mình `alias` hầu hết các `command` mà mình thường xuyên làm việc
   ```bash
   # Now instead of `git st`, use `git s`
   $ git s
-  M components/Twemoji.js
-  M css/tailwind.css
-  M css/twemoji.css
+  M components/Image.js
   M data/blog/git-notes.mdx
+  ?? public/static/images/force-with-lease.jpg
   ```
 
   Dễ xem hơn hẳn đúng không <Twemoji emoji="beaming face with smiling eyes" />
@@ -106,7 +105,7 @@ Mình `alias` hầu hết các `command` mà mình thường xuyên làm việc
 
   > Stash the changes in a dirty working directory away <Twemoji emoji="grinning face with sweat" />
 
-  Đúng như định nghĩa, `git stash` dùng khi muốn cất những thay đổi đi. Dùng trước khi `pull` code mới về
+  Đúng như định nghĩa, dùng `git stash` khi muốn cất những thay đổi đi, trước khi `pull` code mới về
 
   ```bash
   # Ngắn quá rồi nên không cần `alias` nữa
@@ -134,144 +133,192 @@ Mình `alias` hầu hết các `command` mà mình thường xuyên làm việc
 
   Luôn [`pull rebase`](https://www.atlassian.com/git/tutorials/merging-vs-rebasing) và `force push` để có 1 clean commit tree nhé anh em
 
-- [Demo Blog](https://tailwind-nextjs-starter-blog.vercel.app/) - this repo
-- [My personal blog](https://www.timlrx.com) - modified to auto-generate blog posts with dates
+  - `pull rebase`
 
-Using the template? Happy to accept any PR with modifications made e.g. sub-paths, localization or multiple authors
+    ```bash
+    $ git config --global alias.prb 'pull origin --rebase'
+    ```
 
-## Motivation
+    ```bash
+    # Now
+    $ git pull origin --rebase main
+    # Is equal
+    $ git prb main
+    # Or
+    $ git prb master
+    ```
 
-I wanted to port my existing blog to Nextjs and Tailwind CSS but there was no easy out of the box template to use so I decided to create one.
+  - `force push`
 
-It is inspired by [Lee Robinson's blog](https://github.com/leerob/leerob.io), but focuses only on static site generation. Design is adapted from [Tailwindlabs blog](https://github.com/tailwindlabs/blog.tailwindcss.com).
+    Vì sử dụng `pull rebase` nên sau khi resolve hết **conflict** (nếu có) thì chúng ta cần `force push` để đẩy thay đổi lên remote repo
 
-I wanted it to be nearly as feature-rich as popular blogging templates like [beautiful-jekyll](https://github.com/daattali/beautiful-jekyll) and [Hugo Academic](https://github.com/wowchemy/wowchemy-hugo-modules) but with the best of React's ecosystem and current web development's best practices.
+    ```bash
+    $ git config --global alias.pf 'push --force-with-lease'
 
-## Features
+    # Now after rebase
+    $ git pf
+    ```
 
-- Easy styling customization with [Tailwind 2.0](https://blog.tailwindcss.com/tailwindcss-v2) and primary color attribute
-- Near perfect lighthouse score - [Lighthouse report](https://www.webpagetest.org/result/210111_DiC1_08f3670c3430bf4a9b76fc3b927716c5/)
-- Lightweight, 38kB first load JS, uses Preact in production build
-- Mobile-friendly view
-- Light and dark theme
-- [MDX - write JSX in markdown documents!](https://mdxjs.com/)
-- Server-side syntax highlighting with line numbers and line highlighting via [rehype-prism-plus](https://github.com/timlrx/rehype-prism-plus)
-- Math display supported via [KaTeX](https://katex.org/)
-- Automatic image optimization via [next/image](https://nextjs.org/docs/basic-features/image-optimization)
-- Flexible data retrieval with [mdx-bundler](https://github.com/kentcdodds/mdx-bundler)
-- Support for tags - each unique tag will be its own page
-- Support for multiple authors
-- Blog templates
-- Support for nested routing of blog posts
-- Supports [giscus](https://github.com/laymonage/giscus), [utterances](https://github.com/utterance/utterances) or disqus
-- Projects page
-- SEO friendly with RSS feed, sitemaps and more!
+    [Tại sao không sử dụng `--force`?](https://git-scm.com/docs/git-push#Documentation/git-push.txt---force-with-leaseltrefnamegt)
 
-## Sample posts
+    **TL;DR**
 
-- [A markdown guide](/blog/github-markdown-guide)
-- [Learn more about images in Next.js](/blog/guide-to-using-images-in-nextjs)
-- [A tour of math typesetting](/blog/deriving-ols-estimator)
-- [Simple MDX image grid](/blog/pictures-of-canada)
-- [Example of long prose](/blog/the-time-machine)
-- [Example of Nested Route Post](/blog/nested-route/introducing-multi-part-posts-with-nested-routing)
+    > `force push` sẽ overwrite remote repo với những thay đổi ở local mà không quan tâm đến những update có thể có sau khi bạn `rebase`, hành động này nguy hiểm khi 2 dev cùng làm việc trên 1 branch. <br/> > `--force-with-lease` ngược lại, đảm bảo việc không có update upstream thì mới có thể `force push`
 
-## Quick Start Guide
+    ![force-with-lease](/static/images/force-with-lease.jpg)
 
-1. JS (official support) - `npx degit https://github.com/timlrx/tailwind-nextjs-starter-blog.git` or TS (community support) - `npx degit timlrx/tailwind-nextjs-starter-blog#typescript`
-2. Personalize `siteMetadata.json` (site related information)
-3. Personalize `authors/default.md` (main author)
-4. Modify `projectsData.js`
-5. Modify `headerNavLinks.js` to customize navigation links
-6. Add blog posts
-7. Deploy on Vercel
+- **Git checkout**
 
-## Development
+  ```bash
+  $ git config --global alias.co 'checkout'
 
-First, run the development server:
+  # Eg
+  $ git co main
+  ```
+
+  Tạo `branch` mới
+
+  ```bash
+  $ git config --global alias.cob 'checkout -b'
+
+  # Eg
+  $ git cob feature-x
+  ```
+
+  > Tip: để quay lại nhánh cũ bạn có thể dùng `git co -`
+
+  Ví dụ
+
+  ```bash {3}
+  $ git branch
+  dev
+  * feature-x-y-z__ISSUE_ID
+  main
+  # The current branch is `feature-x-y-z__ISSUE_ID`
+
+  # Checkout to `dev`
+  $ git co dev
+  # Do something
+  # Commit ...
+
+  # Now to come back to `feature-x-y-z__ISSUE_ID` use
+  $ git co -
+  # Instead of
+  $ git checkout feature-x-y-z__ISSUE_ID
+  ```
+
+- **Git diff**
+
+  Kiểm tra sự thay đổi của file trước khi `commit` (mình thường dùng để remove những đoạn `debug`, `hardcode`, `console.log` ... quên chưa xóa)
+
+  ```bash
+  $ git config --global alias.d 'checkout diff'
+
+  # Eg
+  $ git d style.css
+  ```
+
+### Note
+
+Tất cả `alias` vừa tạo đều có trong file `~/.gitconfig` (MacOS). Bạn có thể mở thẳng file này và thêm/sửa/xóa bất kì `alias` nào
 
 ```bash
-npm start
-# or
-npm run dev
+$ vim ~/.gitconfig
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-## Extend / Customize
-
-`data/siteMetadata.json` - contains most of the site related information which should be modified for a user's need.
-
-`data/authors/default.md` - default author information (required). Additional authors can be added as files in `data/authors`.
-
-`data/projectsData.js` - data used to generate styled card in projects page.
-
-`data/headerNavLinks.js` - navigation links.
-
-`data/logo.svg` - replace with your own logo.
-
-`data/blog` - replace with your own blog posts.
-
-`public/static` - store assets such as images and favicons.
-
-`tailwind.config.js` and `css/tailwind.css` - contain the tailwind stylesheet which can be modified to change the overall look and feel of the site.
-
-`components/social-icons` - to add other icons, simply copy an svg file from [Simple Icons](https://simpleicons.org/) and map them in `index.js`. Other icons uses [heroicons](https://heroicons.com/).
-
-`components/MDXComponents.js` - pass your own JSX code or React component by specifying it over here. You can then call them directly in the `.mdx` or `.md` file. By default, a custom link and image component is passed.
-
-`layouts` - main templates used in pages.
-
-`pages` - pages to route to. Read the [Next.js documentation](https://nextjs.org/docs) for more information
-
-## Post
-
-### Frontmatter
-
-Frontmatter follows [Hugo's standards](https://gohugo.io/content-management/front-matter/).
-
-Currently 7 fields are supported.
-
-```
-title (required)
-date (required)
-tags (required, can be empty array)
-lastmod (optional)
-draft (optional)
-summary (optional)
-images (optional, if none provided defaults to socialBanner in siteMetadata config)
-authors (optional list which should correspond to the file names in `data/authors`. Uses `default` if none is specified)
-layout (optional list which should correspond to the file names in `data/layouts`)
+```bash
+[alias]
+  s = status --short
+  st = status
+  cm = commit -m
+  # ...
 ```
 
-Here's an example of a post's frontmatter:
+Điều kiện bắt buộc: biết sử dụng [`vim`](https://github.com/vim/vim) <Twemoji emoji="face with tears of joy" />
 
+![vim-meme](/static/images/vim-meme-exit.png)
+
+## Git workflow
+
+Workflow làm việc với `git` hằng ngày của mình (`alias` được giải thích hết ở [trên](#git-alias))
+
+```bash {5,14,26,37} showLineNumbers
+# Stash changes
+$ git stash
+
+# Update changes from upstream
+$ git prb main
+
+# Apply stash changes
+$ git sp
+
+# Resolve conflict if existed
+# Work
+
+# Check working status
+$ git s
+
+# Check file changes (if needed)
+$ git d # or git d file.ext
+
+# Stage changes
+$ git add .
+
+# Commit
+$ git cm "commit message"
+
+# Or skip stage changes if no new file created/deleted
+$ git cam "commit message"
+
+# Update changes again
+$ git prb main
+
+# If there're conflicts, resolve all then
+$ git add file.ext
+$ git rebase --continue
+
+# Force push
+$ git pf
+
+# Making pull request
 ```
----
-title: 'Introducing Tailwind Nexjs Starter Blog'
-date: '2021-01-12'
-lastmod: '2021-01-18'
-tags: ['next-js', 'tailwind', 'guide']
-draft: false
-summary: 'Looking for a performant, out of the box template, with all the best in web technology to support your blogging needs? Checkout the Tailwind Nextjs Starter Blog template.'
-images: ['/static/images/canada/mountains.jpg', '/static/images/canada/toronto.jpg']
-authors: ['default', 'sparrowhawk']
-layout: PostLayout
----
-```
 
-### Compose
+Đây là flow hoản chỉnh nhưng chỉ các dòng được `hightlight` là thường xuyên sử dụng nhất thôi nhé <Twemoji emoji="beaming face with smiling eyes" />
 
-Run `node ./scripts/compose.js` to bootstrap a new post.
+## `.gitignore` và `.gitkeep`
 
-Follow the interactive prompt to generate a post with pre-filled front matter.
+- `.gitignore`
 
-## Deploy
+  [Khái niệm](https://git-scm.com/docs/gitignore) mình không nhắc lại vì quá phổ biến rồi. Template chỉ việc lấy về xài xem ở [repo](https://github.com/github/gitignore) này
 
-**Vercel**
-The easiest way to deploy the template is to use the [Vercel Platform](https://vercel.com) from the creators of Next.js. Check out the [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+  Tip: ignore tất cả file trong 1 directory chỉ giữ lại 1 file
 
-**Netlify / Github Pages / Firebase etc.**
-As the template uses `next/image` for image optimization, additional configurations has to be made to deploy on other popular static hosting websites like [Netlify](https://www.netlify.com/) or [Github Pages](https://pages.github.com/). An alternative image optimization provider such as Imgix, Cloudinary or Akamai has to be used. Alternatively, replace the `next/image` component with a standard `<img>` tag. See [`next/image` documentation](https://nextjs.org/docs/basic-features/image-optimization) for more details.
+  ```bash {5}
+  # Ignore all file in a directory
+  homework/*
+
+  # Keep only this file
+  !homework/file-to-keep
+  ```
+
+- `.gitkeep`
+
+  Làm thế nào để đẩy 1 **folder** trống lên remote repo?
+
+  > Tạo 1 file `.gitkeep` đặt trong **folder** (trống) để đẩy **folder** đó lên remote repo
+
+  Đây không phải là 1 [feature](https://git-scm.com/search/results?search=.%20gitkeep) của `git`! Chỉ là 1 convention của 1 ông dev nào đó nghĩ ra thôi nhé <Twemoji emoji="beaming face with smiling eyes" />
+
+  **Giải thích:** bản chất là làm cho **folder** không trống nữa (đã có file bên trong) nên sẽ có thể `commit` lên **upstream**, suy ra `.gitkeep` có thể là bất kì file nào bạn nghĩ ra (có hoặc không có nội dung đều được). Chọn `.gitkeep` vì nó dễ hiểu và dễ nhớ.
+
+## Kết bài
+
+Trên đây là toàn bộ những note của mình về `git`, các bạn chia sẻ thêm use cases của mình ở dưới comment nhé!
+
+## Refs
+
+- [https://www.atlassian.com/git/tutorials/git-alias](https://www.atlassian.com/git/tutorials/git-alias)
+
+- [https://www.atlassian.com/git/tutorials/merging-vs-rebasing](https://www.atlassian.com/git/tutorials/merging-vs-rebasing)
+
+- [https://git-scm.com/docs/git-push#Documentation/git-push.txt---force-with-leaseltrefnamegt](https://git-scm.com/docs/git-push#Documentation/git-push.txt---force-with-leaseltrefnamegt)
