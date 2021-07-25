@@ -24,8 +24,8 @@ const Card = ({ title, description, imgSrc, href, repoName }) => (
         />
       )}
       <div className="p-6">
-        <div className="flex justify-between">
-          <h2 className="mb-3 text-2xl font-bold leading-8 tracking-tight">
+        <div className="flex justify-between items-center mb-3">
+          <h2 className="text-2xl font-bold leading-8 tracking-tight">
             {href ? (
               <Link href={href} aria-label={`Link to ${title}`}>
                 {title}
@@ -34,13 +34,14 @@ const Card = ({ title, description, imgSrc, href, repoName }) => (
               title
             )}
           </h2>
-          <Image
-            alt={title}
-            src={`https://img.shields.io/github/stars/hta218/${repoName}.svg?style=social&label=Star&maxAge=2592000`}
-            className="object-cover object-center"
-            width={74}
-            height={28}
-          />
+          <div className="flex-shrink-0">
+            <Image
+              alt={title}
+              src={`https://img.shields.io/github/stars/hta218/${repoName}.svg?style=social&label=Star&maxAge=2592000`}
+              width={112}
+              height={28}
+            />
+          </div>
         </div>
         <p className="mb-3 prose text-gray-500 max-w-none dark:text-gray-400">{description}</p>
         {href && (

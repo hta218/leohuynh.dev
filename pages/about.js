@@ -9,7 +9,6 @@ export async function getStaticProps() {
 }
 
 export default function About({ authorDetails }) {
-  console.log('======> authorDetails', authorDetails)
   const { mdxSource, frontMatter } = authorDetails
 
   return (

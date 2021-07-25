@@ -2,7 +2,8 @@ const siteMetadata = {
   title: "Leo's blog",
   author: 'Leo Huynh',
   headerTitle: "Leo's blog",
-  description: "Leo's coding journey",
+  description:
+    "Leo's coding journey - chuyện lập trình, công việc và cuộc sống qua bàn phím của Tuấn Anh",
   language: 'en-us',
   siteUrl: 'https://leohuynh.dev',
   siteRepo: 'https://github.com/hta218/leo-blog',
