@@ -1,6 +1,7 @@
 import Link from '@/components/Link'
 import { PageSeo } from '@/components/SEO'
 import Tag from '@/components/Tag'
+import Twemoji from '@/components/Twemoji.js'
 import siteMetadata from '@/data/siteMetadata'
 import { getAllFilesFrontMatter } from '@/lib/mdx'
 import formatDate from '@/lib/utils/formatDate'
@@ -20,10 +21,31 @@ export default function Home({ posts }) {
       <div className="divide-y divide-gray-200 dark:divide-gray-700">
         <div className="pt-6 pb-8 space-y-2 md:space-y-5">
           <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-            Latest
+            Xin chào <i className="twa twa-waving-hand"></i>
           </h1>
           <p className="text-lg leading-7 text-gray-600 dark:text-gray-400">
-            {siteMetadata.description}
+            Mình là <span className="font-medium">Tuấn Anh (Leo)</span> -{' '}
+            <span className="font-medium">Shopify Software Engineer</span> tại{' '}
+            <a
+              href="https://insights.is"
+              target="_blank"
+              className="text-primary-400 hover:text-primary-600 dark:hover:text-primary-400"
+              rel="noreferrer"
+            >
+              Insights Studio
+            </a>
+            <p className="my-4">
+              Mình sở hữu chiếc <Twemoji emoji="desktop computer" /> đầu tiên năm lớp 7 và đã dành
+              rất nhiều thời gian cho máy tính từ đó! Chỉ 4 năm sau mình đã thành thạo việc chơi
+              AOE, CS và soạn giáo án trên MS Word cho chú{' '}
+              <Twemoji emoji="face with tears of joy" />{' '}
+            </p>
+            <p className="my-4">
+              Mình làm quen và hứng thú với lập trình từ cuối năm 2016, kể từ đó đến nay mình đã làm
+              việc ở vài công ty, lớn có, nhỏ có. Mình viết blog này để note lại những kiến thức mà
+              mình học được và những điều hay ho mình trải nghiệm khi đi làm!
+            </p>
+            <p className="my-4">Happy reading!</p>
           </p>
         </div>
         <ul className="divide-y divide-gray-200 dark:divide-gray-700">
