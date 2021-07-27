@@ -23,8 +23,11 @@ import UnsplashLicense from './UnsplashLicense.js'
 - Mỗi file CSS mà **website** của bạn tải sẽ tăng thêm thời gian vào **first-paint** của page, có nghĩa là **user** sẽ phải đợi lâu hơn để nhìn thấy **content** nếu trang của bạn phải tải nhiều **CSS**
 
 <br />
+![render-blocking-css](/static/images/render-blocking-css.png)
 <br />
-<small>CSS ảnh hưởng rất nhiều đến thời gian hiển thị trang</small>
+<div style={{ textAlign: 'center' }}>
+  <small>CSS ảnh hưởng rất nhiều đến thời gian hiển thị trang</small>
+</div>
 <br />
 
 Khi bắt đầu tải trang, **browser** sẽ luôn tự động tải tất cả các file **CSS**, không quan tâm đến việc nó có **block** quá trình **render** hay không!
@@ -77,17 +80,19 @@ Giá trị của **media** bắt buộc phải là 1 [media type](https://develo
 
 Hoặc có thể hạn chế tải nhiều file **CSS** quá. Thông thường khi **code** các **dev** sẽ có xu hướng tách ra nhiều file **CSS** khác nhau theo **component**, **module**... để dễ quản lý, tuy nhiên việc **load** nhiều file **CSS** sẽ lâu hơn so với chỉ **load** 1 hoặc 2 file
 
-![inline-css](/media/inline-css.png)
+![inline-css](/static/images/inline-css.png)
 
-<small>
-  1 trong những kĩ thuật giúp <b>Gatsby site</b> tải rất nhanh chính là <b>Inline CSS</b>
-</small>
+<div style={{ textAlign: 'center', marginTop: '4px' }}>
+  <small>
+    1 trong những kĩ thuật giúp <b>Gatsby site</b> tải rất nhanh chính là <b>Inline CSS</b>
+  </small>
+</div>
 
 ## Performance API
 
 Bây giờ chúng ta hãy thử đo đạc **page rendering time** sau khi áp dụng 1 số kĩ thuật để tránh **Render Blocking CSS** với [Chrome Perfomance API](https://developer.mozilla.org/en-US/docs/Web/API/Performance) nhé
 
-Mình có viết 1 ví dụ đơn giản để các bạn có thể hiểu về **Render Blocking CSS** ở đây: https://hta218.github.io/render-blocking-css-example/
+Mình có viết 1 ví dụ đơn giản để các bạn có thể hiểu về **Render Blocking CSS** ở đây: [https://hta218.github.io/render-blocking-css-example/](https://hta218.github.io/render-blocking-css-example/)
 
 Trong ví dụ mình có load 2 file **CSS** và so sánh **page rendering time** với 2 màn hình có **device-width** lớn hơn và nhỏ hơn **800px**
 
@@ -127,19 +132,19 @@ Có nhiều [Performance metric](https://developer.mozilla.org/en-US/docs/Web/AP
 
 Với màn hình **>800px** (ví dụ cho **load** tất cả các **CSS** trước **first page render**)
 
-![css-block-render](/media/css-block-render.png)
+![css-block-render](/static/images/css-block-render.png)
 
 Chúng ta cần hơn **6 giây** cho **first paint** (sau khi tất cả **CSS load** xong) - tương đương với **user** phải đợi **6s** mới thấy nội dung của **page**
 
 Với trường hợp chỉ cần load 1 file **CSS** cho **first paint** (các file còn lại vẫn được **load** nhưng không dùng đến hoặc không cần dùng cho lần **render** đầu tiên)
 
-![css-not-block-render](/media/css-not-block-render.png)
+![css-not-block-render](/static/images/css-not-block-render.png)
 
 **User** nhìn thấy **content** sớm hơn **2 giây**, có thể thấy **page render** ngay cả khi 2 file **CSS** còn lại vẫn chưa **load** xong
 
 Kết quả đo đạc với **Performance API** được tổng hợp lại
 
-![render-result](/media/render-result.png)
+![render-result](/static/images/render-result.png)
 
 Hoặc đơn giản hơn, các bạn có thể sử dụng trực tiếp [PerformancePaintTiming API](https://developer.mozilla.org/en-US/docs/Web/API/PerformancePaintTiming)
 

@@ -31,6 +31,17 @@
   margin-top: 1em;
 }
 
+.prose.prose-lg p > code {
+  color: rgb(34, 36, 38);
+  font-weight: 500;
+  background-color: #dfdcdcc4;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-radius: 6px;
+}
+
 html {
   scroll-behavior: smooth;
 }
