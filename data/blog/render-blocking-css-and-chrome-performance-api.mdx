@@ -1,0 +1,170 @@
+---
+title: 'Tìm hiểu về Render Blocking CSS và đo page rendering time với Chrome Performance API'
+date: '2020-09-12'
+tags: ['render-blocking-resources', 'render-blocking-css', 'perfomance', 'chrome-performance-api']
+draft: false
+summary: 'Mỗi file CSS mà website của bạn tải sẽ tăng thêm thời gian vào first-paint của page, có nghĩa là user sẽ phải đợi lâu hơn để nhìn thấy content nếu trang của bạn phải tải nhiều CSS. Vậy phải làm thế nào để hạn chế được render blocking css?'
+images: ['/static/images/git-notes.jpg']
+authors: ['default']
+---
+
+import Twemoji from './Twemoji.js'
+import UnsplashLicense from './UnsplashLicense.js'
+
+<UnsplashLicense photoURL="https://unsplash.com/photos/842ofHC6MaI" author="Yancy Min" />
+![git-notes](/static/images/git-notes.jpg)
+
+**CSS** được **browser** xem là 1 trong những **render blocking resources** - những tài nguyên mà trang của bạn bắt buộc phải tải thì người dùng mới có thể nhìn thấy nội dung được
+
+## Tại sao nên tránh Render Blocking CSS
+
+- **Render blocking CSS** sẽ làm chậm việc hiển thị **website** của bạn đến người dùng
+
+- Mỗi file CSS mà **website** của bạn tải sẽ tăng thêm thời gian vào **first-paint** của page, có nghĩa là **user** sẽ phải đợi lâu hơn để nhìn thấy **content** nếu trang của bạn phải tải nhiều **CSS**
+
+<br />
+<br />
+<small>CSS ảnh hưởng rất nhiều đến thời gian hiển thị trang</small>
+<br />
+
+Khi bắt đầu tải trang, **browser** sẽ luôn tự động tải tất cả các file **CSS**, không quan tâm đến việc nó có **block** quá trình **render** hay không!
+
+Vậy phải làm thế nào để hạn chế được **render blocking css** ?
+
+## Solutions
+
+Nếu như bạn nhận thấy trang của mình có những **CSS** mà chỉ sử dụng trong 1 vài điều kiện nhất định ví dụ như **style** cho **content** bên trong 1 **modal** mà **user** phải **click** để open modal mới thấy, **content** bên trong **tab** không hiển thị đầu tiên, hoặc những style chỉ **apply** riêng cho **large monitor** hoặc **mobile devices**...
+
+Thì đây là 1 số cách có thể giúp trang của bạn tải nhanh hơn
+
+### Sử dụng media attribute
+
+Khi muốn **load css** vào **web page** của mình chúng ta sẽ sử dụng thẻ `link` như thế này
+
+```html
+<link href="style.css" rel="stylesheet" />
+<link href="print.css" rel="stylesheet" />
+<link href="style.mobile.css" rel="stylesheet" />
+```
+
+**Browser** sau khi load xong **HTML** sẽ tải thêm 3 file **CSS** này nữa và chỉ hiển thị nội dung sau khi đã tải xong tất cả
+
+Tuy nhiên `print.css` chỉ dùng khi in **document** (**Ctrl/Cmd + P**) và `style.mobile.css` là những **style** chỉ **apply** trên **mobile** mà thôi
+
+Trong trường hợp này chúng ta có thể sử dụng [media attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#attr-media)
+
+```html
+<link href="style.css" rel="stylesheet" />
+<link href="print.css" media="print" rel="stylesheet" />
+<link href="style.mobile.css" media="(max-width: 568px)" rel="stylesheet" />
+```
+
+Lúc này **browser** sẽ hiểu rằng chỉ cần tải xong file **style.css** là ngay lập tức có thể hiển thị nội dung trang cho người dùng mà không cần biết 2 file còn lại đã tải xong hay chưa
+
+Đối với **link** sử dụng **media attribute**:
+
+- `media="print"`: những **style** trong file này sẽ chỉ **apply** khi in **document**, không cần cho **render** nên sẽ không **block** lần **render** đầu tiên khi tải trang
+
+- `media="(max-width: 568px)"`: những **style** này chỉ **apply** trên những **device** với `max-witdh = 568px` và cũng không **block** lần **render** đầu tiên khi tải trang trên **desktop/tablet device**
+
+Sử dụng **media attribute** chúng ta có thể điều chỉnh việc hiển thị trang theo các trường hợp cụ thể như: sau khi đã render xong, điều chỉnh kích thước màn hình, thay đổi hướng thiết bị (ngang/dọc)...
+
+Giá trị của **media** bắt buộc phải là 1 [media type](https://developer.mozilla.org/en-US/docs/Web/CSS/@media#Description) hoặc [media query](https://developer.mozilla.org/en-US/docs/Web/CSS/Media_queries), rất hữu ích khi cần **load** các **external stylesheets** - nó hỗ trợ **browser** lựa chọn được những **CSS** cần thiết nhất cho lần **render** đầu tiên
+
+### Combine css or inline css
+
+1 cách khá hiệu quả là các bạn có thể để trực tiếp **CSS** vào trong 1 thẻ `style` trên **header** của **document** nếu **CSS** không quá to, cách này cải thiện **performance** rất tốt khi chỉ cần **DOM** load xong là có thể hiển thị ngay được rồi
+
+Hoặc có thể hạn chế tải nhiều file **CSS** quá. Thông thường khi **code** các **dev** sẽ có xu hướng tách ra nhiều file **CSS** khác nhau theo **component**, **module**... để dễ quản lý, tuy nhiên việc **load** nhiều file **CSS** sẽ lâu hơn so với chỉ **load** 1 hoặc 2 file
+
+![inline-css](/media/inline-css.png)
+
+<small>
+  1 trong những kĩ thuật giúp <b>Gatsby site</b> tải rất nhanh chính là <b>Inline CSS</b>
+</small>
+
+## Performance API
+
+Bây giờ chúng ta hãy thử đo đạc **page rendering time** sau khi áp dụng 1 số kĩ thuật để tránh **Render Blocking CSS** với [Chrome Perfomance API](https://developer.mozilla.org/en-US/docs/Web/API/Performance) nhé
+
+Mình có viết 1 ví dụ đơn giản để các bạn có thể hiểu về **Render Blocking CSS** ở đây: https://hta218.github.io/render-blocking-css-example/
+
+Trong ví dụ mình có load 2 file **CSS** và so sánh **page rendering time** với 2 màn hình có **device-width** lớn hơn và nhỏ hơn **800px**
+
+```html
+<link rel="stylesheet" href="tailwind.css" media="(min-width: 800px)" />
+<link rel="stylesheet" href="bootstrap.css" media="(min-width: 800px)" />
+```
+
+Để sử dụng **Performance API** thì cần chú ý kiểm tra kĩ **browser compatibility**
+
+```javascript
+if ('PerformanceObserver' in window) {
+  try {
+    // Create PerformanceObserver instance
+    const perfObsever = new PerformanceObserver((perf) => {
+      const perfEntries = perf.getEntriesByType('paint')
+      perfEntries.forEach(({ name, startTime }) => {
+        // Get the result inside this callback
+        console.log(`The time to ${name} was ${startTime} milliseconds.`)
+      })
+    })
+
+    // observe "paint" event
+    perfObsever.observe({ entryTypes: ['paint'] })
+  } catch (err) {
+    console.error(err)
+  }
+} else {
+  // Remember to check the browser compatibility before using this API
+  console.log("Performance API isn't supported!")
+}
+```
+
+Có nhiều [Performance metric](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceEntry) khác nhau, trong trường hợp này mình sử dụng [PerformancePaintTiming](https://developer.mozilla.org/en-US/docs/Web/API/PerformancePaintTiming)
+
+Để thấy rõ hơn kết quả các bạn có thể mở **chrome devtool** lên, **throttle internet** và **CPU speed** cho giống với điều kiện ở máy **user** hơn nhé
+
+Với màn hình **>800px** (ví dụ cho **load** tất cả các **CSS** trước **first page render**)
+
+![css-block-render](/media/css-block-render.png)
+
+Chúng ta cần hơn **6 giây** cho **first paint** (sau khi tất cả **CSS load** xong) - tương đương với **user** phải đợi **6s** mới thấy nội dung của **page**
+
+Với trường hợp chỉ cần load 1 file **CSS** cho **first paint** (các file còn lại vẫn được **load** nhưng không dùng đến hoặc không cần dùng cho lần **render** đầu tiên)
+
+![css-not-block-render](/media/css-not-block-render.png)
+
+**User** nhìn thấy **content** sớm hơn **2 giây**, có thể thấy **page render** ngay cả khi 2 file **CSS** còn lại vẫn chưa **load** xong
+
+Kết quả đo đạc với **Performance API** được tổng hợp lại
+
+![render-result](/media/render-result.png)
+
+Hoặc đơn giản hơn, các bạn có thể sử dụng trực tiếp [PerformancePaintTiming API](https://developer.mozilla.org/en-US/docs/Web/API/PerformancePaintTiming)
+
+```javascript
+if (window.performance) {
+	const performance = window.performance;
+	const perfEntries = performance.getEntriesByType('paint');
+
+	perfEntries.forEach({ name, startTime } => {
+		console.log(`The time to ${name} was ${startTime} milliseconds.`);
+	});
+} else {
+	console.log("Performance timing isn't supported.");
+}
+```
+
+## Kết bài
+
+Có thể thấy sự khác biệt rõ rệt với **page rendering time**, ảnh hưởng trực tiếp đến **user's experience** khi **webpage** phải tải quá nhiều **CSS** không cần thiết, vì vậy chúng ta cần phải rất chú ý đến **resource** này.
+
+Có nhiều biện pháp để tránh **Render Blocking CSS** như: sử dụng **media type** hoặc **media query**, **combine CSS**, **inline CSS**, những thay đổi này tuy nhỏ nhưng ảnh hưởng rất tốt đến **perfomance**
+
+## Tham khảo
+
+- [Eliminate render-blocking resources](https://web.dev/render-blocking-resources/)
+- [Render Blocking CSS](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/render-blocking-css)
+- [https://varvy.com/pagespeed/render-blocking-css.html](https://varvy.com/pagespeed/render-blocking-css.html)
+- [Chrome Performance API](https://developer.mozilla.org/en-US/docs/Web/API/Performance), [PerformanceObserver](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceObserver/PerformanceObserver), [PerformancePaintTiming](https://developer.mozilla.org/en-US/docs/Web/API/PerformancePaintTiming)
