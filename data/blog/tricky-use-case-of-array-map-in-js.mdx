@@ -8,9 +8,11 @@ images: ['/static/images/git-notes.jpg']
 authors: ['default']
 ---
 
-![git-notes](/static/images/jenga-boy.jpg)
+import Twemoji from './Twemoji.js'
+import UnsplashLicense from './UnsplashLicense.js'
 
-<p className="text-right">hehe</p>
+<UnsplashLicense photoURL="https://unsplash.com/photos/geNNFqfvw48" author="Michał Parzuchowski" />
+![git-notes](/static/images/jenga-boy.jpg)
 
 If you are familiar with [functional programming](https://en.wikipedia.org/wiki/Functional_programming), **Array.prototype.map** must be a **function** that you work with every day.
 
@@ -56,7 +58,7 @@ console.log(names) // => ["Leo", "Paul", "Jesse", "Ken"]
 
 - Rendering list in React application
 
-```jsx
+```js
 import React from 'react'
 
 export default DeveloperProfiles = ({ devs }) => {
@@ -95,7 +97,7 @@ const idsInNumber = ids.map(parseInt)
 console.log(idsInNumber) // => ???
 ```
 
-You might expect the result is `[1, 2, 3, 4]`, but the actual result is `[1, NaN, NaN, NaN]` 😮😮
+You might expect the result is `[1, 2, 3, 4]`, but the actual result is `[1, NaN, NaN, NaN]` <Twemoji emoji="astonished-face" />
 
 We encountered this problem at [Cốc Cốc](https://coccoc.com/) recently, it took me a while to figure out, and here's the answer...
 
@@ -166,7 +168,7 @@ function returnInt(element) {
 // => [1, 2, 3, 4]
 ```
 
-And that's what I know about **Array.prototype.map** function, feel free to share your use case in the comment section 👇
+And that's what I know about **Array.prototype.map** function, feel free to share your use cases in the comment section <Twemoji emoji="backhand-index-pointing-down" />
 
 Happy coding!
 

@@ -8,9 +8,11 @@ images: ['/static/images/git-notes.jpg']
 authors: ['default']
 ---
 
-![git-notes](/static/images/git-notes.jpg)
-
 import Twemoji from './Twemoji.js'
+import UnsplashLicense from './UnsplashLicense.js'
+
+<UnsplashLicense photoURL="https://unsplash.com/photos/842ofHC6MaI" author="Yancy Min" />
+![git-notes](/static/images/git-notes.jpg)
 
 Post này dành cho anh em thích làm việc với `git` qua `command-line` giống mình nhé <Twemoji emoji="beaming face with smiling eyes" />
 
@@ -163,7 +165,7 @@ Mình `alias` hầu hết các `command` mà mình thường xuyên làm việc
 
     **TL;DR**
 
-    > `force push` sẽ overwrite remote repo với những thay đổi ở local mà không quan tâm đến những update có thể có sau khi bạn `rebase`, hành động này nguy hiểm khi 2 dev cùng làm việc trên 1 branch. <br/> > `--force-with-lease` ngược lại, đảm bảo việc không có update upstream thì mới có thể `force push`
+    > `force push` sẽ overwrite remote repo với những thay đổi ở local mà không quan tâm đến những update có thể có sau khi bạn `rebase`, hành động này nguy hiểm khi 2 dev cùng làm việc trên 1 branch. <br/> `--force-with-lease` ngược lại, đảm bảo việc không có update upstream thì mới có thể `force push`
 
     ![force-with-lease](/static/images/force-with-lease.jpg)
 
@@ -212,7 +214,7 @@ Mình `alias` hầu hết các `command` mà mình thường xuyên làm việc
   Kiểm tra sự thay đổi của file trước khi `commit` (mình thường dùng để remove những đoạn `debug`, `hardcode`, `console.log` ... quên chưa xóa)
 
   ```bash
-  $ git config --global alias.d 'checkout diff'
+  $ git config --global alias.d 'diff'
 
   # Eg
   $ git d style.css
