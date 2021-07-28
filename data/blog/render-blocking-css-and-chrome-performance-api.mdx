@@ -4,15 +4,15 @@ date: '2020-09-12'
 tags: ['render-blocking-resources', 'render-blocking-css', 'perfomance', 'chrome-performance-api']
 draft: false
 summary: 'Mỗi file CSS mà website của bạn tải sẽ tăng thêm thời gian vào first-paint của page, có nghĩa là user sẽ phải đợi lâu hơn để nhìn thấy content nếu trang của bạn phải tải nhiều CSS. Vậy phải làm thế nào để hạn chế được render blocking css?'
-images: ['/static/images/git-notes.jpg']
+images: ['/static/images/performance.jpg']
 authors: ['default']
 ---
 
 import Twemoji from './Twemoji.js'
 import UnsplashLicense from './UnsplashLicense.js'
 
-<UnsplashLicense photoURL="https://unsplash.com/photos/842ofHC6MaI" author="Yancy Min" />
-![git-notes](/static/images/git-notes.jpg)
+<UnsplashLicense photoURL="https://unsplash.com/photos/JKUTrJ4vK00" author="Luke Chesser" />
+![git-notes](/static/images/performance.jpg)
 
 **CSS** được **browser** xem là 1 trong những **render blocking resources** - những tài nguyên mà trang của bạn bắt buộc phải tải thì người dùng mới có thể nhìn thấy nội dung được
 
@@ -167,7 +167,7 @@ Có thể thấy sự khác biệt rõ rệt với **page rendering time**, ản
 
 Có nhiều biện pháp để tránh **Render Blocking CSS** như: sử dụng **media type** hoặc **media query**, **combine CSS**, **inline CSS**, những thay đổi này tuy nhỏ nhưng ảnh hưởng rất tốt đến **perfomance**
 
-## Tham khảo
+## Refs
 
 - [Eliminate render-blocking resources](https://web.dev/render-blocking-resources/)
 - [Render Blocking CSS](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/render-blocking-css)

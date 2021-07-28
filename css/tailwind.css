@@ -31,14 +31,19 @@
   margin-top: 1em;
 }
 
-.prose.prose-lg p > code {
+.prose-lg li {
+  word-break: break-all;
+}
+
+.prose.prose-lg code:not([class*='language']) {
+  display: inline-block;
   color: rgb(34, 36, 38);
   font-weight: 500;
   background-color: #dfdcdcc4;
   padding-left: 8px;
   padding-right: 8px;
-  padding-top: 4px;
-  padding-bottom: 4px;
+  padding-top: 0;
+  padding-bottom: 0;
   border-radius: 6px;
 }
 

@@ -2,7 +2,7 @@ const projectsData = [
   {
     title: 'Shopify theme starter',
     description: `Starter kit to build a Shopify Theme from scratch includes Webpack 5 and Tailwind CSS 2`,
-    imgSrc: '/static/images/shopify-image.jpg',
+    imgSrc: '/static/images/shopify.jpg',
     href: 'https://github.com/hta218/shopify-theme-starter',
     repoName: 'shopify-theme-starter',
   },
