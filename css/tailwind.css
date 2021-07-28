@@ -31,8 +31,19 @@
   margin-top: 1em;
 }
 
-.prose-lg li {
-  word-break: break-all;
+@media (max-width: 768px) {
+  .prose-lg li {
+    word-break: break-all;
+  }
+}
+
+.prose-lg blockquote {
+  background: #ebebeb;
+  color: #3d3b3b;
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  padding-right: 8px;
+  border-left-color: #6f6868;
 }
 
 .prose.prose-lg code:not([class*='language']) {

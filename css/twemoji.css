@@ -84,6 +84,10 @@ licensed under MIT: https://ellekasai.mit-license.org/
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f602.svg');
 }
 
+.twa-smiling-face-with-sunglasses {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f60e.svg');
+}
+
 .twa-waving-hand {
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f44b.svg');
 }
@@ -106,4 +110,16 @@ licensed under MIT: https://ellekasai.mit-license.org/
 
 .twa-backhand-index-pointing-down {
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f447.svg');
+}
+
+.twa-keycap-1 {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/31-20e3.svg');
+}
+
+.twa-keycap-2 {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/32-20e3.svg');
+}
+
+.twa-clapping-hands {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f44f.svg');
 }
