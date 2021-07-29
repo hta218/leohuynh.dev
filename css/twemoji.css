@@ -116,6 +116,10 @@ licensed under MIT: https://ellekasai.mit-license.org/
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f5a5.svg');
 }
 
+.twa-laptop {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f4bb.svg');
+}
+
 .twa-party-popper {
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f389.svg');
 }
@@ -126,6 +130,10 @@ licensed under MIT: https://ellekasai.mit-license.org/
 
 .twa-astonished-face {
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f632.svg');
+}
+
+.twa-smiling-face-with-tear {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f972.svg');
 }
 
 .twa-backhand-index-pointing-down {
@@ -142,6 +150,10 @@ licensed under MIT: https://ellekasai.mit-license.org/
 
 .twa-clapping-hands {
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f44f.svg');
+}
+
+.twa-folded-hands {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f64f.svg');
 }
 
 .twa-glowing-star {
@@ -178,4 +190,40 @@ licensed under MIT: https://ellekasai.mit-license.org/
 
 .twa-chart-increasing {
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f4c8.svg');
+}
+
+.twa-rocket {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f680.svg');
+}
+
+.twa-man-getting-massage {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f486-200d-2642-fe0f.svg');
+}
+
+.twa-delivery-truck {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f69a.svg');
+}
+
+.twa-man-construction-worker-medium-light-skin-tone {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f477-1f3fc-200d-2642-fe0f.svg');
+}
+
+.twa-see-no-evil-monkey {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f648.svg');
+}
+
+.twa-hear-no-evil-monkey {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f649.svg');
+}
+
+.twa-man-swimming {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f3ca-200d-2642-fe0f.svg');
+}
+
+.twa-house {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f3e0.svg');
+}
+
+.twa-magnifying-glass-tilted-right {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f50e.svg');
 }
