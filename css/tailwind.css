@@ -83,3 +83,8 @@ html {
 .prose-lg > ul > li > *:first-child {
   margin-top: 0;
 }
+
+.prose-lg hr {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
