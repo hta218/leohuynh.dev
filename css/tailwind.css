@@ -32,7 +32,7 @@
 }
 
 @media (max-width: 768px) {
-  .prose-lg li {
+  #refs ~ ul > li {
     word-break: break-all;
   }
 }
@@ -44,6 +44,11 @@
   border-bottom: 1px solid transparent;
   padding-right: 8px;
   border-left-color: #6f6868;
+}
+
+.dark .dark\:prose-dark blockquote {
+  background: #656565;
+  border-left-color: #b7abab !important;
 }
 
 .prose.prose-lg code:not([class*='language']) {
@@ -60,4 +65,21 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+.prose > ul > li:last-child {
+  margin-bottom: 1.25em;
+}
+.prose > ul > li:first-child {
+  margin-top: 1.25em;
+}
+
+.prose > ul > li > *:last-child,
+.prose-lg > ul > li > *:last-child {
+  margin-bottom: 0;
+}
+
+.prose > ul > li > *:first-child,
+.prose-lg > ul > li > *:first-child {
+  margin-top: 0;
 }

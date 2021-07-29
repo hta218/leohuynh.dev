@@ -64,6 +64,14 @@ licensed under MIT: https://ellekasai.mit-license.org/
 
 /* End preamble; begin emoji classes */
 
+.twa-loudly-crying-face {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f62d.svg');
+}
+
+.twa-face-with-steam-from-nose {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f624.svg');
+}
+
 .twa-beaming-face-with-smiling-eyes {
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f601.svg');
 }
@@ -122,4 +130,8 @@ licensed under MIT: https://ellekasai.mit-license.org/
 
 .twa-clapping-hands {
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f44f.svg');
+}
+
+.twa-glowing-star {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f31f.svg');
 }
