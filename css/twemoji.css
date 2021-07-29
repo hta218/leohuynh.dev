@@ -64,6 +64,10 @@ licensed under MIT: https://ellekasai.mit-license.org/
 
 /* End preamble; begin emoji classes */
 
+.twa-grinning-squinting-face {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f606.svg');
+}
+
 .twa-loudly-crying-face {
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f62d.svg');
 }
@@ -156,6 +160,22 @@ licensed under MIT: https://ellekasai.mit-license.org/
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f44e.svg');
 }
 
+.twa-clapping-hands {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f44f.svg');
+}
+
 .twa-star {
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/2b50.svg');
+}
+
+.twa-pig-face {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f437.svg');
+}
+
+.twa-baby {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f476.svg');
+}
+
+.twa-chart-increasing {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f4c8.svg');
 }
