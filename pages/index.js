@@ -67,7 +67,7 @@ export default function Home({ posts }) {
                     <div className="space-y-5 xl:col-span-3">
                       <div className="space-y-6">
                         <div>
-                          <h2 className="text-3xl font-semibold mb-1 tracking-tight">
+                          <h2 className="text-3xl font-bold mb-1 tracking-tight">
                             <Link
                               href={`/blog/${slug}`}
                               className="text-gray-900 dark:text-gray-100"
