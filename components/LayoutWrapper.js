@@ -11,8 +11,8 @@ import NextImage from 'next/image'
 const LayoutWrapper = ({ children }) => {
   return (
     <SectionContainer>
-      <div className="flex flex-col justify-between h-screen">
-        <header className="flex items-center justify-between py-10">
+      <div className="flex flex-col justify-between">
+        <header className="flex items-center justify-between py-5 md:py-10 sticky top-0 z-10 bg-white dark:bg-gray-900">
           <div>
             <Link href="/" aria-label="Leo's Blog">
               <div className="flex items-center justify-between">
