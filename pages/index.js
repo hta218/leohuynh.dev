@@ -36,12 +36,12 @@ export default function Home({ posts }) {
             </a>
             <p className="my-4">
               Mình sở hữu chiếc <Twemoji emoji="desktop computer" /> đầu tiên năm lớp 7 và đã dành
-              rất nhiều thời gian cho máy tính từ đó! Chỉ 4 năm sau mình đã thành thạo việc chơi
-              AOE, CS và soạn giáo án trên MS Word cho chú{' '}
+              rất nhiều thời gian cho máy tính kể từ đó! Chỉ vài năm sau mình đã thành thạo việc
+              chơi AOE, CS và soạn giáo án trên MS Word cho chú{' '}
               <Twemoji emoji="face with tears of joy" />
             </p>
             <p className="my-4">
-              Mình làm quen và hứng thú với lập trình từ cuối năm 2016, kể từ đó đến nay mình đã làm
+              Mình làm quen và hứng thú với lập trình từ cuối năm 2016, từ đó đến nay mình đã làm
               việc ở vài công ty, lớn có, nhỏ có. Blog này là nơi note lại những kiến thức mà mình
               học được và những điều hay ho mình trải nghiệm khi đi làm!
             </p>

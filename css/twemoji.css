@@ -88,6 +88,10 @@ licensed under MIT: https://ellekasai.mit-license.org/
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f440.svg');
 }
 
+.twa-check-mark-button {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/2705.svg');
+}
+
 .twa-warning {
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/26a0.svg');
 }
@@ -222,6 +226,10 @@ licensed under MIT: https://ellekasai.mit-license.org/
 
 .twa-house {
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f3e0.svg');
+}
+
+.twa-money-with-wings {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f4b8.svg');
 }
 
 .twa-magnifying-glass-tilted-right {
