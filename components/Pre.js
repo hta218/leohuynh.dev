@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react'
 
 const Pre = (props) => {
+  // TODO: remove $ on copy
   const textInput = useRef(null)
   const [hovered, setHovered] = useState(false)
   const [copied, setCopied] = useState(false)

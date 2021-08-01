@@ -23,11 +23,11 @@ const Giscus = ({ mapping }) => {
     script.setAttribute('data-repo-id', siteMetadata.comment.giscusConfig.repositoryId)
     script.setAttribute('data-category', siteMetadata.comment.giscusConfig.category)
     script.setAttribute('data-category-id', siteMetadata.comment.giscusConfig.categoryId)
-    script.setAttribute('data-mapping', mapping)
+    script.setAttribute('data-mapping', 'title')
     script.setAttribute('data-reactions-enabled', siteMetadata.comment.giscusConfig.reactions)
     script.setAttribute('data-emit-metadata', siteMetadata.comment.giscusConfig.metadata)
     script.setAttribute('data-theme', commentsTheme)
-    script.setAttribute('crossorigin', 'anonymous')
+    script.setAttribute('crossOrigin', 'anonymous')
     script.async = true
 
     const comments = document.getElementById(COMMENTS_ID)

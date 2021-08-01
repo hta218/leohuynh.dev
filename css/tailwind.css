@@ -63,6 +63,13 @@
   border-radius: 6px;
 }
 
+code,
+kbd,
+pre,
+samp {
+  font-family: 'JetBrains Mono', monospace;
+}
+
 html {
   scroll-behavior: smooth;
 }
