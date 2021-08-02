@@ -154,6 +154,23 @@ Mình `alias` hầu hết các `command` mà mình thường xuyên làm việc
 
   - Nếu có conflict sau khi **rebase** ?
 
+    - List toàn bộ các file conflict với `git diff` và alias `command` này
+
+      ```bash
+      $ git config --global alias.cf 'diff --name-only --diff-filter=U'
+      ```
+
+      ```bash
+      # Now to list all conflict files use
+      $ git cf
+
+      # Reolve all conflict then stage changes
+      $ git add .
+
+      # Finish rebase with
+      $ git rebase --continue
+      ```
+
   - `force push`
 
     Vì sử dụng `pull rebase` nên sau khi resolve hết **conflict** (nếu có) thì chúng ta cần `force push` để đẩy thay đổi lên remote repo
