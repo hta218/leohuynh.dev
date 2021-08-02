@@ -91,7 +91,7 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                 </ul>
                 <div className="mt-4">
                   <Twemoji emoji="hourglass-not-done" />
-                  <span className="ml-1">{readingTimeText}</span>
+                  <span className="ml-1">{readingTimeText.replace('min', 'mins')}</span>
                 </div>
               </dd>
             </dl>
