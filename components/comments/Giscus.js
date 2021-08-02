@@ -42,7 +42,7 @@ const Giscus = ({ mapping }) => {
 
   useEffect(() => {
     LoadComments()
-  }, [])
+  }, [theme])
 
   return (
     <div className="pt-6 pb-6 text-center text-gray-700 dark:text-gray-300">
