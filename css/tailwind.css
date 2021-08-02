@@ -63,6 +63,10 @@
   border-radius: 6px;
 }
 
+.prose pre code {
+  font-weight: 500 !important;
+}
+
 code,
 kbd,
 pre,
