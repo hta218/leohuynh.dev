@@ -14,7 +14,7 @@ const discussUrl = (slug) =>
     `${siteMetadata.siteUrl}/blog/${slug}`
   )}`
 
-const postDateTemplate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+const postDateTemplate = { year: 'numeric', month: 'short', day: 'numeric' }
 
 export default function PostLayout({ frontMatter, authorDetails, next, prev, children }) {
   const {
@@ -36,14 +36,22 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
       <article>
         <div className="xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700">
           <header className="pt-6 xl:pb-6">
-            <div className="space-y-1 text-center">
+            <div className="space-y-4 md:space-y-2 text-center">
               <dl className="space-y-10">
                 <div>
                   <dt className="sr-only">Published on</dt>
-                  <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                    <time dateTime={date}>
-                      {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)}
+                  <dd className="flex justify-center items-center text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
+                    <time dateTime={date} className="flex items-center">
+                      <Twemoji emoji="calendar" size="" />
+                      <span className="ml-1">
+                        {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)}
+                      </span>
                     </time>
+                    <span className="mx-2">-</span>
+                    <div className="flex items-center">
+                      <Twemoji emoji="hourglass-not-done" size="" />
+                      <span className="ml-1">{readingTimeText.replace('min', 'mins')}</span>
+                    </div>
                   </dd>
                 </div>
               </dl>
@@ -56,7 +64,7 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
             className="pb-8 divide-y divide-gray-200 xl:divide-y-0 dark:divide-gray-700 xl:grid xl:grid-cols-4 xl:gap-x-6"
             style={{ gridTemplateRows: 'auto 1fr' }}
           >
-            <dl className="pt-6 pb-6 xl:pt-11 xl:border-b xl:border-gray-200 xl:dark:border-gray-700">
+            <dl className="pt-6 pb-10 xl:pt-11 xl:border-b xl:border-gray-200 xl:dark:border-gray-700">
               <dt className="sr-only">Authors</dt>
               <dd>
                 <ul className="flex justify-center space-x-8 xl:block sm:space-x-12 xl:space-x-0 xl:space-y-8">
@@ -76,23 +84,21 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                         <dd className="text-gray-900 dark:text-gray-100">{author.name}</dd>
                         <dt className="sr-only">Twitter</dt>
                         <dd>
-                          {author.twitter && (
-                            <Link
-                              href={author.twitter}
-                              className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                            >
-                              {author.twitter.replace('https://twitter.com/', '@')}
-                            </Link>
+                          {author.github && (
+                            <>
+                              <Link
+                                href={author.github}
+                                className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+                              >
+                                {author.github.replace('https://github.com/', '@')}
+                              </Link>
+                            </>
                           )}
                         </dd>
                       </dl>
                     </li>
                   ))}
                 </ul>
-                <div className="mt-4">
-                  <Twemoji emoji="hourglass-not-done" />
-                  <span className="ml-1">{readingTimeText.replace('min', 'mins')}</span>
-                </div>
               </dd>
             </dl>
             <div className="divide-y divide-gray-200 dark:divide-gray-700 xl:pb-0 xl:col-span-3 xl:row-span-2">
