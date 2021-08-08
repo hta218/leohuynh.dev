@@ -5,6 +5,7 @@ import { PageSeo } from '@/components/SEO'
 export default function AuthorLayout({ children, frontMatter }) {
   const {
     name,
+    title,
     avatar,
     occupation,
     company,
@@ -17,11 +18,11 @@ export default function AuthorLayout({ children, frontMatter }) {
 
   return (
     <>
-      <PageSeo title={`My resume - ${name}`} description={`My resume - ${name}`} />
+      <PageSeo title={`Resume - ${name} - ${title}`} description={`Resume - ${name} - ${title}`} />
       <div className="divide-y">
         <div className="pt-6 pb-8 space-y-2 md:space-y-5">
           <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-            My resume
+            Resume
           </h1>
         </div>
         <div className="items-start space-y-2 xl:grid xl:grid-cols-3 xl:gap-x-8 xl:space-y-0">
