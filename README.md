@@ -1,4 +1,4 @@
-#  My 🏡 on the ☁️ [https://leohuynh.dev](https://leohuynh.dev)
+#  This is the legacy version of my bog [https://leo-blog-legacy.vercel.app/](https://leo-blog-legacy.vercel.app/)
 
 ## First thing first
 I don't create this from scratch, this blog built with [Gatsby](https://www.gatsbyjs.org/), using [Gatsby Starter Lumen](https://github.com/alxshelepenok/gatsby-starter-lumen). I've added many things to personalize it.
