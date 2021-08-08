@@ -99,3 +99,7 @@ html {
   margin-top: 2em;
   margin-bottom: 2em;
 }
+
+* {
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
