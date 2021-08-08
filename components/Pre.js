@@ -71,12 +71,14 @@ const Pre = (props) => {
               )}
             </svg>
           </button>
-          <span
-            className={`absolute z-10 top-2 right-14 bg-gray-300 rounded-md px-1.5 copy-text text-gray-800`}
-          >
-            {copied ? 'copied' : 'copy'}
-          </span>
-          <span className="absolute w-3 h-3 transform rotate-45 bg-gray-300 top-[18px] right-[50px]"></span>
+          {copied ? (
+            <>
+              <span className="text-base absolute z-10 top-2.5 right-12 bg-gray-300 rounded-md px-1.5 py-0.5 copy-text text-gray-800">
+                Copied
+              </span>
+              <span className="absolute w-2 h-2 transform rotate-45 bg-gray-300 top-5 right-11"></span>
+            </>
+          ) : null}
         </>
       )}
 
