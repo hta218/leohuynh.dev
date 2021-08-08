@@ -15,9 +15,9 @@ const Pre = (props) => {
   }
   const onCopy = () => {
     setCopied(true)
-    let { textContent } = textInput.current
-    textContent = textContent.replace(/(\$ |copy)/g, ' ')
-    navigator.clipboard.writeText(textContent)
+    let { innerText } = textInput.current
+    innerText = innerText.replace(/(\$ |copy)/g, ' ')
+    navigator.clipboard.writeText(innerText)
     setTimeout(() => {
       setCopied(false)
     }, 2000)
