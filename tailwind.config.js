@@ -5,6 +5,7 @@ module.exports = {
   mode: 'jit',
   purge: [
     './pages/**/*.js',
+    './data/blog/*.mdx',
     './components/**/*.js',
     './layouts/**/*.js',
     './lib/**/*.js',

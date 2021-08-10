@@ -95,6 +95,10 @@ html {
   margin-top: 0;
 }
 
+.prose ol li:before {
+  background-color: transparent !important;
+}
+
 .prose-lg hr {
   margin-top: 2em;
   margin-bottom: 2em;
