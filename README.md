@@ -4,10 +4,11 @@
 
 > Sharing is learning!
 
-Here's where I share the technical knowledge that I have learned, find it useful and necessary to save for later.
-In addition, there are experiences in work and life from the perspective of a software engineer.
+I believe noting down and sharing is the best way to learn! So I created this blog, where I keep things that I learned, find useful, and necessary to save for later.
 
-It would be highly appreciated if I could hear your thoughts on what I wrote
+More than just technical stuff, there are personal thoughts about work and life from the perspective of a software engineer.
+
+It would be highly appreciated if I could read your comment on what I wrote
 
 ## Tech stack
 
@@ -23,4 +24,4 @@ All images in this blog are from [Unsplash](https://unsplash.com/), [imgur](http
 
 ---
 
-Copyright (c) 2021 Tuan Anh Huynh (Leo) - alrights reserved.
+Copyright (c) 2021 Tuan Anh Huynh (Leo) - Alrights reserved.
