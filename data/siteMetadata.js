@@ -6,7 +6,7 @@ const siteMetadata = {
   description:
     "Leo's coding journey - chuyện lập trình, công việc và cuộc sống qua bàn phím của Tuấn Anh",
   language: 'en-us',
-  siteUrl: 'https://leohuynh.dev',
+  siteUrl: 'https://www.leohuynh.dev',
   siteRepo: 'https://github.com/hta218/leo-blog',
   siteLogo: '/static/images/logo.jpg',
   image: '/static/images/logo.jpg',
