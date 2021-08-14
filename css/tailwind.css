@@ -78,6 +78,11 @@ html {
   scroll-behavior: smooth;
 }
 
+html.prevent-scroll {
+  overflow-y: hidden;
+  margin-left: calc(100vw - 100%);
+}
+
 .prose > ul > li:last-child {
   margin-bottom: 1.25em;
 }
