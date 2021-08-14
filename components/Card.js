@@ -9,6 +9,7 @@ const Card = ({ title, description, imgSrc, href, repoName }) => (
           <Image
             alt={title}
             src={imgSrc}
+            shouldOpenLightbox={false}
             className="object-cover object-center lg:h-48 md:h-36"
             width={544}
             height={306}
@@ -18,6 +19,7 @@ const Card = ({ title, description, imgSrc, href, repoName }) => (
         <Image
           alt={title}
           src={imgSrc}
+          shouldOpenLightbox={false}
           className="object-cover object-center lg:h-48 md:h-36"
           width={544}
           height={306}
