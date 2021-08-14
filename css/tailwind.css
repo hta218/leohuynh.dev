@@ -78,6 +78,9 @@ html {
   scroll-behavior: smooth;
   margin-left: calc(100vw - 100%);
 }
+.lightbox-overlay {
+  margin-left: calc(100vw - 100%);
+}
 
 html.prevent-scroll {
   overflow-y: hidden;

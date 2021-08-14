@@ -36,7 +36,7 @@ const ImageLightbox = ({ src, closeLightbox }) => {
 
   return (
     <div
-      className="fixed inset-0 bg-black z-50 flex items-center justify-center transition-opacity duration-300 ease-out"
+      className="lightbox-overlay fixed inset-0 bg-black z-50 flex items-center justify-center transition-opacity duration-300 ease-out"
       style={{
         '--tw-bg-opacity': theme === 'dark' ? 0.7 : 0.8,
         opacity: !close && imgLoaded ? 1 : 0,
