@@ -10,24 +10,17 @@ const Image = ({ ...rest }) => {
       'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNcvWS1LgAGJQIpt50GkgAAAABJRU5ErkJggg==',
   }
   if (rest.src === '/static/images/logo.jpg') blurData = {}
-
   const [openLightbox, setOpenLightbox] = useState(false)
-
-  const openImageLightbox = () => {
-    setOpenLightbox(true)
-  }
-
-  const nextImage = <NextImage {...rest} {...blurData} />
   return (
     <>
       <div
         className="flex justify-center cursor-[zoom-in]"
-        onClick={openImageLightbox}
+        onClick={() => setOpenLightbox(true)}
         role="button"
-        onKeyDown={openImageLightbox}
+        onKeyDown={() => setOpenLightbox(true)}
         tabIndex={0}
       >
-        {nextImage}
+        <NextImage {...rest} {...blurData} />
       </div>
       {openLightbox ? (
         <ImageLightbox closeLightbox={() => setOpenLightbox(false)} src={rest.src} />
