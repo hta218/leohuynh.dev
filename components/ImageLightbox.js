@@ -6,11 +6,12 @@ const ImageLightbox = ({ src, closeLightbox }) => {
   const [imgLoaded, setImgLoaded] = useState(false)
   const [close, setClose] = useState(false)
   const { theme } = useTheme()
+
   const handleClose = useCallback(() => {
     setClose(true)
+    document.documentElement.classList.remove('prevent-scroll', 'lightbox-loading')
     setTimeout(() => {
       closeLightbox()
-      document.documentElement.classList.remove('prevent-scroll')
     }, 300)
   }, [closeLightbox])
 
@@ -26,6 +27,12 @@ const ImageLightbox = ({ src, closeLightbox }) => {
     window.addEventListener('keydown', handleKeydown)
     return () => window.removeEventListener('keydown', handleKeydown)
   }, [handleKeydown])
+
+  useEffect(() => {
+    if (imgLoaded) {
+      document.documentElement.classList.remove('lightbox-loading')
+    }
+  }, [imgLoaded])
 
   return (
     <div

@@ -11,16 +11,14 @@ const Image = ({ ...rest }) => {
   }
   if (rest.src === '/static/images/logo.jpg') blurData = {}
   const [openLightbox, setOpenLightbox] = useState(false)
+  const handleOpenLightbox = () => {
+    document.documentElement.classList.add('lightbox-loading')
+    setOpenLightbox(true)
+  }
   return (
     <>
-      <div
-        className="flex justify-center cursor-[zoom-in]"
-        onClick={() => setOpenLightbox(true)}
-        role="button"
-        onKeyDown={() => setOpenLightbox(true)}
-        tabIndex={0}
-      >
-        <NextImage {...rest} {...blurData} />
+      <div className="flex justify-center cursor-[zoom-in]">
+        <NextImage {...rest} {...blurData} onClick={handleOpenLightbox} />
       </div>
       {openLightbox ? (
         <ImageLightbox closeLightbox={() => setOpenLightbox(false)} src={rest.src} />
