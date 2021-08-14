@@ -10,7 +10,7 @@ const ImageLightbox = ({ src, closeLightbox }) => {
     setClose(true)
     setTimeout(() => {
       closeLightbox()
-      document.documentElement.style.removeProperty('overflow-y')
+      document.documentElement.classList.remove('prevent-scroll')
     }, 300)
   }, [closeLightbox])
 
@@ -22,7 +22,7 @@ const ImageLightbox = ({ src, closeLightbox }) => {
   )
 
   useEffect(() => {
-    document.documentElement.style.overflowY = 'hidden'
+    document.documentElement.classList.add('prevent-scroll')
     window.addEventListener('keydown', handleKeydown)
     return () => window.removeEventListener('keydown', handleKeydown)
   }, [handleKeydown])
