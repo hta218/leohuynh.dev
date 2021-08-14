@@ -30,7 +30,9 @@ const ImageLightbox = ({ src, closeLightbox }) => {
 
   useEffect(() => {
     if (imgLoaded) {
-      document.documentElement.classList.remove('lightbox-loading')
+      setTimeout(() => {
+        document.documentElement.classList.remove('lightbox-loading')
+      }, 150)
     }
   }, [imgLoaded])
 

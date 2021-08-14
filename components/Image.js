@@ -3,7 +3,7 @@ import { useState } from 'react'
 import ImageLightbox from './ImageLightbox'
 
 // eslint-disable-next-line jsx-a11y/alt-text
-const Image = ({ ...rest }) => {
+const Image = ({ shouldOpenLightbox = true, ...rest }) => {
   let blurData = {
     placeholder: 'blur',
     blurDataURL:
@@ -12,12 +12,13 @@ const Image = ({ ...rest }) => {
   if (rest.src === '/static/images/logo.jpg') blurData = {}
   const [openLightbox, setOpenLightbox] = useState(false)
   const handleOpenLightbox = () => {
+    if (!shouldOpenLightbox) return
     document.documentElement.classList.add('lightbox-loading')
     setOpenLightbox(true)
   }
   return (
     <>
-      <div className="flex justify-center cursor-[zoom-in]">
+      <div className={`flex justify-center ${shouldOpenLightbox ? 'cursor-[zoom-in]' : ''}`}>
         <NextImage {...rest} {...blurData} onClick={handleOpenLightbox} />
       </div>
       {openLightbox ? (
