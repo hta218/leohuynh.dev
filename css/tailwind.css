@@ -76,11 +76,11 @@ samp {
 
 html {
   scroll-behavior: smooth;
+  margin-left: calc(100vw - 100%);
 }
 
 html.prevent-scroll {
   overflow-y: hidden;
-  margin-left: calc(100vw - 100%);
 }
 
 .prose > ul > li:last-child {
