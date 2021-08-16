@@ -36,14 +36,16 @@ const Card = ({ title, description, imgSrc, href, repoName }) => (
               title
             )}
           </h2>
-          <div className="flex-shrink-0">
-            <Image
-              alt={title}
-              src={`https://img.shields.io/github/stars/hta218/${repoName}.svg?style=social&label=Stars&maxAge=2592000`}
-              width={112}
-              height={28}
-            />
-          </div>
+          {!repoName ? null : (
+            <div className="flex-shrink-0">
+              <Image
+                alt={title}
+                src={`https://img.shields.io/github/stars/hta218/${repoName}.svg?style=social&label=Stars&maxAge=2592000`}
+                width={112}
+                height={28}
+              />
+            </div>
+          )}
         </div>
         <p className="mb-3 prose text-gray-500 max-w-none dark:text-gray-400">{description}</p>
         {href && (
