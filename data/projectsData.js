@@ -31,10 +31,18 @@ const projectsData = [
   },
   {
     title: 'Travel Egypt Picture Puzzle',
-    description: `Picture puzzle made by pygame`,
+    description: `Python picture puzzle made with pygame`,
     imgSrc: '/static/images/travel-egypt.png',
     href: 'https://github.com/hta218/Travel_Egypt',
     repoName: 'Travel_Egypt',
+    type: 'self',
+  },
+  {
+    title: 'Infinite Loading Gallery',
+    description: `Image gallery with Infinite Loading (Built with React + Semantic UI)`,
+    imgSrc: '/static/images/infinite-gallery.jpg',
+    href: 'https://infinite-gallery.netlify.app/',
+    repoName: 'infinite-gallery',
     type: 'self',
   },
 ]
