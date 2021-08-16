@@ -68,6 +68,10 @@ licensed under MIT: https://ellekasai.mit-license.org/
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f606.svg');
 }
 
+.twa-lying-face {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f925.svg');
+}
+
 .twa-loudly-crying-face {
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f62d.svg');
 }
@@ -82,6 +86,10 @@ licensed under MIT: https://ellekasai.mit-license.org/
 
 .twa-cat-with-tears-of-joy {
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f639.svg');
+}
+
+.twa-star-struck {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f929.svg');
 }
 
 .twa-eyes {
@@ -250,4 +258,16 @@ licensed under MIT: https://ellekasai.mit-license.org/
 
 .twa-cross-mark {
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/274c.svg');
+}
+
+.twa-clinking-beer-mugs {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f37b.svg');
+}
+
+.twa-partying-face {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f973.svg');
+}
+
+.twa-exploding-head {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f92f.svg');
 }

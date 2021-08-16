@@ -34,11 +34,12 @@ export default function Home({ posts }) {
             >
               Insights Studio
             </a>
+            .
             <p className="my-4">
               Mình sở hữu chiếc <Twemoji emoji="desktop computer" /> đầu tiên năm lớp 7 và đã dành
               rất nhiều thời gian cho máy tính kể từ đó! Chỉ vài năm sau mình đã thành thạo việc
-              chơi AOE, CS và soạn giáo án trên MS Word cho chú{' '}
-              <Twemoji emoji="face with tears of joy" />
+              chơi AOE, CS và soạn giáo án trên MS Word cho chú <Twemoji emoji="partying-face" />
+              <Twemoji emoji="partying-face" />
             </p>
             <p className="my-4">
               Mình làm quen và hứng thú với lập trình từ cuối năm 2016, từ đó đến nay mình đã làm
@@ -46,7 +47,7 @@ export default function Home({ posts }) {
               học được và những điều hay ho mình trải nghiệm khi đi làm!
             </p>
             <p className="my-4">
-              Happy reading <Twemoji emoji="-sparkles" />
+              Happy reading <Twemoji emoji="clinking-beer-mugs" />
             </p>
           </p>
         </div>

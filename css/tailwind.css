@@ -76,10 +76,12 @@ samp {
 
 html {
   scroll-behavior: smooth;
-  margin-left: calc(100vw - 100%);
+  overflow-x: hidden;
 }
+html,
 .lightbox-overlay {
-  margin-left: calc(100vw - 100%);
+  /* margin-left: calc(100vw - 100%); */
+  width: 100vw;
 }
 
 html.prevent-scroll {
