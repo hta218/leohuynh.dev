@@ -45,6 +45,14 @@ const projectsData = [
     repoName: 'infinite-gallery',
     type: 'self',
   },
+  {
+    title: 'Store Manager',
+    description: `Desktop application for store management made with Java, Java Swing, JDBC, SQL Server`,
+    imgSrc: '/static/images/java-store-manager.jpg',
+    href: 'https://infinite-gallery.netlify.app/',
+    repoName: 'StoreManager',
+    type: 'self',
+  },
 ]
 
 export default projectsData
