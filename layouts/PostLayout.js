@@ -2,6 +2,7 @@ import Comments from '@/components/comments'
 import Image from '@/components/Image'
 import Link from '@/components/Link'
 import PageTitle from '@/components/PageTitle'
+import ScrollTop from '@/components/ScrollTop'
 import SectionContainer from '@/components/SectionContainer'
 import { BlogSeo } from '@/components/SEO'
 import Tag from '@/components/Tag'
@@ -31,6 +32,7 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, pag
         authorDetails={authorDetails}
         {...frontMatter}
       />
+      <ScrollTop />
       <article>
         <div className="xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700">
           <header className="pt-6 xl:pb-6">

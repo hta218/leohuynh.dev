@@ -1,6 +1,5 @@
 import '@/css/tailwind.css'
 import '@/css/twemoji.css'
-import ScrollTop from '@/components/ScrollTop'
 
 import { ThemeProvider } from 'next-themes'
 import Head from 'next/head'
@@ -14,7 +13,6 @@ export default function App({ Component, pageProps }) {
         <meta content="width=device-width, initial-scale=1" name="viewport" />
       </Head>
       <LayoutWrapper>
-        <ScrollTop />
         <Component {...pageProps} />
       </LayoutWrapper>
     </ThemeProvider>
