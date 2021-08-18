@@ -56,7 +56,7 @@ Trong đó:
 - Trong **callback** chúng ta sẽ listen các event của response với `res.on()`
 - Mỗi lần `res.on("data")` trigger, cộng thêm `data` vào string `body`
 - Kết thúc với `res.on("end")`, lúc này chỉ cần `JSON.parse(body)` là sẽ có JSON data mong muốn
-- Dòng `8` + `10`: Lưu ý để parse trong `try {} catch() {}` để bắt lỗi nếu không **parse** được **json**!
+- Dòng `8` + `11`: Lưu ý để parse trong `try {} catch() {}` để bắt lỗi nếu không **parse** được **json**!
 - Nếu không tạo được **request** thì event `error` sẽ được trigger
 
 Đơn giản là như vậy! Bây giờ hãy abstract những logic này vào 1 function để sử dụng ở bất kì đâu trong `server`:
