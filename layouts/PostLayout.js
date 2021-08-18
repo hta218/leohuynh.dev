@@ -8,6 +8,10 @@ import { BlogSeo } from '@/components/SEO'
 import Tag from '@/components/Tag'
 import Twemoji from '@/components/Twemoji.js'
 import siteMetadata from '@/data/siteMetadata'
+import { FacebookShareButton, RedditShareButton, TwitterShareButton } from 'react-share'
+import TwitterShareIcon from '@/components/social-icons/twitter-share-button.svg'
+import FacebookShareIcon from '@/components/social-icons/facebook-share-button.svg'
+import RedditShareIcon from '@/components/social-icons/reddit-share-button.svg'
 
 const editUrl = (fileName) => `${siteMetadata.siteRepo}/blob/main/data/blog/${fileName}`
 const discussUrl = (slug) =>
@@ -24,14 +28,10 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, pag
     tags,
     readingTime: { text: readingTimeText },
   } = frontMatter
-
+  const postUrl = `${siteMetadata.siteUrl}/blog/${slug}`
   return (
     <SectionContainer>
-      <BlogSeo
-        url={`${siteMetadata.siteUrl}/blog/${slug}`}
-        authorDetails={authorDetails}
-        {...frontMatter}
-      />
+      <BlogSeo url={postUrl} authorDetails={authorDetails} {...frontMatter} />
       <ScrollTop />
       <article>
         <div className="xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700">
@@ -103,12 +103,30 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, pag
             </dl>
             <div className="divide-y divide-gray-200 dark:divide-gray-700 xl:pb-0 xl:col-span-3 xl:row-span-2">
               <div className="pt-10 pb-8 prose prose-lg dark:prose-dark max-w-none">{children}</div>
-              <div className="pt-6 pb-6 text-sm text-gray-700 dark:text-gray-300">
-                <Link href={discussUrl(slug)} rel="nofollow">
-                  {'Discuss on Twitter'}
-                </Link>
-                {` • `}
-                <Link href={editUrl(fileName)}>{'View on GitHub'}</Link>
+              <div className="md:flex justify-between items-center pt-6 pb-6 text-sm text-gray-700 dark:text-gray-300">
+                <div className="mb-6 md:mb-0">
+                  <Link href={discussUrl(slug)} rel="nofollow">
+                    {'Discuss on Twitter'}
+                  </Link>
+                  {` • `}
+                  <Link href={editUrl(fileName)}>{'View on GitHub'}</Link>
+                </div>
+                <div className="flex items-center">
+                  <TwitterShareButton
+                    url={postUrl}
+                    title={title}
+                    via={siteMetadata.socialAccount.twitter}
+                    className="w-24 mr-2"
+                  >
+                    <TwitterShareIcon />
+                  </TwitterShareButton>
+                  <FacebookShareButton url={postUrl} quote={title} className="w-24 mr-2">
+                    <FacebookShareIcon />
+                  </FacebookShareButton>
+                  <RedditShareButton url={postUrl} title={title} className="w-24">
+                    <RedditShareIcon />
+                  </RedditShareButton>
+                </div>
               </div>
               <Comments frontMatter={frontMatter} />
             </div>
