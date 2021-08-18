@@ -16,7 +16,7 @@ import UnsplashLicense from './UnsplashLicense.js'
 
 Khi làm việc với Node.js, có rất nhiều thư viện hỗ trợ việc tạo `request` đến 1 server khác như: `node-fetch`, `phin`, `got` hay `request` ([Deprecated](https://www.npmjs.com/package/request) <Twemoji emoji="thumbs-down" />)...
 
-Tuy nhiên nếu **server** của bạn đơn thuần chỉ làm `API` cho client App và bây giờ bạn nhận 1 task nhỏ cần phải `request` đến 1 file `json` từ server khác, hoặc đơn giản là fetch 1 external `API` thì bạn sẽ chọn xài thư viện nào? <Twemoji emoji="thinking-face" />
+Tuy nhiên nếu **server** của bạn đơn thuần chỉ làm API cho client App và bây giờ có 1 feature cần phải `request` đến 1 file `json` từ server khác, hoặc đơn giản là fetch 1 external `API` thì bạn sẽ chọn xài thư viện nào? <Twemoji emoji="thinking-face" />
 
 Liệu có cần thiết phải thêm vào `package.json` 1 dependency với cả rổ chức năng chỉ để tạo 1 `request` không? <Twemoji emoji="loudly-crying-face" />
 
@@ -28,7 +28,7 @@ Và câu trả lời là không! Vì đã có [`https`](https://nodejs.org/api/h
 
 Tạo `request` với `https` như sau:
 
-```js {1,3,5,7,8,10,14} showLineNumbers
+```js {8,11} showLineNumbers
 const https = require('https')
 
 https
@@ -49,13 +49,15 @@ https
   })
 ```
 
-- Line `1`: **https** là built-in module của Node.js nên chúng ta có thể `require` luôn mà không cần install
-- Line `3`: Tạo **request** với `https.get(url[, options][, callback])`
+Trong đó:
+
+- **https** là built-in module của Node.js nên có thể `require` luôn mà không cần install
+- Tạo **request** với `https.get(url[, options][, callback])`
 - Trong **callback** chúng ta sẽ listen các event của response với `res.on()`
-- Line `5`: Mỗi lần `res.on("data")` trigger, cộng thêm `data` vào string `body`
-- Line `8`: Kết thúc với `res.on("end")`, lúc này chỉ cần `JSON.parse(body)` là sẽ có JSON data mong muốn
-- Line `7` + `10`: Lưu ý để parse trong `try {} catch() {}` để bắt lỗi nếu không **parse** được **json**!
-- Line `14`: Nếu không tạo được **request** thì event `error` sẽ được trigger
+- Mỗi lần `res.on("data")` trigger, cộng thêm `data` vào string `body`
+- Kết thúc với `res.on("end")`, lúc này chỉ cần `JSON.parse(body)` là sẽ có JSON data mong muốn
+- Dòng `8` + `10`: Lưu ý để parse trong `try {} catch() {}` để bắt lỗi nếu không **parse** được **json**!
+- Nếu không tạo được **request** thì event `error` sẽ được trigger
 
 Đơn giản là như vậy! Bây giờ hãy abstract những logic này vào 1 function để sử dụng ở bất kì đâu trong `server`:
 
