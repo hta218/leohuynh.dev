@@ -60,6 +60,9 @@ const siteMetadata = {
       shortname: process.env.NEXT_PUBLIC_DISQUS_SHORTNAME,
     },
   },
+  socialAccount: {
+    twitter: 'hta218_',
+  },
 }
 
 module.exports = siteMetadata
