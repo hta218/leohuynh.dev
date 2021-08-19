@@ -8,11 +8,9 @@ import { BlogSeo } from '@/components/SEO'
 import Tag from '@/components/Tag'
 import Twemoji from '@/components/Twemoji.js'
 import siteMetadata from '@/data/siteMetadata'
-import { FacebookShareButton, RedditShareButton, TwitterShareButton } from 'react-share'
-
+import { FacebookShareButton, TwitterShareButton } from 'react-share'
 import TwitterIcon from '@/components/social-icons/twitter.svg'
 import FacebookIcon from '@/components/social-icons/facebook.svg'
-// import RedditIcon from '@/components/social-icons/reddit-round.svg'
 
 const editUrl = (fileName) => `${siteMetadata.siteRepo}/blob/main/data/blog/${fileName}`
 const discussUrl = (slug) =>
