@@ -23,7 +23,7 @@ Vấn đề đã được trình bày ở trên! Vậy hãy xem chúng ta có nh
 
 - **Product**: có thể download file **CSV** chứa data của product và upload lên store mới là được
 
-  <Twemoji emoji="warning" /> - với **CSV** file thì thông tin về Collection sẽ không được migrate, bạn
+  <Twemoji emoji="warning" /> với **CSV** file thì thông tin về Collection sẽ không được migrate, bạn
   cần phải tạo lại Collection data
 
 - **Theme**: download Zip file và upload lên store mới, data vẫn sẽ như cũ
@@ -35,7 +35,7 @@ Vấn đề đã được trình bày ở trên! Vậy hãy xem chúng ta có nh
   Và vấn đề mình gặp phải khi migrate đống assets này là:
 
       - Store của mình có khoảng ~1000 files, không thể dùng tay upload được
-      - Sau khi upload xong thì phải vào settings của theme và page chọn lại thì mới work
+      - Sau khi upload xong cần phải vào settings của theme và page chọn lại thì mới work
 
 Nếu làm bằng tay chỗ này chắc khỏi cần tập tạ mà tay vẫn to mất! <Twemoji emoji="flexed-biceps" />
 
@@ -68,7 +68,7 @@ trong đó `{access_token}` chính là **Admin API password** của **Private Ap
 
 ![private-app-password](/static/images/private-app-password.png)
 
-Copy `password` trong section **Admin API** của **Private App** vừa tạo, đây chính là `access_token` chúng ta cần.
+Copy `password` trong section **Admin API** của **Private App** vừa tạo, đây chính là `access_token` chúng ta cần cho bước tiếp theo.
 
 <Twemoji emoji="keycap-digit-three" /> Bắn **GraphQL** `request` với **Postman**
 
@@ -123,7 +123,7 @@ trong đó `GenericFile` chỉ có vài file (chú yếu là **Font**) nên mìn
 <Twemoji emoji="warning" /> 1 số lưu ý:
 
 - `first: 250`: Đây là maximum limit của Shopify cho 1 `request`
-- `cursor`: chính vì limit nên chúng ta phải tạo nhiều `request` (ví dụ store mình có ~1000 image => cần 4 request!).
+- `cursor`: chính vì limit nên chúng ta phải tạo nhiều `request` (ví dụ store mình có ~1000 image => cần 4 request).
   `cursor` ở đây chính là pagination cho `GraphQL` (giống như với `REST`, bạn sẽ dùng `&page=1`, `&page=2`... để request page tiếp theo)
 - `pageInfo`: thêm vào chỉ để biết mình có page tiếp theo hay không thôi <Twemoji emoji="beaming-face-with-smiling-eyes" />
 
@@ -198,25 +198,25 @@ Bước này thì không cần viết dòng code nào vì làm bằng tay là nh
 
 Vào **Store Admin / Settings / Files** => click **Upload files**. Shopify limit 1 lần chỉ được upload tối đa 200 file, nên upload vài lần là xong!
 
-Đến đây là hoàn thiện quá trình migrate rồi <Twemoji emoji="party-popper" /><Twemoji emoji="party-popper" />, anh em kiểm tra kết quả trên store mới nhé!
+Đến đây là hoàn thiện quá trình migrate rồi <Twemoji emoji="party-popper" /><Twemoji emoji="party-popper" />, các bạn kiểm tra kết quả trên store mới nhé - chúc các bạn thành công!
 
 ### 1 phút cho quảng cáo
 
 Bạn có làm việc với Shopify không?
 
 Team mình - [Insights Studio](https://insights.is) mới cho ra lò 1 siêu phẩm là **Minimog - The Next Generation Shopify Theme** bán trên [Themeforest](https://minimog.co/?utm_source=leo).
-Đây là con theme tâm huyết của anh em trong nhiều tháng phát triển, với [>50 demos](https://demo.minimog.co/), support Shopify Online Store 2.0, rất nhiều tính năng và design thì siêu đẹp <Twemoji emoji="smiling-face-with-heart-eyes" />
+Đây là con theme tâm huyết của anh em trong nhiều tháng phát triển, với [>50 demos](https://demo.minimog.co/), support **Shopify Online Store 2.0**, rất nhiều tính năng và design thì siêu đẹp <Twemoji emoji="smiling-face-with-heart-eyes" />
 
 ![minimog-top-1](/static/images/minimog-top-1.png)
 
-Hiện tại theme đang đứng **Top #1** Weekly Bestseller ở eCommerce category <Twemoji emoji="smiling-face-with-sunglasses" /><Twemoji emoji="smiling-face-with-sunglasses" />
+Hiện tại theme đang đứng **Top #1 Weekly Bestseller** ở eCommerce category <Twemoji emoji="smiling-face-with-sunglasses" /><Twemoji emoji="smiling-face-with-sunglasses" />
 
 Và giá trị đặc biệt - **Unique Selling Point** của theme chính là ở việc team mình đã viết riêng 1 App trên Shopify chỉ để support cho **Minimog**!
 Đó là app **FoxKit - The upsells and boost conversion tools for MINIMOG theme** ([https://apps.shopify.com/foxecom-boost-sales](https://apps.shopify.com/foxecom-boost-sales) - hoàn toàn **FREE**)
 
 App hỗ trợ các plugin boost-sells, upsells, apply discount code, những tính năng mà theme bình thường không thể làm được!
 
-Và đặc biệt là **1-click-install-demo** <Twemoji emoji="smiling-face-with-sunglasses" /> - chỉ cần chọn demo bạn thích và click **Install** trong app là toàn bộ theme và demo data đã có, không cần phải copy-paste thủ công bằng tay như theme K, E hay theme W... <Twemoji emoji="thumbs-down" />
+Và đặc biệt là **1-click-install-demo** <Twemoji emoji="smiling-face-with-sunglasses" /> - chỉ cần chọn demo bạn thích và click **Install** trong app là toàn bộ theme và demo data đã có, không cần phải copy-paste thủ công bằng tay như theme K, theme E hay theme W... <Twemoji emoji="thumbs-down" />
 
 ![foxkit](/static/images/foxkit.jpg)
 
