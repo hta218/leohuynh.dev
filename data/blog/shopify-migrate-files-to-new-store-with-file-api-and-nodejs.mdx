@@ -81,9 +81,8 @@ Sau khi download, các bạn tạo 1 `POST` request như này:
 
 Trong đó:
 
-- Request URL: `https://your-store.myshopify.com/admin/api/2021-07/graphql.json`
-
-  <br /> với `2021-07` là API version support File API
+- Request URL: <code style={{ wordBreak: 'break-word' }}>https://your-store.myshopify.com/admin/api/2021-07/graphql.json</code>
+  với `2021-07` là API version support File API
 
 - <Twemoji emoji="warning" /> chú ý: với header `Content-Type` bắt buộc phải sử dụng value `application/json`
   chứ không được chọn `application/graphql` nhé (Shopify đã [note](https://shopify.dev/apps/auth/basic-http#shopify-access-token)
@@ -150,7 +149,7 @@ Câu trả lời là không! Dựa vào 1 cơ chế cực cool của Shopify!
 
 > Nếu bạn upload file trùng tên với bên store cũ thì sẽ chúng tự ăn với các settings của theme/page/blog... được migrate sang <Twemoji emoji="exploding-head" /><Twemoji emoji="exploding-head" />
 
-Và trong URL của file lấy được với **GraphQL** đã có chứa sẵn tên file trong đó rồi: `"https://cdn.shopify.com/s/files/1/0561/2742/2636/files/fav_icon_dark_1.png?v=1618297070"`
+Và trong URL của file lấy được với **GraphQL** đã có chứa sẵn tên file trong đó rồi: <code style={{ wordBreak: 'break-word' }}>https://cdn.shopify.com/s/files/1/0561/2742/2636/files/fav_icon_dark_1.png?v=1618297070</code>
 File name của file này là `fav_icon_dark_1.png`.
 
 Bây giờ chỉ cần download 1000 file về, save với tên được extract từ URL ra, và upload lên store mới là xong rồi <Twemoji emoji="smiling-face-with-sunglasses" /><Twemoji emoji="smiling-face-with-sunglasses" />
@@ -200,22 +199,34 @@ Bước này thì không cần viết dòng code nào vì làm bằng tay là nh
 
 Vào **Store Admin / Settings / Files** => click **Upload files**. Shopify limit 1 lần chỉ được upload tối đa 200 file, nên upload vài lần là xong!
 
+{' '}
 <Twemoji emoji="party-popper" />
-<Twemoji emoji="party-popper" /> đến đây là hoàn thiện quá trình migrate rồi, anh em kiểm tra kết
-quả trên store mới nhé!
+<Twemoji emoji="party-popper" /> đến đây là hoàn thiện quá trình migrate rồi, anh em kiểm tra kết quả
+trên store mới nhé!
 
 ### 1 phút cho quảng cáo
 
-Team mình - [Insights Studio](https://insights.is) mới cho ra lò 1 siêu phẩm là **Minimog - The Next Generation Shopify Theme** bán trên [Themeforest](https://minimog.co/?utm_source=leo).
-Đây là con theme tâm huyết của anh em trong nhiều tháng phát triển, với [>50 demos](https://demo.minimog.co/), rất nhiều tính năng và design thì siêu đẹp <Twemoji emoji="smiling-face-with-heart-eyes" />
+Bạn có làm việc với Shopify không?
 
-![minimog-top-1](/static/images/minimog-top-1.jpg)
+Team mình - [Insights Studio](https://insights.is) mới cho ra lò 1 siêu phẩm là **Minimog - The Next Generation Shopify Theme** bán trên [Themeforest](https://minimog.co/?utm_source=leo).
+Đây là con theme tâm huyết của anh em trong nhiều tháng phát triển, với [>50 demos](https://demo.minimog.co/), support Shopify Online Store 2.0, rất nhiều tính năng và design thì siêu đẹp <Twemoji emoji="smiling-face-with-heart-eyes" />
+
+![minimog-top-1](/static/images/minimog-top-1.png)
 
 Hiện tại theme đang đứng **Top #1** Weekly Bestseller ở eCommerce category <Twemoji emoji="smiling-face-with-sunglasses" /><Twemoji emoji="smiling-face-with-sunglasses" />
 
-Và đặc biệt là đang rất hạt dẻ - chỉ **$29** <Twemoji emoji="smiling-face-with-heart-eyes" /> (chuẩn bị tăng lên **99**)
+Và giá trị đặc biệt - **Unique Selling Point** của theme chính là ở việc team mình đã viết riêng 1 App trên Shopify chỉ để support cho **Minimog**!
+Đó là app **FoxKit - The upsells and boost conversion tools for MINIMOG theme** ([https://apps.shopify.com/foxecom-boost-sales](https://apps.shopify.com/foxecom-boost-sales) - hoàn toàn **FREE**)
 
-Anh em bạn gì làm Shopify ủng hộ team mình vài sale nhé <Twemoji emoji="folded-hands" /><Twemoji emoji="folded-hands" /> (Thông tin [ở đây](https://minimog.co/?utm_source=leo))
+App hỗ trợ các plugin boost-sells, upsells, apply discount code, những tính năng mà theme bình thường không thể làm được!
+
+Và đặc biệt là **1-click-install-demo** <Twemoji emoji="smiling-face-with-sunglasses" /> - chỉ cần chọn demo bạn thích và click **Install** trong app là toàn bộ theme và demo data đã có, không cần phải copy-paste thủ công bằng tay như theme K, E hay theme W... <Twemoji emoji="thumbs-down" />
+
+![foxkit](/static/images/foxkit.jpg)
+
+Hiện tại giá rổ đang rất là hạt dẻ - chỉ **$29** <Twemoji emoji="smiling-face-with-heart-eyes" /> (chuẩn bị tăng lên **99**)
+
+Anh em bạn gì làm Shopify ủng hộ team mình nhé <Twemoji emoji="folded-hands" /><Twemoji emoji="folded-hands" /> (Thông tin [ở đây](https://minimog.co/?utm_source=leo))
 
 ### Refs
 
