@@ -1,0 +1,226 @@
+---
+title: 'Shopify - Migrate assets sang store mới với File API và Node.js'
+date: '2021-08-23'
+tags: ['shopify', 'assets', 'file-api', 'migration', 'graphql', 'nodejs']
+draft: false
+summary: 'Sử dụng GraphQL để migrate toàn bộ Assets sang 1 store mới với File API và Node.js'
+images: ['/static/images/postman-sign.jpg']
+authors: ['default']
+---
+
+import Twemoji from './Twemoji.js'
+import UnsplashLicense from './UnsplashLicense.js'
+
+<UnsplashLicense photoURL="https://unsplash.com/photos/WOn90Iui_08" author="Mika Baumeister" />
+![postman-sign](/static/images/postman-sign.jpg)
+
+Nếu bạn là 1 Shopify Developer và đang có nhu cầu migrate toàn bộ data từ store của bạn sang 1 store mới mà không muốn phải pay vài chục USD cho 1 app migration
+thì mình tin đây bài viết bạn cần đọc <Twemoji emoji="smiling-face-with-sunglasses" />
+
+## Problem
+
+Vấn đề đã được trình bày ở trên! Vậy hãy xem chúng ta có những data gì trong 1 store và có thể migrate sang 1 store khác theo cách nào:
+
+- **Product**: có thể download file **CSV** chứa data của product và upload lên store mới là được
+
+  <Twemoji emoji="warning" /> Với **CSV** file thì thông tin về Collection sẽ không được migrate, bạn
+  cần phải tạo lại Collection data
+
+- **Theme**: download Zip file và upload lên store mới, data vẫn sẽ như cũ
+
+- **Blog posts & custom pages**: Sử dụng 1 app free trên Shopify store là [ExIm ‑ Export / Import data](​​https://apps.shopify.com/exim-export-import-pages-blogs-theme-settings) để migrate
+
+- **Assets**: là toàn bộ file trong store của bạn (Có thể xem ở **Admin / Settings / Files**) bao gồm image, video, font... đây là những assets sử dụng cho theme settings, blog post và page. (Ảnh và video của product đã được tự động migrate khi upload file **CSV** rồi!)
+
+  Và vấn đề mình gặp phải khi migrate đống assets này là:
+
+      - Store của mình có khoảng ~1000 files, không thể dùng tay upload được
+      - Sau khi upload xong thì phải vào settings của theme và page chọn lại thì mới work
+
+Nếu làm bằng tay chỗ này chắc khỏi cần tập tạ mà tay vẫn to mất! <Twemoji emoji="flexed-biceps" />
+
+## Solution
+
+Giải pháp của mình ở đây chính là sử dụng [Shopify File API](https://shopify.dev/api/admin/graphql/reference/products-and-collections/file) kết hợp với **Node.js** để download toàn bộ file về và upload lên store mới
+
+**File API** được Shopify chính thức support ở API version `2021-07` sau sự kiện **Shopify Unite** mới tổ chức gần đây (Thông tin trên [Shopify Developer Changelog](https://shopify.dev/changelog/file-api-is-now-available))
+
+Sau đây sẽ là các bước kết hợp giữa công việc tay chân và trí óc để giải quyết đống Assets đó nhé <Twemoji emoji="face-with-tears-of-joy" /><Twemoji emoji="face-with-tears-of-joy" />
+
+### Lấy toàn bộ file URL với `GraphQL`
+
+<Twemoji emoji="keycap-digit-one" /> Tạo **Private App**
+
+Tại sao phải tạo **Private App**? Vì chúng ta phải authenticate với Shopify thì mới có thể `request` đến các resource trong store.
+Cách đơn giản nhất là sử dụng [Basic HTTP authentication](https://shopify.dev/apps/auth/basic-http) với **Private App**. Các bước tạo **Private App** như sau:
+
+- Vào **Store Admin / Apps**
+- Click **Manage private apps** (ở dưới cùng của page) => **Create new private app**
+- Điền **App name** và **Emergency email** ở section **App details**
+- Click **Show inactive Admin API permissions** ở section **Admin API**, scroll đến phần **Files** chọn `Read access`
+- Click => **Save** => **Create app**
+- Như vậy là đã tạo xong **Private App** để authenticate với Shopify <Twemoji emoji="party-popper" />
+
+<Twemoji emoji="keycap-digit-two" /> Lấy **Access Token**
+
+Cách đơn giản nhất để bắn authenticated `request` đến Shopify là thêm request header `X-Shopify-Access-Token: {access_token}`,
+trong đó `{access_token}` chính là **Admin API password** của **Private App** mà chúng ta vừa tạo
+
+![private-app-password](/static/images/private-app-password.png)
+
+Copy `password` trong section **Admin API** của **Private App** vừa tạo, đây chính là `access_token` chúng ta cần.
+
+<Twemoji emoji="keycap-digit-three" /> Bắn **GraphQL** `request` với **Postman**
+
+Vì chúng ta cần bắn `request` nhiều lần, nên để tiện cho config headers và copy `response` các bạn hãy sử dụng 1 **HTTP Client** nhé (Ví dụ: **Postman**, **Postwoman**, **Insomnia**...)
+Ở đây mình chọn **Postman**. (Link [download ở đây](https://www.postman.com/))
+
+Sau khi download, các bạn tạo 1 `POST` request như này:
+
+![postman-1](/static/images/postman-1.png)
+
+Trong đó:
+
+- Request URL: `https://your-store.myshopify.com/admin/api/2021-07/graphql.json`
+
+  <br /> với `2021-07` là API version support File API
+
+- <Twemoji emoji="warning" /> chú ý: với header `Content-Type` bắt buộc phải sử dụng value `application/json`
+  chứ không được chọn `application/graphql` nhé (Shopify đã [note](https://shopify.dev/apps/auth/basic-http#shopify-access-token)
+  điều này)
+
+- Value của `X-Shopify-Access-Token` header chính là `access_token` hay `password` của **Private App** vừa tạo.
+
+Tiếp theo switch qua tab **Body**, chọn **GraphQL**
+
+![postman-2](/static/images/postman-2.png)
+
+Và thêm `query` sau
+
+```js
+{
+  files(first: 250) {
+    edges {
+      node {
+        ... on MediaImage {
+          image {
+            originalSrc
+          }
+        }
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+    }
+  }
+}
+```
+
+Mỗi `node` thuộc 2 loại là [`MediaImage`](https://shopify.dev/api/admin/graphql/reference/products-and-collections/mediaimage) hoặc [`GenericFile`](https://shopify.dev/api/admin/graphql/reference/products-and-collections/genericfile),
+trong đó `GenericFile` chỉ có vài file (chú yếu là **Font**) nên mình tập trung vào `MediaImage` thôi nhé.
+
+<Twemoji emoji="warning" /> 1 số lưu ý:
+
+- `first: 250`: Đây là maximum limit của Shopify cho 1 `request`
+- `cursor`: chính vì limit nên chúng ta phải tạo nhiều `request` (ví dụ store mình có ~1000 image => cần 4 request!).
+  `cursor` ở đây chính là pagination cho `GraphQL` (giống như với `REST`, bạn sẽ dùng `&page=1`, `&page=2`... để request page tiếp theo)
+- `pageInfo`: thêm vào chỉ để biết mình có page tiếp theo hay không thôi <Twemoji emoji="beaming-face-with-smiling-eyes" />
+
+Kết quả sẽ trông như sau <Twemoji emoji="party-popper" />
+
+![postman-3](/static/images/postman-3.png)
+
+Để `request` để page tiếp theo, các bạn thêm vào `query` 1 parameter là `after` với value là `cursor` của phần tử **cuối cùng** trong array `edges` ở **response**
+
+<br />(<Twemoji emoji="warning" /> phần tử cuối cùng nhé!)
+
+![postman-4](/static/images/postman-4.png)
+
+Đơn giản là như vậy <Twemoji emoji="grinning-face-with-sweat" />, với 4 `request` mình đã có 1000 URLs của toàn bộ image bên store cũ!
+
+### Download file với Node.js
+
+Bây giờ chúng ta cần download toàn bộ số file này và upload lên store mới.
+
+Vậy khi upload lên store mới thì cũng phải chọn lại settings cho đống assets này à? <Twemoji emoji="thinking-face" />
+
+Câu trả lời là không! Dựa vào 1 cơ chế cực cool của Shopify!
+
+> Nếu bạn upload file trùng tên với bên store cũ thì sẽ chúng tự ăn với các settings của theme/page/blog... được migrate sang <Twemoji emoji="exploding-head" /><Twemoji emoji="exploding-head" />
+
+Và trong URL của file lấy được với **GraphQL** đã có chứa sẵn tên file trong đó rồi: `"https://cdn.shopify.com/s/files/1/0561/2742/2636/files/fav_icon_dark_1.png?v=1618297070"`
+File name của file này là `fav_icon_dark_1.png`.
+
+Bây giờ chỉ cần download 1000 file về, save với tên được extract từ URL ra, và upload lên store mới là xong rồi <Twemoji emoji="smiling-face-with-sunglasses" /><Twemoji emoji="smiling-face-with-sunglasses" />
+
+Chỉ cần vài dòng `Node.js` kết hợp với `regex` là có thể extract name và download file về:
+
+```js
+const fs = require('fs')
+const fetch = require('node-fetch')
+const fileData = require('./data')
+
+async function download(url, filename) {
+  const response = await fetch(url)
+  const buffer = await response.buffer()
+  await fs.writeFile(filename, buffer, () => {})
+}
+
+console.time('FILE_DOWNLOAD')
+Promise.all(
+  fileData.map(async ({ node }, ind) => {
+    const src = node?.image?.originalSrc
+    if (src) {
+      const filename = (src.match(/.*\/files\/(.*)\?v=.*/) || [])[1]
+      if (filename) {
+        await download(src, `./download/${filename}`)
+      } else {
+        console.warn(`Couldn't get filename of: ${src} at index ${ind}`)
+      }
+    } else {
+      console.log(`No file at index: ${ind}`)
+    }
+  })
+).then(() => console.timeEnd('FILE_DOWNLOAD'))
+```
+
+Chú ý `fileData` chính là array `edges` của các `request` tạo ở trên!
+
+Toàn bộ `script` mình ở [repo này](https://github.com/hta218/shopify-file-downloader/blob/main/index.js)
+
+![file-download](/static/images/file-download.jpg)
+
+Download rất nhanh nhé <Twemoji emoji="smiling-face-with-sunglasses" />
+
+### Upload lên store mới
+
+Bước này thì không cần viết dòng code nào vì làm bằng tay là nhanh nhất <Twemoji emoji="grinning-squinting-face" />
+
+Vào **Store Admin / Settings / Files** => click **Upload files**. Shopify limit 1 lần chỉ được upload tối đa 200 file, nên upload vài lần là xong!
+
+<Twemoji emoji="party-popper" />
+<Twemoji emoji="party-popper" /> đến đây là hoàn thiện quá trình migrate rồi, anh em kiểm tra kết
+quả trên store mới nhé!
+
+### 1 phút cho quảng cáo
+
+Team mình - [Insights Studio](https://insights.is) mới cho ra lò 1 siêu phẩm là **Minimog - The Next Generation Shopify Theme** bán trên [Themeforest](https://minimog.co/?utm_source=leo).
+Đây là con theme tâm huyết của anh em trong nhiều tháng phát triển, với [>50 demos](https://demo.minimog.co/), rất nhiều tính năng và design thì siêu đẹp <Twemoji emoji="smiling-face-with-heart-eyes" />
+
+![minimog-top-1](/static/images/minimog-top-1.jpg)
+
+Hiện tại theme đang đứng **Top #1** Weekly Bestseller ở eCommerce category <Twemoji emoji="smiling-face-with-sunglasses" /><Twemoji emoji="smiling-face-with-sunglasses" />
+
+Và đặc biệt là đang rất hạt dẻ - chỉ **$29** <Twemoji emoji="smiling-face-with-heart-eyes" /> (chuẩn bị tăng lên **99**)
+
+Anh em bạn gì làm Shopify ủng hộ team mình vài sale nhé <Twemoji emoji="folded-hands" /><Twemoji emoji="folded-hands" /> (Thông tin [ở đây](https://minimog.co/?utm_source=leo))
+
+### Refs
+
+- [https://shopify.dev/apps/auth/basic-http](https://shopify.dev/apps/auth/basic-http)
+
+- [https://www.shopify.com/partners/blog/getting-started-with-graphql](https://www.shopify.com/partners/blog/getting-started-with-graphql)
+
+- [https://help.shopify.com/en/manual/apps/private-apps#enable-private-app-development-from-the-shopify-admin](https://help.shopify.com/en/manual/apps/private-apps#enable-private-app-development-from-the-shopify-admin)
