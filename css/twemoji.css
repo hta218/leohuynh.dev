@@ -72,6 +72,10 @@ licensed under MIT: https://ellekasai.mit-license.org/
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f925.svg');
 }
 
+.twa-sneezing-face {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f927.svg');
+}
+
 .twa-loudly-crying-face {
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f62d.svg');
 }
@@ -228,6 +232,10 @@ licensed under MIT: https://ellekasai.mit-license.org/
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f649.svg');
 }
 
+.twa-smiling-face-with-heart-eyes {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f60d.svg');
+}
+
 .twa-man-swimming {
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f3ca-200d-2642-fe0f.svg');
 }
@@ -270,4 +278,18 @@ licensed under MIT: https://ellekasai.mit-license.org/
 
 .twa-exploding-head {
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f92f.svg');
+}
+
+.twa-flexed-biceps {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f4aa.svg');
+}
+
+.twa-keycap-digit-one {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/31-20e3.svg');
+}
+.twa-keycap-digit-two {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/32-20e3.svg');
+}
+.twa-keycap-digit-three {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/33-20e3.svg');
 }
