@@ -6,10 +6,10 @@ const icons = {
   react: React,
 }
 
-const DevIcon = ({ type, size = 8 }) => {
+const DevIcon = ({ type }) => {
   const DevSvg = icons[type]
 
-  return <DevSvg className={`h-${size} w-${size}`} />
+  return <DevSvg className="h-20 w-20" />
 }
 
 export default DevIcon
