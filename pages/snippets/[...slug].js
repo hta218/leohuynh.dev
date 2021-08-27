@@ -21,7 +21,7 @@ export async function getStaticProps({ params }) {
   return { props: { snippet } }
 }
 
-export default function Blog({ snippet }) {
+export default function Snippet({ snippet }) {
   const { mdxSource, frontMatter } = snippet
 
   return (

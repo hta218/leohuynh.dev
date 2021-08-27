@@ -14,7 +14,7 @@ export default function SnippetsLayout({ title, snippets }) {
           </p>
         </div>
         <div className="container py-12">
-          <div className="flex flex-wrap">
+          <div className="grid grid-cols-2 gap-4">
             {snippets.map((snippet) => (
               <SnippetCard key={snippet.title} snippet={snippet} />
             ))}
