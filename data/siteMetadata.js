@@ -5,6 +5,7 @@ const siteMetadata = {
   footerTitle: "Leo's coding journey",
   description:
     "Leo's coding journey - chuyện lập trình, công việc và cuộc sống qua bàn phím của Tuấn Anh",
+  snippets: 'Reuseable code snippets collected by Leo',
   language: 'en-us',
   siteUrl: 'https://www.leohuynh.dev',
   siteRepo: 'https://github.com/hta218/leo-blog',
