@@ -1,9 +1,8 @@
 import Link from '@/components/Link'
-import Tag from '@/components/Tag'
-import siteMetadata from '@/data/siteMetadata'
-import { useState } from 'react'
 import Pagination from '@/components/Pagination'
+import Tag from '@/components/Tag'
 import formatDate from '@/lib/utils/formatDate'
+import { useState } from 'react'
 
 export default function ListLayout({ posts, title, initialDisplayPosts = [], pagination }) {
   const [searchValue, setSearchValue] = useState('')

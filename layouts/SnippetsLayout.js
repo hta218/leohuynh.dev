@@ -1,4 +1,7 @@
+import SnippetCard from '@/components/SnippetCard'
+
 export default function SnippetsLayout({ title, snippets }) {
+  console.log('🔎🔎🔎 ~ file: SnippetsLayout.js ~ line 2 ~ snippets', snippets)
   return (
     <>
       <div className="divide-y">
@@ -11,18 +14,10 @@ export default function SnippetsLayout({ title, snippets }) {
           </p>
         </div>
         <div className="container py-12">
-          <div className="flex flex-wrap -m-4">
-            {snippets.map(
-              (snippet, index) => index
-              // <Card
-              //   key={project.title}
-              //   title={project.title}
-              //   description={project.description}
-              //   imgSrc={project.imgSrc}
-              //   href={project.href}
-              //   repoName={project.repoName}
-              // />
-            )}
+          <div className="flex flex-wrap">
+            {snippets.map((snippet) => (
+              <SnippetCard key={snippet.title} snippet={snippet} />
+            ))}
           </div>
         </div>
       </div>

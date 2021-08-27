@@ -18,17 +18,10 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const snippet = await getFileBySlug('snippets', params.slug.join('/'))
-  const authorList = snippet.frontMatter.authors || ['default']
-  const authorPromise = authorList.map(async (author) => {
-    const authorResults = await getFileBySlug('authors', [author])
-    return authorResults.frontMatter
-  })
-  const authorDetails = await Promise.all(authorPromise)
-
-  return { props: { snippet, authorDetails } }
+  return { props: { snippet } }
 }
 
-export default function Blog({ snippet, authorDetails }) {
+export default function Blog({ snippet }) {
   const { mdxSource, frontMatter } = snippet
 
   return (
@@ -38,7 +31,6 @@ export default function Blog({ snippet, authorDetails }) {
           layout={frontMatter.layout || DEFAULT_LAYOUT}
           mdxSource={mdxSource}
           frontMatter={frontMatter}
-          authorDetails={authorDetails}
         />
       ) : (
         <div className="mt-24 text-center">
