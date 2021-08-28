@@ -1,6 +1,7 @@
 import React from './react.svg'
 import Git from './git.svg'
 import Javascript from './javascript.svg'
+import Node from './nodejs.svg'
 
 // Icons taken from: https://simpleicons.org/
 
@@ -8,6 +9,7 @@ const icons = {
   react: React,
   git: Git,
   javascript: Javascript,
+  nodejs: Node,
 }
 
 const DevIcon = ({ type }) => {
