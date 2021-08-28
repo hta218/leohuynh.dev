@@ -3,6 +3,7 @@ import Git from './git.svg'
 import Javascript from './javascript.svg'
 import Node from './nodejs.svg'
 import Bash from './bash.svg'
+import Liquid from './liquid.svg'
 
 const icons = {
   react: React,
@@ -10,6 +11,7 @@ const icons = {
   javascript: Javascript,
   nodejs: Node,
   bash: Bash,
+  liquid: Liquid,
 }
 
 const DevIcon = ({ type }) => {
