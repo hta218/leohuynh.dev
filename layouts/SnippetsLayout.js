@@ -1,7 +1,6 @@
 import SnippetCard from '@/components/SnippetCard'
 
 export default function SnippetsLayout({ title, snippets }) {
-  console.log('🔎🔎🔎 ~ file: SnippetsLayout.js ~ line 2 ~ snippets', snippets)
   return (
     <>
       <div className="divide-y">
@@ -14,7 +13,7 @@ export default function SnippetsLayout({ title, snippets }) {
           </p>
         </div>
         <div className="container py-12">
-          <div className="lg:grid grid-cols-2 gap-4">
+          <div className="lg:grid grid-cols-2 gap-6">
             {snippets.map((snippet) => (
               <SnippetCard key={snippet.title} snippet={snippet} />
             ))}
