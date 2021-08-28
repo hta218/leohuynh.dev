@@ -2,12 +2,14 @@ import React from './react.svg'
 import Git from './git.svg'
 import Javascript from './javascript.svg'
 import Node from './nodejs.svg'
+import Bash from './bash.svg'
 
 const icons = {
   react: React,
   git: Git,
   javascript: Javascript,
   nodejs: Node,
+  bash: Bash,
 }
 
 const DevIcon = ({ type }) => {
