@@ -1,5 +1,5 @@
 ---
-title: 'Adding/substracting days in Liquid'
+title: '+/- days in Liquid'
 date: '2021-08-29'
 type: 'liquid'
 draft: false
@@ -8,9 +8,14 @@ summary: "Adding/substracting days in Shopify's Liquid template language"
 
 ```html
 <!-- Liquid -->
-{% assign days = 4 %} {% assign ms = days | times: 24 | times: 60 | times: 60 %} {% assign now =
-'now' | date: "%s" %} {% assign today = now | date: "%b %d" %} {% assign before = now | minus: ms |
-date: "%b %d" %} {% assign after = now | plus: ms | date: "%b %d" %}
+{% assign days = 4 %} 
+
+{% assign ms = days | times: 24 | times: 60 | times: 60 %} 
+{% assign now = 'now' | date: "%s" %} 
+
+{% assign today = now | date: "%b %d" %} 
+{% assign before = now | minus: ms |date: "%b %d" %} 
+{% assign after = now | plus: ms | date: "%b %d" %}
 
 <div>Today: {{ today }}</div>
 <div>{{days}} days before today: {{ before }}</div>
