@@ -27,8 +27,8 @@ export default function AuthorLayout({ children, frontMatter }) {
             Resume
           </h1>
         </div>
-        <div className="items-start space-y-2 xl:grid xl:grid-cols-3 xl:gap-x-8 xl:space-y-0">
-          <div className="flex flex-col items-center pt-8 space-x-2">
+        <div className="items-start space-y-2 xl:space-y-0">
+          {/* <div className="flex flex-col items-center pt-8 space-x-2">
             <Image
               src={avatar}
               alt="avatar"
@@ -47,10 +47,8 @@ export default function AuthorLayout({ children, frontMatter }) {
               <SocialIcon kind="linkedin" href={linkedin} size={7} />
               <SocialIcon kind="mail" href={`mailto:${email}`} size={7} />
             </div>
-          </div>
-          <div className="pt-8 pb-8 prose prose-lg dark:prose-dark max-w-none xl:col-span-2">
-            {children}
-          </div>
+          </div> */}
+          <div className="pt-8 pb-8 prose prose-lg dark:prose-dark max-w-none">{children}</div>
         </div>
       </div>
     </>
