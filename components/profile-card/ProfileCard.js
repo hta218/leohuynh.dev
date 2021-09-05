@@ -49,13 +49,13 @@ const ProfileCard = () => {
   return (
     <>
       <div
-        className="scale-100 xl:hover:scale-110 z-10 transition-all duration-200 ease-out mb-8 xl:mb-0"
+        className="scale-100 xl:hover:scale-[1.15] z-10 transition-all duration-200 ease-out mb-8 xl:mb-0"
         style={{ perspective: '600px' }}
         ref={ref}
       >
         <div
           style={style}
-          className="transition-all duration-200 ease-out xl:shadow-md xl:rounded-lg dark:bg-gray-800 xl:border border-gray-200 overflow-hidden"
+          className="transition-all duration-200 ease-out xl:hover:shadow-xl xl:shadow-md xl:rounded-lg bg-white dark:bg-gray-800 xl:border border-gray-200 overflow-hidden"
         >
           <Image
             src={'/static/images/logo.jpg'}
