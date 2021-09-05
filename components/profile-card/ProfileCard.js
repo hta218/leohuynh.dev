@@ -5,7 +5,6 @@ import fetcher from '@/lib/fetcher'
 
 const ProfileCard = ({ avatar }) => {
   const { data } = useSWR('/api/spotify', fetcher)
-  console.log('🔎🔎🔎 ~ file: ProfileCard.js ~ line 8 ~ data', data)
 
   const ref = useRef(null)
   const [style, setStyle] = useState({})
