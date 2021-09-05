@@ -1,10 +1,12 @@
 import Image from '@/components/Image'
 import { useCallback, useEffect, useRef, useState } from 'react'
-
-const map = (mouse, minA, maxA, minB, maxB) =>
-  minB + ((mouse - minA) * (maxB - minB)) / (maxA - minA)
+import useSWR from 'swr'
+import fetcher from '@/lib/fetcher'
 
 const ProfileCard = ({ avatar }) => {
+  const { data } = useSWR('/api/spotify', fetcher)
+  console.log('🔎🔎🔎 ~ file: ProfileCard.js ~ line 8 ~ data', data)
+
   const ref = useRef(null)
   const [style, setStyle] = useState({})
 
@@ -13,15 +15,15 @@ const ProfileCard = ({ avatar }) => {
 
     const { clientX, clientY } = e
     const { width, height, x, y } = ref.current.getBoundingClientRect()
-    const offsetX = Math.abs(clientX - x)
-    const offsetY = Math.abs(clientY - y)
+    const mouseX = Math.abs(clientX - x)
+    const mouseY = Math.abs(clientY - y)
     const rotateMin = -15
     const rotateMax = 15
     const rotateRange = rotateMax - rotateMin
 
     const rotate = {
-      x: rotateMax - (offsetY / height) * rotateRange,
-      y: rotateMin + (offsetX / width) * rotateRange,
+      x: rotateMax - (mouseY / height) * rotateRange,
+      y: rotateMin + (mouseX / width) * rotateRange,
     }
 
     setStyle({

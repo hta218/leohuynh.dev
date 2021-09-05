@@ -1,5 +1,3 @@
-import SocialIcon from '@/components/social-icons'
-import Image from '@/components/Image'
 import ProfileCard from '@/components/profile-card/ProfileCard'
 import { PageSeo } from '@/components/SEO'
 
@@ -27,7 +25,7 @@ export default function AuthorLayout({ children, frontMatter }) {
         </div>
         <div className="items-start space-y-2 xl:grid xl:grid-cols-3 xl:space-y-0 pt-8">
           <ProfileCard avatar={avatar} />
-          <div className="pb-8 pl-8 prose prose-lg dark:prose-dark max-w-none xl:col-span-2">
+          <div className="pb-8 xl:pl-8 prose prose-lg dark:prose-dark max-w-none xl:col-span-2">
             {children}
           </div>
         </div>
