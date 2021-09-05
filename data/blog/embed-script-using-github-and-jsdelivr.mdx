@@ -1,0 +1,107 @@
+---
+title: 'Embed script với Github và jsDelivr'
+date: '2021-09-05'
+tags: ['tutorial', 'sharing', 'embed', 'github', 'jsdelivr']
+draft: false
+summary: 'Embed script vào page 1 cách đơn giản với Github và jsDelivr'
+images: ['/static/images/tips.jpg']
+authors: ['default']
+---
+
+import Twemoji from './Twemoji.js'
+import UnsplashLicense from './UnsplashLicense.js'
+
+<UnsplashLicense photoURL="https://unsplash.com/photos/82TpEld0_e4" author="AbsolutVision" />
+![alt](/static/images/tips.jpg)
+
+Hey, welcome back <Twemoji emoji="waving-hand" />
+
+Hôm nay mình sẽ chia sẻ 1 với các bạn 1 cách đơn giản để embed script vào trang với **Github** và **jsDelivr**
+
+## Problem
+
+Muốn thêm 1 tính năng vào trang mà không cần phải động vào đống script sẵn có của trang vì quá phức tạp để config, 
+cần thay đổi và remove 1 cách dễ dàng vì tính năng này chỉ cần trong 1 khoảng thời gian nhất định.
+
+Nếu bạn cũng có nhu cầu như trên, thì đây là 1 cách đơn giản mà mình nghĩ bạn nên làm.
+
+## Solution
+
+- Host `script` của bạn trên **Github** (có thể bao gồm cả `style`)
+
+Chỉ cần tạo 1 **public repository** trên Github, `push` script và style của bạn lên đó.
+(Nhớ để **public** thì mới có thể embed được nhé)
+
+- Sử dụng [jsDelivr](https://www.jsdelivr.com/) làm CDN cho script của bạn
+
+Giới thiệu qua: **jsDelivr** là 1 tool đơn giản dùng làm **CDN** cho bất kì 1 **npm** package, **Github** repo hay **WordPress** plugin nào của bạn
+
+Cách sử dụng có ngay ở trên homepage của **jsDelivr**, mình note lại cách sử dụng với **Github** repo như sau:
+
+```js
+https://cdn.jsdelivr.net/gh/{user}/{repo}/{directory}/{file}
+```
+
+Đây là cấu trúc của 1 script/style URL host qua **jsDelivr** cho bất kì 1 file nào trên **Github**:
+
+- `{user}`: **username** của bạn hoặc **Organization** trên **Github**
+- `{repo}`: tên **repository**
+- `{directory}`: tên **folder**, cái này optional vì file của bạn có thể để ở ngoài cùng của **repo** luôn
+- `{file}`: filename, `*.js` hoặc `*.css`
+
+Ví dụ:
+
+Đây là 1 public repo của mình: [Minimog badges](https://github.com/Insights-Labs/minimog-badges)
+Mình host 2 file trên này, 1 file **Javascript** và 1 file **CSS**
+
+![minimog-badges-repo](/static/images/minimog-badges-repo.jpg)
+
+Như vậy URL host qua **jsDelivr** cho 2 file này sẽ là:
+
+`https://cdn.jsdelivr.net/gh/Insights-Labs/minimog-menu-badges/style-v1.css`
+
+và:
+
+`https://cdn.jsdelivr.net/gh/Insights-Labs/minimog-badges/main-v3.js`
+
+Bây giờ chỉ cần **embed** vào page của bạn với thẻ `link`:
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Insights-Labs/minimog-menu-badges/style-v1.css">
+```
+
+và thẻ `script`:
+
+```html
+<script src="https://cdn.jsdelivr.net/gh/Insights-Labs/minimog-badges/main-v3.js" async></script>
+```
+
+Là đã có 2 file host trên **Github** chạy trong page của bạn rồi <Twemoji emoji="party-popper" />
+
+## Tips
+
+- Caching
+
+Nếu các bạn để ý thì sẽ nhận ra mình đánh version ở trên filename `main-v3.js` và `style-v1.css`. Tại sao cần thêm **version** này?
+
+Câu trả lời chính là vì **jsDelivr** có cache resource của bạn, điều này tốt để resource load nhanh hơn, 
+nhưng khi bạn thay đổi thì cache sẽ không được clear ngay lập tức, kết quả là vẫn load code cũ
+
+Để purge cache thì cần phải mail cho **jsDelivr**, khá bất tiện. Nên cách đơn giản mình nghĩ ra là đánh version ngay trên filename.
+Khi bạn thay đổi thì hãy tạo file mới với tên chứa version mới. Vd: `main-v4.js` hoặc `style-v2.css`, và sửa link embed là sẽ có code mới luôn, không cần đợi clear cache nữa.
+
+- Minify
+
+Nếu code của bạn không minify, chỉ cần thêm `.min` vào URL của file, **jsDelivr** sẽ generate 1 version được minify cho file gốc của bạn
+
+Ví dụ:
+
+```html
+<script src="https://cdn.jsdelivr.net/gh/Insights-Labs/minimog-badges/main-v3.min.js" async></script>
+```
+
+## Kết bài
+
+Hi vọng tutorial nhỏ này có giúp ích bạn
+
+Happy sharing <Twemoji emoji="clinking-beer-mugs" />
