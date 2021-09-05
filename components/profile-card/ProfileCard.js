@@ -2,7 +2,6 @@ import Image from '@/components/Image'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import useSWR from 'swr'
 import fetcher from '@/lib/fetcher'
-import SpotifyIcon from '@/components/dev-icons/spotify.svg'
 
 const ProfileCard = ({ avatar }) => {
   const { data } = useSWR('/api/spotify', fetcher)
