@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import useSWR from 'swr'
 import fetcher from '@/lib/fetcher'
 
-const ProfileCard = ({ avatar }) => {
+const ProfileCard = () => {
   const { data } = useSWR('/api/spotify', fetcher)
 
   const ref = useRef(null)
@@ -82,7 +82,7 @@ const ProfileCard = ({ avatar }) => {
                 <>
                   {/* <span className="text-gray-500 dark:text-gray-300">Listening to:</span> */}
                   <a
-                    className="ml-1 text-gray-800 dark:text-gray-200 font-medium"
+                    className="ml-1 text-gray-200 font-medium"
                     href={data.songUrl}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -91,12 +91,10 @@ const ProfileCard = ({ avatar }) => {
                   </a>
                 </>
               ) : (
-                <p className="text-gray-800 dark:text-gray-200 font-medium">Not Playing</p>
+                <p className="text-gray-200 font-medium">Not Playing</p>
               )}
-              <span className="mx-2 text-gray-500 dark:text-gray-300 hidden sm:block">{' – '}</span>
-              <p className="text-gray-500 dark:text-gray-300 max-w-max truncate">
-                {data?.artist ?? 'Spotify'}
-              </p>
+              <span className="mx-2 text-gray-300 hidden sm:block">{' – '}</span>
+              <p className="text-gray-300 max-w-max truncate">{data?.artist ?? 'Spotify'}</p>
             </div>
           </div>
 
