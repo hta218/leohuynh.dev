@@ -1,0 +1,80 @@
+---
+title: 'Setup HTTPS ở localhost'
+date: '2021-09-07'
+tags: ['https', 'localhost', 'OpenSSL', '443', 'koajs', 'nodejs']
+draft: false
+summary: 'Các bước setup HTTPS ở localhost với OpenSSL và sử dụng trong Node.js'
+images: ['/static/images/img.jpg']
+authors: ['default']
+---
+
+import Twemoji from './Twemoji.js'
+import UnsplashLicense from './UnsplashLicense.js'
+
+<UnsplashLicense photoURL="https://unsplash.com/photos/id" author="author" />
+![alt](/static/images/img.jpg)
+
+Khi nào thì cần HTTPS ở local?
+
+## Problem
+
+Trong phần lớn các trường hợp thì lúc dev **local** bạn không cần đến **HTTPS**, tuy nhiên nếu server của bạn có những tính năng cần phải **authen** với 1 bên thứ 3, 
+hoặc listen 1 **webhook** từ bên ngoài và các bên thứ 3 này yêu cầu **server** của bạn cần phải có **HTTPS** thì mới có thể nhận **request** được thì bạn sẽ làm như thế nào?
+Tất nhiên **production** thì sẽ có **HTTPS** rồi, những khi dev ở **local** thì sao? 
+
+Chúng ta có thể có 1 vài lựa chọn đơn giản như sử dụng [PageKite](https://pagekite.net/) hoặc [ngrok](https://ngrok.com/) để tạo 1 **HTTPS tunnel** trỏ đến **localhost** của bạn và làm việc, nhưng những **service** này có 1 vài nhược điểm như:
+
+- Bị giới hạn về số lượng tunnel/request khi xài free
+
+- Không config được **domain** cụ thể, 1 lần sử dụng sẽ là 1 random domain => phải config lại URL mỗi lần dev
+
+- Và đặc biệt là **chậm** ~vl~ <Twemoji emoji="face-with-symbols-on-mouth" />, khiến việc dev rất mất thời gian...
+
+Nếu bạn cũng gặp các vấn đề như trên thì đây là giải pháp!
+
+## Solution
+
+Giải pháp của mình là sử dụng [OpenSSL](https://www.openssl.org/) để generate các **SSL certificates** và tạo 1 HTTPS web server với những **certificates** này
+
+<Twemoji emoji="keycap-digit-one" /> **Generate Root SSL Certificate**
+
+Đầu tiên, chúng ta cần tạo 1 [Root SSL Certificate](https://support.dnsimple.com/articles/what-is-ssl-root-certificate/) để sign bất kì 1 certificate nào mà chúng ta sẽ generate cho localhost.
+
+Sử dụng command sau để tạo `key` dùng cho việc generate **Root SSL Certificate**:
+
+```bash
+$ openssl genrsa -des3 -out rootCA.key 2048
+```
+
+![root-ca-key](/static/images/root-ca-key.png)
+
+Bạn sẽ được yêu cầu fill 1 **pass phrase** để generate key, chỉ cần nhập key bất kì và verify lại đúng là được.
+Key này sẽ được save vào file `rootCA.key`. 
+
+Sử dụng key vừa tạo để generate **Root SSL Certificate** với command:
+
+```bash
+$ openssl req -x509 -new -nodes -key rootCA.key -sha256 -days 7300 -out rootCA.pem
+```
+
+![root-ca-pem](/static/images/root-ca-pem.png)
+
+Tiếp tục fill các thông tin cần thiết (chú ý **pass phrase** phải trùng với **pass phrase** dùng để tạo `rootCA.key` ở trên thì mới được nhé!)
+
+Certificate này sẽ được save ở file `rootCA.pem`.
+
+<Twemoji emoji="keycap-digit-two" /> **Trust Root SSL Certificate**
+
+Để có thể sử dụng các certificate generate bởi **Root SSL Certificate** thì chúng ta cần OS trust cái certificate này
+
+Mở **Keychain Access**, chọn tab **Certificate**:
+
+![keychain-access](/static/images/keychain-access.png)
+
+Import `rootCA.pem` vừa tạo vào bằng cách kéo vào hoặc **File / Import items...**
+
+Sau đó **Right click / Get Info** hoặc (**Double click**) certificate vừa import
+
+![cert-trust-setting](/static/images/cert-trust-setting.png)
+
+Mở tab **Trust**, ở setting đầu tiên chọn **Always Trust**
