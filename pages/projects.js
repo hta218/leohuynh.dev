@@ -1,6 +1,6 @@
 import siteMetadata from '@/data/siteMetadata'
 import projectsData from '@/data/projectsData'
-import Card from '@/components/Card'
+import ProjectCard from '@/components/ProjectCard'
 import { PageSeo } from '@/components/SEO'
 
 export default function Projects() {
@@ -25,7 +25,7 @@ export default function Projects() {
           </h3>
           <div className="flex flex-wrap -m-4">
             {workProjects.map((project) => (
-              <Card
+              <ProjectCard
                 key={project.title}
                 title={project.title}
                 description={project.description}
@@ -42,7 +42,7 @@ export default function Projects() {
           </h3>
           <div className="flex flex-wrap -m-4">
             {sideProjects.map((project) => (
-              <Card
+              <ProjectCard
                 key={project.title}
                 title={project.title}
                 description={project.description}

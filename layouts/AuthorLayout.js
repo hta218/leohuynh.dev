@@ -1,4 +1,4 @@
-import ProfileCard from '@/components/profile-card/ProfileCard'
+import ProfileCard from '@/components/ProfileCard'
 import { PageSeo } from '@/components/SEO'
 
 export default function AuthorLayout({ children, frontMatter }) {
