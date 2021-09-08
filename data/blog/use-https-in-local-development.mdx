@@ -4,15 +4,15 @@ date: '2021-09-07'
 tags: ['https', 'localhost', 'open-ssl', '443', 'mac-os', 'koajs', 'nodejs']
 draft: false
 summary: 'Các bước setup HTTPS ở localhost với OpenSSL và sử dụng trong Node.js'
-images: ['/static/images/img.jpg']
+images: ['/static/images/secure.jpg']
 authors: ['default']
 ---
 
 import Twemoji from './Twemoji.js'
 import UnsplashLicense from './UnsplashLicense.js'
 
-<UnsplashLicense photoURL="https://unsplash.com/photos/id" author="author" />
-![alt](/static/images/img.jpg)
+<UnsplashLicense photoURL="https://unsplash.com/photos/ah-HeguOe9k" author="Dan Nelson" />
+![secure](/static/images/secure.jpg)
 
 Khi nào thì cần **HTTPS** ở **local**? <Twemoji emoji="thinking-face" />
 
@@ -30,7 +30,7 @@ Chúng ta có thể có 1 vài lựa chọn đơn giản như sử dụng [PageK
 
 - Và đặc biệt là **chậm** ~vl~ <Twemoji emoji="face-with-symbols-on-mouth" />, khiến việc dev rất mất thời gian...
 
-Nếu bạn cũng gặp các vấn đề như trên thì đây là giải pháp!
+Nếu bạn cũng gặp các vấn đề như trên thì đây là giải pháp <Twemoji emoji="backhand-index-pointing-down" />
 
 ## Solution
 
@@ -48,7 +48,7 @@ $ openssl genrsa -des3 -out rootCA.key 2048
 
 ![root-ca-key](/static/images/root-ca-key.png)
 
-Bạn sẽ được yêu cầu fill 1 **pass phrase** để generate key, chỉ cần nhập string bất kì và verify lại đúng là được.
+Bạn sẽ được yêu cầu nhập 1 **pass phrase** để generate key, chỉ cần nhập string bất kì và verify lại đúng là được.
 
 <Twemoji emoji="warning" /> Nhớ **pass phrase** này để còn sử dụng để verify ở các bước sau nhé!
 
@@ -69,9 +69,9 @@ Certificate này sẽ được save ở file `rootCA.pem`.
 
 ### <Twemoji emoji="keycap-digit-two" /> Trust Root SSL Certificate
 
-Để có thể sử dụng các certificate generate bởi **Root SSL Certificate** thì chúng ta cần OS trust cái certificate này
+Để có thể sử dụng các certificate generate bởi **Root SSL Certificate** thì chúng ta cần OS trust cái **Root Certificate** này
 
-Mở **Keychain Access**, chọn tab **Certificate**:
+Các bạn mở app **Keychain Access**, chọn tab **Certificate**:
 
 ![keychain-access](/static/images/keychain-access.png)
 
@@ -87,11 +87,11 @@ Khi xong xuôi thì ở **Keychain Access** sẽ hiện message **"This certific
 
 ### <Twemoji emoji="keycap-digit-three" /> Tạo SSL Certificate cho localhost
 
-Bây giờ chúng ta sẽ sử dụng **Root SSL Certificate** đã trusted để generate 1 **SSL Certificate** cho **localhost**.
+Bây giờ chúng ta sẽ sử dụng **Root SSL Certificate** đã trust để generate 1 **SSL Certificate** cho **localhost**.
 
 #### Step 1
 
-Tạo 1 file config cho **OpenSSL** để generate certificate key với filename là `server.csr.cnf`
+Tạo 1 file config cho **OpenSSL** để generate **Certificate key** với file name là `server.csr.cnf`
 
 ```bash:server.csr.cnf
 [req]
@@ -110,7 +110,7 @@ emailAddress=hello@example.com
 CN = localhost
 ```
 
-Tạo certificate key với config trên và lưu vào file `server.key`:
+Tạo **Certificate key** với config trên và lưu vào file `server.key`:
 
 ```bash
 $ openssl req -new -sha256 -nodes -out server.csr -newkey rsa:2048 -keyout server.key -config <( cat server.csr.cnf )
@@ -149,3 +149,102 @@ Bây giờ trong folder mà bạn vừa tạo certificate sẽ chứa 2 file `se
 ![cert-folder](/static/images/cert-folder.png)
 
 ### <Twemoji emoji="keycap-digit-four" /> Tạo HTTPS server
+
+Việc quan trọng nhất là tạo `server.key` và `server.crt` đã xong.
+
+Bây giờ mình sẽ hướng dẫn các bạn sử dụng certificate này để tạo 1 **HTTPS** server ở localhost với **Node.js** sử dụng [Koa.js](https://koajs.com/) framework (**Express** hoàn toàn tương tự nhé, vì **Koa** được tạo ra từ team **Express** <Twemoji emoji="beaming-face-with-smiling-eyes" />)
+
+Tạo 1 **server** đơn giản với **Koa**:
+
+```javascript:server.js
+const Koa = require('koa');
+const app = new Koa();
+
+app.use(async ctx => {
+  ctx.body = 'Hello World';
+});
+
+module.exports = app
+```
+
+Tạo folder `certs/` trong **server** của bạn, chuyển 2 file `server.key` và `server.crt` vào.
+
+Load **certificates** file và tạo **HTTPS** server với `https` module:
+
+```javascript:index.js
+const app = require('./server')
+const https = require('https')
+const fs = require('fs')
+const path = require('path')
+
+let certOptions = null
+try {
+  certOptions = {
+    key: fs.readFileSync(path.resolve('certs/server.key')),
+    cert: fs.readFileSync(path.resolve('certs/server.crt'))
+  }
+} catch(err) {
+  console.log('No certificate files found!')
+}
+
+const host = process.env.APP_URL || 'localhost'
+const isLocal = host === 'localhost'
+const enableHTTPSInLocal = Boolean(isLocal && certOptions)
+
+const port = enableHTTPSInLocal ? 443 : process.env.PORT || 3434
+const protocol = (isLocal && !certOptions) ? "http" : "https"
+
+const url = `${protocol}://${host}${isLocal ? `:${port}` : ''}`
+
+const callback = () =>	 {
+  console.log(`App start successfully at ${url}`)
+}
+
+if (enableHTTPSInLocal) {
+  https
+    .createServer(certOptions || {}, app.callback())
+    .listen(port, callback)
+} else {
+  app.listen(port, callback)
+}
+```
+
+**Project structure** sẽ trông như thế này:
+
+![https-koa-project](/static/images/https-koa-project.png)
+
+Start server với `npm start` (<Twemoji emoji="warning" /> chú ý là `node index.js` chứ k phải `node server.js` nhé!)
+
+![http-koa](/static/images/http-koa.png)
+
+Nếu không có **certificate** file thì sẽ chạy `http` như bình thường.
+
+![https-koa](/static/images/https-koa.png)
+
+Và khi có **certificate** file thì app sẽ start ở port **443** với **HTTPS**
+
+![localhost-443](/static/images/localhost-443.png)
+
+Mở `https://localhost:443` là sẽ thấy có **HTTPS** ở localhost rồi nhé <Twemoji emoji="party-popper" /> <Twemoji emoji="party-popper" />
+
+Toàn bộ source code mình để ở [repo này](https://github.com/hta218/local-https-with-koajs)
+
+## Kết bài
+
+Nếu các bạn không sử dụng **Node.js** thì tự google cách tạo **HTTPS** server với certificate files ở ngôn ngữ/công nghệ mà bạn sử dụng nhé <Twemoji emoji="grinning-face-with-sweat" />
+
+Hi vọng tutorial này giúp ích cho bạn trong việc dev ở local với **HTTPS**!
+
+Happy sharing <Twemoji emoji="clinking-beer-mugs" />
+
+## Refs
+
+- [OpenSSL - TLS/SSL and crypto library](https://github.com/openssl/openssl)
+
+- [What is a Root SSL Certificate?](https://support.dnsimple.com/articles/what-is-ssl-root-certificate/)
+
+- [Apple's Requirements for trusted certificates](https://support.apple.com/en-us/HT210176) 
+
+- [X509 v3 certificate](https://en.wikipedia.org/wiki/X.509)
+
+- [Port 443 is used to secure communication travels between the client and the server](https://www.clickssl.net/blog/port-443)
