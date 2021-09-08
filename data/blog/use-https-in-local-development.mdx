@@ -1,8 +1,8 @@
 ---
 title: 'Setup HTTPS ở localhost'
 date: '2021-09-07'
-tags: ['https', 'localhost', 'OpenSSL', '443', 'koajs', 'nodejs']
-draft: true
+tags: ['https', 'localhost', 'open-ssl', '443', 'mac-os', 'koajs', 'nodejs']
+draft: false
 summary: 'Các bước setup HTTPS ở localhost với OpenSSL và sử dụng trong Node.js'
 images: ['/static/images/img.jpg']
 authors: ['default']
@@ -14,7 +14,7 @@ import UnsplashLicense from './UnsplashLicense.js'
 <UnsplashLicense photoURL="https://unsplash.com/photos/id" author="author" />
 ![alt](/static/images/img.jpg)
 
-Khi nào thì cần HTTPS ở local?
+Khi nào thì cần **HTTPS** ở **local**? <Twemoji emoji="thinking-face" />
 
 ## Problem
 
@@ -36,9 +36,9 @@ Nếu bạn cũng gặp các vấn đề như trên thì đây là giải pháp!
 
 Giải pháp của mình là sử dụng [OpenSSL](https://www.openssl.org/) để generate các **SSL certificates** và tạo 1 HTTPS web server với những **certificates** này
 
-<Twemoji emoji="keycap-digit-one" /> **Generate Root SSL Certificate**
+### <Twemoji emoji="keycap-digit-one" /> Generate Root SSL Certificate
 
-Đầu tiên, chúng ta cần tạo 1 [Root SSL Certificate](https://support.dnsimple.com/articles/what-is-ssl-root-certificate/) để sign bất kì 1 certificate nào mà chúng ta sẽ generate cho localhost.
+Đầu tiên, chúng ta cần tạo 1 [Root SSL Certificate](https://support.dnsimple.com/articles/what-is-ssl-root-certificate/) để sign bất kì 1 certificate nào mà chúng ta sẽ generate cho **localhost**.
 
 Sử dụng command sau để tạo `key` dùng cho việc generate **Root SSL Certificate**:
 
@@ -48,10 +48,14 @@ $ openssl genrsa -des3 -out rootCA.key 2048
 
 ![root-ca-key](/static/images/root-ca-key.png)
 
-Bạn sẽ được yêu cầu fill 1 **pass phrase** để generate key, chỉ cần nhập key bất kì và verify lại đúng là được.
-Key này sẽ được save vào file `rootCA.key`. 
+Bạn sẽ được yêu cầu fill 1 **pass phrase** để generate key, chỉ cần nhập string bất kì và verify lại đúng là được.
+
+<Twemoji emoji="warning" /> Nhớ **pass phrase** này để còn sử dụng để verify ở các bước sau nhé!
+
+Key vừa tạo sẽ được save vào file `rootCA.key`. 
 
 Sử dụng key vừa tạo để generate **Root SSL Certificate** với command:
+
 
 ```bash
 $ openssl req -x509 -new -nodes -key rootCA.key -sha256 -days 7300 -out rootCA.pem
@@ -63,7 +67,7 @@ Tiếp tục fill các thông tin cần thiết (chú ý **pass phrase** phải 
 
 Certificate này sẽ được save ở file `rootCA.pem`.
 
-<Twemoji emoji="keycap-digit-two" /> **Trust Root SSL Certificate**
+### <Twemoji emoji="keycap-digit-two" /> Trust Root SSL Certificate
 
 Để có thể sử dụng các certificate generate bởi **Root SSL Certificate** thì chúng ta cần OS trust cái certificate này
 
@@ -77,4 +81,71 @@ Sau đó **Right click / Get Info** hoặc (**Double click**) certificate vừa 
 
 ![cert-trust-setting](/static/images/cert-trust-setting.png)
 
-Mở tab **Trust**, ở setting đầu tiên chọn **Always Trust**
+Mở tab **Trust**, ở setting đầu tiên chọn **Always Trust**, sau đó save lại.
+
+Khi xong xuôi thì ở **Keychain Access** sẽ hiện message **"This certificate is marked as trusted for this account"** có nghĩa là chúng ta đã trust thành công **Root SSL Certificate** nhé <Twemoji emoji="party-popper" />
+
+### <Twemoji emoji="keycap-digit-three" /> Tạo SSL Certificate cho localhost
+
+Bây giờ chúng ta sẽ sử dụng **Root SSL Certificate** đã trusted để generate 1 **SSL Certificate** cho **localhost**.
+
+#### Step 1
+
+Tạo 1 file config cho **OpenSSL** để generate certificate key với filename là `server.csr.cnf`
+
+```bash:server.csr.cnf
+[req]
+default_bits = 2048
+prompt = no
+default_md = sha256
+distinguished_name = dn
+
+[dn]
+C=US
+ST=RandomState
+L=RandomCity
+O=RandomOrganization
+OU=RandomOrganizationUnit
+emailAddress=hello@example.com
+CN = localhost
+```
+
+Tạo certificate key với config trên và lưu vào file `server.key`:
+
+```bash
+$ openssl req -new -sha256 -nodes -out server.csr -newkey rsa:2048 -keyout server.key -config <( cat server.csr.cnf )
+```
+
+![server-key](/static/images/server-key.png)
+
+#### Step 2
+
+Tạo file `v3.ext` với config sau để generate certificate:
+
+```bash:v3.ext
+authorityKeyIdentifier=keyid,issuer
+basicConstraints=CA:FALSE
+keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = localhost
+```
+
+Generate certificate với **Root SSL Certificate** tạo bên trên và `v3.ext` config rồi lưu vào file `server.crt` bằng command:
+
+```bash
+$ openssl x509 -req -in server.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out server.crt -days 825 -sha256 -extfile v3.ext
+```
+
+<Twemoji emoji="warning" /> Chú ý nhập đúng pass phrase từ các bước trên
+
+![server-cert](/static/images/server-cert.png)
+
+Done <Twemoji emoji="party-popper" /> <Twemoji emoji="party-popper" />
+
+Bây giờ trong folder mà bạn vừa tạo certificate sẽ chứa 2 file `server.key` và `server.crt`, chúng ta sẽ dùng 2 file này để tạo **HTTPS** server ở bước tiếp theo.
+
+![cert-folder](/static/images/cert-folder.png)
+
+### <Twemoji emoji="keycap-digit-four" /> Tạo HTTPS server
