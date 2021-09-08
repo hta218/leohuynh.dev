@@ -51,7 +51,7 @@
   border-left-color: #b7abab !important;
 }
 
-.prose.prose-lg code:not([class*='language']) {
+.prose.prose-lg p > code:not([class*='language']) {
   display: inline-block;
   color: rgb(34, 36, 38);
   font-weight: 500;
