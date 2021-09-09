@@ -18,12 +18,12 @@ $ sudo lsof -i -P | grep LISTEN
 The result should look like this:
 
 ```bash
-rapportd    335            leo    5u  IPv4 0x84512a8572c9a2c1      0t0    TCP *:62003 (LISTEN)
-rapportd    335            leo    6u  IPv6 0x84512a857627f399      0t0    TCP *:62003 (LISTEN)
-mongod      414            leo    9u  IPv4 0x84512a857926a759      0t0    TCP localhost:27017 (LISTEN)
-Loom       3315            leo   28u  IPv4 0x84512a85785cea21      0t0    TCP localhost:11223 (LISTEN)
-node      38238            leo   22u  IPv6 0x84512a857627f9f9      0t0    TCP *:5000 (LISTEN)
-node      68336            leo   22u  IPv6 0x84512a858bb436b9      0t0    TCP *:443 (LISTEN)
+rapportd    123            leo    5u  IPv4 0x84512a8572c9xxxx      0t0    TCP *:62003 (LISTEN)
+rapportd    123            leo    6u  IPv6 0x84512a857627xxxx      0t0    TCP *:62003 (LISTEN)
+mongod      414            leo    9u  IPv4 0x84512a857926xxxx      0t0    TCP localhost:27017 (LISTEN)
+Loom       3315            leo   28u  IPv4 0x84512a85785cxxxx      0t0    TCP localhost:11223 (LISTEN)
+node      38238            leo   22u  IPv6 0x84512a857627xxxx      0t0    TCP *:5000 (LISTEN)
+node      68336            leo   22u  IPv6 0x84512a858bb4xxxx      0t0    TCP *:443 (LISTEN)
 ```
 
 The 2nd column is the PID of the process on the port in the last column
@@ -42,11 +42,11 @@ Check again
 ```bash
 $ sudo lsof -i -P | grep LISTEN
 
-rapportd    335            leo    5u  IPv4 0x84512a8572c9a2c1      0t0    TCP *:62003 (LISTEN)
-rapportd    335            leo    6u  IPv6 0x84512a857627f399      0t0    TCP *:62003 (LISTEN)
-mongod      414            leo    9u  IPv4 0x84512a857926a759      0t0    TCP localhost:27017 (LISTEN)
-Loom       3315            leo   28u  IPv4 0x84512a85785cea21      0t0    TCP localhost:11223 (LISTEN)
-node      38238            leo   22u  IPv6 0x84512a857627f9f9      0t0    TCP *:5000 (LISTEN)
+rapportd    123            leo    5u  IPv4 0x84512a8572c9xxxx      0t0    TCP *:62003 (LISTEN)
+rapportd    123            leo    6u  IPv6 0x84512a857627xxxx      0t0    TCP *:62003 (LISTEN)
+mongod      414            leo    9u  IPv4 0x84512a857926xxxx      0t0    TCP localhost:27017 (LISTEN)
+Loom       3315            leo   28u  IPv4 0x84512a85785cxxxx      0t0    TCP localhost:11223 (LISTEN)
+node      38238            leo   22u  IPv6 0x84512a857627xxxx      0t0    TCP *:5000 (LISTEN)
 ```
 
 The process on port `443` is already stopped!
