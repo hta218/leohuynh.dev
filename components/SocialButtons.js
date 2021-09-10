@@ -7,7 +7,7 @@ import siteMetadata from '@/data/siteMetadata'
 const editUrl = (fileName) => `${siteMetadata.siteRepo}/blob/main/data/blog/${fileName}`
 const discussUrl = (postUrl) => `https://twitter.com/search?q=${encodeURIComponent(postUrl)}`
 
-const SocialButtons = ({ postUrl, title, slug, fileName }) => {
+const SocialButtons = ({ postUrl, title, fileName }) => {
   return (
     <div className="md:flex justify-between items-center pt-6 pb-6 text-sm text-gray-700 dark:text-gray-300">
       <div className="mb-6 md:mb-0">
