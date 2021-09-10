@@ -96,7 +96,7 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, pag
             </dl>
             <div className="divide-y divide-gray-200 dark:divide-gray-700 xl:pb-0 xl:col-span-3 xl:row-span-2">
               <div className="pt-10 pb-8 prose prose-lg dark:prose-dark max-w-none">{children}</div>
-              <SocialButtons postUrl={postUrl} slug={slug} title={title} fileName={fileName} />
+              <SocialButtons postUrl={postUrl} title={title} fileName={fileName} />
               <Comments frontMatter={frontMatter} />
             </div>
             <footer>
