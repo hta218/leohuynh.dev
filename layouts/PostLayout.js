@@ -8,13 +8,7 @@ import { BlogSeo } from '@/components/SEO'
 import Tag from '@/components/Tag'
 import Twemoji from '@/components/Twemoji.js'
 import siteMetadata from '@/data/siteMetadata'
-import { FacebookShareButton, TwitterShareButton } from 'react-share'
-import TwitterIcon from '@/components/social-icons/twitter.svg'
-import FacebookIcon from '@/components/social-icons/facebook.svg'
-
-const editUrl = (fileName) => `${siteMetadata.siteRepo}/blob/main/data/blog/${fileName}`
-const discussUrl = (slug) =>
-  `https://twitter.com/search?q=${encodeURIComponent(`${siteMetadata.siteUrl}/blog/${slug}`)}`
+import SocialButtons from '@/components/SocialButtons'
 
 const postDateTemplate = { year: 'numeric', month: 'short', day: 'numeric' }
 
@@ -102,34 +96,7 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, pag
             </dl>
             <div className="divide-y divide-gray-200 dark:divide-gray-700 xl:pb-0 xl:col-span-3 xl:row-span-2">
               <div className="pt-10 pb-8 prose prose-lg dark:prose-dark max-w-none">{children}</div>
-              <div className="md:flex justify-between items-center pt-6 pb-6 text-sm text-gray-700 dark:text-gray-300">
-                <div className="mb-6 md:mb-0">
-                  <Link href={discussUrl(slug)} rel="nofollow">
-                    {'Discuss on Twitter'}
-                  </Link>
-                  {` • `}
-                  <Link href={editUrl(fileName)}>{'View on GitHub'}</Link>
-                </div>
-                <div className="flex items-center">
-                  <TwitterShareButton
-                    url={postUrl}
-                    title={title}
-                    via={siteMetadata.socialAccount.twitter}
-                    className="flex items-center !p-1.5 mr-2 !bg-[#1da1f2] rounded overflow-hidden"
-                  >
-                    <TwitterIcon className="w-5 h-5" fill="#fff" />
-                    <span className="ml-2.5 mr-1.5 font-extrabold text-white">Tweet</span>
-                  </TwitterShareButton>
-                  <FacebookShareButton
-                    url={postUrl}
-                    quote={title}
-                    className="flex items-center !p-1.5 mr-2 !bg-[#1877f2] rounded overflow-hidden"
-                  >
-                    <FacebookIcon className="w-5 h-5" fill="#fff" />
-                    <span className="ml-2.5 mr-1.5 font-extrabold text-white">Share</span>
-                  </FacebookShareButton>
-                </div>
-              </div>
+              <SocialButtons postUrl={postUrl} slug={slug} title={title} fileName={fileName} />
               <Comments frontMatter={frontMatter} />
             </div>
             <footer>
