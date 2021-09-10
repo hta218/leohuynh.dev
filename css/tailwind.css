@@ -15,7 +15,7 @@
 }
 
 .code-line {
-  @apply w-max px-4 -mx-4 border-l-4 border-gray-800;
+  @apply px-4 -mx-4 border-l-4 border-gray-800;
 }
 
 .highlight-line {
