@@ -4,9 +4,11 @@ import { BlogSeo } from '@/components/SEO'
 import siteMetadata from '@/data/siteMetadata'
 import formatDate from '@/lib/utils/formatDate'
 import Comments from '@/components/comments'
+import SocialButtons from '@/components/SocialButtons'
 
 export default function PostLayout({ frontMatter, children }) {
-  const { date, title } = frontMatter
+  const { date, title, slug, fileName } = frontMatter
+  const postUrl = `${siteMetadata.siteUrl}/snippets/${slug}`
 
   return (
     <SectionContainer>
@@ -34,8 +36,9 @@ export default function PostLayout({ frontMatter, children }) {
           >
             <div className="divide-y divide-gray-200 dark:divide-gray-700 xl:pb-0 xl:col-span-3 xl:row-span-2">
               <div className="pt-10 pb-8 prose prose-lg dark:prose-dark max-w-none">{children}</div>
+              <SocialButtons postUrl={postUrl} slug={slug} title={title} fileName={fileName} />
+              <Comments frontMatter={frontMatter} />
             </div>
-            <Comments frontMatter={frontMatter} />
           </div>
         </div>
       </article>
