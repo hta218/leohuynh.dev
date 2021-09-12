@@ -2,7 +2,7 @@ import timelineData from '@/data/timelineData'
 
 const TimelineItem = ({ time, role, company, companyURL, companyBio, works }) => {
   return (
-    <li>
+    <li className="relative ml-2.5 !my-0 pl-5 pb-6 border-l border-[#abaaed]">
       <div className="font-semibold leading-[18px] mb-4">{time}</div>
       <div>
         {role}{' '}
@@ -32,14 +32,12 @@ const TimelineItem = ({ time, role, company, companyURL, companyBio, works }) =>
 
 const Timeline = () => {
   return (
-    <div className="timeline container">
-      <div className="wrapper">
-        <ul className="sessions">
-          {timelineData.map((item) => (
-            <TimelineItem key={item.time} {...item} />
-          ))}
-        </ul>
-      </div>
+    <div className="timeline">
+      <ul>
+        {timelineData.map((item) => (
+          <TimelineItem key={item.time} {...item} />
+        ))}
+      </ul>
     </div>
   )
 }
