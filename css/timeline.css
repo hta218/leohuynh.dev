@@ -1,0 +1,65 @@
+.prose-lg .timeline ul,
+.prose-lg .timeline li {
+  list-style: none;
+  padding: 0;
+}
+
+.prose-lg .timeline.container {
+  /* display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1rem;
+  background: linear-gradient(45deg, #209cff, #68e0cf);
+  padding: 3rem 0; */
+}
+.prose-lg .timeline .wrapper {
+  /* background: #eaf6ff;
+  padding: 2rem;
+  border-radius: 15px; */
+}
+.prose-lg .timeline h1 {
+  /* font-size: 1.1rem;
+  font-family: sans-serif; */
+}
+.prose-lg .timeline .sessions {
+  margin-top: 2rem;
+  border-radius: 12px;
+  position: relative;
+}
+.prose-lg .timeline li {
+  padding-bottom: 1.5rem;
+  border-left: 1px solid #abaaed;
+  position: relative;
+  padding-left: 20px;
+  margin-left: 10px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.prose-lg .timeline li:last-child {
+  border: 0px;
+  padding-bottom: 0;
+}
+.prose-lg .timeline ul li:before {
+  content: '';
+  width: 15px;
+  height: 15px;
+  background: white;
+  border: 1px solid #4e5ed3;
+  box-shadow: 3px 3px 0px #bab5f8;
+  box-shadow: 3px 3px 0px #bab5f8;
+  border-radius: 50%;
+  position: absolute;
+  left: -10px;
+  top: 0px;
+}
+.prose-lg .timeline .time {
+  /* color: #2a2839;
+  font-weight: 500; */
+  /* line-height: 18px; */
+}
+
+.prose-lg .timeline p {
+  color: #4f4f4f;
+  line-height: 1.5;
+  margin-top: 0.4rem;
+}
