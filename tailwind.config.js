@@ -14,6 +14,16 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
+      keyframes: {
+        wiggle: {
+          '0%': { transform: 'rotate(0deg)' },
+          '50%': { transform: 'rotate(180deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        },
+      },
+      animation: {
+        wiggle: 'wiggle 7s linear infinite',
+      },
       spacing: {
         '9/16': '56.25%',
       },
