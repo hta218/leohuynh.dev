@@ -20,6 +20,14 @@ module.exports = {
           '50%': { transform: 'rotate(180deg)' },
           '100%': { transform: 'rotate(360deg)' },
         },
+        pulse: {
+          '0%, 100%': { height: '100%' },
+          '50%': { transform: '50%' },
+        },
+        'pulse-reverse': {
+          '0%, 100%': { height: '50%' },
+          '50%': { transform: '100%' },
+        },
       },
       animation: {
         wiggle: 'wiggle 7s linear infinite',
