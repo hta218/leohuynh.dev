@@ -4,8 +4,8 @@
 }
 .prose-lg .timeline ul li:before {
   content: '';
-  width: 16px;
-  height: 16px;
+  width: 17px;
+  height: 17px;
   background: white;
   border: 1px solid #4e5ed3;
   box-shadow: 3px 3px 0px #bab5f8;
