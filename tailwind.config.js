@@ -20,17 +20,19 @@ module.exports = {
           '50%': { transform: 'rotate(180deg)' },
           '100%': { transform: 'rotate(360deg)' },
         },
-        pulse: {
+        'music-play': {
           '0%, 100%': { height: '100%' },
-          '50%': { transform: '50%' },
+          '50%': { height: '50%' },
         },
-        'pulse-reverse': {
+        'music-play-reverse': {
           '0%, 100%': { height: '50%' },
-          '50%': { transform: '100%' },
+          '50%': { height: '100%' },
         },
       },
       animation: {
         wiggle: 'wiggle 7s linear infinite',
+        'music-play': 'music-play 1s linear infinite',
+        'music-play-reverse': 'music-play-reverse 1s linear infinite',
       },
       spacing: {
         '9/16': '56.25%',
