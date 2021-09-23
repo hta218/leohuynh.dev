@@ -1,0 +1,70 @@
+---
+title: "Shopify section rendering APIs"
+date: "2021-09-23"
+tags: ['shopify', 'section', 'section-rendering-apis', 'key-notes']
+draft: true
+summary: "Vài notes về Section rendering APIs của Shopify"
+images: ["/static/images/img.jpg"]
+authors: ["default"]
+---
+
+import Twemoji from './Twemoji.js'
+import UnsplashLicense from './UnsplashLicense.js'
+
+<UnsplashLicense photoURL="https://unsplash.com/photos/id" author="author" />
+![alt](/static/images/img.jpg)
+
+<Twemoji emoji="" />
+
+Section Rendering APIs là 1 powerful AJAX API của Shopify để sử dụng ở storefront dùng cho việc request HTML cho 1 section bất kì của bạn.
+Tác dụng lớn nhất của API này là để update page content mà không cần phải reload page.
+
+Ví dụ:
+- Update Cart Drawer
+- Update Collection Filters (pagination, inifinite loading...)
+
+## Request nhiều sections
+
+Để request markup của nhiều section thì chúng ta sẽ fetch 1 request với URL là URL hiện tại của Shopify storefront và thêm param `?sections={sectionIDs}`
+
+Trong `sectionIDs` chính là các **filename** của section trong **theme** của bạn, phân cách bởi dấu `,`
+
+Ví dụ:
+
+```javascript
+fetch('/?sections=header,footer')
+```
+
+Kết quả sẽ trông như sau:
+
+```json
+{
+  "header": "<div id=\"shopify-section-header\" class=\"shopify-section\">\n<!-- section content -->\n</div>",
+  "footer": "<div id=\"shopify-section-footer\" class=\"shopify-section\">\n<!-- section content -->\n</div>"
+}
+```
+
+Có thể kết hợp với AJAX Cart APIs bằng cách thêm param `sections` vào request body:
+
+```javascript
+items: [
+  {
+   id: 36110175633573,
+   quantity: 2
+  }
+],
+sections: "cart-items,cart-header,cart-footer"
+```
+
+Các endpoints của AJAX Cart APIs có thể kết hợp query sections:
+
+- `/cart/add`
+- `/cart/change`
+- `/cart/clear`
+- `/cart/update`
+
+## Request 1 sections
+
+Chúng ta hoàn toàn có thể sử dụng API cho request nhiều section để request 1 section (truyền 1 section ID là được), nhưng kết quả sẽ là 1 JSON object.
+
+1 cách để thay thế là sử dụng param `?section_id={sectionID}` để request chỉ 1 section, kết quả sẽ markup text của section đó
