@@ -23,7 +23,7 @@ Ví dụ:
 - Update Cart Drawer
 - Update Collection Filters (pagination, inifinite loading...)
 
-## Request nhiều sections
+## Request nhiều section
 
 Để request markup của nhiều section thì chúng ta sẽ fetch 1 request với URL là URL hiện tại của Shopify storefront và thêm param `?sections={sectionIDs}`
 
@@ -63,8 +63,42 @@ Các endpoints của AJAX Cart APIs có thể kết hợp query sections:
 - `/cart/clear`
 - `/cart/update`
 
-## Request 1 sections
+## Request 1 section
 
 Chúng ta hoàn toàn có thể sử dụng API cho request nhiều section để request 1 section (truyền 1 section ID là được), nhưng kết quả sẽ là 1 JSON object.
 
-1 cách để thay thế là sử dụng param `?section_id={sectionID}` để request chỉ 1 section, kết quả sẽ markup text của section đó
+1 cách thay thế là sử dụng param `?section_id={sectionID}` để request chỉ 1 section, kết quả sẽ markup text của section đó
+
+`sectionID` ở đây cũng tương tự như khi request nhiều section - chính là **filename** của section đó
+
+## Tips
+
+<Twemoji emoji="keycap-digit-one" /> Static vs Dynamic section
+
+Để request 1 static section (section mà không có settings shema - content sẽ luôn cố định trừ khi chúng ta thay đổi source code của section) thì `sectionID` cần truyền chính là **filename** của section đó
+
+Tuy nhiên với dynamic section (section có settings schema) nếu dùng **filename** làm `sectionID` thì sẽ chỉ request được markup ứng với default settings của section đó, chứ không phải là markup tương ứng với settings hiện tại
+
+Để request được markup của những dynamic section này thì cần sử dụng dynamic `sectionID`. Trong **Liquid** thì đó là `{{ section.id }}`. 
+
+Ví dụ:
+
+```html:section-type.liquid
+<div data-section-id="{{ section.id }}" data-section-type="section-type">
+  <!-- section content -->
+</div>
+```
+
+Dynamic generated ID sẽ trông như thế này: `template--14908088647850__16322847419ca50f50`
+
+Request dynamic section markup
+
+```js
+// Async context
+const section = document.querySelector('[data-section-type="section-type"]')
+const id = section.dataset.id
+const markup = await (await fetch(`?section_id=template--14908088647850__16322847419ca50f50`)).text()
+
+console.log(markup)
+// Example markup: '<div id=\"template--14908088647850__16322847419ca50f50\">\n<!-- section content -->\n</div>''
+```
