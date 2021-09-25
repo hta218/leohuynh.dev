@@ -60,7 +60,6 @@ private String[] getRowValue(Integer i, List<BillDetail> billDetail) {
   rowValue[3] = new DecimalFormat("#,###").format(Integer.parseInt(billDetail.get(i).getDonGiaSanPham()));
   rowValue[4] = new DecimalFormat("#,###").format(billDetail.get(i).getThanhTien());
   return rowValue;
-
 }
 ```
 ````
@@ -90,7 +89,7 @@ private String[] getRowValue(Integer i, List<BillDetail> billDetail) {
 Example:
 
 ````
-```html {1,4-6,9} showLineNumbers
+```html {1,4-6,10} showLineNumbers
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -108,7 +107,7 @@ Example:
 
 will appear as:
 
-```html {1,4-6,9} showLineNumbers
+```html {1,4-6,10} showLineNumbers
 <!DOCTYPE html>
 <html lang="en">
   <head>
