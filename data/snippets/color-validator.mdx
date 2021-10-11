@@ -41,14 +41,14 @@ isValidColor('#ccczzz') // false
 
 Caveat
 
-Strings like `unset`, `initial`, `inherit`, `transparent` are also valid values, so if you want to exclude these strings, just change the function a bit:
+Strings like `unset`, `initial`, `inherit`, `currentcolor`, `transparent` are also valid values, so if you want to exclude these strings, just change the function a bit:
 
 ```js
 const isValidColor = color => {
   const otpNode = new Option()
   otpNode.style.color = color
 
-  return !!otpNode.style.color && !/(unset|initial|inherit|transparent)/.test(color)
+  return !!otpNode.style.color && !/(unset|initial|inherit|currentcolor|transparent)/i.test(color)
 }
 
 isValidColor('rgb(-1, 255, 255)') // true
