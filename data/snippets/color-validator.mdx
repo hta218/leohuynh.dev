@@ -5,6 +5,9 @@ type: "javascript"
 draft: false
 summary: "Check if a string is a valid color"
 ---
+import Twemoji from './Twemoji.js'
+
+#### <Twemoji emoji="warning" /> For client-side only, not work in Node.js
 
 Simple color validator function
 
@@ -42,7 +45,6 @@ Strings like `unset`, `initial`, `inherit`, `transparent` are also valid value, 
 
 ```js
 const isValidColor = color => {
-
   const otpNode = new Option()
   otpNode.style.color = color
 
