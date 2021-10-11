@@ -2,11 +2,11 @@
 title: "Validate color"
 date: "2021-10-12"
 type: "javascript"
-draft: true
+draft: false
 summary: "Check if a string is a valid color"
 ---
 
-#### Simple color validator function
+Simple color validator function
 
 ```js
 const isValidColor = color => {
@@ -17,7 +17,7 @@ const isValidColor = color => {
 }
 ```
 
-#### Usage
+Usage
 
 ```js
 // Valid colors
@@ -32,11 +32,11 @@ isValidColor('hsl(100, 0%, 18%)') // true
 // Invalid colors
 isValidColor('not-a-color-name') // false
 isValidColor('dark gray') // false. Should be 'darkgray'
-isValidColor('rgb(255, 255, 255, 1, 1);') // false
+isValidColor('rgb(255, 255, 255, 1, 1)') // false
 isValidColor('#ccczzz') // false
 ```
 
-#### Caveat
+Caveat
 
 Strings like `unset`, `initial`, `inherit`, `transparent` are also valid value, so if you want to exclude these strings, just change the function a bit:
 
