@@ -20,19 +20,32 @@ module.exports = {
           '50%': { transform: 'rotate(180deg)' },
           '100%': { transform: 'rotate(360deg)' },
         },
-        'music-play': {
-          '0%, 100%': { height: '100%' },
-          '50%': { height: '50%' },
+        'music-play-1': {
+          '0%, 100%': { height: '0%' },
+          '50%': { height: '70%' },
         },
-        'music-play-reverse': {
+        'music-play-2': {
           '0%, 100%': { height: '50%' },
-          '50%': { height: '100%' },
+          '25%': { height: '0%' },
+          '75%': { height: '100%' },
+        },
+        'music-play-3': {
+          '0%, 100%': { height: '70%' },
+          '15%': { height: '100%' },
+          '65%': { height: '0%' },
+        },
+        'music-play-4': {
+          '0%, 100%': { height: '50%' },
+          '35.7%': { height: '0%' },
+          '85.7%': { height: '70%' },
         },
       },
       animation: {
         wiggle: 'wiggle 7s linear infinite',
-        'music-play': 'music-play 1s linear infinite',
-        'music-play-reverse': 'music-play-reverse 1s linear infinite',
+        'music-play-1': 'music-play-1 .85s linear infinite',
+        'music-play-2': 'music-play-2 .85s linear infinite',
+        'music-play-3': 'music-play-3 .85s linear infinite',
+        'music-play-4': 'music-play-4 .85s linear infinite',
       },
       spacing: {
         '9/16': '56.25%',
