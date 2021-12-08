@@ -42,10 +42,10 @@ module.exports = {
       },
       animation: {
         wiggle: 'wiggle 7s linear infinite',
-        'music-play-1': 'music-play-1 .85s linear infinite',
-        'music-play-2': 'music-play-2 .85s linear infinite',
-        'music-play-3': 'music-play-3 .85s linear infinite',
-        'music-play-4': 'music-play-4 .85s linear infinite',
+        'music-play-1': 'music-play-1 .8s linear infinite',
+        'music-play-2': 'music-play-2 .8s linear infinite',
+        'music-play-3': 'music-play-3 .8s linear infinite',
+        'music-play-4': 'music-play-4 .8s linear infinite',
       },
       spacing: {
         '9/16': '56.25%',
