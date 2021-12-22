@@ -9,7 +9,7 @@ import NextImage from 'next/image'
 
 const LayoutWrapper = ({ children }) => {
   return (
-    <SectionContainer>
+    <div className="max-w-3xl px-3 mx-auto sm:px-6 xl:max-w-5xl xl:px-0">
       <div className="flex flex-col justify-between min-h-screen">
         <header className="flex items-center justify-between py-5 md:py-10 sticky top-0 z-40 bg-white dark:bg-[#22272e]">
           <div>
@@ -52,7 +52,7 @@ const LayoutWrapper = ({ children }) => {
         <main className="mb-auto">{children}</main>
         <Footer />
       </div>
-    </SectionContainer>
+    </div>
   )
 }
 
