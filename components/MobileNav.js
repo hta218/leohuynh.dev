@@ -7,14 +7,14 @@ const MobileNav = () => {
 
   const onToggleNav = () => {
     setNavShow((status) => {
-      if (status) {
-        document.documentElement.style.overflowY = 'auto'
-        document.body.style.overflowY = 'auto'
-      } else {
-        // Prevent scrolling
-        document.documentElement.style.overflowY = 'hidden'
-        document.body.style.overflowY = 'hidden'
-      }
+      // if (status) {
+      //   document.documentElement.style.overflowY = 'auto'
+      //   document.body.style.overflowY = 'auto'
+      // } else {
+      //   // Prevent scrolling
+      //   document.documentElement.style.overflowY = 'hidden'
+      //   document.body.style.overflowY = 'hidden'
+      // }
       return !status
     })
   }
