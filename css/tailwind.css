@@ -30,6 +30,12 @@
 .prose-lg pre {
   margin-top: 1em;
 }
+.prose pre {
+  background-color: #222;
+}
+.prose pre .code-line {
+  border-color: #222;
+}
 
 @media (max-width: 768px) {
   #refs ~ ul > li {
