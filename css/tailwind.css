@@ -36,6 +36,9 @@
 .prose pre .code-line {
   border-color: #222;
 }
+.prose pre .code-line.highlight-line {
+  border-color: rgba(99, 102, 241, var(--tw-border-opacity)) !important;
+}
 
 @media (max-width: 768px) {
   #refs ~ ul > li {
