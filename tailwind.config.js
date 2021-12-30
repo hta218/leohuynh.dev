@@ -62,6 +62,7 @@ module.exports = {
       colors: {
         primary: colors.indigo,
         gray: colors.trueGray,
+        dark: '#22272e',
         code: {
           green: '#b5f4a5',
           yellow: '#ffe484',
