@@ -55,7 +55,7 @@ const ProfileCard = () => {
       >
         <div
           style={style}
-          className="flex flex-col transition-all duration-200 ease-out xl:hover:shadow-xl xl:shadow-md xl:rounded-lg bg-white dark:bg-[#22272e] xl:border border-gray-200 overflow-hidden"
+          className="flex flex-col transition-all duration-200 ease-out xl:hover:shadow-xl xl:shadow-md xl:rounded-lg bg-white dark:bg-dark xl:border border-gray-200 overflow-hidden"
         >
           <Image
             src={'/static/images/logo.jpg'}
