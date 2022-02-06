@@ -119,9 +119,7 @@ const Spotify = ({ data }) => {
 const ProfileInfo = () => (
   <div className="hidden xl:block xl:px-6 py-4">
     <h1 className="text-xl font-semibold text-gray-800 dark:text-white">Tuan Anh Huynh (Leo)</h1>
-
     <p className="py-2 text-gray-700 dark:text-gray-400">Builder | Thinker</p>
-
     <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -138,7 +136,7 @@ const ProfileInfo = () => (
         />
       </svg>
 
-      <h1 className="px-2 text-sm">Building Shopify stuff @ FoxEcom</h1>
+      <p className="px-2 text-[15px]">Building Shopify stuff @ FoxEcom</p>
     </div>
 
     <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">
@@ -163,12 +161,12 @@ const ProfileInfo = () => (
         />
       </svg>
 
-      <h1 className="px-2 text-sm">
+      <p className="px-2 text-[15px]">
         Ha Noi, VN{' '}
         <span className="align-middle">
           <Twemoji emoji="flag-vietnam" />
         </span>
-      </h1>
+      </p>
     </div>
 
     <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">
@@ -186,7 +184,7 @@ const ProfileInfo = () => (
           d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
         />
       </svg>
-      <h1 className="px-2 text-sm">leo@insights.is</h1>
+      <p className="px-2 text-[15px]">leo@insights.is</p>
     </div>
   </div>
 )
