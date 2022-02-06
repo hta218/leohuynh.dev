@@ -2,17 +2,7 @@ import ProfileCard from '@/components/ProfileCard'
 import { PageSeo } from '@/components/SEO'
 
 export default function AuthorLayout({ children, frontMatter }) {
-  const {
-    name,
-    avatar,
-    occupation,
-    company,
-    email,
-    twitter,
-    facebook,
-    linkedin,
-    github,
-  } = frontMatter
+  const { name, avatar } = frontMatter
 
   return (
     <>
