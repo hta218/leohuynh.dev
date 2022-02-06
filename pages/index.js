@@ -25,7 +25,7 @@ export default function Home({ posts }) {
         <div className="my-4 pt-6 pb-8 space-y-2 md:space-y-5 xl:grid xl:grid-cols-3">
           <div className="xl:col-span-2 pr-8">
             <p
-              className={`mb-8 text-6xl leading-[72px] font-extrabold tracking-tight text-transparent bg-clip-text ${headingColorClass} md:text-7xl md:leading-[86px]`}
+              className={`mb-8 text-5xl leading-[60px] font-extrabold tracking-tight text-transparent bg-clip-text ${headingColorClass} md:text-7xl md:leading-[86px]`}
             >
               Hey there <i className="twa twa-waving-hand"></i>
             </p>
@@ -59,17 +59,17 @@ export default function Home({ posts }) {
                 <Link href="/projects" className="hover:underline">
                   <Twemoji emoji="hammer-and-wrench" /> What have I built?
                 </Link>
-                <Link href="/projects" className="hover:underline">
-                  <Twemoji emoji="face-with-monocle" /> More about me and myself.
-                </Link>
-                <Link href="/projects" className="hover:underline">
-                  <Twemoji emoji="briefcase" /> My career.
-                </Link>
                 <Link href="/blog" className="hover:underline">
                   <Twemoji emoji="memo" /> My writings.
                 </Link>
                 <Link href="/snippets" className="hover:underline">
                   <Twemoji emoji="dna" /> Useful snippets collected by me.
+                </Link>
+                <Link href="/projects" className="hover:underline">
+                  <Twemoji emoji="face-with-monocle" /> More about me and myself.
+                </Link>
+                <Link href="/projects" className="hover:underline">
+                  <Twemoji emoji="briefcase" /> My career.
                 </Link>
               </div>
               <p className="my-8">
