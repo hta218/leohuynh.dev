@@ -16,15 +16,19 @@ export async function getStaticProps() {
 }
 
 export default function Home({ posts }) {
+  const headingColorClass = 'bg-gradient-to-r from-sky-400 to-cyan-300'
   return (
     <>
       <PageSeo title={siteMetadata.title} description={siteMetadata.description} />
       <div className="divide-y divide-gray-200 dark:divide-gray-700 mt-16">
         <div className="my-4 pt-6 pb-8 space-y-2 md:space-y-5 xl:grid xl:grid-cols-3">
           <div className="xl:col-span-2 pr-8">
-            <h1 className="mb-8 text-4xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
+            <h1
+              className={`mb-8 text-4xl font-extrabold tracking-tight text-transparent bg-clip-text ${headingColorClass} sm:text-4xl sm:leading-10 md:text-6xl md:leading-[72px]`}
+            >
               Hey there <i className="twa twa-waving-hand"></i>
             </h1>
+
             <div className="text-lg leading-8 text-gray-600 dark:text-gray-400">
               I'm <span className="font-medium">Tuan Anh</span> (aka Leo) - a{' '}
               <span className="font-medium">Software Engineer</span> in{' '}
