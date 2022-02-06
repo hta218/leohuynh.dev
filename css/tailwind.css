@@ -122,6 +122,10 @@ html.lightbox-loading * {
   background-color: transparent !important;
 }
 
+.prose li::marker {
+  content: '';
+}
+
 .prose-lg hr {
   margin-top: 2em;
   margin-bottom: 2em;
@@ -129,4 +133,8 @@ html.lightbox-loading * {
 
 * {
   transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+.flag-vn i {
+  background-position: 50% -200%;
 }
