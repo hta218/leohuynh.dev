@@ -56,15 +56,15 @@ const ProfileCard = () => {
       >
         <div
           style={style}
-          className="flex flex-col transition-all duration-200 ease-out xl:hover:shadow-xl xl:shadow-md xl:rounded-lg bg-white dark:bg-dark xl:border border-gray-200 overflow-hidden"
+          className="flex flex-col transition-all duration-200 ease-out xl:shadow-lg shadow-cyan-100/50 dark:shadow-cyan-700/50 xl:rounded-lg bg-white dark:bg-dark overflow-hidden"
         >
           <Image
             src={'/static/images/logo.jpg'}
             alt="avatar"
-            shouldOpenLightbox={false}
             width="550px"
-            height="400px"
-            className="object-cover object-top"
+            height="350px"
+            className="object-cover"
+            objectPosition="50% 16%"
           />
           <Spotify data={data} />
           <ProfileInfo />

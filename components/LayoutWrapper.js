@@ -43,7 +43,7 @@ const LayoutWrapper = ({ children }) => {
             </div>
             <ThemeSwitch />
             <button
-              className="w-8 h-8 ml-1 mr-1 rounded sm:hidden"
+              className="w-8 h-8 ml-2 mr-1 rounded sm:hidden"
               type="button"
               aria-label="Toggle Menu"
               onClick={onToggleNav}
