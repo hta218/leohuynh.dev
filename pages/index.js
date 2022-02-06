@@ -3,6 +3,7 @@ import ProfileCard from '@/components/ProfileCard'
 import { PageSeo } from '@/components/SEO'
 import Tag from '@/components/Tag'
 import Twemoji from '@/components/Twemoji.js'
+import TypedBios from '@/components/TypedBios'
 import siteMetadata from '@/data/siteMetadata'
 import { getAllFilesFrontMatter } from '@/lib/mdx'
 import formatDate from '@/lib/utils/formatDate'
@@ -32,12 +33,13 @@ export default function Home({ posts }) {
 
             <div className="text-lg leading-8 text-gray-600 dark:text-gray-400">
               <h1>
-                I'm <span className="font-medium">Tuan Anh</span> (aka Leo) - a{' '}
+                I'm <span className="font-medium">Tuan Anh Huynh</span> - an open minded{' '}
                 <span className="font-medium">Software Engineer</span> in{' '}
-                <span className="align-middle">
+                <span className="align-middle flag-vn">
                   <Twemoji emoji="flag-vietnam" />
                 </span>
               </h1>
+              <TypedBios />
               <p className="mt-4 mb-8">
                 I started my coding journey in late 2016 with C/C++/Java in college.
                 <br />I learned{' '}
