@@ -24,18 +24,20 @@ export default function Home({ posts }) {
       <div className="divide-y divide-gray-200 dark:divide-gray-700 mt-8 md:mt-16">
         <div className="my-4 pt-6 pb-8 space-y-2 md:space-y-5 xl:grid xl:grid-cols-3">
           <div className="xl:col-span-2 pr-8">
-            <h1
+            <p
               className={`mb-8 text-6xl leading-[72px] font-extrabold tracking-tight text-transparent bg-clip-text ${headingColorClass} md:text-7xl md:leading-[86px]`}
             >
               Hey there <i className="twa twa-waving-hand"></i>
-            </h1>
+            </p>
 
             <div className="text-lg leading-8 text-gray-600 dark:text-gray-400">
-              I'm <span className="font-medium">Tuan Anh</span> (aka Leo) - a{' '}
-              <span className="font-medium">Software Engineer</span> in{' '}
-              <span className="align-middle">
-                <Twemoji emoji="flag-vietnam" />
-              </span>
+              <h1>
+                I'm <span className="font-medium">Tuan Anh</span> (aka Leo) - a{' '}
+                <span className="font-medium">Software Engineer</span> in{' '}
+                <span className="align-middle">
+                  <Twemoji emoji="flag-vietnam" />
+                </span>
+              </h1>
               <p className="mt-4 mb-8">
                 I started my coding journey in late 2016 with C/C++/Java in college.
                 <br />I learned{' '}
