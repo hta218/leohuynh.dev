@@ -68,11 +68,11 @@ export default function Home({ posts }) {
                 <Link href="/snippets" className="hover:underline">
                   <Twemoji emoji="dna" /> Useful snippets collected by me.
                 </Link>
-                <Link href="/projects" className="hover:underline">
+                <Link href="/about" className="hover:underline">
                   <Twemoji emoji="face-with-monocle" /> More about me and myself.
                 </Link>
-                <Link href="/projects" className="hover:underline">
-                  <Twemoji emoji="briefcase" /> My career.
+                <Link href="/resume" className="hover:underline">
+                  <Twemoji emoji="briefcase" /> My resume.
                 </Link>
               </div>
               <p className="my-8">
