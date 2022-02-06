@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import useSWR from 'swr'
 import fetcher from '@/lib/fetcher'
 import Twemoji from './Twemoji'
+import Link from 'next/link'
 
 const ProfileCard = () => {
   const { data } = useSWR('/api/spotify', fetcher)
@@ -136,7 +137,7 @@ const ProfileInfo = () => (
         />
       </svg>
 
-      <p className="px-2 text-[15px]">Building Shopify stuff @ FoxEcom</p>
+      <p className="px-2 text-[15px]">Shopify Software Maker</p>
     </div>
 
     <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">
@@ -162,8 +163,8 @@ const ProfileInfo = () => (
       </svg>
 
       <p className="px-2 text-[15px]">
-        Ha Noi, VN{' '}
-        <span className="align-middle">
+        [::1]:443 - FoxEcom, Ha Noi
+        <span className="align-middle flag-vn ml-1">
           <Twemoji emoji="flag-vietnam" />
         </span>
       </p>
@@ -185,6 +186,31 @@ const ProfileInfo = () => (
         />
       </svg>
       <p className="px-2 text-[15px]">leo@insights.is</p>
+    </div>
+    <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={1}
+          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+        />
+      </svg>
+      <p className="px-2 text-[15px]">
+        <a target="_blank" href="https://github.com/hta218" rel="noreferrer">
+          gh/hta218
+        </a>
+        ,{' '}
+        <a target="_blank" href="https://twitter.com/hta218_" rel="noreferrer">
+          tw/hta218_
+        </a>
+      </p>
     </div>
   </div>
 )

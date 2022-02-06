@@ -35,7 +35,7 @@ export default function Home({ posts }) {
               <h1>
                 I'm <span className="font-medium">Tuan Anh Huynh</span> - an open minded{' '}
                 <span className="font-medium">Software Engineer</span> in{' '}
-                <span className="align-middle flag-vn">
+                <span className="align-middle flag-vn ml-1">
                   <Twemoji emoji="flag-vietnam" />
                 </span>
               </h1>
