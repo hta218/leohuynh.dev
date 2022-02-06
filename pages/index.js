@@ -1,4 +1,5 @@
 import Link from '@/components/Link'
+import ProfileCard from '@/components/ProfileCard'
 import { PageSeo } from '@/components/SEO'
 import Tag from '@/components/Tag'
 import Twemoji from '@/components/Twemoji.js'
@@ -18,39 +19,63 @@ export default function Home({ posts }) {
   return (
     <>
       <PageSeo title={siteMetadata.title} description={siteMetadata.description} />
-      <div className="divide-y divide-gray-200 dark:divide-gray-700">
-        <div className="pt-6 pb-8 space-y-2 md:space-y-5">
-          <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-            Xin chào <i className="twa twa-waving-hand"></i>
-          </h1>
-          <p className="text-lg leading-7 text-gray-600 dark:text-gray-400">
-            Mình là <span className="font-medium">Tuấn Anh (Leo)</span> -{' '}
-            <span className="font-medium">Shopify Software Engineer</span> tại{' '}
-            <a
-              href="https://insights.is"
-              target="_blank"
-              className="text-primary-400 hover:text-primary-600 dark:hover:text-primary-400"
-              rel="noreferrer"
-            >
-              Insights Studio
-            </a>
-            .
-            <p className="my-4">
-              Mình sở hữu chiếc <Twemoji emoji="desktop computer" /> đầu tiên năm lớp 7 và đã dành
-              rất nhiều thời gian cho máy tính kể từ đó! Chỉ vài năm sau mình đã thành thạo việc
-              chơi AOE, CS và soạn giáo án trên MS Word cho chú <Twemoji emoji="partying-face" />
-              <Twemoji emoji="partying-face" />
-            </p>
-            <p className="my-4">
-              Mình làm quen và hứng thú với lập trình từ cuối năm 2016, từ đó đến nay mình đã làm
-              việc ở vài công ty, lớn có, nhỏ có. Blog này là nơi note lại những kiến thức mà mình
-              học được và những điều hay ho mình trải nghiệm khi đi làm!
-            </p>
-            <p className="my-4">
-              Happy reading <Twemoji emoji="clinking-beer-mugs" />
-            </p>
-          </p>
+      <div className="divide-y divide-gray-200 dark:divide-gray-700 mt-16">
+        <div className="my-4 pt-6 pb-8 space-y-2 md:space-y-5 xl:grid xl:grid-cols-3">
+          <div className="xl:col-span-2 pr-8">
+            <h1 className="mb-8 text-4xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
+              Hey there <i className="twa twa-waving-hand"></i>
+            </h1>
+            <div className="text-lg leading-8 text-gray-600 dark:text-gray-400">
+              I'm <span className="font-medium">Tuan Anh</span> (aka Leo) - a{' '}
+              <span className="font-medium">Software Engineer</span> in{' '}
+              <span className="align-middle">
+                <Twemoji emoji="flag-vietnam" />
+              </span>
+              <p className="mt-4 mb-8">
+                I started my coding journey in late 2016 with C/C++/Java in college.
+                <br />I learned{' '}
+                <a
+                  className="underline"
+                  href="https://github.com/hta218/Travel_Egypt"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Python
+                </a>{' '}
+                and got my first job as a coding mentor for newbies in 2017.
+                <br />
+                I'm in love with JS ecosystem, Web dev, and eCommerce.
+                <br />
+                I'm writing this blog to note down and share what I've learned as a SE.
+              </p>
+              <div className="flex flex-col">
+                <Link href="/projects" className="hover:underline">
+                  <Twemoji emoji="hammer-and-wrench" /> What have I built?
+                </Link>
+                <Link href="/projects" className="hover:underline">
+                  <Twemoji emoji="face-with-monocle" /> More about me and myself.
+                </Link>
+                <Link href="/projects" className="hover:underline">
+                  <Twemoji emoji="briefcase" /> My career.
+                </Link>
+                <Link href="/blog" className="hover:underline">
+                  <Twemoji emoji="memo" /> My writings.
+                </Link>
+                <Link href="/snippets" className="hover:underline">
+                  <Twemoji emoji="dna" /> Useful snippets collected by me.
+                </Link>
+              </div>
+              <p className="my-8">
+                Happy reading <Twemoji emoji="clinking-beer-mugs" />
+              </p>
+            </div>
+          </div>
+          <div className="hidden xl:block">
+            <ProfileCard />
+          </div>
         </div>
+      </div>
+      <div className="border-t border-gray-200 dark:border-gray-700">
         <ul className="divide-y divide-gray-200 dark:divide-gray-700">
           {!posts.length && 'No posts found.'}
           {posts.slice(0, MAX_DISPLAY).map((frontMatter) => {
@@ -102,18 +127,18 @@ export default function Home({ posts }) {
             )
           })}
         </ul>
+        {posts.length > MAX_DISPLAY && (
+          <div className="flex justify-end text-base font-medium leading-6">
+            <Link
+              href="/blog"
+              className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+              aria-label="all posts"
+            >
+              All Posts &rarr;
+            </Link>
+          </div>
+        )}
       </div>
-      {posts.length > MAX_DISPLAY && (
-        <div className="flex justify-end text-base font-medium leading-6">
-          <Link
-            href="/blog"
-            className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-            aria-label="all posts"
-          >
-            All Posts &rarr;
-          </Link>
-        </div>
-      )}
     </>
   )
 }
