@@ -3,7 +3,7 @@ const colors = require('tailwindcss/colors')
 
 module.exports = {
   mode: 'jit',
-  purge: [
+  content: [
     './pages/**/*.js',
     './data/blog/*.mdx',
     './components/**/*.js',
@@ -61,7 +61,7 @@ module.exports = {
       },
       colors: {
         primary: colors.indigo,
-        gray: colors.trueGray,
+        gray: colors.gray,
         dark: '#22272e',
         code: {
           green: '#b5f4a5',
