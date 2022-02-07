@@ -122,6 +122,10 @@ html.lightbox-loading * {
   margin-top: 0;
 }
 
+.prose :where(thead th):not(:where([class~='not-prose'] *)) {
+  color: unset;
+}
+
 .prose ol li:before {
   background-color: transparent !important;
 }
