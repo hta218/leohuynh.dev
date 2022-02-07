@@ -8,11 +8,11 @@ const ProjectCard = ({ title, description, imgSrc, href, repoName }) => (
         alt={title}
         src={imgSrc}
         className="object-cover object-center lg:h-48 md:h-36"
-        width={544}
-        height={306}
+        width={1088}
+        height={612}
       />
       <div className="p-6">
-        <div className="flex justify-between items-center mb-3">
+        <div className="flex justify-between mb-3">
           <h2 className="text-2xl font-bold leading-8 tracking-tight">
             {href ? (
               <Link href={href} aria-label={`Link to ${title}`}>
@@ -23,7 +23,7 @@ const ProjectCard = ({ title, description, imgSrc, href, repoName }) => (
             )}
           </h2>
           {!repoName ? null : (
-            <div className="flex-shrink-0">
+            <div className="flex-shrink-0 mt-0.5">
               <Image
                 alt={title}
                 src={`https://img.shields.io/github/stars/hta218/${repoName}.svg?style=social&label=Stars&maxAge=2592000`}
