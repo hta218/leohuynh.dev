@@ -9,9 +9,10 @@ const TypedBios = () => {
   React.useEffect(() => {
     const options = {
       stringsElement: '#bios',
-      typeSpeed: 30,
+      typeSpeed: 50,
       backSpeed: 10,
       loop: true,
+      backDelay: 1000,
       // shuffle: true,
     }
     typed.current = new Typed(el.current, options)
@@ -53,12 +54,13 @@ const TypedBios = () => {
             <Twemoji emoji="volleyball" />
           </span>
         </li>
+        <li>I love watching football.</li>
         <li>
           I love playing guitar <Twemoji emoji="guitar" />
         </li>
         <li>I love rock music.</li>
         <li>
-          PES is my favorite game <Twemoji emoji="video-game" />
+          I love playing video game <Twemoji emoji="video-game" />, PES is my favorite one.
         </li>
       </ul>
       <span ref={el} />
