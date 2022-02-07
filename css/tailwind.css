@@ -75,6 +75,10 @@
 .prose pre code {
   font-weight: 500 !important;
 }
+.prose code::before,
+.prose code::after {
+  content: '';
+}
 
 code,
 kbd,
@@ -124,6 +128,10 @@ html.lightbox-loading * {
 
 .prose li::marker {
   content: '';
+}
+
+.prose .code-line {
+  font-size: 16px;
 }
 
 .prose-lg hr {

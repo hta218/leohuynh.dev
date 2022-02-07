@@ -63,7 +63,7 @@ const TypedBios = () => {
           I love playing video game <Twemoji emoji="video-game" />, PES is my favorite one.
         </li>
       </ul>
-      <span ref={el} />
+      <span ref={el} className="text-neutral-900 dark:text-neutral-200" />
     </div>
   )
 }

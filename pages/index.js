@@ -32,7 +32,7 @@ export default function Home({ posts }) {
             </p>
 
             <div className="text-lg leading-8 text-gray-600 dark:text-gray-400">
-              <h1>
+              <h1 className="text-neutral-900 dark:text-neutral-200">
                 I'm <span className="font-medium">Tuan Anh Huynh</span> - an open minded{' '}
                 <span className="font-medium">Software Engineer</span> in{' '}
                 <span className="font-medium hidden">Ha Noi, VN</span>
