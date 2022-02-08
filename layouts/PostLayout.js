@@ -74,14 +74,14 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, pag
                       )}
                       <dl className="text-sm font-medium leading-5 whitespace-nowrap">
                         <dt className="sr-only">Name</dt>
-                        <dd className="text-gray-900 dark:text-gray-100">{author.name}</dd>
+                        <dd className="text-gray-900 dark:text-gray-100 mb-0.5">{author.name}</dd>
                         <dt className="sr-only">Twitter</dt>
                         <dd>
                           {author.github && (
                             <>
                               <Link
                                 href={author.github}
-                                className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+                                className="text-primary-500 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300"
                               >
                                 {author.github.replace('https://github.com/', '@')}
                               </Link>
@@ -103,7 +103,7 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, pag
               <div className="text-sm font-medium leading-5 divide-gray-200 xl:divide-y dark:divide-gray-700 xl:col-start-1 xl:row-start-2">
                 {tags && (
                   <div className="py-4 xl:py-8">
-                    <h2 className="text-xs tracking-wide text-gray-500 uppercase dark:text-gray-400">
+                    <h2 className="text-sm tracking-wide text-gray-500 dark:text-gray-400 mb-1">
                       Tags
                     </h2>
                     <div className="flex flex-wrap">
@@ -117,21 +117,25 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, pag
                   <div className="flex justify-between py-4 xl:block xl:space-y-8 xl:py-8">
                     {prev && (
                       <div>
-                        <h2 className="text-xs tracking-wide text-gray-500 uppercase dark:text-gray-400">
-                          Previous Article
+                        <h2 className="text-sm mb-1 tracking-wide text-gray-500 dark:text-gray-400">
+                          Previous Post
                         </h2>
-                        <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
-                          <Link href={`/blog/${prev.slug}`}>{prev.title}</Link>
+                        <div className="text-primary-500 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300">
+                          <Link href={`/blog/${prev.slug}`} className="text-base">
+                            {prev.title}
+                          </Link>
                         </div>
                       </div>
                     )}
                     {next && (
                       <div>
-                        <h2 className="text-xs tracking-wide text-gray-500 uppercase dark:text-gray-400">
-                          Next Article
+                        <h2 className="text-sm tracking-wide text-gray-500 dark:text-gray-400">
+                          Next Post
                         </h2>
-                        <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
-                          <Link href={`/blog/${next.slug}`}>{next.title}</Link>
+                        <div className="text-primary-500 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300">
+                          <Link href={`/blog/${next.slug}`} className="text-base">
+                            {next.title}
+                          </Link>
                         </div>
                       </div>
                     )}
