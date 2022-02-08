@@ -112,18 +112,18 @@ module.exports = {
               paddingBottom: '2px',
               borderRadius: '0.25rem',
             },
-            'code:before': {
+            'code::before': {
               content: 'none',
             },
-            'code:after': {
+            'code::after': {
               content: 'none',
             },
             hr: { borderColor: theme('colors.gray.200') },
-            'ol li:before': {
+            'ol li::before': {
               fontWeight: '600',
               color: theme('colors.gray.500'),
             },
-            'ul li:before': {
+            'ul li::before': {
               backgroundColor: theme('colors.gray.500'),
             },
             strong: { color: theme('colors.gray.600') },
@@ -133,13 +133,27 @@ module.exports = {
             },
           },
         },
+        lg: {
+          'ol li::marker': {
+            content: 'none',
+          },
+          'ul li::marker': {
+            content: 'none',
+          },
+          ul: {
+            paddingLeft: '0px',
+          },
+          'ul > li': {
+            paddingLeft: '0px',
+          },
+        },
         dark: {
           css: {
             color: theme('colors.gray.300'),
             a: {
-              color: theme('colors.primary.500'),
+              color: theme('colors.primary.400'),
               '&:hover': {
-                color: theme('colors.primary.400'),
+                color: theme('colors.primary.200'),
               },
               code: { color: theme('colors.primary.400') },
             },

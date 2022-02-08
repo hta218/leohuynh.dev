@@ -10,10 +10,6 @@
   @apply mt-0 rounded-t-none;
 }
 
-.task-list-item:before {
-  @apply hidden;
-}
-
 .code-line {
   @apply px-4 -mx-4 border-l-4 border-gray-800;
 }
@@ -75,10 +71,6 @@
 .prose pre code {
   font-weight: 500 !important;
 }
-.prose code::before,
-.prose code::after {
-  content: '';
-}
 
 code,
 kbd,
@@ -128,10 +120,6 @@ html.lightbox-loading * {
 
 .prose ol li:before {
   background-color: transparent !important;
-}
-
-.prose li::marker {
-  content: '';
 }
 
 .prose .code-line {
