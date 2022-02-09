@@ -49,7 +49,7 @@ Sau đây sẽ là các bước kết hợp giữa công việc tay chân và tr
 
 ### Lấy toàn bộ file URL với `GraphQL`
 
-<Twemoji emoji="keycap-digit-one" /> Tạo **Private App**
+<Twemoji emoji="keycap-1" /> Tạo **Private App**
 
 Tại sao phải tạo **Private App**? Vì chúng ta phải authenticate với Shopify thì mới có thể `request` đến các resource trong store.
 Cách đơn giản nhất là sử dụng [Basic HTTP authentication](https://shopify.dev/apps/auth/basic-http) với **Private App**. Các bước tạo **Private App** như sau:
@@ -61,7 +61,7 @@ Cách đơn giản nhất là sử dụng [Basic HTTP authentication](https://sh
 - Click => **Save** => **Create app**
 - Như vậy là đã tạo xong **Private App** để authenticate với Shopify <Twemoji emoji="party-popper" />
 
-<Twemoji emoji="keycap-digit-two" /> Lấy **Access Token**
+<Twemoji emoji="keycap-2" /> Lấy **Access Token**
 
 Cách đơn giản nhất để bắn authenticated `request` đến Shopify là thêm request header `X-Shopify-Access-Token: {access_token}`,
 trong đó `{access_token}` chính là **Admin API password** của **Private App** mà chúng ta vừa tạo
@@ -70,7 +70,7 @@ trong đó `{access_token}` chính là **Admin API password** của **Private Ap
 
 Copy `password` trong section **Admin API** của **Private App** vừa tạo, đây chính là `access_token` chúng ta cần cho bước tiếp theo.
 
-<Twemoji emoji="keycap-digit-three" /> Bắn **GraphQL** `request` với **Postman**
+<Twemoji emoji="keycap-3" /> Bắn **GraphQL** `request` với **Postman**
 
 Vì chúng ta cần bắn `request` nhiều lần, nên để tiện cho config headers và copy `response` các bạn hãy sử dụng 1 **HTTP Client** nhé (Ví dụ: **Postman**, **Postwoman**, **Insomnia**...)
 Ở đây mình chọn **Postman**. (Link [download ở đây](https://www.postman.com/))

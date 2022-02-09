@@ -36,7 +36,7 @@ Nếu bạn cũng gặp các vấn đề như trên thì đây là giải pháp 
 
 Giải pháp của mình là sử dụng [OpenSSL](https://www.openssl.org/) để generate các **SSL certificates** và tạo 1 HTTPS web server với những **certificates** này
 
-### <Twemoji emoji="keycap-digit-one" /> Generate Root SSL Certificate
+### <Twemoji emoji="keycap-1" /> Generate Root SSL Certificate
 
 Đầu tiên, chúng ta cần tạo 1 [Root SSL Certificate](https://support.dnsimple.com/articles/what-is-ssl-root-certificate/) để sign bất kì 1 certificate nào mà chúng ta sẽ generate cho **localhost**.
 
@@ -67,7 +67,7 @@ Tiếp tục fill các thông tin cần thiết (chú ý **pass phrase** phải 
 
 Certificate này sẽ được save ở file `rootCA.pem`.
 
-### <Twemoji emoji="keycap-digit-two" /> Trust Root SSL Certificate
+### <Twemoji emoji="keycap-2" /> Trust Root SSL Certificate
 
 Để có thể sử dụng các certificate generate bởi **Root SSL Certificate** thì chúng ta cần OS trust cái **Root Certificate** này
 
@@ -85,7 +85,7 @@ Mở tab **Trust**, ở setting đầu tiên chọn **Always Trust**, sau đó s
 
 Khi xong xuôi thì ở **Keychain Access** sẽ hiện message **"This certificate is marked as trusted for this account"** có nghĩa là chúng ta đã trust thành công **Root SSL Certificate** nhé <Twemoji emoji="party-popper" />
 
-### <Twemoji emoji="keycap-digit-three" /> Tạo SSL Certificate cho localhost
+### <Twemoji emoji="keycap-3" /> Tạo SSL Certificate cho localhost
 
 Bây giờ chúng ta sẽ sử dụng **Root SSL Certificate** đã trust để generate 1 **SSL Certificate** cho **localhost**.
 
@@ -148,7 +148,7 @@ Bây giờ trong folder mà bạn vừa tạo certificate sẽ chứa 2 file `se
 
 ![cert-folder](/static/images/cert-folder.png)
 
-### <Twemoji emoji="keycap-digit-four" /> Tạo HTTPS server
+### <Twemoji emoji="keycap-4" /> Tạo HTTPS server
 
 Việc quan trọng nhất là tạo `server.key` và `server.crt` đã xong.
 

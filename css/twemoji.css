@@ -211,17 +211,23 @@
 .twa-flexed-biceps {
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f4aa.svg');
 }
-.twa-keycap-digit-one {
+.twa-keycap-1 {
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/31-20e3.svg');
 }
-.twa-keycap-digit-two {
+.twa-keycap-2 {
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/32-20e3.svg');
 }
-.twa-keycap-digit-three {
+.twa-keycap-3 {
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/33-20e3.svg');
 }
-.twa-keycap-digit-four {
+.twa-keycap-4 {
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/34-20e3.svg');
+}
+.twa-keycap-5 {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/35-20e3.svg');
+}
+.twa-keycap-6 {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/36-20e3.svg');
 }
 .twa-owl {
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f989.svg');
