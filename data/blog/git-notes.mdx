@@ -1,9 +1,9 @@
 ---
-title: 'Vài notes khi làm việc với git'
+title: 'Key notes while working with git'
 date: '2021-08-12'
-tags: ['git', 'git-notes', 'git-alias', 'git-workflow']
-draft: true
-summary: 'Vài notes cơ bản cho những dev thích làm việc với git qua command-line'
+tags: ['git', 'git-notes', 'git-alias', 'git-workflows']
+draft: false
+summary: 'Key notes to save plenty of time while working with git for command-line-developer'
 images: ['/static/images/git-notes.jpg']
 authors: ['default']
 ---
@@ -14,7 +14,7 @@ import UnsplashLicense from './UnsplashLicense.js'
 <UnsplashLicense photoURL="https://unsplash.com/photos/842ofHC6MaI" author="Yancy Min" />
 ![git-notes](/static/images/git-notes.jpg)
 
-Post này dành cho anh em thích làm việc với `git` qua `command-line` giống mình nhé <Twemoji emoji="beaming face with smiling eyes" />
+This post is written for developers who prefer working with `git` via `command-line` like me. If you love GUI, hope you still can find something useful here <Twemoji emoji="beaming face with smiling eyes" />
 
 ## Git alias
 
@@ -22,7 +22,7 @@ Post này dành cho anh em thích làm việc với `git` qua `command-line` gi�
 
 ### <Twemoji emoji="eyes" />
 
-`git alias` hiểu đơn giản là tạo _shortcut_ (`command` ngắn hơn) cho những `command` dài để gõ cho nhanh
+`git alias` in the simpleset term is creating a _shortcut_ (short `command`) for the long ones, make them easier to remember and you can type it faster
 
 #### Syntax
 
@@ -30,226 +30,225 @@ Post này dành cho anh em thích làm việc với `git` qua `command-line` gi�
 $ git config --global alias.<shortcut> <original-command>
 ```
 
-<Twemoji emoji="warning" /> Chú ý flag `--global` để sử dụng ở tất cả *project*, nếu không thì `alias`
-sẽ chỉ work trên project hiện tại bạn đang làm việc cùng thôi nhé!
+<Twemoji emoji="warning" /> Use `--global` flag to tell **git** that the alias will be used in all projects (else, it will work on your current working project only!)
 
-<Twemoji emoji="warning" /> Sử dụng `quotes` (dấu nháy `''` nếu `original-command` có chứa `space` (dấu
-`cách`))
+<Twemoji emoji="warning" /> Use quotes (`''`) if the `original-command` includes space(s)
 
-Mình `alias` hầu hết các `command` mà mình thường xuyên làm việc
+For me, I create aliases for almost all commands that I work with daily
 
-- **Git status**
+<Twemoji emoji="keycap-1" /> **Git status**
 
-  Kiểm tra những thay đổi trước khi `commit`
+Check the changes before commiting 
+
+```bash
+$ git config --global alias.st status
+```
+
+```bash
+# Now instead of `git status`, use `git st`
+$ git st
+On branch v2
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   components/Twemoji.js
+        modified:   css/tailwind.css
+        modified:   data/blog/git-notes.mdx
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+> Tip: Use `git st` with `--short` flag or `-s` to see the short-format of the changes, and... you know it - create an alias for this command too
+
+```bash
+$ git config --global alias.s 'status --short'
+```
+
+```bash
+# Now instead of `git st`, use `git s`
+$ git s
+  M components/Image.js
+  M data/blog/git-notes.mdx
+  ?? public/static/images/force-with-lease.jpg
+```
+
+Much clearer results and much faster typing, right? <Twemoji emoji="beaming face with smiling eyes" />
+
+<Twemoji emoji="keycap-2" /> **Git commit**
+
+```bash
+$ git config --global alias.cm 'commit -m'
+```
+
+Commit changes (chú ý `add/stage` changes trước)
+
+```bash
+$ git cm "Initial commit"
+```
+
+> Tip: If the changes are only for existing files (neither new file nor deleted file), use `--all` or `-a` flag so you don't have to add or stage changes before committing
+
+```bash
+$ git config --global alias.cam 'commit -am'
+```
+
+```bash
+# Now instead of 2 git commands
+$ git add style.css # `style.css` is already existed, not new file!
+$ git cm "Update style"
+
+# Use only 1 command
+$ git cam "Update style"
+```
+
+<Twemoji emoji="keycap-3" /> **Git stash**
+
+> Stash the changes in a dirty working directory away <Twemoji emoji="grinning face with sweat" />
+
+Like the definition, use `git stash` when you need to **"stash"** the changes before pulling new stuff from remote repo
+
+```bash
+# Too short to create an alias
+$ git stash
+```
+
+Applying the stashed changes after pulling
+
+```bash
+$ git stash pop
+```
+
+Create an alias for it
+
+```bash
+$ git config --global alias.sp 'stash pop'
+
+# Now
+$ git sp
+
+# Is equal
+$ git stash pop
+```
+
+<Twemoji emoji="keycap-4" /> **Git `pull/push`**
+
+Always [`pull rebase`](https://www.atlassian.com/git/tutorials/merging-vs-rebasing) and `force push` to have a clean commit tree!
+
+- `pull rebase`
 
   ```bash
-  $ git config --global alias.st status
+  $ git config --global alias.prb 'pull origin --rebase'
   ```
 
   ```bash
-  # Now instead of `git status`, use `git st`
-  $ git st
-  On branch v2
-  Changes not staged for commit:
-    (use "git add <file>..." to update what will be committed)
-    (use "git restore <file>..." to discard changes in working directory)
-          modified:   components/Twemoji.js
-          modified:   css/tailwind.css
-          modified:   data/blog/git-notes.mdx
-
-  no changes added to commit (use "git add" and/or "git commit -a")
-  ```
-
-  > Tip: dùng `git st` với flag `--short` hay `-s` để xem short-format của những thay đổi và `alias` luôn `command` này
-
-  ```bash
-  $ git config --global alias.s 'status --short'
-  ```
-
-  ```bash
-  # Now instead of `git st`, use `git s`
-  $ git s
-    M components/Image.js
-    M data/blog/git-notes.mdx
-    ?? public/static/images/force-with-lease.jpg
-  ```
-
-  Dễ xem hơn hẳn đúng không <Twemoji emoji="beaming face with smiling eyes" />
-
-- **Git commit**
-
-  ```bash
-  $ git config --global alias.cm 'commit -m'
-  ```
-
-  Commit changes (chú ý `add/stage` changes trước)
-
-  ```bash
-  $ git cm "Initial commit"
-  ```
-
-  > Tip: nếu chỉ sửa các file có sẵn mà không thêm mới hoặc xóa file thì có thể dùng flag `--all` hoặc `-a` để không phải `add/stage` changes trước khi `commit`
-
-  ```bash
-  $ git config --global alias.cam 'commit -am'
-  ```
-
-  ```bash
-  # Now instead of 2 git commands
-  $ git add style.css # `style.css` is already existed, not new file!
-  $ git cm "Update style"
-
-  # Use only 1 command
-  $ git cam "Update style"
-  ```
-
-- **Git stash**
-
-  > Stash the changes in a dirty working directory away <Twemoji emoji="grinning face with sweat" />
-
-  Đúng như định nghĩa, dùng `git stash` khi muốn cất những thay đổi đi, trước khi `pull` code mới về
-
-  ```bash
-  # Ngắn quá rồi nên không cần `alias` nữa
-  $ git stash
-  ```
-
-  Apply những thay đổi vừa cất sau khi `pull`
-
-  ```bash
-  $ git stash pop
-  ```
-
-  Alias `command` này
-
-  ```bash
-  $ git config --global alias.sp 'stash pop'
-
   # Now
-  $ git sp
+  $ git pull origin --rebase main
 
   # Is equal
-  $ git stash pop
+  $ git prb main
+  # Or
+  $ git prb master
   ```
 
-- **Git `pull/push`**
+- What if a conflict occurs after rebasing ?
 
-  Luôn [`pull rebase`](https://www.atlassian.com/git/tutorials/merging-vs-rebasing) và `force push` để có 1 clean commit tree nhé anh em
-
-  - `pull rebase`
-
-    ```bash
-    $ git config --global alias.prb 'pull origin --rebase'
-    ```
-
-    ```bash
-    # Now
-    $ git pull origin --rebase main
-
-    # Is equal
-    $ git prb main
-    # Or
-    $ git prb master
-    ```
-
-  - Nếu có conflict sau khi **rebase** ?
-
-    - List toàn bộ các file conflict với `git diff` và alias `command` này
-
-      ```bash
-      $ git config --global alias.cf 'diff --name-only --diff-filter=U'
-      ```
-
-      ```bash
-      # Now to list all conflict files use
-      $ git cf
-
-      # Reolve all conflict then stage changes
-      $ git add .
-
-      # Finish rebase with
-      $ git rebase --continue
-      ```
-
-  - `force push`
-
-    Vì sử dụng `pull rebase` nên sau khi resolve hết **conflict** (nếu có) thì chúng ta cần `force push` để đẩy thay đổi lên remote repo
-
-    ```bash
-    $ git config --global alias.pf 'push --force-with-lease'
-
-    # Now after rebase
-    $ git pf
-    ```
-
-    [Tại sao không sử dụng `--force`?](https://git-scm.com/docs/git-push#Documentation/git-push.txt---force-with-leaseltrefnamegt)
-
-    **TL;DR**
-
-    > `force push` sẽ overwrite remote repo với những thay đổi ở local mà không quan tâm đến những update có thể có sau khi bạn `rebase`, hành động này nguy hiểm khi 2 dev cùng làm việc trên 1 branch. <br/> `--force-with-lease` ngược lại, đảm bảo việc không có update upstream thì mới có thể `force push`
-
-    ![force-with-lease](/static/images/force-with-lease.jpg)
-
-- **Git checkout**
+  List all the conflicts with `git diff` and create an alias for this command
 
   ```bash
-  $ git config --global alias.co 'checkout'
-
-  # Eg
-  $ git co main
+  $ git config --global alias.cf 'diff --name-only --diff-filter=U'
   ```
-
-  Tạo `branch` mới
 
   ```bash
-  $ git config --global alias.cob 'checkout -b'
+  # List all the conflicts
+  $ git cf
 
-  # Eg
-  $ git cob feature-x
+  # Reolve all conflict then stage changes
+  $ git add .
+
+  # Finish rebasing
+  $ git rebase --continue
   ```
 
-  > Tip: để quay lại nhánh cũ bạn có thể dùng `git co -`
+- `force push`
 
-  Ví dụ
-
-  ```bash {3}
-  $ git branch
-  dev
-  * feature-x-y-z__ISSUE_ID
-  main
-  # The current branch is `feature-x-y-z__ISSUE_ID`
-
-  # Checkout to `dev`
-  $ git co dev
-  # Do something
-  # Commit ...
-
-  # Now to come back to `feature-x-y-z__ISSUE_ID` use
-  $ git co -
-  # Instead of
-  $ git checkout feature-x-y-z__ISSUE_ID
-  ```
-
-- **Git diff**
-
-  Kiểm tra sự thay đổi của file trước khi `commit` (mình thường dùng để remove những đoạn `debug`, `hardcode`, `console.log` ... quên chưa xóa)
+  When you finish resolving the conflicts (if existed) occur after rebasing, we need to **force** push the changes to the remote repo
 
   ```bash
-  $ git config --global alias.d 'diff'
+  $ git config --global alias.pf 'push --force-with-lease'
 
-  # Eg
-  $ git d style.css
+  # Now after rebasing
+  $ git pf
   ```
 
-### Note
+  [Why not `--force`?](https://git-scm.com/docs/git-push#Documentation/git-push.txt---force-with-leaseltrefnamegt)
 
-Tất cả `alias` vừa tạo đều có trong file `~/.gitconfig` (MacOS). Bạn có thể mở thẳng file này và thêm/sửa/xóa bất kì `alias` nào
+  **TL;DR**
+
+  > The `--force` flag will make git overwrite the remote repo with changes at local without comparing with updates that might have in the remote after rebasing, this could be dangerous if 2 developers working on the same branch. <br/> `--force-with-lease` in the opposite way, make sure you can push only when no updates on the upstream exist.
+
+  ![force-with-lease](/static/images/force-with-lease.jpg)
+
+<Twemoji emoji="keycap-5" /> **Git checkout**
+
+```bash
+$ git config --global alias.co 'checkout'
+
+# Eg
+$ git co main
+```
+
+Creat a new branch
+
+```bash
+$ git config --global alias.cob 'checkout -b'
+
+# Eg
+$ git cob feature-x
+```
+
+> Tip: use `git co -` to checkout to the previous branch.
+
+Example
+
+```bash {3}
+$ git branch
+dev
+* feature-x-y-z__ISSUE_ID
+main
+# The current branch is `feature-x-y-z__ISSUE_ID`
+
+# Checkout to `dev`
+$ git co dev
+# Do something
+# Commit ...
+
+# Now to come back to `feature-x-y-z__ISSUE_ID` use
+$ git co -
+# Instead of
+$ git checkout feature-x-y-z__ISSUE_ID
+```
+
+<Twemoji emoji="keycap-6" /> **Git diff**
+
+Checking the changes before commiting (Usually, I use this to make sure no `debug`, `hardcode` or `console.log` thing left in my code)
+
+```bash
+$ git config --global alias.d 'diff'
+
+# Eg
+$ git d style.css
+```
+
+#### Note
+
+All your aliases can be found in `~/.gitconfig` file (MacOS). You can open this file directly and edit any alias that you want.
 
 ```bash
 $ vim ~/.gitconfig
 ```
 
 ```bash
+# Find the alias part in the config file
 [alias]
   s = status --short
   st = status
@@ -257,13 +256,13 @@ $ vim ~/.gitconfig
   # ...
 ```
 
-Điều kiện bắt buộc: biết sử dụng [`vim`](https://github.com/vim/vim) <Twemoji emoji="face with tears of joy" />
+What is required to edit this file: knowing [`vim`](https://github.com/vim/vim) <Twemoji emoji="face with tears of joy" />
 
 ![vim-meme](/static/images/vim-meme-exit.png)
 
 ## Git workflow
 
-Workflow làm việc với `git` hằng ngày của mình (`alias` được giải thích hết ở [trên](#git-alias))
+My daily workflow working with `git` (all the aliases has been explained in the [above section](#git-alias))
 
 ```bash {5,14,26,36} showLineNumbers
 # Stash changes
@@ -306,42 +305,44 @@ $ git pf
 # Making pull request
 ```
 
-Đây là flow hoản chỉnh nhưng chỉ các dòng được `hightlight` là thường xuyên sử dụng nhất thôi nhé <Twemoji emoji="beaming face with smiling eyes" />
+This is my entire workflow but only the highlighted commands are the most commonly used <Twemoji emoji="beaming face with smiling eyes" />
 
-## `.gitignore` và `.gitkeep`
+## `.gitignore` and `.gitkeep`
 
-- `.gitignore`
+<Twemoji emoji="keycap-1" /> **.gitignore**
 
-  [Khái niệm](https://git-scm.com/docs/gitignore) mình không nhắc lại vì quá phổ biến rồi. Template chỉ việc lấy về xài xem ở [repo](https://github.com/github/gitignore) này
+[Useful ready to use templates](https://github.com/github/gitignore)
 
-  Tip: ignore tất cả file trong 1 directory chỉ giữ lại 1 file
+Tip: ignore all files inside a directory but keeping 1 specific file
 
-  ```bash {5}
-  # Ignore all file in a directory
-  homework/*
+```bash {5}
+# Ignore all file in a directory
+homework/*
 
-  # Keep only this file
-  !homework/file-to-keep
-  ```
+# Keep only this file
+!homework/file-to-keep
+```
 
-- `.gitkeep`
+<Twemoji emoji="keycap-2" /> **.gitkeep**
 
-  Làm thế nào để đẩy 1 **folder** trống lên remote repo?
+How to push an empty directory to the remote repo?
 
-  > Tạo 1 file `.gitkeep` đặt trong **folder** (trống) để đẩy **folder** đó lên remote repo
+> Create a `.gitkeep` file, put it in the empty directly, then you can push the directory to the upstream
 
-  Đây không phải là 1 [feature](https://git-scm.com/search/results?search=.%20gitkeep) của `git`! Chỉ là 1 convention của 1 ông dev nào đó nghĩ ra thôi nhé <Twemoji emoji="beaming face with smiling eyes" />
+This it not an [official feature](https://git-scm.com/search/results?search=.%20gitkeep) of `git` itself! Just a convention of some random dev out there <Twemoji emoji="beaming face with smiling eyes" />
 
-  **Giải thích:** bản chất là làm cho **folder** không trống nữa (đã có file bên trong) nên sẽ có thể `commit` lên **upstream**, suy ra `.gitkeep` có thể là bất kì file nào bạn nghĩ ra (có hoặc không có nội dung đều được). Chọn `.gitkeep` vì nó dễ hiểu và dễ nhớ.
+**Explaination:** the trick here is to make the directly becomes non-empty (it has a file inside!). So, we can push it to the upstream. Therefore `.gitkeep` could be any file that you think about (empty or not doesn't matter). Choose `.gitkeep` causes it easy to understand and remember.
 
-## Kết bài
+## Wrapping up
 
-Trên đây là toàn bộ những note của mình về `git`, các bạn chia sẻ thêm use cases của mình ở dưới comment nhé!
+Those are all my notes while working with `git`, how I understand the concepts and how I make it faster to working with `git`. Would love to see your usecases in the comment section!
+
+Happy sharing <Twemoji emoji="clinking-beer-mugs" />
 
 ## Refs
 
-- [https://www.atlassian.com/git/tutorials/git-alias](https://www.atlassian.com/git/tutorials/git-alias)
+- [Git Alias Overview](https://www.atlassian.com/git/tutorials/git-alias)
 
-- [https://www.atlassian.com/git/tutorials/merging-vs-rebasing](https://www.atlassian.com/git/tutorials/merging-vs-rebasing)
+- [Merging vs. Rebasing](https://www.atlassian.com/git/tutorials/merging-vs-rebasing)
 
-- [https://git-scm.com/docs/git-push#Documentation/git-push.txt---force-with-leaseltrefnamegt](https://git-scm.com/docs/git-push#Documentation/git-push.txt---force-with-leaseltrefnamegt)
+- [Git docs: --force-with-lease](https://git-scm.com/docs/git-push#Documentation/git-push.txt---force-with-leaseltrefnamegt)
