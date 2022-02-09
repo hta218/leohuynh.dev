@@ -9,7 +9,7 @@ const TypedBios = () => {
   React.useEffect(() => {
     const options = {
       stringsElement: '#bios',
-      typeSpeed: 50,
+      typeSpeed: 40,
       backSpeed: 10,
       loop: true,
       backDelay: 1000,
@@ -26,7 +26,7 @@ const TypedBios = () => {
           I'm aliased as <b className="font-medium">Leo</b> at work.
         </li>
         <li>
-          I'm a Software Engineer at <b className="font-medium">FoxEcom</b> by day.
+          I'm a Shopify app & theme builder at <b className="font-medium">FoxEcom</b> by day.
         </li>
         <li>I'm a learner and freedom seeker by night.</li>
         <li>
