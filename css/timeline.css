@@ -1,8 +1,11 @@
-.prose-lg .timeline li:last-child {
+.prose-lg .timeline li::marker {
+  content: none;
+}
+.prose-lg .timeline li::last-child {
   border: 0px;
   padding-bottom: 0;
 }
-.prose-lg .timeline ul li:before {
+.prose-lg .timeline ul li::before {
   content: '';
   width: 17px;
   height: 17px;
