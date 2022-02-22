@@ -36,14 +36,14 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, pag
                   <dd className="flex justify-center items-center text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
                     <time dateTime={date} className="flex items-center">
                       <Twemoji emoji="calendar" size="" />
-                      <span className="ml-1">
+                      <span className="ml-1.5">
                         {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)}
                       </span>
                     </time>
                     <span className="mx-2">-</span>
                     <div className="flex items-center">
                       <Twemoji emoji="hourglass-not-done" size="" />
-                      <span className="ml-1">{readingTimeText.replace('min', 'mins')}</span>
+                      <span className="ml-1.5">{readingTimeText.replace('min', 'mins')}</span>
                     </div>
                   </dd>
                 </div>
