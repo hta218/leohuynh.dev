@@ -16,7 +16,7 @@ export default function PostLayout({ frontMatter, children }) {
       <BlogSeo url={`${siteMetadata.siteUrl}/snippets/${frontMatter.slug}`} {...frontMatter} />
       <article>
         <div>
-          <header className="pt-6 xl:py-16 border-b border-gray-200 dark:border-gray-700">
+          <header className="py-6 xl:py-16 border-b border-gray-200 dark:border-gray-700">
             <div className="space-y-1 text-center">
               <dl>
                 <div>
