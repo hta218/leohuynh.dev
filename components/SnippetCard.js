@@ -5,7 +5,7 @@ const SnippetCard = ({ snippet }) => {
   const { type, title, summary, slug } = snippet
   return (
     <Link href={`/snippets/${slug}`}>
-      <div className="flex rounded border border-grey-200 hover:border-gray-500 cursor-pointer mb-4 lg:mb-0">
+      <div className="flex rounded border dark:hover:border-gray-400 dark:border-gray-600 border-gray-300 hover:border-gray-500 cursor-pointer mb-4 lg:mb-0">
         <div className="p-3 lg:p-4">
           <DevIcon type={type} />
         </div>

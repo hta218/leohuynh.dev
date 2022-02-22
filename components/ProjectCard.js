@@ -3,7 +3,7 @@ import Link from './Link'
 
 const ProjectCard = ({ title, description, imgSrc, href, repoName }) => (
   <div className="p-4 md:w-1/2 md" style={{ maxWidth: '544px' }}>
-    <div className="h-full overflow-hidden border-2 border-gray-200 rounded-md border-opacity-60 dark:border-gray-700">
+    <div className="h-full overflow-hidden border dark:hover:border-gray-400 dark:border-gray-600 border-gray-400 hover:border-gray-500 rounded-md border-opacity-60">
       <Image
         alt={title}
         src={imgSrc}
