@@ -1,9 +1,9 @@
 import timelineData from '@/data/timelineData'
 
-const TimelineItem = ({ time, role, company, companyURL, companyBio, works }) => {
+const TimelineItem = ({ time, role, company, companyURL, companyBio, works, last }) => {
   return (
-    <li className="relative ml-2.5 !my-0 pl-5 pb-6 border-l border-[#abaaed]">
-      <div className="font-semibold leading-[18px] mb-4">{time}</div>
+    <li className={`relative ml-2.5 !my-0 pl-5 border-l border-[#abaaed] ${last ? '' : 'pb-6'}`}>
+      <div className="font-semibold leading-[18px] mb-4 pt-0.5">{time}</div>
       <div>
         {role}{' '}
         {company ? (
@@ -32,10 +32,10 @@ const TimelineItem = ({ time, role, company, companyURL, companyBio, works }) =>
 
 const Timeline = () => {
   return (
-    <div className="timeline">
+    <div className="timeline my-4">
       <ul>
-        {timelineData.map((item) => (
-          <TimelineItem key={item.time} {...item} />
+        {timelineData.map((item, ind) => (
+          <TimelineItem key={item.time} {...item} last={ind === timelineData.length - 1} />
         ))}
       </ul>
     </div>
