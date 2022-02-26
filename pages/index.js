@@ -42,37 +42,29 @@ export default function Home({ posts }) {
               </h1>
               <TypedBios />
               <p className="mt-4 mb-8">
-                I started my coding journey in late 2016 with C/C++/Java in college.
-                <br />I learned{' '}
-                <a
-                  className="underline"
-                  href="https://github.com/hta218/Travel_Egypt"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Python
-                </a>{' '}
-                and got my first job as a coding mentor for newbies in 2017.
+                I started my coding journey in late 2016 with C/C++/Java in college
                 <br />
-                I'm in love with JS ecosystem, Web dev, and eCommerce.
+                I had my first job as a Python coding mentor in 2017
                 <br />
-                I'm writing this blog to note down and share what I've learned as a SE.
+                I'm in love with the JS ecosystem, Web dev, and eCommerce
+                <br />
+                I'm writing this blog to note down and share what I've learned as a SE
               </p>
               <div className="flex flex-col">
                 <Link href="/projects" className="hover:underline">
                   <Twemoji emoji="hammer-and-wrench" /> What have I built?
                 </Link>
                 <Link href="/blog" className="hover:underline">
-                  <Twemoji emoji="memo" /> My writings.
+                  <Twemoji emoji="memo" /> My writings
                 </Link>
                 <Link href="/snippets" className="hover:underline">
-                  <Twemoji emoji="dna" /> Useful snippets collected by me.
+                  <Twemoji emoji="dna" /> Useful snippets collected by me
                 </Link>
                 <Link href="/about" className="hover:underline">
-                  <Twemoji emoji="face-with-monocle" /> More about me and myself.
+                  <Twemoji emoji="face-with-monocle" /> More about me and myself
                 </Link>
                 <Link href="/resume" className="hover:underline">
-                  <Twemoji emoji="briefcase" /> My resume.
+                  <Twemoji emoji="briefcase" /> My resume
                 </Link>
               </div>
               <p className="my-8">
