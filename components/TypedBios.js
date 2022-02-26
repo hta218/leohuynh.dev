@@ -25,10 +25,7 @@ const TypedBios = () => {
         <li>
           I'm aliased as <b className="font-medium">Leo</b> at work.
         </li>
-        <li>
-          I'm a Shopify software maker at <b className="font-medium">FoxEcom</b> by day.
-        </li>
-        <li>I'm a learner and freedom seeker by night.</li>
+        <li>I'm a builder, learner and freedom seeker.</li>
         <li>
           I live in <b className="font-medium">Ha Noi, Viet Nam</b>.
         </li>
@@ -39,7 +36,7 @@ const TypedBios = () => {
           My first programming language I learned was <b className="font-medium">Pascal</b>.
         </li>
         <li>I love web development.</li>
-        <li>I'm focusing on building eCommerce solutions.</li>
+        <li>I'm focusing on building eCommerce softwares.</li>
         <li>I work mostly with React/Node and pure JS.</li>
         <li>I'm Tu Le's husband.</li>
         <li>
