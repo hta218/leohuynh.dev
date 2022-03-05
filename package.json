@@ -3,7 +3,7 @@
   "version": "1.0.0-canary.1",
   "private": true,
   "scripts": {
-    "start": "next-remote-watch ./data",
+    "start": "PORT=3434 next-remote-watch ./data",
     "dev": "next dev",
     "build": "next build && node ./scripts/generate-sitemap",
     "serve": "next start",
