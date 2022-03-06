@@ -22,7 +22,7 @@ This post is written for developers who prefer working with `git` via `command-l
 
 ### <Twemoji emoji="eyes" />
 
-`git alias` in the simpleset term is creating a _shortcut_ (short `command`) for the long ones, make them easier to remember and you can type it faster
+`git alias` in the simpleset term is creating a _shortcut_ (short `command`) for the long ones, make them easier to remember and you can type it faster.
 
 #### Syntax
 
@@ -30,15 +30,15 @@ This post is written for developers who prefer working with `git` via `command-l
 $ git config --global alias.<shortcut> <original-command>
 ```
 
-<Twemoji emoji="warning" /> Use `--global` flag to tell **git** that the alias will be used in all projects (else, it will work on your current working project only!)
+<Twemoji emoji="warning" /> Use `--global` flag to tell **git** that the alias will be used in all projects (otherwise, it will only work on your current working project!)
 
-<Twemoji emoji="warning" /> Use quotes (`''`) if the `original-command` includes space(s)
+<Twemoji emoji="warning" /> Use quotes (`''`) if the `original-command` includes space(s).
 
-For me, I create aliases for almost all commands that I work with daily
+For me, I create aliases for almost all commands that I work with daily.
 
 <Twemoji emoji="keycap-1" /> **Git status**
 
-Check the changes before commiting 
+Check the changes before committing:
 
 ```bash
 $ git config --global alias.st status
@@ -80,7 +80,7 @@ Much clearer results and much faster typing, right? <Twemoji emoji="beaming face
 $ git config --global alias.cm 'commit -m'
 ```
 
-Commit changes (`add/stage` changes before)
+Commit changes (`add/stage` changes before):
 
 ```bash
 $ git cm "Initial commit"
@@ -105,20 +105,20 @@ $ git cam "Update style"
 
 > Stash the changes in a dirty working directory away <Twemoji emoji="grinning face with sweat" />
 
-Like the definition, use `git stash` when you need to **"stash"** the changes before pulling new stuff from remote repo
+Like the definition, use `git stash` when you need to **"stash"** the changes before pulling new stuff from remote repo:
 
 ```bash
 # Too short to create an alias
 $ git stash
 ```
 
-Applying the stashed changes after pulling
+Applying the stashed changes after pulling:
 
 ```bash
 $ git stash pop
 ```
 
-Create an alias for it
+Create an alias for it:
 
 ```bash
 $ git config --global alias.sp 'stash pop'
@@ -150,9 +150,9 @@ Always [`pull rebase`](https://www.atlassian.com/git/tutorials/merging-vs-rebasi
   $ git prb master
   ```
 
-- What if a conflict occurs after rebasing ?
+- What if a conflict occurs after rebasing?
 
-  List all the conflicts with `git diff` and create an alias for this command
+  List all the conflicts with `git diff` and create an alias for this command:
 
   ```bash
   $ git config --global alias.cf 'diff --name-only --diff-filter=U'
@@ -171,7 +171,7 @@ Always [`pull rebase`](https://www.atlassian.com/git/tutorials/merging-vs-rebasi
 
 - `force push`
 
-  When you finish resolving the conflicts (if existed) occur after rebasing, we need to **force** push the changes to the remote repo
+  When you finish resolving the conflicts that occured after rebasing, we need to **force** push the changes to the remote repo:
 
   ```bash
   $ git config --global alias.pf 'push --force-with-lease'
@@ -184,7 +184,7 @@ Always [`pull rebase`](https://www.atlassian.com/git/tutorials/merging-vs-rebasi
 
   **TL;DR**
 
-  > The `--force` flag will make git overwrite the remote repo with changes at local without comparing with updates that might have in the remote after rebasing, this could be dangerous if 2 developers working on the same branch. <br/> `--force-with-lease` in the opposite way, make sure you can push only when no updates on the upstream exist.
+  > The `--force` flag will make git overwrite the remote repo with local changes without comparing with possible updates in the remote after rebasing, which can be dangerous if 2 developers working on the same branch. <br/> `--force-with-lease` in the opposite way, make sure you can push only when no updates on the upstream exist.
 
   ![force-with-lease](/static/images/force-with-lease.jpg)
 
@@ -197,7 +197,7 @@ $ git config --global alias.co 'checkout'
 $ git co main
 ```
 
-Create a new branch
+Create a new branch:
 
 ```bash
 $ git config --global alias.cob 'checkout -b'
@@ -208,7 +208,7 @@ $ git cob feature-x
 
 > Tip: use `git co -` to checkout to the previous branch.
 
-Example
+Example:
 
 ```bash {3}
 $ git branch
@@ -230,7 +230,7 @@ $ git checkout feature-x-y-z__ISSUE_ID
 
 <Twemoji emoji="keycap-6" /> **Git diff**
 
-Checking the changes before commiting (Usually, I use this to make sure no `debug`, `hardcode` or `console.log` thing left in my code)
+Check the changes before commit (Usually, I use this to make sure no `debug`, `hardcode` or `console.log` is left in my code).
 
 ```bash
 $ git config --global alias.d 'diff'
@@ -241,7 +241,7 @@ $ git d style.css
 
 #### Note
 
-All your aliases can be found in `~/.gitconfig` file (MacOS). You can open this file directly and edit any alias that you want.
+All your aliases can be found in `~/.gitconfig` file (MacOS). You can open this file directly and edit any alias you want.
 
 ```bash
 $ vim ~/.gitconfig
@@ -256,13 +256,13 @@ $ vim ~/.gitconfig
   # ...
 ```
 
-What is required to edit this file: knowing [`vim`](https://github.com/vim/vim) <Twemoji emoji="face with tears of joy" />
+Prerequisite to be able to edit this file: knowing [`vim`](https://github.com/vim/vim) <Twemoji emoji="face with tears of joy" />
 
 ![vim-meme](/static/images/vim-meme-exit.png)
 
 ## Git workflow
 
-My daily workflow working with `git` (all the aliases has been explained in the [above section](#git-alias))
+My daily workflow working with `git` (all aliases explained in the [above section](#git-alias))
 
 ```bash {5,14,26,36} showLineNumbers
 # Stash changes
@@ -305,7 +305,7 @@ $ git pf
 # Making pull request
 ```
 
-This is my entire workflow but only the highlighted commands are the most commonly used <Twemoji emoji="beaming face with smiling eyes" />
+Here is my entire workflow but only the highlighted commands are the most commonly used <Twemoji emoji="beaming face with smiling eyes" />
 
 ## `.gitignore` and `.gitkeep`
 
@@ -313,7 +313,7 @@ This is my entire workflow but only the highlighted commands are the most common
 
 [Useful ready to use templates](https://github.com/github/gitignore)
 
-Tip: ignore all files inside a directory but keeping 1 specific file
+Tip: ignore all files inside a directory but keep 1 specific file
 
 ```bash {5}
 # Ignore all file in a directory
@@ -327,19 +327,19 @@ homework/*
 
 How to push an empty directory to the remote repo?
 
-> Create a `.gitkeep` file, put it in the empty directory, then you can push the directory to the upstream
+> Create a `.gitkeep` file, put it in the empty directory, then you can push the directory to the upstream!
 
-This it not an [official feature](https://git-scm.com/search/results?search=.%20gitkeep) of `git` itself! Just a convention of some random dev out there <Twemoji emoji="beaming face with smiling eyes" />
+This it not an [official feature](https://git-scm.com/search/results?search=.%20gitkeep) of `git` itself! Just a convention of some random dev out there <Twemoji emoji="beaming face with smiling eyes" />.
 
-**Explaination:** the trick here is to make the directory becomes non-empty (it has a file inside!). So, we can push it to the upstream. Therefore `.gitkeep` could be any file that you think about (empty or not doesn't matter). Choose `.gitkeep` causes it easy to understand and remember.
+**Explannation:** the trick here is to make the directory non-empty (it has a file inside!). So, we can push it to the upstream. Thus, `.gitkeep` could be any file that you think about (empty or not doesn't matter). Choose `.gitkeep` causes it easy to understand and remember.
 
 ## Wrapping up
 
-Those are all my notes while working with `git`, how I understand the concepts and how I make it faster. Would love to see your usecases in the comment section!
+Those are all my notes while working with `git`, how I understand the concepts and how I work with it faster. Would love to see your use cases in the comment section!
 
 Happy sharing <Twemoji emoji="clinking-beer-mugs" />
 
-## Refs
+## References
 
 - [Git Alias Overview](https://www.atlassian.com/git/tutorials/git-alias)
 
