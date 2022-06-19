@@ -43,20 +43,22 @@ export default function PostLayout({ frontMatter, children, authorDetails }) {
               <dl>
                 <div>
                   <dt className="sr-only">Published on</dt>
-                  <dd className="flex flex-wrap text-base font-medium leading-7 text-gray-500 dark:text-gray-400">
+                  <dd className="flex flex-wrap text-sm md:text-base font-medium leading-7 text-gray-500 dark:text-gray-400">
                     <time dateTime={date} className="flex items-center justify-center">
                       <Twemoji emoji="calendar" size="" />
-                      <span className="ml-2">{formatDate(date)}</span>
+                      <span className="ml-1.5 md:ml-2">{formatDate(date)}</span>
                     </time>
                     <span className="mx-2">{` • `}</span>
                     <div className="flex items-center">
                       <Twemoji emoji="hourglass-not-done" size="" />
-                      <span className="ml-2">{readingTimeText.replace('min', 'mins')}</span>
+                      <span className="ml-1.5 md:ml-2">
+                        {readingTimeText.replace('min', 'mins')}
+                      </span>
                     </div>
                     <span className="mx-2">{` • `}</span>
                     <div className="flex items-center">
                       <Twemoji emoji="eye" size="" />
-                      <span className="ml-2">10234 views</span>
+                      <span className="ml-1.5 md:ml-2">10234 views</span>
                     </div>
                   </dd>
                 </div>
