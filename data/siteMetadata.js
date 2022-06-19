@@ -12,7 +12,7 @@ const siteMetadata = {
   siteLogo: '/static/images/logo.jpg',
   image: '/static/images/logo.jpg',
   socialBanner: '/static/images/logo.jpg',
-  email: 'huynhtuananh21895@gmail.com',
+  email: 'leohuynh@proton.me',
   github: 'https://github.com/hta218',
   twitter: 'https://twitter.com/hta218_',
   facebook: 'https://facebook.com/hta218',
