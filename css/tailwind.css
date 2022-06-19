@@ -23,7 +23,7 @@
   content: attr(line);
 }
 
-.md\:prose-xl code {
+.md\:prose-xl :not(pre) > code:not([class*='language']) {
   font-size: 0.8em !important;
   margin: 0 2px;
 }
