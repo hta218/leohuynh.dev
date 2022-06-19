@@ -40,7 +40,7 @@ const TypedBios = () => {
         <li>I work mostly with React/Node and pure JS.</li>
         <li>I'm Tu Le's husband.</li>
         <li>
-          I'm a dog person <Twemoji emoji="dog" />
+          I'm a dog person <Twemoji emoji="dog" />.
         </li>
         <li>
           I'm a sport-guy. I love
@@ -50,10 +50,11 @@ const TypedBios = () => {
             <Twemoji emoji="ping-pong" />,
             <Twemoji emoji="volleyball" />
           </span>
+          .
         </li>
         <li>I love watching football.</li>
         <li>
-          I love playing guitar <Twemoji emoji="guitar" />
+          I love playing guitar <Twemoji emoji="guitar" />.
         </li>
         <li>I love rock music.</li>
         <li>
