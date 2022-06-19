@@ -30,6 +30,7 @@ export default function Snippet({ snippet }) {
         <MDXLayoutRenderer
           layout={frontMatter.layout || DEFAULT_LAYOUT}
           mdxSource={mdxSource}
+          type="snippets"
           frontMatter={frontMatter}
         />
       ) : (

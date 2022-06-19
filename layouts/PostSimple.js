@@ -7,8 +7,9 @@ import Twemoji from '@/components/Twemoji'
 import siteMetadata from '@/data/siteMetadata'
 import formatDate from '@/lib/utils/formatDate'
 import Tag from '@/components/Tag'
+import ViewCounter from '@/components/ViewCounter'
 
-export default function PostLayout({ frontMatter, children, authorDetails }) {
+export default function PostLayout({ frontMatter, type, children, authorDetails }) {
   const {
     date,
     title,
@@ -17,12 +18,12 @@ export default function PostLayout({ frontMatter, children, authorDetails }) {
     tags,
     readingTime: { text: readingTimeText },
   } = frontMatter
-  const postUrl = `${siteMetadata.siteUrl}/snippets/${slug}`
+  const postUrl = `${siteMetadata.siteUrl}/${type}/${slug}`
 
   return (
     <SectionContainer>
       <BlogSeo
-        url={`${siteMetadata.siteUrl}/snippets/${frontMatter.slug}`}
+        url={`${siteMetadata.siteUrl}/${type}/${slug}`}
         {...frontMatter}
         authorDetails={authorDetails}
       />
@@ -58,7 +59,7 @@ export default function PostLayout({ frontMatter, children, authorDetails }) {
                     <span className="mx-2">{` • `}</span>
                     <div className="flex items-center">
                       <Twemoji emoji="eye" size="" />
-                      <span className="ml-1.5 md:ml-2">10234 views</span>
+                      <ViewCounter className="ml-1.5 md:ml-2" slug={slug} />
                     </div>
                   </dd>
                 </div>

@@ -51,6 +51,7 @@ export default function Blog({ post, authorDetails, prev, next, page }) {
           mdxSource={mdxSource}
           frontMatter={frontMatter}
           authorDetails={authorDetails}
+          type="blog"
           prev={prev}
           next={next}
           page={page}
