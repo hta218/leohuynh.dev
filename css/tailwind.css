@@ -42,6 +42,10 @@
   }
 }
 
+.prose-lg blockquote p {
+  margin: 16px 0px;
+}
+
 .prose-lg blockquote {
   background: #ebebeb;
   color: #3d3b3b;
@@ -52,7 +56,7 @@
 }
 
 .dark .dark\:prose-dark blockquote {
-  background: #656565;
+  background: #363535;
   border-left-color: #b7abab !important;
 }
 
