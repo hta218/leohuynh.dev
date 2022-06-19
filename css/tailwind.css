@@ -23,6 +23,10 @@
   content: attr(line);
 }
 
+.md\:prose-xl code {
+  font-size: 0.8em !important;
+  margin: 0 2px;
+}
 .prose pre {
   margin-top: 1em;
   background-color: #222;
