@@ -43,7 +43,7 @@ export default function PostLayout({ frontMatter, children, authorDetails }) {
               <dl>
                 <div>
                   <dt className="sr-only">Published on</dt>
-                  <dd className="flex flex-wrap text-sm md:text-base font-medium leading-7 text-gray-500 dark:text-gray-400">
+                  <dd className="flex flex-wrap text-sm md:text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
                     <time dateTime={date} className="flex items-center justify-center">
                       <Twemoji emoji="calendar" size="" />
                       <span className="ml-1.5 md:ml-2">{formatDate(date)}</span>
