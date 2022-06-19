@@ -12,6 +12,9 @@ export default function AuthorLayout({ children, frontMatter }) {
           <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
             About
           </h1>
+          <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
+            More about me and myself
+          </p>
         </div>
         <div className="items-start space-y-2 xl:grid xl:grid-cols-3 xl:space-y-0 pt-8">
           <ProfileCard avatar={avatar} />
