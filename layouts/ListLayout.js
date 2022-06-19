@@ -22,13 +22,17 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
           <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
             {title}
           </h1>
+          <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
+            I write mostly about web development, tech related, and sometime about my personal life.
+            Use the search below to filter by title.
+          </p>
           <div className="relative max-w-lg">
             <input
-              aria-label="Search articles"
+              aria-label="Search posts"
               type="text"
               onChange={(e) => setSearchValue(e.target.value)}
-              placeholder="Search articles"
-              className="block w-full px-4 py-2 text-gray-900 bg-white border border-gray-300 rounded-md dark:border-gray-900 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-800 dark:text-gray-100"
+              placeholder="Search posts"
+              className="block w-full px-4 py-2 text-gray-900 bg-white border border-gray-300 rounded-md dark:border-gray-500 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-800 dark:text-gray-100"
             />
             <svg
               className="absolute w-5 h-5 text-gray-400 right-3 top-3 dark:text-gray-300"
