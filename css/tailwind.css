@@ -23,11 +23,12 @@
   content: attr(line);
 }
 
-.prose-xl pre {
-  margin-top: 1em;
-}
 .prose pre {
+  margin-top: 1em;
   background-color: #222;
+}
+.prose pre code {
+  font-weight: 500 !important;
 }
 .prose pre .code-line {
   border-color: #222;
@@ -42,11 +43,11 @@
   }
 }
 
-.prose-xl blockquote p {
+.prose blockquote p {
   margin: 16px 0px;
 }
 
-.prose-xl blockquote {
+.prose blockquote {
   background: #ebebeb;
   color: #3d3b3b;
   border-top: 1px solid transparent;
@@ -60,7 +61,7 @@
   border-left-color: #b7abab !important;
 }
 
-.prose.prose-xl :not(pre) > code:not([class*='language']) {
+.prose.prose :not(pre) > code:not([class*='language']) {
   display: inline-block;
   color: rgb(34, 36, 38);
   font-weight: 500;
@@ -70,10 +71,6 @@
   padding-top: 0;
   padding-bottom: 0;
   border-radius: 6px;
-}
-
-.prose pre code {
-  font-weight: 500 !important;
 }
 
 code,
@@ -108,13 +105,11 @@ html.lightbox-loading * {
   margin-top: 1.25em;
 }
 
-.prose > ul > li > *:last-child,
-.prose-xl > ul > li > *:last-child {
+.prose > ul > li > *:last-child {
   margin-bottom: 0;
 }
 
-.prose > ul > li > *:first-child,
-.prose-xl > ul > li > *:first-child {
+.prose > ul > li > *:first-child {
   margin-top: 0;
 }
 
@@ -130,7 +125,7 @@ html.lightbox-loading * {
   font-size: 16px;
 }
 
-.prose-xl hr {
+.prose hr {
   margin-top: 2em;
   margin-bottom: 2em;
 }
