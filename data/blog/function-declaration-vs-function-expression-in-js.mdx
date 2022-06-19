@@ -32,10 +32,10 @@ Chắc hẳn anh em ngày ngày làm việc với **Javascript** sẽ viết r�
 function doSomething() {} // function declaration
 
 // hoặc
-const doSomething = function () {} // function expression
+let doSomething = function () {} // function expression
 
 // hoặc
-const doSomething = () => {} // function expression
+let doSomething = () => {} // function expression
 ```
 
 Cách viết đầu tiên chính là **Function Declaration**, và 2 cách sau là **Function Expression**, vậy chúng khác gì nhau và sử dụng như thế nào?
@@ -53,10 +53,10 @@ function doSomething() {}
 - **Function Expression** được khai báo tương tự như **Function Declaraion** nhưng được gán vào 1 **biến** và sẽ chạy khi được gọi qua **biến** đó, tên của **function** có thể bỏ đi (**Anonymous Function**)
 
 ```javascript
-const doSomething = function () {}
+let doSomething = function () {}
 
 // Anonymous function in ES6 syntax
-const doSomething = () => {}
+let doSomething = () => {}
 ```
 
 ## Hoisting
@@ -82,7 +82,7 @@ Tuy nhiên **Function Expression** chỉ có thể gọi sau khi định nghĩa
 ```js
 sayHello() // => Uncaught ReferenceError: Cannot access 'sayHello' before initialization
 
-const sayHello = function () {
+let sayHello = function () {
   console.log('Hello')
 }
 ```

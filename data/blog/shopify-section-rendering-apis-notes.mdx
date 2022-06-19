@@ -93,11 +93,11 @@ Request dynamic section markup:
 
 ```js
 // Async context
-const section = document.querySelector('[data-section-type="section-type"]')
-const id = section.dataset.id 
+let section = document.querySelector('[data-section-type="section-type"]')
+let id = section.dataset.id 
 // Eg: template--14908088647850__16322847419ca50f50
 
-const markup = await (await fetch(`?section_id=${id}}`)).text()
+let markup = await (await fetch(`?section_id=${id}}`)).text()
 console.log(markup)
 // Example markup: '<div id=\"template--14908088647850__16322847419ca50f50\">\n<!-- section content -->\n</div>''
 ```
@@ -115,11 +115,11 @@ Ví dụ:
 ```javascript
 // Async context
 
-const collectionMarkup = await (await fetch(`/collections/fashion/xs?section_id=template--15128665981118__main`).text())
+let collectionMarkup = await (await fetch(`/collections/fashion/xs?section_id=template--15128665981118__main`).text())
 console.log(collectionMarkup)
 // Example markup: '<div id=\"shopify-section-template--15128665981118__main\">\n<!-- section content -->\n</div>''
 
-const productMarkup = await (await fetch(`/products/adidas-classic-backpack?section_id=product-json`).text())
+let productMarkup = await (await fetch(`/products/adidas-classic-backpack?section_id=product-json`).text())
 console.log(productMarkup)
 // Example markup: '<div id=\"shopify-section-template--15128665981118__main\">\n<!-- section content -->\n</div>''
 ```

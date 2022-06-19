@@ -156,22 +156,22 @@ Bây giờ chỉ cần download 1000 file về, save với tên được extract
 Chỉ cần vài dòng `Node.js` kết hợp với `regex` là có thể extract name và download file về:
 
 ```js
-const fs = require('fs')
-const fetch = require('node-fetch')
-const fileData = require('./data')
+let fs = require('fs')
+let fetch = require('node-fetch')
+let fileData = require('./data')
 
 async function download(url, filename) {
-  const response = await fetch(url)
-  const buffer = await response.buffer()
+  let response = await fetch(url)
+  let buffer = await response.buffer()
   await fs.writeFile(filename, buffer, () => {})
 }
 
 console.time('FILE_DOWNLOAD')
 Promise.all(
   fileData.map(async ({ node }, ind) => {
-    const src = node?.image?.originalSrc
+    let src = node?.image?.originalSrc
     if (src) {
-      const filename = (src.match(/.*\/files\/(.*)\?v=.*/) || [])[1]
+      let filename = (src.match(/.*\/files\/(.*)\?v=.*/) || [])[1]
       if (filename) {
         await download(src, `./download/${filename}`)
       } else {

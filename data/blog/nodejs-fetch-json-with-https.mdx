@@ -29,7 +29,7 @@ Và câu trả lời là không! Vì đã có [`https`](https://nodejs.org/api/h
 Tạo `request` với `https` như sau:
 
 ```js {8,11} showLineNumbers
-const https = require('https')
+let https = require('https')
 
 https
   .get(url, (res) => {
@@ -37,7 +37,7 @@ https
     res.on('data', (chunk) => (body += chunk))
     res.on('end', () => {
       try {
-        const json = JSON.parse(body)
+        let json = JSON.parse(body)
         // Now you can use json data...
       } catch (err) {
         console.error(`Failed to parse JSON data - ${err.toString()}`)
@@ -62,9 +62,9 @@ Trong đó:
 Đơn giản là như vậy! Bây giờ hãy abstract những logic này vào 1 function để sử dụng ở bất kì đâu trong `server`:
 
 ```js
-const https = require('https')
+let https = require('https')
 
-const fetchJSON = (url) => {
+let fetchJSON = (url) => {
   return new Promise((resolve, reject) => {
     https
       .get(url, (res) => {
@@ -89,7 +89,7 @@ Và sử dụng
 
 ```js
 // Async context
-const data = await fetchJSON(url)
+let data = await fetchJSON(url)
 
 // Use data...
 ```

@@ -27,7 +27,7 @@ Let's walk through some basic knowledge
 Giving this array
 
 ```js
-const devs = [
+let devs = [
   { id: '1', name: 'Leo', yob: 1995 },
   { id: '2', name: 'Paul', yob: 1995 },
   { id: '3', name: 'Jesse', yob: 1996 },
@@ -40,8 +40,8 @@ What can we do using **map()** function:
 - Getting new values from array
 
 ```js
-const ages = devs.map((dev) => {
-  const currentYear = new Date().getFullYear()
+let ages = devs.map((dev) => {
+  let currentYear = new Date().getFullYear()
   return currentYear - dev.yob
 })
 
@@ -51,7 +51,7 @@ console.log(ages) // => [25, 25, 24, 23]
 - Extracting values from array of objects
 
 ```js
-const names = devs.map((dev) => dev.name)
+let names = devs.map((dev) => dev.name)
 
 console.log(names) // => ["Leo", "Paul", "Jesse", "Ken"]
 ```
@@ -77,11 +77,11 @@ export default DeveloperProfiles = ({ devs }) => {
 It is common to pass the pre-defined **callback** function as **map()** argument like this:
 
 ```js
-const extractId = (dev) => {
+let extractId = (dev) => {
   return dev.id
 }
 
-const ids = devs.map(extractId)
+let ids = devs.map(extractId)
 
 console.log(ids) // => ["1", "2", "3", "4"]
 ```
@@ -92,7 +92,7 @@ Consider this case - we need to get all **ids** as **numbers**:
 
 ```js
 // ids = ["1", "2", "3", "4"]
-const idsInNumber = ids.map(parseInt)
+let idsInNumber = ids.map(parseInt)
 
 console.log(idsInNumber) // => ???
 ```

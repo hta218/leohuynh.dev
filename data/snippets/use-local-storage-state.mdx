@@ -11,10 +11,10 @@ Custom hooks to use local storage state
 ```js
 import { useState, useEffect } from 'react'
 
-export const useLocalStorageState = (key, defaultValue = '', options = {}) => {
-  const { serialize = JSON.stringify, deserialize = JSON.parse } = options
-  const [state, setState] = useState(() => {
-    const valueInLocalStorage = window.localStorage.getItem(key)
+export let useLocalStorageState = (key, defaultValue = '', options = {}) => {
+  let { serialize = JSON.stringify, deserialize = JSON.parse } = options
+  let [state, setState] = useState(() => {
+    let valueInLocalStorage = window.localStorage.getItem(key)
     if (valueInLocalStorage) {
       return deserialize(valueInLocalStorage)
     }

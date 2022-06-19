@@ -16,7 +16,7 @@ export default function Footer() {
         </div>
         <div className="flex my-2 space-x-2 text-sm text-gray-500 dark:text-gray-400">
           <div>{`Copyright © ${new Date().getFullYear()}`}</div>
-          <div>{` • `}</div>
+          <span>{` • `}</span>
           <Link href="/">{siteMetadata.footerTitle}</Link>
         </div>
         <div className="text-sm text-gray-500 dark:text-gray-400">

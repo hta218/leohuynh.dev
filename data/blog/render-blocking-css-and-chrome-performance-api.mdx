@@ -107,8 +107,8 @@ Trong ví dụ mình có load 2 file **CSS** và so sánh **page rendering time*
 if ('PerformanceObserver' in window) {
   try {
     // Create PerformanceObserver instance
-    const perfObsever = new PerformanceObserver((perf) => {
-      const perfEntries = perf.getEntriesByType('paint')
+    let perfObsever = new PerformanceObserver((perf) => {
+      let perfEntries = perf.getEntriesByType('paint')
       perfEntries.forEach(({ name, startTime }) => {
         // Get the result inside this callback
         console.log(`The time to ${name} was ${startTime} milliseconds.`)
@@ -150,8 +150,8 @@ Hoặc đơn giản hơn, các bạn có thể sử dụng trực tiếp [Perfor
 
 ```javascript
 if (window.performance) {
-	const performance = window.performance;
-	const perfEntries = performance.getEntriesByType('paint');
+	let performance = window.performance;
+	let perfEntries = performance.getEntriesByType('paint');
 
 	perfEntries.forEach({ name, startTime } => {
 		console.log(`The time to ${name} was ${startTime} milliseconds.`);

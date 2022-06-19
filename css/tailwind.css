@@ -7,7 +7,7 @@
 }
 
 .remark-code-title + div > pre {
-  @apply mt-0 rounded-t-none;
+  @apply mt-0 rounded-t-none pl-4;
 }
 
 .code-line {

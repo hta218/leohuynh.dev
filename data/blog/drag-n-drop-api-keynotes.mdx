@@ -102,7 +102,7 @@ Below are some interesting key-notes I've learned about the APIs.
     // NOTE: there must be a handler for dragover to use drop event
     e.preventDefault()
     // Use `e.dataTransfer.getData` method to retrieve drag's data and process them
-    const data = e.dataTransfer.getData('text/plain')
+    let data = e.dataTransfer.getData('text/plain')
     // NOTE: Keep mind that we can only use the `dataTransfer.getData()` in the `drop-handler`
     // `getData()` will return empty string inside handle dragover or dragenter
   })
@@ -118,7 +118,7 @@ Below are some interesting key-notes I've learned about the APIs.
   // The `dragend` event fired on the `draggable` element (not the dropzone element)
   dragElem.addEventListener('dragend', function handleDragEnd(e) {
     // We can check if the drag was successful or not by checking the ʻe.dataTransfer.dropEffect` value
-    const dropEffect = e.dataTransfer.dropEffect
+    let dropEffect = e.dataTransfer.dropEffect
     // If that fails, the value of `e.dataTransfer.dropEffect` will be "none"
   })
   ```

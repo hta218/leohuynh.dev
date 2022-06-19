@@ -12,8 +12,8 @@ import Twemoji from './Twemoji.js'
 Simple color validator function
 
 ```js
-const isValidColor = color => {
-  const otpNode = new Option()
+let isValidColor = color => {
+  let otpNode = new Option()
   otpNode.style.color = color
 
   return !!otpNode.style.color
@@ -44,8 +44,8 @@ Caveat
 Strings like `unset`, `initial`, `inherit`, `currentcolor`, `transparent` are also valid values, so if you want to exclude these strings, just change the function a bit:
 
 ```js
-const isValidColor = color => {
-  const otpNode = new Option()
+let isValidColor = color => {
+  let otpNode = new Option()
   otpNode.style.color = color
 
   return !!otpNode.style.color && !/(unset|initial|inherit|currentcolor|transparent)/i.test(color)

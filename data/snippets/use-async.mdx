@@ -11,10 +11,10 @@ Custom hooks to use an async effect
 
 ```js
 function useAsync(asyncCallback) {
-  const [state, dispatch] = React.useReducer(asyncReducer)
+  let [state, dispatch] = React.useReducer(asyncReducer)
 
   React.useEffect(() => {
-    const promise = asyncCallback()
+    let promise = asyncCallback()
     if (!promise) return
 
     dispatch({ type: 'pending' })
@@ -32,14 +32,14 @@ Usage:
 ```js
 function Component({ input }) {
   // Remember to wrap the async job in a useCallback
-  const asyncCallback = React.useCallback(() => {
+  let asyncCallback = React.useCallback(() => {
     if (!input) return
 
     // Run the async effect (fetch is an example)
     return fetch(input)
   }, [input])
 
-  const { status, data, error } = useAsync(asyncCallback)
+  let { status, data, error } = useAsync(asyncCallback)
 
   switch (status) {
     case 'idle':
@@ -60,7 +60,7 @@ How to clean the side effect (the async job start but then the component unmount
 
 ```js
 function useSafeDispatch(dispatch) {
-  const mountedRef = React.useRef(false)
+  let mountedRef = React.useRef(false)
   React.useEffect(() => {
     mountedRef.current = true
     return () => {
@@ -80,11 +80,11 @@ Now change the `useAsync` function:
 
 ```js
 function useAsync(asyncCallback) {
-  const [state, unsafeDispatch] = React.useReducer(asyncReducer)
-  const dispatch = useSafeDispatch(unsafeDispatch)
+  let [state, unsafeDispatch] = React.useReducer(asyncReducer)
+  let dispatch = useSafeDispatch(unsafeDispatch)
 
   React.useEffect(() => {
-    const promise = asyncCallback()
+    let promise = asyncCallback()
     if (!promise) return
 
     dispatch({ type: 'pending' })

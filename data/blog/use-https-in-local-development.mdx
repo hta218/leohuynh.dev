@@ -155,8 +155,8 @@ The most important work of generating `server.key` and `server.crt` is done, now
 Create a simple **web server** with **Koa**:
 
 ```javascript:server.js
-const Koa = require('koa');
-const app = new Koa();
+let Koa = require('koa');
+let app = new Koa();
 
 app.use(async ctx => {
   ctx.body = 'Hello World';
@@ -170,10 +170,10 @@ Create a directory called `certs/` in your app, then move `server.key` and `serv
 Load the certificate files and create **HTTPS** server with `https` module:
 
 ```javascript:index.js
-const app = require('./server')
-const https = require('https')
-const fs = require('fs')
-const path = require('path')
+let app = require('./server')
+let https = require('https')
+let fs = require('fs')
+let path = require('path')
 
 let certOptions = null
 try {
@@ -185,16 +185,16 @@ try {
   console.log('No certificate files found!')
 }
 
-const host = process.env.APP_URL || 'localhost'
-const isLocal = host === 'localhost'
-const enableHTTPSInLocal = Boolean(isLocal && certOptions)
+let host = process.env.APP_URL || 'localhost'
+let isLocal = host === 'localhost'
+let enableHTTPSInLocal = Boolean(isLocal && certOptions)
 
-const port = enableHTTPSInLocal ? 443 : process.env.PORT || 3434
-const protocol = (isLocal && !certOptions) ? "http" : "https"
+let port = enableHTTPSInLocal ? 443 : process.env.PORT || 3434
+let protocol = (isLocal && !certOptions) ? "http" : "https"
 
-const url = `${protocol}://${host}${isLocal ? `:${port}` : ''}`
+let url = `${protocol}://${host}${isLocal ? `:${port}` : ''}`
 
-const callback = () => {
+let callback = () => {
   console.log(`App start successfully at ${url}`)
 }
 

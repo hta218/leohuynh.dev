@@ -23,7 +23,7 @@ class Event {
   }
 
   unSubscribe(event, handler) {
-    const handlers = this.events[event];
+    let handlers = this.events[event];
     if (handlers && Array.isArray(handlers)) {
       for (let i = 0; i < handlers.length; i++) {
         if (handlers[i] === handler) {
@@ -46,10 +46,10 @@ Usage
 
 ```javascript
 // Create a global instance in your app
-const globalEvent = new Event()
+let globalEvent = new Event()
 
-const handler1 = data => console.log(`handler1(): FOO event emiited with data: ${data}`)
-const handler2 = data => console.log(`handler2(): FOO event emiited with data: ${data}`)
+let handler1 = data => console.log(`handler1(): FOO event emiited with data: ${data}`)
+let handler2 = data => console.log(`handler2(): FOO event emiited with data: ${data}`)
 
 // Subscribe to event
 globalEvent.subscribe('FOO', handler1)
