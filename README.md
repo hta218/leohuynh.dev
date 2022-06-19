@@ -24,4 +24,4 @@ All images in this blog are from [Unsplash](https://unsplash.com/), [imgur](http
 
 ---
 
-Copyright (c) 2021 Tuan Anh Huynh (Leo) - Alrights reserved.
+Copyright (c) 2022 Tuan Anh Huynh (Leo) - Alrights reserved.
