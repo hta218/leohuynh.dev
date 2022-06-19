@@ -52,19 +52,24 @@ export default function Home({ posts }) {
               </p>
               <div className="flex flex-col space-y-1">
                 <Link href="/projects" className="hover:underline">
-                  <Twemoji emoji="hammer-and-wrench" /> What have I built?
+                  <Twemoji emoji="hammer-and-wrench" />
+                  <span className="ml-2">What have I built?</span>
                 </Link>
                 <Link href="/blog" className="hover:underline">
-                  <Twemoji emoji="memo" /> My writings
+                  <Twemoji emoji="memo" />
+                  <span className="ml-2">My writings</span>
                 </Link>
                 <Link href="/snippets" className="hover:underline">
-                  <Twemoji emoji="dna" /> Useful snippets collected by me
+                  <Twemoji emoji="dna" />
+                  <span className="ml-2">Useful snippets collected by me</span>
                 </Link>
                 <Link href="/about" className="hover:underline">
-                  <Twemoji emoji="face-with-monocle" /> More about me and myself
+                  <Twemoji emoji="face-with-monocle" />
+                  <span className="ml-2">More about me and myself</span>
                 </Link>
                 <Link href="/resume" className="hover:underline">
-                  <Twemoji emoji="briefcase" /> My resume
+                  <Twemoji emoji="briefcase" />
+                  <span className="ml-2">My resume</span>
                 </Link>
               </div>
               <p className="my-8">
