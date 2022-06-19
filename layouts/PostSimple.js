@@ -8,7 +8,13 @@ import SocialButtons from '@/components/SocialButtons'
 import Twemoji from '@/components/Twemoji'
 
 export default function PostLayout({ frontMatter, children }) {
-  const { date, title, slug, fileName } = frontMatter
+  const {
+    date,
+    title,
+    slug,
+    fileName,
+    readingTime: { text: readingTimeText },
+  } = frontMatter
   const postUrl = `${siteMetadata.siteUrl}/snippets/${slug}`
 
   return (
@@ -16,32 +22,36 @@ export default function PostLayout({ frontMatter, children }) {
       <BlogSeo url={`${siteMetadata.siteUrl}/snippets/${frontMatter.slug}`} {...frontMatter} />
       <article>
         <div>
-          <header className="py-6 xl:py-16 border-b border-gray-200 dark:border-gray-700">
-            <div className="space-y-1 text-center">
+          <header className="py-6 xl:py-16">
+            <div className="space-y-4 text-center">
+              <div>
+                <PageTitle>{title}</PageTitle>
+              </div>
               <dl>
                 <div>
                   <dt className="sr-only">Published on</dt>
-                  <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
+                  <dd className="flex justify-center text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
                     <time dateTime={date} className="flex items-center justify-center">
                       <Twemoji emoji="calendar" size="" />
                       <span className="ml-1.5">{formatDate(date)}</span>
                     </time>
+                    <span className="mx-2">-</span>
+                    <div className="flex items-center">
+                      <Twemoji emoji="hourglass-not-done" size="" />
+                      <span className="ml-1.5">{readingTimeText.replace('min', 'mins')}</span>
+                    </div>
                   </dd>
                 </div>
               </dl>
-              <div>
-                <PageTitle>{title}</PageTitle>
-              </div>
             </div>
           </header>
-          <div
-            className="pb-8 divide-y divide-gray-200 xl:divide-y-0 dark:divide-gray-700 "
-            style={{ gridTemplateRows: 'auto 1fr' }}
-          >
-            <div className="divide-y divide-gray-200 dark:divide-gray-700 xl:pb-0 xl:col-span-3 xl:row-span-2">
-              <div className="pt-10 pb-8 prose prose-lg dark:prose-dark max-w-none">{children}</div>
-              <SocialButtons postUrl={postUrl} title={title} fileName={fileName} />
-              <Comments frontMatter={frontMatter} />
+          <div className="pb-8" style={{ gridTemplateRows: 'auto 1fr' }}>
+            <div className="xl:pb-0 xl:col-span-3 xl:row-span-2">
+              <div className="pb-8 prose prose-lg dark:prose-dark max-w-none">{children}</div>
+              <div className="border-t border-gray-200 dark:border-gray-700">
+                <SocialButtons postUrl={postUrl} title={title} fileName={fileName} />
+                <Comments frontMatter={frontMatter} />
+              </div>
             </div>
           </div>
         </div>
