@@ -6,9 +6,11 @@ import ThemeSwitch from './ThemeSwitch'
 import NextImage from 'next/image'
 import { useState } from 'react'
 
-const LayoutWrapper = ({ children }) => {
-  const [navShow, setNavShow] = useState(false)
-  const onToggleNav = () => setNavShow((status) => !status)
+let LayoutWrapper = ({ children }) => {
+  let [navShow, setNavShow] = useState(false)
+  let onToggleNav = () => setNavShow((status) => !status)
+  let headerHeight = '69px'
+  let footerHeight = '188px'
 
   return (
     <>
@@ -65,8 +67,10 @@ const LayoutWrapper = ({ children }) => {
         </div>
       </header>
       <div className="max-w-3xl px-3 xl:px-0 mx-auto sm:px-6 xl:max-w-5xl">
-        <div className="flex flex-col justify-between min-h-screen">
-          <main className="mb-auto">{children}</main>
+        <div className="flex flex-col justify-between">
+          <main style={{ minHeight: `calc(100vh - ${headerHeight} - ${footerHeight})` }}>
+            {children}
+          </main>
           <Footer />
         </div>
       </div>
