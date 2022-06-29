@@ -24,7 +24,7 @@ The images in this blog are from [Unsplash](https://unsplash.com/) and [imgur](h
 gifs from [GIPHY](https://giphy.com/).
 and illustrations are from [Storyset](https://storyset.com/).
 
-Thanks for the free resources <Twemoji emoji="folded-hands" />
+Thanks for the free resources 🙏
 
 ---
 
