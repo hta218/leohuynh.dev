@@ -1,4 +1,4 @@
-# My personal site at [https://leohuynh.dev](https://leohuynh.dev)
+# My 🏠 on the ☁️
 
 ## Motivation
 
@@ -8,7 +8,7 @@ I believe noting down and sharing is the best way to learn! So I created this bl
 
 More than just technical stuff, there are personal thoughts about work and life from the perspective of a software engineer.
 
-It would be highly appreciated if I could read your comment on what I wrote
+It would be highly appreciated if I could read your comment on what I wrote.
 
 ## Tech stack
 
@@ -18,9 +18,13 @@ A huge thanks to [Timothy Lin](https://twitter.com/timlrxx) for the minimal, lig
 
 _The legacy version built with **Gatsby** can be found [here](https://leo-blog-legacy.vercel.app/)_.
 
-## Images
+## Assets
 
-All images in this blog are from [Unsplash](https://unsplash.com/), [imgur](https://imgur.com) and [GIPHY](https://giphy.com/) - Thanks for the free resources!
+The images in this blog are from [Unsplash](https://unsplash.com/) and [imgur](https://imgur.com).
+gifs from [GIPHY](https://giphy.com/).
+and illustrations are from [Storyset](https://storyset.com/).
+
+Thanks for the free resources <Twemoji emoji="folded-hands" />
 
 ---
 
