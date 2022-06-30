@@ -20,8 +20,8 @@ _The legacy version built with **Gatsby** can be found [here](https://leo-blog-l
 
 ## Assets
 
-The images in this blog are from [Unsplash](https://unsplash.com/) and [imgur](https://imgur.com).
-gifs from [GIPHY](https://giphy.com/).
+The images in this blog are from [Unsplash](https://unsplash.com/),
+gifs from [GIPHY](https://giphy.com/),
 and illustrations are from [Storyset](https://storyset.com/).
 
 Thanks for the free resources 🙏
