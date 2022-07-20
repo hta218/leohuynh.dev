@@ -1,20 +1,20 @@
 const siteMetadata = {
-  title: "Leo's blog - Leo's coding journey",
-  author: 'Leo Huynh',
-  headerTitle: "Leo's blog - Leo's coding journey",
-  footerTitle: "Leo's blog - Leo's coding journey",
+  title: "Victor's blog - Victor's Data Science Journey",
+  author: 'Victor Oketch Sabare',
+  headerTitle: "Victor's blog - Victor's Data Science Journey",
+  footerTitle: "Victor's blog - Victor's Data Science Journey",
   description:
-    "Leo's coding journey - programming, working and life stories through the keyboard of an open minded Software Engineer",
+    "Victor's Data Science journey - programming, working and life stories through the keyboard of an open minded Data Professional",
   snippets: 'Reuseable code snippets collected by Leo',
   language: 'en-us',
-  siteUrl: 'https://www.leohuynh.dev',
+  siteUrl: 'https://www.victorsabare.dev',
   siteRepo: 'https://github.com/hta218/leo-blog',
   siteLogo: '/static/images/logo.jpg',
   image: '/static/images/logo.jpg',
   socialBanner: '/static/images/logo.jpg',
   email: 'leohuynh@proton.me',
-  github: 'https://github.com/hta218',
-  twitter: 'https://twitter.com/hta218_',
+  github: 'https://github.com/sabareh',
+  twitter: 'https://twitter.com/sabare12',
   facebook: 'https://facebook.com/hta218',
   youtube: 'https://www.youtube.com/channel/UCHXjj6ewfDIjx_Op3hqijlg',
   linkedin: 'https://www.linkedin.com/in/hta218/',
@@ -69,7 +69,7 @@ const siteMetadata = {
     },
   },
   socialAccount: {
-    twitter: 'hta218_',
+    twitter: 'sabare12',
   },
 }
 
