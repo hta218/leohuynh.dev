@@ -28,25 +28,26 @@ export default function Home({ posts }) {
             <p
               className={`mb-8 text-4xl leading-[60px] font-extrabold tracking-tight text-transparent bg-clip-text ${headingColorClass} md:text-7xl md:leading-[86px]`}
             >
-              Howdy, fellow! <i className="twa twa-waving-hand"></i>
+              Hello, friend! <i className="twa twa-waving-hand"></i>
             </p>
 
             <div className="text-lg leading-8 text-gray-600 dark:text-gray-400">
               <h1 className="text-neutral-900 dark:text-neutral-200">
-                I'm <span className="font-medium">Tuan Anh Huynh</span> - an open-minded{' '}
-                <span className="font-medium">Software Engineer</span> in{' '}
-                <span className="font-medium hidden">Ha Noi, VN</span>
+                I'm <span className="font-medium">Victor Oketch Sabare</span> - an open-minded{' '}
+                <span className="font-medium">Data Scientist</span> in{' '}
+                <span className="font-medium hidden">Nairobi, Kenya</span>
                 <span className="align-middle flag-vn">
                   <Twemoji emoji="flag-vietnam" />
                 </span>
               </h1>
               <TypedBios />
               <p className="mt-4 mb-8">
-                I started my coding journey in 2016 with C/C++/Java in college.
+                I started my Data Science journey in 2021 with Python/C/C++ in University.
                 <br />
-                I had my first job as a Python coding mentor in 2017.
+                I had my first job as a Freelance Python software developer in 2021.
                 <br />
-                I'm in love with the JS ecosystem, web dev, and eCommerce.
+                I'm in love with the Artificial Intelligence ecosystem, Machine Learning, and Data
+                Pipelines.
                 <br />
                 I'm writing this blog to note down and share what I've learned as a SE.
               </p>
