@@ -34,10 +34,10 @@ export default function Home({ posts }) {
             <div className="text-lg leading-8 text-gray-600 dark:text-gray-400">
               <h1 className="text-neutral-900 dark:text-neutral-200">
                 I'm <span className="font-medium">Victor Oketch Sabare</span> - an open-minded{' '}
-                <span className="font-medium">Data Scientist</span> in{' '}
+                <span className="font-medium">Data Scientist</span>{' '}
                 <span className="font-medium hidden">Nairobi, Kenya</span>
                 <span className="align-middle flag-vn">
-                  <Twemoji emoji="flag-vietnam" />
+                  <Twemoji emoji="flag-kenya" />
                 </span>
               </h1>
               <TypedBios />
