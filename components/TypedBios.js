@@ -23,7 +23,7 @@ const TypedBios = () => {
     <div>
       <ul id="bios" className="hidden">
         <li>
-          I'm aliased as <b className="font-medium">Vic</b> at work.
+          I'm aliased as <b className="font-medium">Vic</b> at school.
         </li>
         <li>I'm a builder, learner and freedom seeker.</li>
         <li>

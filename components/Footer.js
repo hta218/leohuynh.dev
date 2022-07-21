@@ -34,9 +34,9 @@ export default function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-blue-500"
-            href="https://twitter.com/timlrxx"
+            href="https://twitter.com/sabare12"
           >
-            Timothy Lin
+            Victor Oketch Sabare
           </a>
         </div>
       </div>
