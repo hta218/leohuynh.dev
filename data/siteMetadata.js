@@ -5,19 +5,18 @@ const siteMetadata = {
   footerTitle: "Victor's blog - Victor's Data Science Journey",
   description:
     "Victor's Data Science journey - programming, working and life stories through the keyboard of an open minded Data Professional",
-  snippets: 'Reuseable code snippets collected by Leo',
+  snippets: 'Reuseable code snippets collected by Sabare',
   language: 'en-us',
   siteUrl: 'https://www.victorsabare.dev',
   siteRepo: 'https://github.com/hta218/leo-blog',
   siteLogo: '/static/images/logo.jpg',
   image: '/static/images/logo.jpg',
   socialBanner: '/static/images/logo.jpg',
-  email: 'leohuynh@proton.me',
+  email: 'sabarevictor@gmail.com',
   github: 'https://github.com/sabareh',
   twitter: 'https://twitter.com/sabare12',
-  facebook: 'https://facebook.com/hta218',
   youtube: 'https://www.youtube.com/channel/UCHXjj6ewfDIjx_Op3hqijlg',
-  linkedin: 'https://www.linkedin.com/in/hta218/',
+  linkedin: 'https://www.linkedin.com/in/victor-oketch-sabare-7070021ba/',
   locale: 'en-US',
   analytics: {
     // supports plausible, simpleAnalytics or googleAnalytics
