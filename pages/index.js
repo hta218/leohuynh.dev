@@ -49,7 +49,8 @@ export default function Home({ posts }) {
                 I'm in love with the Artificial Intelligence ecosystem, Machine Learning, and Data
                 Pipelines.
                 <br />
-                I'm writing this blog to note down and share what I've learned as a SE.
+                I'm writing this blog to note down and share what I've learned as a Data
+                Professional.
               </p>
               <div className="flex flex-col space-y-1">
                 <Link href="/projects" className="hover:underline">
