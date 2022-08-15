@@ -5,7 +5,7 @@ import ImageLightbox from './ImageLightbox'
 // eslint-disable-next-line jsx-a11y/alt-text
 const Image = ({ shouldOpenLightbox = true, ...rest }) => {
   let blurData = {
-    placeholder: 'blur',
+    placeholder: 'Blur placeholder',
     blurDataURL:
       'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNcvWS1LgAGJQIpt50GkgAAAABJRU5ErkJggg==',
   }
