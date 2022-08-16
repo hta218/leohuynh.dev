@@ -4,11 +4,8 @@ const colors = require('tailwindcss/colors')
 module.exports = {
   mode: 'jit',
   content: [
-    './pages/**/*.js',
-    './data/blog/*.mdx',
-    './components/**/*.js',
-    './layouts/**/*.js',
-    './lib/**/*.js',
+    './(pages|components|layouts)/**/*.(ts|tsx)',
+    './data/(blog|snippets|authors)/*.mdx',
     './safelist.txt',
   ],
   darkMode: 'class',
