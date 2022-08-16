@@ -8,8 +8,8 @@ images: ['/static/images/secure.jpg']
 authors: ['default']
 ---
 
-import Twemoji from './Twemoji.js'
-import UnsplashLicense from './UnsplashLicense.js'
+import Twemoji from './Twemoji.tsx'
+import UnsplashLicense from './UnsplashLicense.tsx'
 
 ![secure](/static/images/secure.jpg)
 <UnsplashLicense photoURL="https://unsplash.com/photos/ah-HeguOe9k" author="Dan Nelson" />
@@ -23,7 +23,7 @@ or listen to **webhooks** from another app... And those third parties require yo
 
 Of course, it will be **HTTPS** in **production**, but how to have a secure connection while developing your app locally?
 
-We have several options like using [PageKite](https://pagekite.net/) or [ngrok](https://ngrok.com/) to create an **HTTPS tunnel** that points to your **localhost**, 
+We have several options like using [PageKite](https://pagekite.net/) or [ngrok](https://ngrok.com/) to create an **HTTPS tunnel** that points to your **localhost**,
 but these services have a few drawbacks:
 
 - Limited number of tunnels/requests to use at a time on free plan.
@@ -149,7 +149,7 @@ Now in the folder where you just created certificate will contain 2 files: `serv
 
 ### <Twemoji emoji="keycap-4" /> Create HTTPS server
 
-The most important work of generating `server.key` and `server.crt` is done, now let's use that certificate to create a Nodejs **HTTPS** server in localhost using [Koa.js](https://koajs.com/) 
+The most important work of generating `server.key` and `server.crt` is done, now let's use that certificate to create a Nodejs **HTTPS** server in localhost using [Koa.js](https://koajs.com/)
 (It's almost the same in **Express** cause **Koa** is created by the team behind **Express** <Twemoji emoji="beaming-face-with-smiling-eyes" />).
 
 Create a simple **web server** with **Koa**:
@@ -241,7 +241,7 @@ Happy sharing <Twemoji emoji="clinking-beer-mugs" />
 
 - [What is a Root SSL Certificate?](https://support.dnsimple.com/articles/what-is-ssl-root-certificate/)
 
-- [Apple's Requirements for trusted certificates](https://support.apple.com/en-us/HT210176) 
+- [Apple's Requirements for trusted certificates](https://support.apple.com/en-us/HT210176)
 
 - [X509 v3 certificate](https://en.wikipedia.org/wiki/X.509)
 

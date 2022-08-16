@@ -8,8 +8,8 @@ images: ["/static/images/shopify-section-render.jpg"]
 authors: ["default"]
 ---
 
-import Twemoji from './Twemoji.js'
-import UnsplashLicense from './UnsplashLicense.js'
+import Twemoji from './Twemoji.tsx'
+import UnsplashLicense from './UnsplashLicense.tsx'
 
 <UnsplashLicense photoURL="https://unsplash.com/photos/atSUvc1hMwk" author="Nattu Adnan" />
 ![shopify-section-render](/static/images/shopify-section-render.jpg)
@@ -77,7 +77,7 @@ Chúng ta hoàn toàn có thể sử dụng API cho request nhiều section đ�
 
 Tuy nhiên với **dynamic** section (section có **settings schema**) nếu dùng **filename** làm `sectionID` thì sẽ chỉ request được markup ứng với **default settings** của section đó, chứ không phải là markup tương ứng với settings hiện tại
 
-Để request được markup của những **dynamic** section này thì cần sử dụng dynamic `sectionID`. Trong **Liquid** thì đó là `{{ section.id }}`. 
+Để request được markup của những **dynamic** section này thì cần sử dụng dynamic `sectionID`. Trong **Liquid** thì đó là `{{ section.id }}`.
 
 Ví dụ:
 
@@ -94,7 +94,7 @@ Request dynamic section markup:
 ```js
 // Async context
 let section = document.querySelector('[data-section-type="section-type"]')
-let id = section.dataset.id 
+let id = section.dataset.id
 // Eg: template--14908088647850__16322847419ca50f50
 
 let markup = await (await fetch(`?section_id=${id}}`)).text()

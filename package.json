@@ -1,6 +1,4 @@
 {
-  "name": "tailwind-nextjs-starter-blog",
-  "version": "1.0.0-canary.1",
   "private": true,
   "scripts": {
     "start": "PORT=3434 next-remote-watch ./data",
@@ -13,9 +11,9 @@
   },
   "dependencies": {
     "@prisma/client": "^3.15.2",
-    "@tailwindcss/forms": "^0.4.0",
-    "@tailwindcss/typography": "^0.5.1",
-    "autoprefixer": "^10.2.5",
+    "@tailwindcss/forms": "^0.5.2",
+    "@tailwindcss/typography": "^0.5.4",
+    "autoprefixer": "^10.4.8",
     "esbuild": "^0.12.16",
     "gray-matter": "^4.0.2",
     "image-size": "1.0.0",
@@ -23,8 +21,8 @@
     "mdx-bundler": "^5.1.2",
     "next": "^12.1.0",
     "next-themes": "^0.0.14",
-    "postcss": "^8.4.6",
-    "postcss-loader": "^6.2.1",
+    "postcss": "^8.4.16",
+    "postcss-loader": "^7.0.1",
     "preact": "^10.5.13",
     "react": "17.0.2",
     "react-dom": "17.0.2",
@@ -39,12 +37,13 @@
     "remark-slug": "6.0.0",
     "smoothscroll-polyfill": "^0.4.4",
     "swr": "^1.0.0",
-    "tailwindcss": "^3.0.18",
+    "tailwindcss": "^3.1.8",
     "typed.js": "^2.0.12"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "11.0.1",
     "@svgr/webpack": "^5.5.0",
+    "@types/react": "^18.0.17",
     "cross-env": "^7.0.3",
     "dedent": "^0.7.0",
     "eslint": "^7.29.0",
@@ -64,6 +63,7 @@
     "remark-frontmatter": "3.0.0",
     "remark-parse": "9.0.0",
     "remark-stringify": "9.0.1",
+    "typescript": "^4.7.4",
     "unified": "9.2.1",
     "unist-util-visit": "2.0.3"
   },
