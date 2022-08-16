@@ -6,7 +6,7 @@ draft: false
 summary: 'Simple Event Emitter or PubSub pattern'
 ---
 
-import Twemoji from './Twemoji.js'
+import Twemoji from './Twemoji.tsx'
 
 Simple Event Emitter or PubSub pattern <Twemoji emoji="owl" />
 
@@ -56,7 +56,7 @@ globalEvent.subscribe('FOO', handler1)
 globalEvent.subscribe('FOO', handler2)
 
 // Emit event when needed
-globalEvent.emit('FOO', 'foo') 
+globalEvent.emit('FOO', 'foo')
 
 // Expected:
 // handler1(): FOO event emiited with data: foo
@@ -66,7 +66,7 @@ globalEvent.emit('FOO', 'foo')
 globalEvent.unSubscribe('FOO', handler2)
 
 // Then
-globalEvent.emit('FOO', 'bar') 
+globalEvent.emit('FOO', 'bar')
 
 // Expected:
 // handler1(): FOO event emiited with data: bar

@@ -8,8 +8,8 @@ images: ['/static/images/tips.jpg']
 authors: ['default']
 ---
 
-import Twemoji from './Twemoji.js'
-import UnsplashLicense from './UnsplashLicense.js'
+import Twemoji from './Twemoji.tsx'
+import UnsplashLicense from './UnsplashLicense.tsx'
 
 <UnsplashLicense photoURL="https://unsplash.com/photos/82TpEld0_e4" author="AbsolutVision" />
 ![alt](/static/images/tips.jpg)
@@ -20,7 +20,7 @@ Hôm nay mình sẽ chia sẻ 1 với các bạn 1 cách đơn giản để embe
 
 ## Problem
 
-Muốn thêm 1 tính năng vào trang mà không cần phải động vào đống script sẵn có của trang vì quá phức tạp để config, 
+Muốn thêm 1 tính năng vào trang mà không cần phải động vào đống script sẵn có của trang vì quá phức tạp để config,
 cần thay đổi và remove 1 cách dễ dàng vì tính năng này chỉ cần trong 1 khoảng thời gian nhất định.
 
 Nếu bạn cũng có nhu cầu như trên, thì đây là 1 cách đơn giản mà mình nghĩ bạn nên làm.
@@ -84,7 +84,7 @@ Là đã có 2 file host trên **Github** chạy trong page của bạn rồi <T
 
 Nếu các bạn để ý thì sẽ nhận ra mình đánh version ở trên filename `main-v3.js` và `style-v1.css`. Tại sao cần thêm **version** này?
 
-Câu trả lời chính là vì **jsDelivr** có cache resource của bạn, điều này tốt để resource load nhanh hơn, 
+Câu trả lời chính là vì **jsDelivr** có cache resource của bạn, điều này tốt để resource load nhanh hơn,
 nhưng khi bạn thay đổi thì cache sẽ không được clear ngay lập tức, kết quả là vẫn load code cũ
 
 Để purge cache thì cần phải mail cho **jsDelivr**, khá bất tiện. Nên cách đơn giản mình nghĩ ra là đánh version ngay trên filename.
