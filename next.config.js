@@ -4,12 +4,15 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 module.exports = withBundleAnalyzer({
   reactStrictMode: true,
-  pageExtensions: ['js', 'jsx', 'md', 'mdx'],
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
   eslint: {
     dirs: ['pages', 'components', 'lib', 'layouts', 'scripts'],
   },
   images: {
     domains: ['img.shields.io', 'i.scdn.co'],
+  },
+  typescript: {
+    tsconfigPath: 'tsconfig.json',
   },
   webpack: (config, { dev, isServer }) => {
     config.module.rules.push({
