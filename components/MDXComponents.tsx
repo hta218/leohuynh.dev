@@ -5,7 +5,7 @@ import Image from './Image'
 import CustomLink from './Link'
 import Pre from './Pre'
 
-export const MDXComponents = {
+let MDXComponents = {
   Image,
   a: CustomLink,
   pre: Pre,
@@ -15,8 +15,8 @@ export const MDXComponents = {
   },
 }
 
-export const MDXLayoutRenderer = ({ layout, mdxSource, ...rest }) => {
-  const MDXLayout = useMemo(() => getMDXComponent(mdxSource), [mdxSource])
+export function MDXLayoutRenderer({ layout, mdxSource, ...rest }) {
+  let MDXLayout = useMemo(() => getMDXComponent(mdxSource), [mdxSource], [])
 
   return <MDXLayout layout={layout} components={MDXComponents} {...rest} />
 }

@@ -1,7 +1,5 @@
 import { MDXLayoutRenderer } from 'components/MDXComponents'
-import { getFileBySlug } from 'lib/mdx'
-
-const DEFAULT_LAYOUT = 'ResumeLayout'
+import { getFileBySlug } from '~libs/mdx'
 
 export async function getStaticProps() {
   const resumeDetails = await getFileBySlug('authors', ['resume'])
@@ -13,7 +11,7 @@ export default function About({ resumeDetails }) {
 
   return (
     <MDXLayoutRenderer
-      layout={frontMatter.layout || DEFAULT_LAYOUT}
+      layout={frontMatter.layout}
       mdxSource={mdxSource}
       frontMatter={frontMatter}
     />

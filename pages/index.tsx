@@ -2,11 +2,11 @@ import Link from 'components/Link'
 import ProfileCard from 'components/ProfileCard'
 import { PageSeo } from 'components/SEO'
 import Tag from 'components/Tag'
-// import Twemoji from 'components/Twemoji'
+import Twemoji from 'components/Twemoji'
 import TypedBios from 'components/TypedBios'
 import siteMetadata from 'data/siteMetadata'
-import { getAllFilesFrontMatter } from 'lib/mdx'
-import formatDate from 'lib/utils/formatDate'
+import { getAllFilesFrontMatter } from '~libs/mdx'
+import formatDate from '~libs/utils/formatDate'
 
 const MAX_DISPLAY = 5
 
@@ -37,7 +37,7 @@ export default function Home({ posts }) {
                 <span className="font-medium">Software Engineer</span> in{' '}
                 <span className="font-medium hidden">Ha Noi, VN</span>
                 <span className="align-middle flag-vn">
-                  {/* <Twemoji emoji="flag-vietnam" /> */}
+                  <Twemoji emoji="flag-vietnam" />
                 </span>
               </h1>
               <TypedBios />
@@ -50,7 +50,7 @@ export default function Home({ posts }) {
                 <br />
                 I'm writing this blog to note down and share what I've learned as a SE.
               </p>
-              {/* <div className="flex flex-col space-y-1">
+              <div className="flex flex-col space-y-1">
                 <Link href="/projects" className="hover:underline">
                   <Twemoji emoji="hammer-and-wrench" />
                   <span className="ml-2">What have I built?</span>
@@ -74,7 +74,7 @@ export default function Home({ posts }) {
               </div>
               <p className="my-8">
                 Happy reading <Twemoji emoji="clinking-beer-mugs" />
-              </p> */}
+              </p>
             </div>
           </div>
           <div className="hidden xl:block">

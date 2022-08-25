@@ -1,8 +1,8 @@
 import fs from 'fs'
 import PageTitle from 'components/PageTitle'
-import generateRss from 'lib/generate-rss'
+import generateRss from '~libs/generate-rss'
 import { MDXLayoutRenderer } from 'components/MDXComponents'
-import { formatSlug, getAllFilesFrontMatter, getFileBySlug, getFiles } from 'lib/mdx'
+import { formatSlug, getAllFilesFrontMatter, getFileBySlug, getFiles } from '~libs/mdx'
 import { POSTS_PER_PAGE } from 'pages/blog'
 
 const DEFAULT_LAYOUT = 'PostSimple'

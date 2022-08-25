@@ -1,6 +1,6 @@
 import PageTitle from 'components/PageTitle'
 import { MDXLayoutRenderer } from 'components/MDXComponents'
-import { formatSlug, getFileBySlug, getFiles } from 'lib/mdx'
+import { formatSlug, getFileBySlug, getFiles } from '~libs/mdx'
 
 const DEFAULT_LAYOUT = 'PostSimple'
 

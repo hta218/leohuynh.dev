@@ -1,4 +1,4 @@
-import { getAllFilesFrontMatter } from 'lib/mdx'
+import { getAllFilesFrontMatter } from '~libs/mdx'
 import siteMetadata from 'data/siteMetadata'
 import { PageSeo } from 'components/SEO'
 import SnippetsLayout from 'layouts/SnippetsLayout'
