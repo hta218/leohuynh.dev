@@ -1,5 +1,5 @@
 import { useTheme } from 'next-themes'
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, KeyboardEvent as ReactKeyboardEvent } from 'react'
 import Twemoji from './Twemoji'
 
 const ImageLightbox = ({ src, closeLightbox }) => {
@@ -16,7 +16,7 @@ const ImageLightbox = ({ src, closeLightbox }) => {
   }, [closeLightbox])
 
   const handleKeydown = useCallback(
-    (e) => {
+    (e: ReactKeyboardEvent | KeyboardEvent) => {
       if (e.key === 'Escape') handleClose()
     },
     [handleClose]

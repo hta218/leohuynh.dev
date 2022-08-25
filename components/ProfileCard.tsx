@@ -1,11 +1,17 @@
-import fetcher from 'lib/fetcher'
+import fetcher from '~libs/fetcher'
 import Image from 'next/image'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import useSWR from 'swr'
 import Twemoji from './Twemoji'
+const { default: useSWR } = require('swr')
 
 const ProfileCard = () => {
-  const { data } = useSWR('/api/spotify', fetcher)
+  let data = {}
+  try {
+    const res = useSWR('/api/spotify', fetcher)
+    data = res.data
+  } catch (error) {
+    console.error(error)
+  }
 
   const ref = useRef(null)
   const [style, setStyle] = useState({})

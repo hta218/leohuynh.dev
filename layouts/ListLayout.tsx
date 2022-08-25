@@ -1,7 +1,7 @@
 import Link from 'components/Link'
 import Pagination from 'components/Pagination'
 import Tag from 'components/Tag'
-import formatDate from 'lib/utils/formatDate'
+import formatDate from '~libs/utils/formatDate'
 import { useState } from 'react'
 
 export default function ListLayout({

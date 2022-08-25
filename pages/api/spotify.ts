@@ -1,4 +1,4 @@
-import { getNowPlaying } from 'lib/spotify'
+import { getNowPlaying } from '~libs/spotify'
 
 const fetchNowPlaying = async (req, res) => {
   const response = await getNowPlaying()

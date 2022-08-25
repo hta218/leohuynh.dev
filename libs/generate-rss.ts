@@ -1,4 +1,4 @@
-import { escape } from 'lib/utils/htmlEscaper'
+import { escape } from '~libs/utils/htmlEscaper'
 
 import siteMetadata from 'data/siteMetadata'
 

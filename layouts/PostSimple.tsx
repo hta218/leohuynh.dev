@@ -5,7 +5,7 @@ import { BlogSeo } from 'components/SEO'
 import SocialButtons from 'components/SocialButtons'
 import Twemoji from 'components/Twemoji'
 import siteMetadata from 'data/siteMetadata'
-import formatDate from 'lib/utils/formatDate'
+import formatDate from '~libs/utils/formatDate'
 import Tag from 'components/Tag'
 import ViewCounter from 'components/ViewCounter'
 

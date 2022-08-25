@@ -1,7 +1,7 @@
 import ScrollTop from 'components/ScrollTop'
 import { PageSeo } from 'components/SEO'
 
-export default function AuthorLayout({ children, frontMatter }) {
+export default function ResumeLayout({ children, frontMatter }) {
   let { name, title } = frontMatter
 
   return (

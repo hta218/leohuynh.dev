@@ -1,4 +1,4 @@
-import kebabCase from 'lib/utils/kebabCase'
+import kebabCase from '~libs/utils/kebabCase'
 
 const Twemoji = ({
   emoji,
