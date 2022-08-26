@@ -1,8 +1,8 @@
-import { escape } from '~libs/utils/htmlEscaper'
+import { escape } from '~/utils'
+import { siteMetadata } from '~/data'
 
-import siteMetadata from 'data/siteMetadata'
-
-const generateRssItem = (post) => `
+function generateRssItem(post) {
+  return `
   <item>
     <guid>${siteMetadata.siteUrl}/blog/${post.slug}</guid>
     <title>${escape(post.title)}</title>
@@ -13,8 +13,11 @@ const generateRssItem = (post) => `
     ${post.tags && post.tags.map((t) => `<category>${t}</category>`).join('')}
   </item>
 `
+}
 
-const generateRss = (posts, page = 'feed.xml') => `
+// TODO: types
+export function generateRss(posts: any[], page = 'feed.xml') {
+  return `
   <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
       <title>${escape(siteMetadata.title)}</title>
@@ -29,4 +32,4 @@ const generateRss = (posts, page = 'feed.xml') => `
     </channel>
   </rss>
 `
-export default generateRss
+}
