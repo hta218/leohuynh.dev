@@ -1,43 +1,42 @@
 import React, { useState } from 'react'
 import { useTheme } from 'next-themes'
+import { siteMetadata } from '~/data'
+import { UTTERANCES_COMMENTs_ID } from '~/constant'
 
-import siteMetadata from 'data/siteMetadata'
+let Utterances = () => {
+  let [loaded, setLoaded] = useState(false)
+  let { theme, resolvedTheme } = useTheme()
 
-const Utterances = ({ issueTerm }) => {
-  const [enableLoadComments, setEnabledLoadComments] = useState(true)
-  const { theme, resolvedTheme } = useTheme()
-  const commentsTheme =
-    theme === 'dark' || resolvedTheme === 'dark'
-      ? siteMetadata.comment.utterancesConfig.darkTheme
-      : siteMetadata.comment.utterancesConfig.theme
+  let { utterancesConfig } = siteMetadata.comment
+  let { lightTheme, darkTheme } = utterancesConfig
+  let isDark = theme === 'dark' || resolvedTheme === 'dark'
+  let uttrTheme = isDark ? darkTheme : lightTheme
 
-  const COMMENTS_ID = 'comments-container'
-
-  function LoadComments() {
-    setEnabledLoadComments(false)
-    const script = document.createElement('script')
+  function handleLoadComments() {
+    setLoaded(true)
+    let script = document.createElement('script')
     script.src = 'https://utteranc.es/client.js'
-    script.setAttribute('repo', siteMetadata.comment.utterancesConfig.repo)
-    script.setAttribute('issue-term', issueTerm)
-    script.setAttribute('label', siteMetadata.comment.utterancesConfig.label)
-    script.setAttribute('theme', commentsTheme)
+    script.setAttribute('repo', utterancesConfig.repo)
+    script.setAttribute('issue-term', utterancesConfig.issueTerm)
+    script.setAttribute('label', utterancesConfig.label)
+    script.setAttribute('theme', uttrTheme)
     script.setAttribute('crossorigin', 'anonymous')
     script.async = true
 
-    const comments = document.getElementById(COMMENTS_ID)
-    if (comments) comments.appendChild(script)
+    let commentsNode = document.getElementById(UTTERANCES_COMMENTs_ID)
+    if (commentsNode) commentsNode.appendChild(script)
 
     return () => {
-      const comments = document.getElementById(COMMENTS_ID)
-      if (comments) comments.innerHTML = ''
+      let commentsNode = document.getElementById(UTTERANCES_COMMENTs_ID)
+      if (commentsNode) commentsNode.innerHTML = ''
     }
   }
 
   // Added `relative` to fix a weird bug with `utterances-frame` position
   return (
     <div className="pt-6 pb-6 text-center text-gray-700 dark:text-gray-300">
-      {enableLoadComments && <button onClick={LoadComments}>Load Comments</button>}
-      <div className="utterances-frame relative" id={COMMENTS_ID} />
+      {!loaded && <button onClick={handleLoadComments}>Load Comments</button>}
+      <div className="utterances-frame relative" id={UTTERANCES_COMMENTs_ID} />
     </div>
   )
 }

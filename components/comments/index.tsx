@@ -1,54 +1,21 @@
-import siteMetadata from 'data/siteMetadata'
 import dynamic from 'next/dynamic'
+import { siteMetadata } from '~/data'
 
-const UtterancesComponent = dynamic(
-  () => {
-    return import('components/comments/Utterances')
-  },
-  { ssr: false }
-)
-const GiscusComponent = dynamic(
-  () => {
-    return import('components/comments/Giscus')
-  },
-  { ssr: false }
-)
-const DisqusComponent = dynamic(
-  () => {
-    return import('components/comments/Disqus')
-  },
-  { ssr: false }
-)
+let UtterancesComponent = dynamic(() => import('components/comments/Utterances'), { ssr: false })
+let GiscusComponent = dynamic(() => import('components/comments/Giscus'), { ssr: false })
+let DisqusComponent = dynamic(() => import('components/comments/Disqus'), { ssr: false })
 
-const Comments = ({ frontMatter }) => {
-  let term: string
-  switch (
-    siteMetadata.comment.giscusConfig.mapping ||
-    siteMetadata.comment.utterancesConfig.issueTerm
-  ) {
-    case 'pathname':
-      term = frontMatter.slug
-      break
-    case 'url':
-      term = window.location.href
-      break
-    case 'title':
-      term = frontMatter.title
-      break
+export function Comments({ frontMatter }) {
+  let { provider } = siteMetadata.comment
+
+  switch (provider) {
+    case 'giscus':
+      return <GiscusComponent />
+    case 'utterances':
+      return <UtterancesComponent />
+    case 'disqus':
+      return <DisqusComponent identifier={frontMatter.slug} />
+    default:
+      return <div>Unknown comment provider: ${provider}</div>
   }
-  return (
-    <>
-      {siteMetadata.comment && siteMetadata.comment.provider === 'giscus' && (
-        <GiscusComponent mapping={term} />
-      )}
-      {siteMetadata.comment && siteMetadata.comment.provider === 'utterances' && (
-        <UtterancesComponent issueTerm={term} />
-      )}
-      {siteMetadata.comment && siteMetadata.comment.provider === 'disqus' && (
-        <DisqusComponent frontMatter={frontMatter} />
-      )}
-    </>
-  )
 }
-
-export default Comments
