@@ -1,7 +1,7 @@
 import { MDXLayoutRenderer } from 'components/MDXComponents'
 import { PageTitle } from '~/components'
 import { getFileBySlug } from '~/libs/mdx'
-import { getFiles, formatSlug } from '~/utils'
+import { getFiles, formatSlug } from '~/libs'
 
 let DEFAULT_LAYOUT = 'PostSimple'
 

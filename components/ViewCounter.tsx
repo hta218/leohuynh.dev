@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { fetcher } from '~/libs'
+import { fetcher } from '~/utils'
 import type { ViewCounterProps } from '~/types'
 const { default: useSWR } = require('swr')
 

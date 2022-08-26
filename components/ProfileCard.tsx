@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { ProfileInfo, SpotifyNowPlaying } from '~/components'
-import { fetcher } from '~/libs'
+import { fetcher } from '~/utils'
 import type { SpotifyNowPlayingData } from '~/types'
 const { default: useSWR } = require('swr')
 

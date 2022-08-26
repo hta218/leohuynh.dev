@@ -1,6 +1,6 @@
 import { FacebookShareButton, TwitterShareButton } from 'react-share'
-import TwitterIcon from 'components/social-icons/twitter.svg'
-import FacebookIcon from 'components/social-icons/facebook.svg'
+import TwitterIcon from '~/icons/twitter.svg'
+import FacebookIcon from '~/icons/facebook.svg'
 import { siteMetadata } from '~/data'
 import { Link } from './Link'
 import type { SocialButtonsProps } from '~/types'
