@@ -25,7 +25,7 @@ export function SocialButtons({ postUrl, title, fileName }: SocialButtonsProps) 
           url={postUrl}
           title={title}
           via={siteMetadata.socialAccount.twitter}
-          className="flex items-center !p-1.5 mr-2 !bg-[#1da1f2] rounded overflow-hidden"
+          className="flex items-center !p-1.5 mr-2 !bg-twitter rounded overflow-hidden"
         >
           <TwitterIcon className="w-5 h-5" fill="#fff" />
           <span className="ml-2.5 mr-1.5 font-extrabold text-white">Tweet</span>
@@ -33,7 +33,7 @@ export function SocialButtons({ postUrl, title, fileName }: SocialButtonsProps) 
         <FacebookShareButton
           url={postUrl}
           quote={title}
-          className="flex items-center !p-1.5 mr-2 !bg-[#1877f2] rounded overflow-hidden"
+          className="flex items-center !p-1.5 mr-2 !bg-facebook rounded overflow-hidden"
         >
           <FacebookIcon className="w-5 h-5" fill="#fff" />
           <span className="ml-2.5 mr-1.5 font-extrabold text-white">Share</span>
