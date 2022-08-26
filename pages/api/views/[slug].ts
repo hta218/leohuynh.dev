@@ -1,11 +1,11 @@
-import prisma from '~libs/prisma'
+import type { NextApiRequest, NextApiResponse } from 'next'
+import { __db } from '~/libs'
 
-export default async function handler(req, res) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const slug = req.query.slug.toString()
-
+    let slug = req.query.slug.toString()
     if (req.method === 'POST') {
-      const newOrUpdatedViews = await prisma.views.upsert({
+      let newOrUpdatedViews = await __db.views.upsert({
         where: { slug },
         create: {
           slug,
@@ -16,19 +16,16 @@ export default async function handler(req, res) {
           },
         },
       })
-
       return res.status(200).json({
         total: newOrUpdatedViews.count.toString(),
       })
     }
-
     if (req.method === 'GET') {
-      const views = await prisma.views.findUnique({
+      let views = await __db.views.findUnique({
         where: {
           slug,
         },
       })
-
       return res.status(200).json({ total: views?.count?.toString?.() || 0 })
     }
   } catch (e) {
