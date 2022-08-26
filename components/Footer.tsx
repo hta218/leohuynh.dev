@@ -1,5 +1,5 @@
 import { siteMetadata } from '~/data'
-import Link from './Link'
+import { Link } from './Link'
 import { SocialIcon } from './SocialIcon'
 
 export function Footer() {
@@ -19,27 +19,33 @@ export function Footer() {
           <span>{` • `}</span>
           <Link href="/">{siteMetadata.footerTitle}</Link>
         </div>
-        <div className="text-sm text-gray-500 dark:text-gray-400">
-          <span className="font-bold">Credit : </span>
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-blue-500"
-            href="https://github.com/timlrx/tailwind-nextjs-starter-blog"
-          >
-            Tailwind Nextjs Theme
-          </a>
-          <span> by </span>
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-blue-500"
-            href="https://twitter.com/timlrxx"
-          >
-            Timothy Lin
-          </a>
-        </div>
+        <Credit />
       </div>
     </footer>
+  )
+}
+
+function Credit() {
+  return (
+    <div className="text-sm text-gray-500 dark:text-gray-400">
+      <span className="font-bold">Credit : </span>
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        className="hover:text-blue-500"
+        href="https://github.com/timlrx/tailwind-nextjs-starter-blog"
+      >
+        Tailwind Nextjs Theme
+      </a>
+      <span> by </span>
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        className="hover:text-blue-500"
+        href="https://twitter.com/timlrxx"
+      >
+        Timothy Lin
+      </a>
+    </div>
   )
 }
