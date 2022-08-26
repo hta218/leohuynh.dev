@@ -10,9 +10,8 @@ import { getAllFilesRecursively, formatSlug } from '~/libs'
 import { dateSortDesc } from '~/utils'
 import { TOKEN_CLASSNAME_MAP } from '~/constant'
 
-let root = process.cwd()
-
 export async function getFileBySlug(type, slug) {
+  let root = process.cwd()
   let mdxPath = path.join(root, 'data', type, `${slug}.mdx`)
   let mdPath = path.join(root, 'data', type, `${slug}.md`)
   let source = fs.existsSync(mdxPath)
@@ -94,6 +93,7 @@ export async function getFileBySlug(type, slug) {
 }
 
 export async function getAllFilesFrontMatter(folder) {
+  let root = process.cwd()
   let prefixPaths = path.join(root, 'data', folder)
   let files = getAllFilesRecursively(prefixPaths)
   let allFrontMatter = []
