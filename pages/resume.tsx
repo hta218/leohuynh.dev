@@ -1,13 +1,13 @@
-import { MDXLayoutRenderer } from 'components/MDXComponents'
-import { getFileBySlug } from '~libs/mdx'
+import { MDXLayoutRenderer } from '~/components'
+import { getFileBySlug } from '~/libs/mdx'
 
 export async function getStaticProps() {
-  const resumeDetails = await getFileBySlug('authors', ['resume'])
+  let resumeDetails = await getFileBySlug('authors', ['resume'])
   return { props: { resumeDetails } }
 }
 
 export default function About({ resumeDetails }) {
-  const { mdxSource, frontMatter } = resumeDetails
+  let { mdxSource, frontMatter } = resumeDetails
 
   return (
     <MDXLayoutRenderer

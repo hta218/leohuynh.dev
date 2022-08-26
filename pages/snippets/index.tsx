@@ -1,20 +1,19 @@
-import { getAllFilesFrontMatter } from '~libs/mdx'
-import siteMetadata from 'data/siteMetadata'
 import { PageSeo } from 'components/SEO'
-import SnippetsLayout from 'layouts/SnippetsLayout'
-
-export const POSTS_PER_PAGE = 5
+import { siteMetadata } from '~/data'
+import { SnippetsLayout } from '~/layouts'
+import { getAllFilesFrontMatter } from '~/libs/mdx'
 
 export async function getStaticProps() {
-  const snippets = await getAllFilesFrontMatter('snippets')
+  let snippets = await getAllFilesFrontMatter('snippets')
   return { props: { snippets } }
 }
 
 export default function Snippet({ snippets }) {
+  let description = 'Reuseable code snippets collected by me'
   return (
     <>
-      <PageSeo title={`Snippets - ${siteMetadata.author}`} description={siteMetadata.snippets} />
-      <SnippetsLayout snippets={snippets} title="Snippets" />
+      <PageSeo title={`Snippets - ${siteMetadata.author}`} description={description} />
+      <SnippetsLayout snippets={snippets} description={description} />
     </>
   )
 }

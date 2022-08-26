@@ -1,13 +1,14 @@
-import PageTitle from 'components/PageTitle'
 import { MDXLayoutRenderer } from 'components/MDXComponents'
-import { formatSlug, getFileBySlug, getFiles } from '~libs/mdx'
+import { PageTitle } from '~/components'
+import { getFileBySlug } from '~/libs/mdx'
+import { getFiles, formatSlug } from '~/utils'
 
-const DEFAULT_LAYOUT = 'PostSimple'
+let DEFAULT_LAYOUT = 'PostSimple'
 
 export async function getStaticPaths() {
-  const snippets = getFiles('snippets')
+  let snippets = getFiles('snippets')
   return {
-    paths: snippets.map((p) => ({
+    paths: snippets.map((p: string) => ({
       params: {
         slug: formatSlug(p).split('/'),
       },
@@ -17,12 +18,12 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const snippet = await getFileBySlug('snippets', params.slug.join('/'))
+  let snippet = await getFileBySlug('snippets', params.slug.join('/'))
   return { props: { snippet } }
 }
 
 export default function Snippet({ snippet }) {
-  const { mdxSource, frontMatter } = snippet
+  let { mdxSource, frontMatter } = snippet
 
   return (
     <>
@@ -36,7 +37,7 @@ export default function Snippet({ snippet }) {
       ) : (
         <div className="mt-24 text-center">
           <PageTitle>
-            Under Construction{' '}
+            Under construction
             <span role="img" aria-label="roadwork sign">
               🚧
             </span>
