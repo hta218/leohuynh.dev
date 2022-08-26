@@ -1,16 +1,15 @@
-import headerNavLinks from 'data/headerNavLinks'
-import Link from './Link'
-import Footer from './Footer'
-import MobileNav from './MobileNav'
-import ThemeSwitch from './ThemeSwitch'
+import { headerNavLinks } from 'data'
 import NextImage from 'next/image'
 import { useState } from 'react'
+import { MAIN_CONTENT_MIN_HEIGHT } from '~/constant'
+import { Footer } from './Footer'
+import { Link } from './Link'
+import { MobileNav } from './MobileNav'
+import { ThemeSwitcher } from './ThemeSwitcher'
 
-let LayoutWrapper = ({ children }) => {
+export function LayoutWrapper({ children }) {
   let [navShow, setNavShow] = useState(false)
   let onToggleNav = () => setNavShow((status) => !status)
-  let headerHeight = '69px'
-  let footerHeight = '188px'
 
   return (
     <>
@@ -43,7 +42,7 @@ let LayoutWrapper = ({ children }) => {
                 </Link>
               ))}
             </div>
-            <ThemeSwitch />
+            <ThemeSwitcher />
             <button
               className="w-8 h-8 ml-2 mr-1 rounded sm:hidden"
               type="button"
@@ -68,14 +67,10 @@ let LayoutWrapper = ({ children }) => {
       </header>
       <div className="max-w-3xl px-3 xl:px-0 mx-auto sm:px-6 xl:max-w-5xl">
         <div className="flex flex-col justify-between">
-          <main style={{ minHeight: `calc(100vh - ${headerHeight} - ${footerHeight})` }}>
-            {children}
-          </main>
+          <main style={{ minHeight: MAIN_CONTENT_MIN_HEIGHT }}>{children}</main>
           <Footer />
         </div>
       </div>
     </>
   )
 }
-
-export default LayoutWrapper

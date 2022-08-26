@@ -1,7 +1,7 @@
 import Link from 'next/link'
-import kebabCase from '~libs/utils/kebabCase'
+import { kebabCase } from '~/utils'
 
-const Tag = ({ text }) => {
+export function Tag({ text }: { text: string }) {
   return (
     <Link href={`/tags/${kebabCase(text)}`}>
       <a className="mr-3 text-sm md:text-base font-medium dark:text-primary-400 text-primary-500 hover:text-primary-600 dark:hover:text-primary-300">
@@ -10,5 +10,3 @@ const Tag = ({ text }) => {
     </Link>
   )
 }
-
-export default Tag

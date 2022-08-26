@@ -1,9 +1,10 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import siteMetadata from 'data/siteMetadata'
+import { siteMetadata } from '~/data'
+import type { BlogSeoProps, PageSeoProps } from '~/types'
 
-export const PageSeo = ({ title, description }) => {
-  const router = useRouter()
+export function PageSeo({ title, description }: PageSeoProps) {
+  let router = useRouter()
   return (
     <Head>
       <title>{title}</title>
@@ -24,10 +25,12 @@ export const PageSeo = ({ title, description }) => {
   )
 }
 
-export const BlogSeo = ({ authorDetails, title, summary, date, lastmod, url, images = [] }) => {
-  const router = useRouter()
-  const publishedAt = new Date(date).toISOString()
-  const modifiedAt = new Date(lastmod || date).toISOString()
+export function BlogSeo(props: BlogSeoProps) {
+  let router = useRouter()
+
+  let { authorDetails, title, summary, date, lastmod, url, images = [] } = props
+  let publishedAt = new Date(date).toISOString()
+  let modifiedAt = new Date(lastmod || date).toISOString()
   let imagesArr =
     images.length === 0
       ? [siteMetadata.socialBanner]
@@ -35,7 +38,7 @@ export const BlogSeo = ({ authorDetails, title, summary, date, lastmod, url, ima
       ? [images]
       : images
 
-  const featuredImages = imagesArr.map((img) => {
+  let featuredImages = imagesArr.map((img) => {
     return {
       '@type': 'ImageObject',
       url: `${siteMetadata.siteUrl}${img}`,
@@ -57,7 +60,7 @@ export const BlogSeo = ({ authorDetails, title, summary, date, lastmod, url, ima
     }
   }
 
-  const structuredData = {
+  let structuredData = {
     '@context': 'https://schema.org',
     '@type': 'Article',
     mainEntityOfPage: {
