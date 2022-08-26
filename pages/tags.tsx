@@ -1,18 +1,16 @@
-import Link from 'components/Link'
-import { PageSeo } from 'components/SEO'
-import Tag from 'components/Tag'
-import siteMetadata from 'data/siteMetadata'
-import { getAllTags } from '~libs/tags'
-import kebabCase from '~libs/utils/kebabCase'
+import { PageSeo, Link, Tag } from '~/components'
+import { siteMetadata } from '~/data'
+import { getAllTags } from '~/libs'
+import { kebabCase } from '~/utils'
 
 export async function getStaticProps() {
-  const tags = await getAllTags('blog')
-
+  let tags = await getAllTags('blog')
   return { props: { tags } }
 }
 
 export default function Tags({ tags }) {
-  const sortedTags = Object.keys(tags).sort((a, b) => tags[b] - tags[a])
+  let sortedTags = Object.keys(tags).sort((a, b) => tags[b] - tags[a])
+
   return (
     <>
       <PageSeo title={`Tags - ${siteMetadata.author}`} description="Things I blog about" />

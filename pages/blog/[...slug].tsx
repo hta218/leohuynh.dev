@@ -1,16 +1,16 @@
 import fs from 'fs'
-import PageTitle from 'components/PageTitle'
-import generateRss from '~libs/generate-rss'
-import { MDXLayoutRenderer } from 'components/MDXComponents'
-import { formatSlug, getAllFilesFrontMatter, getFileBySlug, getFiles } from '~libs/mdx'
-import { POSTS_PER_PAGE } from 'pages/blog'
+import { MDXLayoutRenderer, PageTitle } from '~/components'
+import { POSTS_PER_PAGE } from '~/constant'
+import { generateRss } from '~/libs'
+import { getAllFilesFrontMatter, getFileBySlug } from '~/libs/mdx'
+import { formatSlug, getFiles } from '~/utils'
 
-const DEFAULT_LAYOUT = 'PostSimple'
+let DEFAULT_LAYOUT = 'PostSimple'
 
 export async function getStaticPaths() {
-  const posts = getFiles('blog')
+  let posts = getFiles('blog')
   return {
-    paths: posts.map((p) => ({
+    paths: posts.map((p: string) => ({
       params: {
         slug: formatSlug(p).split('/'),
       },
@@ -20,30 +20,31 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const allPosts = await getAllFilesFrontMatter('blog')
-  const postIndex = allPosts.findIndex((post) => formatSlug(post.slug) === params.slug.join('/'))
-  const prev = allPosts[postIndex + 1] || null
-  const next = allPosts[postIndex - 1] || null
-  const page = Math.ceil((postIndex + 1) / POSTS_PER_PAGE)
-  const post = await getFileBySlug('blog', params.slug.join('/'))
+  let allPosts = await getAllFilesFrontMatter('blog')
+  let postIndex = allPosts.findIndex((post) => formatSlug(post.slug) === params.slug.join('/'))
+  let prev = allPosts[postIndex + 1] || null
+  let next = allPosts[postIndex - 1] || null
+  let page = Math.ceil((postIndex + 1) / POSTS_PER_PAGE)
+  let post = await getFileBySlug('blog', params.slug.join('/'))
+
   // TODO: add frontMatters types
   // @ts-ignore
-  const authorList = post.frontMatter.authors || ['default']
-  const authorPromise = authorList.map(async (author) => {
-    const authorResults = await getFileBySlug('authors', [author])
+  let authorList = post.frontMatter.authors || ['default']
+  let authorPromise = authorList.map(async (author) => {
+    let authorResults = await getFileBySlug('authors', [author])
     return authorResults.frontMatter
   })
-  const authorDetails = await Promise.all(authorPromise)
+  let authorDetails = await Promise.all(authorPromise)
 
   // rss
-  const rss = generateRss(allPosts)
+  let rss = generateRss(allPosts)
   fs.writeFileSync('./public/feed.xml', rss)
 
   return { props: { post, authorDetails, prev, next, page } }
 }
 
 export default function Blog({ post, authorDetails, prev, next, page }) {
-  const { mdxSource, frontMatter } = post
+  let { mdxSource, frontMatter } = post
 
   return (
     <>
@@ -61,7 +62,7 @@ export default function Blog({ post, authorDetails, prev, next, page }) {
       ) : (
         <div className="mt-24 text-center">
           <PageTitle>
-            Under Construction{' '}
+            Under letruction{' '}
             <span role="img" aria-label="roadwork sign">
               🚧
             </span>

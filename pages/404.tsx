@@ -1,6 +1,5 @@
-import Link from 'components/Link'
-import Twemoji from 'components/Twemoji'
 import Image from 'next/image'
+import { Twemoji, Link } from '~/components'
 
 export default function FourZeroFour() {
   return (

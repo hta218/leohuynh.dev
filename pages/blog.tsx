@@ -1,14 +1,13 @@
-import { getAllFilesFrontMatter } from '~libs/mdx'
-import siteMetadata from 'data/siteMetadata'
-import ListLayout from 'layouts/ListLayout'
-import { PageSeo } from 'components/SEO'
-
-export const POSTS_PER_PAGE = 5
+import { PageSeo } from '~/components'
+import { POSTS_PER_PAGE } from '~/constant'
+import { siteMetadata } from '~/data'
+import { ListLayout } from '~/layouts'
+import { getAllFilesFrontMatter } from '~/libs/mdx'
 
 export async function getStaticProps() {
-  const posts = await getAllFilesFrontMatter('blog')
-  const initialDisplayPosts = posts.slice(0, POSTS_PER_PAGE)
-  const pagination = {
+  let posts = await getAllFilesFrontMatter('blog')
+  let initialDisplayPosts = posts.slice(0, POSTS_PER_PAGE)
+  let pagination = {
     currentPage: 1,
     totalPages: Math.ceil(posts.length / POSTS_PER_PAGE),
   }
@@ -19,7 +18,10 @@ export async function getStaticProps() {
 export default function Blog({ posts, initialDisplayPosts, pagination }) {
   return (
     <>
-      <PageSeo title={`Blog - ${siteMetadata.author}`} description={siteMetadata.description} />
+      <PageSeo
+        title={`All posts - ${siteMetadata.author}`}
+        description={siteMetadata.description}
+      />
       <ListLayout
         posts={posts}
         initialDisplayPosts={initialDisplayPosts}
