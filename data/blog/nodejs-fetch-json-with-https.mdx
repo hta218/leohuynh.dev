@@ -8,10 +8,10 @@ images: ['/static/images/switzerland.jpg']
 authors: ['default']
 ---
 
-import Twemoji from './Twemoji.tsx'
-import UnsplashLicense from './UnsplashLicense.tsx'
+import { Twemoji } from './Twemoji.tsx'
+import { UnsplashPhotoInfo } from './UnsplashPhotoInfo.tsx'
 
-<UnsplashLicense photoURL="https://unsplash.com/photos/BYPMtjYMEyk" author="Tim Trad" />
+<UnsplashPhotoInfo photoURL="https://unsplash.com/photos/BYPMtjYMEyk" author="Tim Trad" />
 ![switzerland](/static/images/switzerland.jpg)
 
 Khi làm việc với Node.js, có rất nhiều thư viện hỗ trợ việc tạo `request` đến 1 server khác như: `node-fetch`, `phin`, `got` hay `request` ([Deprecated](https://www.npmjs.com/package/request) <Twemoji emoji="thumbs-down" />)...
