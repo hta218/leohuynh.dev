@@ -1,7 +1,7 @@
 import { useTheme } from 'next-themes'
 import React, { useState, useEffect, useCallback, KeyboardEvent as ReactKeyboardEvent } from 'react'
 import type { ImageLightBoxProps } from '~/types'
-import Twemoji from './Twemoji'
+import { Twemoji } from './Twemoji'
 
 export function ImageLightbox({ src, closeLightbox }: ImageLightBoxProps) {
   let { theme } = useTheme()
@@ -62,7 +62,7 @@ export function ImageLightbox({ src, closeLightbox }: ImageLightBoxProps) {
         <img
           src={src.toString()}
           onLoad={() => setImgLoaded(true)}
-          className="cursor-[zoom-out] max-w-[90vw] max-h-[80vh]"
+          className="cursor-zoom-out max-w-[90vw] max-h-[80vh]"
           alt="Lightbox"
         />
       </div>

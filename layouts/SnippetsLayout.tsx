@@ -2,16 +2,14 @@ import { SnippetCard } from '~/components'
 import { siteMetadata } from '~/data'
 
 // TODO: define `snippets` type
-export function SnippetsLayout({ snippets }) {
+export function SnippetsLayout({ snippets, description }) {
   return (
     <div className="divide-y">
       <div className="pt-6 pb-8 space-y-2 md:space-y-5">
         <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
           Snippets
         </h1>
-        <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
-          {siteMetadata.snippetsPageDescription}
-        </p>
+        <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">{description}</p>
       </div>
       <div className="container py-12">
         <div className="lg:grid grid-cols-2 gap-6">

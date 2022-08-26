@@ -3,6 +3,7 @@ import NextImage from 'next/image'
 import { useState } from 'react'
 import type { ImageProps } from 'types'
 import { ImageLightbox } from './ImageLightbox'
+import clsx from 'clsx'
 
 export function Image({ shouldOpenLightbox = true, ...rest }: ImageProps) {
   let blurDataURL = ''
@@ -16,10 +17,11 @@ export function Image({ shouldOpenLightbox = true, ...rest }: ImageProps) {
     document.documentElement.classList.add('lightbox-loading')
     setOpenLightbox(true)
   }
+  let className = clsx(`flex justify-center`, shouldOpenLightbox && 'cursor-zoom-in')
 
   return (
     <>
-      <div className={`flex justify-center ${shouldOpenLightbox ? 'cursor-[zoom-in]' : ''}`}>
+      <div className={className}>
         <NextImage {...rest} blurDataURL={blurDataURL} onClick={handleOpenLightbox} />
       </div>
       {openLightbox && (

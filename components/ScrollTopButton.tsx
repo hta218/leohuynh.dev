@@ -28,7 +28,7 @@ export function ScrollTopButton() {
       className="hidden md:inline-block transition-opacity fixed right-8 bottom-8 rounded-md bg-gray-700 hover:bg-gray-800 dark:hover:bg-gray-600 text-gray-100 p-2"
     >
       <svg
-        className="w-[22px] h-[22px]"
+        className="w-5.5 h-5.5"
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"
