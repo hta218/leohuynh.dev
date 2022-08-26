@@ -1,67 +1,37 @@
-import Comments from 'components/comments'
-import PageTitle from 'components/PageTitle'
-import SectionContainer from 'components/SectionContainer'
-import { BlogSeo } from 'components/SEO'
-import SocialButtons from 'components/SocialButtons'
-import Twemoji from 'components/Twemoji'
-import siteMetadata from 'data/siteMetadata'
-import formatDate from '~libs/utils/formatDate'
-import Tag from 'components/Tag'
-import ViewCounter from 'components/ViewCounter'
+import {
+  BlogMeta,
+  BlogSeo,
+  BlogTags,
+  Comments,
+  PageTitle,
+  SectionContainer,
+  SocialButtons,
+} from '~/components'
+import { siteMetadata } from '~/data'
+import type { PostSimpleProps } from '~/types'
 
-export default function PostLayout({ frontMatter, type, children, authorDetails }) {
-  const {
-    date,
-    title,
-    slug,
-    fileName,
-    tags,
-    readingTime: { text: readingTimeText },
-  } = frontMatter
-  const postUrl = `${siteMetadata.siteUrl}/${type}/${slug}`
+export default function PostSimple(props: PostSimpleProps) {
+  let { frontMatter, type, children, authorDetails } = props
+  let { date, title, slug, fileName, tags, readingTime } = frontMatter
+  let postUrl = `${siteMetadata.siteUrl}/${type}/${slug}`
 
   return (
     <SectionContainer>
       <BlogSeo
         url={`${siteMetadata.siteUrl}/${type}/${slug}`}
-        {...frontMatter}
         authorDetails={authorDetails}
+        {...frontMatter}
       />
       <article>
         <div>
           <header className="py-6 xl:pb-16 xl:pt-16">
             <div className="space-y-4">
-              {tags && (
-                <div className="flex flex-wrap">
-                  {tags.map((tag) => (
-                    <Tag key={tag} text={tag} />
-                  ))}
-                </div>
-              )}
-              <div className="">
-                <PageTitle>{title}</PageTitle>
-              </div>
+              <BlogTags tags={tags} />
+              <PageTitle>{title}</PageTitle>
               <dl>
                 <div>
                   <dt className="sr-only">Published on</dt>
-                  <dd className="flex flex-wrap text-sm md:text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                    <time dateTime={date} className="flex items-center justify-center">
-                      <Twemoji emoji="calendar" size="" />
-                      <span className="ml-1.5 md:ml-2">{formatDate(date)}</span>
-                    </time>
-                    <span className="mx-2">{` • `}</span>
-                    <div className="flex items-center">
-                      <Twemoji emoji="hourglass-not-done" size="" />
-                      <span className="ml-1.5 md:ml-2">
-                        {readingTimeText.replace('min', 'mins')}
-                      </span>
-                    </div>
-                    <span className="mx-2">{` • `}</span>
-                    <div className="flex items-center">
-                      <Twemoji emoji="eye" size="" />
-                      <ViewCounter className="ml-1.5 md:ml-2" slug={slug} />
-                    </div>
-                  </dd>
+                  <BlogMeta date={date} slug={slug} readingTime={readingTime} />
                 </div>
               </dl>
             </div>
