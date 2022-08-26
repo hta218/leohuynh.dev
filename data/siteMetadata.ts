@@ -1,13 +1,11 @@
 export let siteMetadata = {
   title: "Leo's blog - Leo's coding journey",
   author: 'Leo Huynh',
+  fullName: 'Tuan Anh Huynh',
   headerTitle: "Leo's blog - Leo's coding journey",
   footerTitle: "Leo's blog - Leo's coding journey",
   description:
     "Leo's coding journey - work and life stories through the keyboard of an open-minded Software Engineer",
-  projectsPageDescription:
-    'My open source side projects and stuff that I built with my colleagues at work',
-  snippetsPageDescription: 'Reuseable code snippets collected by me',
   language: 'en-us',
   siteUrl: 'https://www.leohuynh.dev',
   siteRepo: 'https://github.com/hta218/leo-blog',

@@ -3,7 +3,7 @@ import visit from 'unist-util-visit'
 module.exports = function (options) {
   return (tree) =>
     visit(tree, 'code', (node, index) => {
-      const nodeLang = node.lang || ''
+      let nodeLang = node.lang || ''
       let language = ''
       let title = ''
 
@@ -11,14 +11,10 @@ module.exports = function (options) {
         language = nodeLang.slice(0, nodeLang.search(':'))
         title = nodeLang.slice(nodeLang.search(':') + 1, nodeLang.length)
       }
+      if (!title) return
 
-      if (!title) {
-        return
-      }
-
-      const className = 'remark-code-title'
-
-      const titleNode = {
+      let className = 'remark-code-title'
+      let titleNode = {
         type: 'mdxJsxFlowElement',
         name: 'div',
         attributes: [{ type: 'mdxJsxAttribute', name: 'className', value: className }],
