@@ -1,15 +1,13 @@
 import Script from 'next/script'
+import { siteMetadata } from '~/data'
 
-import siteMetadata from 'data/siteMetadata'
-
-const GAScript = () => {
+export function GAScript() {
   return (
     <>
       <Script
         strategy="lazyOnload"
         src={`https://www.googletagmanager.com/gtag/js?id=${siteMetadata.analytics.googleAnalyticsId}`}
       />
-
       <Script strategy="lazyOnload" id="ga-script">
         {`
             window.dataLayer = window.dataLayer || [];
@@ -24,10 +22,8 @@ const GAScript = () => {
   )
 }
 
-export default GAScript
-
 // https://developers.google.com/analytics/devguides/collection/gtagjs/events
-export const logEvent = (action: string, category: string, label: string, value: string) => {
+export function logEvent(action: string, category: string, label: string, value: string) {
   // @ts-ignore
   window.gtag?.('event', action, {
     event_category: category,
