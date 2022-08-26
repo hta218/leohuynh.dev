@@ -6,45 +6,15 @@ import readingTime from 'reading-time'
 import visit from 'unist-util-visit'
 import codeTitles from './remark-code-title'
 import imgToJsx from './img-to-jsx'
-import { getAllFilesRecursively } from '~/utils'
+import { getAllFilesRecursively, formatSlug, dateSortDesc } from '~/utils'
+import { TOKEN_CLASSNAME_MAP } from '~/constant'
 
-const root = process.cwd()
-
-const tokenClassNames = {
-  tag: 'text-code-red',
-  'attr-name': 'text-code-yellow',
-  'attr-value': 'text-code-green',
-  deleted: 'text-code-red',
-  inserted: 'text-code-green',
-  punctuation: 'text-code-white',
-  keyword: 'text-code-purple',
-  string: 'text-code-green',
-  function: 'text-code-blue',
-  boolean: 'text-code-red',
-  comment: 'text-gray-500 italic',
-}
-
-export function getFiles(type) {
-  const prefixPaths = path.join(root, 'data', type)
-  const files = getAllFilesRecursively(prefixPaths)
-  // Only want to return blog/path and ignore root, replace is needed to work on Windows
-  return files.map((file) => file.slice(prefixPaths.length + 1).replace(/\\/g, '/'))
-}
-
-export function formatSlug(slug) {
-  return slug.replace(/\.(mdx|md)/, '')
-}
-
-export function dateSortDesc(a, b) {
-  if (a > b) return -1
-  if (a < b) return 1
-  return 0
-}
+let root = process.cwd()
 
 export async function getFileBySlug(type, slug) {
-  const mdxPath = path.join(root, 'data', type, `${slug}.mdx`)
-  const mdPath = path.join(root, 'data', type, `${slug}.md`)
-  const source = fs.existsSync(mdxPath)
+  let mdxPath = path.join(root, 'data', type, `${slug}.mdx`)
+  let mdPath = path.join(root, 'data', type, `${slug}.md`)
+  let source = fs.existsSync(mdxPath)
     ? fs.readFileSync(mdxPath, 'utf8')
     : fs.readFileSync(mdPath, 'utf8')
 
@@ -66,7 +36,7 @@ export async function getFileBySlug(type, slug) {
     )
   }
 
-  const { frontmatter, code } = await bundleMDX({
+  let { frontmatter, code } = await bundleMDX({
     source,
     cwd: path.join(process.cwd(), 'components'),
     esbuildOptions: (options) => {
@@ -78,9 +48,8 @@ export async function getFileBySlug(type, slug) {
       return options
     },
     mdxOptions(options) {
-      // this is the recommended way to add custom remark/rehype plugins:
-      // The syntax might look weird, but it protects you in case we add/remove
-      // plugins in the future.
+      // This is the recommended way to add custom remark/rehype plugins:
+      // The syntax might look weird, but it protects you in case we add/remove plugins in the future.
       options.remarkPlugins = [
         ...(options.remarkPlugins ?? []),
         require('remark-slug'),
@@ -102,7 +71,7 @@ export async function getFileBySlug(type, slug) {
               let [token, type] = node.properties.className || []
               if (token === 'token') {
                 // @ts-ignore
-                node.properties.className = [tokenClassNames[type]]
+                node.properties.className = [TOKEN_CLASSNAME_MAP[type]]
               }
             })
           }
@@ -124,21 +93,19 @@ export async function getFileBySlug(type, slug) {
 }
 
 export async function getAllFilesFrontMatter(folder) {
-  const prefixPaths = path.join(root, 'data', folder)
-
-  const files = getAllFilesRecursively(prefixPaths)
-
-  const allFrontMatter = []
+  let prefixPaths = path.join(root, 'data', folder)
+  let files = getAllFilesRecursively(prefixPaths)
+  let allFrontMatter = []
 
   files.forEach((file) => {
     // Replace is needed to work on Windows
-    const fileName = file.slice(prefixPaths.length + 1).replace(/\\/g, '/')
+    let fileName = file.slice(prefixPaths.length + 1).replace(/\\/g, '/')
     // Remove Unexpected File
     if (path.extname(fileName) !== '.md' && path.extname(fileName) !== '.mdx') {
       return
     }
-    const source = fs.readFileSync(file, 'utf8')
-    const { data } = matter(source)
+    let source = fs.readFileSync(file, 'utf8')
+    let { data } = matter(source)
     if (data.draft !== true) {
       allFrontMatter.push({ ...data, slug: formatSlug(fileName) })
     }
