@@ -1,6 +1,7 @@
 export * from './analytics'
 export * from './blog'
 export * from './comments'
+export * from './homepage'
 export * from './DevIcon'
 export * from './Footer'
 export * from './Image'

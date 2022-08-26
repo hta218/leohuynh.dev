@@ -1,9 +1,9 @@
-import type { ProjectDataType } from '~/types'
+import type { ProjectCardProps } from '~/types'
 import { Image } from './Image'
 import { Link } from './Link'
 
-export function ProjectCard(props: ProjectDataType) {
-  let { title, description, imgSrc, href, repoName } = props
+export function ProjectCard({ project }: ProjectCardProps) {
+  let { title, description, imgSrc, href, repoName } = project
 
   return (
     <div className="p-4 md:w-1/2 md" style={{ maxWidth: '544px' }}>
