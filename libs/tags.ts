@@ -1,7 +1,8 @@
 import fs from 'fs'
 import matter from 'gray-matter'
 import path from 'path'
-import { getFiles, kebabCase } from '~/utils'
+import { kebabCase } from '~/utils'
+import { getFiles } from './files'
 
 let root = process.cwd()
 

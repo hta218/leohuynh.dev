@@ -1,9 +1,8 @@
 import fs from 'fs'
 import { MDXLayoutRenderer, PageTitle } from '~/components'
 import { POSTS_PER_PAGE } from '~/constant'
-import { generateRss } from '~/libs'
+import { generateRss, getFiles, formatSlug } from '~/libs'
 import { getAllFilesFrontMatter, getFileBySlug } from '~/libs/mdx'
-import { formatSlug, getFiles } from '~/utils'
 
 let DEFAULT_LAYOUT = 'PostSimple'
 

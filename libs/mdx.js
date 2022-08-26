@@ -6,7 +6,8 @@ import readingTime from 'reading-time'
 import visit from 'unist-util-visit'
 import codeTitles from './remark-code-title'
 import imgToJsx from './img-to-jsx'
-import { getAllFilesRecursively, formatSlug, dateSortDesc } from '~/utils'
+import { getAllFilesRecursively, formatSlug } from '~/libs'
+import { dateSortDesc } from '~/utils'
 import { TOKEN_CLASSNAME_MAP } from '~/constant'
 
 let root = process.cwd()
