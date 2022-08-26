@@ -1,20 +1,18 @@
-import GA from './GoogleAnalytics'
-// import Plausible from './Plausible'
-import SimpleAnalytics from './SimpleAnalytics'
-import Umami from './Umami'
-import siteMetadata from 'data/siteMetadata'
+import { siteMetadata } from '~/data'
+import { GAScript } from './GoogleAnalytics'
+import { SimpleAnalyticsScript } from './SimpleAnalytics'
+import { UmamiScript } from './Umami'
 
-const isProduction = process.env.NODE_ENV === 'production'
+let isProduction = process.env.NODE_ENV === 'production'
 
-const Analytics = () => {
+export function Analytics() {
+  let { analytics } = siteMetadata
+  let { simpleAnalytics, umamiWebsiteId, googleAnalyticsId } = analytics
   return (
     <>
-      {/* {isProduction && siteMetadata.analytics.plausibleDataDomain && <Plausible />} */}
-      {isProduction && siteMetadata.analytics.simpleAnalytics && <SimpleAnalytics />}
-      {isProduction && siteMetadata.analytics.umamiWebsiteId && <Umami />}
-      {isProduction && siteMetadata.analytics.googleAnalyticsId && <GA />}
+      {isProduction && simpleAnalytics && <SimpleAnalyticsScript />}
+      {isProduction && umamiWebsiteId && <UmamiScript />}
+      {isProduction && googleAnalyticsId && <GAScript />}
     </>
   )
 }
-
-export default Analytics
