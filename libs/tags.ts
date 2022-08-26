@@ -4,11 +4,10 @@ import path from 'path'
 import { kebabCase } from '~/utils'
 import { getFiles } from './files'
 
-let root = process.cwd()
-
 export async function getAllTags(type: string) {
   let files: string[] = await getFiles(type)
 
+  let root = process.cwd()
   let tagCount = {}
   // Iterate through each post, putting all found tags into `tags`
   files.forEach((file) => {

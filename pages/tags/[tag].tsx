@@ -7,8 +7,6 @@ import { getAllTags, generateRss } from '~/libs'
 import { getAllFilesFrontMatter } from '~/libs/mdx'
 import { kebabCase } from '~/utils'
 
-let root = process.cwd()
-
 export async function getStaticPaths() {
   let tags = await getAllTags('blog')
 
@@ -29,6 +27,7 @@ export async function getStaticProps({ params }) {
   )
 
   // rss
+  let root = process.cwd()
   let rss = generateRss(filteredPosts, `tags/${params.tag}/feed.xml`)
   let rssPath = path.join(root, 'public', 'tags', params.tag)
   fs.mkdirSync(rssPath, { recursive: true })
