@@ -24,7 +24,7 @@ export function SocialButtons({ postUrl, title, fileName }: SocialButtonsProps) 
         <TwitterShareButton
           url={postUrl}
           title={title}
-          via={siteMetadata.socialAccount.twitter}
+          via={siteMetadata.socialAccounts.twitter}
           className="flex items-center !p-1.5 mr-2 !bg-twitter rounded overflow-hidden"
         >
           <TwitterIcon className="w-5 h-5" fill="#fff" />

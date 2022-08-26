@@ -2,7 +2,7 @@ import { getMDXComponent } from 'mdx-bundler/client'
 import { useMemo } from 'react'
 import { Image } from './Image'
 import { Link } from './Link'
-import Pre from './Pre'
+import { Pre } from './Pre'
 
 let MDXComponents = {
   Image,
