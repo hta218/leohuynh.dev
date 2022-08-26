@@ -11,9 +11,7 @@ module.exports = withBundleAnalyzer({
   images: {
     domains: ['img.shields.io', 'i.scdn.co'],
   },
-  typescript: {
-    tsconfigPath: './tsconfig.json',
-  },
+  typescript: { tsconfigPath: './tsconfig.json' },
   webpack: (config, { dev, isServer }) => {
     config.module.rules.push({
       test: /\.(png|jpe?g|gif|mp4)$/i,
