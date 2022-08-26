@@ -1,18 +1,20 @@
-const siteMetadata = {
+export let siteMetadata = {
   title: "Leo's blog - Leo's coding journey",
   author: 'Leo Huynh',
   headerTitle: "Leo's blog - Leo's coding journey",
   footerTitle: "Leo's blog - Leo's coding journey",
   description:
-    "Leo's coding journey - programming, working and life stories through the keyboard of an open minded Software Engineer",
-  snippets: 'Reuseable code snippets collected by Leo',
+    "Leo's coding journey - work and life stories through the keyboard of an open-minded Software Engineer",
+  projectsPageDescription:
+    'My open source side projects and stuff that I built with my colleagues at work',
+  snippetsPageDescription: 'Reuseable code snippets collected by me',
   language: 'en-us',
   siteUrl: 'https://www.leohuynh.dev',
   siteRepo: 'https://github.com/hta218/leo-blog',
   siteLogo: '/static/images/logo.jpg',
   image: '/static/images/logo.jpg',
   socialBanner: '/static/images/logo.jpg',
-  email: 'leohuynh@proton.me',
+  email: 'leohuynh@pm.me',
   github: 'https://github.com/hta218',
   twitter: 'https://twitter.com/hta218_',
   facebook: 'https://facebook.com/hta218',
@@ -43,7 +45,7 @@ const siteMetadata = {
       metadata: '0',
       // theme example: light, dark, dark_dimmed, dark_high_contrast
       // transparent_dark, preferred_color_scheme, custom
-      theme: 'light',
+      lightTheme: 'light',
       // theme when dark mode
       darkTheme: 'transparent_dark',
       // If the theme option above is set to 'custom`
@@ -59,7 +61,7 @@ const siteMetadata = {
       label: '', // label (optional): Comment 💬
       // theme example: github-light, github-dark, preferred-color-scheme
       // github-dark-orange, icy-dark, dark-blue, photon-dark, boxy-light
-      theme: '',
+      lightTheme: '',
       // theme when dark mode
       darkTheme: '',
     },
@@ -72,5 +74,3 @@ const siteMetadata = {
     twitter: 'hta218_',
   },
 }
-
-export default siteMetadata
