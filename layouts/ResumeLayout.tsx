@@ -1,7 +1,7 @@
 import { PageSeo } from 'components/SEO'
 import { ScrollTopButton } from '~/components'
 
-export default function ResumeLayout({ children, frontMatter }) {
+export function ResumeLayout({ children, frontMatter }) {
   let { name, title } = frontMatter
 
   return (
@@ -24,3 +24,5 @@ export default function ResumeLayout({ children, frontMatter }) {
     </>
   )
 }
+
+export default ResumeLayout

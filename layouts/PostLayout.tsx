@@ -11,7 +11,7 @@ import {
 } from '~/components'
 import { siteMetadata } from '~/data'
 
-export default function PostLayout({ frontMatter, authorDetails, page, children }) {
+export function PostLayout({ frontMatter, authorDetails, page, children }) {
   let { slug, fileName, date, title, tags, readingTime } = frontMatter
   let postUrl = `${siteMetadata.siteUrl}/blog/${slug}`
 
@@ -55,3 +55,5 @@ export default function PostLayout({ frontMatter, authorDetails, page, children 
     </SectionContainer>
   )
 }
+
+export default PostLayout

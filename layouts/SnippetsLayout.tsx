@@ -2,7 +2,7 @@ import { SnippetCard } from '~/components'
 import { siteMetadata } from '~/data'
 
 // TODO: define `snippets` type
-export default function SnippetsLayout({ snippets }) {
+export function SnippetsLayout({ snippets }) {
   return (
     <div className="divide-y">
       <div className="pt-6 pb-8 space-y-2 md:space-y-5">
@@ -23,3 +23,5 @@ export default function SnippetsLayout({ snippets }) {
     </div>
   )
 }
+
+export default SnippetsLayout

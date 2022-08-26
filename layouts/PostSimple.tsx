@@ -10,7 +10,7 @@ import {
 import { siteMetadata } from '~/data'
 import type { PostSimpleProps } from '~/types'
 
-export default function PostSimple(props: PostSimpleProps) {
+export function PostSimple(props: PostSimpleProps) {
   let { frontMatter, type, children, authorDetails } = props
   let { date, title, slug, fileName, tags, readingTime } = frontMatter
   let postUrl = `${siteMetadata.siteUrl}/${type}/${slug}`
@@ -52,3 +52,5 @@ export default function PostSimple(props: PostSimpleProps) {
     </SectionContainer>
   )
 }
+
+export default PostSimple
