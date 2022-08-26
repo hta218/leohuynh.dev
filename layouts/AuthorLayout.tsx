@@ -3,7 +3,7 @@ import { PageSeo, ProfileCard } from '~/components'
 import { siteMetadata } from '~/data'
 import type { AuthorLayoutProps } from '~/types'
 
-export default function AuthorLayout({ children }: AuthorLayoutProps) {
+export function AuthorLayout({ children }: AuthorLayoutProps) {
   let title = 'About me'
   let description = 'More about me and myself'
 
@@ -30,3 +30,5 @@ export default function AuthorLayout({ children }: AuthorLayoutProps) {
     </>
   )
 }
+
+export default AuthorLayout

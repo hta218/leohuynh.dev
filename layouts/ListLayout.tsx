@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Pagination, PostListItem, PostsSearch } from '~/components'
 import type { ListLayoutProps } from '~/types'
 
-export default function ListLayout(props: ListLayoutProps) {
+export function ListLayout(props: ListLayoutProps) {
   let { posts, title, initialDisplayPosts = [], pagination } = props
   let [searchValue, setSearchValue] = useState('')
   let filteredBlogPosts = posts.filter((frontMatter) => {
@@ -40,3 +40,5 @@ export default function ListLayout(props: ListLayoutProps) {
     </>
   )
 }
+
+export default ListLayout
