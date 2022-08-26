@@ -8,7 +8,7 @@ export let siteMetadata = {
     "Leo's coding journey - work and life stories through the keyboard of an open-minded Software Engineer",
   language: 'en-us',
   siteUrl: 'https://www.leohuynh.dev',
-  siteRepo: 'https://github.com/hta218/leo-blog',
+  siteRepo: 'https://github.com/hta218/leohuynh.dev',
   siteLogo: '/static/images/logo.jpg',
   image: '/static/images/logo.jpg',
   socialBanner: '/static/images/logo.jpg',
@@ -68,7 +68,8 @@ export let siteMetadata = {
       shortname: process.env.NEXT_PUBLIC_DISQUS_SHORTNAME,
     },
   },
-  socialAccount: {
+  socialAccounts: {
+    github: 'hta218',
     twitter: 'hta218_',
   },
 }
