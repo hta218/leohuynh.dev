@@ -1,21 +1,20 @@
 import { useTheme } from 'next-themes'
 import React, { useState, useEffect, useCallback, KeyboardEvent as ReactKeyboardEvent } from 'react'
+import type { ImageLightBoxProps } from '~/types'
 import Twemoji from './Twemoji'
 
-const ImageLightbox = ({ src, closeLightbox }) => {
-  const [imgLoaded, setImgLoaded] = useState(false)
-  const [close, setClose] = useState(false)
-  const { theme } = useTheme()
+export function ImageLightbox({ src, closeLightbox }: ImageLightBoxProps) {
+  let { theme } = useTheme()
+  let [imgLoaded, setImgLoaded] = useState(false)
+  let [close, setClose] = useState(false)
 
-  const handleClose = useCallback(() => {
+  let handleClose = useCallback(() => {
     setClose(true)
     document.documentElement.classList.remove('prevent-scroll', 'lightbox-loading')
-    setTimeout(() => {
-      closeLightbox()
-    }, 300)
+    setTimeout(() => closeLightbox(), 300)
   }, [closeLightbox])
 
-  const handleKeydown = useCallback(
+  let handleKeydown = useCallback(
     (e: ReactKeyboardEvent | KeyboardEvent) => {
       if (e.key === 'Escape') handleClose()
     },
@@ -36,19 +35,19 @@ const ImageLightbox = ({ src, closeLightbox }) => {
     }
   }, [imgLoaded])
 
+  let style = {
+    '--tw-bg-opacity': theme === 'dark' ? 0.7 : 0.8,
+    opacity: !close && imgLoaded ? 1 : 0,
+  } as React.CSSProperties
+
   return (
     <div
-      className="lightbox-overlay fixed inset-0 bg-black z-50 flex items-center justify-center transition-opacity duration-300 ease-out"
-      style={
-        {
-          '--tw-bg-opacity': theme === 'dark' ? 0.7 : 0.8,
-          opacity: !close && imgLoaded ? 1 : 0,
-        } as React.CSSProperties
-      }
-      onClick={handleClose}
-      onKeyDown={handleKeydown}
       role="button"
       tabIndex={0}
+      className="lightbox-overlay fixed inset-0 bg-black z-50 flex items-center justify-center transition-opacity duration-300 ease-out"
+      style={style}
+      onClick={handleClose}
+      onKeyDown={handleKeydown}
     >
       <div className="w-full h-full relative flex justify-center items-center">
         <div className="absolute flex justify-between top-0 inset-x-0">
@@ -61,7 +60,7 @@ const ImageLightbox = ({ src, closeLightbox }) => {
         </div>
         {/* eslint-disable @next/next/no-img-element */}
         <img
-          src={src}
+          src={src.toString()}
           onLoad={() => setImgLoaded(true)}
           className="cursor-[zoom-out] max-w-[90vw] max-h-[80vh]"
           alt="Lightbox"
@@ -70,5 +69,3 @@ const ImageLightbox = ({ src, closeLightbox }) => {
     </div>
   )
 }
-
-export default ImageLightbox

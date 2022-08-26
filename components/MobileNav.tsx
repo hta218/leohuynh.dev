@@ -1,13 +1,14 @@
-import Link from './Link'
-import headerNavLinks from 'data/headerNavLinks'
+import { headerNavLinks } from '~/data'
+import { Link } from './Link'
+import clsx from 'clsx'
 
-const MobileNav = ({ navShow, onToggleNav }) => {
+export function MobileNav({ navShow, onToggleNav }) {
+  let className = clsx(
+    `sm:hidden fixed w-full h-screen inset-0 bg-gray-200 dark:bg-gray-800 opacity-95 z-50 transition-transform transform ease-in-out duration-300`,
+    navShow ? 'translate-x-0' : 'translate-x-full'
+  )
   return (
-    <div
-      className={`sm:hidden fixed w-full h-screen inset-0 bg-gray-200 dark:bg-gray-800 opacity-95 z-50 transition-transform transform ease-in-out duration-300 ${
-        navShow ? 'translate-x-0' : 'translate-x-full'
-      }`}
-    >
+    <div className={className}>
       <button
         type="button"
         aria-label="toggle modal"
@@ -43,5 +44,3 @@ const MobileNav = ({ navShow, onToggleNav }) => {
     </div>
   )
 }
-
-export default MobileNav

@@ -1,8 +1,9 @@
-import fetcher from '~libs/fetcher'
 import { useEffect } from 'react'
+import { fetcher } from '~/libs'
+import type { ViewCounterProps } from '~/types'
 const { default: useSWR } = require('swr')
 
-export default function ViewCounter({ slug, className }) {
+export function ViewCounter({ slug, className }: ViewCounterProps) {
   let { data } = useSWR(`/api/views/${slug}`, fetcher)
   let views = new Number(data?.total)
 

@@ -1,36 +1,30 @@
+import { BLUR_IMAGE_DATA_URL, LOGO_IMAGE_PATH } from 'constant'
 import NextImage from 'next/image'
 import { useState } from 'react'
-import ImageLightbox from './ImageLightbox'
+import type { ImageProps } from 'types'
+import { ImageLightbox } from './ImageLightbox'
 
-type BlurData = {
-  placeholder?: string
-  blurDataURL?: string
-}
-
-const Image = ({ shouldOpenLightbox = true, ...rest }) => {
-  let blurData: BlurData = {
-    placeholder: 'Blur placeholder',
-    blurDataURL:
-      'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNcvWS1LgAGJQIpt50GkgAAAABJRU5ErkJggg==',
+export function Image({ shouldOpenLightbox = true, ...rest }: ImageProps) {
+  let blurDataURL = ''
+  if (rest.src !== LOGO_IMAGE_PATH) {
+    blurDataURL = BLUR_IMAGE_DATA_URL
   }
-  if (rest.src === '/static/images/logo.jpg') blurData = {}
-  const [openLightbox, setOpenLightbox] = useState(false)
-  const handleOpenLightbox = () => {
+
+  let [openLightbox, setOpenLightbox] = useState(false)
+  let handleOpenLightbox = () => {
     if (!shouldOpenLightbox) return
     document.documentElement.classList.add('lightbox-loading')
     setOpenLightbox(true)
   }
+
   return (
     <>
       <div className={`flex justify-center ${shouldOpenLightbox ? 'cursor-[zoom-in]' : ''}`}>
-        {/* @ts-ignore */}
-        <NextImage {...rest} {...blurData} onClick={handleOpenLightbox} />
+        <NextImage {...rest} blurDataURL={blurDataURL} onClick={handleOpenLightbox} />
       </div>
-      {openLightbox ? (
+      {openLightbox && (
         <ImageLightbox closeLightbox={() => setOpenLightbox(false)} src={rest.src} />
-      ) : null}
+      )}
     </>
   )
 }
-
-export default Image
