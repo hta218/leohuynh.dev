@@ -6,7 +6,7 @@ import readingTime from 'reading-time'
 import visit from 'unist-util-visit'
 import codeTitles from './remark-code-title'
 import imgToJsx from './img-to-jsx'
-import getAllFilesRecursively from './utils/files'
+import { getAllFilesRecursively } from '~/utils'
 
 const root = process.cwd()
 

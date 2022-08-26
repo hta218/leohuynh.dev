@@ -1,18 +1,16 @@
 import fetch from 'isomorphic-unfetch'
+import { SPOTIFY_TOKEN_API, SPOTIFY_NOW_PLAYING_API, SPOTIFY_TOP_TRACKS_API } from '~/constant'
 
-const {
+let {
   SPOTIFY_CLIENT_ID: client_id,
   SPOTIFY_CLIENT_SECRET: client_secret,
   SPOTIFY_REFRESH_TOKEN: refresh_token,
 } = process.env
 
-const basic = Buffer.from(`${client_id}:${client_secret}`).toString('base64')
-const TOKEN_ENDPOINT = `https://accounts.spotify.com/api/token`
-const NOW_PLAYING_ENDPOINT = `https://api.spotify.com/v1/me/player/currently-playing`
-const TOP_TRACKS_ENDPOINT = `https://api.spotify.com/v1/me/top/tracks`
+let basic = Buffer.from(`${client_id}:${client_secret}`).toString('base64')
 
-const getAccessToken = async () => {
-  const response = await fetch(TOKEN_ENDPOINT, {
+async function getAccessToken() {
+  let response = await fetch(SPOTIFY_TOKEN_API, {
     method: 'POST',
     headers: {
       Authorization: `Basic ${basic}`,
@@ -27,20 +25,20 @@ const getAccessToken = async () => {
   return response.json()
 }
 
-export const getNowPlaying = async () => {
-  const { access_token } = await getAccessToken()
+export async function getNowPlaying() {
+  let { access_token } = await getAccessToken()
 
-  return fetch(NOW_PLAYING_ENDPOINT, {
+  return fetch(SPOTIFY_NOW_PLAYING_API, {
     headers: {
       Authorization: `Bearer ${access_token}`,
     },
   })
 }
 
-export const getTopTracks = async () => {
-  const { access_token } = await getAccessToken()
+export async function getTopTracks() {
+  let { access_token } = await getAccessToken()
 
-  return fetch(TOP_TRACKS_ENDPOINT, {
+  return fetch(SPOTIFY_TOP_TRACKS_API, {
     headers: {
       Authorization: `Bearer ${access_token}`,
     },
