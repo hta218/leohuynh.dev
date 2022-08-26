@@ -1,4 +1,4 @@
 export * from './files'
-export * from './formatDate'
+export * from './date'
 export * from './htmlEscaper'
 export * from './kebabCase'

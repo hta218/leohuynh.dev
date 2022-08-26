@@ -24,3 +24,15 @@ function pathJoinPrefix(prefix: string) {
 export function getAllFilesRecursively(folder: string) {
   return pipe(fs.readdirSync, map(pipe(pathJoinPrefix(folder), walkDir)), flattenArray)(folder)
 }
+
+export function formatSlug(slug: string) {
+  return slug.replace(/\.(mdx|md)/, '')
+}
+
+export function getFiles(type: string) {
+  let root = process.cwd()
+  let prefixPaths = path.join(root, 'data', type)
+  let files = getAllFilesRecursively(prefixPaths)
+  // Only want to return blog/path and ignore root, replace is needed to work on Windows
+  return files.map((file) => file.slice(prefixPaths.length + 1).replace(/\\/g, '/'))
+}
