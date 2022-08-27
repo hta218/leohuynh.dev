@@ -1,10 +1,11 @@
-let fs = require('fs')
-let globby = require('globby')
-let prettier = require('prettier')
+import fs from 'fs'
+import { globby } from 'globby'
+import prettier from 'prettier'
 
 let SITE_URL = 'https://www.leohuynh.dev'
 
 ;(async () => {
+  console.log('Generating sitemap...')
   let prettierConfig = await prettier.resolveConfig('./.prettierrc.js')
   let pages = await globby([
     'pages/*.tsx',
