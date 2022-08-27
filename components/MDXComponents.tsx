@@ -1,5 +1,6 @@
 import { getMDXComponent } from 'mdx-bundler/client'
 import { useMemo } from 'react'
+import type { MdxLayoutRendererProps } from '~/types'
 import { Image } from './Image'
 import { Link } from './Link'
 import { Pre } from './Pre'
@@ -14,7 +15,7 @@ let MDXComponents = {
   },
 }
 
-export function MDXLayoutRenderer({ layout, mdxSource, ...rest }) {
+export function MDXLayoutRenderer({ layout, mdxSource, ...rest }: MdxLayoutRendererProps) {
   let MDXLayout = useMemo(() => getMDXComponent(mdxSource), [mdxSource])
   return <MDXLayout layout={layout} components={MDXComponents} {...rest} />
 }

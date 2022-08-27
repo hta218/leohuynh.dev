@@ -1,8 +1,8 @@
+import type { SnippetFrontMatter } from '~/types'
 import { DevIcon } from './DevIcon'
 import { Link } from './Link'
 
-export function SnippetCard({ snippet }) {
-  // TODO: define `snippet` type
+export function SnippetCard({ snippet }: { snippet: SnippetFrontMatter }) {
   let { type, title, summary, slug } = snippet
 
   return (

@@ -1,11 +1,11 @@
 import { useEffect } from 'react'
 import { fetcher } from '~/utils'
-import type { ViewCounterProps } from '~/types'
+import type { ViewApiResponse, ViewCounterProps } from '~/types'
 const { default: useSWR } = require('swr')
 
 export function ViewCounter({ slug, className }: ViewCounterProps) {
-  let { data } = useSWR(`/api/views/${slug}`, fetcher)
-  let views = new Number(data?.total)
+  let { data } = useSWR(`/api/views/${slug}`, fetcher) as ViewApiResponse
+  let views = Number(data?.total)
 
   useEffect(() => {
     let registerView = () =>

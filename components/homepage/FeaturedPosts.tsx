@@ -1,8 +1,9 @@
 import { BlogTags, Link } from '~/components'
 import { FEATURED_POSTS } from '~/constant'
+import type { BlogFrontMatter } from '~/types'
 import { formatDate } from '~/utils'
 
-export function FeaturedPosts({ posts }) {
+export function FeaturedPosts({ posts }: { posts: BlogFrontMatter[] }) {
   return (
     <div className="border-t border-gray-200 dark:border-gray-700">
       <ul className="divide-y divide-gray-200 dark:divide-gray-700">

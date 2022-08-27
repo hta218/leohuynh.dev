@@ -1,7 +1,7 @@
 import { Twemoji } from '~/components'
 import { siteMetadata } from '~/data'
 
-export function ProfileInfo() {
+export function ProfileCardInfo() {
   return (
     <div className="hidden xl:block xl:px-6 py-4">
       <h3 className="text-xl font-semibold text-gray-800 dark:text-white">Tuan Anh (Leo) Huynh</h3>
@@ -69,8 +69,8 @@ export function ProfileInfo() {
               d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
             />
           </svg>
-          <a className="px-2" href="mailto:leohuynh@proton.me">
-            leohuynh@proton.me
+          <a className="px-2" href={`mailto:${siteMetadata.email}`}>
+            {siteMetadata.email}
           </a>
         </div>
         <div className="flex items-center text-gray-700 dark:text-gray-200">

@@ -1,10 +1,7 @@
-import type { PaginationProps } from '~/types'
+import type { PaginationType } from '~/types'
 import { Link } from './Link'
 
-// TODO: re-check PaginationProps types
-export function Pagination({ totalPages, currentPage }: PaginationProps) {
-  // const hasPrevPage = parseInt(currentPage) - 1 > 0
-  // const hasNextPage = parseInt(currentPage) + 1 <= parseInt(totalPages)
+export function Pagination({ totalPages, currentPage }: PaginationType) {
   let hasPrevPage = currentPage - 1 > 0
   let hasNextPage = currentPage + 1 <= totalPages
 

@@ -6,7 +6,7 @@ import Bash from '~/icons/bash.svg'
 import Liquid from '~/icons/liquid.svg'
 import Markdown from '~/icons/markdown.svg'
 
-let DevIconsMap = {
+export let DevIconsMap = {
   React,
   Git,
   Javascript,
