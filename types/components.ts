@@ -1,7 +1,7 @@
 import type { ImageProps as NextImageProps } from 'next/image'
 import type React from 'react'
 import type { SocialIconsMap } from '~/components/SocialIcon'
-import type { projectsData } from '~/data'
+import type { commentConfig, projectsData } from '~/data'
 
 export type PageTitleProps = {
   children: React.ReactNode
@@ -93,11 +93,13 @@ export type BlogHeaderProps = {
   readingTime: any
 }
 
-export type PostSimpleProps = {
+export type CommentConfigType = typeof commentConfig
+export interface PostSimpleProps {
   frontMatter: any
   type: string
   children: React.ReactNode
   authorDetails: any
+  commentConfig: CommentConfigType
 }
 
 export type BlogMetaProps = {
@@ -106,4 +108,22 @@ export type BlogMetaProps = {
   readingTime: {
     text: string
   }
+}
+
+export interface CommentsProps {
+  frontMatter: any
+  config: CommentConfigType
+}
+
+export type GiscusProps = {
+  giscusConfig: CommentConfigType['giscusConfig']
+}
+
+export type UtterancesProps = {
+  utterancesConfig: CommentConfigType['utterancesConfig']
+}
+
+export type DisqusProps = {
+  identifier: string
+  disqus: CommentConfigType['disqus']
 }
