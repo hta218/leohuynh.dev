@@ -1,6 +1,7 @@
 import { Image, Link } from '~/components'
+import type { AuthorFrontMatter } from '~/types'
 
-export function AuthorDetails({ authorDetails }: { authorDetails: any }) {
+export function AuthorDetails({ authorDetails }: { authorDetails: AuthorFrontMatter[] }) {
   return (
     <ul className="flex justify-center space-x-8 xl:block sm:space-x-12 xl:space-x-0 xl:space-y-6">
       {authorDetails.map((author) => (
@@ -10,7 +11,7 @@ export function AuthorDetails({ authorDetails }: { authorDetails: any }) {
   )
 }
 
-export function Author({ author }: { author: any }) {
+export function Author({ author }: { author: AuthorFrontMatter }) {
   return (
     <li className="flex items-center space-x-2">
       {author.avatar && (

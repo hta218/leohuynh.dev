@@ -1,8 +1,8 @@
 import { Link, Tag } from '~/components'
+import type { MdxFrontMatter } from '~/types'
 import { formatDate } from '~/utils'
 
-// TODO: define type for `frontMatter`
-export function PostListItem({ frontMatter }: { frontMatter: any }) {
+export function PostListItem({ frontMatter }: { frontMatter: MdxFrontMatter }) {
   let { slug, date, title, summary, tags } = frontMatter
   return (
     <li key={slug}>
