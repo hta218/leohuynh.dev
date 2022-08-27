@@ -1,9 +1,9 @@
 import fs from 'fs'
 import sizeOf from 'image-size'
-import visit from 'unist-util-visit'
+import { visit } from 'unist-util-visit'
 import type { UnistImageNode, UnistNodeType, UnistTreeType } from '~/types'
 
-export function imgToJsx() {
+export function remarkImgToJsx() {
   return (tree: UnistTreeType) => {
     return visit(tree, 'paragraph', (node: UnistNodeType) => {
       // Only visit `p` tags that contain an `img` element
