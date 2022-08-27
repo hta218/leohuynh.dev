@@ -5,7 +5,7 @@ import { siteMetadata } from '~/data'
 import { getAllFilesFrontMatter } from '~/libs/mdx'
 
 export async function getStaticPaths() {
-  let totalPosts = await getAllFilesFrontMatter('blog')
+  let totalPosts = getAllFilesFrontMatter('blog')
   let totalPages = Math.ceil(totalPosts.length / POSTS_PER_PAGE)
   let paths = Array.from({ length: totalPages }, (_, i) => ({
     params: { page: (i + 1).toString() },

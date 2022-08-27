@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getNowPlaying } from '~/libs'
+import type { SpotifyNowPlayingData } from '~/types'
 
 export default async function fetchNowPlaying(_: NextApiRequest, res: NextApiResponse) {
   let response = await getNowPlaying()
@@ -7,21 +8,15 @@ export default async function fetchNowPlaying(_: NextApiRequest, res: NextApiRes
     return res.status(200).json({ isPlaying: false })
   }
 
-  // TODO: types
-  let songData = await response.json()
-  let isPlaying = songData.is_playing
-  let title = songData.item.name
-  let artist = songData.item.artists.map((art) => art.name).join(', ')
-  let album = songData.item.album.name
-  let albumImageUrl = songData.item.album.images[0].url
-  let songUrl = songData.item.external_urls.spotify
+  let data = await response.json()
+  let songData: SpotifyNowPlayingData = {
+    isPlaying: data.is_playing,
+    title: data.item.name,
+    artist: data.item.artists.map((art: { name: string }) => art.name).join(', '),
+    album: data.item.album.name,
+    albumImageUrl: data.item.album.images[0].url,
+    songUrl: data.item.external_urls.spotify,
+  }
 
-  return res.status(200).json({
-    album,
-    albumImageUrl,
-    artist,
-    isPlaying,
-    songUrl,
-    title,
-  })
+  return res.status(200).json(songData)
 }
