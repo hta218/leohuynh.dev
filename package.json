@@ -3,7 +3,7 @@
   "scripts": {
     "start": "PORT=3434 next-remote-watch ./data",
     "dev": "PORT=3434 next dev",
-    "build": "next build && node ./scripts/generate-sitemap",
+    "build": "next build && tsx ./scripts/generate-sitemap",
     "serve": "next start -p 3435",
     "analyze": "cross-env ANALYZE=true next build",
     "lint": "next lint --fix --dir pages --dir components --dir lib --dir layouts --dir scripts",
@@ -63,6 +63,7 @@
     "remark-frontmatter": "^4.0.1",
     "remark-parse": "^10.0.1",
     "remark-stringify": "^10.0.2",
+    "tsx": "^3.8.2",
     "typescript": "^4.8.2",
     "unified": "^10.1.2",
     "unist-util-visit": "^4.1.1"
