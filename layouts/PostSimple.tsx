@@ -8,9 +8,9 @@ import {
   SocialButtons,
 } from '~/components'
 import { siteMetadata } from '~/data'
-import type { PostSimpleProps } from '~/types'
+import type { PostSimpleLayoutProps } from '~/types'
 
-export function PostSimple(props: PostSimpleProps) {
+export function PostSimple(props: PostSimpleLayoutProps) {
   let { frontMatter, type, children, authorDetails, commentConfig } = props
   let { date, title, slug, fileName, tags, readingTime } = frontMatter
   let postUrl = `${siteMetadata.siteUrl}/${type}/${slug}`
