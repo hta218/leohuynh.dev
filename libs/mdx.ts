@@ -3,13 +3,19 @@ import matter from 'gray-matter'
 import { bundleMDX } from 'mdx-bundler'
 import path from 'path'
 import readingTime from 'reading-time'
-import visit from 'unist-util-visit'
+import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+import rehypePresetMinify from 'rehype-preset-minify'
+import rehypePrismPlus from 'rehype-prism-plus'
+import rehypeSlug from 'rehype-slug'
+import remarkGfm from 'remark-gfm'
+import { visit } from 'unist-util-visit'
 import { TOKEN_CLASSNAME_MAP } from '~/constant'
 import { formatSlug, getAllFilesRecursively } from '~/libs'
 import type { BlogFrontMatter, MdxFileData, MdxFrontMatter, UnistNodeType } from '~/types'
 import { dateSortDesc } from '~/utils'
-import { imgToJsx } from './img-to-jsx'
-import { remarkCodeTitle } from './remark-code-title'
+import { remarkCodeBlockTitles } from './remark-code-block-titles'
+import { remarkImgToJsx } from './remark-img-to-jsx'
+import { remarkTocHeadings } from './remark-toc-headings'
 
 export async function getFileBySlug(type: string, slug: string): Promise<MdxFileData> {
   let root = process.cwd()
@@ -37,6 +43,7 @@ export async function getFileBySlug(type: string, slug: string): Promise<MdxFile
     )
   }
 
+  let toc = []
   let { frontmatter, code } = await bundleMDX<MdxFrontMatter>({
     source,
     cwd: path.join(process.cwd(), 'components'),
@@ -49,21 +56,19 @@ export async function getFileBySlug(type: string, slug: string): Promise<MdxFile
       return options
     },
     mdxOptions(options) {
-      // This is the recommended way to add custom remark/rehype plugins:
-      // The syntax might look weird, but it protects you in case we add/remove plugins in the future.
       options.remarkPlugins = [
-        ...(options.remarkPlugins ?? []),
-        require('remark-slug'),
-        require('remark-autolink-headings'),
-        require('remark-gfm'),
-        remarkCodeTitle,
-        [require('remark-footnotes'), { inlineNotes: true }],
-        require('remark-math'),
-        imgToJsx,
+        ...(options.remarkPlugins || []),
+        [remarkTocHeadings, { exportRef: toc }],
+        remarkGfm,
+        remarkCodeBlockTitles,
+        remarkImgToJsx,
       ]
       options.rehypePlugins = [
-        ...(options.rehypePlugins ?? []),
-        [require('rehype-prism-plus'), { ignoreMissing: true }],
+        ...(options.rehypePlugins || []),
+        rehypeSlug,
+        rehypeAutolinkHeadings,
+        [rehypePrismPlus, { ignoreMissing: true }],
+        rehypePresetMinify,
         () => {
           return (tree) => {
             visit(tree, 'element', (node: UnistNodeType) => {
@@ -81,6 +86,7 @@ export async function getFileBySlug(type: string, slug: string): Promise<MdxFile
 
   return {
     mdxSource: code,
+    toc,
     frontMatter: {
       readingTime: readingTime(code),
       slug: slug || null,
