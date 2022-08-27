@@ -116,11 +116,11 @@ export interface CommentsProps {
 }
 
 export type GiscusProps = {
-  giscusConfig: CommentConfigType['giscusConfig']
+  config: CommentConfigType['giscusConfig']
 }
 
 export type UtterancesProps = {
-  utterancesConfig: CommentConfigType['utterancesConfig']
+  config: CommentConfigType['utterancesConfig']
 }
 
 export type DisqusProps = {
