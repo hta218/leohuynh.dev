@@ -11,15 +11,15 @@ export async function getStaticPaths() {
   return {
     paths: snippets.map((p: string) => ({
       params: {
-        slugs: formatSlug(p).split('/'),
+        slug: formatSlug(p).split('/'),
       },
     })),
     fallback: false,
   }
 }
 
-export async function getStaticProps({ params }: { params: { slugs: string[] } }) {
-  let snippet = await getFileBySlug('snippets', params.slugs.join('/'))
+export async function getStaticProps({ params }: { params: { slug: string[] } }) {
+  let snippet = await getFileBySlug('snippets', params.slug.join('/'))
   let commentConfig = getCommentConfigs()
   return { props: { snippet, commentConfig } }
 }
