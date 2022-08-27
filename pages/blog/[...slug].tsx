@@ -12,20 +12,20 @@ export async function getStaticPaths() {
   return {
     paths: posts.map((p: string) => ({
       params: {
-        slugs: formatSlug(p).split('/'),
+        slug: formatSlug(p).split('/'),
       },
     })),
     fallback: false,
   }
 }
 
-export async function getStaticProps({ params }: { params: { slugs: string[] } }) {
+export async function getStaticProps({ params }: { params: { slug: string[] } }) {
   let allPosts = getAllFilesFrontMatter('blog')
-  let postIndex = allPosts.findIndex((post) => formatSlug(post.slug) === params.slugs.join('/'))
+  let postIndex = allPosts.findIndex((post) => formatSlug(post.slug) === params.slug.join('/'))
   let prev = allPosts[postIndex + 1] || null
   let next = allPosts[postIndex - 1] || null
   let page = Math.ceil((postIndex + 1) / POSTS_PER_PAGE)
-  let post = await getFileBySlug('blog', params.slugs.join('/'))
+  let post = await getFileBySlug('blog', params.slug.join('/'))
 
   let authors = post.frontMatter.authors || ['default']
   let authorDetails = await Promise.all(
