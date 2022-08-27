@@ -1,21 +1,21 @@
 import dynamic from 'next/dynamic'
 import type { CommentsProps } from '~/types'
 
-let UtterancesComponent = dynamic(() => import('components/comments/Utterances'), { ssr: false })
-let GiscusComponent = dynamic(() => import('components/comments/Giscus'), { ssr: false })
-let DisqusComponent = dynamic(() => import('components/comments/Disqus'), { ssr: false })
+let Giscus = dynamic(() => import('./Giscus'), { ssr: false })
+let Utterances = dynamic(() => import('./Utterances'), { ssr: false })
+let Disqus = dynamic(() => import('./Disqus'), { ssr: false })
 
 export function Comments({ frontMatter, config }: CommentsProps) {
-  let { provider } = config
+  let { provider, giscusConfig, utterancesConfig, disqus } = config
 
   switch (provider) {
     case 'giscus':
-      return <GiscusComponent giscusConfig={config.giscusConfig} />
+      return <Giscus config={giscusConfig} />
     case 'utterances':
-      return <UtterancesComponent utterancesConfig={config.utterancesConfig} />
+      return <Utterances config={utterancesConfig} />
     case 'disqus':
-      return <DisqusComponent identifier={frontMatter.slug} disqus={config.disqus} />
+      return <Disqus identifier={frontMatter.slug} disqus={disqus} />
     default:
-      return <div>Unknown comment provider: ${provider}</div>
+      return <div>Unknown comment provider: {provider}</div>
   }
 }

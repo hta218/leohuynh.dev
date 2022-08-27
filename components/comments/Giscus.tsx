@@ -3,9 +3,9 @@ import { useEffect } from 'react'
 import { GISCUS_COMMENTS_ID } from '~/constant'
 import type { GiscusProps } from '~/types'
 
-function Giscus({ giscusConfig }: GiscusProps) {
+function Giscus({ config }: GiscusProps) {
   let { theme, resolvedTheme } = useTheme()
-  let { themeURL, darkTheme, lightTheme } = giscusConfig
+  let { themeURL, darkTheme, lightTheme } = config
 
   useEffect(() => {
     let isDark = theme === 'dark' || resolvedTheme === 'dark'
@@ -14,13 +14,13 @@ function Giscus({ giscusConfig }: GiscusProps) {
 
     let script = document.createElement('script')
     script.src = 'https://giscus.app/client.js'
-    script.setAttribute('data-repo', giscusConfig.repo)
-    script.setAttribute('data-repo-id', giscusConfig.repositoryId)
-    script.setAttribute('data-category', giscusConfig.category)
-    script.setAttribute('data-category-id', giscusConfig.categoryId)
-    script.setAttribute('data-mapping', giscusConfig.mapping)
-    script.setAttribute('data-reactions-enabled', giscusConfig.reactions)
-    script.setAttribute('data-emit-metadata', giscusConfig.metadata)
+    script.setAttribute('data-repo', config.repo)
+    script.setAttribute('data-repo-id', config.repositoryId)
+    script.setAttribute('data-category', config.category)
+    script.setAttribute('data-category-id', config.categoryId)
+    script.setAttribute('data-mapping', config.mapping)
+    script.setAttribute('data-reactions-enabled', config.reactions)
+    script.setAttribute('data-emit-metadata', config.metadata)
     script.setAttribute('data-theme', giscusTheme)
     script.setAttribute('crossOrigin', 'anonymous')
     script.async = true
