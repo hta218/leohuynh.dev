@@ -31,6 +31,7 @@ export interface UnistNodeType extends Node<Data> {
   lang?: string
   children: Node<Data>[]
   properties?: { [key: string]: string[] }
+  depth?: number
 }
 export interface UnistImageNode extends UnistNodeType {
   url: string
