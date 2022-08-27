@@ -32,7 +32,7 @@ let SITE_URL = 'https://www.leohuynh.dev'
             if (page === `pages/404.ts` || page === `pages/blog/[...slug].ts`) {
               return
             }
-            return `<url><loc>${SITE_URL}${route}</loc></url>`
+            return `<url><loc>${SITE_URL}${route}</loc></url>\n`
           })
           .join('')}
 			</urlset>
