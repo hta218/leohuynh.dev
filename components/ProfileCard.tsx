@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { ProfileInfo, SpotifyNowPlaying } from '~/components'
+import { ProfileCardInfo, SpotifyNowPlaying } from '~/components'
 import { fetcher } from '~/utils'
 import type { SpotifyNowPlayingData } from '~/types'
 const { default: useSWR } = require('swr')
@@ -68,7 +68,7 @@ export function ProfileCard() {
           objectPosition="50% 16%"
         />
         <SpotifyNowPlaying {...nowPlayingData} />
-        <ProfileInfo />
+        <ProfileCardInfo />
         <span className="h-1.5 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"></span>
       </div>
     </div>
