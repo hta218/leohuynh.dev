@@ -1,7 +1,7 @@
 import type React from 'react'
 import type { CommentConfigType } from './components'
 import type { BlogFrontMatter, SnippetFrontMatter } from './mdx'
-import type { Pagination } from './server'
+import type { PaginationType } from './server'
 
 export type AuthorLayoutProps = {
   children: React.ReactNode
@@ -12,7 +12,7 @@ export type ListLayoutProps = {
   posts: BlogFrontMatter[]
   title: string
   initialDisplayPosts?: BlogFrontMatter[]
-  pagination?: Pagination
+  pagination?: PaginationType
 }
 
 export interface PostSimpleLayoutProps {
