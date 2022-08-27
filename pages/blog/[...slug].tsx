@@ -3,7 +3,7 @@ import { MDXLayoutRenderer, PageTitle } from '~/components'
 import { POSTS_PER_PAGE } from '~/constant'
 import { formatSlug, generateRss, getCommentConfigs, getFiles } from '~/libs'
 import { getAllFilesFrontMatter, getFileBySlug } from '~/libs/mdx'
-import type { BlogProps, MdxPageLayout } from '~/types'
+import type { AuthorFrontMatter, BlogProps, MdxPageLayout } from '~/types'
 
 let DEFAULT_LAYOUT: MdxPageLayout = 'PostSimple'
 
@@ -31,7 +31,7 @@ export async function getStaticProps({ params }: { params: { slugs: string[] } }
   let authorDetails = await Promise.all(
     authors.map(async (author) => {
       let authorData = await getFileBySlug('authors', author)
-      return authorData.frontMatter
+      return (authorData.frontMatter as unknown) as AuthorFrontMatter
     })
   )
 
@@ -44,7 +44,7 @@ export async function getStaticProps({ params }: { params: { slugs: string[] } }
 }
 
 export default function Blog(props: BlogProps) {
-  let { post, authorDetails, prev, next, page, commentConfig } = props
+  let { post, ...rest } = props
   let { mdxSource, frontMatter } = post
 
   return (
@@ -54,12 +54,8 @@ export default function Blog(props: BlogProps) {
           layout={frontMatter.layout || DEFAULT_LAYOUT}
           mdxSource={mdxSource}
           frontMatter={frontMatter}
-          authorDetails={authorDetails}
           type="blog"
-          prev={prev}
-          next={next}
-          page={page}
-          commentConfig={commentConfig}
+          {...rest}
         />
       ) : (
         <div className="mt-24 text-center">

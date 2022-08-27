@@ -10,8 +10,10 @@ import {
   SocialButtons,
 } from '~/components'
 import { siteMetadata } from '~/data'
+import type { PostLayoutProps } from '~/types'
 
-export function PostLayout({ frontMatter, authorDetails, page, children, commentConfig }) {
+export function PostLayout(props: PostLayoutProps) {
+  let { frontMatter, authorDetails, page, children, commentConfig } = props
   let { slug, fileName, date, title, tags, readingTime } = frontMatter
   let postUrl = `${siteMetadata.siteUrl}/blog/${slug}`
 
