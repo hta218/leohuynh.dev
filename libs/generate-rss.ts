@@ -1,7 +1,8 @@
 import { escape } from '~/utils'
 import { siteMetadata } from '~/data'
+import type { BlogFrontMatter } from '~/types'
 
-function generateRssItem(post) {
+function generateRssItem(post: BlogFrontMatter) {
   return `
   <item>
     <guid>${siteMetadata.siteUrl}/blog/${post.slug}</guid>
@@ -15,8 +16,7 @@ function generateRssItem(post) {
 `
 }
 
-// TODO: types
-export function generateRss(posts: any[], page = 'feed.xml') {
+export function generateRss(posts: BlogFrontMatter[], page = 'feed.xml') {
   return `
   <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
