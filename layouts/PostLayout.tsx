@@ -25,7 +25,7 @@ export function PostLayout(props: PostLayoutProps) {
         <div>
           <BlogHeader title={title} date={date} readingTime={readingTime} />
           <div
-            className="pb-8 divide-y divide-gray-200 xl:divide-y-0 dark:divide-gray-700 xl:grid xl:grid-cols-4 xl:gap-x-6"
+            className="pb-8 divide-y divide-gray-200 dark:divide-gray-700 xl:divide-y-0 xl:grid xl:grid-cols-4 xl:gap-x-6"
             style={{ gridTemplateRows: 'auto 1fr' }}
           >
             <div>
