@@ -31,7 +31,8 @@ export async function getStaticProps({ params }: { params: { slug: string[] } })
   let authorDetails = await Promise.all(
     authors.map(async (author) => {
       let authorData = await getFileBySlug('authors', author)
-      return (authorData.frontMatter as unknown) as AuthorFrontMatter
+      // eslint-disable-next-line
+      return authorData.frontMatter as unknown as AuthorFrontMatter
     })
   )
 
