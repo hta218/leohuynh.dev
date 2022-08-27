@@ -3,11 +3,11 @@ import { useState } from 'react'
 import { UTTERANCES_COMMENTs_ID } from '~/constant'
 import type { UtterancesProps } from '~/types'
 
-let Utterances = ({ utterancesConfig }: UtterancesProps) => {
+let Utterances = ({ config }: UtterancesProps) => {
   let [loaded, setLoaded] = useState(false)
   let { theme, resolvedTheme } = useTheme()
 
-  let { lightTheme, darkTheme } = utterancesConfig
+  let { lightTheme, darkTheme } = config
   let isDark = theme === 'dark' || resolvedTheme === 'dark'
   let uttrTheme = isDark ? darkTheme : lightTheme
 
@@ -15,9 +15,9 @@ let Utterances = ({ utterancesConfig }: UtterancesProps) => {
     setLoaded(true)
     let script = document.createElement('script')
     script.src = 'https://utteranc.es/client.js'
-    script.setAttribute('repo', utterancesConfig.repo)
-    script.setAttribute('issue-term', utterancesConfig.issueTerm)
-    script.setAttribute('label', utterancesConfig.label)
+    script.setAttribute('repo', config.repo)
+    script.setAttribute('issue-term', config.issueTerm)
+    script.setAttribute('label', config.label)
     script.setAttribute('theme', uttrTheme)
     script.setAttribute('crossorigin', 'anonymous')
     script.async = true
