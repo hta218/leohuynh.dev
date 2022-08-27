@@ -5,10 +5,11 @@ import { siteMetadata } from '~/data'
 import { ListLayout } from '~/layouts'
 import { getAllTags, generateRss } from '~/libs'
 import { getAllFilesFrontMatter } from '~/libs/mdx'
+import type { BlogFrontMatter } from '~/types'
 import { kebabCase } from '~/utils'
 
-export async function getStaticPaths() {
-  let tags = await getAllTags('blog')
+export function getStaticPaths() {
+  let tags = getAllTags('blog')
 
   return {
     paths: Object.keys(tags).map((tag) => ({
@@ -20,8 +21,8 @@ export async function getStaticPaths() {
   }
 }
 
-export async function getStaticProps({ params }) {
-  let allPosts = await getAllFilesFrontMatter('blog')
+export async function getStaticProps({ params }: { params: { tag: string } }) {
+  let allPosts = getAllFilesFrontMatter('blog')
   let filteredPosts = allPosts.filter(
     (post) => post.draft !== true && post.tags.map((t) => kebabCase(t)).includes(params.tag)
   )
@@ -36,7 +37,7 @@ export async function getStaticProps({ params }) {
   return { props: { posts: filteredPosts, tag: params.tag } }
 }
 
-export default function Tag({ posts, tag }) {
+export default function Tag({ posts, tag }: { posts: BlogFrontMatter[]; tag: string }) {
   // Capitalize first letter and convert space to dash
   let title = tag[0] + tag.split(' ').join('-').slice(1)
   return (

@@ -11,14 +11,14 @@ import {
 } from '~/components'
 import { siteMetadata } from '~/data'
 import { getAllFilesFrontMatter } from '~/libs/mdx'
+import type { BlogFrontMatter } from '~/types'
 
-export async function getStaticProps() {
-  let posts = await getAllFilesFrontMatter('blog')
-
+export function getStaticProps() {
+  let posts = getAllFilesFrontMatter('blog')
   return { props: { posts } }
 }
 
-export default function Home({ posts }) {
+export default function Home({ posts }: { posts: BlogFrontMatter[] }) {
   return (
     <>
       <PageSeo title={siteMetadata.title} description={siteMetadata.description} />

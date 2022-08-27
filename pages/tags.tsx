@@ -1,14 +1,15 @@
 import { PageSeo, Link, Tag } from '~/components'
 import { siteMetadata } from '~/data'
 import { getAllTags } from '~/libs'
+import type { TagsCount } from '~/types'
 import { kebabCase } from '~/utils'
 
-export async function getStaticProps() {
-  let tags = await getAllTags('blog')
+export function getStaticProps() {
+  let tags = getAllTags('blog')
   return { props: { tags } }
 }
 
-export default function Tags({ tags }) {
+export default function Tags({ tags }: { tags: TagsCount }) {
   let sortedTags = Object.keys(tags).sort((a, b) => tags[b] - tags[a])
 
   return (
@@ -22,15 +23,15 @@ export default function Tags({ tags }) {
         </div>
         <div className="flex flex-wrap max-w-lg">
           {Object.keys(tags).length === 0 && 'No tags found.'}
-          {sortedTags.map((t) => {
+          {sortedTags.map((tag) => {
             return (
-              <div key={t} className="mt-2 mb-2 mr-5">
-                <Tag text={t} />
+              <div key={tag} className="mt-2 mb-2 mr-5">
+                <Tag text={tag} />
                 <Link
-                  href={`/tags/${kebabCase(t)}`}
+                  href={`/tags/${kebabCase(tag)}`}
                   className="-ml-2 text-sm font-semibold text-gray-600 uppercase dark:text-gray-300"
                 >
-                  {` (${tags[t]})`}
+                  ({tags[tag]})
                 </Link>
               </div>
             )
