@@ -1,11 +1,11 @@
 import type React from 'react'
 import type { CommentConfigType } from './components'
-import type { BlogFrontMatter, SnippetFrontMatter } from './mdx'
+import type { AuthorFrontMatter, BlogFrontMatter, MdxFrontMatter, SnippetFrontMatter } from './mdx'
 import type { PaginationType } from './server'
 
 export type AuthorLayoutProps = {
   children: React.ReactNode
-  frontMatter: any
+  frontMatter: BlogFrontMatter
 }
 
 export type ListLayoutProps = {
@@ -16,14 +16,22 @@ export type ListLayoutProps = {
 }
 
 export interface PostSimpleLayoutProps {
-  frontMatter: any
+  frontMatter: BlogFrontMatter
   type: string
   children: React.ReactNode
-  authorDetails: any
+  authorDetails: AuthorFrontMatter[]
   commentConfig: CommentConfigType
+  page: number
 }
+
+export interface PostLayoutProps extends PostSimpleLayoutProps {}
 
 export interface SnippetLayoutProps {
   snippets: SnippetFrontMatter[]
   description: string
+}
+
+export interface ResumeLayoutProps {
+  children: React.ReactNode
+  frontMatter: MdxFrontMatter
 }

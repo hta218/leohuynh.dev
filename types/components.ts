@@ -2,6 +2,7 @@ import type { ImageProps as NextImageProps } from 'next/image'
 import type React from 'react'
 import type { SocialIconsMap } from '~/components/SocialIcon'
 import type { commentConfig, projectsData } from '~/data'
+import type { MdxFrontMatter, ReadingTime } from './mdx'
 
 export type PageTitleProps = {
   children: React.ReactNode
@@ -52,7 +53,7 @@ export type ViewCounterProps = {
 export type BlogHeaderProps = {
   title: string
   date: string
-  readingTime: any
+  readingTime: ReadingTime
 }
 
 export type CommentConfigType = typeof commentConfig
@@ -60,13 +61,11 @@ export type CommentConfigType = typeof commentConfig
 export type BlogMetaProps = {
   date: string
   slug: string
-  readingTime: {
-    text: string
-  }
+  readingTime: ReadingTime
 }
 
 export interface CommentsProps {
-  frontMatter: any
+  frontMatter: MdxFrontMatter
   config: CommentConfigType
 }
 

@@ -1,5 +1,5 @@
 import type { CommentConfigType } from './components'
-import type { BlogFrontMatter, MdxFileData } from './mdx'
+import type { AuthorFrontMatter, BlogFrontMatter, MdxFileData } from './mdx'
 import type { PaginationType } from './server'
 
 export interface SnippetProps {
@@ -15,7 +15,7 @@ export type BlogListProps = {
 
 export interface BlogProps {
   post: MdxFileData
-  authorDetails: BlogFrontMatter[]
+  authorDetails: AuthorFrontMatter[]
   prev: BlogFrontMatter
   next: BlogFrontMatter
   page: number
