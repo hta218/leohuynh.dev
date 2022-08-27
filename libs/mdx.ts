@@ -6,11 +6,12 @@ import readingTime from 'reading-time'
 import visit from 'unist-util-visit'
 import { TOKEN_CLASSNAME_MAP } from '~/constant'
 import { formatSlug, getAllFilesRecursively } from '~/libs'
+import type { BlogFrontMatter, MdxFileData, MdxFrontMatter, UnistNodeType } from '~/types'
 import { dateSortDesc } from '~/utils'
 import { imgToJsx } from './img-to-jsx'
-import { codeTitles } from './remark-code-title'
+import { remarkCodeTitle } from './remark-code-title'
 
-export async function getFileBySlug(type: string, slug: string) {
+export async function getFileBySlug(type: string, slug: string): Promise<MdxFileData> {
   let root = process.cwd()
   let mdxPath = path.join(root, 'data', type, `${slug}.mdx`)
   let mdPath = path.join(root, 'data', type, `${slug}.md`)
@@ -36,7 +37,7 @@ export async function getFileBySlug(type: string, slug: string) {
     )
   }
 
-  let { frontmatter, code } = await bundleMDX({
+  let { frontmatter, code } = await bundleMDX<MdxFrontMatter>({
     source,
     cwd: path.join(process.cwd(), 'components'),
     esbuildOptions: (options) => {
@@ -55,22 +56,19 @@ export async function getFileBySlug(type: string, slug: string) {
         require('remark-slug'),
         require('remark-autolink-headings'),
         require('remark-gfm'),
-        codeTitles,
+        remarkCodeTitle,
         [require('remark-footnotes'), { inlineNotes: true }],
         require('remark-math'),
         imgToJsx,
       ]
       options.rehypePlugins = [
         ...(options.rehypePlugins ?? []),
-        // require('rehype-katex'),
         [require('rehype-prism-plus'), { ignoreMissing: true }],
         () => {
           return (tree) => {
-            visit(tree, 'element', (node, index, parent) => {
-              // @ts-ignore
+            visit(tree, 'element', (node: UnistNodeType) => {
               let [token, type] = node.properties.className || []
               if (token === 'token') {
-                // @ts-ignore
                 node.properties.className = [TOKEN_CLASSNAME_MAP[type]]
               }
             })
@@ -92,11 +90,11 @@ export async function getFileBySlug(type: string, slug: string) {
   }
 }
 
-export async function getAllFilesFrontMatter(folder: string) {
+export function getAllFilesFrontMatter(folder: string) {
   let root = process.cwd()
   let prefixPaths = path.join(root, 'data', folder)
   let files = getAllFilesRecursively(prefixPaths)
-  let allFrontMatter = []
+  let allFrontMatter: BlogFrontMatter[] = []
 
   files.forEach((file) => {
     // Replace is needed to work on Windows
@@ -106,7 +104,8 @@ export async function getAllFilesFrontMatter(folder: string) {
       return
     }
     let source = fs.readFileSync(file, 'utf8')
-    let { data } = matter(source)
+    let grayMatterData = matter(source)
+    let data = grayMatterData.data as BlogFrontMatter
     if (data.draft !== true) {
       allFrontMatter.push({ ...data, slug: formatSlug(fileName) })
     }

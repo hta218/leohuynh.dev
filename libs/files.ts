@@ -21,7 +21,7 @@ function pathJoinPrefix(prefix: string) {
   return (extraPath: string) => path.join(prefix, extraPath)
 }
 
-export function getAllFilesRecursively(folder: string) {
+export function getAllFilesRecursively(folder: string): string[] {
   return pipe(fs.readdirSync, map(pipe(pathJoinPrefix(folder), walkDir)), flattenArray)(folder)
 }
 
@@ -29,7 +29,7 @@ export function formatSlug(slug: string) {
   return slug.replace(/\.(mdx|md)/, '')
 }
 
-export function getFiles(type: string) {
+export function getFiles(type: string): string[] {
   let root = process.cwd()
   let prefixPaths = path.join(root, 'data', type)
   let files = getAllFilesRecursively(prefixPaths)
