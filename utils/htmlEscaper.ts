@@ -1,7 +1,7 @@
 let { replace } = ''
 
 // escape
-let es = /&(?:amp|#38|lt|#60|gt|#62|apos|#39|quot|#34);/g
+// let es = /&(?:amp|#38|lt|#60|gt|#62|apos|#39|quot|#34);/g
 let ca = /[&<>'"]/g
 
 let esca = {
@@ -11,7 +11,7 @@ let esca = {
   "'": '&#39;',
   '"': '&quot;',
 }
-let pe = (m: string) => esca[m]
+let pe = (m: string): string => esca[m]
 
 /**
  * Safely escape HTML entities such as `&`, `<`, `>`, `"`, and `'`.
