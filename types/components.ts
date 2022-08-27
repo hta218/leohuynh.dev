@@ -21,36 +21,10 @@ export interface ImageProps extends NextImageProps {
   shouldOpenLightbox?: boolean
 }
 
-export type PaginationProps = {
-  totalPages: number
-  currentPage: number
-}
-
-export type SpotifyNowPlayingData = {
-  songUrl?: string
-  title?: string
-  artist?: string
-}
-
 export type ProjectDataType = typeof projectsData[0]
 
 export type ProjectCardProps = {
   project: ProjectDataType
-}
-
-export type PageSeoProps = {
-  title: string
-  description: string
-}
-
-export type BlogSeoProps = {
-  authorDetails: any
-  title: string
-  summary: string
-  date: string
-  lastmod: string
-  url: string
-  images: any[]
 }
 
 export type SocialButtonsProps = {
@@ -75,18 +49,6 @@ export type ViewCounterProps = {
   className?: string
 }
 
-export type AuthorLayoutProps = {
-  children: React.ReactNode
-  frontMatter: any
-}
-
-export type ListLayoutProps = {
-  posts: any[]
-  title: string
-  initialDisplayPosts?: any[]
-  pagination?: any
-}
-
 export type BlogHeaderProps = {
   title: string
   date: string
@@ -94,13 +56,6 @@ export type BlogHeaderProps = {
 }
 
 export type CommentConfigType = typeof commentConfig
-export interface PostSimpleProps {
-  frontMatter: any
-  type: string
-  children: React.ReactNode
-  authorDetails: any
-  commentConfig: CommentConfigType
-}
 
 export type BlogMetaProps = {
   date: string
