@@ -19,7 +19,7 @@ export type TagsCount = {
   [key: string]: number
 }
 
-export type Pagination = {
+export type PaginationType = {
   currentPage: number
   totalPages: number
 }
