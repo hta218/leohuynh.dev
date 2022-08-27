@@ -11,7 +11,7 @@ import {
 } from '~/components'
 import { siteMetadata } from '~/data'
 
-export function PostLayout({ frontMatter, authorDetails, page, children }) {
+export function PostLayout({ frontMatter, authorDetails, page, children, commentConfig }) {
   let { slug, fileName, date, title, tags, readingTime } = frontMatter
   let postUrl = `${siteMetadata.siteUrl}/blog/${slug}`
 
@@ -40,7 +40,7 @@ export function PostLayout({ frontMatter, authorDetails, page, children }) {
             <div className="!border-t-0 divide-y divide-gray-200 dark:divide-gray-700 xl:pb-0 xl:col-span-3 xl:row-span-2">
               <div className="pt-10 pb-8 prose prose-lg dark:prose-dark max-w-none">{children}</div>
               <SocialButtons postUrl={postUrl} title={title} fileName={fileName} />
-              <Comments frontMatter={frontMatter} />
+              <Comments frontMatter={frontMatter} config={commentConfig} />
             </div>
             <footer>
               <div className="text-sm font-medium leading-5 xl:col-start-1 xl:row-start-2">

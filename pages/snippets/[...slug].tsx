@@ -1,9 +1,7 @@
 import { MDXLayoutRenderer } from 'components/MDXComponents'
 import { PageTitle } from '~/components'
+import { formatSlug, getCommentConfigs, getFiles } from '~/libs'
 import { getFileBySlug } from '~/libs/mdx'
-import { getFiles, formatSlug } from '~/libs'
-import { commentConfig as DefaultCommentConfig } from '~/data'
-import type { CommentConfigType } from '~/types'
 
 let DEFAULT_LAYOUT = 'PostSimple'
 
@@ -21,26 +19,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   let snippet = await getFileBySlug('snippets', params.slug.join('/'))
-	// This is a temporary workaround for the fact that the `mdx-bundler` & `esbuild`
-	// is not working with the NextJS's public variables.
-  let commentConfig: CommentConfigType = {
-    ...DefaultCommentConfig,
-    giscusConfig: {
-      ...DefaultCommentConfig.giscusConfig,
-      repo: process.env.GISCUS_REPO,
-      repositoryId: process.env.GISCUS_REPOSITORY_ID,
-      category: process.env.GISCUS_CATEGORY,
-      categoryId: process.env.GISCUS_CATEGORY_ID,
-    },
-    utterancesConfig: {
-      ...DefaultCommentConfig.utterancesConfig,
-      repo: process.env.UTTERANCES_REPO,
-    },
-    disqus: {
-      shortname: process.env.DISQUS_SHORTNAME,
-    },
-  }
-
+  let commentConfig = getCommentConfigs()
   return { props: { snippet, commentConfig } }
 }
 

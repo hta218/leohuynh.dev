@@ -1,7 +1,7 @@
 import fs from 'fs'
 import { MDXLayoutRenderer, PageTitle } from '~/components'
 import { POSTS_PER_PAGE } from '~/constant'
-import { generateRss, getFiles, formatSlug } from '~/libs'
+import { generateRss, getFiles, formatSlug, getCommentConfigs } from '~/libs'
 import { getAllFilesFrontMatter, getFileBySlug } from '~/libs/mdx'
 
 let DEFAULT_LAYOUT = 'PostSimple'
@@ -38,11 +38,12 @@ export async function getStaticProps({ params }) {
   // rss
   let rss = generateRss(allPosts)
   fs.writeFileSync('./public/feed.xml', rss)
+  let commentConfig = getCommentConfigs()
 
-  return { props: { post, authorDetails, prev, next, page } }
+  return { props: { post, authorDetails, prev, next, page, commentConfig } }
 }
 
-export default function Blog({ post, authorDetails, prev, next, page }) {
+export default function Blog({ post, authorDetails, prev, next, page, commentConfig }) {
   let { mdxSource, frontMatter } = post
 
   return (
@@ -57,6 +58,7 @@ export default function Blog({ post, authorDetails, prev, next, page }) {
           prev={prev}
           next={next}
           page={page}
+          commentConfig={commentConfig}
         />
       ) : (
         <div className="mt-24 text-center">
