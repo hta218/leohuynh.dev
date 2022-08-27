@@ -43,8 +43,8 @@ export async function getFileBySlug(type, slug) {
       options.loader = {
         ...options.loader,
         '.js': 'jsx',
-        '.ts': 'tsx',
       }
+
       return options
     },
     mdxOptions(options) {

@@ -11,7 +11,7 @@ import { siteMetadata } from '~/data'
 import type { PostSimpleProps } from '~/types'
 
 export function PostSimple(props: PostSimpleProps) {
-  let { frontMatter, type, children, authorDetails } = props
+  let { frontMatter, type, children, authorDetails, commentConfig } = props
   let { date, title, slug, fileName, tags, readingTime } = frontMatter
   let postUrl = `${siteMetadata.siteUrl}/${type}/${slug}`
 
@@ -43,7 +43,7 @@ export function PostSimple(props: PostSimpleProps) {
               </div>
               <div className="border-t border-gray-200 dark:border-gray-700">
                 <SocialButtons postUrl={postUrl} title={title} fileName={fileName} />
-                <Comments frontMatter={frontMatter} />
+                <Comments frontMatter={frontMatter} config={commentConfig} />
               </div>
             </div>
           </div>
