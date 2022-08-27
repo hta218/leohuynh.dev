@@ -1,13 +1,12 @@
-import React, { useState } from 'react'
 import { useTheme } from 'next-themes'
-import { siteMetadata } from '~/data'
+import { useState } from 'react'
 import { UTTERANCES_COMMENTs_ID } from '~/constant'
+import type { UtterancesProps } from '~/types'
 
-let Utterances = () => {
+let Utterances = ({ utterancesConfig }: UtterancesProps) => {
   let [loaded, setLoaded] = useState(false)
   let { theme, resolvedTheme } = useTheme()
 
-  let { utterancesConfig } = siteMetadata.comment
   let { lightTheme, darkTheme } = utterancesConfig
   let isDark = theme === 'dark' || resolvedTheme === 'dark'
   let uttrTheme = isDark ? darkTheme : lightTheme

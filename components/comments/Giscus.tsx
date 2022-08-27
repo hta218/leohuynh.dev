@@ -1,11 +1,10 @@
 import { useTheme } from 'next-themes'
 import { useEffect } from 'react'
 import { GISCUS_COMMENTS_ID } from '~/constant'
-import { siteMetadata } from '~/data'
+import type { GiscusProps } from '~/types'
 
-function Giscus() {
+function Giscus({ giscusConfig }: GiscusProps) {
   let { theme, resolvedTheme } = useTheme()
-  let { giscusConfig } = siteMetadata.comment
   let { themeURL, darkTheme, lightTheme } = giscusConfig
 
   useEffect(() => {

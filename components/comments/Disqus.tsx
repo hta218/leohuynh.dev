@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { DISQUS_COMMENTS_ID } from '~/constant'
-import { siteMetadata } from '~/data'
+import type { DisqusProps } from '~/types'
 
-function Disqus({ identifier }: { identifier: string }) {
+function Disqus({ identifier, disqus }: DisqusProps) {
   let [loaded, setLoaded] = useState(false)
 
   function handleLoadComments() {
@@ -14,7 +14,7 @@ function Disqus({ identifier }: { identifier: string }) {
     }
     // @ts-ignore
     if (window.DISQUS === undefined) {
-      let { shortname } = siteMetadata.comment.disqus
+      let { shortname } = disqus
       let script = document.createElement('script')
       script.src = `https://${shortname}.disqus.com/embed.js`
       script.setAttribute('data-timestamp', Date.now().toString())
