@@ -1,16 +1,16 @@
-import { bundleMDX } from 'mdx-bundler'
 import fs from 'fs'
 import matter from 'gray-matter'
+import { bundleMDX } from 'mdx-bundler'
 import path from 'path'
 import readingTime from 'reading-time'
 import visit from 'unist-util-visit'
-import codeTitles from './remark-code-title'
-import imgToJsx from './img-to-jsx'
-import { getAllFilesRecursively, formatSlug } from '~/libs'
-import { dateSortDesc } from '~/utils'
 import { TOKEN_CLASSNAME_MAP } from '~/constant'
+import { formatSlug, getAllFilesRecursively } from '~/libs'
+import { dateSortDesc } from '~/utils'
+import { imgToJsx } from './img-to-jsx'
+import { codeTitles } from './remark-code-title'
 
-export async function getFileBySlug(type, slug) {
+export async function getFileBySlug(type: string, slug: string) {
   let root = process.cwd()
   let mdxPath = path.join(root, 'data', type, `${slug}.mdx`)
   let mdPath = path.join(root, 'data', type, `${slug}.md`)
@@ -92,7 +92,7 @@ export async function getFileBySlug(type, slug) {
   }
 }
 
-export async function getAllFilesFrontMatter(folder) {
+export async function getAllFilesFrontMatter(folder: string) {
   let root = process.cwd()
   let prefixPaths = path.join(root, 'data', folder)
   let files = getAllFilesRecursively(prefixPaths)

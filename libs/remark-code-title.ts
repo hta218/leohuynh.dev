@@ -1,8 +1,9 @@
 import visit from 'unist-util-visit'
+import type { UnistNodeType, UnistTreeType } from '~/types'
 
-module.exports = function (options) {
-  return (tree) =>
-    visit(tree, 'code', (node, index) => {
+export function codeTitles() {
+  return (tree: UnistTreeType) => {
+    return visit(tree, 'code', (node: UnistNodeType, index) => {
       let nodeLang = node.lang || ''
       let language = ''
       let title = ''
@@ -23,6 +24,8 @@ module.exports = function (options) {
       }
 
       tree.children.splice(index, 0, titleNode)
+      // @ts-ignore
       node.lang = language
     })
+  }
 }
