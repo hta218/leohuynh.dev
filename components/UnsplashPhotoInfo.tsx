@@ -14,3 +14,5 @@ export function UnsplashPhotoInfo({ photoURL, author }: UnsplashPhotoProps) {
     </div>
   )
 }
+
+export default UnsplashPhotoInfo
