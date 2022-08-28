@@ -7,15 +7,15 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypePresetMinify from 'rehype-preset-minify'
 import rehypePrismPlus from 'rehype-prism-plus'
 import rehypeSlug from 'rehype-slug'
-import remarkGfm from 'remark-gfm'
+import remarkGFM from 'remark-gfm'
 import { visit } from 'unist-util-visit'
 import { TOKEN_CLASSNAME_MAP } from '~/constant'
 import { formatSlug, getAllFilesRecursively } from '~/libs'
-import type { BlogFrontMatter, MdxFileData, MdxFrontMatter, UnistNodeType } from '~/types'
+import type { BlogFrontMatter, MdxFileData, MdxFrontMatter, TOC, UnistNodeType } from '~/types'
 import { dateSortDesc } from '~/utils'
 import { remarkCodeBlockTitle } from './remark-code-block-title'
 import { remarkImgToJsx } from './remark-img-to-jsx'
-import { remarkTocHeadings } from './remark-toc-headings'
+import { remarkTocHeading } from './remark-toc-heading'
 
 export async function getFileBySlug(type: string, slug: string): Promise<MdxFileData> {
   let root = process.cwd()
@@ -46,7 +46,7 @@ export async function getFileBySlug(type: string, slug: string): Promise<MdxFile
     )
   }
 
-  let toc = []
+  let toc: TOC[] = []
   let { frontmatter, code } = await bundleMDX<MdxFrontMatter>({
     source,
     cwd: path.join(process.cwd(), 'components'),
@@ -65,8 +65,8 @@ export async function getFileBySlug(type: string, slug: string): Promise<MdxFile
        */
       options.remarkPlugins = [
         ...(options.remarkPlugins || []),
-        [remarkTocHeadings, { exportRef: toc }],
-        remarkGfm,
+        [remarkTocHeading, { exportRef: toc }],
+        remarkGFM,
         remarkCodeBlockTitle,
         remarkImgToJsx,
       ]
