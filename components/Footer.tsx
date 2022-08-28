@@ -7,12 +7,12 @@ export function Footer() {
     <footer>
       <div className="flex flex-col items-center mt-16 mb-8">
         <div className="flex mb-3 space-x-4">
-          <SocialIcon name="Github" href={siteMetadata.github} size={6} />
-          <SocialIcon name="Twitter" href={siteMetadata.twitter} size={6} />
-          <SocialIcon name="Linkedin" href={siteMetadata.linkedin} size={6} />
-          <SocialIcon name="Mail" href={`mailto:${siteMetadata.email}`} size={6} />
-          <SocialIcon name="Facebook" href={siteMetadata.facebook} size={6} />
-          <SocialIcon name="Youtube" href={siteMetadata.youtube} size={6} />
+          <SocialIcon name="Github" href={siteMetadata.github} />
+          <SocialIcon name="Twitter" href={siteMetadata.twitter} />
+          <SocialIcon name="Linkedin" href={siteMetadata.linkedin} />
+          <SocialIcon name="Mail" href={`mailto:${siteMetadata.email}`} />
+          <SocialIcon name="Facebook" href={siteMetadata.facebook} />
+          <SocialIcon name="Youtube" href={siteMetadata.youtube} />
         </div>
         <div className="flex my-2 space-x-2 text-sm text-gray-500 dark:text-gray-400">
           <div>{`Copyright © ${new Date().getFullYear()}`}</div>

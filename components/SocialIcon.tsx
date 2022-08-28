@@ -17,23 +17,19 @@ export let SocialIconsMap = {
   Twitter,
 }
 
-export function SocialIcon({ name, href, size = 8 }: SocialIconProps) {
-  if (!href) return null
-
+export function SocialIcon({ name, href }: SocialIconProps) {
   let SocialSvg = SocialIconsMap[name]
   let attrs: AnchorHTMLAttributes<HTMLAnchorElement> = {
     href,
+    target: name !== 'Mail' ? '_blank' : '_self',
     rel: 'noopener noreferrer',
-  }
-  if (name !== 'Mail') {
-    attrs.target = '_blank'
   }
 
   return (
     <a className="text-sm text-gray-500 transition hover:text-gray-600" {...attrs}>
       <span className="sr-only">{name}</span>
       <SocialSvg
-        className={`fill-current text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 h-${size} w-${size}`}
+        className={`h-6 w-6 fill-current text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400`}
       />
     </a>
   )
