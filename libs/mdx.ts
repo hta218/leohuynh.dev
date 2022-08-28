@@ -13,7 +13,7 @@ import { TOKEN_CLASSNAME_MAP } from '~/constant'
 import { formatSlug, getAllFilesRecursively } from '~/libs'
 import type { BlogFrontMatter, MdxFileData, MdxFrontMatter, UnistNodeType } from '~/types'
 import { dateSortDesc } from '~/utils'
-import { remarkCodeBlockTitles } from './remark-code-block-titles'
+import { remarkCodeBlockTitle } from './remark-code-block-title'
 import { remarkImgToJsx } from './remark-img-to-jsx'
 import { remarkTocHeadings } from './remark-toc-headings'
 
@@ -25,7 +25,10 @@ export async function getFileBySlug(type: string, slug: string): Promise<MdxFile
     ? fs.readFileSync(mdxPath, 'utf8')
     : fs.readFileSync(mdPath, 'utf8')
 
-  // https://github.com/kentcdodds/mdx-bundler#nextjs-esbuild-enoent
+  /**
+   * Point esbuild directly at the correct executable for the current platform
+   * Ref: https://github.com/kentcdodds/mdx-bundler#nextjs-esbuild-enoent
+   */
   if (process.platform === 'win32') {
     process.env.ESBUILD_BINARY_PATH = path.join(
       process.cwd(),
@@ -52,15 +55,19 @@ export async function getFileBySlug(type: string, slug: string): Promise<MdxFile
         ...options.loader,
         '.js': 'jsx',
       }
-
       return options
     },
     mdxOptions(options) {
+      /**
+       * This is the recommended way to add custom remark/rehype plugins.
+       * The syntax might look weird, but it protects you in case we add/remove plugins in the future.
+       * Ref: https://github.com/kentcdodds/mdx-bundler#mdxoptions
+       */
       options.remarkPlugins = [
         ...(options.remarkPlugins || []),
         [remarkTocHeadings, { exportRef: toc }],
         remarkGfm,
-        remarkCodeBlockTitles,
+        remarkCodeBlockTitle,
         remarkImgToJsx,
       ]
       options.rehypePlugins = [
@@ -85,8 +92,8 @@ export async function getFileBySlug(type: string, slug: string): Promise<MdxFile
   })
 
   return {
-    mdxSource: code,
     toc,
+    mdxSource: code,
     frontMatter: {
       readingTime: readingTime(code),
       slug: slug || null,
