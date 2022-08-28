@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 
-function pipe(...fns: any[]) {
+function pipe(...fns: Function[]) {
   return (x: any) => fns.reduce((v, f) => f(v), x)
 }
 
@@ -9,8 +9,8 @@ function flattenArray(input: any[]) {
   return input.reduce((acc, item) => [...acc, ...(Array.isArray(item) ? item : [item])], [])
 }
 
-function map(fn: (...args: any) => any) {
-  return (input: unknown[]) => input.map(fn)
+function map(fn: any) {
+  return (input: any[]) => input.map(fn)
 }
 
 function walkDir(fullPath: string) {
