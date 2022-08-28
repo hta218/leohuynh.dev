@@ -1,9 +1,9 @@
 import { visit } from 'unist-util-visit'
 import { slug } from 'github-slugger'
 import { toString } from 'mdast-util-to-string'
-import type { UnistNodeType, UnistTreeType } from '~/types'
+import type { RemarkTocHeadingOptions, UnistNodeType, UnistTreeType } from '~/types'
 
-export function remarkTocHeadings(options) {
+export function remarkTocHeading(options: RemarkTocHeadingOptions) {
   return (tree: UnistTreeType) =>
     visit(tree, 'heading', (node: UnistNodeType) => {
       let textContent = toString(node)

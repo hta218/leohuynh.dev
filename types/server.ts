@@ -39,3 +39,13 @@ export interface UnistImageNode extends UnistNodeType {
   name: string
   attributes: unknown[]
 }
+
+export type TOC = {
+  value: string
+  url: string
+  depth: number
+}
+
+export interface RemarkTocHeadingOptions {
+  exportRef: TOC[]
+}
