@@ -16,7 +16,7 @@ export type SpotifyNowPlayingData = {
 }
 
 export type TagsCount = {
-  [key: string]: number
+  [tag: string]: number
 }
 
 export type PaginationType = {

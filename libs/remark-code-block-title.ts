@@ -1,7 +1,7 @@
 import { visit } from 'unist-util-visit'
 import type { UnistNodeType, UnistTreeType } from '~/types'
 
-export function remarkCodeBlockTitles() {
+export function remarkCodeBlockTitle() {
   return (tree: UnistTreeType) => {
     return visit(tree, 'code', (node: UnistNodeType, index) => {
       let nodeLang = node.lang || ''
