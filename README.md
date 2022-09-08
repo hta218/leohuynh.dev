@@ -18,7 +18,7 @@ This blog is hosted on [Vercel](https://vercel.com/), built with [Next.js](https
 
 A huge thanks to [Timothy Lin](https://twitter.com/timlrxx) for the minimal, lightweight, and super easy-to-customize blog starter.
 
-A few major change from the original template:
+A few major changes from the original template:
 
 - Upgrading to React 18, latest version of `mdx-bundler`, all `rehype`/`remark` plugins and dependencies are up-to-date 📥
 - Adopting `typescript` 🎉
