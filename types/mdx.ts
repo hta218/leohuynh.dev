@@ -31,6 +31,7 @@ export interface BlogFrontMatter extends MdxFrontMatter {
 }
 
 export interface SnippetFrontMatter extends BlogFrontMatter {
+  heading: string
   type: keyof typeof DevIconsMap
 }
 

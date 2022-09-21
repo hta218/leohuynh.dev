@@ -1,10 +1,13 @@
 ---
-title: "Validate color"
-date: "2021-10-12"
-type: "Javascript"
+heading: 'Color validator'
+title: 'Check if a string is a valid color'
+date: '2021-10-12'
+type: 'Javascript'
 draft: false
-summary: "Check if a string is a valid color"
+summary: 'Check if a string is a valid color'
+tags: ['javascript', 'color', 'validator']
 ---
+
 import Twemoji from './Twemoji.tsx'
 
 #### <Twemoji emoji="warning" /> For client-side only, not work in Node.js
@@ -12,7 +15,7 @@ import Twemoji from './Twemoji.tsx'
 Simple color validator function
 
 ```js
-let isValidColor = color => {
+let isValidColor = (color) => {
   let otpNode = new Option()
   otpNode.style.color = color
 
@@ -44,7 +47,7 @@ Caveat
 Strings like `unset`, `initial`, `inherit`, `currentcolor`, `transparent` are also valid values, so if you want to exclude these strings, just change the function a bit:
 
 ```js
-let isValidColor = color => {
+let isValidColor = (color) => {
   let otpNode = new Option()
   otpNode.style.color = color
 

@@ -1,12 +1,14 @@
 ---
-title: "Shuffle an array"
+heading: "Array utilies"
+title: "Useful array utilies"
 date: "2021-10-11"
 type: "Javascript"
 draft: false
-summary: "Shuffle an array in Javascript"
+summary: "Useful array utilies"
+tags: ["javascript", "array", "utilies"]
 ---
 
-Simple array shuffling function
+##### Shuffling an array
 
 ```js
 let shuffle = arr => arr.sort(() => 0.5 - Math.random());
@@ -15,12 +17,7 @@ let shuffle = arr => arr.sort(() => 0.5 - Math.random());
 Usage
 
 ```js
-shuffle([1, 2, 3, 4, 5])
-// [3, 2, 5, 4, 1]
-
-shuffle([1, 2, 3, 4, 5])
-// [3, 1, 5, 4, 2]
-
-shuffle(['foo', 'bar', 'buzz'])
-// ['buzz', 'bar', 'foo']
+shuffle([1, 2, 3, 4, 5]) // [3, 2, 5, 4, 1]
+shuffle([1, 2, 3, 4, 5]) // [3, 1, 5, 4, 2]
+shuffle(['foo', 'bar', 'buzz']) // ['buzz', 'bar', 'foo']
 ```
