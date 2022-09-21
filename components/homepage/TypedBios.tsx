@@ -1,6 +1,6 @@
 import React from 'react'
 import Typed from 'typed.js'
-import { Twemoji } from './Twemoji'
+import { Twemoji } from '../Twemoji'
 
 export function TypedBios() {
   let el = React.useRef(null)
