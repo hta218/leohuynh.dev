@@ -138,6 +138,6 @@ html.lightbox-loading * {
   transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
 
-.flag-vn i {
+.flag-usa i {
   background-position: 50% -200%;
 }

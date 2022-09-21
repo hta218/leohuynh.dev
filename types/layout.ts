@@ -35,3 +35,8 @@ export interface ResumeLayoutProps {
   children: React.ReactNode
   frontMatter: MdxFrontMatter
 }
+
+export interface DisclaimerLayoutProps {
+  children: React.ReactNode
+  frontMatter: MdxFrontMatter
+}

@@ -1,10 +1,10 @@
 {
   "private": true,
   "scripts": {
-    "start": "PORT=3434 next-remote-watch ./data",
-    "dev": "PORT=3434 next dev",
+    "start": "PORT=3000 next-remote-watch ./data",
+    "dev": "PORT=3000 next dev",
     "build": "next build && tsx ./scripts/generate-sitemap",
-    "serve": "PORT=3435 next start",
+    "serve": "PORT=3000 next start",
     "analyze": "cross-env ANALYZE=true next build",
     "lint": "next lint --fix --dir pages --dir components --dir lib --dir layouts --dir scripts",
     "prepare": "husky install",
@@ -45,6 +45,7 @@
   "devDependencies": {
     "@next/bundle-analyzer": "^12.2.5",
     "@svgr/webpack": "^6.3.1",
+    "@types/node": "18.7.18",
     "@types/react": "^18.0.18",
     "cross-env": "^7.0.3",
     "dedent": "^0.7.0",

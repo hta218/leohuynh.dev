@@ -2,7 +2,7 @@ import fs from 'fs'
 import { globby } from 'globby'
 import prettier from 'prettier'
 
-let SITE_URL = 'https://www.leohuynh.dev'
+let SITE_URL = 'https://itdad.life'
 
 ;(async () => {
   console.log('Generating sitemap...')
@@ -17,9 +17,9 @@ let SITE_URL = 'https://www.leohuynh.dev'
   ])
 
   let sitemap = `
-			<?xml version="1.0" encoding="UTF-8"?>
-			<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-				${pages
+      <?xml version="1.0" encoding="UTF-8"?>
+      <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+        ${pages
           .map((page) => {
             let path = page
               .replace('pages/', '/')
@@ -36,7 +36,7 @@ let SITE_URL = 'https://www.leohuynh.dev'
             return `<url><loc>${SITE_URL}${route}</loc></url>\n`
           })
           .join('')}
-			</urlset>
+      </urlset>
     `
 
   let formatted = prettier.format(sitemap, {

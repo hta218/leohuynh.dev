@@ -121,6 +121,12 @@
 .twa-backhand-index-pointing-down {
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f447.svg');
 }
+.twa-keycap-1 {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/31-20e3.svg');
+}
+.twa-keycap-2 {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/32-20e3.svg');
+}
 .twa-clapping-hands {
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f44f.svg');
 }
@@ -156,9 +162,6 @@
 }
 .twa-rocket {
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f680.svg');
-}
-.twa-man-getting-massage {
-  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f486-200d-2642-fe0f.svg');
 }
 .twa-delivery-truck {
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f69a.svg');
@@ -235,8 +238,8 @@
 .twa-face-with-symbols-on-mouth {
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f92c.svg');
 }
-.twa-flag-vietnam {
-  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f1fb-1f1f3.svg');
+.twa-flag-usa {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f1fa-1f1f8.svg');
 }
 .twa-hammer-and-wrench {
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f6e0.svg');

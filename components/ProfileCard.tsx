@@ -60,14 +60,14 @@ export function ProfileCard() {
         className="flex flex-col transition-all duration-200 ease-out xl:shadow-lg shadow-cyan-100/50 dark:shadow-cyan-700/50 xl:rounded-lg bg-white dark:bg-dark overflow-hidden"
       >
         <Image
-          src={'/static/images/logo.jpg'}
+          src={'/static/images/avatar.jpg'}
           alt="avatar"
-          width="550px"
-          height="350px"
+          width="850px"
+          height="850px"
           className="object-cover"
           objectPosition="50% 16%"
         />
-        <SpotifyNowPlaying {...nowPlayingData} />
+        {/* <SpotifyNowPlaying {...nowPlayingData} /> */}
         <ProfileCardInfo />
         <span className="h-1.5 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"></span>
       </div>

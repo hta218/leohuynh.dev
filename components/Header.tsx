@@ -8,14 +8,14 @@ export function Header({ onToggleNav }: { onToggleNav: () => void }) {
     <header className="overflow-x-hidden backdrop-blur supports-backdrop-blur:bg-white/95 py-3 sticky top-0 z-40 bg-white/75 dark:bg-dark/75">
       <div className="mx-auto max-w-3xl xl:max-w-5xl flex items-center justify-between px-3 xl:px-0">
         <div>
-          <Link href="/" aria-label="Leo's Blog">
+          <Link href="/" aria-label="IT Dad">
             <div className="flex items-center justify-between">
               <div className="mr-3 flex justify-center items-center">
                 <NextImage
-                  src="/static/images/logo.jpg"
-                  width={45}
-                  height={45}
-                  className="rounded-full"
+                  src="/static/images/logo-2.png"
+                  width={250}
+                  height={60}
+                  // className="rounded-full"
                 />
               </div>
             </div>

@@ -2,6 +2,9 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 const colors = require('tailwindcss/colors')
 
 module.exports = {
+  experimental: {
+    optimizeUniversalDefaults: true,
+  },
   mode: 'jit',
   content: [
     './(components|constant|layouts|pages)/**/*.(ts|tsx)',
@@ -67,19 +70,6 @@ module.exports = {
           blue: '#93ddfd',
           white: '#fff',
         },
-        spotify: '#1DB954',
-        twitter: '#1da1f2',
-        facebook: '#1877f2',
-      },
-      width: {
-        5.5: '1.375rem',
-      },
-      height: {
-        5.5: '1.375rem',
-      },
-      cursor: {
-        'zoom-in': 'zoom-in',
-        'zoom-out': 'zoom-out',
       },
       typography: (theme) => ({
         DEFAULT: {
@@ -182,6 +172,9 @@ module.exports = {
             },
             'h4,h5,h6': {
               color: theme('colors.gray.100'),
+            },
+            code: {
+              backgroundColor: theme('colors.gray.800'),
             },
             hr: { borderColor: theme('colors.gray.700') },
             'ol li:before': {

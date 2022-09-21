@@ -7,6 +7,7 @@ export type MdxPageLayout =
   | 'PostLayout'
   | 'PostSimple'
   | 'ResumeLayout'
+  | 'DisclaimerLayout'
   | 'SnippetLayout'
 
 export interface MdxFrontMatter {

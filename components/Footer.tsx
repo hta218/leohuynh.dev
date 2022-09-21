@@ -11,13 +11,15 @@ export function Footer() {
           <SocialIcon name="Twitter" href={siteMetadata.twitter} />
           <SocialIcon name="Linkedin" href={siteMetadata.linkedin} />
           <SocialIcon name="Mail" href={`mailto:${siteMetadata.email}`} />
-          <SocialIcon name="Facebook" href={siteMetadata.facebook} />
-          <SocialIcon name="Youtube" href={siteMetadata.youtube} />
+          {/* <SocialIcon name="Facebook" href={siteMetadata.facebook} />
+          <SocialIcon name="Youtube" href={siteMetadata.youtube} /> */}
         </div>
         <div className="flex my-2 space-x-2 text-sm text-gray-500 dark:text-gray-400">
           <div>{`Copyright © ${new Date().getFullYear()}`}</div>
           <span>{` • `}</span>
           <Link href="/">{siteMetadata.footerTitle}</Link>
+          <span>{` • `}</span>
+          <Link href="/disclaimer">Legal Disclaimer</Link>
         </div>
         <Credit />
       </div>

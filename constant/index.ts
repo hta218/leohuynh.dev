@@ -1,7 +1,7 @@
 export let BLUR_IMAGE_DATA_URL =
   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNcvWS1LgAGJQIpt50GkgAAAABJRU5ErkJggg=='
 
-export let LOGO_IMAGE_PATH = '/static/images/logo.jpg'
+export let LOGO_IMAGE_PATH = '/static/images/logo.svg'
 
 export let GISCUS_COMMENTS_ID = 'comments-container'
 export let UTTERANCES_COMMENTs_ID = 'comments-container'

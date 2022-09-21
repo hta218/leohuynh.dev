@@ -4,7 +4,7 @@ import { siteMetadata } from '~/data'
 export function ProfileCardInfo() {
   return (
     <div className="hidden xl:block xl:px-6 py-4">
-      <h3 className="text-xl font-semibold text-gray-800 dark:text-white">Tuan Anh (Leo) Huynh</h3>
+      <h3 className="text-xl font-semibold text-gray-800 dark:text-white">Bradley Wright</h3>
       <h5 className="py-2 text-gray-700 dark:text-gray-400">Learner | Builder</h5>
       <div className="space-y-4 mt-4 mb-2">
         <div className="flex items-center text-gray-700 dark:text-gray-200">
@@ -48,9 +48,9 @@ export function ProfileCardInfo() {
           </svg>
 
           <p className="px-2">
-            [::1]:443 - Ha Noi,
-            <span className="align-middle flag-vn ml-1">
-              <Twemoji emoji="flag-vietnam" />
+            [::1]:443 - Boston, MA,
+            <span className="align-middle flag-usa ml-1">
+              <Twemoji emoji="flag-usa" />
             </span>
           </p>
         </div>

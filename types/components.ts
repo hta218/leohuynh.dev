@@ -23,11 +23,11 @@ export interface ImageProps extends NextImageProps {
 
 export type ProjectDataType = typeof projectsData[0]
 
-export interface ProjectCardProps {
+export type ProjectCardProps = {
   project: ProjectDataType
 }
 
-export interface SocialButtonsProps {
+export type SocialButtonsProps = {
   postUrl: string
   title: string
   fileName: string
@@ -57,7 +57,7 @@ export interface BlogHeaderProps {
 
 export type CommentConfigType = typeof commentConfig
 
-export interface BlogMetaProps {
+export type BlogMetaProps = {
   date: string
   slug: string
   readingTime: ReadingTime
