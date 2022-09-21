@@ -1,6 +1,7 @@
 import React from '~/icons/react.svg'
 import Git from '~/icons/git.svg'
 import Javascript from '~/icons/javascript.svg'
+import Typescript from '~/icons/typescript.svg'
 import Node from '~/icons/nodejs.svg'
 import Bash from '~/icons/bash.svg'
 import Liquid from '~/icons/liquid.svg'
@@ -10,6 +11,7 @@ export let DevIconsMap = {
   React,
   Git,
   Javascript,
+  Typescript,
   Node,
   Bash,
   Liquid,

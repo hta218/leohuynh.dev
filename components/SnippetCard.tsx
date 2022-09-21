@@ -3,7 +3,7 @@ import { DevIcon } from './DevIcon'
 import { Link } from './Link'
 
 export function SnippetCard({ snippet }: { snippet: SnippetFrontMatter }) {
-  let { type, title, summary, slug } = snippet
+  let { type, heading, summary, slug } = snippet
 
   return (
     <Link href={`/snippets/${slug}`}>
@@ -13,7 +13,7 @@ export function SnippetCard({ snippet }: { snippet: SnippetFrontMatter }) {
         </div>
         <div className="p-3 lg:p-4 md:p-4 overflow-hidden">
           <h3 className="text-lg lg:text-2xl font-bold leading-8 tracking-tight whitespace-nowrap overflow-hidden overflow-ellipsis">
-            {title}
+            {heading}
           </h3>
           <p className="text-md lg:text-base mt-2 text-gray-700 dark:text-gray-400">{summary}</p>
         </div>

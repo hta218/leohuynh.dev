@@ -1,0 +1,78 @@
+---
+heading: 'Deep remove falsy'
+title: 'Remove all falsy values from an object and its nested children'
+date: '2022-09-21'
+type: 'Typescript'
+draft: false
+summary: 'Remove all falsy values from an object and its nested children'
+tags: [typescript, javascript, utils, object]
+---
+
+import Twemoji from './Twemoji.tsx'
+
+This function will remove all falsy values like `null`, `undefined`, `0`, `''`, `false` from an object and its nested children.
+
+Allow passing custom `falsyValues` to remove and return a new object without the falsy values.
+
+<Twemoji emoji="guard" /> if you prefer `typescript`:
+
+```typescript
+export function removeFalsy<T = any>(obj: {}, falsyValues: any[] = ['', null, undefined]): T {
+  if (!obj || typeof obj !== 'object') {
+    return obj as any
+  }
+  return Object.entries(obj).reduce((a, c) => {
+    let [k, v]: [string, any] = c
+    if (falsyValues.indexOf(v) === -1 && JSON.stringify(removeFalsy(v, falsyValues)) !== '{}') {
+      a[k] = typeof v === 'object' && !Array.isArray(v) ? removeFalsy(v, falsyValues) : v
+    }
+    return a
+  }, {} as any) as T
+}
+```
+
+<Twemoji emoji="man-shrugging" /> and a version for plain `javascript` if you don't like too much `as`
+and `any`:
+
+```javascript
+function removeFalsy(obj, falsyValues = ['', null, undefined]) {
+  if (!obj || typeof obj !== 'object') {
+    return obj
+  }
+  return Object.entries(obj).reduce((a, c) => {
+    let [k, v] = c
+    if (falsyValues.indexOf(v) === -1 && JSON.stringify(removeFalsy(v, falsyValues)) !== '{}') {
+      a[k] = typeof v === 'object' && !Array.isArray(v) ? removeFalsy(v, falsyValues) : v
+    }
+    return a
+  }, {})
+}
+```
+
+##### Example usage
+
+```javascript
+let obj = {
+  a: 1,
+  b: 0,
+  c: '',
+  d: null,
+  e: undefined,
+  f: false,
+  g: {
+    a: 1,
+    b: 0,
+    c: '',
+    d: null,
+    e: undefined,
+    f: false,
+  },
+  j: {},
+  h: [],
+  i: [1],
+}
+console.log(removeFalsy(obj, [0, false, '', null, undefined]))
+// 👉 { a: 1, g: { a: 1 }, i: [ 1 ] }
+```
+
+Happy coding!
