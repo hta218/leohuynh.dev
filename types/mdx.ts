@@ -45,7 +45,7 @@ export interface MdxFileData {
   toc: unknown[]
 }
 
-export type MdxLayoutRendererProps = {
+export interface MdxLayoutRendererProps {
   layout: MdxPageLayout
   mdxSource: string
   frontMatter: MdxFrontMatter

@@ -6,7 +6,7 @@ export interface ViewApiResponse {
   }
 }
 
-export type SpotifyNowPlayingData = {
+export interface SpotifyNowPlayingData {
   isPlaying: boolean
   songUrl?: string
   title?: string
@@ -15,11 +15,11 @@ export type SpotifyNowPlayingData = {
   albumImageUrl?: string
 }
 
-export type TagsCount = {
+export interface TagsCount {
   [tag: string]: number
 }
 
-export type PaginationType = {
+export interface PaginationType {
   currentPage: number
   totalPages: number
 }
@@ -40,7 +40,7 @@ export interface UnistImageNode extends UnistNodeType {
   attributes: unknown[]
 }
 
-export type TOC = {
+export interface TOC {
   value: string
   url: string
   depth: number

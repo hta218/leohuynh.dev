@@ -1,6 +1,6 @@
 import type { AuthorFrontMatter, MdxFrontMatter } from './mdx'
 
-export type PageSeoProps = {
+export interface PageSeoProps {
   title: string
   description: string
 }
@@ -10,7 +10,7 @@ export interface BlogSeoProps extends MdxFrontMatter {
   url: string
 }
 
-export type AuthorSEO = {
+export interface AuthorSEO {
   '@type': string
   name: string
 }

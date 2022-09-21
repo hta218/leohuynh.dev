@@ -3,12 +3,12 @@ import type { CommentConfigType } from './components'
 import type { AuthorFrontMatter, BlogFrontMatter, MdxFrontMatter, SnippetFrontMatter } from './mdx'
 import type { PaginationType } from './server'
 
-export type AuthorLayoutProps = {
+export interface AuthorLayoutProps {
   children: React.ReactNode
   frontMatter: BlogFrontMatter
 }
 
-export type ListLayoutProps = {
+export interface ListLayoutProps {
   posts: BlogFrontMatter[]
   title: string
   initialDisplayPosts?: BlogFrontMatter[]

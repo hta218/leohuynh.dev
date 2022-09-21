@@ -4,7 +4,7 @@ import type { SocialIconsMap } from '~/components/SocialIcon'
 import type { commentConfig, projectsData } from '~/data'
 import type { MdxFrontMatter, ReadingTime } from './mdx'
 
-export type PageTitleProps = {
+export interface PageTitleProps {
   children: React.ReactNode
 }
 
@@ -12,7 +12,7 @@ export interface ImageLightBoxProps extends Pick<NextImageProps, 'src'> {
   closeLightbox: () => void
 }
 
-export type SocialIconProps = {
+export interface SocialIconProps {
   name: keyof typeof SocialIconsMap
   href: string
 }
@@ -23,11 +23,11 @@ export interface ImageProps extends NextImageProps {
 
 export type ProjectDataType = typeof projectsData[0]
 
-export type ProjectCardProps = {
+export interface ProjectCardProps {
   project: ProjectDataType
 }
 
-export type SocialButtonsProps = {
+export interface SocialButtonsProps {
   postUrl: string
   title: string
   fileName: string
@@ -39,17 +39,17 @@ export type TwemojiProps = {
   className?: string
 }
 
-export type UnsplashPhotoProps = {
+export interface UnsplashPhotoProps {
   photoURL: string
   author: string
 }
 
-export type ViewCounterProps = {
+export interface ViewCounterProps {
   slug: string
   className?: string
 }
 
-export type BlogHeaderProps = {
+export interface BlogHeaderProps {
   title: string
   date: string
   readingTime: ReadingTime
@@ -57,7 +57,7 @@ export type BlogHeaderProps = {
 
 export type CommentConfigType = typeof commentConfig
 
-export type BlogMetaProps = {
+export interface BlogMetaProps {
   date: string
   slug: string
   readingTime: ReadingTime
@@ -68,15 +68,15 @@ export interface CommentsProps {
   config: CommentConfigType
 }
 
-export type GiscusProps = {
+export interface GiscusProps {
   config: CommentConfigType['giscusConfig']
 }
 
-export type UtterancesProps = {
+export interface UtterancesProps {
   config: CommentConfigType['utterancesConfig']
 }
 
-export type DisqusProps = {
+export interface DisqusProps {
   identifier: string
   disqus: CommentConfigType['disqus']
 }

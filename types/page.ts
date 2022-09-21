@@ -7,7 +7,7 @@ export interface SnippetProps {
   commentConfig: CommentConfigType
 }
 
-export type BlogListProps = {
+export interface BlogListProps {
   posts: BlogFrontMatter[]
   initialDisplayPosts: BlogFrontMatter[]
   pagination: PaginationType
