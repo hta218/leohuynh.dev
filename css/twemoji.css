@@ -2,7 +2,8 @@
   display: inline-block;
   height: 1em;
   width: 1em;
-  margin: 0 0.05em 0 0.1em;
+  margin: 0 0.1em;
+  /* margin: 0 0.05em 0 0.1em; */
   vertical-align: -0.1em;
   background-repeat: no-repeat;
   background-position: center center;
@@ -11,35 +12,40 @@
 .twa-lg {
   height: 1.33em;
   width: 1.33em;
-  margin: 0 0.0665em 0 0.133em;
+  margin: 0 0.266em 0 0.133em;
+  /* margin: 0 0.0665em 0 0.133em; */
   vertical-align: -0.133em;
   background-size: 1.33em 1.33em;
 }
 .twa-2x {
   height: 2em;
   width: 2em;
-  margin: 0 0.1em 0 0.2em;
+  margin: 0 0 0.2em;
+  /* margin: 0 0.1em 0 0.2em; */
   vertical-align: -0.2em;
   background-size: 2em 2em;
 }
 .twa-3x {
   height: 3em;
   width: 3em;
-  margin: 0 0.15em 0 0.3em;
+  margin: 0 0 0.3em;
+  /* margin: 0 0.15em 0 0.3em; */
   vertical-align: -0.3em;
   background-size: 3em 3em;
 }
 .twa-4x {
   height: 4em;
   width: 4em;
-  margin: 0 0.2em 0 0.4em;
+  margin: 0 0.4em;
+  /* margin: 0 0.2em 0 0.4em; */
   vertical-align: -0.4em;
   background-size: 4em 4em;
 }
 .twa-5x {
   height: 5em;
   width: 5em;
-  margin: 0 0.25em 0 0.5em;
+  margin: 0 0.5em;
+  /* margin: 0 0.25em 0 0.5em; */
   vertical-align: -0.5em;
   background-size: 5em 5em;
 }
@@ -273,4 +279,7 @@
 }
 .twa-man-technologist {
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f468-200d-1f4bb.svg');
+}
+.twa-inbox-tray {
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f4e5.svg');
 }
