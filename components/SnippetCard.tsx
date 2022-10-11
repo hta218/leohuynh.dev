@@ -3,10 +3,10 @@ import { DevIcon } from './DevIcon'
 import { Link } from './Link'
 
 export function SnippetCard({ snippet }: { snippet: SnippetFrontMatter }) {
-  let { type, heading, summary, slug } = snippet
+  let { type, heading, summary, title, slug } = snippet
 
   return (
-    <Link href={`/snippets/${slug}`}>
+    <Link href={`/snippets/${slug}`} title={title}>
       <div className="flex rounded border dark:hover:border-gray-400 dark:border-gray-600 border-gray-300 hover:border-gray-500 cursor-pointer mb-4 lg:mb-0">
         <div className="p-3 lg:p-4">
           <DevIcon type={type} />
