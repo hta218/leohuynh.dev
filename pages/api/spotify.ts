@@ -14,7 +14,7 @@ export default async function fetchNowPlaying(_: NextApiRequest, res: NextApiRes
     title: data.item.name,
     artist: data.item.artists.map((art: { name: string }) => art.name).join(', '),
     album: data.item.album.name,
-    albumImageUrl: data.item.album.images[0].url,
+    albumImageUrl: data.item.album.images[0]?.url,
     songUrl: data.item.external_urls.spotify,
   }
 
