@@ -62,10 +62,10 @@ export function ProfileCard() {
         <Image
           src={'/static/images/logo.jpg'}
           alt="avatar"
-          width="550px"
-          height="350px"
+          width={550}
+          height={350}
           className="object-cover"
-          objectPosition="50% 16%"
+          style={{ objectPosition: '50% 16%', width: 340, height: 220 }}
         />
         <SpotifyNowPlaying {...nowPlayingData} />
         <ProfileCardInfo />

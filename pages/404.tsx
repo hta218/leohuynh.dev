@@ -5,7 +5,7 @@ export default function FourZeroFour() {
   return (
     <div className="flex flex-col items-center justify-center pt-4 md:pt-10 xl:pt-20">
       <div>
-        <Image src={'/static/images/404.png'} alt="404" width="500px" height="500px" />
+        <Image src={'/static/images/404.png'} alt="404" width={500} height={500} />
       </div>
       <div className="pt-8 md:pt-12 xl:pt-16 space-x-2 md:space-y-5">
         <div className="max-w-md text-center">
