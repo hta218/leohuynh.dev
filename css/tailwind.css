@@ -141,3 +141,23 @@ html.lightbox-loading * {
 .flag-vn i {
   background-position: 50% -200%;
 }
+
+.thumbnail-image img {
+  border-radius: 10px;
+}
+
+@media (min-width: 640px) {
+  .thumbnail-image {
+    margin: 0 -20px;
+  }
+}
+@media (min-width: 768px) {
+  .thumbnail-image {
+    margin: 0 -40px;
+  }
+}
+@media (min-width: 1024px) {
+  .thumbnail-image {
+    margin: 0 -100px;
+  }
+}
