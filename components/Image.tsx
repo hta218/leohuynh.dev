@@ -17,7 +17,11 @@ export function Image({ shouldOpenLightbox = true, ...rest }: ImageProps) {
     document.documentElement.classList.add('lightbox-loading')
     setOpenLightbox(true)
   }
-  let className = clsx(`flex justify-center`, shouldOpenLightbox && 'cursor-zoom-in')
+  let className = clsx(
+    `flex justify-center`,
+    shouldOpenLightbox && 'cursor-zoom-in',
+    rest.id === 'thumbnail-image' && 'thumbnail-image'
+  )
 
   return (
     <>
