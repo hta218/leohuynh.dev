@@ -4,6 +4,7 @@ import {
   BlogTags,
   Comments,
   PageTitle,
+  ScrollTopButton,
   SectionContainer,
   SocialButtons,
 } from '~/components'
@@ -22,6 +23,7 @@ export function PostSimple(props: PostSimpleLayoutProps) {
         authorDetails={authorDetails}
         {...frontMatter}
       />
+      <ScrollTopButton />
       <article>
         <div>
           <header className="py-6 xl:pb-16 xl:pt-16">
