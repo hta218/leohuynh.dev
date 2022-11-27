@@ -11,7 +11,8 @@ authors: ['default']
 import Twemoji from './Twemoji.tsx'
 import UnsplashPhotoInfo from './UnsplashPhotoInfo.tsx'
 
-<p class="thumbnail-image">![window](/static/images/window.jpg)</p>
+![thumbnail-media](/static/images/window.jpg)
+
 <UnsplashPhotoInfo photoURL="https://unsplash.com/photos/AWSHg2mK-Ho" author="Vinayak Sharma" />
 
 When will the scrollbar toggle? For example:
@@ -42,7 +43,7 @@ And of course, I don't recommend this solution <Twemoji emoji="grinning-face-wit
 ## Using view width
 
 A better solution is to add an invisible `margin-left` to the `html` element with the same width as the scrollbar.
-This `margin-left` will be visible when the scrollbar is added to the `Window` and  invisible when the scrollbar is removed from the `Window`.
+This `margin-left` will be visible when the scrollbar is added to the `Window` and invisible when the scrollbar is removed from the `Window`.
 
 But how to get the scrollbar's width <Twemoji emoji="thinking-face" />?
 
@@ -55,7 +56,7 @@ So, we can calculate the width of the scrollbar by subtracting the `100%` width 
 
 ```css
 html {
-	margin-left: calc(100vw - 100%);
+  margin-left: calc(100vw - 100%);
 }
 ```
 
@@ -69,7 +70,8 @@ you should also add the `margin-left` to the `fixed` element.
 For example:
 
 ```css
-html, .popup-overlay {
+html,
+.popup-overlay {
   margin-left: calc(100vw - 100%);
 }
 ```
