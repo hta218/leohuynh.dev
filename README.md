@@ -21,7 +21,7 @@ A huge thanks to [Timothy Lin](https://twitter.com/timlrxx) for the minimal, lig
 A few major over-engineering-changes from the original repo:
 
 - ⚛️ Upgrading to **React 18**, **NextJS 13**
-- 🎉 Adopting **Typescript**
+- 🎉 Adopting **Typescript**, committing with [Conventional Commits](https://www.conventionalcommits.org/)
 - 👀 Using Github Dark dimmed colors in dark mode for better contrast
 - 👨‍💻 Making a lot of changes to the UI, new homepage design, adding `ProfileCard`, `/snippets` page, etc.
 - 📥 Using the latest version of `mdx-bundler`, all `rehype`/`remark` plugins and dependencies are up-to-date
