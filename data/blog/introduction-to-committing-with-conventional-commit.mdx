@@ -104,6 +104,14 @@ husky - Git hooks installed
 
 and a new `.husky` folder should be created in the root of your project.
 
+<Twemoji emoji="light-bulb" /> I would highly recommend adding a `postinstall` script in the **package.json** file to automatically install husky hooks after installing dependencies:
+
+```json
+"scripts": {
+	"postinstall": "husky install"
+}
+```
+
 <Twemoji emoji="keycap-4" /> Add a `commit-msg` hook to lint commits:
 
 ```bash
