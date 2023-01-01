@@ -161,3 +161,8 @@ html.lightbox-loading * {
     margin: 0 -130px;
   }
 }
+@media (min-width: 1366px) {
+  .thumbnail-image {
+    margin: 0 -150px;
+  }
+}
