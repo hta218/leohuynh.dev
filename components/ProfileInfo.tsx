@@ -23,7 +23,17 @@ export function ProfileCardInfo() {
             />
           </svg>
 
-          <p className="px-2">Self-employed - building products</p>
+          <p className="px-2">
+            CTO / Co.Founder @{' '}
+            <a
+              target="_blank"
+              href="https://weaverse.io"
+              rel="noreferrer"
+              className="hover:underline"
+            >
+              Weaverse
+            </a>
+          </p>
         </div>
         <div className="flex items-center text-gray-700 dark:text-gray-200">
           <svg
