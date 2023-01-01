@@ -52,7 +52,7 @@ export function TypedBios() {
         </li>
         <li>I love watching football.</li>
         <li>
-          I love playing guitar <Twemoji emoji="guitar" />.
+          I love playing <Twemoji emoji="musical-keyboard" /> & <Twemoji emoji="guitar" />.
         </li>
         <li>I love rock music.</li>
         <li>
