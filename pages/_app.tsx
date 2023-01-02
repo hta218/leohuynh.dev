@@ -3,7 +3,8 @@ import 'css/twemoji.css'
 
 import { ThemeProvider } from 'next-themes'
 import Head from 'next/head'
-import { Analytics, LayoutWrapper } from '~/components'
+import { Analytics } from '~/components/analytics'
+import { LayoutWrapper } from '~/components/LayoutWrapper'
 
 export default function App({ Component, pageProps }) {
   return (

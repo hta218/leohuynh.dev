@@ -1,6 +1,7 @@
-import { PageTitle, Twemoji } from '~/components'
 import type { BlogHeaderProps } from '~/types'
-import { formatDate } from '~/utils'
+import { formatDate } from '~/utils/date'
+import { PageTitle } from '../PageTitle'
+import { Twemoji } from '../Twemoji'
 
 export function BlogHeader({ title, date, readingTime }: BlogHeaderProps) {
   let createdAt = formatDate(date)

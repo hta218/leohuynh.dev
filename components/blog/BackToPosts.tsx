@@ -1,4 +1,4 @@
-import { Link } from '~/components'
+import { Link } from '../Link'
 
 export function BackToPosts({ page }: { page: number }) {
   return (

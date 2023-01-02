@@ -1,4 +1,5 @@
-import { Link, Twemoji } from '~/components'
+import { Link } from '../Link'
+import { Twemoji } from '../Twemoji'
 
 export function BlogLinks() {
   return (

@@ -1,5 +1,6 @@
-import { Image, Link } from '~/components'
 import type { AuthorFrontMatter } from '~/types'
+import { Link } from '../Link'
+import { Image } from '../Image'
 
 export function AuthorDetails({ authorDetails }: { authorDetails: AuthorFrontMatter[] }) {
   return (

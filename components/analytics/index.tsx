@@ -1,4 +1,4 @@
-import { siteMetadata } from '~/data'
+import { siteMetadata } from '~/data/siteMetadata'
 import { GAScript } from './GoogleAnalytics'
 import { SimpleAnalyticsScript } from './SimpleAnalytics'
 import { UmamiScript } from './Umami'

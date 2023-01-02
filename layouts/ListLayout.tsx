@@ -1,5 +1,7 @@
 import { useState } from 'react'
-import { Pagination, PostListItem, PostsSearch } from '~/components'
+import { Pagination } from '~/components/Pagination'
+import { PostListItem } from '~/components/PostListItem'
+import { PostsSearch } from '~/components/PostsSearch'
 import type { ListLayoutProps } from '~/types'
 
 export function ListLayout(props: ListLayoutProps) {

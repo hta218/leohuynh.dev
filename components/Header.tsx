@@ -1,4 +1,4 @@
-import { headerNavLinks } from 'data'
+import { headerNavLinks } from 'data/headerNavLinks'
 import NextImage from 'next/image'
 import { Link } from './Link'
 import { ThemeSwitcher } from './ThemeSwitcher'

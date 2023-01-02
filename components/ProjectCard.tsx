@@ -26,17 +26,17 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 title
               )}
             </h2>
-            {!repoName ? null : (
+            {/* {!repoName ? null : (
               <div className="flex-shrink-0 mt-0.5">
                 <Image
                   alt={title}
-                  src={`https://img.shields.io/github/stars/hta218/${repoName}.svg?style=social&label=Stars&maxAge=2592000`}
+                  src={`https://img.shields.io/github/stars/hta218/${repoName}.svg?style=social&label=Stars`}
                   shouldOpenLightbox={false}
                   width={112}
                   height={28}
                 />
               </div>
-            )}
+            )} */}
           </div>
           <p className="mb-3 prose text-gray-500 max-w-none dark:text-gray-400">{description}</p>
           {href && (

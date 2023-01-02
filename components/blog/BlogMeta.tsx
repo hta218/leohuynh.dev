@@ -1,6 +1,7 @@
-import { ViewCounter, Twemoji } from '~/components'
 import type { BlogMetaProps } from '~/types'
-import { formatDate } from '~/utils'
+import { formatDate } from '~/utils/date'
+import { Twemoji } from '../Twemoji'
+import { ViewCounter } from '../ViewCounter'
 
 export function BlogMeta({ date, slug, readingTime }: BlogMetaProps) {
   return (

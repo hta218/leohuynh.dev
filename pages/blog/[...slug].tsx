@@ -1,7 +1,10 @@
 import fs from 'fs'
-import { MDXLayoutRenderer, PageTitle } from '~/components'
+import { MDXLayoutRenderer } from '~/components/MDXComponents'
+import { PageTitle } from '~/components/PageTitle'
 import { POSTS_PER_PAGE } from '~/constant'
-import { formatSlug, generateRss, getCommentConfigs, getFiles } from '~/libs'
+import { getCommentConfigs } from '~/libs/comment'
+import { formatSlug, getFiles } from '~/libs/files'
+import { generateRss } from '~/libs/generate-rss'
 import { getAllFilesFrontMatter, getFileBySlug } from '~/libs/mdx'
 import type { AuthorFrontMatter, BlogProps, MdxPageLayout } from '~/types'
 

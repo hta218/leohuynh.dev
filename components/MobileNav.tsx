@@ -1,4 +1,4 @@
-import { headerNavLinks } from '~/data'
+import { headerNavLinks } from '~/data/headerNavLinks'
 import { Link } from './Link'
 import clsx from 'clsx'
 

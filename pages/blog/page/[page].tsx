@@ -1,7 +1,7 @@
 import { PageSeo } from 'components/SEO'
 import ListLayout from 'layouts/ListLayout'
 import { POSTS_PER_PAGE } from '~/constant'
-import { siteMetadata } from '~/data'
+import { siteMetadata } from '~/data/siteMetadata'
 import { getAllFilesFrontMatter } from '~/libs/mdx'
 import type { BlogListProps } from '~/types'
 

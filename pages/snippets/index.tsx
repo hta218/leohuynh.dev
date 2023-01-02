@@ -1,6 +1,6 @@
 import { PageSeo } from 'components/SEO'
-import { siteMetadata } from '~/data'
-import { SnippetLayout } from '~/layouts'
+import { siteMetadata } from '~/data/siteMetadata'
+import { SnippetLayout } from '~/layouts/SnippetLayout'
 import { getAllFilesFrontMatter } from '~/libs/mdx'
 import type { SnippetFrontMatter } from '~/types'
 

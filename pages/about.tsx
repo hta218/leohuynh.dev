@@ -1,4 +1,4 @@
-import { MDXLayoutRenderer } from '~/components'
+import { MDXLayoutRenderer } from '~/components/MDXComponents'
 import { getFileBySlug } from '~/libs/mdx'
 import type { MdxFileData } from '~/types'
 

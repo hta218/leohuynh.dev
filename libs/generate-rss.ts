@@ -1,5 +1,5 @@
-import { escape } from '~/utils'
-import { siteMetadata } from '~/data'
+import { escape } from '~/utils/html-escaper'
+import { siteMetadata } from '~/data/siteMetadata'
 import type { BlogFrontMatter } from '~/types'
 
 function generateRssItem(post: BlogFrontMatter) {

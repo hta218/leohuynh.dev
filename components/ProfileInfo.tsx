@@ -1,5 +1,5 @@
-import { Twemoji } from '~/components'
-import { siteMetadata } from '~/data'
+import { Twemoji } from '~/components/Twemoji'
+import { siteMetadata } from '~/data/siteMetadata'
 
 export function ProfileCardInfo() {
   return (

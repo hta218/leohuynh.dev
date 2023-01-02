@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { siteMetadata } from '~/data'
+import { siteMetadata } from '~/data/siteMetadata'
 import type { AuthorSEO, BlogSeoProps, PageSeoProps } from '~/types'
 
 export function PageSeo({ title, description }: PageSeoProps) {

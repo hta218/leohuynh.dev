@@ -1,7 +1,8 @@
-import { BlogTags, Link } from '~/components'
 import { FEATURED_POSTS } from '~/constant'
 import type { BlogFrontMatter } from '~/types'
-import { formatDate } from '~/utils'
+import { formatDate } from '~/utils/date'
+import { BlogTags } from '../blog/BlogTags'
+import { Link } from '../Link'
 
 export function FeaturedPosts({ posts }: { posts: BlogFrontMatter[] }) {
   return (

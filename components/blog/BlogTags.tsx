@@ -1,4 +1,4 @@
-import { Tag } from '~/components'
+import { Tag } from '../Tag'
 
 export function BlogTags({ tags }: { tags: string[] }) {
   if (!tags || tags.length === 0) {

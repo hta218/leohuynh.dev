@@ -1,5 +1,5 @@
 import type readingTime from 'reading-time'
-import type { DevIconsMap } from '~/components'
+import type { DevIconsMap } from '~/components/DevIcon'
 
 export type MdxPageLayout =
   | 'AuthorLayout'

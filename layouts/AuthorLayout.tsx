@@ -1,6 +1,7 @@
 import React from 'react'
-import { PageSeo, ProfileCard } from '~/components'
-import { siteMetadata } from '~/data'
+import { ProfileCard } from '~/components/ProfileCard'
+import { PageSeo } from '~/components/SEO'
+import { siteMetadata } from '~/data/siteMetadata'
 import type { AuthorLayoutProps } from '~/types'
 
 export function AuthorLayout({ children }: AuthorLayoutProps) {

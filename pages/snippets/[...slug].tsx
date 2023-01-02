@@ -1,6 +1,7 @@
 import { MDXLayoutRenderer } from 'components/MDXComponents'
-import { PageTitle } from '~/components'
-import { formatSlug, getCommentConfigs, getFiles } from '~/libs'
+import { PageTitle } from '~/components/PageTitle'
+import { getCommentConfigs } from '~/libs/comment'
+import { formatSlug, getFiles } from '~/libs/files'
 import { getFileBySlug } from '~/libs/mdx'
 import type { MdxPageLayout, SnippetProps } from '~/types'
 

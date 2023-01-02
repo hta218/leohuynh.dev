@@ -1,8 +1,10 @@
-import { PageSeo, Link, Tag } from '~/components'
-import { siteMetadata } from '~/data'
-import { getAllTags } from '~/libs'
+import { Link } from '~/components/Link'
+import { PageSeo } from '~/components/SEO'
+import { Tag } from '~/components/Tag'
+import { siteMetadata } from '~/data/siteMetadata'
+import { getAllTags } from '~/libs/tags'
 import type { TagsCount } from '~/types'
-import { kebabCase } from '~/utils'
+import { kebabCase } from '~/utils/kebab-case'
 
 export function getStaticProps() {
   let tags = getAllTags('blog')

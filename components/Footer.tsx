@@ -1,4 +1,4 @@
-import { siteMetadata } from '~/data'
+import { siteMetadata } from '~/data/siteMetadata'
 import { Link } from './Link'
 import { SocialIcon } from './SocialIcon'
 

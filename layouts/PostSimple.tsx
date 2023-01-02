@@ -1,14 +1,12 @@
-import {
-  BlogMeta,
-  BlogSeo,
-  BlogTags,
-  Comments,
-  PageTitle,
-  ScrollTopButton,
-  SectionContainer,
-  SocialButtons,
-} from '~/components'
-import { siteMetadata } from '~/data'
+import { BlogMeta } from '~/components/blog/BlogMeta'
+import { BlogTags } from '~/components/blog/BlogTags'
+import { Comments } from '~/components/comments'
+import { PageTitle } from '~/components/PageTitle'
+import { ScrollTopButton } from '~/components/ScrollTopButton'
+import { SectionContainer } from '~/components/SectionContainer'
+import { BlogSeo } from '~/components/SEO'
+import { SocialButtons } from '~/components/SocialButtons'
+import { siteMetadata } from '~/data/siteMetadata'
 import type { PostSimpleLayoutProps } from '~/types'
 
 export function PostSimple(props: PostSimpleLayoutProps) {

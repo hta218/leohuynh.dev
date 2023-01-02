@@ -2,7 +2,7 @@ import fs from 'fs'
 import matter from 'gray-matter'
 import path from 'path'
 import type { MdxFrontMatter, TagsCount } from '~/types'
-import { kebabCase } from '~/utils'
+import { kebabCase } from '~/utils/kebab-case'
 import { getFiles } from './files'
 
 export function getAllTags(type: string): TagsCount {

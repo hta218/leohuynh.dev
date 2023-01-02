@@ -1,4 +1,4 @@
-import { siteMetadata } from '~/data'
+import { siteMetadata } from '~/data/siteMetadata'
 
 export function formatDate(date: string) {
   return new Date(date).toLocaleDateString(siteMetadata.locale, {

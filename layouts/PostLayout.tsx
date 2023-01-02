@@ -1,15 +1,13 @@
-import {
-  AuthorDetails,
-  BackToPosts,
-  BlogHeader,
-  BlogSeo,
-  BlogTags,
-  Comments,
-  ScrollTopButton,
-  SectionContainer,
-  SocialButtons,
-} from '~/components'
-import { siteMetadata } from '~/data'
+import { BackToPosts } from '~/components/blog/BackToPosts'
+import { AuthorDetails } from '~/components/blog/BlogAuthor'
+import { BlogHeader } from '~/components/blog/BlogHeader'
+import { BlogTags } from '~/components/blog/BlogTags'
+import { Comments } from '~/components/comments'
+import { ScrollTopButton } from '~/components/ScrollTopButton'
+import { SectionContainer } from '~/components/SectionContainer'
+import { BlogSeo } from '~/components/SEO'
+import { SocialButtons } from '~/components/SocialButtons'
+import { siteMetadata } from '~/data/siteMetadata'
 import type { PostLayoutProps } from '~/types'
 
 export function PostLayout(props: PostLayoutProps) {

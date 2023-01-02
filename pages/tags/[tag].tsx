@@ -1,12 +1,13 @@
 import { PageSeo } from 'components/SEO'
 import fs from 'fs'
 import path from 'path'
-import { siteMetadata } from '~/data'
-import { ListLayout } from '~/layouts'
-import { getAllTags, generateRss } from '~/libs'
+import { siteMetadata } from '~/data/siteMetadata'
+import { ListLayout } from '~/layouts/ListLayout'
+import { generateRss } from '~/libs/generate-rss'
 import { getAllFilesFrontMatter } from '~/libs/mdx'
+import { getAllTags } from '~/libs/tags'
 import type { BlogFrontMatter } from '~/types'
-import { kebabCase } from '~/utils'
+import { kebabCase } from '~/utils/kebab-case'
 
 export function getStaticPaths() {
   let tags = getAllTags('blog')
