@@ -34,8 +34,8 @@ export function TypedBios() {
           My first programming language I learned was <b className="font-medium">Pascal</b>.
         </li>
         <li>I love web development.</li>
-        <li>I'm focusing on building eCommerce softwares.</li>
-        <li>I work mostly with React/Node and pure JS.</li>
+        <li>I'm focusing on building eCommerce software.</li>
+        <li>I work mostly with JS/TS technologies.</li>
         <li>I'm Tu Le's husband.</li>
         <li>
           I'm a dog person <Twemoji emoji="dog" />.
@@ -55,6 +55,9 @@ export function TypedBios() {
           I love playing <Twemoji emoji="musical-keyboard" /> & <Twemoji emoji="guitar" />.
         </li>
         <li>I love rock music.</li>
+        <li>
+          I love playing chess <Twemoji emoji="chess-pawn" />.
+        </li>
         <li>
           I love playing video game <Twemoji emoji="video-game" />, PES is my favorite one.
         </li>

@@ -19,15 +19,15 @@ export function BlogLinks() {
       </Link>
       <Link href="/about" className="hover:underline">
         <Twemoji emoji="face-with-monocle" />
-        <span className="ml-2">More about me and this blog</span>
+        <span className="ml-2">More about me & this blog</span>
       </Link>
       <Link href="/resume" className="hover:underline">
         <Twemoji emoji="briefcase" />
-        <span className="ml-2">My career & experience</span>
+        <span className="ml-2">My career</span>
       </Link>
       <Link href={siteMetadata.analyticsURL} className="hover:underline">
         <Twemoji emoji="bar-chart" />
-        <span className="ml-2">Traffic & engagement of this blog</span>
+        <span className="ml-2">Traffic & engagement</span>
       </Link>
     </div>
   )
