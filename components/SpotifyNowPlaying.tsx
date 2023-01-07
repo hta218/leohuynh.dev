@@ -1,6 +1,11 @@
 import type { SpotifyNowPlayingData } from '~/types'
+import { fetcher } from '~/utils/fetcher'
+const { default: useSWR } = require('swr')
 
-export function SpotifyNowPlaying({ songUrl, title, artist }: SpotifyNowPlayingData) {
+export function SpotifyNowPlaying() {
+  let response = useSWR('/api/spotify', fetcher)
+  let { songUrl, title, artist } = (response.data as SpotifyNowPlayingData) || {}
+
   return (
     <div className="flex items-center px-3 xl:px-6 py-2 bg-gray-800">
       <svg

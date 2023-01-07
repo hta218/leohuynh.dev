@@ -1,15 +1,9 @@
 import Image from 'next/image'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { fetcher } from '~/utils/fetcher'
-import type { SpotifyNowPlayingData } from '~/types'
-import { SpotifyNowPlaying } from './SpotifyNowPlaying'
 import { ProfileCardInfo } from './ProfileInfo'
-const { default: useSWR } = require('swr')
+import { SpotifyNowPlaying } from './SpotifyNowPlaying'
 
 export function ProfileCard() {
-  let response = useSWR('/api/spotify', fetcher)
-  let nowPlayingData = response.data as SpotifyNowPlayingData
-
   let ref = useRef(null)
   let [style, setStyle] = useState<React.CSSProperties>({})
 
@@ -68,7 +62,7 @@ export function ProfileCard() {
           className="object-cover"
           style={{ objectPosition: '50% 16%', width: 340, height: 220 }}
         />
-        <SpotifyNowPlaying {...nowPlayingData} />
+        <SpotifyNowPlaying />
         <ProfileCardInfo />
         <span className="h-1.5 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"></span>
       </div>
