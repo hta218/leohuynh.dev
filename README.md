@@ -6,11 +6,12 @@ My personal over-engineering site on the cloud.
 
 > Sharing is learning!
 
-I believe noting down and sharing is the best way to learn! So I created this blog, where I keep things that I learned, find useful, and necessary to save for later (cause I always forget stuff and don't wanna googling the correct answer every time I need)
+I started this blog as a way to document and share the things I have learned and found useful in my journey as a software engineer.
 
-Beyond the technical stuff, there are personal thoughts about work and life from the perspective of a software engineer.
+Writing and noting things down is a great way for me to solidify my understanding of new concepts and technologies,
+and I hope that my blog can be a helpful resource for others who are interested in web development, eCommerce, and related technologies.
 
-It would be highly appreciated if I could read your comment on what I wrote.
+I would be highly appreciated if you could leave your comments and thoughts on what I have written 🍻
 
 ## Tech stack
 
