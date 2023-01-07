@@ -7,7 +7,7 @@ export function UmamiScript() {
       async
       defer
       data-website-id={siteMetadata.analytics.umamiWebsiteId}
-      src="https://blog-analytics-3lq49110l-hta218.vercel.app/umami.js"
+      src="https://analytics.leohuynh.dev/umami.js"
     />
   )
 }
