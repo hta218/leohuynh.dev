@@ -25,7 +25,10 @@ export function FeaturedPosts({ posts }: { posts: BlogFrontMatter[] }) {
                     <div className="space-y-6">
                       <div>
                         <h2 className="text-3xl font-bold mb-1 tracking-tight">
-                          <Link href={`/blog/${slug}`} className="text-gray-900 dark:text-gray-100">
+                          <Link
+                            href={`/blog/${slug}`}
+                            className="text-gray-900 dark:text-gray-100 umami--click--featured-title"
+                          >
                             {title}
                           </Link>
                         </h2>
@@ -38,7 +41,7 @@ export function FeaturedPosts({ posts }: { posts: BlogFrontMatter[] }) {
                     <div className="text-base font-medium leading-6">
                       <Link
                         href={`/blog/${slug}`}
-                        className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+                        className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 umami--click--featured-read-more"
                         aria-label={`Read "${title}"`}
                       >
                         Read more &rarr;
@@ -55,7 +58,7 @@ export function FeaturedPosts({ posts }: { posts: BlogFrontMatter[] }) {
         <div className="flex justify-end text-base font-medium leading-6">
           <Link
             href="/blog"
-            className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+            className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 umami--click--all-posts"
             aria-label="all posts"
           >
             All Posts &rarr;

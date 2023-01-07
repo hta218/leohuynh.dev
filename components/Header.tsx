@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import { headerNavLinks } from 'data/headerNavLinks'
 import NextImage from 'next/image'
 import { AnalyticsLink } from './AnalyticsLink'
@@ -25,20 +26,22 @@ export function Header({ onToggleNav }: { onToggleNav: () => void }) {
         </div>
         <div className="flex items-center text-base leading-5">
           <div className="hidden sm:block space-x-2">
-            {headerNavLinks.map((link) => (
-              <Link
-                key={link.title}
-                href={link.href}
-                className="rounded py-1 px-2 font-medium text-gray-900 sm:py-2 sm:px-3 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700"
-              >
-                {link.title}
-              </Link>
-            ))}
+            {headerNavLinks.map((link) => {
+              let className = clsx(
+                'rounded py-1 px-2 font-medium text-gray-900 sm:py-2 sm:px-3 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700',
+                `umami--click--nav-${link.href.replace('/', '')}`
+              )
+              return (
+                <Link key={link.title} href={link.href} className={className}>
+                  {link.title}
+                </Link>
+              )
+            })}
           </div>
           <AnalyticsLink />
           <ThemeSwitcher />
           <button
-            className="w-8 h-8 ml-2 mr-1 rounded sm:hidden"
+            className="w-8 h-8 ml-2 mr-1 rounded sm:hidden umami--click--mobile-nav-toggle"
             type="button"
             aria-label="Toggle Menu"
             onClick={onToggleNav}

@@ -103,7 +103,7 @@ export function ProfileCardInfo() {
               target="_blank"
               href={siteMetadata.github}
               rel="noreferrer"
-              className="hover:underline"
+              className="hover:underline umami--click--profile-card-github"
             >
               gh/{siteMetadata.socialAccounts.github}
             </a>
@@ -112,7 +112,7 @@ export function ProfileCardInfo() {
               target="_blank"
               href={siteMetadata.linkedin}
               rel="noreferrer"
-              className="hover:underline"
+              className="hover:underline umami--click--profile-card-linkedin"
             >
               in/{siteMetadata.socialAccounts.linkedin}
             </a>
@@ -121,7 +121,7 @@ export function ProfileCardInfo() {
               target="_blank"
               href={siteMetadata.twitter}
               rel="noreferrer"
-              className="hover:underline"
+              className="hover:underline umami--click--profile-card-twitter"
             >
               tw/{siteMetadata.socialAccounts.twitter}
             </a>

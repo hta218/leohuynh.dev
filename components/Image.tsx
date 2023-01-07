@@ -20,7 +20,7 @@ export function Image({ shouldOpenLightbox = true, ...rest }: ImageProps) {
   let className = clsx(
     `flex justify-center`,
     shouldOpenLightbox && 'cursor-zoom-in',
-    rest.id === 'thumbnail-image' && 'thumbnail-image'
+    rest.id === 'thumbnail-image' && 'thumbnail-image umami--click--view-post-thumbnail'
   )
 
   return (
