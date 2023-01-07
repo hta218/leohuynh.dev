@@ -6,7 +6,7 @@ import { siteMetadata } from '~/data/siteMetadata'
 export default function Projects() {
   let workProjects = projectsData.filter(({ type }) => type === 'work')
   let sideProjects = projectsData.filter(({ type }) => type === 'self')
-  let description = 'My open source side projects and stuff that I built with my colleagues at work'
+  let description = 'My open-source side projects and stuff that I built with my colleagues at work'
 
   return (
     <>

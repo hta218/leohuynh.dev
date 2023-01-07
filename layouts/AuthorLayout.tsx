@@ -5,8 +5,8 @@ import { siteMetadata } from '~/data/siteMetadata'
 import type { AuthorLayoutProps } from '~/types'
 
 export function AuthorLayout({ children }: AuthorLayoutProps) {
-  let title = 'About me'
-  let description = 'More about me and myself'
+  let title = 'About'
+  let description = 'More about me and this blog'
 
   return (
     <>
@@ -23,7 +23,7 @@ export function AuthorLayout({ children }: AuthorLayoutProps) {
         </div>
         <div className="items-start space-y-2 xl:grid xl:grid-cols-3 xl:space-y-0 pt-8">
           <ProfileCard />
-          <div className="pb-8 xl:pl-8 prose prose-lg dark:prose-dark max-w-none xl:col-span-2">
+          <div className="pb-8 xl:pl-10 prose prose-lg dark:prose-dark max-w-none xl:col-span-2">
             {children}
           </div>
         </div>
