@@ -98,7 +98,7 @@ export function ProfileCardInfo() {
               d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
             />
           </svg>
-          <p className="px-2">
+          <p className="px-2 flex space-x-1.5">
             <a
               target="_blank"
               href={siteMetadata.github}
@@ -107,7 +107,16 @@ export function ProfileCardInfo() {
             >
               gh/{siteMetadata.socialAccounts.github}
             </a>
-            ,{' '}
+            <span>|</span>
+            <a
+              target="_blank"
+              href={siteMetadata.linkedin}
+              rel="noreferrer"
+              className="hover:underline"
+            >
+              in/{siteMetadata.socialAccounts.linkedin}
+            </a>
+            <span>|</span>
             <a
               target="_blank"
               href={siteMetadata.twitter}

@@ -29,6 +29,7 @@ export let siteMetadata = {
   socialAccounts: {
     github: 'hta218',
     twitter: 'hta218_',
+    linkedin: 'hta218',
   },
 }
 
