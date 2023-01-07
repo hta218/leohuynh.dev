@@ -7,8 +7,7 @@ export function UmamiScript() {
       async
       defer
       data-website-id={siteMetadata.analytics.umamiWebsiteId}
-      // Replace with umami instance
-      src="https://umami.example.com/umami.js"
+      src="https://blog-analytics-3lq49110l-hta218.vercel.app/umami.js"
     />
   )
 }
