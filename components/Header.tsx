@@ -1,5 +1,6 @@
 import { headerNavLinks } from 'data/headerNavLinks'
 import NextImage from 'next/image'
+import { AnalyticsLink } from './AnalyticsLink'
 import { Link } from './Link'
 import { ThemeSwitcher } from './ThemeSwitcher'
 
@@ -34,6 +35,7 @@ export function Header({ onToggleNav }: { onToggleNav: () => void }) {
               </Link>
             ))}
           </div>
+          <AnalyticsLink />
           <ThemeSwitcher />
           <button
             className="w-8 h-8 ml-2 mr-1 rounded sm:hidden"
