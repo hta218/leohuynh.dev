@@ -9,7 +9,7 @@ export function Header({ onToggleNav }: { onToggleNav: () => void }) {
     <header className="overflow-x-hidden backdrop-blur supports-backdrop-blur:bg-white/95 py-3 sticky top-0 z-40 bg-white/75 dark:bg-dark/75">
       <div className="mx-auto max-w-3xl xl:max-w-5xl flex items-center justify-between px-3 xl:px-0">
         <div>
-          <Link href="/" aria-label="Leo's Blog">
+          <Link href="/" aria-label="Leo's Blog" className="umami--click--logo">
             <div className="flex items-center justify-between">
               <div className="mr-3 flex justify-center items-center">
                 <NextImage

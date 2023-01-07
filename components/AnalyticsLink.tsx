@@ -5,7 +5,7 @@ export function AnalyticsLink() {
     <button
       aria-label="Open analytics"
       type="button"
-      className="p-2 ml-1 rounded sm:ml-2 hover:bg-gray-200 dark:hover:bg-gray-700"
+      className="p-2 ml-1 rounded sm:ml-2 hover:bg-gray-200 dark:hover:bg-gray-700 umami--click--header-analytics-button"
       onClick={() => window.open(siteMetadata.analyticsURL, '_blank')}
     >
       <svg
