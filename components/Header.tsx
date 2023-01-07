@@ -28,8 +28,8 @@ export function Header({ onToggleNav }: { onToggleNav: () => void }) {
           <div className="hidden sm:block space-x-2">
             {headerNavLinks.map((link) => {
               let className = clsx(
-                'rounded py-1 px-2 font-medium text-gray-900 sm:py-2 sm:px-3 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700',
-                `umami--click--nav-${link.href.replace('/', '')}`
+                'rounded py-1 px-2 font-medium text-gray-900 sm:py-2 sm:px-3 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700'
+                // `umami--click--nav-${link.href.replace('/', '')}`
               )
               return (
                 <Link key={link.title} href={link.href} className={className}>
