@@ -107,7 +107,7 @@ export function ProfileCardInfo() {
             >
               gh/{siteMetadata.socialAccounts.github}
             </a>
-            <span>|</span>
+            <span className="text-gray-400 dark:text-gray-500">|</span>
             <a
               target="_blank"
               href={siteMetadata.linkedin}
@@ -116,7 +116,7 @@ export function ProfileCardInfo() {
             >
               in/{siteMetadata.socialAccounts.linkedin}
             </a>
-            <span>|</span>
+            <span className="text-gray-400 dark:text-gray-500">|</span>
             <a
               target="_blank"
               href={siteMetadata.twitter}
