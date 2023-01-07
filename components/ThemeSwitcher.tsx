@@ -13,14 +13,14 @@ export function ThemeSwitcher() {
     <button
       aria-label="Toggle Dark Mode"
       type="button"
-      className="w-8 h-8 p-1 ml-1 rounded sm:ml-2 hover:bg-gray-200 dark:hover:bg-gray-700"
+      className="p-1.5 ml-1 rounded sm:ml-2 hover:bg-gray-200 dark:hover:bg-gray-700"
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 20 20"
         fill="currentColor"
-        className="text-gray-900 dark:text-gray-100"
+        className="text-gray-900 dark:text-gray-100 w-6 h-6"
       >
         {mounted && isDark ? (
           <path
