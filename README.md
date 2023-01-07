@@ -22,9 +22,10 @@ A few major over-engineering-changes from the original repo:
 
 - ⚛️ Upgrading to **React 18**, **NextJS 13**
 - 🎉 Adopting **Typescript**, committing with [Conventional Commits](https://www.conventionalcommits.org/)
-- 👀 Using Github Dark dimmed colors in dark mode for better contrast
-- 👨‍💻 Making a lot of changes to the UI, new homepage design, adding `ProfileCard`, `/snippets` page, etc.
-- 📥 Using the latest version of `mdx-bundler`, all `rehype`/`remark` plugins and dependencies are up-to-date
+- 📊 Monitoring site with [Umami](https://umami.is/) website analytics
+- 👀 Theming in dark mode with [Github dark dimmed](https://github.blog/changelog/2021-04-14-dark-and-dimmed-themes-are-now-generally-available/) colors for better contrast
+- 👨‍💻 Making a lot of changes to the UI, new homepage design, adding `ProfileCard`, `CareerTimeline` components, adding `/snippets`, `/resume` page, etc.
+- 📥 Bumping up `mdx-bundler`, `rehype`/`remark` plugins and dependencies to the latest version
 
 _This blog have a legacy version built with **Gatsby** which can be found [here](https://leo-blog-legacy.vercel.app/)_.
 
