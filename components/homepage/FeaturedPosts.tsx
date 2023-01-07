@@ -25,11 +25,8 @@ export function FeaturedPosts({ posts }: { posts: BlogFrontMatter[] }) {
                     <div className="space-y-6">
                       <div>
                         <h2 className="text-3xl font-bold mb-1 tracking-tight">
-                          <Link
-                            href={`/blog/${slug}`}
-                            className="text-gray-900 dark:text-gray-100 umami--click--featured-title"
-                          >
-                            {title}
+                          <Link href={`/blog/${slug}`} className="text-gray-900 dark:text-gray-100">
+                            <span className="umami--click--featured-title">{title}</span>
                           </Link>
                         </h2>
                         <BlogTags tags={tags} />
@@ -41,10 +38,10 @@ export function FeaturedPosts({ posts }: { posts: BlogFrontMatter[] }) {
                     <div className="text-base font-medium leading-6">
                       <Link
                         href={`/blog/${slug}`}
-                        className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 umami--click--featured-read-more"
+                        className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
                         aria-label={`Read "${title}"`}
                       >
-                        Read more &rarr;
+                        <span className="umami--click--featured-read-more">Read more &rarr;</span>
                       </Link>
                     </div>
                   </div>
@@ -58,10 +55,10 @@ export function FeaturedPosts({ posts }: { posts: BlogFrontMatter[] }) {
         <div className="flex justify-end text-base font-medium leading-6">
           <Link
             href="/blog"
-            className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 umami--click--all-posts"
+            className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
             aria-label="all posts"
           >
-            All Posts &rarr;
+            <span className="umami--click--all-posts">All Posts &rarr;</span>
           </Link>
         </div>
       )}
