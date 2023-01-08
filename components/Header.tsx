@@ -1,11 +1,13 @@
 import clsx from 'clsx'
 import { headerNavLinks } from 'data/headerNavLinks'
 import NextImage from 'next/image'
+import { useRouter } from 'next/router'
 import { AnalyticsLink } from './AnalyticsLink'
 import { Link } from './Link'
 import { ThemeSwitcher } from './ThemeSwitcher'
 
 export function Header({ onToggleNav }: { onToggleNav: () => void }) {
+  let router = useRouter()
   return (
     <header className="supports-backdrop-blur:bg-white/95 sticky top-0 z-40 overflow-x-hidden bg-white/75 py-3 backdrop-blur dark:bg-dark/75">
       <div className="mx-auto flex max-w-3xl items-center justify-between px-3 xl:max-w-5xl xl:px-0">
@@ -28,15 +30,14 @@ export function Header({ onToggleNav }: { onToggleNav: () => void }) {
           <div className="hidden space-x-2 sm:block">
             {headerNavLinks.map((link) => {
               let className = clsx(
-                'inline-block py-1 px-2 sm:py-2 sm:px-3',
+                'inline-block rounded font-medium text-gray-900 dark:text-gray-100 py-1 px-2 sm:py-2 sm:px-3',
+                router.pathname === link.href
+                  ? 'bg-gray-200 dark:bg-gray-700'
+                  : 'hover:bg-gray-200 dark:hover:bg-gray-700',
                 `umami--click--nav-${link.href.replace('/', '')}`
               )
               return (
-                <Link
-                  key={link.title}
-                  href={link.href}
-                  className="inline-block rounded font-medium text-gray-900 hover:bg-gray-200 dark:text-gray-100 dark:hover:bg-gray-700"
-                >
+                <Link key={link.title} href={link.href}>
                   <span className={className}>{link.title}</span>
                 </Link>
               )
