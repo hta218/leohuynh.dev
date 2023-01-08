@@ -6,7 +6,7 @@
     "build": "next build && tsx ./scripts/generate-sitemap",
     "serve": "PORT=3435 next start",
     "analyze": "cross-env ANALYZE=true next build",
-    "lint": "next lint --fix --dir pages --dir components --dir lib --dir layouts --dir scripts",
+    "lint": "next lint --fix --dir pages --dir components --dir lib --dir layouts --dir scripts --dir pages",
     "prepare": "husky install",
     "typecheck": "npx tsc -b",
     "upgrade": "rimraf package-lock.json && npx taze major -w && ni"
