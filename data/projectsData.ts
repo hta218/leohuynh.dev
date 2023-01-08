@@ -14,7 +14,7 @@ export let projectsData: Project[] = [
     title: 'Fox Kit',
     description: `The upsells and boost conversion tools that is built to support Minimog theme.`,
     imgSrc: '/static/images/foxkit.jpg',
-    url: 'https://apps.shopify.com/foxecom-boost-sales',
+    url: 'https://apps.shopify.com/foxkit',
     builtWith: ['Koa.js', 'JWT', 'MongoDB', 'Polaris'],
   },
   {
