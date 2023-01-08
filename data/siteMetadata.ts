@@ -16,11 +16,10 @@ export let siteMetadata = {
   github: 'https://github.com/hta218',
   twitter: 'https://twitter.com/hta218_',
   facebook: 'https://facebook.com/hta218',
-  youtube: 'https://www.youtube.com/channel/UCHXjj6ewfDIjx_Op3hqijlg',
+  youtube: 'https://www.youtube.com/@hta218_',
   linkedin: 'https://www.linkedin.com/in/hta218/',
   locale: 'en-US',
   analyticsURL: 'https://analytics.leohuynh.dev/share/AwnJYH6n/leohuynh.dev',
-  /** Choose one of these Analytics providers */
   analytics: {
     plausibleDataDomain: '', // e.g. tailwind-nextjs-starter-blog.vercel.app
     simpleAnalytics: false, // true or false

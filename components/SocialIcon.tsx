@@ -7,7 +7,6 @@ import Mail from '~/icons/mail.svg'
 import Twitter from '~/icons/twitter.svg'
 import Youtube from '~/icons/youtube.svg'
 
-// Icons from: https://simpleicons.org/
 export let SocialIconsMap = {
   Mail,
   Github,
