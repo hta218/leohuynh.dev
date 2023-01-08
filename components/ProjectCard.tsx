@@ -26,7 +26,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
             <h2 className="text-2xl font-bold leading-8 tracking-tight">
               {href ? (
                 <Link href={href} aria-label={`Link to ${title}`}>
-                  {title}
+                  <span className="umami--click--project-title-link">{title}</span>
                 </Link>
               ) : (
                 title
