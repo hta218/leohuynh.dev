@@ -9,7 +9,7 @@ module.exports = withBundleAnalyzer({
     dirs: ['components', 'constant', 'layouts', 'libs', 'pages', 'scripts', 'utils'],
   },
   images: {
-    domains: ['img.shields.io', 'i.scdn.co'],
+    domains: ['i.scdn.co'],
   },
   typescript: { tsconfigPath: './tsconfig.json' },
   webpack: (config, { dev, isServer }) => {
