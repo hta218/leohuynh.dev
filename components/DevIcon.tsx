@@ -7,6 +7,9 @@ import Bash from '~/icons/bash.svg'
 import Liquid from '~/icons/liquid.svg'
 import Markdown from '~/icons/markdown.svg'
 import NextJS from '~/icons/nextjs.svg'
+import TailwindCSS from '~/icons/tailwind.svg'
+import Prisma from '~/icons/prisma.svg'
+import Umami from '~/icons/umami.svg'
 
 export let DevIconsMap = {
   React,
@@ -18,6 +21,9 @@ export let DevIconsMap = {
   Liquid,
   Markdown,
   NextJS,
+  TailwindCSS,
+  Prisma,
+  Umami,
 }
 
 export function DevIcon(props: { type: keyof typeof DevIconsMap; className?: string }) {
