@@ -5,7 +5,7 @@ import { ViewCounter } from '../ViewCounter'
 
 export function BlogMeta({ date, slug, readingTime }: BlogMetaProps) {
   return (
-    <dd className="flex flex-wrap text-sm md:text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
+    <dd className="flex flex-wrap text-sm font-medium leading-6 text-gray-500 dark:text-gray-400 md:text-base">
       <time dateTime={date} className="flex items-center justify-center">
         <Twemoji emoji="calendar" size="" />
         <span className="ml-1.5 md:ml-2">{formatDate(date)}</span>

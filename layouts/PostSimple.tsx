@@ -37,8 +37,8 @@ export function PostSimple(props: PostSimpleLayoutProps) {
             </div>
           </header>
           <div className="pb-8" style={{ gridTemplateRows: 'auto 1fr' }}>
-            <div className="xl:pb-0 xl:col-span-3 xl:row-span-2">
-              <div className="pb-8 prose prose-lg md:prose-xl dark:prose-dark max-w-none">
+            <div className="xl:col-span-3 xl:row-span-2 xl:pb-0">
+              <div className="prose prose-lg max-w-none pb-8 dark:prose-dark md:prose-xl">
                 {children}
               </div>
               <div className="border-t border-gray-200 dark:border-gray-700">

@@ -7,7 +7,7 @@ export function PostListItem({ frontMatter }: { frontMatter: MdxFrontMatter }) {
   let { slug, date, title, summary, tags } = frontMatter
   return (
     <li key={slug}>
-      <article className="space-y-2 xl:grid xl:grid-cols-4 xl:space-y-0 xl:items-baseline">
+      <article className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
         <dl>
           <dt className="sr-only">Published on</dt>
           <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
@@ -21,13 +21,13 @@ export function PostListItem({ frontMatter }: { frontMatter: MdxFrontMatter }) {
                 <span className="umami--click--blog-title">{title}</span>
               </Link>
             </h3>
-            <div className="flex flex-wrap mt-1">
+            <div className="mt-1 flex flex-wrap">
               {tags.map((tag) => (
                 <Tag key={tag} text={tag} />
               ))}
             </div>
           </div>
-          <div className="prose text-gray-500 max-w-none dark:text-gray-400">{summary}</div>
+          <div className="prose max-w-none text-gray-500 dark:text-gray-400">{summary}</div>
         </div>
       </article>
     </li>

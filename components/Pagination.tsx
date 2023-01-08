@@ -6,11 +6,11 @@ export function Pagination({ totalPages, currentPage }: PaginationType) {
   let hasNextPage = currentPage + 1 <= totalPages
 
   return (
-    <div className="pt-6 pb-8 space-y-2 md:space-y-5">
+    <div className="space-y-2 pt-6 pb-8 md:space-y-5">
       <nav className="flex justify-between">
         {!hasPrevPage && (
           <button
-            className="cursor-auto disabled:opacity-50 umami--click--prev-posts"
+            className="umami--click--prev-posts cursor-auto disabled:opacity-50"
             disabled={!hasPrevPage}
           >
             Previous
@@ -26,7 +26,7 @@ export function Pagination({ totalPages, currentPage }: PaginationType) {
         </span>
         {!hasNextPage && (
           <button
-            className="cursor-auto disabled:opacity-50 umami--click--next-posts"
+            className="umami--click--next-posts cursor-auto disabled:opacity-50"
             disabled={!hasNextPage}
           >
             Next

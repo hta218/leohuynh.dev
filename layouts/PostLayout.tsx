@@ -23,11 +23,11 @@ export function PostLayout(props: PostLayoutProps) {
         <div>
           <BlogHeader title={title} date={date} readingTime={readingTime} />
           <div
-            className="pb-8 divide-y divide-gray-200 dark:divide-gray-700 xl:divide-y-0 xl:grid xl:grid-cols-4 xl:gap-x-6"
+            className="divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0"
             style={{ gridTemplateRows: 'auto 1fr' }}
           >
             <div>
-              <div className="hidden xl:block py-4 xl:py-8 border-b border-gray-200 dark:border-gray-700">
+              <div className="hidden border-b border-gray-200 py-4 dark:border-gray-700 xl:block xl:py-8">
                 <BackToPosts page={page} />
               </div>
               <dl className="pt-6 pb-10 xl:pt-11">
@@ -37,8 +37,8 @@ export function PostLayout(props: PostLayoutProps) {
                 </dd>
               </dl>
             </div>
-            <div className="!border-t-0 divide-y divide-gray-200 dark:divide-gray-700 xl:pb-0 xl:col-span-3 xl:row-span-2">
-              <div className="pt-10 pb-8 prose prose-lg dark:prose-dark max-w-none">{children}</div>
+            <div className="divide-y divide-gray-200 !border-t-0 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0">
+              <div className="prose prose-lg max-w-none pt-10 pb-8 dark:prose-dark">{children}</div>
               <SocialButtons postUrl={postUrl} title={title} fileName={fileName} />
               <Comments frontMatter={frontMatter} config={commentConfig} />
             </div>

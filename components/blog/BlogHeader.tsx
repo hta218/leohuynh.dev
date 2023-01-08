@@ -9,12 +9,12 @@ export function BlogHeader({ title, date, readingTime }: BlogHeaderProps) {
 
   return (
     <header className="pt-6 xl:py-16">
-      <div className="space-y-4 md:space-y-2 text-center">
+      <div className="space-y-4 text-center md:space-y-2">
         <PageTitle>{title}</PageTitle>
         <dl className="space-y-10">
           <div>
             <dt className="sr-only">Published on</dt>
-            <dd className="flex justify-center items-center text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
+            <dd className="flex items-center justify-center text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
               <time dateTime={date} className="flex items-center">
                 <Twemoji emoji="calendar" size="" />
                 <span className="ml-1.5">{createdAt}</span>

@@ -7,12 +7,12 @@ import { ThemeSwitcher } from './ThemeSwitcher'
 
 export function Header({ onToggleNav }: { onToggleNav: () => void }) {
   return (
-    <header className="overflow-x-hidden backdrop-blur supports-backdrop-blur:bg-white/95 py-3 sticky top-0 z-40 bg-white/75 dark:bg-dark/75">
-      <div className="mx-auto max-w-3xl xl:max-w-5xl flex items-center justify-between px-3 xl:px-0">
+    <header className="supports-backdrop-blur:bg-white/95 sticky top-0 z-40 overflow-x-hidden bg-white/75 py-3 backdrop-blur dark:bg-dark/75">
+      <div className="mx-auto flex max-w-3xl items-center justify-between px-3 xl:max-w-5xl xl:px-0">
         <div>
           <Link href="/" aria-label="Leo's Blog">
-            <div className="flex items-center justify-between umami--click--logo">
-              <div className="mr-3 flex justify-center items-center">
+            <div className="umami--click--logo flex items-center justify-between">
+              <div className="mr-3 flex items-center justify-center">
                 <NextImage
                   src="/static/images/logo.jpg"
                   alt="Leo's Blog logo"
@@ -25,7 +25,7 @@ export function Header({ onToggleNav }: { onToggleNav: () => void }) {
           </Link>
         </div>
         <div className="flex items-center text-base leading-5">
-          <div className="hidden sm:block space-x-2">
+          <div className="hidden space-x-2 sm:block">
             {headerNavLinks.map((link) => {
               let className = clsx(
                 'inline-block py-1 px-2 sm:py-2 sm:px-3',
@@ -35,7 +35,7 @@ export function Header({ onToggleNav }: { onToggleNav: () => void }) {
                 <Link
                   key={link.title}
                   href={link.href}
-                  className="rounded inline-block font-medium text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700"
+                  className="inline-block rounded font-medium text-gray-900 hover:bg-gray-200 dark:text-gray-100 dark:hover:bg-gray-700"
                 >
                   <span className={className}>{link.title}</span>
                 </Link>
@@ -45,7 +45,7 @@ export function Header({ onToggleNav }: { onToggleNav: () => void }) {
           <AnalyticsLink />
           <ThemeSwitcher />
           <button
-            className="w-8 h-8 ml-2 mr-1 rounded sm:hidden umami--click--mobile-nav-toggle"
+            className="umami--click--mobile-nav-toggle ml-2 mr-1 h-8 w-8 rounded sm:hidden"
             type="button"
             aria-label="Toggle Menu"
             onClick={onToggleNav}

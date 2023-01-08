@@ -4,7 +4,7 @@ export function Greeting() {
 
   return (
     <div
-      className={`mb-8 text-4xl leading-[60px] font-extrabold tracking-tight text-transparent bg-clip-text ${headingColorClass} md:text-7xl md:leading-[86px]`}
+      className={`mb-8 bg-clip-text text-4xl font-extrabold leading-[60px] tracking-tight text-transparent ${headingColorClass} md:text-7xl md:leading-[86px]`}
     >
       Howdy, fellow! <i className="twa twa-waving-hand"></i>
     </div>

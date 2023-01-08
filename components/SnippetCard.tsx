@@ -7,15 +7,15 @@ export function SnippetCard({ snippet }: { snippet: SnippetFrontMatter }) {
 
   return (
     <Link href={`/snippets/${slug}`} title={title}>
-      <div className="flex rounded border dark:hover:border-gray-400 dark:border-gray-600 border-gray-300 hover:border-gray-500 cursor-pointer mb-4 lg:mb-0 umami--click--view-snippet">
+      <div className="umami--click--view-snippet mb-4 flex cursor-pointer rounded border border-gray-300 hover:border-gray-500 dark:border-gray-600 dark:hover:border-gray-400 lg:mb-0">
         <div className="p-3 lg:p-4">
           <DevIcon type={type} />
         </div>
-        <div className="p-3 lg:p-4 md:p-4 overflow-hidden">
-          <h3 className="text-lg lg:text-2xl font-bold leading-8 tracking-tight whitespace-nowrap overflow-hidden overflow-ellipsis">
+        <div className="overflow-hidden p-3 md:p-4 lg:p-4">
+          <h3 className="overflow-hidden overflow-ellipsis whitespace-nowrap text-lg font-bold leading-8 tracking-tight lg:text-2xl">
             {heading}
           </h3>
-          <p className="text-md lg:text-base mt-2 text-gray-700 dark:text-gray-400">{summary}</p>
+          <p className="text-md mt-2 text-gray-700 dark:text-gray-400 lg:text-base">{summary}</p>
         </div>
       </div>
     </Link>

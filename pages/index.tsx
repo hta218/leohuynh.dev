@@ -20,9 +20,9 @@ export default function Home({ posts }: { posts: BlogFrontMatter[] }) {
   return (
     <>
       <PageSeo title={siteMetadata.title} description={siteMetadata.description} />
-      <div className="divide-y divide-gray-200 dark:divide-gray-700 mt-8 md:mt-16">
-        <div className="md:my-4 md:pt-6 md:pb-8 space-y-2 md:space-y-5 xl:grid xl:grid-cols-3">
-          <div className="xl:col-span-2 md:pr-8">
+      <div className="mt-8 divide-y divide-gray-200 dark:divide-gray-700 md:mt-16">
+        <div className="space-y-2 md:my-4 md:space-y-5 md:pt-6 md:pb-8 xl:grid xl:grid-cols-3">
+          <div className="md:pr-8 xl:col-span-2">
             <Greeting />
             <div className="text-lg leading-8 text-gray-600 dark:text-gray-400">
               <Heading />

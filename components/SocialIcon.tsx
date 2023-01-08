@@ -29,7 +29,7 @@ export function SocialIcon({ name, href }: SocialIconProps) {
     <a className="text-sm text-gray-500 transition hover:text-gray-600" {...attrs}>
       <span className="sr-only">{name}</span>
       <SocialSvg
-        className={`h-6 w-6 fill-current text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400`}
+        className={`h-6 w-6 fill-current text-gray-700 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400`}
       />
     </a>
   )

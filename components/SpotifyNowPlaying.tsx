@@ -7,9 +7,9 @@ export function SpotifyNowPlaying() {
   let { songUrl, title, artist } = (response.data as SpotifyNowPlayingData) || {}
 
   return (
-    <div className="flex items-center px-3 xl:px-6 py-2 bg-gray-800">
+    <div className="flex items-center bg-gray-800 px-3 py-2 xl:px-6">
       <svg
-        className="w-5.5 h-5.5 flex-shrink-0 text-spotify"
+        className="h-5.5 w-5.5 flex-shrink-0 text-spotify"
         role="img"
         viewBox="0 0 24 24"
         xmlns="http://www.w3.org/2000/svg"
@@ -22,14 +22,14 @@ export function SpotifyNowPlaying() {
       <div className="ml-2 inline-flex truncate">
         {songUrl ? (
           <>
-            <div className="h-5 flex items-end mr-2 pt-1 pb-0.5">
-              <div className="bg-spotify w-0.5 h-full animate-music-bar-1"></div>
-              <div className="bg-spotify mx-0.5 w-0.5 h-1/2 animate-music-bar-2"></div>
-              <div className="bg-spotify w-0.5 h-full animate-music-bar-3"></div>
-              <div className="bg-spotify mx-0.5 w-0.5 h-1/2 animate-music-bar-4"></div>
+            <div className="mr-2 flex h-5 items-end pt-1 pb-0.5">
+              <div className="h-full w-0.5 animate-music-bar-1 bg-spotify"></div>
+              <div className="mx-0.5 h-1/2 w-0.5 animate-music-bar-2 bg-spotify"></div>
+              <div className="h-full w-0.5 animate-music-bar-3 bg-spotify"></div>
+              <div className="mx-0.5 h-1/2 w-0.5 animate-music-bar-4 bg-spotify"></div>
             </div>
             <a
-              className="text-gray-200 font-medium"
+              className="font-medium text-gray-200"
               href={songUrl}
               target="_blank"
               rel="noopener noreferrer"
@@ -39,10 +39,10 @@ export function SpotifyNowPlaying() {
             </a>
           </>
         ) : (
-          <p className="text-gray-200 font-medium">Not Playing</p>
+          <p className="font-medium text-gray-200">Not Playing</p>
         )}
         <span className="mx-2 text-gray-300">{' – '}</span>
-        <p className="text-gray-300 max-w-max truncate">{artist || 'Spotify'}</p>
+        <p className="max-w-max truncate text-gray-300">{artist || 'Spotify'}</p>
       </div>
     </div>
   )

@@ -12,7 +12,7 @@ export function MobileNav({ navShow, onToggleNav }) {
       <button
         type="button"
         aria-label="toggle modal"
-        className="fixed w-8 h-8 right-4 top-4 cursor-auto focus:outline-none"
+        className="fixed right-4 top-4 h-8 w-8 cursor-auto focus:outline-none"
         onClick={onToggleNav}
       >
         <svg
@@ -28,7 +28,7 @@ export function MobileNav({ navShow, onToggleNav }) {
           />
         </svg>
       </button>
-      <nav className="fixed h-full mt-8">
+      <nav className="fixed mt-8 h-full">
         {headerNavLinks.map((link) => (
           <div key={link.title} className="px-8 py-4">
             <Link

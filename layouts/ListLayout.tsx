@@ -19,7 +19,7 @@ export function ListLayout(props: ListLayoutProps) {
   return (
     <>
       <div className="divide-y divide-gray-200 dark:divide-gray-700">
-        <div className="pt-6 pb-12 space-y-4 md:space-y-5">
+        <div className="space-y-4 pt-6 pb-12 md:space-y-5">
           <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
             {title}
           </h1>
@@ -29,7 +29,7 @@ export function ListLayout(props: ListLayoutProps) {
           </p>
           <PostsSearch onChange={setSearchValue} />
         </div>
-        <ul className="py-12 space-y-10">
+        <ul className="space-y-10 py-12">
           {!filteredBlogPosts.length && 'No posts found.'}
           {displayPosts.map((frontMatter) => (
             <PostListItem key={frontMatter.slug} frontMatter={frontMatter} />

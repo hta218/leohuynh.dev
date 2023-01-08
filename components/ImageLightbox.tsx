@@ -44,13 +44,13 @@ export function ImageLightbox({ src, closeLightbox }: ImageLightBoxProps) {
     <div
       role="button"
       tabIndex={0}
-      className="lightbox-overlay fixed inset-0 bg-black z-50 flex items-center justify-center transition-opacity duration-300 ease-out"
+      className="lightbox-overlay fixed inset-0 z-50 flex items-center justify-center bg-black transition-opacity duration-300 ease-out"
       style={style}
       onClick={handleClose}
       onKeyDown={handleKeydown}
     >
-      <div className="w-full h-full relative flex justify-center items-center">
-        <div className="absolute flex justify-between top-0 inset-x-0">
+      <div className="relative flex h-full w-full items-center justify-center">
+        <div className="absolute inset-x-0 top-0 flex justify-between">
           <button className="p-4 text-xl text-white" onClick={handleClose}>
             Esc
           </button>
@@ -62,7 +62,7 @@ export function ImageLightbox({ src, closeLightbox }: ImageLightBoxProps) {
         <img
           src={src.toString()}
           onLoad={() => setImgLoaded(true)}
-          className="cursor-zoom-out max-w-[90vw] max-h-[80vh] umami--load--view-image-in-lightbox"
+          className="umami--load--view-image-in-lightbox max-h-[80vh] max-w-[90vw] cursor-zoom-out"
           alt="Lightbox"
         />
       </div>

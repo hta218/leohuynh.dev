@@ -25,10 +25,10 @@ export function ScrollTopButton() {
       type="button"
       onClick={handleClick}
       style={{ opacity: show ? 1 : 0 }}
-      className="hidden md:inline-block transition-opacity fixed right-8 bottom-8 rounded-md bg-gray-700 hover:bg-gray-800 dark:hover:bg-gray-600 text-gray-100 p-2"
+      className="fixed right-8 bottom-8 hidden rounded-md bg-gray-700 p-2 text-gray-100 transition-opacity hover:bg-gray-800 dark:hover:bg-gray-600 md:inline-block"
     >
       <svg
-        className="w-5.5 h-5.5"
+        className="h-5.5 w-5.5"
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"

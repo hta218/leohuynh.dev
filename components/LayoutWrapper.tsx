@@ -12,7 +12,7 @@ export function LayoutWrapper({ children }) {
     <>
       <MobileNav navShow={navShow} onToggleNav={onToggleNav} />
       <Header onToggleNav={onToggleNav} />
-      <div className="max-w-3xl px-3 xl:px-0 mx-auto sm:px-6 xl:max-w-5xl">
+      <div className="mx-auto max-w-3xl px-3 sm:px-6 xl:max-w-5xl xl:px-0">
         <div className="flex flex-col justify-between">
           <main style={{ minHeight: MAIN_CONTENT_MIN_HEIGHT }}>{children}</main>
           <Footer />
