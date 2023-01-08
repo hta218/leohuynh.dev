@@ -72,9 +72,11 @@ module.exports = {
         facebook: '#1877f2',
       },
       width: {
+        4.5: '1.125rem',
         5.5: '1.375rem',
       },
       height: {
+        4.5: '1.125rem',
         5.5: '1.375rem',
       },
       cursor: {
