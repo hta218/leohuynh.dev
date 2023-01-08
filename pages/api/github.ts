@@ -8,7 +8,7 @@ export default async function fetchGithubRepo(req: NextApiRequest, res: NextApiR
     return res.status(400).json({ message: 'Missing repo query param' })
   }
   if (!process.env.GITHUB_API_TOKEN) {
-    return res.status(500).json({ message: 'Missing `GITHUB_API_TOKEN` env var' })
+    return res.status(500).json({ message: 'Missing `GITHUB_API_TOKEN` env variable' })
   }
   try {
     let { repository }: GraphQlQueryResponseData = await graphql(

@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
-import { fetcher } from '~/utils/fetcher'
 import type { ViewApiResponse, ViewCounterProps } from '~/types'
+import { fetcher } from '~/utils/fetcher'
 const { default: useSWR } = require('swr')
 
 export function ViewCounter({ slug, className }: ViewCounterProps) {
