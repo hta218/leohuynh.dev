@@ -1,14 +1,15 @@
+import useSWR from 'swr'
 import type { GithubRepository, ProjectCardProps } from '~/types'
 import { fetcher } from '~/utils/fetcher'
 import { GithubRepo } from './GithubRepo'
 import { Image } from './Image'
 import { Link } from './Link'
-const { default: useSWR } = require('swr')
 
 export function ProjectCard({ project }: ProjectCardProps) {
   let { title, description, imgSrc, url, repo, builtWith } = project
   let { data } = useSWR(`/api/github?repo=${repo}`, fetcher)
   let repository: GithubRepository = data?.repository
+  let href = repository?.url || url
 
   return (
     <div className="md p-4 md:w-1/2" style={{ maxWidth: '544px' }}>
@@ -16,15 +17,15 @@ export function ProjectCard({ project }: ProjectCardProps) {
         <Image
           alt={title}
           src={imgSrc}
-          className="object-cover object-top md:h-36 lg:h-60"
+          className="object-cover object-center md:h-36 lg:h-60"
           width={1088}
           height={612}
         />
         <div className="flex grow flex-col justify-between space-y-8 p-6">
           <div className="space-y-3">
             <h2 className="text-2xl font-bold leading-8 tracking-tight">
-              {url ? (
-                <Link href={url} aria-label={`Link to ${title}`}>
+              {href ? (
+                <Link href={href} aria-label={`Link to ${title}`}>
                   {title}
                 </Link>
               ) : (
@@ -33,18 +34,16 @@ export function ProjectCard({ project }: ProjectCardProps) {
             </h2>
             <div className="max-w-none space-y-1 text-gray-500 dark:text-gray-400">
               <p>{repository?.description || description}</p>
-              <div className="flex space-x-2">
-                <span>Built with:</span>
-                <div className="flex space-x-1">
-                  {builtWith?.map((tool, index) => {
-                    return (
-                      <span key={index} className="font-semibold text-gray-500 dark:text-gray-400">
-                        {tool}
-                        {index !== builtWith.length - 1 && ','}
-                      </span>
-                    )
-                  })}
-                </div>
+              <div className="flex flex-wrap space-x-1.5">
+                <span className="shrink-0">Built with:</span>
+                {builtWith?.map((tool, index) => {
+                  return (
+                    <span key={index} className="font-semibold text-gray-500 dark:text-gray-400">
+                      {tool}
+                      {index !== builtWith.length - 1 && ','}
+                    </span>
+                  )
+                })}
               </div>
             </div>
           </div>
