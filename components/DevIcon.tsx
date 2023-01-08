@@ -10,6 +10,8 @@ import NextJS from '~/icons/nextjs.svg'
 import TailwindCSS from '~/icons/tailwind.svg'
 import Prisma from '~/icons/prisma.svg'
 import Umami from '~/icons/umami.svg'
+import Vercel from '~/icons/vercel.svg'
+import Railway from '~/icons/railway.svg'
 
 export let DevIconsMap = {
   React,
@@ -24,6 +26,8 @@ export let DevIconsMap = {
   TailwindCSS,
   Prisma,
   Umami,
+  Vercel,
+  Railway,
 }
 
 export function DevIcon(props: { type: keyof typeof DevIconsMap; className?: string }) {

@@ -1,6 +1,5 @@
 import { siteMetadata } from '~/data/siteMetadata'
 import { BuiltWith } from './BuiltWith'
-import { Link } from './Link'
 
 export function Footer() {
   return (
@@ -10,7 +9,7 @@ export function Footer() {
         <div className="my-2 flex space-x-2 text-sm text-gray-500 dark:text-gray-400">
           <div>{`Copyright © ${new Date().getFullYear()}`}</div>
           <span>{` • `}</span>
-          <Link href="/">{siteMetadata.footerTitle}</Link>
+          <span>{siteMetadata.footerTitle}</span>
         </div>
       </div>
     </footer>
