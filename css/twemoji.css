@@ -1,53 +1,9 @@
 .twa {
   display: inline-block;
-  height: 1em;
-  width: 1em;
-  margin: 0 0.1em;
-  /* margin: 0 0.05em 0 0.1em; */
-  vertical-align: -0.1em;
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: 1em 1em;
-}
-.twa-lg {
-  height: 1.33em;
-  width: 1.33em;
-  margin: 0 0.266em 0 0.133em;
-  /* margin: 0 0.0665em 0 0.133em; */
-  vertical-align: -0.133em;
-  background-size: 1.33em 1.33em;
-}
-.twa-2x {
-  height: 2em;
-  width: 2em;
-  margin: 0 0 0.2em;
-  /* margin: 0 0.1em 0 0.2em; */
-  vertical-align: -0.2em;
-  background-size: 2em 2em;
-}
-.twa-3x {
-  height: 3em;
-  width: 3em;
-  margin: 0 0 0.3em;
-  /* margin: 0 0.15em 0 0.3em; */
-  vertical-align: -0.3em;
-  background-size: 3em 3em;
-}
-.twa-4x {
-  height: 4em;
-  width: 4em;
-  margin: 0 0.4em;
-  /* margin: 0 0.2em 0 0.4em; */
-  vertical-align: -0.4em;
-  background-size: 4em 4em;
-}
-.twa-5x {
-  height: 5em;
-  width: 5em;
-  margin: 0 0.5em;
-  /* margin: 0 0.25em 0 0.5em; */
-  vertical-align: -0.5em;
-  background-size: 5em 5em;
+  width: 24px;
+  height: 24px;
+  background-image: url('https://unpkg.com/emoji-datasource-twitter@5.0.1/img/twitter/sheets-256/64.png');
+  background-size: 5700% 5700%;
 }
 
 /* End preamble; begin emoji classes */
@@ -242,19 +198,19 @@
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f1fb-1f1f3.svg');
 }
 .twa-hammer-and-wrench {
-  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f6e0.svg');
+  background-position: 64.2857% 75%;
 }
 .twa-face-with-monocle {
-  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f9d0.svg');
+  background-position: 80.3571% 28.5714%;
 }
 .twa-briefcase {
-  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f4bc.svg');
+  background-position: 46.4286% 32.1429%;
 }
 .twa-dna {
-  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f9ec.svg');
+  background-position: 91.0714% 55.3571%;
 }
 .twa-memo {
-  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f4dd.svg');
+  background-position: 46.4286% 91.0714%;
 }
 .twa-video-game {
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f3ae.svg');
@@ -302,8 +258,8 @@
   background-image: url('https://twemoji.maxcdn.com/v/latest/svg/1f3b9.svg');
 }
 .twa-chess-pawn {
-	background-image: url("https://twemoji.maxcdn.com/v/latest/svg/265f.svg")
+  background-image: url('https://twemoji.maxcdn.com/v/latest/svg/265f.svg');
 }
 .twa-bar-chart {
-	background-image: url("https://twemoji.maxcdn.com/v/latest/svg/1f4ca.svg")
+  background-position: 46.4286% 57.1429%;
 }
