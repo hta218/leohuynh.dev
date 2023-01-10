@@ -4,7 +4,7 @@ import { Twemoji } from '../Twemoji'
 
 export function BlogLinks() {
   return (
-    <div className="flex flex-col space-y-2">
+    <div className="flex flex-col space-y-1.5">
       <Link href="/projects" className="flex hover:underline">
         <Twemoji emoji="hammer-and-wrench" />
         <span className="umami--click--home-link-projects ml-2.5">What have I built?</span>

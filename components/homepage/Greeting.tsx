@@ -6,7 +6,8 @@ export function Greeting() {
     <div
       className={`mb-8 bg-clip-text text-4xl font-extrabold leading-[60px] tracking-tight text-transparent ${headingColorClass} md:text-7xl md:leading-[86px]`}
     >
-      Howdy, fellow! <i className="twa twa-waving-hand"></i>
+      Howdy, fellow!
+      {/* Howdy, fellow! <i className="twa twa-waving-hand"></i> */}
     </div>
   )
 }
