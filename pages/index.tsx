@@ -29,8 +29,9 @@ export default function Home({ posts }: { posts: BlogFrontMatter[] }) {
               <TypedBios />
               <ShortDescription />
               <BlogLinks />
-              <p className="my-8">
-                Happy reading <Twemoji emoji="clinking-beer-mugs" />
+              <p className="my-8 flex">
+                <span className="mr-2">Happy reading</span>
+                <Twemoji emoji="clinking-beer-mugs" />
               </p>
             </div>
           </div>

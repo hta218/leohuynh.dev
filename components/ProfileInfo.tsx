@@ -59,7 +59,7 @@ export function ProfileCardInfo() {
 
           <p className="px-2">
             [::1]:443 - Ha Noi,
-            <span className="flag-vn ml-1 align-middle">
+            <span className="absolute ml-1 inline-flex">
               <Twemoji emoji="flag-vietnam" />
             </span>
           </p>

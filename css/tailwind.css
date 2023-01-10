@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .remark-code-title {
-  @apply px-5 py-3 font-mono text-sm font-bold text-gray-200 bg-gray-700 rounded-t;
+  @apply rounded-t bg-gray-700 px-5 py-3 font-mono text-sm font-bold text-gray-200;
 }
 
 .remark-code-title + div > pre {
@@ -11,15 +11,15 @@
 }
 
 .code-line {
-  @apply px-4 -mx-4 border-l-4 border-gray-800;
+  @apply -mx-4 border-l-4 border-gray-800 px-4;
 }
 
 .highlight-line {
-  @apply -mx-4 bg-gray-700 bg-opacity-50 border-l-4 border-primary-500;
+  @apply -mx-4 border-l-4 border-primary-500 bg-gray-700 bg-opacity-50;
 }
 
 .line-number::before {
-  @apply pr-4 -ml-2 text-gray-400;
+  @apply -ml-2 pr-4 text-gray-400;
   content: attr(line);
 }
 
@@ -136,10 +136,6 @@ html.lightbox-loading * {
 
 * {
   transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
-}
-
-.flag-vn i {
-  background-position: 50% -200%;
 }
 
 .thumbnail-image img {
