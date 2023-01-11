@@ -5,7 +5,7 @@ import { Link } from './Link'
 export function BuiltWith() {
   return (
     <div className="flex items-center space-x-1">
-      <span className="text-gray-500 dark:text-gray-400">Built with</span>
+      <span className="mr-1 text-gray-500 dark:text-gray-400">Built with</span>
       <div className="flex space-x-1.5">
         <Link href="https://nextjs.org/">
           <DevIcon type="NextJS" className="h-5 w-5" />
@@ -19,8 +19,8 @@ export function BuiltWith() {
         <Link href="https://www.typescriptlang.org/">
           <DevIcon type="Typescript" className="h-5 w-5" />
         </Link>
-        <Link href="https://railway.app/">
-          <DevIcon type="Railway" className="h-5 w-5" />
+        <Link href="https://umami.is/" className="pl-px">
+          <DevIcon type="Umami" className="h-5 w-5" />
         </Link>
       </div>
       <span className="px-1 text-gray-400 dark:text-gray-500">-</span>
