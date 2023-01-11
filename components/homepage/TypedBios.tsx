@@ -23,7 +23,7 @@ export function TypedBios() {
         <li>
           I'm aliased as <b className="font-medium">Leo</b> at work.
         </li>
-        <li>I'm a builder, learner and freedom seeker.</li>
+        <li>I'm a learner, builder, and freedom seeker.</li>
         <li>
           I live in <b className="font-medium">Ha Noi, Viet Nam</b>.
         </li>
@@ -38,7 +38,7 @@ export function TypedBios() {
         <li>I work mostly with JS/TS technologies.</li>
         <li>I'm Tu Le's husband.</li>
         <li>
-          I'm a dog person <Twemoji emoji="dog" />.
+          I'm a dog-person <Twemoji emoji="dog" />.
         </li>
         <li>
           I'm a sport-guy. I love
