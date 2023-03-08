@@ -46,7 +46,7 @@ export function ProfileCard() {
 
   return (
     <div
-      className="umami--mouseenter--profile-card-hover z-10 mb-8 scale-100 transition-all duration-200 ease-out hover:z-50 xl:mb-0 xl:hover:scale-[1.15]"
+      className="z-10 mb-8 scale-100 transition-all duration-200 ease-out hover:z-50 xl:mb-0 xl:hover:scale-[1.15]"
       style={{ perspective: '600px' }}
       ref={ref}
     >
