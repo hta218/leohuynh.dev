@@ -59,8 +59,12 @@ export function ProfileCard() {
           alt="avatar"
           width={550}
           height={350}
-          className="object-cover"
-          style={{ objectPosition: '50% 16%', width: '100%', aspectRatio: '17/11' }}
+          style={{
+            objectPosition: '50% 16%',
+            objectFit: 'cover',
+            width: '100%',
+            aspectRatio: '17/11',
+          }}
         />
         <SpotifyNowPlaying />
         <ProfileCardInfo />
