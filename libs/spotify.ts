@@ -27,8 +27,10 @@ async function getAccessToken() {
 
 export async function getNowPlaying() {
   let { access_token } = await getAccessToken()
+  let url = new URL(SPOTIFY_NOW_PLAYING_API)
+  url.searchParams.append('additional_types', 'track,episode')
 
-  return fetch(SPOTIFY_NOW_PLAYING_API, {
+  return fetch(url.toString(), {
     headers: {
       Authorization: `Bearer ${access_token}`,
     },

@@ -9,6 +9,11 @@ export default async function fetchNowPlaying(_: NextApiRequest, res: NextApiRes
   }
 
   let data = await response.json()
+  if (data?.currently_playing_type === 'episode') {
+    return res
+      .status(200)
+      .json({ isPlaying: true, title: data.item.name, songUrl: data.item.external_urls.spotify })
+  }
   let songData: SpotifyNowPlayingData = {
     isPlaying: data.is_playing,
     title: data.item.name,
