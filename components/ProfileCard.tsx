@@ -60,7 +60,7 @@ export function ProfileCard() {
           width={550}
           height={350}
           className="object-cover"
-          style={{ objectPosition: '50% 16%', width: 340, height: 220 }}
+          style={{ objectPosition: '50% 16%', width: '100%', aspectRatio: '17/11' }}
         />
         <SpotifyNowPlaying />
         <ProfileCardInfo />
