@@ -3,18 +3,26 @@ import type { Project } from '~/types'
 export let projectsData: Project[] = [
   {
     type: 'work',
-    title: 'Minimog',
+    title: 'Weaverse - Shopify sales channel',
+    description: `The first Hydrogen-driven website builder powered by AI. Weaverse is a Shopify sales channel that allows you to create a website in minutes with no coding required.`,
+    imgSrc: '/static/images/weaverse-hydrogen.jpg',
+    url: 'https://www.weaverse.io?ref=leohuynh.dev',
+    builtWith: ['Remix', 'Prisma', 'Tailwind', 'OpenAI'],
+  },
+  {
+    type: 'work',
+    title: 'Minimog - Shopify theme',
     description: `The Next Generation of highest-converting and extensible Shopify theme (Weekly bestseller & Top trending in Themeforest eCommerce category).`,
     imgSrc: '/static/images/minimog.jpg',
-    url: 'https://themeforest.net/item/minimog-the-high-converting-shopify-theme/33380968',
+    url: 'https://themeforest.net/item/minimog-the-high-converting-shopify-theme/33380968?ref=leohuynh.dev',
     builtWith: ['Theme-kit', 'Liquid', 'Webpack', 'Tailwind'],
   },
   {
     type: 'work',
-    title: 'Fox Kit',
+    title: 'Fox Kit - Shopify app',
     description: `The upsells and boost conversion tools that is built to support Minimog theme.`,
     imgSrc: '/static/images/foxkit.jpg',
-    url: 'https://apps.shopify.com/foxkit',
+    url: 'https://apps.shopify.com/foxkit?ref=leohuynh.dev',
     builtWith: ['Koa.js', 'JWT', 'MongoDB', 'Polaris'],
   },
   {
