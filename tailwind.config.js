@@ -1,8 +1,8 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 const colors = require('tailwindcss/colors')
+/** @type {import('tailwindcss').Config} */
 
 module.exports = {
-  mode: 'jit',
   content: [
     './(components|constant|layouts|pages)/**/*.(ts|tsx)',
     './data/(blog|snippets|authors)/*.mdx',
