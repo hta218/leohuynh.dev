@@ -1,9 +1,9 @@
 ---
-title: 'Embed script với Github và jsDelivr'
+title: 'Embedding scripts in web pages made easy with Github and jsDelivr'
 date: '2021-09-05'
 tags: ['tutorial', 'sharing', 'embed', 'github', 'jsdelivr']
-draft: true
-summary: 'Embed script vào page 1 cách đơn giản với Github và jsDelivr'
+draft: false
+summary: "Learn how to embed scripts and styles in your web pages without the need to modify your site's existing code. Use Github to host your script and style files, and jsDelivr as a CDN to deliver them to your web page."
 images: ['/static/images/tips.jpg']
 authors: ['default']
 ---
@@ -11,97 +11,99 @@ authors: ['default']
 import Twemoji from './Twemoji.tsx'
 import UnsplashPhotoInfo from './UnsplashPhotoInfo.tsx'
 
+![thumbnail-image](/static/images/tips.jpg)
 <UnsplashPhotoInfo photoURL="https://unsplash.com/photos/82TpEld0_e4" author="AbsolutVision" />
-![alt](/static/images/tips.jpg)
 
 Hey, welcome back <Twemoji emoji="waving-hand" />
 
-Hôm nay mình sẽ chia sẻ 1 với các bạn 1 cách đơn giản để embed script vào trang với **Github** và **jsDelivr**
+Today I will share with you a simple way to embed a script into a webpage using **Github** and **jsDelivr**
 
 ## Problem
 
-Muốn thêm 1 tính năng vào trang mà không cần phải động vào đống script sẵn có của trang vì quá phức tạp để config,
-cần thay đổi và remove 1 cách dễ dàng vì tính năng này chỉ cần trong 1 khoảng thời gian nhất định.
+You want to add a feature to a webpage without having to modify the existing scripts on the page because it's too complicated to configure, change, and remove.
+You only need this feature for a certain period of time.
 
-Nếu bạn cũng có nhu cầu như trên, thì đây là 1 cách đơn giản mà mình nghĩ bạn nên làm.
+If you have the same need, then here is a simple solution that I think you should do.
 
 ## Solution
 
-- Host `script` của bạn trên **Github** (có thể bao gồm cả `style`)
+- Host your `script` on **Github** (which can also include `style`).
 
-Chỉ cần tạo 1 **public repository** trên Github, `push` script và style của bạn lên đó.
-(Nhớ để **public** thì mới có thể embed được nhé)
+Simply create a **public repository** on Github, `push` your script and style there.
+(Remember to make it **public** so that it can be embedded.)
 
-- Sử dụng [jsDelivr](https://www.jsdelivr.com/) làm CDN cho script của bạn
+- Use [jsDelivr](https://www.jsdelivr.com/) as a CDN for your script.
 
-Giới thiệu qua: **jsDelivr** là 1 tool đơn giản dùng làm **CDN** cho bất kì 1 **npm** package, **Github** repo hay **WordPress** plugin nào của bạn
+**jsDelivr** is a simple tool used as a **CDN** for any **npm** package, **Github** repo or **WordPress** plugin.
 
-Cách sử dụng có ngay ở trên homepage của **jsDelivr**, mình note lại cách sử dụng với **Github** repo như sau:
+The usage instructions are available on the homepage of **jsDelivr**. Here's how to use it with a **Github** repo:
 
 ```js
 https://cdn.jsdelivr.net/gh/{user}/{repo}/{directory}/{file}
 ```
 
-Đây là cấu trúc của 1 script/style URL host qua **jsDelivr** cho bất kì 1 file nào trên **Github**:
+This is the structure of a script/style URL hosted through **jsDelivr** for any file on **Github**:
 
-- `{user}`: **username** của bạn hoặc **Organization** trên **Github**
-- `{repo}`: tên **repository**
-- `{directory}`: tên **folder**, cái này optional vì file của bạn có thể để ở ngoài cùng của **repo** luôn
-- `{file}`: filename, `*.js` hoặc `*.css`
+- `{user}`: your **username** or **organization** on **Github**
+- `{repo}`: **repository** name
+- `{directory}`: **folder** name (optional) because your file can be placed in the root directory of the **repo**
+- `{file}`: filename, `*.js` or `*.css`
 
-Ví dụ:
+For example:
 
-Đây là 1 public repo của mình: [Minimog badges](https://github.com/Insights-Labs/minimog-badges)
-Mình host 2 file trên này, 1 file **Javascript** và 1 file **CSS**
+This is one of my public repos: [Minimog badges](https://github.com/Insights-Labs/minimog-badges).
+I hosted 2 files on it, 1 **Javascript** file and 1 **CSS** file.
 
 ![minimog-badges-repo](/static/images/minimog-badges-repo.jpg)
 
-Như vậy URL host qua **jsDelivr** cho 2 file này sẽ là:
+So the URL hosted through **jsDelivr** for these 2 files will be:
 
 `https://cdn.jsdelivr.net/gh/Insights-Labs/minimog-menu-badges/style-v1.css`
 
-và:
+and:
 
 `https://cdn.jsdelivr.net/gh/Insights-Labs/minimog-badges/main-v3.js`
 
-Bây giờ chỉ cần **embed** vào page của bạn với thẻ `link`:
+Now simply **embed** them into your page with the `link` tag:
 
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Insights-Labs/minimog-menu-badges/style-v1.css">
 ```
 
-và thẻ `script`:
+and the `script` tag:
 
 ```html
 <script src="https://cdn.jsdelivr.net/gh/Insights-Labs/minimog-badges/main-v3.js" async></script>
 ```
 
-Là đã có 2 file host trên **Github** chạy trong page của bạn rồi <Twemoji emoji="party-popper" />
+Now the 2 files hosted on **Github** are running on your page. <Twemoji emoji="party-popper" />
 
 ## Tips
 
 - Caching
 
-Nếu các bạn để ý thì sẽ nhận ra mình đánh version ở trên filename `main-v3.js` và `style-v1.css`. Tại sao cần thêm **version** này?
+If you notice, I put the version number in the filename `main-v3.js` and `style-v1.css`. Why do you need to add this **version** number?
 
-Câu trả lời chính là vì **jsDelivr** có cache resource của bạn, điều này tốt để resource load nhanh hơn,
-nhưng khi bạn thay đổi thì cache sẽ không được clear ngay lập tức, kết quả là vẫn load code cũ
+The answer is because **jsDelivr** caches your resource.
+This is good for faster resource loading, but when you make changes, the cache is not cleared immediately, resulting in the old code still being loaded.
 
-Để purge cache thì cần phải mail cho **jsDelivr**, khá bất tiện. Nên cách đơn giản mình nghĩ ra là đánh version ngay trên filename.
-Khi bạn thay đổi thì hãy tạo file mới với tên chứa version mới. Vd: `main-v4.js` hoặc `style-v2.css`, và sửa link embed là sẽ có code mới luôn, không cần đợi clear cache nữa.
+To purge the cache, you need to email **jsDelivr**, which is quite inconvenient.
+So my simple solution is to put the version number right in the filename.
+When you make changes, create a new file with a name containing the new version number. For example: `main-v4.js` or `style-v2.css`,
+and modify the embed link, and you will have the new code immediately without waiting for the cache to clear.
 
 - Minify
 
-Nếu code của bạn không minify, chỉ cần thêm `.min` vào URL của file, **jsDelivr** sẽ generate 1 version được minify cho file gốc của bạn
+If your code is not minified, simply add `.min` to the URL of the file, and **jsDelivr** will generate a minified version for your original file.
 
-Ví dụ:
+For example:
 
 ```html
 <script src="https://cdn.jsdelivr.net/gh/Insights-Labs/minimog-badges/main-v3.min.js" async></script>
 ```
 
-## Kết bài
+## Conclusion
 
-Hi vọng tutorial nhỏ này có thể giúp ích cho bạn!
+I hope this tutorial can be helpful to you!
 
 Happy sharing <Twemoji emoji="clinking-beer-mugs" />
