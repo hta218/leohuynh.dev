@@ -1,5 +1,5 @@
 ---
-title: 'Function Declaration vs Function Expression in Javascript'
+title: 'When to use Function Declaration vs Function Expression in JavaScript?'
 date: '2020-09-17'
 tags:
   [
@@ -12,8 +12,8 @@ tags:
     'es5',
     'es6',
   ]
-draft: true
-summary: 'Function Declaration vs Function Expression và các trường hợp sử dụng'
+draft: false
+summary: 'Learn about the differences between Function Declaration and Function Expression in JavaScript, including their definitions, hoisting behavior, and when to use each method.'
 images: ['/static/images/note.jpg']
 authors: ['default']
 ---
@@ -21,36 +21,39 @@ authors: ['default']
 import Twemoji from './Twemoji.tsx'
 import UnsplashPhotoInfo from './UnsplashPhotoInfo.tsx'
 
+![thumbnail-image](/static/images/note.jpg)
+
 <UnsplashPhotoInfo photoURL="https://unsplash.com/photos/S3JdHNXSfnA" author="Will H McMahan" />
-![Take note](/static/images/note.jpg)
 
-Post này chỉ là 1 **note** nhỏ của mình cho những **dev** hay quên về 2 khái niệm **Function Declaration** và **Function Expression** để mỗi lần nhắc đến chỉ việc vào đây xem lại chứ không cần phải **google** nữa <Twemoji emoji="grinning face with sweat" />
+This post is just a **quick note** from me for developers who sometimes forget about the two concepts: **Function Declaration** and **Function Expression**,
+so that every time they need to remember, they can come here to review instead of having to Google again <Twemoji emoji="grinning face with sweat" />.
 
-Chắc hẳn anh em ngày ngày làm việc với **Javascript** sẽ viết rất nhiều **function** với các cú pháp như:
+Surely, those of you who work with **JavaScript** every day will write many functions with syntaxes such as:
 
 ```javascript
 function doSomething() {} // function declaration
 
-// hoặc
+// or
 let doSomething = function () {} // function expression
 
-// hoặc
+// or
 let doSomething = () => {} // function expression
 ```
 
-Cách viết đầu tiên chính là **Function Declaration**, và 2 cách sau là **Function Expression**, vậy chúng khác gì nhau và sử dụng như thế nào?
+The first way of writing is **Function Declaration**, and the next two are **Function Expressions**.
+So what are the differences between them, and how do we use them?
 
 ## Definition
 
-Khác biết đầu tiên chính là cách định nghĩa **function**
+The first difference is how to define a **function**.
 
-- **Function Declaraion** được khai báo với từ khóa `function` và **luôn** bao gồm tên của **function** đó
+- **Function Declaration** is declared with the `function` keyword and **always** includes the name of the **function**.
 
 ```javascript
 function doSomething() {}
 ```
 
-- **Function Expression** được khai báo tương tự như **Function Declaraion** nhưng được gán vào 1 **biến** và sẽ chạy khi được gọi qua **biến** đó, tên của **function** có thể bỏ đi (**Anonymous Function**)
+- **Function Expression** is declared similarly to **Function Declaration** but is assigned to a **variable** and will run when called through that **variable**. The name of the **function** can be omitted (**Anonymous Function**).
 
 ```javascript
 let doSomething = function () {}
@@ -61,11 +64,11 @@ let doSomething = () => {}
 
 ## Hoisting
 
-**Hoisting** là 1 cơ chế của **Javascript** thể hiện việc đưa **function** và **variable** lên trên cùng của **scope** trước khi **code** được thực thi.
+**Hoisting** is a mechanism of **JavaScript** that brings **functions** and **variables** to the top of the **scope** before the code is executed.
 
-> **Hoisting** chỉ áp dụng **Function Declarations**, không áp dụng cho **Function Expressions**
+> **Hoisting** only applies to **Function Declarations**, not to Function Expressions.
 
-Có thế hiểu đơn giản qua ví dụ sau:
+You can understand it simply through the following example:
 
 ```js
 sayHello() // => "Hello"
@@ -75,9 +78,9 @@ function sayHello() {
 }
 ```
 
-Bạn có thể **call** **Function Declaration** ở bất cứ đâu trong **scope** nó khởi tạo
+You can **call** Function Declaration anywhere in the **scope** it initializes.
 
-Tuy nhiên **Function Expression** chỉ có thể gọi sau khi định nghĩa
+However, **Function Expression** can only be called after it is defined.
 
 ```js
 sayHello() // => Uncaught ReferenceError: Cannot access 'sayHello' before initialization
@@ -87,13 +90,14 @@ let sayHello = function () {
 }
 ```
 
-Tùy theo thói quen của **dev** và **rule** của **project** hoặc **team leader** đặt ra mà có thể sử dụng 1 trong 2 cách **define function** này.
+Depending on the habits of the developer and the rules set by the project or team leader,
+one of these two ways of defining a function can be used.
 
-Tuy nhiên có 1 số trường hợp đặc biệt để sử dụng **Function Expression**
+However, there are some special cases where **Function Expression** is used.
 
 ## IIFE
 
-[Immediately Invoked Function Expressions](https://mariusschulz.com/blog/use-cases-for-javascripts-iifes) hay 1 **Anonymous Function** được chạy ngay sau khi khởi tạo
+[Immediately Invoked Function Expressions](https://mariusschulz.com/blog/use-cases-for-javascripts-iifes) or an **Anonymous Function** that is executed immediately after initialization.
 
 ```js
 ;(function () {
@@ -108,15 +112,15 @@ Tuy nhiên có 1 số trường hợp đặc biệt để sử dụng **Function
 
 ## Callback
 
-1 trường hợp sử dụng **Function Expression** nữa đó là dùng làm **callback**
+Another case where **Function Expression** is used is as a **callback**.
 
 ```js
 buttonElement.addEventListener('click', function (e) {
-  console.log('button is clicked!')
+  console.log('Button is clicked!')
 })
 ```
 
-hoặc
+or
 
 ```js
 array.map((item) => {
@@ -124,9 +128,10 @@ array.map((item) => {
 })
 ```
 
-Đây là trường hợp phổ biến sử dụng **Function Expression** vì chúng ta không cần biết đến **function** này trong toàn bộ scope
+This is a common case of using **Function Expression** because we don't need to know about this **function** throughout the scope.
 
-Tóm lại, có thể sử dụng linh hoạt 2 cách **define function** trên, nếu muốn 1 **function** có thể sử dụng linh hoạt nhiều nơi trong **scope** thì sử dụng **Function Declaration** còn nếu chỉ cần giới hạn trong 1 thời điểm sử dụng thì dùng **Function Expression**
+In conclusion, you can use the two ways of defining a function flexibly.
+If you want a function that can be used flexibly in many places in the scope, use **Function Declaration**, and if you only need it for a limited time, use **Function Expression**.
 
 ## Refs
 
