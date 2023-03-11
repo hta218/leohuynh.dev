@@ -3,7 +3,7 @@ import type { Project } from '~/types'
 export let projectsData: Project[] = [
   {
     type: 'work',
-    title: 'Weaverse - Shopify sales channel',
+    title: 'Weaverse - Universal website builder',
     description: `The first Hydrogen-driven website builder powered by AI. Weaverse is a Shopify sales channel that allows you to create a website in minutes with no coding required.`,
     imgSrc: '/static/images/weaverse-hydrogen.jpg',
     url: 'https://www.weaverse.io?ref=leohuynh.dev',
