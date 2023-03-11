@@ -1,9 +1,9 @@
 ---
-title: 'Set up path aliases trong Node.js + Typescript'
+title: 'Simplify your Node.js project with module aliases'
 date: '2020-08-27'
 tags: ['nodejs', 'typescript', 'javascript', 'alias', 'path-aliases', 'tsconfig']
-draft: true
-summary: 'Định nghĩa alias (shortcut) cho những module thường xuyên phải import trong 1 nodejs project như thế nào?'
+draft: false
+summary: 'Tired of dealing with complex file paths in your Node.js project? Learn how to set up module aliases using TypeScript and module-alias package to simplify your imports and improve your development experience.'
 images: ['/static/images/path.jpg']
 authors: ['default']
 ---
@@ -11,104 +11,105 @@ authors: ['default']
 import Twemoji from './Twemoji.tsx'
 import UnsplashPhotoInfo from './UnsplashPhotoInfo.tsx'
 
+![thumbnail-image](/static/images/path.jpg)
+
 <UnsplashPhotoInfo photoURL="https://unsplash.com/photos/pKeF6Tt3c08" author="Brendan Church" />
-![path](/static/images/path.jpg)
 
-Dạo gần đây mình đang code 1 **pet project** sử dụng **nodejs** ở **back-end**, vừa để tự học thêm trong thời gian rảnh vừa khỏi quên kiến thức, thì gặp phải 1 vấn để rất nhức nhối liên quan đến đường dẫn (**path**) mà có thể anh em đã gặp phải nhiều rồi...
+Recently, I have been working on a pet project using **Node.js** on the backend to further my knowledge and prevent skill degradation during my free time. However, I encountered a frustrating issue with **paths** that many developers have likely experienced.
 
-```javascript
+```typescript
 import { saveUser } from '../../../../../models/User'
 import homeController from '../../../../../controllers/home'
 ```
 
-Code này hẳn đã khiến nhiều anh em đau đầu khi không thể biết được cần phải đi ra, đi vào bao nhiêu **folder** để tìm đúng **file** mong muốn <Twemoji emoji="loudly-crying-face" />, nếu chẳng may cần chuyển chỗ 1 folder thì sẽ phải update lại **path** ở tất cả những file **import** module đó <Twemoji emoji="face-with-steam-from-nose"/>
+This code can be a headache for developers who need to determine how many folders to traverse to find the desired file. If you need to move a file to a different folder, you must update the path in all files that import the module <Twemoji emoji="face-with-steam-from-nose"/>.
 
-Nhưng nếu chúng ta có thể định nghĩa **alias** (hiểu đơn giản là **shortcut**) cho những **module** thường xuyên phải **import** trong toàn bộ project thì sao?
+But what if we could define **aliases** (i.e., **shortcuts**) for frequently imported modules throughout the entire project?
 
-Ví dụ như này:
+For example:
 
-```javascript
+```typescript
 import { saveUser } from '@models/User'
 import homeController from '@controllers/home'
 ```
 
-Trong đó:
+In which:
 
-- `@models` tương đương với module `./src/models/*`
+- `@models` is equivalent to `./src/models/*`
 
-- `@controllers` tương đương với module `./src/controllers/*`
+- `@controllers` is equivalent to `./src/controllers/*`.
 
-Giải pháp hoàn toàn đơn giản với [module-alias](https://www.npmjs.com/package/module-alias) và config `tsconfig.json`. Anh em làm theo hướng dẫn để set up nhé
+The solution is quite simple with [module-alias](https://www.npmjs.com/package/module-alias) and a `tsconfig.json` configuration. Follow these instructions to set it up:
 
-## Update tsconfig.json
+## Update `tsconfig.json`
 
-Mở file **tsconfig.json** lên và thêm vào những config sau vào **compilerOptions** object:
+Open the `tsconfig.json` file and add the following configuration to the `compilerOptions` object:
 
 ```json
 "compilerOptions": {
-	// other configs...
-	"baseUrl": "./src",
-	"paths": {
-			"*": [
-					"node_modules/*",
-					"src/types/*"
-			],
-			"@controllers/*": [
-					"controllers/*"
-			],
-			"@models/*": [
-					"models/*"
-			]
-	}
+  // other configs...
+  "baseUrl": "./src",
+  "paths": {
+      "*": [
+          "node_modules/*",
+          "src/types/*"
+      ],
+      "@controllers/*": [
+          "controllers/*"
+      ],
+      "@models/*": [
+          "models/*"
+      ]
+  }
 }
 ```
 
-Trong đó `@controllers` hay `@models` chính là **alias** cho module của các bạn (có thể dùng bất cứ **naming convention** nào tùy ý, không cần thiết phải chứa `@` ở đầu, đó chỉ là **prefix** mình dùng để dễ phân biệt thôi)
+Here, `@controllers` and `@models` are aliases for your modules (you can use any **naming convention** you like, and it does not have to start with `@` — that's just the **prefix** I use to differentiate).
 
-Bây giờ bạn hoàn toàn có thể sử dụng **alias** đã config trong project rồi, nhưng JS sẽ không **resolve** được module import với lỗi sau
+Now you can use the configured **alias** in your project, but you will encounter a module import error:
 
 ```bash
 [Node] Error: Cannot find module '@models/User'
 ```
 
-## Cài đặt module-alias package
+## Install the `module-alias` package
 
-Module này sẽ giúp **resolve** các **path alias** trong file JS sau khi biên dịch
+This package **resolves** path aliases in JS files after they are compiled.
 
-- Cài đặt:
+- Install it with:
 
-```bash
-npm i --save module-alias # hoặc yarn add module-alias
-```
+  ```bash
+  npm i --save module-alias # or yarn add module-alias
+  ```
 
-- Config trong **package.json**:
+- Configure it in `package.json`:
 
-```json
-"_moduleAliases": {
-  "@models": "dist/models",
-  "@controllers": "dist/controllers"
-}
-```
+  ```json
+  "_moduleAliases": {
+    "@models": "dist/models",
+    "@controllers": "dist/controllers"
+  }
+  ```
 
-Lưu ý rằng `dist/` là **folder** chứa code sau khi **build** của các bạn nhé (tùy vào config nó có thể là `dist/`, `build/`...)
+Note that `dist/` is the **folder** that contains your code after it has been built (depending on your configuration, it could be `dist/`, `build/`, etc.).
 
-- Cuối cùng là register module vào app của anh em
+- Finally, register the module in your app:
 
-```javascript
-import 'module-alias/register'
-```
+  ```typescript
+  import 'module-alias/register'
+  ```
 
-Chỉ cần **import** 1 lần vào file **start** của project thôi nhé (có thể là `index.ts`, `app.ts`, `server.ts`...)
+Import it only once in your project's start file (such as `index.ts`, `app.ts`, or `server.ts`...).
 
 ## Done <Twemoji emoji="party popper" />
 
-Bây giờ anh em chỉ cần reload **IDE**, **start project** và có thể xài **alias** thoải mái rồi nhé.
+Now you can reload your IDE, start the project, and use aliases across your project.
 
 ![VS Code Recommendation](/static/images/vscode.png)
 
-**VS Code** support luôn tính năng này bằng cách đọc file **tsconfig.json**, chỉ cần **reload** lại là được.
+**VS Code** supports this feature by reading the `tsconfig.json` file. Simply reload it to use the feature.
 
-Chúc anh em thành công!
+Good luck!
 
 ## Refs
 
