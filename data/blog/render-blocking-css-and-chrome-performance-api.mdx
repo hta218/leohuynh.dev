@@ -1,9 +1,9 @@
 ---
-title: 'Tìm hiểu về Render Blocking CSS và đo page rendering time với Chrome Performance API'
-date: '2020-09-12'
+title: 'Eliminating Render Blocking CSS and measuring page rendering time with Performance API'
+date: '2023-03-11'
 tags: ['render-blocking-resources', 'render-blocking-css', 'perfomance', 'chrome-performance-api']
-draft: true
-summary: 'Mỗi file CSS mà website của bạn tải sẽ tăng thêm thời gian vào first-paint của page, có nghĩa là user sẽ phải đợi lâu hơn để nhìn thấy content nếu trang của bạn phải tải nhiều CSS. Vậy phải làm thế nào để hạn chế được render blocking css?'
+draft: false
+summary: "Learn how to improve your website's performance and enhance user experience by avoiding render blocking CSS. Using the Chrome Performance API to measure and optimize page rendering time."
 images: ['/static/images/performance.jpg']
 authors: ['default']
 ---
@@ -11,38 +11,37 @@ authors: ['default']
 import Twemoji from './Twemoji.tsx'
 import UnsplashPhotoInfo from './UnsplashPhotoInfo.tsx'
 
+![thumbnail-image](/static/images/performance.jpg)
 <UnsplashPhotoInfo photoURL="https://unsplash.com/photos/JKUTrJ4vK00" author="Luke Chesser" />
-![performance](/static/images/performance.jpg)
 
-**CSS** được **browser** xem là 1 trong những **render blocking resources** - những tài nguyên mà trang của bạn bắt buộc phải tải thì người dùng mới có thể nhìn thấy nội dung được
+**CSS** is considered by browsers as one of the **render-blocking resources** - resources that your page must load before users can see the content.
 
-## Tại sao nên tránh Render Blocking CSS
+## Why should you avoid Render Blocking CSS?
 
-- **Render blocking CSS** sẽ làm chậm việc hiển thị **website** của bạn đến người dùng
+- **Render blocking CSS** will slow down the display of your website to users.
 
-- Mỗi file CSS mà **website** của bạn tải sẽ tăng thêm thời gian vào **first-paint** của page, có nghĩa là **user** sẽ phải đợi lâu hơn để nhìn thấy **content** nếu trang của bạn phải tải nhiều **CSS**
+- Each CSS file that your website loads adds to the **first-paint** time of the page, meaning users have to wait longer to see content if your page has to load a lot of **CSS**.
 
-<br />
 ![render-blocking-css](/static/images/render-blocking-css.png)
-<br />
-<div style={{ textAlign: 'center' }}>
-  <small>CSS ảnh hưởng rất nhiều đến thời gian hiển thị trang</small>
+<div style={{ textAlign: 'center', marginTop: '-16px' }}>
+  <small>CSS greatly affects page load time</small>
 </div>
 <br />
 
-Khi bắt đầu tải trang, **browser** sẽ luôn tự động tải tất cả các file **CSS**, không quan tâm đến việc nó có **block** quá trình **render** hay không!
+When starting to load a page, the **browser** automatically loads all **CSS** files, regardless of whether they **block** the rendering process or not!
 
-Vậy phải làm thế nào để hạn chế được **render blocking css** ?
+So, how can you limit **render-blocking CSS**?
 
 ## Solutions
 
-Nếu như bạn nhận thấy trang của mình có những **CSS** mà chỉ sử dụng trong 1 vài điều kiện nhất định ví dụ như **style** cho **content** bên trong 1 **modal** mà **user** phải **click** để open modal mới thấy, **content** bên trong **tab** không hiển thị đầu tiên, hoặc những style chỉ **apply** riêng cho **large monitor** hoặc **mobile devices**...
+If you notice that your page has **CSS** that is only used in certain conditions,
+such as styles for content inside a modal that the user must click to open and view, content inside a tab that is not displayed first, or styles that only apply to large monitors or mobile devices...
 
-Thì đây là 1 số cách có thể giúp trang của bạn tải nhanh hơn
+Here are some ways to help your page load faster.
 
-### Sử dụng media attribute
+### Use the media attribute
 
-Khi muốn **load css** vào **web page** của mình chúng ta sẽ sử dụng thẻ `link` như thế này
+When you want to load CSS into your web page, you will use the `link` tag like this:
 
 ```html
 <link href="style.css" rel="stylesheet" />
@@ -50,11 +49,11 @@ Khi muốn **load css** vào **web page** của mình chúng ta sẽ sử dụng
 <link href="style.mobile.css" rel="stylesheet" />
 ```
 
-**Browser** sau khi load xong **HTML** sẽ tải thêm 3 file **CSS** này nữa và chỉ hiển thị nội dung sau khi đã tải xong tất cả
+After loading the HTML, the browser will also load these 3 CSS files and only display the content after all of them have loaded.
 
-Tuy nhiên `print.css` chỉ dùng khi in **document** (**Ctrl/Cmd + P**) và `style.mobile.css` là những **style** chỉ **apply** trên **mobile** mà thôi
+However, `print.css` is only used when **printing** a document (**Ctrl/Cmd + P**), and `style.mobile.css` is only for styles that apply on **mobile devices**.
 
-Trong trường hợp này chúng ta có thể sử dụng [media attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#attr-media)
+In this case, we can use the [media attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#attr-media).
 
 ```html
 <link href="style.css" rel="stylesheet" />
@@ -62,46 +61,45 @@ Trong trường hợp này chúng ta có thể sử dụng [media attribute](htt
 <link href="style.mobile.css" media="(max-width: 568px)" rel="stylesheet" />
 ```
 
-Lúc này **browser** sẽ hiểu rằng chỉ cần tải xong file **style.css** là ngay lập tức có thể hiển thị nội dung trang cho người dùng mà không cần biết 2 file còn lại đã tải xong hay chưa
+Now the browser understands that it only needs to load the `style.css` file to display the page content immediately to the user, without waiting for the other 2 files to load.
 
-Đối với **link** sử dụng **media attribute**:
+For links that use the **media attribute**:
 
-- `media="print"`: những **style** trong file này sẽ chỉ **apply** khi in **document**, không cần cho **render** nên sẽ không **block** lần **render** đầu tiên khi tải trang
+- `media="print"`: the styles in this file will only apply when **printing** a document, so there is no need for rendering and it will not block the first render when loading the page.
 
-- `media="(max-width: 568px)"`: những **style** này chỉ **apply** trên những **device** với `max-witdh=568px` và cũng không **block** lần **render** đầu tiên khi tải trang trên **desktop/tablet device**
+- `media="(max-width: 568px)"`: these styles only apply on devices with `max-width=568px`, and will not block the first render when loading the page on a **desktop/tablet** device.
 
-Sử dụng **media attribute** chúng ta có thể điều chỉnh việc hiển thị trang theo các trường hợp cụ thể như: sau khi đã render xong, điều chỉnh kích thước màn hình, thay đổi hướng thiết bị (ngang/dọc)...
+Using the **media attribute**, we can adjust the display of the page in specific cases such as after rendering, adjusting screen size, changing device orientation (horizontal/vertical)...
 
-Giá trị của **media** bắt buộc phải là 1 [media type](https://developer.mozilla.org/en-US/docs/Web/CSS/@media#Description) hoặc [media query](https://developer.mozilla.org/en-US/docs/Web/CSS/Media_queries), rất hữu ích khi cần **load** các **external stylesheets** - nó hỗ trợ **browser** lựa chọn được những **CSS** cần thiết nhất cho lần **render** đầu tiên
+The value of **media** must be a [media type](https://developer.mozilla.org/en-US/docs/Web/CSS/@media#Description) or [media query](https://developer.mozilla.org/en-US/docs/Web/CSS/Media_queries), which is very useful when loading **external stylesheets** - it helps the browser choose the necessary CSS for the first render.
 
 ### Combine css or inline css
 
-1 cách khá hiệu quả là các bạn có thể để trực tiếp **CSS** vào trong 1 thẻ `style` trên **header** của **document** nếu **CSS** không quá to, cách này cải thiện **performance** rất tốt khi chỉ cần **DOM** load xong là có thể hiển thị ngay được rồi
+One effective way is to directly place the CSS in a `style` tag in the document header if the CSS is not too large. This method improves **performance** very well as it only needs to be displayed as soon as the **DOM** is loaded.
 
-Hoặc có thể hạn chế tải nhiều file **CSS** quá. Thông thường khi **code** các **dev** sẽ có xu hướng tách ra nhiều file **CSS** khác nhau theo **component**, **module**... để dễ quản lý, tuy nhiên việc **load** nhiều file **CSS** sẽ lâu hơn so với chỉ **load** 1 hoặc 2 file
+Or you can limit the loading of too many CSS files. Usually when coding, developers tend to separate different CSS files by component, module, etc. for easy management. However, loading many CSS files takes longer than loading only one file.
 
 ![inline-css](/static/images/inline-css.png)
-
-<div style={{ textAlign: 'center', marginTop: '4px' }}>
+<div style={{ textAlign: 'center', marginTop: '-16px' }}>
   <small>
-    1 trong những kĩ thuật giúp <b>Gatsby site</b> tải rất nhanh chính là <b>Inline CSS</b>
+		One of the techniques to help Gatsby site load extremely fast is Inline CSS
   </small>
 </div>
 
 ## Performance API
 
-Bây giờ chúng ta hãy thử đo đạc **page rendering time** sau khi áp dụng 1 số kĩ thuật để tránh **Render Blocking CSS** với [Chrome Perfomance API](https://developer.mozilla.org/en-US/docs/Web/API/Performance) nhé
+Now let's measure **page rendering time** after applying some techniques to avoid **Render Blocking CSS** using the [Chrome Perfomance API](https://developer.mozilla.org/en-US/docs/Web/API/Performance).
 
-Mình có viết 1 ví dụ đơn giản để các bạn có thể hiểu về **Render Blocking CSS** ở đây: [https://hta218.github.io/render-blocking-css-example/](https://hta218.github.io/render-blocking-css-example/)
+I have provided a simple example to help you understand **Render Blocking CSS** here: [https://hta218.github.io/render-blocking-css-example/](https://hta218.github.io/render-blocking-css-example/)
 
-Trong ví dụ mình có load 2 file **CSS** và so sánh **page rendering time** với 2 màn hình có **device-width** lớn hơn và nhỏ hơn **800px**
+In the example, I loaded two CSS files and compared the **page rendering time** on screens with **device-width** larger and smaller than `800px`.
 
 ```html
 <link rel="stylesheet" href="tailwind.css" media="(min-width: 800px)" />
 <link rel="stylesheet" href="bootstrap.css" media="(min-width: 800px)" />
 ```
 
-Để sử dụng **Performance API** thì cần chú ý kiểm tra kĩ **browser compatibility**
+To use the **Performance API**, it is important to check **browser compatibility**.
 
 ```javascript
 if ('PerformanceObserver' in window) {
@@ -125,28 +123,27 @@ if ('PerformanceObserver' in window) {
   console.log("Performance API isn't supported!")
 }
 ```
+There are many different [Performance metric](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceEntry), and in this case, I used [PerformancePaintTiming](https://developer.mozilla.org/en-US/docs/Web/API/PerformancePaintTiming).
 
-Có nhiều [Performance metric](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceEntry) khác nhau, trong trường hợp này mình sử dụng [PerformancePaintTiming](https://developer.mozilla.org/en-US/docs/Web/API/PerformancePaintTiming)
+To see the results more clearly, you can open **Chrome DevTools**, throttle the internet, and CPU speed to simulate the conditions of the user's device.
 
-Để thấy rõ hơn kết quả các bạn có thể mở **chrome devtool** lên, **throttle internet** và **CPU speed** cho giống với điều kiện ở máy **user** hơn nhé
-
-Với màn hình **>800px** (ví dụ cho **load** tất cả các **CSS** trước **first page render**)
+For screens `>800px` (loading all CSS before the first page render),
 
 ![css-block-render](/static/images/css-block-render.png)
 
-Chúng ta cần hơn **6 giây** cho **first paint** (sau khi tất cả **CSS load** xong) - tương đương với **user** phải đợi **6s** mới thấy nội dung của **page**
+We need more than **6 seconds** for the **first paint** (after all CSS is loaded) - which is equivalent to the user waiting 6 seconds to see the content of the page.
 
-Với trường hợp chỉ cần load 1 file **CSS** cho **first paint** (các file còn lại vẫn được **load** nhưng không dùng đến hoặc không cần dùng cho lần **render** đầu tiên)
+For the case where only one CSS file is needed for the first paint (the remaining files are still loaded but not used or needed for the first render)
 
 ![css-not-block-render](/static/images/css-not-block-render.png)
 
-**User** nhìn thấy **content** sớm hơn **2 giây**, có thể thấy **page render** ngay cả khi 2 file **CSS** còn lại vẫn chưa **load** xong
+The user sees the content **2 seconds** earlier and can see the page rendering even when the other 2 CSS files have not finished loading.
 
-Kết quả đo đạc với **Performance API** được tổng hợp lại
+The results measured with **Performance API** are summarized below.
 
 ![render-result](/static/images/render-result.png)
 
-Hoặc đơn giản hơn, các bạn có thể sử dụng trực tiếp [PerformancePaintTiming API](https://developer.mozilla.org/en-US/docs/Web/API/PerformancePaintTiming)
+Alternatively, you can use the [PerformancePaintTiming API](https://developer.mozilla.org/en-US/docs/Web/API/PerformancePaintTiming) directly.
 
 ```javascript
 if (window.performance) {
@@ -161,11 +158,13 @@ if (window.performance) {
 }
 ```
 
-## Kết bài
+## Conclusion
 
-Có thể thấy sự khác biệt rõ rệt với **page rendering time**, ảnh hưởng trực tiếp đến **user's experience** khi **webpage** phải tải quá nhiều **CSS** không cần thiết, vì vậy chúng ta cần phải rất chú ý đến **resource** này.
+We can clearly see the significant difference in page rendering time, which directly affects the user experience when the webpage has to load too much unnecessary CSS.
+Therefore, we need to be very careful about this resource.
 
-Có nhiều biện pháp để tránh **Render Blocking CSS** như: sử dụng **media type** hoặc **media query**, **combine CSS**, **inline CSS**, những thay đổi này tuy nhỏ nhưng ảnh hưởng rất tốt đến **perfomance**
+There are many ways to avoid **Render Blocking CSS**, such as using **media types** or **media queries**, **combining CSS**, and **inline CSS**.
+These changes may seem small, but they have a significant impact on performance.
 
 ## Refs
 
