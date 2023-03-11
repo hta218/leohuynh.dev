@@ -1,39 +1,42 @@
 ---
-title: "Shopify section rendering APIs"
-date: "2021-09-23"
+title: 'Mastering Section Rendering APIs in Shopify Online Store 2.0'
+date: '2021-09-23'
 tags: ['shopify', 'section', 'section-rendering-apis', 'key-notes']
-draft: true
-summary: "Vài notes về Section rendering APIs của Shopify"
-images: ["/static/images/shopify-section-render.jpg"]
-authors: ["default"]
+draft: false
+summary: "Learn how to leverage Section Rendering APIs to improve your Shopify store's performance and create dynamic, context-specific sections. Discover tips for querying dynamic section markup, including product and collection context"
+images: ['/static/images/shopify-section-render.jpg']
+authors: ['default']
 ---
 
 import Twemoji from './Twemoji.tsx'
 import UnsplashPhotoInfo from './UnsplashPhotoInfo.tsx'
 
+![thumbnail-image](/static/images/shopify-section-render.jpg)
+
 <UnsplashPhotoInfo photoURL="https://unsplash.com/photos/atSUvc1hMwk" author="Nattu Adnan" />
-![shopify-section-render](/static/images/shopify-section-render.jpg)
 
-**Section Rendering APIs** là 1 powerful **AJAX API** của Shopify để sử dụng ở storefront dùng cho việc request **HTML** cho 1 section bất kì của bạn.
-Tác dụng lớn nhất của API này là để update page content mà không cần phải reload page.
+**Section Rendering APIs** is a powerful **AJAX API** from Shopify that can be used on the storefront to request **HTML** for any section of your choosing.
+The biggest advantage of this API is that it allows you to update page content without having to reload the page.
 
-Ví dụ:
-- Update Cart Drawer
-- Update Collection Filters (pagination, inifinite loading...)
+For example, you can use it to:
 
-## Request nhiều section
+- Update the cart drawer
+- Update collection filters (pagination, infinite loading...)
+- Request multiple sections
 
-Để request markup của nhiều section thì chúng ta sẽ fetch 1 request với URL là URL hiện tại của storefront và thêm param `?sections={sectionIDs}`
+## Request multiple sections
 
-Trong đó `sectionIDs` chính là các **filename** của section trong **theme** của bạn, phân cách bởi dấu `,`
+To request the markup of multiple sections, we will fetch a request with the URL of the current storefront and add the parameter `?sections={sectionIds}`.
 
-Ví dụ:
+Here, `sectionIds` are the **filenames** of the sections in your **theme**, separated by commas.
+
+For example:
 
 ```javascript
 fetch('/?sections=header,footer')
 ```
 
-Kết quả sẽ trông như sau:
+The result will look like this:
 
 ```json
 {
@@ -41,8 +44,7 @@ Kết quả sẽ trông như sau:
   "footer": "<div id=\"shopify-section-footer\" class=\"shopify-section\">\n<!-- section content -->\n</div>"
 }
 ```
-
-Có thể kết hợp với **AJAX Cart APIs** bằng cách thêm param `sections` vào request body:
+You can combine this with the **AJAX Cart APIs** by adding the `sections` parameter to the request body:
 
 ```javascript
 items: [
@@ -54,7 +56,7 @@ items: [
 sections: "cart-items,cart-header,cart-footer"
 ```
 
-Các endpoints của **AJAX Cart APIs** có thể kết hợp query sections là:
+The endpoints of the **AJAX Cart APIs** that can be combined with the query sections are:
 
 - `/cart/add`
 - `/cart/change`
@@ -63,23 +65,23 @@ Các endpoints của **AJAX Cart APIs** có thể kết hợp query sections là
 
 ## Request 1 section
 
-Chúng ta hoàn toàn có thể sử dụng API cho request nhiều section để request 1 section (truyền 1 `sectionID` là được), nhưng kết quả sẽ là 1 **JSON** object.
+To request only one section, we can use the API for requesting multiple sections and pass one `sectionId`, and the result will be a **JSON** object.
 
-1 cách thay thế là sử dụng param `?section_id={sectionID}` để request chỉ 1 section, kết quả sẽ markup text của section đó
+An alternative way is to use the parameter `?section_id={sectionId}` to request only one section, and the result will be the markup text of that section.
 
-`sectionID` ở đây cũng tương tự như khi request nhiều section - chính là **filename** của section đó
+Here, `sectionId` is the filename of the section.
 
 ## Tips
 
 <Twemoji emoji="keycap-1" /> Static vs Dynamic section
 
-Để request 1 **static** section (section mà không có **settings shema** - content sẽ luôn cố định trừ khi chúng ta thay đổi source code của section) thì `sectionID` cần truyền chính là **filename** của section đó
+To request a **static** section (a section that has no settings schema, content will always be fixed unless we change the source code of that section), the `sectionId` that needs to be passed is the **filename** of that section.
 
-Tuy nhiên với **dynamic** section (section có **settings schema**) nếu dùng **filename** làm `sectionID` thì sẽ chỉ request được markup ứng với **default settings** của section đó, chứ không phải là markup tương ứng với settings hiện tại
+However, with **dynamic** sections (sections that have **settings schema**), if we use the **filename** as the `sectionId`, we will only request the markup corresponding to the **default settings** of that section, not the markup corresponding to the current settings.
 
-Để request được markup của những **dynamic** section này thì cần sử dụng dynamic `sectionID`. Trong **Liquid** thì đó là `{{ section.id }}`.
+To request the markup of these **dynamic** sections, we need to use dynamic `sectionId`. In **Liquid**, it is `{{ section.id }}`.
 
-Ví dụ:
+For example:
 
 ```html:section-type.liquid
 <div data-section-id="{{ section.id }}" data-section-type="section-type">
@@ -87,9 +89,9 @@ Ví dụ:
 </div>
 ```
 
-Dynamic **generated** ID sẽ trông như thế này: `template--14908088647850__16322847419ca50f50`
+The dynamic **generated** ID will look like this: `template--14908088647850__16322847419ca50f50`
 
-Request dynamic section markup:
+To request dynamic section markup:
 
 ```js
 // Async context
@@ -102,15 +104,15 @@ console.log(markup)
 // Example markup: '<div id=\"template--14908088647850__16322847419ca50f50\">\n<!-- section content -->\n</div>''
 ```
 
-<Twemoji emoji="keycap-2" /> Include product/collection context
+<Twemoji emoji="keycap-2" /> Including product/collection context:
 
-Với URL như trên thì chúng ta sẽ chỉ query được markup của các section ở homepage ứng với settings tương ứng. Còn nếu muốn query section của **product page** hoặc **collection page** (markup sẽ chưa thông tin của product hoặc collection đó) thì sao?
+With the URL above, we can only query the markup of sections on the homepage corresponding to the respective settings. But what if we want to query the section of a **product** page or **collection** page (markup will not include information about that product or collection)?
 
-Ví dụ phổ biến nhất chính là query 1 **product card** data của section **product recommendations** / **recently viewed product** hay query **collection filter** data cho **AJAX loadmore** hoặc **pagination**
+The most common example is querying 1 **product card** data from the **product recommendations** / **recently viewed product** section or querying **collection filter** data for **AJAX loadmore** or **pagination**.
 
-Để thêm product/collection context thì chỉ cần thêm vào query URL: `/products/product-handle` hoặc `/collections/collection-handle`
+To add product/collection context, simply add to the query URL: `/products/product-handle` or `/collections/collection-handle`
 
-Ví dụ:
+Example:
 
 ```javascript
 // Async context
@@ -124,16 +126,16 @@ console.log(productMarkup)
 // Example markup: '<div id=\"shopify-section-template--15128665981118__main\">\n<!-- section content -->\n</div>''
 ```
 
-## Kết bài
+## Conclusion
 
-Nhiều bạn có thể biết 1 cách cũ để **AJAX query markup** là sử dụng [alternate template](https://www.shopify.com/partners/blog/shopify-alternate-templates).
+Some of you may know an old way to **AJAX query markup** using [alternate template](https://www.shopify.com/partners/blog/shopify-alternate-templates).
 
-Tuy nhiên cách này có 1 nhược điểm là phải tạo nhiều template tương ứng với markup bạn muốn render, và trong **Theme Customization** của **Online Store 2.0** các template này sẽ hiện hết lên (trong khi customer không cần quan tâm đến - trông theme sẽ khá rác)
+However, this method has a disadvantage of having to create multiple templates corresponding to the markup you want to render, and in the **Theme Customization** of **Online Store 2.0**, these templates will all appear (while the customer doesn't care - the theme will look quite messy).
 
 ![alternate-template-os-2](/static/images/alternate-template-os-2.png)
 
-Với **Section rendering API**, customer sẽ không cần quan tâm đến các section đó, các section sẽ được render với context **product/collection** hoặc **settings** tương ứng (chỉ cần truyền đúng `sectionID` là được)
+With the **Section rendering API**, customers will not need to care about those sections, the sections will be rendered with **product/collection** context or corresponding **settings** (just need to pass the correct `sectionId`).
 
-Trên đây là toàn bộ cách sử dụng **Section Rendering APIs** và tips mà mình học được, hi vọng sẽ bổ ích với các bạn
+The above is the entire way to use **Section Rendering APIs** and tips that I have learned, hope it will be useful to you.
 
 Happy sharing <Twemoji emoji="clinking-beer-mugs" />
