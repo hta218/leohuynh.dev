@@ -1,9 +1,9 @@
 ---
-title: 'Node.js - Fetch JSON với HTTPS module'
-date: '2021-08-18'
+title: 'How to make HTTP requests in Node.js without installing external libraries'
+date: '2020-08-18'
 tags: ['nodejs', 'request', 'json', 'https', 'built-in-module']
-draft: true
-summary: 'Tạo request từ Node.js server để fetch 1 file json 1 cách đơn giản với https module'
+draft: false
+summary: 'Learn how to make HTTP requests in Node.js without adding unnecessary dependencies to your project using the built-in https module. Follow these simple steps to easily fetch JSON data from external APIs and servers.'
 images: ['/static/images/switzerland.jpg']
 authors: ['default']
 ---
@@ -11,22 +11,21 @@ authors: ['default']
 import Twemoji from './Twemoji.tsx'
 import UnsplashPhotoInfo from './UnsplashPhotoInfo.tsx'
 
+![thumbnail-image](/static/images/switzerland.jpg)
+
 <UnsplashPhotoInfo photoURL="https://unsplash.com/photos/BYPMtjYMEyk" author="Tim Trad" />
-![switzerland](/static/images/switzerland.jpg)
 
-Khi làm việc với Node.js, có rất nhiều thư viện hỗ trợ việc tạo `request` đến 1 server khác như: `node-fetch`, `phin`, `got` hay `request` ([Deprecated](https://www.npmjs.com/package/request) <Twemoji emoji="thumbs-down" />)...
+When working with ==Node.js==, there are many libraries that support creating requests to another server, such as `node-fetch`, `phin`, `got` or `request` (deprecated)...
 
-Tuy nhiên nếu **server** của bạn đơn thuần chỉ làm API cho client App và bây giờ có 1 feature cần phải `request` đến 1 file `json` từ server khác, hoặc đơn giản là fetch 1 external `API` thì bạn sẽ chọn xài thư viện nào? <Twemoji emoji="thinking-face" />
+However, if your **server** simply serves as an API for a client app and you now need to `request` a `JSON` file from another server or simply fetch an external API, which library should you choose to use? <Twemoji emoji="thinking-face" />
 
-Liệu có cần thiết phải thêm vào `package.json` 1 dependency với cả rổ chức năng chỉ để tạo 1 `request` không? <Twemoji emoji="loudly-crying-face" />
-
-Và câu trả lời là không! Vì đã có [`https`](https://nodejs.org/api/https.html#https_https) module!
+The answer is that you don't need to add a new dependency to your `package.json` just for creating a request because Node.js has a built-in module called `https`.
 
 ## HTTPS
 
-`https` là module được build sẵn trong Node.js chỉ việc lấy ra xài, rất nhẹ nhàng và được support ở hầu hết các version Node.js.
+`https` is a lightweight module that comes pre-built in Node.js and is supported in most Node.js versions.
 
-Tạo `request` với `https` như sau:
+You can create a `request` using `https` as follows:
 
 ```js {8,11} showLineNumbers
 let https = require('https')
@@ -49,19 +48,19 @@ https
   })
 ```
 
-Trong đó:
+In the code above:
 
-- **https** là built-in module của Node.js nên có thể `require` luôn mà không cần install
-- Tạo **request** với `https.get(url[, options][, callback])`
-- Trong **callback** chúng ta sẽ listen các event của response với `res.on()`
-- Mỗi lần `res.on("data")` trigger, cộng thêm `data` vào string `body`
-- Kết thúc với `res.on("end")`, lúc này chỉ cần `JSON.parse(body)` là sẽ có JSON data mong muốn
-- Dòng `8` + `11`: Lưu ý để parse trong `try {} catch() {}` để bắt lỗi nếu không **parse** được **json**!
-- Nếu không tạo được **request** thì event `error` sẽ được trigger
+- **https** is a built-in module in Node.js so you can `require` it directly without the need for installation.
+- You can create a **request** using `https.get(url[, options][, callback])`.
+- In the **callback**, you listen to the response events using `res.on()`.
+- Each time `res.on("data")` is triggered, you add the `data` to the string `body`.
+- When `res.on("end")` is triggered, you can simply parse the body into a JSON object using `JSON.parse(body)`.
+- Lines `8` and `11`: Note that you should parse the data within a `try {} catch() {}` block to catch errors if the JSON cannot be parsed.
+- If the **request** fails, the `error` event will be triggered.
 
-Đơn giản là như vậy! Bây giờ hãy abstract những logic này vào 1 function để sử dụng ở bất kì đâu trong `server`:
+That's it! Now let's abstract this logic into a function that can be used anywhere in the `server`:
 
-```js
+```javascript
 let https = require('https')
 
 let fetchJSON = (url) => {
@@ -85,13 +84,13 @@ let fetchJSON = (url) => {
 module.exports = fetchJSON
 ```
 
-Và sử dụng
+And you can use it as follows:
 
 ```js
 // Async context
 let data = await fetchJSON(url)
 
-// Use data...
+// Use the data...
 ```
 
-Chúc các bạn thành công! <Twemoji emoji="party popper" />
+Good luck! <Twemoji emoji="party popper" />
