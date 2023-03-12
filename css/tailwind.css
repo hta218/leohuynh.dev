@@ -39,6 +39,7 @@
 }
 .prose pre .code-line.highlight-line {
   border-color: rgba(99, 102, 241, var(--tw-border-opacity)) !important;
+  display: block;
 }
 
 @media (max-width: 768px) {
