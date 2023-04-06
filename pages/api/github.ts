@@ -1,4 +1,4 @@
-import { graphql, GraphQlQueryResponseData, GraphqlResponseError } from '@octokit/graphql'
+import { GraphqlResponseError, graphql, type GraphQlQueryResponseData } from '@octokit/graphql'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { siteMetadata } from '~/data/siteMetadata'
 
