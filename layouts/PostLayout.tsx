@@ -30,7 +30,7 @@ export function PostLayout(props: PostLayoutProps) {
               <div className="hidden border-b border-gray-200 py-4 dark:border-gray-700 xl:block xl:py-8">
                 <BackToPosts page={page} />
               </div>
-              <dl className="pt-6 pb-10 xl:pt-11">
+              <dl className="pb-10 pt-6 xl:pt-11">
                 <dt className="sr-only">Authors</dt>
                 <dd>
                   <AuthorDetails authorDetails={authorDetails} />
@@ -38,7 +38,7 @@ export function PostLayout(props: PostLayoutProps) {
               </dl>
             </div>
             <div className="divide-y divide-gray-200 !border-t-0 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0">
-              <div className="prose prose-lg max-w-none pt-10 pb-8 dark:prose-dark">{children}</div>
+              <div className="prose prose-lg max-w-none pb-8 pt-10 dark:prose-dark">{children}</div>
               <SocialButtons postUrl={postUrl} title={title} fileName={fileName} />
               <Comments frontMatter={frontMatter} config={commentConfig} />
             </div>

@@ -28,7 +28,7 @@ function Disqus({ identifier, disqus }: DisqusProps) {
   }
 
   return (
-    <div className="pt-6 pb-6 text-center text-gray-700 dark:text-gray-300">
+    <div className="pb-6 pt-6 text-center text-gray-700 dark:text-gray-300">
       {!loaded && <button onClick={handleLoadComments}>Load Comments</button>}
       <div className="disqus-frame" id={DISQUS_COMMENTS_ID} />
     </div>

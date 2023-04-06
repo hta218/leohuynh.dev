@@ -53,10 +53,10 @@ export function Pre({ children }: { children: React.ReactNode }) {
           </button>
           {copied && (
             <>
-              <span className="copy-text absolute top-2.5 right-12 z-10 rounded-md bg-gray-300 px-1.5 py-0.5 text-base text-gray-800">
+              <span className="copy-text absolute right-12 top-2.5 z-10 rounded-md bg-gray-300 px-1.5 py-0.5 text-base text-gray-800">
                 Copied
               </span>
-              <span className="absolute top-5 right-11 h-2 w-2 rotate-45 transform bg-gray-300" />
+              <span className="absolute right-11 top-5 h-2 w-2 rotate-45 transform bg-gray-300" />
             </>
           )}
         </>

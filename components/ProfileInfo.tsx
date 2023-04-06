@@ -6,7 +6,7 @@ export function ProfileCardInfo() {
     <div className="hidden py-4 xl:block xl:px-6">
       <h3 className="text-xl font-semibold text-gray-800 dark:text-white">Tuan Anh (Leo) Huynh</h3>
       <h5 className="py-2 text-gray-700 dark:text-gray-400">Learner | Builder</h5>
-      <div className="mt-4 mb-2 space-y-4">
+      <div className="mb-2 mt-4 space-y-4">
         <div className="flex items-center text-gray-700 dark:text-gray-200">
           <svg
             xmlns="http://www.w3.org/2000/svg"

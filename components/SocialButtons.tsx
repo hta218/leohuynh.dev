@@ -12,7 +12,7 @@ export function SocialButtons({ postUrl, title, fileName }: SocialButtonsProps) 
     `https://twitter.com/search?q=${encodeURIComponent(postUrl)}`
 
   return (
-    <div className="items-center justify-between pt-6 pb-6 text-sm text-gray-700 dark:text-gray-300 md:flex">
+    <div className="items-center justify-between pb-6 pt-6 text-sm text-gray-700 dark:text-gray-300 md:flex">
       <div className="mb-6 md:mb-0">
         <Link href={createDiscussonTwitterUrl(postUrl)} rel="nofollow" className="hover:underline">
           {'Discuss on Twitter'}
