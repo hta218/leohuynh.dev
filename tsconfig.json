@@ -19,6 +19,7 @@
     "paths": {
       "~/*": ["./*"]
     },
-    "verbatimModuleSyntax": true
+    "isolatedModules": true,
+    "importsNotUsedAsValues": "error"
   }
 }
