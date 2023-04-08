@@ -12,6 +12,7 @@ import Prisma from '~/icons/prisma.svg'
 import Umami from '~/icons/umami.svg'
 import Vercel from '~/icons/vercel.svg'
 import Railway from '~/icons/railway.svg'
+import Spotify from '~/icons/spotify.svg'
 
 export let DevIconsMap = {
   React,
@@ -28,6 +29,7 @@ export let DevIconsMap = {
   Umami,
   Vercel,
   Railway,
+  Spotify,
 }
 
 export function DevIcon(props: { type: keyof typeof DevIconsMap; className?: string }) {
