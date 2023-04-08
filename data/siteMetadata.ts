@@ -1,11 +1,11 @@
 export let siteMetadata = {
-  title: "Leo's blog - Leo's coding journey",
-  author: 'Leo Huynh',
-  fullName: 'Tuan Anh Huynh',
-  headerTitle: "Leo's blog - Leo's coding journey",
-  footerTitle: "Leo's blog - Leo's coding journey",
+  title: "Zhengping's blog - Zhengping's coding journey",
+  author: 'Zhengping Si',
+  fullName: 'Zhengping Si',
+  headerTitle: "Zhengping's blog - Zhengping's coding journey",
+  footerTitle: "Zhengping's blog - Zhengping's coding journey",
   description:
-    "Leo's coding journey - work and life stories through the keyboard of an open-minded Software Engineer",
+    "Zhengping's coding journey - work and life stories through the keyboard of an open-minded Software Engineer",
   language: 'en-us',
   siteUrl: 'https://www.leohuynh.dev',
   siteRepo: 'https://github.com/hta218/leohuynh.dev',
