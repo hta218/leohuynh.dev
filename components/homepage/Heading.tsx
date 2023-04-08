@@ -6,7 +6,7 @@ export function Heading() {
     <h1 className="text-neutral-900 dark:text-neutral-200">
       I'm <span className="font-medium">{siteMetadata.fullName}</span> - a dedicated{' '}
       <span className="font-medium">Software Engineer</span> in{' '}
-      <span className="hidden font-medium">Ha Noi, VN</span>
+      <span className="hidden font-medium">Zhengping Si</span>
       <span className="absolute ml-1.5 inline-flex pt-[3px]">
         <Twemoji emoji="flag-vietnam" />
       </span>
