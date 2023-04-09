@@ -4,8 +4,8 @@ import { siteMetadata } from '~/data/siteMetadata'
 export function ProfileCardInfo() {
   return (
     <div className="hidden py-4 xl:block xl:px-6">
-      <h3 className="text-xl font-semibold text-gray-800 dark:text-white">Tuan Anh (Leo) Huynh</h3>
-      <h5 className="py-2 text-gray-700 dark:text-gray-400">Learner | Builder</h5>
+      <h3 className="text-xl font-semibold text-gray-800 dark:text-white">Zhengping Si</h3>
+      <h5 className="py-2 text-gray-700 dark:text-gray-400">Software Engineer</h5>
       <div className="mb-2 mt-4 space-y-4">
         <div className="flex items-center text-gray-700 dark:text-gray-200">
           <svg
@@ -24,14 +24,14 @@ export function ProfileCardInfo() {
           </svg>
 
           <p className="px-2">
-            CTO / Co.Founder @{' '}
+            The University of Sydney{' '}
             <a
               target="_blank"
               href="https://weaverse.io"
               rel="noreferrer"
               className="hover:underline"
             >
-              Weaverse
+              {' '}
             </a>
           </p>
         </div>
@@ -58,9 +58,9 @@ export function ProfileCardInfo() {
           </svg>
 
           <p className="px-2">
-            [::1]:443 - Ha Noi,
+            Sydney, NSW,
             <span className="absolute ml-1 inline-flex pt-px">
-              <Twemoji emoji="flag-vietnam" />
+              <Twemoji emoji="flag-au" />
             </span>
           </p>
         </div>
@@ -105,7 +105,7 @@ export function ProfileCardInfo() {
               rel="noreferrer"
               className="umami--click--profile-card-github hover:underline"
             >
-              gh/{siteMetadata.socialAccounts.github}
+              github/{siteMetadata.socialAccounts.github}
             </a>
             <span className="text-gray-400 dark:text-gray-500">|</span>
             <a
@@ -116,15 +116,15 @@ export function ProfileCardInfo() {
             >
               in/{siteMetadata.socialAccounts.linkedin}
             </a>
-            <span className="text-gray-400 dark:text-gray-500">|</span>
-            <a
-              target="_blank"
-              href={siteMetadata.twitter}
-              rel="noreferrer"
-              className="umami--click--profile-card-twitter hover:underline"
-            >
-              tw/{siteMetadata.socialAccounts.twitter}
-            </a>
+            {/*<span className="text-gray-400 dark:text-gray-500">|</span>*/}
+            {/*<a*/}
+            {/*  target="_blank"*/}
+            {/*  href={siteMetadata.twitter}*/}
+            {/*  rel="noreferrer"*/}
+            {/*  className="umami--click--profile-card-twitter hover:underline"*/}
+            {/*>*/}
+            {/*  tw/{siteMetadata.socialAccounts.twitter}*/}
+            {/*</a>*/}
           </p>
         </div>
       </div>

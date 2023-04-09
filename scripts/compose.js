@@ -2,6 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const inquirer = require('inquirer')
 const dedent = require('dedent')
+// import inquirer from 'inquirer'
 
 const root = process.cwd()
 

@@ -16,6 +16,8 @@ export function getStaticProps() {
   return { props: { posts } }
 }
 
+//<TypedBios />是轮播介绍
+
 export default function Home({ posts }: { posts: BlogFrontMatter[] }) {
   return (
     <>
@@ -26,7 +28,7 @@ export default function Home({ posts }: { posts: BlogFrontMatter[] }) {
             <Greeting />
             <div className="text-lg leading-8 text-gray-600 dark:text-gray-400">
               <Heading />
-              <TypedBios />
+              {/*<TypedBios />*/}
               <ShortDescription />
               <BlogLinks />
               <p className="my-8 flex">

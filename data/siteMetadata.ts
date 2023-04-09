@@ -7,19 +7,19 @@ export let siteMetadata = {
   description:
     "Zhengping's coding journey - work and life stories through the keyboard of an open-minded Software Engineer",
   language: 'en-us',
-  siteUrl: 'https://www.leohuynh.dev',
-  siteRepo: 'https://github.com/hta218/leohuynh.dev',
+  // siteUrl: 'https://www.leohuynh.dev',
+  // siteRepo: 'https://github.com/hta218/leohuynh.dev',
   siteLogo: '/static/images/logo.jpg',
   image: '/static/images/logo.jpg',
   socialBanner: '/static/images/logo.jpg',
-  email: 'leohuynh@pm.me',
-  github: 'https://github.com/hta218',
-  twitter: 'https://twitter.com/hta218_',
-  facebook: 'https://facebook.com/hta218',
-  youtube: 'https://www.youtube.com/@hta218_',
-  linkedin: 'https://www.linkedin.com/in/hta218/',
+  email: 'ryansi0105@outlook.com',
+  github: 'https://github.com/ryan-si',
+  // twitter: 'https://twitter.com/hta218_',
+  // facebook: 'https://facebook.com/hta218',
+  // youtube: 'https://www.youtube.com/@hta218_',
+  linkedin: 'http://linkedin.com/in/zhengping-si-734a61257',
   locale: 'en-US',
-  analyticsURL: 'https://analytics.leohuynh.dev/share/jkwRskv0/leohuynh.dev',
+  // analyticsURL: 'https://analytics.leohuynh.dev/share/jkwRskv0/leohuynh.dev',
   analytics: {
     plausibleDataDomain: '', // e.g. tailwind-nextjs-starter-blog.vercel.app
     simpleAnalytics: false, // true or false
@@ -27,9 +27,9 @@ export let siteMetadata = {
     googleAnalyticsId: '', // e.g. UA-000000-2 or G-XXXXXXX
   },
   socialAccounts: {
-    github: 'hta218',
-    twitter: 'hta218_',
-    linkedin: 'hta218',
+    github: 'ryan-si',
+    // twitter: 'Hurst_Si',
+    linkedin: 'zhengping-si',
   },
 }
 

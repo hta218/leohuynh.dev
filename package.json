@@ -22,6 +22,7 @@
     "github-slugger": "^2.0.0",
     "gray-matter": "^4.0.3",
     "image-size": "^1.0.2",
+    "inquirer": "^9.1.5",
     "isomorphic-unfetch": "^4.0.2",
     "mdx-bundler": "^9.2.1",
     "next": "^13.2.4",

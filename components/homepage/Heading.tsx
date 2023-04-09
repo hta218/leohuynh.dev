@@ -8,7 +8,7 @@ export function Heading() {
       <span className="font-medium">Software Engineer</span> in{' '}
       <span className="hidden font-medium">Zhengping Si</span>
       <span className="absolute ml-1.5 inline-flex pt-[3px]">
-        <Twemoji emoji="flag-vietnam" />
+        <Twemoji emoji="flag-au" />
       </span>
     </h1>
   )
