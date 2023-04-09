@@ -6,6 +6,8 @@ import { AnalyticsLink } from './AnalyticsLink'
 import { Link } from './Link'
 import { ThemeSwitcher } from './ThemeSwitcher'
 
+//<AnalyticsLink />是分析链接
+
 export function Header({ onToggleNav }: { onToggleNav: () => void }) {
   let router = useRouter()
   return (
@@ -43,7 +45,7 @@ export function Header({ onToggleNav }: { onToggleNav: () => void }) {
               )
             })}
           </div>
-          <AnalyticsLink />
+          {/*<AnalyticsLink />*/}
           <ThemeSwitcher />
           <button
             className="umami--click--mobile-nav-toggle ml-2 mr-1 h-8 w-8 rounded sm:hidden"
