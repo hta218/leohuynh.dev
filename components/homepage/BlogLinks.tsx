@@ -25,12 +25,12 @@ export function BlogLinks() {
         <Twemoji emoji="briefcase" />
         <span className="umami--click--home-link-resume ml-1.5">My career</span>
       </Link>
-      <Link href={siteMetadata.analyticsURL} className="hover:underline">
-        <Twemoji emoji="bar-chart" />
-        <span className="umami--click--home-link-analytics ml-1.5">
-          Traffic & engagement of this site
-        </span>
-      </Link>
+      {/*<Link href={siteMetadata.analyticsURL} className="hover:underline">*/}
+      {/*  <Twemoji emoji="bar-chart" />*/}
+      {/*  <span className="umami--click--home-link-analytics ml-1.5">*/}
+      {/*    Traffic & engagement of this site*/}
+      {/*  </span>*/}
+      {/*</Link>*/}
     </div>
   )
 }

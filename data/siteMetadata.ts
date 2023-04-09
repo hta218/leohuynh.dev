@@ -28,7 +28,7 @@ export let siteMetadata = {
   },
   socialAccounts: {
     github: 'ryan-si',
-    // twitter: 'Hurst_Si',
+    twitter: 'Hurst_Si',
     linkedin: 'zhengping-si',
   },
 }
