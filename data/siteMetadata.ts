@@ -7,7 +7,7 @@ export let siteMetadata = {
   description:
     "Zhengping's coding journey - work and life stories through the keyboard of an open-minded Software Engineer",
   language: 'en-us',
-  // siteUrl: 'https://www.leohuynh.dev',
+  siteUrl: 'https://ryansi.live',
   siteRepo: 'https://github.com/ryan-si/ryansi.live',
   siteLogo: '/static/images/logo.jpg',
   image: '/static/images/logo.jpg',
