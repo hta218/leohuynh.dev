@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "start": "PORT=3434 next-remote-watch ./data",
+    "start": "export NODE_ENV=development && PORT=3434 next-remote-watch ./data",
     "dev": "PORT=3434 next dev",
     "build": "next build && tsx ./scripts/generate-sitemap",
     "serve": "PORT=3435 next start",
