@@ -20,6 +20,6 @@
       "~/*": ["./*"]
     },
     "isolatedModules": true,
-    "importsNotUsedAsValues": "error"
+    "verbatimModuleSyntax": true
   }
 }
