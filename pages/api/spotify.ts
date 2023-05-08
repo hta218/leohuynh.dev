@@ -5,7 +5,7 @@ import type { SpotifyNowPlayingData } from '~/types'
 export default async function fetchNowPlaying(_: NextApiRequest, res: NextApiResponse) {
   let response = await getNowPlaying()
   if (response.status === 204 || response.status > 400) {
-    return res.status(200).json({ isPlaying: false })
+    return res.status(response.status).json({ isPlaying: false })
   }
 
   let data = await response.json()
