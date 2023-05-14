@@ -17,15 +17,19 @@ export function Image({ shouldOpenLightbox = true, ...rest }: ImageProps) {
     document.documentElement.classList.add('lightbox-loading')
     setOpenLightbox(true)
   }
+  let isThumb = rest.id === 'thumbnail-image'
   let className = clsx(
     `flex justify-center`,
     shouldOpenLightbox && 'cursor-zoom-in',
-    rest.id === 'thumbnail-image' && 'thumbnail-image umami--click--view-post-thumbnail'
+    isThumb && 'thumbnail-image'
   )
 
   return (
     <>
-      <div className={className}>
+      <div
+        className={className}
+        data-umami-event={isThumb ? 'view-post-thumbnail' : 'view-image-in-lightbox'}
+      >
         <NextImage {...rest} blurDataURL={blurDataURL} onClick={handleOpenLightbox} />
       </div>
       {openLightbox && (

@@ -26,7 +26,7 @@ export function FeaturedPosts({ posts }: { posts: BlogFrontMatter[] }) {
                       <div>
                         <h2 className="mb-1 text-3xl font-bold tracking-tight">
                           <Link href={`/blog/${slug}`} className="text-gray-900 dark:text-gray-100">
-                            <span className="umami--click--featured-title">{title}</span>
+                            <span data-umami-event="featured-title">{title}</span>
                           </Link>
                         </h2>
                         <BlogTags tags={tags} />
@@ -41,7 +41,7 @@ export function FeaturedPosts({ posts }: { posts: BlogFrontMatter[] }) {
                         className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
                         aria-label={`Read "${title}"`}
                       >
-                        <span className="umami--click--featured-read-more">Read more &rarr;</span>
+                        <span data-umami-event="featured-read-more">Read more &rarr;</span>
                       </Link>
                     </div>
                   </div>
@@ -58,7 +58,7 @@ export function FeaturedPosts({ posts }: { posts: BlogFrontMatter[] }) {
             className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
             aria-label="all posts"
           >
-            <span className="umami--click--all-posts">All Posts &rarr;</span>
+            <span data-umami-event="all-posts">All Posts &rarr;</span>
           </Link>
         </div>
       )}

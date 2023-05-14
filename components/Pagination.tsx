@@ -10,8 +10,9 @@ export function Pagination({ totalPages, currentPage }: PaginationType) {
       <nav className="flex justify-between">
         {!hasPrevPage && (
           <button
-            className="umami--click--prev-posts cursor-auto disabled:opacity-50"
+            className="cursor-auto disabled:opacity-50"
             disabled={!hasPrevPage}
+            data-umami-event="prev-posts"
           >
             Previous
           </button>
@@ -26,8 +27,9 @@ export function Pagination({ totalPages, currentPage }: PaginationType) {
         </span>
         {!hasNextPage && (
           <button
-            className="umami--click--next-posts cursor-auto disabled:opacity-50"
+            className="cursor-auto disabled:opacity-50"
             disabled={!hasNextPage}
+            data-umami-event="next-posts"
           >
             Next
           </button>

@@ -13,8 +13,9 @@ export function ThemeSwitcher() {
     <button
       aria-label="Toggle Dark Mode"
       type="button"
-      className="umami--click--nav-theme-switcher ml-1 rounded p-1.5 hover:bg-gray-200 dark:hover:bg-gray-700 sm:ml-2"
+      className="ml-1 rounded p-1.5 hover:bg-gray-200 dark:hover:bg-gray-700 sm:ml-2"
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
+      data-umami-event="nav-theme-switcher"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

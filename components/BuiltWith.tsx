@@ -28,7 +28,7 @@ export function BuiltWith() {
         href={siteMetadata.siteRepo}
         className="text-gray-500 underline underline-offset-4 dark:text-gray-400"
       >
-        <span className="umami--click--view-source">View source</span>
+        <span data-umami-event="view-source">View source</span>
       </Link>
     </div>
   )

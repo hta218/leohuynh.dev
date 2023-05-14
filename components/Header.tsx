@@ -13,7 +13,7 @@ export function Header({ onToggleNav }: { onToggleNav: () => void }) {
       <div className="mx-auto flex max-w-3xl items-center justify-between px-3 xl:max-w-5xl xl:px-0">
         <div>
           <Link href="/" aria-label="Leo's Blog">
-            <div className="umami--click--logo flex items-center justify-between">
+            <div className="flex items-center justify-between" data-umami-event="logo">
               <div className="mr-3 flex items-center justify-center">
                 <NextImage
                   src="/static/images/logo.jpg"
@@ -33,11 +33,14 @@ export function Header({ onToggleNav }: { onToggleNav: () => void }) {
                 'inline-block rounded font-medium text-gray-900 dark:text-gray-100 py-1 px-2 sm:py-2 sm:px-3',
                 router.pathname === link.href
                   ? 'bg-gray-200 dark:bg-gray-700'
-                  : 'hover:bg-gray-200 dark:hover:bg-gray-700',
-                `umami--click--nav-${link.href.replace('/', '')}`
+                  : 'hover:bg-gray-200 dark:hover:bg-gray-700'
               )
               return (
-                <Link key={link.title} href={link.href}>
+                <Link
+                  key={link.title}
+                  href={link.href}
+                  data-umami-event={`nav-${link.href.replace('/', '')}`}
+                >
                   <span className={className}>{link.title}</span>
                 </Link>
               )
@@ -46,10 +49,11 @@ export function Header({ onToggleNav }: { onToggleNav: () => void }) {
           <AnalyticsLink />
           <ThemeSwitcher />
           <button
-            className="umami--click--mobile-nav-toggle ml-2 mr-1 h-8 w-8 rounded sm:hidden"
+            className="ml-2 mr-1 h-8 w-8 rounded sm:hidden"
             type="button"
             aria-label="Toggle Menu"
             onClick={onToggleNav}
+            data-umami-event="mobile-nav-toggle"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

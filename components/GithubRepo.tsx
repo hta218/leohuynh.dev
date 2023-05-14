@@ -44,7 +44,8 @@ export function GithubRepo({ repo }: { repo: GithubRepository }) {
               href={repo.homepageUrl}
               target="_blank"
               rel="noreferrer"
-              className="umami--click--project-demo flex items-center space-x-1"
+              className="flex items-center space-x-1"
+              data-umami-event="project-demo"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -64,7 +65,8 @@ export function GithubRepo({ repo }: { repo: GithubRepository }) {
           href={repo.url}
           target="_blank"
           rel="noreferrer"
-          className="umami--click--project-repo flex items-center space-x-1"
+          className="flex items-center space-x-1"
+          data-umami-event="project-repo"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

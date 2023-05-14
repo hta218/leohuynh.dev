@@ -67,7 +67,7 @@ export function ImageLightbox({ src, closeLightbox }: ImageLightBoxProps) {
         <img
           src={src.toString()}
           onLoad={() => setImgLoaded(true)}
-          className="umami--load--view-image-in-lightbox max-h-[80vh] max-w-[90vw] cursor-zoom-out"
+          className="max-h-[80vh] max-w-[90vw] cursor-zoom-out"
           alt="Lightbox"
         />
       </div>
