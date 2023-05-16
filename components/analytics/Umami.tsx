@@ -5,9 +5,8 @@ export function UmamiScript() {
   return (
     <Script
       async
-      defer
       data-website-id={siteMetadata.analytics.umamiWebsiteId}
-      src="https://analytics.leohuynh.dev/umami.js"
+      src="https://analytics.leohuynh.dev/script.js"
     />
   )
 }
