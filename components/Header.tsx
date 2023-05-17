@@ -36,12 +36,13 @@ export function Header({ onToggleNav }: { onToggleNav: () => void }) {
                   : 'hover:bg-gray-200 dark:hover:bg-gray-700'
               )
               return (
-                <Link
-                  key={link.title}
-                  href={link.href}
-                  data-umami-event={`nav-${link.href.replace('/', '')}`}
-                >
-                  <span className={className}>{link.title}</span>
+                <Link key={link.title} href={link.href}>
+                  <span
+                    className={className}
+                    data-umami-event={`nav-${link.href.replace('/', '')}`}
+                  >
+                    {link.title}
+                  </span>
                 </Link>
               )
             })}

@@ -14,7 +14,7 @@ export function BackToPosts({ page }: { page: number }) {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-        ></path>
+        />
       </svg>
       Back to the blog
     </Link>
