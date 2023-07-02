@@ -29,5 +29,5 @@ export let TOKEN_CLASSNAME_MAP = {
   comment: 'text-gray-500 italic',
 }
 
-export let POSTS_PER_PAGE = 5
+export let POSTS_PER_PAGE = 10
 export let FEATURED_POSTS = 5
