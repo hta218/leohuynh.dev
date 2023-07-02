@@ -29,16 +29,15 @@ export function Header({ onToggleNav }: { onToggleNav: () => void }) {
         <div className="flex items-center text-base leading-5">
           <div className="hidden space-x-2 sm:block">
             {headerNavLinks.map((link) => {
-              let className = clsx(
-                'inline-block rounded font-medium text-gray-900 dark:text-gray-100 py-1 px-2 sm:py-2 sm:px-3',
-                router.pathname === link.href
-                  ? 'bg-gray-200 dark:bg-gray-700'
-                  : 'hover:bg-gray-200 dark:hover:bg-gray-700'
-              )
               return (
                 <Link key={link.title} href={link.href}>
                   <span
-                    className={className}
+                    className={clsx(
+                      'inline-block rounded px-2 py-1 font-medium text-gray-900 dark:text-gray-100 sm:px-3 sm:py-2',
+                      router.pathname.startsWith(link.href)
+                        ? 'bg-gray-200 dark:bg-gray-700'
+                        : 'hover:bg-gray-200 dark:hover:bg-gray-700'
+                    )}
                     data-umami-event={`nav-${link.href.replace('/', '')}`}
                   >
                     {link.title}
