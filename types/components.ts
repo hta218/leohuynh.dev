@@ -22,7 +22,7 @@ export interface ImageProps extends NextImageProps {
   shouldOpenLightbox?: boolean
 }
 
-export type ProjectDataType = typeof projectsData[0]
+export type ProjectDataType = (typeof projectsData)[0]
 
 export interface ProjectCardProps {
   project: ProjectDataType
