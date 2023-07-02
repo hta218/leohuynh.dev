@@ -3,12 +3,16 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { siteMetadata } from '~/data/siteMetadata'
 
 export default async function fetchGithubRepo(req: NextApiRequest, res: NextApiResponse) {
-  let { repo } = req.query
+  let repo = req.query.repo as string
   if (!repo) {
     return res.status(400).json({ message: 'Missing repo query param' })
   }
   if (!process.env.GITHUB_API_TOKEN) {
     return res.status(500).json({ message: 'Missing `GITHUB_API_TOKEN` env variable' })
+  }
+  let owner = siteMetadata.socialAccounts.github
+  if (repo.includes('/')) {
+    ;[owner, repo] = repo.split('/')
   }
   try {
     let { repository }: GraphQlQueryResponseData = await graphql(
@@ -43,8 +47,8 @@ export default async function fetchGithubRepo(req: NextApiRequest, res: NextApiR
         }
       `,
       {
-        owner: siteMetadata.socialAccounts.github,
-        repo: req.query.repo,
+        owner,
+        repo,
         headers: {
           authorization: `token ${process.env.GITHUB_API_TOKEN}`,
         },

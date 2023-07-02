@@ -11,6 +11,16 @@ export let projectsData: Project[] = [
   },
   {
     type: 'work',
+    title: 'Pilot - Shopify Hydrogen theme',
+    description:
+      'The first Hydrogen-driven theme for Shopify. Pilot is a Shopify theme that allows you to build a lightning-fast storefront with all the benefits of Hydrogen.',
+    imgSrc: '/static/images/weaverse-pilot.jpg',
+    repo: 'weaverse/pilot',
+    url: 'https://pilot.weaverse.io/',
+    builtWith: ['Hydrogen', 'Remix', 'Tailwind', 'Headless UI'],
+  },
+  {
+    type: 'work',
     title: 'Minimog - Shopify theme',
     description: `The Next Generation of highest-converting and extensible Shopify theme (Weekly bestseller & Top trending in Themeforest eCommerce category).`,
     imgSrc: '/static/images/minimog.jpg',
