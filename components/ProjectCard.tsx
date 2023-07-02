@@ -21,7 +21,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
           width={1088}
           height={612}
         />
-        <div className="flex grow flex-col justify-between space-y-8 p-6">
+        <div className="flex grow flex-col justify-between space-y-6 p-6">
           <div className="space-y-3">
             <h2 className="text-2xl font-bold leading-8 tracking-tight">
               {href ? (
@@ -32,7 +32,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 title
               )}
             </h2>
-            <div className="max-w-none space-y-1 text-gray-500 dark:text-gray-400">
+            <div className="max-w-none space-y-2 text-gray-500 dark:text-gray-400">
               <p>{repository?.description || description}</p>
               <div className="flex flex-wrap space-x-1.5">
                 <span className="shrink-0">Built with:</span>
