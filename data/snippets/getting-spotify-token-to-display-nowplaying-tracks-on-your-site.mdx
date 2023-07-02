@@ -60,29 +60,39 @@ Next step is to send a POST request to the Spotify API to get the token. We'll s
 
 Run this code in the Console tab of the browser developer tools:
 
-```javascript {4,9} showLineNumbers
+```javascript {3,18} showLineNumbers
+let data = {
+  grant_type: 'authorization_code',
+  code: 'AQB....GemX',
+  redirect_uri: 'http://localhost:3434',
+}
+
+let formData = []
+for (let prop in data) {
+  let encodedKey = encodeURIComponent(prop)
+  let encodedValue = encodeURIComponent(data[prop])
+  formData.push(encodedKey + '=' + encodedValue)
+}
+formData = formData.join('&')
+
 fetch('https://accounts.spotify.com/api/token', {
   method: 'POST',
   headers: {
     Authorization: 'Basic <base64 encoded client_id:client_secret>',
     'Content-Type': 'application/x-www-form-urlencoded',
   },
-  body: JSON.stringify({
-    grant_type: 'authorization_code',
-    code: 'a1b2c...i9j0',
-    redirect_uri: 'http://localhost:3434',
-  }),
+  body: formData,
 })
 ```
 
-Replace the code in line 9 with the `code` value that you saved in the previous step.
+Replace the code in line 3 with the `code` value that you saved in the previous step.
 
-Replace the `base64 encoded client_id:client_secret` in line 4 with the base64 encoded value of your Spotify app `Client ID` and `Client secret`.
+Replace the `<base64 encoded client_id:client_secret>` in line 18 with the base64 encoded value of your Spotify app `Client ID` and `Client secret`.
 You can use this [online tool](https://www.base64encode.org/) to encode the value.
 
 ![Base64 encode tool](/static/images/spotify-base64-encode.png)
 
-The value format should be `client_id:client_secret`.
+The value format should be `client_id:client_secret`
 
 The request will return a response containing a `refresh_token`, this token is valid indefinitely unless you revoke it or you change the password of your Spotify account.
 
