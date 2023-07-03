@@ -51,10 +51,10 @@ export let projectsData: Project[] = [
   },
   {
     type: 'self',
-    title: 'Shopify KoaJS React boilerplate',
-    imgSrc: '/static/images/shopify-app-store.png',
-    repo: 'shopify-koajs-react-boilerplate',
-    builtWith: ['Koa.js', 'JWT', 'MongoDB', 'Polaris'],
+    title: 'Exercism solutions',
+    imgSrc: '/static/images/exercism.png',
+    repo: 'exercism-solutions',
+    builtWith: ['Javascript', 'Bash', 'Exercism'],
   },
   {
     type: 'self',
@@ -62,6 +62,13 @@ export let projectsData: Project[] = [
     imgSrc: '/static/images/animate-loading-bar.jpg',
     repo: 'animate-loading-bar',
     builtWith: ['Javascript', 'CSS'],
+  },
+  {
+    type: 'self',
+    title: 'Shopify KoaJS React boilerplate',
+    imgSrc: '/static/images/shopify-app-store.png',
+    repo: 'shopify-koajs-react-boilerplate',
+    builtWith: ['Koa.js', 'JWT', 'MongoDB', 'Polaris'],
   },
   {
     type: 'self',
