@@ -13,7 +13,7 @@
     "upgrade": "rimraf package-lock.json && npx taze major -w && ni"
   },
   "dependencies": {
-    "@octokit/graphql": "^6.0.1",
+    "@octokit/graphql": "^7.0.0",
     "@prisma/client": "^4.16.2",
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/typography": "^0.5.9",
@@ -25,9 +25,9 @@
     "image-size": "^1.0.2",
     "isomorphic-unfetch": "^4.0.2",
     "mdx-bundler": "^9.2.1",
-    "next": "^13.4.7",
+    "next": "^13.4.9",
     "next-themes": "^0.2.1",
-    "postcss": "^8.4.24",
+    "postcss": "^8.4.25",
     "postcss-loader": "^7.3.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -47,23 +47,23 @@
   "devDependencies": {
     "@commitlint/cli": "^17.6.6",
     "@commitlint/config-conventional": "^17.6.6",
-    "@next/bundle-analyzer": "^13.4.7",
+    "@next/bundle-analyzer": "^13.4.9",
     "@svgr/webpack": "^8.0.1",
     "@types/react": "^18.2.14",
     "cross-env": "^7.0.3",
-    "dedent": "^0.7.0",
+    "dedent": "^1.0.0",
     "eslint": "^8.44.0",
-    "eslint-config-next": "^13.4.7",
+    "eslint-config-next": "^13.4.9",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-prettier": "^4.2.1",
     "file-loader": "^6.2.0",
-    "globby": "^13.2.1",
+    "globby": "^13.2.2",
     "husky": "^8.0.3",
     "inquirer": "^9.2.7",
     "lint-staged": "^13.2.3",
     "next-remote-watch": "^2.0.0",
-    "prettier": "^2.8.8",
+    "prettier": "^3.0.0",
     "prettier-plugin-tailwindcss": "^0.3.0",
     "prisma": "^4.16.2",
     "rehype": "^12.0.1",
@@ -73,7 +73,7 @@
     "tsx": "^3.12.7",
     "typescript": "5.1.6",
     "unified": "^10.1.2",
-    "unist-util-visit": "^4.1.2"
+    "unist-util-visit": "^5.0.0"
   },
   "lint-staged": {
     "*.+(js|jsx|ts|tsx)": [
