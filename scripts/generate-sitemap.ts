@@ -39,7 +39,7 @@ let SITE_URL = 'https://www.leohuynh.dev'
 			</urlset>
     `
 
-  let formatted = prettier.format(sitemap, {
+  let formatted = await prettier.format(sitemap, {
     ...prettierConfig,
     parser: 'html',
   })
