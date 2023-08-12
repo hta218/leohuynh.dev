@@ -1,7 +1,7 @@
 import type { ImageProps as NextImageProps } from 'next/image'
 import type React from 'react'
 import type { SocialIconsMap } from '~/components/SocialIcon'
-import type { projectsData } from '~/data/projectsData'
+import type { projectsData } from '~/data/en/projectsData'
 import type { commentConfig } from '~/data/siteMetadata'
 import type { MdxFrontMatter, ReadingTime } from './mdx'
 
