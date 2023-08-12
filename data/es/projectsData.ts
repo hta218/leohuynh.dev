@@ -4,7 +4,7 @@ export let projectsData: Project[] = [
   {
     type: 'work',
     title: 'Weaverse - Constructor de sitios web universal',
-    description: `El primer constructor de sitios web impulsado por Hydrogen y potenciado por IA. Weaverse es un canal de ventas de Shopify que te permite crear un sitio web en minutos sin necesidad de programación.`,
+    description: `El primer constructor de sitios web promovido por Hydrogen y potenciado por IA. Weaverse es un canal de ventas de Shopify que te permite crear un sitio web en minutos sin necesidad de programación.`,
     imgSrc: '/static/images/weaverse-hydrogen.jpg',
     url: 'https://www.weaverse.io?ref=leohuynh.dev',
     builtWith: ['Remix', 'Prisma', 'Tailwind', 'OpenAI'],
