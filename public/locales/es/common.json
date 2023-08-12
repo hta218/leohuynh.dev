@@ -1,0 +1,106 @@
+{
+  "siteMetadata": {
+    "title": "El blog de Leo - La aventura de programación de Leo",
+    "author": "Leo Huynh",
+    "fullName": "Tuan Anh Huynh",
+    "headerTitle": "El blog de Leo - La aventura de programación de Leo",
+    "footerTitle": "El blog de Leo - La aventura de programación de Leo",
+    "description": "La aventura de programación de Leo - historias de trabajo y vida a través del teclado de un Ingeniero de Software de mente abierta",
+    "language": "es"
+  },
+
+  "happyReading": "Feliz lectura",
+  "menu_blog": "Blog",
+  "menu_receptes": "Fragmentos",
+  "menu_projectes": "Proyectos",
+  "menu_sobremi": "Sobre mi",
+  "menu_curriculum": "Currículum",
+  "greetingMessage": "Hola, amigo!",
+
+  "introduction": "Soy",
+  "name": "Tuan Anh Huynh",
+  "description": "un Ingeniero de Software dedicado en",
+  "location": "Ha Noi, VN",
+
+  "bio1": "Me conocen como Leo en el trabajo.",
+  "bio2": "Soy un aprendiz, constructor y buscador de libertad.",
+  "bio3": "Vivo en Ha Noi, Viet Nam.",
+  "bio4": "Nací en la hermosa meseta de Moc Chau.",
+  "bio5": "El primer lenguaje de programación que aprendí fue Pascal.",
+  "bio6": "Me encanta el desarrollo web.",
+  "bio7": "Me estoy enfocando en construir software de comercio electrónico.",
+  "bio8": "Trabajo principalmente con tecnologías JS/TS.",
+  "bio9": "Soy el esposo de Tu Le.",
+  "bio10": "Soy una persona de perros.",
+  "bio11": "Soy un hombre deportivo. Me encanta",
+  "bio12": "Me encanta ver fútbol.",
+  "bio13": "Me encanta tocar el teclado y la guitarra.",
+  "bio14": "Me encanta la música rock.",
+  "bio15": "Me encanta jugar al ajedrez.",
+  "bio16": "Me encanta jugar videojuegos, PES es mi favorito.",
+
+  "bio_startCoding": "Empecé a aprender a programar en 2016 y desde entonces me enganché.",
+  "bio_firstJob": "Conseguí mi primer trabajo como mentor de programación en Python en 2017.",
+  "bio_passion": "Tengo una pasión por JS/TS, desarrollo web y comercio electrónico.",
+  "bio_blogPurpose": "Empecé este blog para documentar y compartir mi conocimiento y experiencia.",
+
+  "menu_blog_2": "Mis escritos",
+  "menu_receptes_2": "Mi colección de snippets",
+  "menu_projectes_2": "¿Qué he construido?",
+  "menu_sobremi_2": "Más sobre mí",
+  "menu_curriculum_2": "Mi carrera",
+  "analytics": "Tráfico y segmentación de este sitio",
+
+  "avatarDescription": "avatar",
+
+  "name_position": "Tuan Anh (Leo) Huynh",
+  "description_position": "Aprendiz | Constructor",
+
+  "lostMessage": "Hmm.. parece que te has perdido",
+  "returnMessage": "Pero no te preocupes, puedes encontrar muchas otras cosas en mi página de inicio.",
+  "backButton": "Volver a la página de inicio",
+
+  "blog": {
+    "allPostsTitle": "Todos los Posts",
+    "intro": "Escribo principalmente sobre desarrollo web, tecnología y algunas veces sobre mi vida personal. Usa la búsqueda a continuación para filtrar por título.",
+    "noPosts": "No se encontraron entradas.",
+    "searchPosts": "Buscar publicaciones",
+    "published_on": "Publicado el",
+    "under_construction": "En construcción",
+    "readingTime": "Tiempo de lectura: {{time}}",
+    "mins": "mins",
+    "views": "vistos"
+  },
+
+  "about_description": "Más sobre mi y este blog",
+  "resume_description": "Mi carrera profesional, experiencia y habilidades.",
+
+  "year": "año",
+  "month": "mes",
+  "day": "día",
+
+  "buildWith": {
+    "built_with": "Hecho con",
+    "view_source": "Ver código fuente",
+    "copyright_author": "El blog de Leo: el viaje de codificación de Leo"
+  },
+
+  "projects": {
+    "projects_description": "Mis proyectos de código abierto que he construido con mis compañeros de trabajo.",
+    "projects_title": "Proyectos",
+    "work_title": "Trabajo",
+    "side_title": "Proyectos paralelos",
+    "learn_more": "Aprende más",
+    "built_with": "Hecho con"
+  },
+
+  "pagination": {
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "of": "de"
+  },
+
+  "tag": {
+    "noTagsFound": "No se han encontrado etiquetas."
+  }
+}

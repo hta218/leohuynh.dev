@@ -2,9 +2,13 @@ import type { BlogHeaderProps } from '~/types'
 import { formatDate } from '~/utils/date'
 import { PageTitle } from '../PageTitle'
 import { Twemoji } from '../Twemoji'
+import { useTranslation } from 'next-i18next'
 
 export function BlogHeader({ title, date, readingTime }: BlogHeaderProps) {
-  let createdAt = formatDate(date)
+  const { t, i18n } = useTranslation()
+  const lang = i18n.language
+
+  let createdAt = formatDate(date, lang)
   let readingTimeText = readingTime.text
 
   return (

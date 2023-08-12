@@ -1,9 +1,11 @@
 import type { PaginationType } from '~/types'
 import { Link } from './Link'
+import { useTranslation } from 'next-i18next'
 
 export function Pagination({ totalPages, currentPage }: PaginationType) {
   let hasPrevPage = currentPage - 1 > 0
   let hasNextPage = currentPage + 1 <= totalPages
+  const { t } = useTranslation('common')
 
   return (
     <div className="space-y-2 pb-8 pt-6 md:space-y-5">
@@ -14,16 +16,16 @@ export function Pagination({ totalPages, currentPage }: PaginationType) {
             disabled={!hasPrevPage}
             data-umami-event="prev-posts"
           >
-            Previous
+            {t('pagination.previous')}
           </button>
         )}
         {hasPrevPage && (
           <Link href={currentPage - 1 === 1 ? `/blog/` : `/blog/page/${currentPage - 1}`}>
-            <button>Previous</button>
+            <button>{t('pagination.previous')}</button>
           </Link>
         )}
         <span>
-          {currentPage} of {totalPages}
+          {currentPage} {t('pagination.of')} {totalPages}
         </span>
         {!hasNextPage && (
           <button
@@ -31,12 +33,12 @@ export function Pagination({ totalPages, currentPage }: PaginationType) {
             disabled={!hasNextPage}
             data-umami-event="next-posts"
           >
-            Next
+            {t('pagination.next')}
           </button>
         )}
         {hasNextPage && (
           <Link href={`/blog/page/${currentPage + 1}`}>
-            <button>Next</button>
+            <button>{t('pagination.next')}</button>
           </Link>
         )}
       </nav>

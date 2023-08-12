@@ -1,0 +1,18 @@
+/* ResumeLayout.module.css */
+
+.customTable table {
+  @apply min-w-full border-collapse border border-gray-300 shadow-md;
+}
+
+.customTable thead {
+  @apply bg-gray-100;
+}
+
+.customTable th,
+.customTable td {
+  @apply p-3 border border-gray-300;
+}
+
+.customTable tbody tr:nth-child(odd) {
+  @apply bg-gray-200;
+}

@@ -1,8 +1,10 @@
 import { headerNavLinks } from '~/data/headerNavLinks'
 import { Link } from './Link'
 import clsx from 'clsx'
+import { useTranslation } from 'next-i18next'
 
 export function MobileNav({ navShow, onToggleNav }) {
+  const { t } = useTranslation('common')
   let className = clsx(
     `sm:hidden fixed w-full h-screen inset-0 bg-gray-200 dark:bg-gray-800 opacity-95 z-50 transition-transform transform ease-in-out duration-300`,
     navShow ? 'translate-x-0' : 'translate-x-full'
@@ -23,20 +25,30 @@ export function MobileNav({ navShow, onToggleNav }) {
         >
           <path
             fillRule="evenodd"
-            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
             clipRule="evenodd"
-          />
+          ></path>
+          <path
+            fillRule="evenodd"
+            d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+            clipRule="evenodd"
+          ></path>
+          <path
+            fillRule="evenodd"
+            d="M3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+            clipRule="evenodd"
+          ></path>
         </svg>
       </button>
-      <nav className="fixed mt-8 h-full">
+      <nav className="fixed mt-24 h-full">
         {headerNavLinks.map((link) => (
-          <div key={link.title} className="px-8 py-4">
+          <div key={link.titleKey} className="px-8 py-4">
             <Link
               href={link.href}
               className="text-2xl font-semibold tracking-wide text-gray-900 dark:text-gray-100"
               onClick={onToggleNav}
             >
-              {link.title}
+              {t(link.titleKey)}{' '}
             </Link>
           </div>
         ))}

@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { PageSeo } from 'components/SEO'
 import { BlogLinks } from '~/components/homepage/BlogLinks'
 import { FeaturedPosts } from '~/components/homepage/FeaturedPosts'
@@ -7,19 +8,28 @@ import { ShortDescription } from '~/components/homepage/ShortDescription'
 import { TypedBios } from '~/components/homepage/TypedBios'
 import { ProfileCard } from '~/components/ProfileCard'
 import { Twemoji } from '~/components/Twemoji'
-import { siteMetadata } from '~/data/siteMetadata'
 import { getAllFilesFrontMatter } from '~/libs/mdx'
-import type { BlogFrontMatter } from '~/types'
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-export function getStaticProps() {
-  let posts = getAllFilesFrontMatter('blog')
-  return { props: { posts } }
+export async function getStaticProps({ locale }) {
+  let posts = getAllFilesFrontMatter(`${locale}/blog`)
+
+  // Afegeix la traducció
+  return {
+    props: {
+      posts,
+      ...(await serverSideTranslations(locale, ['common'])), // Aquí estem assumint que el nom del teu fitxer de traducció és 'common'
+    },
+  }
 }
 
-export default function Home({ posts }: { posts: BlogFrontMatter[] }) {
+export default function Home({ posts }) {
+  const { t } = useTranslation('common') // utilitza 'common' si els teus strings estan a common.ts o canvia-ho pel nom adequat
+
   return (
     <>
-      <PageSeo title={siteMetadata.title} description={siteMetadata.description} />
+      <PageSeo title={t('siteMetadata.title')} description={t('siteMetadata.description')} />
       <div className="mt-8 divide-y divide-gray-200 dark:divide-gray-700 md:mt-16">
         <div className="space-y-2 md:my-4 md:space-y-5 md:pb-8 md:pt-6 xl:grid xl:grid-cols-3">
           <div className="md:pr-8 xl:col-span-2">
@@ -30,7 +40,7 @@ export default function Home({ posts }: { posts: BlogFrontMatter[] }) {
               <ShortDescription />
               <BlogLinks />
               <p className="my-8 flex">
-                <span className="mr-2">Happy reading</span>
+                <span className="mr-2">{t('happyReading')}</span>
                 <Twemoji emoji="clinking-beer-mugs" />
               </p>
             </div>

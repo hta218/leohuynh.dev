@@ -1,18 +1,19 @@
 import React from 'react'
 import { ProfileCard } from '~/components/ProfileCard'
 import { PageSeo } from '~/components/SEO'
-import { siteMetadata } from '~/data/siteMetadata'
 import type { AuthorLayoutProps } from '~/types'
+import { useTranslation } from 'next-i18next'
 
 export function AuthorLayout({ children }: AuthorLayoutProps) {
-  let title = 'About'
-  let description = 'More about me and this blog'
+  const { t } = useTranslation('common') // utilitza 'common' si els teus strings estan a common.ts o canvia-ho pel nom adequat
 
+  let title = t('menu_sobremi')
+  let description = t('about_description')
   return (
     <>
       <PageSeo
-        title={`${title} - ${siteMetadata.author} - ${siteMetadata.title}`}
-        description={`${title} - ${siteMetadata.title} - ${description}`}
+        title={`${title} - ${t('siteMetadata.author')} - ${t('siteMetadata.title')}`}
+        description={`${title} - ${t('siteMetadata.title')} - ${t('siteMetadata.description')}`}
       />
       <div className="divide-y divide-gray-200 dark:divide-gray-700">
         <div className="space-y-2 pb-8 pt-6 md:space-y-5">

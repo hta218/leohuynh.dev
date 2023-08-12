@@ -1,5 +1,6 @@
 import type readingTime from 'reading-time'
 import type { DevIconsMap } from '~/components/DevIcon'
+import type { TOC } from './server'
 
 export type MdxPageLayout =
   | 'AuthorLayout'
@@ -43,7 +44,7 @@ export interface AuthorFrontMatter extends MdxFrontMatter {
 export interface MdxFileData {
   mdxSource: string
   frontMatter: BlogFrontMatter
-  toc: unknown[]
+  toc: TOC[]
 }
 
 export interface MdxLayoutRendererProps {

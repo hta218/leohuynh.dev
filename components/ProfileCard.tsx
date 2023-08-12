@@ -2,6 +2,7 @@ import Image from 'next/image'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { ProfileCardInfo } from './ProfileInfo'
 import { SpotifyNowPlaying } from './SpotifyNowPlaying'
+import { useTranslation } from 'next-i18next'
 
 export function ProfileCard() {
   let ref = useRef(null)
@@ -44,6 +45,7 @@ export function ProfileCard() {
     }
   }, [onMouseLeave, onMouseMove])
 
+  const { t } = useTranslation('common')
   return (
     <div
       className="z-10 mb-8 scale-100 transition-all duration-200 ease-out hover:z-50 xl:mb-0 xl:hover:scale-[1.15]"
@@ -56,7 +58,7 @@ export function ProfileCard() {
       >
         <Image
           src={'/static/images/logo.jpg'}
-          alt="avatar"
+          alt={t('avatarDescription')}
           width={550}
           height={350}
           style={{

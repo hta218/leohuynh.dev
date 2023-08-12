@@ -55,12 +55,15 @@ export interface UnistImageNode extends UnistNodeType {
   attributes: unknown[]
 }
 
-export interface TOC {
-  value: string
-  url: string
+export type TOC = {
+  id: string
   depth: number
+  data: { hProperties?: { id?: string } }
+  children: TOC[]
+  url: string
 }
 
 export interface RemarkTocHeadingOptions {
-  exportRef: TOC[]
+  exportRef: Array<{ value: string; url: string; depth: number }>
+  cleaned?: boolean
 }

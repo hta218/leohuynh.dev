@@ -12,7 +12,7 @@ export function PageSeo({ title, description }: PageSeoProps) {
       <meta name="description" content={description} />
       <meta property="og:url" content={`${siteMetadata.siteUrl}${router.asPath}`} />
       <meta property="og:type" content="website" />
-      <meta property="og:site_name" content={siteMetadata.title} />
+      <meta property="og:site_name" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:title" content={title} />
       <meta property="og:image" content={`${siteMetadata.siteUrl}${siteMetadata.socialBanner}`} />
@@ -56,7 +56,7 @@ export function BlogSeo(props: BlogSeoProps) {
   } else {
     authorList = {
       '@type': 'Person',
-      name: siteMetadata.author,
+      name: process.env.AUTHOR_NAME,
     }
   }
 
@@ -74,7 +74,7 @@ export function BlogSeo(props: BlogSeoProps) {
     author: authorList,
     publisher: {
       '@type': 'Organization',
-      name: siteMetadata.author,
+      name: process.env.AUTHOR_NAME,
       logo: {
         '@type': 'ImageObject',
         url: `${siteMetadata.siteUrl}${siteMetadata.siteLogo}`,
@@ -86,14 +86,13 @@ export function BlogSeo(props: BlogSeoProps) {
   return (
     <>
       <Head>
-        <title>{`${title} | ${siteMetadata.headerTitle}`}</title>
+        <title>{`${title}`}</title>
         <meta name="robots" content="follow, index" />
         <meta name="description" content={summary} />
         <meta property="og:url" content={`${siteMetadata.siteUrl}${router.asPath}`} />
         <meta property="og:type" content="article" />
-        <meta property="og:site_name" content={siteMetadata.title} />
         <meta property="og:description" content={summary} />
-        <meta property="og:title" content={`${title} | ${siteMetadata.headerTitle}`} />
+        <meta property="og:title" content={`${title}`} />
         {featuredImages.map((img) => (
           <meta property="og:image" content={img.url} key={img.url} />
         ))}
