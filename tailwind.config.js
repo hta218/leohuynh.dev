@@ -4,12 +4,16 @@ const colors = require('tailwindcss/colors')
 
 module.exports = {
   content: [
+    './node_modules/flowbite-react/**/*.js',
     './(components|constant|layouts|pages)/**/*.(ts|tsx)',
     './data/(blog|snippets|authors)/*.mdx',
   ],
   darkMode: 'class',
   theme: {
     extend: {
+      gridTemplateColumns: {
+        main: '15em 1fr',
+      },
       keyframes: {
         wiggle: {
           '0%': { transform: 'rotate(0deg)' },
@@ -84,8 +88,25 @@ module.exports = {
         'zoom-out': 'zoom-out',
       },
       typography: (theme) => ({
+        extend: {
+          fontSize: {
+            xs: '.75rem', // 12px
+            sm: '.875rem', // 14px
+            base: '1rem', // 16px
+            lg: '1.125rem', // 18px
+            xl: '1.25rem', // 20px
+            '2xl': '1.5rem', // 24px
+            '3xl': '1.875rem', // 30px
+            '4xl': '2.25rem', // 36px
+            '5xl': '3rem', // 48px
+            '6xl': '4rem', // 64px
+          },
+        },
         DEFAULT: {
           css: {
+            html: {
+              'scroll-behavior': 'smooth',
+            },
             color: theme('colors.gray.700'),
             a: {
               color: theme('colors.primary.500'),
@@ -214,5 +235,9 @@ module.exports = {
   variants: {
     typography: ['dark'],
   },
-  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/typography'),
+    require('flowbite/plugin'),
+  ],
 }

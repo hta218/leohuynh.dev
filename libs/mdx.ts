@@ -17,15 +17,27 @@ import { remarkCodeBlockTitle } from './remark-code-block-title'
 import { remarkImgToJsx } from './remark-img-to-jsx'
 import { remarkTocHeading } from './remark-toc-heading'
 
-export async function getFileBySlug(type: string, slug: string): Promise<MdxFileData> {
+export async function getFileBySlug(
+  type: string,
+  slug: string,
+  locale: string = process.env.NEXT_PUBLIC_DEFAULT_LOCALE
+): Promise<MdxFileData> {
   let root = process.cwd()
-  let mdxPath = path.join(root, 'data', type, `${slug}.mdx`)
-  let mdPath = path.join(root, 'data', type, `${slug}.md`)
+  let mdxPath = path.join(root, 'data', locale, type, `${slug}.mdx`)
+  let mdPath = path.join(root, 'data', locale, type, `${slug}.md`)
+
+  console.log('mdxPath', mdxPath)
+  console.log('mdPath', mdPath)
+
+  if (!fs.existsSync(mdxPath) && !fs.existsSync(mdPath)) {
+    // Si no es troba cap fitxer, retorna null
+    return null
+  }
+
   let source = fs.existsSync(mdxPath)
     ? fs.readFileSync(mdxPath, 'utf8')
     : fs.readFileSync(mdPath, 'utf8')
-
-  /**
+  /**F
    * Point esbuild directly at the correct executable for the current platform
    * Ref: https://github.com/kentcdodds/mdx-bundler#nextjs-esbuild-enoent
    */
@@ -106,6 +118,7 @@ export async function getFileBySlug(type: string, slug: string): Promise<MdxFile
 export function getAllFilesFrontMatter(folder: string) {
   let root = process.cwd()
   let prefixPaths = path.join(root, 'data', folder)
+
   let files = getAllFilesRecursively(prefixPaths)
   let allFrontMatter: BlogFrontMatter[] = []
 

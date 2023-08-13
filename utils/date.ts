@@ -1,7 +1,5 @@
-import { siteMetadata } from '~/data/siteMetadata'
-
-export function formatDate(date: string) {
-  return new Date(date).toLocaleDateString(siteMetadata.locale, {
+export function formatDate(date: string, language: string = 'en') {
+  return new Date(date).toLocaleDateString(language, {
     year: 'numeric',
     month: 'long',
     day: 'numeric',

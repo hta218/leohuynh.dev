@@ -1,0 +1,106 @@
+{
+  "siteMetadata": {
+    "title": "Leo's blog - Leo's coding journey",
+    "author": "Leo Huynh",
+    "fullName": "Tuan Anh Huynh",
+    "headerTitle": "Leo's blog - Leo's coding journey",
+    "footerTitle": "Leo's blog - Leo's coding journey",
+    "description": "Leo's coding journey - work and life stories through the keyboard of an open-minded Software Engineer",
+    "language": "en"
+  },
+
+  "happyReading": "Happy reading",
+  "menu_blog": "Blog",
+  "menu_receptes": "Snippets",
+  "menu_projectes": "Projects",
+  "menu_sobremi": "About",
+  "menu_curriculum": "Resume",
+  "greetingMessage": "Howdy, fellow!",
+
+  "introduction": "I'm",
+  "name": "Tuan Anh Huynh",
+  "description": "a dedicated Software Engineer in",
+  "location": "Ha Noi, VN",
+
+  "bio1": "I'm aliased as Leo at work.",
+  "bio2": "I'm a learner, builder, and freedom seeker.",
+  "bio3": "I live in Ha Noi, Viet Nam.",
+  "bio4": "I was born in the beautiful Moc Chau plateau.",
+  "bio5": "My first programming language I learned was Pascal.",
+  "bio6": "I love web development.",
+  "bio7": "I'm focusing on building eCommerce software.",
+  "bio8": "I work mostly with JS/TS technologies.",
+  "bio9": "I'm Tu Le's husband.",
+  "bio10": "I'm a dog-person.",
+  "bio11": "I'm a sport-guy. I love",
+  "bio12": "I love watching football.",
+  "bio13": "I love playing keyboard & guitar.",
+  "bio14": "I love rock music.",
+  "bio15": "I love playing chess.",
+  "bio16": "I love playing video games, PES is my favorite one.",
+
+  "bio_startCoding": "I started learning to code in 2016 and have been hooked ever since.",
+  "bio_firstJob": "I landed my first job as a Python coding mentor in 2017.",
+  "bio_passion": "I have a passion for JS/TS, web dev, and eCommerce.",
+  "bio_blogPurpose": "I started this blog to document and share my knowledge & experience.",
+
+  "menu_blog_2": "My writings",
+  "menu_receptes_2": "My snippets collection",
+  "menu_projectes_2": "What have I built?",
+  "menu_sobremi_2": "More about me",
+  "menu_curriculum_2": "My career",
+  "analytics": "Traffic & engagement of this site",
+
+  "avatarDescription": "avatar",
+
+  "name_position": "Tuan Anh (Leo) Huynh",
+  "description_position": "Learner | Builder",
+
+  "lostMessage": "Hmm.. it seems that you're lost",
+  "returnMessage": "But don't worry, you can find plenty of other things on my homepage.",
+  "backButton": "Back to homepage",
+
+  "blog": {
+    "allPostsTitle": "All Posts",
+    "intro": "I write mostly about web development, tech related, and sometime about my personal life. Use the search below to filter by title.",
+    "noPosts": "No posts found.",
+    "searchPosts": "Search posts",
+    "published_on": "Published on",
+    "under_construction": "Under construction",
+    "readingTime": "Reading time: {{time}}",
+    "mins": "mins",
+    "views": "views"
+  },
+
+  "about_description": "More about me and this blog",
+  "resume_description": "My professional career, experience, and skills.",
+
+  "year": "year",
+  "month": "month",
+  "day": "day",
+
+  "buildWith": {
+    "built_with": "Build with",
+    "view_source": "View source",
+    "copyright_author": "Leo's blog - Leo's coding journey"
+  },
+
+  "projects": {
+    "projects_description": "My open-source side projects and stuff that I built with my colleagues at work",
+    "projects_title": "Projects",
+    "work_title": "Work",
+    "side_title": "Side projects",
+    "learn_more": "Learn more",
+    "built_with": "Built with"
+  },
+
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next",
+    "of": "of"
+  },
+
+  "tag": {
+    "noTagsFound": "No tags found."
+  }
+}

@@ -37,7 +37,7 @@ export let DevIconsMap = {
 export function DevIcon(props: { type: keyof typeof DevIconsMap; className?: string }) {
   let { type, className } = props
   let Icon = DevIconsMap[type]
-  if (!Icon) return <div>Missing icon</div>
+  if (!Icon) return <div>Missing icon for {type}</div> // Add `type` here
 
   let defaultClass = 'h-16 w-16 lg:h-14 lg:w-14 xl:h-24 xl:w-24'
   return <Icon className={className || defaultClass} fill="currentColor" />

@@ -14,6 +14,8 @@ export function PostSimple(props: PostSimpleLayoutProps) {
   let { date, title, slug, fileName, tags, readingTime } = frontMatter
   let postUrl = `${siteMetadata.siteUrl}/${type}/${slug}`
 
+  const GISCUS_REPOSITORY_ID = process.env.GISCUS_REPOSITORY_ID
+
   return (
     <SectionContainer>
       <BlogSeo
@@ -38,12 +40,14 @@ export function PostSimple(props: PostSimpleLayoutProps) {
           </header>
           <div className="pb-8" style={{ gridTemplateRows: 'auto 1fr' }}>
             <div className="xl:col-span-3 xl:row-span-2 xl:pb-0">
-              <div className="prose prose-lg max-w-none pb-8 dark:prose-dark md:prose-xl">
+              <div className="prose prose-base max-w-none pb-8 dark:prose-dark md:prose-base">
                 {children}
               </div>
               <div className="border-t border-gray-200 dark:border-gray-700">
                 <SocialButtons postUrl={postUrl} title={title} fileName={fileName} />
-                <Comments frontMatter={frontMatter} config={commentConfig} />
+                {GISCUS_REPOSITORY_ID && (
+                  <Comments frontMatter={frontMatter} config={commentConfig} />
+                )}
               </div>
             </div>
           </div>

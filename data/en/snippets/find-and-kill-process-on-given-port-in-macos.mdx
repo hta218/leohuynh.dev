@@ -1,0 +1,56 @@
+---
+heading: "Kill that process"
+title: "Find which process is running on a certain port and kill it"
+date: "2021-09-09"
+type: "Bash"
+draft: false
+summary: "Find which process is running on a certain port and kill it"
+tags: ["bash", "macos", "kill", "process", "port"]
+---
+import Twemoji from './Twemoji.tsx'
+
+#### <Twemoji emoji="warning" /> MacOS only
+
+List all the processes by ports with their PIDs
+
+```bash
+$ sudo lsof -i -P | grep LISTEN
+```
+
+The result should look like this:
+
+```bash
+rapportd    123            leo    5u  IPv4 0x84512a8572c9xxxx      0t0    TCP *:62003 (LISTEN)
+rapportd    123            leo    6u  IPv6 0x84512a857627xxxx      0t0    TCP *:62003 (LISTEN)
+mongod      414            leo    9u  IPv4 0x84512a857926xxxx      0t0    TCP localhost:27017 (LISTEN)
+Loom       3315            leo   28u  IPv4 0x84512a85785cxxxx      0t0    TCP localhost:11223 (LISTEN)
+node      38238            leo   22u  IPv6 0x84512a857627xxxx      0t0    TCP *:5000 (LISTEN)
+node      68336            leo   22u  IPv6 0x84512a858bb4xxxx      0t0    TCP *:443 (LISTEN)
+```
+
+The 2nd column is the PID of the process on the port in the last column
+
+Now kill the process in that port by using `sudo kill -9 <PID>`
+
+```bash
+$ sudo kill -9 68336
+```
+
+`68336` is the PID of the process running on port `443`
+
+
+Check again
+
+```bash
+$ sudo lsof -i -P | grep LISTEN
+
+rapportd    123            leo    5u  IPv4 0x84512a8572c9xxxx      0t0    TCP *:62003 (LISTEN)
+rapportd    123            leo    6u  IPv6 0x84512a857627xxxx      0t0    TCP *:62003 (LISTEN)
+mongod      414            leo    9u  IPv4 0x84512a857926xxxx      0t0    TCP localhost:27017 (LISTEN)
+Loom       3315            leo   28u  IPv4 0x84512a85785cxxxx      0t0    TCP localhost:11223 (LISTEN)
+node      38238            leo   22u  IPv6 0x84512a857627xxxx      0t0    TCP *:5000 (LISTEN)
+```
+
+The process on port `443` is already stopped!
+
+Cheers <Twemoji emoji="clinking-beer-mugs" />

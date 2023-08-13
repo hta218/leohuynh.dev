@@ -3,8 +3,11 @@ import type { BlogFrontMatter } from '~/types'
 import { formatDate } from '~/utils/date'
 import { BlogTags } from '../blog/BlogTags'
 import { Link } from '../Link'
+import { useTranslation } from 'next-i18next'
 
 export function FeaturedPosts({ posts }: { posts: BlogFrontMatter[] }) {
+  const { t, i18n } = useTranslation()
+  const lang = i18n.language
   return (
     <div className="border-t border-gray-200 dark:border-gray-700">
       <ul className="divide-y divide-gray-200 dark:divide-gray-700">
@@ -18,7 +21,7 @@ export function FeaturedPosts({ posts }: { posts: BlogFrontMatter[] }) {
                   <dl>
                     <dt className="sr-only">Published on</dt>
                     <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                      <time dateTime={date}>{formatDate(date)}</time>
+                      <time dateTime={date}>{formatDate(date, lang)}</time>
                     </dd>
                   </dl>
                   <div className="space-y-5 xl:col-span-3">
@@ -58,7 +61,7 @@ export function FeaturedPosts({ posts }: { posts: BlogFrontMatter[] }) {
             className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
             aria-label="all posts"
           >
-            <span data-umami-event="all-posts">All Posts &rarr;</span>
+            <span data-umami-event="all-posts"> {t('blog.allPostsTitle')} &rarr;</span>
           </Link>
         </div>
       )}

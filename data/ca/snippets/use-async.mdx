@@ -1,0 +1,102 @@
+---
+heading: 'Use an async effect'
+title: 'A custom hooks to use an async effect'
+date: '2022-02-22'
+type: 'React'
+draft: false
+summary: 'A custom hooks to use an async effect'
+tags: ['react', 'hooks', 'async', 'effect']
+---
+import Twemoji from './Twemoji.tsx'
+
+Custom hooks to use an async effect
+
+```js
+function useAsync(asyncCallback) {
+  let [state, dispatch] = React.useReducer(asyncReducer)
+
+  React.useEffect(() => {
+    let promise = asyncCallback()
+    if (!promise) return
+
+    dispatch({ type: 'pending' })
+    promise
+      .then(data => dispatch({ type: 'resolved', data }))
+      .catch(error => dispatch({ type: 'rejected', error }))
+  }, [asyncCallback])
+
+  return state
+}
+```
+
+Usage:
+
+```js
+function Component({ input }) {
+  // Remember to wrap the async job in a useCallback
+  let asyncCallback = React.useCallback(() => {
+    if (!input) return
+
+    // Run the async effect (fetch is an example)
+    return fetch(input)
+  }, [input])
+
+  let { status, data, error } = useAsync(asyncCallback)
+
+  switch (status) {
+    case 'idle':
+      return "Waiting for the async to trigger"
+    case 'pending':
+      return "Pending UI"
+    case 'rejected':
+      throw error
+    case 'resolved':
+      return "Data UI"
+    default:
+      throw new Error('This should be impossible')
+  }
+}
+```
+
+How to clean the side effect (the async job start but then the component unmounted) ? - `useSafeDispatch` !
+
+```js
+function useSafeDispatch(dispatch) {
+  let mountedRef = React.useRef(false)
+  React.useEffect(() => {
+    mountedRef.current = true
+    return () => {
+      mountedRef.current = false
+    }
+  }, [])
+
+  return React.useCallback((...args) => {
+    if (mountedRef.current) {
+      dispatch(...args)
+    }
+  }, [dispatch])
+}
+```
+
+Now change the `useAsync` function:
+
+```js
+function useAsync(asyncCallback) {
+  let [state, unsafeDispatch] = React.useReducer(asyncReducer)
+  let dispatch = useSafeDispatch(unsafeDispatch)
+
+  React.useEffect(() => {
+    let promise = asyncCallback()
+    if (!promise) return
+
+    dispatch({ type: 'pending' })
+    promise
+      .then(data => dispatch({ type: 'resolved', data }))
+      .catch(error => dispatch({ type: 'rejected', error }))
+  }, [asyncCallback])
+
+  return state
+}
+```
+
+Cheers <Twemoji emoji="clinking-beer-mugs" />
