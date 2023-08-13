@@ -1,7 +1,7 @@
+import { useTranslation } from 'next-i18next'
 import { siteMetadata } from '~/data/siteMetadata'
 import { DevIcon } from './DevIcon'
 import { Link } from './Link'
-import { useTranslation } from 'next-i18next'
 
 export function BuiltWith() {
   const { t } = useTranslation('common')

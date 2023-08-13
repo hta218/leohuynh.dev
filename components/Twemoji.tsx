@@ -1,5 +1,5 @@
 import type { TwemojiProps } from '~/types'
-import { kebabCase } from '~/utils/kebab-case'
+import { kebabCase } from '~/utils/string'
 
 export function Twemoji({ emoji, size = 'twa-lg', className }: TwemojiProps) {
   let cls = `inline-block twa ${size} twa-${kebabCase(emoji)} ${className || ''}`

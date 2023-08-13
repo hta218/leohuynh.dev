@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { kebabCase } from '~/utils/kebab-case'
+import { kebabCase } from '~/utils/string'
 
 export function Tag({ text }: { text: string }) {
   return (
