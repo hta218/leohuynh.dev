@@ -25,7 +25,7 @@ export async function getStaticProps({ locale }) {
 }
 
 export default function Blog({ posts, initialDisplayPosts, pagination }: BlogListProps) {
-  let { t } = useTranslation('common') // utilitza 'common' si els teus strings estan a common.ts o canvia-ho pel nom adequat
+  let { t } = useTranslation('common')
   return (
     <>
       <PageSeo

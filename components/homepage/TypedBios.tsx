@@ -1,12 +1,12 @@
 import React from 'react'
 import Typed from 'typed.js'
 import { Twemoji } from '../Twemoji'
-import { useTranslation } from 'next-i18next' // Import the hook
+import { useTranslation } from 'next-i18next'
 
 export function TypedBios() {
   let el = React.useRef(null)
   let typed = React.useRef(null)
-  let { t } = useTranslation('common') // Use the hook to get the translation function
+  let { t } = useTranslation('common')
 
   React.useEffect(() => {
     typed.current = new Typed(el.current, {

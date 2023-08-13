@@ -29,9 +29,7 @@ export async function getStaticPaths({ locales }: { locales: string[] }) {
 }
 
 export async function getStaticProps({ params, locale }) {
-  console.log('params slug', params.slug.join('/'))
   let snippet = await getFileBySlug('snippets', params.slug.join('/'), locale)
-
   let commentConfig = getCommentConfigs()
   return {
     props: { snippet, commentConfig, ...(await serverSideTranslations(locale, ['common'])) },
@@ -39,8 +37,6 @@ export async function getStaticProps({ params, locale }) {
 }
 
 export default function Snippet({ snippet, commentConfig }: SnippetProps) {
-  console.log('snippet', snippet)
-
   let { mdxSource, frontMatter } = snippet
 
   return (

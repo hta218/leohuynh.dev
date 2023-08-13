@@ -31,7 +31,6 @@ export async function getStaticPaths({ locales }: { locales: string[] }) {
   }
 }
 
-/// getStaticProps
 export async function getStaticProps({
   params,
   locale,
@@ -46,7 +45,6 @@ export async function getStaticProps({
   let next = allPosts[postIndex - 1] || null
   let page = Math.ceil((postIndex + 1) / POSTS_PER_PAGE)
 
-  // obté l'entrada de blog individual per a l'idioma correcte
   let post = await getFileBySlug('blog', params.slug.join('/'), locale)
   let authors = post.frontMatter.authors || ['default']
   let authorDetails = await Promise.all(
@@ -57,11 +55,7 @@ export async function getStaticProps({
     })
   )
 
-  // Resol la ruta al fitxer .json basat en l'idioma
-  let lang_siteMetadata = getCommon(locale).siteMetadata
-
-  // rss
-  let rss = generateRss(lang_siteMetadata, allPosts)
+  let rss = generateRss(getCommon(locale).siteMetadata, allPosts)
   fs.writeFileSync('./public/feed.xml', rss)
   let commentConfig = getCommentConfigs()
 

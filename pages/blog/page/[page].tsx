@@ -13,7 +13,7 @@ export async function getStaticPaths(context: GetStaticPathsContext) {
   let paths = []
 
   for (let locale of locales) {
-    let totalPosts = getAllFilesFrontMatter(`${locale}/blog`) // canviat `${locale}/blog` a `blog/${locale}`
+    let totalPosts = getAllFilesFrontMatter(`${locale}/blog`)
     let totalPages = Math.ceil(totalPosts.length / POSTS_PER_PAGE)
     let localePaths = Array.from({ length: totalPages }, (_, i) => ({
       params: { page: (i + 1).toString() },

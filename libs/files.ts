@@ -29,11 +29,8 @@ export function formatSlug(slug: string) {
   return slug.replace(/\.(mdx|md)/, '')
 }
 
-export function getCommon(locale) {
-  // Resol la ruta al fitxer .json basat en l'idioma
+export function getCommon(locale: string) {
   let filePath = path.join(process.cwd(), 'public', 'locales', locale, 'common.json')
-
-  // Llegeix el fitxer .json
   let rawData = fs.readFileSync(filePath, 'utf8')
   let data = JSON.parse(rawData)
   return data
@@ -42,11 +39,10 @@ export function getCommon(locale) {
 export function getFiles(type: string): string[] {
   let root = process.cwd()
   let prefixPaths = path.join(root, 'data', type)
-  let files
+  let files: string[]
   try {
     files = getAllFilesRecursively(prefixPaths)
   } catch (error) {
-    // Si no es troben fitxers, retorna una llista buida
     return []
   }
   // Only want to return blog/path and ignore root, replace is needed to work on Windows

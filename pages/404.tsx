@@ -5,10 +5,9 @@ import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 export async function getStaticProps({ locale }) {
-  // Afegeix la traducció
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'])), // Aquí estem assumint que el nom del teu fitxer de traducció és 'common'
+      ...(await serverSideTranslations(locale, ['common'])),
     },
   }
 }

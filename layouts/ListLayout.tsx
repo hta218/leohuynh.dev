@@ -7,6 +7,7 @@ import { useTranslation } from 'next-i18next'
 
 export function ListLayout(props: ListLayoutProps) {
   let { posts, title, initialDisplayPosts = [], pagination } = props
+  let { t } = useTranslation('common')
   let [searchValue, setSearchValue] = useState('')
   let filteredBlogPosts = posts.filter((frontMatter) => {
     let searchContent = frontMatter.title + frontMatter.summary + frontMatter.tags.join(' ')
@@ -17,7 +18,6 @@ export function ListLayout(props: ListLayoutProps) {
   let displayPosts =
     initialDisplayPosts.length > 0 && !searchValue ? initialDisplayPosts : filteredBlogPosts
 
-  let { t } = useTranslation('common') // utilitza 'common' si els teus strings estan a common.ts o canvia-ho pel nom adequat
   return (
     <>
       <div className="divide-y divide-gray-200 dark:divide-gray-700">

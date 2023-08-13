@@ -1,9 +1,8 @@
+import { useTranslation } from 'next-i18next'
 import type { MdxFrontMatter } from '~/types'
 import { formatDate } from '~/utils/date'
 import { Link } from './Link'
 import { Tag } from './Tag'
-import { useTranslation } from 'next-i18next'
-import { language } from 'gray-matter'
 
 export function PostListItem({ frontMatter }: { frontMatter: MdxFrontMatter }) {
   let { slug, date, title, summary, tags } = frontMatter
