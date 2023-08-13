@@ -56,7 +56,7 @@ export interface UnistImageNode extends UnistNodeType {
 }
 
 export type TOC = {
-  id: string
+  value: string
   depth: number
   data: { hProperties?: { id?: string } }
   children: TOC[]
