@@ -67,6 +67,7 @@ export function ProfileCard() {
             width: '100%',
             aspectRatio: '17/11',
           }}
+          priority
         />
         <SpotifyNowPlaying />
         <ProfileCardInfo />
