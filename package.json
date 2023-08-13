@@ -2,7 +2,6 @@
   "private": true,
   "scripts": {
     "start": "cross-env NODE_ENV=development && PORT=3434 next-remote-watch ./data",
-    "extractStrings": "tsx ./scripts/extractStrings.ts",
     "dev": "PORT=3434 next dev",
     "postinstall": "prisma generate",
     "build": "next build && tsx ./scripts/generate-sitemap",
@@ -16,6 +15,7 @@
   "dependencies": {
     "@octokit/graphql": "^7.0.1",
     "@prisma/client": "^5.1.1",
+    "@radix-ui/react-popover": "^1.0.6",
     "@tailwindcss/forms": "^0.5.4",
     "@tailwindcss/typography": "^0.5.9",
     "autoprefixer": "^10.4.14",
@@ -27,6 +27,7 @@
     "gray-matter": "^4.0.3",
     "image-size": "^1.0.2",
     "isomorphic-unfetch": "^4.0.2",
+    "lucide-react": "^0.263.1",
     "mdx-bundler": "^9.2.1",
     "next": "^13.4.13",
     "next-i18next": "^14.0.0",
