@@ -26,11 +26,15 @@ export function remarkImgToJsx() {
         ]
         let isThumbnail = imageNode.alt === 'thumbnail-image'
         if (isThumbnail) {
-          imageNode.attributes.push({
-            type: 'mdxJsxAttribute',
-            name: 'id',
-            value: 'thumbnail-image',
-          })
+          imageNode.attributes = [
+            ...imageNode.attributes,
+            {
+              type: 'mdxJsxAttribute',
+              name: 'id',
+              value: 'thumbnail-image',
+            },
+            { type: 'mdxJsxAttribute', name: 'priority', value: true },
+          ]
         }
 
         // Change node type from p to div to avoid nesting error
