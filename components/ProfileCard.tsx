@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { ProfileCardInfo } from './ProfileInfo'
 import { SpotifyNowPlaying } from './SpotifyNowPlaying'
 import { useTranslation } from 'next-i18next'
+import { clsx } from 'clsx'
 
 export function ProfileCard() {
   let ref = useRef(null)
@@ -54,7 +55,11 @@ export function ProfileCard() {
     >
       <div
         style={style}
-        className="flex flex-col overflow-hidden bg-white shadow-cyan-100/50 transition-all duration-200 ease-out dark:bg-dark dark:shadow-cyan-700/50 xl:rounded-lg xl:shadow-lg"
+        className={clsx(
+          'flex flex-col overflow-hidden transition-all duration-200 ease-out xl:rounded-lg',
+          'bg-white shadow-demure dark:bg-dark dark:shadow-mondegreen',
+          'border border-gray-100 dark:border-gray-600'
+        )}
       >
         <Image
           src={'/static/images/logo.jpg'}
