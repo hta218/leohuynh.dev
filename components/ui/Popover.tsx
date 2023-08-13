@@ -3,8 +3,8 @@ import * as PopoverPrimitive from '@radix-ui/react-popover'
 import { clsx } from 'clsx'
 
 let Popover = PopoverPrimitive.Root
-
 let PopoverTrigger = PopoverPrimitive.Trigger
+let PopoverClose = PopoverPrimitive.Close
 
 let PopoverContent = React.forwardRef<
   React.ElementRef<typeof PopoverPrimitive.Content>,
@@ -25,4 +25,4 @@ let PopoverContent = React.forwardRef<
 ))
 PopoverContent.displayName = PopoverPrimitive.Content.displayName
 
-export { Popover, PopoverTrigger, PopoverContent }
+export { Popover, PopoverTrigger, PopoverContent, PopoverClose }
