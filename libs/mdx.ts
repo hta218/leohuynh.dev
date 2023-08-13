@@ -33,6 +33,7 @@ export async function getFileBySlug(
   let source = fs.existsSync(mdxPath)
     ? fs.readFileSync(mdxPath, 'utf8')
     : fs.readFileSync(mdPath, 'utf8')
+
   /**
    * Point esbuild directly at the correct executable for the current platform
    * Ref: https://github.com/kentcdodds/mdx-bundler#nextjs-esbuild-enoent

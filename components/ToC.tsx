@@ -1,7 +1,7 @@
 import { useEffect, useRef, type MouseEvent } from 'react'
 import type { TOC } from '~/types'
 
-export default function ToC({ toc }: { toc: TOC[] }) {
+export function ToC({ toc }: { toc: TOC[] }) {
   let navRef = useRef(null)
   let activeIdRef = useRef(null)
 
