@@ -7,7 +7,7 @@ export function SpotifyNowPlaying() {
   let { songUrl, title, artist } = (response.data as SpotifyNowPlayingData) || {}
 
   return (
-    <div className="flex items-center bg-gray-800 px-3 py-2 xl:px-6">
+    <div className="flex items-center bg-gray-900 px-3 py-2 xl:px-6">
       <svg
         className="h-5.5 w-5.5 flex-shrink-0 text-spotify"
         role="img"
