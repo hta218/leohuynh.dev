@@ -6,7 +6,7 @@ export let siteMetadata = {
   socialBanner: '/static/images/logo.jpg',
   email: 'leohuynh@pm.me',
   github: 'https://github.com/hta218',
-  twitter: 'https://twitter.com/hta218_',
+  twitter: 'https://x.com/hta218_',
   facebook: 'https://facebook.com/hta218',
   youtube: 'https://www.youtube.com/@hta218_',
   linkedin: 'https://www.linkedin.com/in/hta218/',
