@@ -1,7 +1,7 @@
 /* ResumeLayout.module.css */
 
 .customTable table {
-  @apply min-w-full border-collapse border border-gray-300 shadow-md;
+  @apply min-w-full border-collapse border border-gray-300 shadow;
 }
 
 .customTable thead {

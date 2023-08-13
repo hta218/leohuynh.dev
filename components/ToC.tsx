@@ -48,7 +48,6 @@ export function ToC({ toc }: { toc: TOC[] }) {
       let header = document.querySelector(item.url)
       if (header) {
         observer.observe(header)
-        console.log('Observer added: ' + header.getAttribute('id'))
       }
     })
 
@@ -61,7 +60,7 @@ export function ToC({ toc }: { toc: TOC[] }) {
     let targetElement: HTMLElement = document.querySelector(url)
     if (targetElement) {
       window.scrollTo({
-        top: targetElement.offsetTop - 80, // Adjust this value as needed
+        top: targetElement.offsetTop - 80,
         behavior: 'smooth',
       })
     }
@@ -69,13 +68,13 @@ export function ToC({ toc }: { toc: TOC[] }) {
 
   return (
     <nav ref={navRef} className="pl-0 md:sticky top-24 self-start">
-      <ul className="list-none pl-4">
+      <ul className="list-none space-y-1.5">
         {toc.map((item, index) => (
-          <li key={index} className="ml-4 my-1">
+          <li key={index}>
             <a
               href={item.url}
               onClick={(e) => handleLinkClick(e, item.url)}
-              className="block py-0.5 text-gray-400 hover:text-gray-600 transition ease-in-out duration-150"
+              className="block text-gray-400 hover:text-gray-600 transition ease-in-out duration-150"
             >
               {item.value}
             </a>
