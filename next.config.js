@@ -15,11 +15,7 @@ module.exports = withBundleAnalyzer({
   },
   typescript: { tsconfigPath: './tsconfig.json' },
   i18n: {
-    // These are all the locales you want to support in
-    // your application
-    locales: ['en', 'es', 'ca'],
-    // This is the default locale you want to be used when visiting
-    // a non-locale prefixed path e.g. `/hello`
+    locales: ['en', 'es'],
     defaultLocale: process.env.NEXT_PUBLIC_DEFAULT_LOCALE,
   },
   trailingSlash: true,
