@@ -26,7 +26,7 @@ export function ResumeLayout({ children, toc }) {
           </p>
         </header>
         <div className="border border-t border-gray-200 dark:border-gray-700" />
-        <main className="gap-12 max-w-screen-xl mx-auto p-3 md:p-8 bg-gray-100 dark:bg-gray-200 my-12 rounded-md md:flex space-y-12 md:space-y-0">
+        <main className="gap-12 max-w-screen-xl mx-auto p-3 md:p-8 bg-gray-100 my-12 rounded-md md:flex space-y-12 md:space-y-0">
           <ToC toc={toc} />
           <div className="border-l border-gray-300 hidden md:block" />
           <div
