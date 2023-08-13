@@ -4,7 +4,7 @@ import { Twemoji } from '../Twemoji'
 import { useTranslation } from 'next-i18next'
 
 export function BlogLinks() {
-  const { t } = useTranslation('common')
+  let { t } = useTranslation('common')
 
   return (
     <div className="flex flex-col space-y-1.5">

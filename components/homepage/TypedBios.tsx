@@ -6,7 +6,7 @@ import { useTranslation } from 'next-i18next' // Import the hook
 export function TypedBios() {
   let el = React.useRef(null)
   let typed = React.useRef(null)
-  const { t } = useTranslation('common') // Use the hook to get the translation function
+  let { t } = useTranslation('common') // Use the hook to get the translation function
 
   React.useEffect(() => {
     typed.current = new Typed(el.current, {

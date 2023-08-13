@@ -5,7 +5,7 @@ import { useTranslation } from 'next-i18next'
 export function Pagination({ totalPages, currentPage }: PaginationType) {
   let hasPrevPage = currentPage - 1 > 0
   let hasNextPage = currentPage + 1 <= totalPages
-  const { t } = useTranslation('common')
+  let { t } = useTranslation('common')
 
   return (
     <div className="space-y-2 pb-8 pt-6 md:space-y-5">

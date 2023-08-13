@@ -17,7 +17,7 @@ export function ListLayout(props: ListLayoutProps) {
   let displayPosts =
     initialDisplayPosts.length > 0 && !searchValue ? initialDisplayPosts : filteredBlogPosts
 
-  const { t } = useTranslation('common') // utilitza 'common' si els teus strings estan a common.ts o canvia-ho pel nom adequat
+  let { t } = useTranslation('common') // utilitza 'common' si els teus strings estan a common.ts o canvia-ho pel nom adequat
   return (
     <>
       <div className="divide-y divide-gray-200 dark:divide-gray-700">

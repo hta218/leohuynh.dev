@@ -5,7 +5,7 @@ import stylesResume from './ResumeLayout.module.css'
 import { useTranslation } from 'next-i18next'
 
 export function ResumeLayout({ children, toc }) {
-  const { t } = useTranslation('common')
+  let { t } = useTranslation('common')
 
   let description = t('resume_description')
 
@@ -26,8 +26,8 @@ export function ResumeLayout({ children, toc }) {
           <ToC toc={toc} />
           <div
             className={`font-arial text-gray-900 leading-6 space-y-5 prose prose-slate
-            md:p-5 md:border-l md:border-gray-300 
-            table-auto border-collapse 
+            md:p-5 md:border-l md:border-gray-300
+            table-auto border-collapse
             bg-gray-100  ${stylesResume.customTable}`}
           >
             {children}

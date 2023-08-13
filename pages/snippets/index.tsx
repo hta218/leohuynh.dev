@@ -13,7 +13,7 @@ export async function getStaticProps({ locale }: { locale: string }) {
 }
 
 export default function Snippet({ snippets }: { snippets: SnippetFrontMatter[] }) {
-  const { t } = useTranslation('common')
+  let { t } = useTranslation('common')
   let description = t('menu_receptes_2')
   return (
     <>

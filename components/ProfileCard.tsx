@@ -45,7 +45,7 @@ export function ProfileCard() {
     }
   }, [onMouseLeave, onMouseMove])
 
-  const { t } = useTranslation('common')
+  let { t } = useTranslation('common')
   return (
     <div
       className="z-10 mb-8 scale-100 transition-all duration-200 ease-out hover:z-50 xl:mb-0 xl:hover:scale-[1.15]"

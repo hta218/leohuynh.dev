@@ -56,7 +56,7 @@ export async function getStaticProps({
 }
 
 export default function Tag({ posts, tag }: { posts: BlogFrontMatter[]; tag: string }) {
-  const { t } = useTranslation('common') // Mueve esto al principio de tu componente
+  let { t } = useTranslation('common') // Mueve esto al principio de tu componente
 
   // Capitalize first letter and convert space to dash
   if (!tag) {

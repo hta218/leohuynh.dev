@@ -2,7 +2,7 @@ import { useTranslation } from 'next-i18next'
 import { Twemoji } from '~/components/Twemoji'
 
 export function Heading() {
-  const { t } = useTranslation('common')
+  let { t } = useTranslation('common')
 
   return (
     <h1 className="text-neutral-900 dark:text-neutral-200">

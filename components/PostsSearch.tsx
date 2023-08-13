@@ -1,7 +1,7 @@
 import { useTranslation } from 'next-i18next'
 
 export function PostsSearch({ onChange }: { onChange: (value: string) => void }) {
-  const { t } = useTranslation('common')
+  let { t } = useTranslation('common')
 
   return (
     <div className="relative max-w-lg">

@@ -60,7 +60,7 @@ export async function getStaticProps({
 
 export default function PostPage(props: BlogListProps) {
   let { posts, initialDisplayPosts, pagination } = props
-  const { t } = useTranslation('common')
+  let { t } = useTranslation('common')
   return (
     <>
       <PageSeo title={t('siteMetadata.title')} description={t('siteMetadata.description')} />

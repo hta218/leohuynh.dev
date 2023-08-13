@@ -5,7 +5,7 @@ import type { AuthorLayoutProps } from '~/types'
 import { useTranslation } from 'next-i18next'
 
 export function AuthorLayout({ children }: AuthorLayoutProps) {
-  const { t } = useTranslation('common') // utilitza 'common' si els teus strings estan a common.ts o canvia-ho pel nom adequat
+  let { t } = useTranslation('common') // utilitza 'common' si els teus strings estan a common.ts o canvia-ho pel nom adequat
 
   let title = t('menu_sobremi')
   let description = t('about_description')

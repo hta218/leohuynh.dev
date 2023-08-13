@@ -17,7 +17,7 @@ export function ViewCounter({ slug, className }: ViewCounterProps) {
     registerView()
   }, [slug])
 
-  const { t } = useTranslation('common')
+  let { t } = useTranslation('common')
 
   return (
     <span className={className}>

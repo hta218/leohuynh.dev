@@ -2,7 +2,7 @@ import { useTranslation } from 'next-i18next'
 import clsx from 'clsx'
 
 export function Greeting() {
-  const { t } = useTranslation('common')
+  let { t } = useTranslation('common')
 
   let className = clsx(
     'bg-gradient-to-r from-yellow-600 to-red-600 dark:bg-gradient-to-l dark:from-emerald-500 dark:to-lime-600',

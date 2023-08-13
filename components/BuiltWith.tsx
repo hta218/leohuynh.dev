@@ -4,7 +4,7 @@ import { DevIcon } from './DevIcon'
 import { Link } from './Link'
 
 export function BuiltWith() {
-  const { t } = useTranslation('common')
+  let { t } = useTranslation('common')
 
   return (
     <div className="flex items-center space-x-1">

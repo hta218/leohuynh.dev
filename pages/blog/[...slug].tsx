@@ -81,7 +81,7 @@ export async function getStaticProps({
 export default function Blog(props: BlogProps) {
   let { post, ...rest } = props
   let { mdxSource, frontMatter } = post
-  const { t } = useTranslation('common')
+  let { t } = useTranslation('common')
 
   return (
     <>

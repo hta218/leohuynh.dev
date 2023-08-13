@@ -14,18 +14,16 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 export async function getStaticProps({ locale }) {
   let posts = getAllFilesFrontMatter(`${locale}/blog`)
-
-  // Afegeix la traducció
   return {
     props: {
       posts,
-      ...(await serverSideTranslations(locale, ['common'])), // Aquí estem assumint que el nom del teu fitxer de traducció és 'common'
+      ...(await serverSideTranslations(locale, ['common'])),
     },
   }
 }
 
 export default function Home({ posts }) {
-  const { t } = useTranslation('common') // utilitza 'common' si els teus strings estan a common.ts o canvia-ho pel nom adequat
+  let { t } = useTranslation('common')
 
   return (
     <>

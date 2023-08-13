@@ -3,7 +3,7 @@ import { siteMetadata } from '~/data/siteMetadata'
 import { useTranslation } from 'next-i18next'
 
 export function ProfileCardInfo() {
-  const { t } = useTranslation('common')
+  let { t } = useTranslation('common')
 
   return (
     <div className="hidden py-4 xl:block xl:px-6">

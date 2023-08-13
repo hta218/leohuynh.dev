@@ -7,7 +7,7 @@ import { Link } from './Link'
 import { useTranslation } from 'next-i18next'
 
 export function ProjectCard({ project }: ProjectCardProps) {
-  const { t } = useTranslation('common')
+  let { t } = useTranslation('common')
   let { title, description, imgSrc, url, repo, builtWith } = project
   let { data } = useSWR(`/api/github?repo=${repo}`, fetcher)
   let repository: GithubRepository = data?.repository

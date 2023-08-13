@@ -2,7 +2,7 @@ import { useTranslation } from 'next-i18next'
 import { BuiltWith } from './BuiltWith'
 
 export function Footer() {
-  const { t } = useTranslation('common')
+  let { t } = useTranslation('common')
 
   return (
     <footer>

@@ -14,7 +14,7 @@ export async function getStaticProps({ locale }) {
 }
 
 export default function FourZeroFour() {
-  const { t } = useTranslation('common')
+  let { t } = useTranslation('common')
 
   return (
     <div className="flex flex-col items-center justify-center pt-4 md:pt-10 xl:pt-20">

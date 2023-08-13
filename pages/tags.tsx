@@ -16,7 +16,7 @@ export async function getStaticProps({ locale }) {
 
 export default function Tags({ tags }: { tags: TagsCount }) {
   let sortedTags = Object.keys(tags).sort((a, b) => tags[b] - tags[a])
-  const { t } = useTranslation('common')
+  let { t } = useTranslation('common')
   return (
     <>
       <PageSeo title={`Tags - ${t('siteMetadata.author')}`} description={t('blog.intro')} />

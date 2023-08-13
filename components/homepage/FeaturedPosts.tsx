@@ -1,9 +1,9 @@
+import { useTranslation } from 'next-i18next'
+import { Link } from '~/components/Link'
+import { BlogTags } from '~/components/blog/BlogTags'
 import { FEATURED_POSTS } from '~/constant'
 import type { BlogFrontMatter } from '~/types'
 import { formatDate } from '~/utils/date'
-import { BlogTags } from '../blog/BlogTags'
-import { Link } from '../Link'
-import { useTranslation } from 'next-i18next'
 
 export function FeaturedPosts({ posts }: { posts: BlogFrontMatter[] }) {
   const { t, i18n } = useTranslation()
