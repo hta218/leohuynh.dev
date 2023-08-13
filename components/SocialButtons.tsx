@@ -15,10 +15,6 @@ export function SocialButtons({ postUrl, title, fileName }: SocialButtonsProps) 
   const CREATE_DISCUS_ON_GITHUB = process.env.NEXT_PUBLIC_CREATE_DISCUS_ON_GITHUB
   const SHARE_ON_TWITTER = process.env.NEXT_PUBLIC_SHARE_ON_TWITTER
   const SHARE_ON_FACEBOOK = process.env.NEXT_PUBLIC_SHARE_ON_FACEBOOK
-  const AUTHOR = process.env.NEXT_PUBLIC_DEFAULT_AUTHOR
-
-  console.log('CREATE_DISCUS_ON_TWITTER', CREATE_DISCUS_ON_TWITTER)
-  console.log('DEFAULT_AUTHOR', AUTHOR)
 
   return (
     <div className="items-center justify-between pb-6 pt-6 text-sm text-gray-700 dark:text-gray-300 md:flex">
