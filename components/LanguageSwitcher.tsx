@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { LOCALES } from '~/constant'
 import { Image } from './Image'
-import { Popover, PopoverContent, PopoverTrigger } from './ui/Popover'
+import { Popover, PopoverContent, PopoverTrigger, PopoverClose } from './ui/Popover'
 
 function getLocale(code: string) {
   return LOCALES.find((locale) => locale.code === code)
@@ -33,33 +33,32 @@ export function LanguageSwitcher() {
           shouldOpenLightbox={false}
         />
       </PopoverTrigger>
-      <PopoverContent className="bg-white dark:bg-dark w-32">
-        <ul className="space-y-1">
+      <PopoverContent className="bg-white dark:bg-dark w-32" sideOffset={8}>
+        <div className="space-y-1">
           {router.locales.map((code) => {
             let locale = getLocale(code)
             return (
-              <li key={code}>
-                <button
-                  onClick={() => handleChange(code)}
-                  className={clsx(
-                    'inline-flex font-normal items-center gap-3 px-2 py-1 rounded w-full text-left hover:bg-gray-100 dark:hover:bg-gray-700',
-                    code === localeCode && 'text-primary-500 dark:text-primary-400'
-                  )}
-                >
-                  <Image
-                    src={locale.flag}
-                    alt={locale.name}
-                    width={20}
-                    height={20}
-                    shouldOpenLightbox={false}
-                    className="shrink-0"
-                  />
-                  <span>{locale.name}</span>
-                </button>
-              </li>
+              <PopoverClose
+                key={code}
+                onClick={() => handleChange(code)}
+                className={clsx(
+                  'inline-flex w-full font-normal items-center gap-3 px-2 py-1 rounded w-fdivl text-left hover:bg-gray-100 dark:hover:bg-gray-700',
+                  code === localeCode && 'text-primary-500 dark:text-primary-400'
+                )}
+              >
+                <Image
+                  src={locale.flag}
+                  alt={locale.name}
+                  width={20}
+                  height={20}
+                  shouldOpenLightbox={false}
+                  className="shrink-0"
+                />
+                <span>{locale.name}</span>
+              </PopoverClose>
             )
           })}
-        </ul>
+        </div>
       </PopoverContent>
     </Popover>
   )
