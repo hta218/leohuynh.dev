@@ -2,6 +2,7 @@ let path = require('path')
 let withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 })
+let { i18n } = require('./next-i18next.config')
 
 module.exports = withBundleAnalyzer({
   reactStrictMode: true,
@@ -13,10 +14,7 @@ module.exports = withBundleAnalyzer({
     domains: ['i.scdn.co'],
   },
   typescript: { tsconfigPath: './tsconfig.json' },
-  i18n: {
-    locales: ['en', 'es'],
-    defaultLocale: process.env.NEXT_PUBLIC_DEFAULT_LOCALE,
-  },
+  i18n,
   trailingSlash: true,
   webpack: (config, options) => {
     config.module.rules.push({
