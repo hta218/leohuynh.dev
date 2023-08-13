@@ -30,9 +30,9 @@ export default function Home({ posts }) {
       <PageSeo title={t('siteMetadata.title')} description={t('siteMetadata.description')} />
       <div className="mt-8 divide-y divide-gray-200 dark:divide-gray-700 md:mt-16">
         <div className="space-y-2 md:my-4 md:space-y-5 md:pb-8 md:pt-6 xl:grid xl:grid-cols-3">
-          <div className="md:pr-8 xl:col-span-2">
+          <div className="md:pr-8 xl:col-span-2 space-y-6 md:space-y-8">
             <Greeting />
-            <div className="text-lg leading-8 text-gray-600 dark:text-gray-400">
+            <div className="text-base leading-7 md:text-lg md:leading-8 text-gray-600 dark:text-gray-400">
               <Heading />
               <TypedBios />
               <ShortDescription />

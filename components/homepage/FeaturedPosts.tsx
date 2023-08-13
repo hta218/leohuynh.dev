@@ -17,7 +17,7 @@ export function FeaturedPosts({ posts }: { posts: BlogFrontMatter[] }) {
           return (
             <li key={slug} className="py-12">
               <article>
-                <div className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
+                <div className="space-y-3 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
                   <dl>
                     <dt className="sr-only">Published on</dt>
                     <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
@@ -26,8 +26,8 @@ export function FeaturedPosts({ posts }: { posts: BlogFrontMatter[] }) {
                   </dl>
                   <div className="space-y-5 xl:col-span-3">
                     <div className="space-y-6">
-                      <div>
-                        <h2 className="mb-1 text-3xl font-bold tracking-tight">
+                      <div className="space-y-3">
+                        <h2 className="mb-1 text-2xl md:text-3xl font-bold tracking-tight">
                           <Link href={`/blog/${slug}`} className="text-gray-900 dark:text-gray-100">
                             <span data-umami-event="featured-title">{title}</span>
                           </Link>

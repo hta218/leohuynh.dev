@@ -19,13 +19,13 @@ export function PostListItem({ frontMatter }: { frontMatter: MdxFrontMatter }) {
           </dd>
         </dl>
         <div className="space-y-3 xl:col-span-3">
-          <div>
+          <div className="space-y-3">
             <h3 className="text-2xl font-bold leading-8 tracking-tight">
               <Link href={`/blog/${slug}`} className="text-gray-900 dark:text-gray-100">
                 <span data-umami-event="blog-title">{title}</span>
               </Link>
             </h3>
-            <div className="mt-1 flex flex-wrap">
+            <div className="flex flex-wrap">
               {tags.map((tag) => (
                 <Tag key={tag} text={tag} />
               ))}
