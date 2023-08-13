@@ -4,8 +4,10 @@ import { fetcher } from '~/utils/fetcher'
 import { GithubRepo } from './GithubRepo'
 import { Image } from './Image'
 import { Link } from './Link'
+import { useTranslation } from 'next-i18next'
 
 export function ProjectCard({ project }: ProjectCardProps) {
+  const { t } = useTranslation('common')
   let { title, description, imgSrc, url, repo, builtWith } = project
   let { data } = useSWR(`/api/github?repo=${repo}`, fetcher)
   let repository: GithubRepository = data?.repository
@@ -35,7 +37,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
             <div className="max-w-none space-y-2 text-gray-500 dark:text-gray-400">
               <p>{repository?.description || description}</p>
               <div className="flex flex-wrap space-x-1.5">
-                <span className="shrink-0">Built with:</span>
+                <span className="shrink-0">{t('projects.built_with')}:</span>
                 {builtWith?.map((tool, index) => {
                   return (
                     <span key={index} className="font-semibold text-gray-500 dark:text-gray-400">
@@ -55,7 +57,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
               className="text-base font-medium leading-6 text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
               aria-label={`Link to ${title}`}
             >
-              <span data-umami-event="project-learn-more">Learn more &rarr;</span>
+              <span data-umami-event="project-learn-more">{t('projects.learn_more')} &rarr;</span>
             </Link>
           )}
         </div>

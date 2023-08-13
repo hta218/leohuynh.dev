@@ -3,6 +3,7 @@ import { Pagination } from '~/components/Pagination'
 import { PostListItem } from '~/components/PostListItem'
 import { PostsSearch } from '~/components/PostsSearch'
 import type { ListLayoutProps } from '~/types'
+import { useTranslation } from 'next-i18next'
 
 export function ListLayout(props: ListLayoutProps) {
   let { posts, title, initialDisplayPosts = [], pagination } = props
@@ -16,6 +17,7 @@ export function ListLayout(props: ListLayoutProps) {
   let displayPosts =
     initialDisplayPosts.length > 0 && !searchValue ? initialDisplayPosts : filteredBlogPosts
 
+  const { t } = useTranslation('common') // utilitza 'common' si els teus strings estan a common.ts o canvia-ho pel nom adequat
   return (
     <>
       <div className="divide-y divide-gray-200 dark:divide-gray-700">
@@ -23,14 +25,11 @@ export function ListLayout(props: ListLayoutProps) {
           <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
             {title}
           </h1>
-          <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
-            I write mostly about web development, tech related, and sometime about my personal life.
-            Use the search below to filter by title.
-          </p>
+          <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">{t('blog.intro')}</p>
           <PostsSearch onChange={setSearchValue} />
         </div>
         <ul className="space-y-10 py-12">
-          {!filteredBlogPosts.length && 'No posts found.'}
+          {!filteredBlogPosts.length && t('blog.noPosts')}
           {displayPosts.map((frontMatter) => (
             <PostListItem key={frontMatter.slug} frontMatter={frontMatter} />
           ))}

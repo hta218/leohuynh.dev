@@ -1,4 +1,5 @@
 import { MDXLayoutRenderer } from 'components/MDXComponents'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { PageTitle } from '~/components/PageTitle'
 import { getCommentConfigs } from '~/libs/comment'
 import { formatSlug, getFiles } from '~/libs/files'
@@ -7,25 +8,39 @@ import type { MdxPageLayout, SnippetProps } from '~/types'
 
 let DEFAULT_LAYOUT: MdxPageLayout = 'PostSimple'
 
-export async function getStaticPaths() {
-  let snippets = getFiles('snippets')
+export async function getStaticPaths({ locales }: { locales: string[] }) {
+  let paths = []
+  for (let locale of locales) {
+    let snippets = getFiles(`${locale}/snippets`)
+    for (let snippet of snippets) {
+      paths.push({
+        params: {
+          slug: formatSlug(snippet).split('/'),
+        },
+        locale: locale,
+      })
+    }
+  }
+
   return {
-    paths: snippets.map((p: string) => ({
-      params: {
-        slug: formatSlug(p).split('/'),
-      },
-    })),
+    paths,
     fallback: false,
   }
 }
 
-export async function getStaticProps({ params }: { params: { slug: string[] } }) {
-  let snippet = await getFileBySlug('snippets', params.slug.join('/'))
+export async function getStaticProps({ params, locale }) {
+  console.log('params slug', params.slug.join('/'))
+  let snippet = await getFileBySlug('snippets', params.slug.join('/'), locale)
+
   let commentConfig = getCommentConfigs()
-  return { props: { snippet, commentConfig } }
+  return {
+    props: { snippet, commentConfig, ...(await serverSideTranslations(locale, ['common'])) },
+  }
 }
 
 export default function Snippet({ snippet, commentConfig }: SnippetProps) {
+  console.log('snippet', snippet)
+
   let { mdxSource, frontMatter } = snippet
 
   return (

@@ -1,16 +1,27 @@
 import { PageSeo } from 'components/SEO'
 import ListLayout from 'layouts/ListLayout'
 import { POSTS_PER_PAGE } from '~/constant'
-import { siteMetadata } from '~/data/siteMetadata'
+
 import { getAllFilesFrontMatter } from '~/libs/mdx'
 import type { BlogListProps } from '~/types'
+import type { GetStaticPathsContext } from 'next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useTranslation } from 'next-i18next'
 
-export async function getStaticPaths() {
-  let totalPosts = getAllFilesFrontMatter('blog')
-  let totalPages = Math.ceil(totalPosts.length / POSTS_PER_PAGE)
-  let paths = Array.from({ length: totalPages }, (_, i) => ({
-    params: { page: (i + 1).toString() },
-  }))
+export async function getStaticPaths(context: GetStaticPathsContext) {
+  const locales = context.locales || []
+  const paths = []
+
+  for (const locale of locales) {
+    let totalPosts = getAllFilesFrontMatter(`${locale}/blog`) // canviat `${locale}/blog` a `blog/${locale}`
+    let totalPages = Math.ceil(totalPosts.length / POSTS_PER_PAGE)
+    let localePaths = Array.from({ length: totalPages }, (_, i) => ({
+      params: { page: (i + 1).toString() },
+      locale,
+    }))
+
+    paths.push(...localePaths)
+  }
 
   return {
     paths,
@@ -18,9 +29,15 @@ export async function getStaticPaths() {
   }
 }
 
-export async function getStaticProps({ params }: { params: { page: string } }) {
+export async function getStaticProps({
+  params,
+  locale,
+}: {
+  params: { page: string }
+  locale: string
+}) {
   let { page } = params
-  let posts = getAllFilesFrontMatter('blog')
+  let posts = getAllFilesFrontMatter(`${locale}/blog`)
   let pageNumber = parseInt(page)
   let initialDisplayPosts = posts.slice(
     POSTS_PER_PAGE * (pageNumber - 1),
@@ -36,20 +53,22 @@ export async function getStaticProps({ params }: { params: { page: string } }) {
       posts,
       initialDisplayPosts,
       pagination,
+      ...(await serverSideTranslations(locale, ['common'])),
     },
   }
 }
 
 export default function PostPage(props: BlogListProps) {
   let { posts, initialDisplayPosts, pagination } = props
+  const { t } = useTranslation('common')
   return (
     <>
-      <PageSeo title={siteMetadata.title} description={siteMetadata.description} />
+      <PageSeo title={t('siteMetadata.title')} description={t('siteMetadata.description')} />
       <ListLayout
         posts={posts}
         initialDisplayPosts={initialDisplayPosts}
         pagination={pagination}
-        title="All Posts"
+        title={t('blog.allPostsTitle')}
       />
     </>
   )

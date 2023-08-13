@@ -1,3 +1,5 @@
+import { appWithTranslation } from 'next-i18next'
+
 import 'css/tailwind.css'
 import 'css/twemoji.css'
 
@@ -6,7 +8,7 @@ import Head from 'next/head'
 import { Analytics } from '~/components/analytics'
 import { LayoutWrapper } from '~/components/LayoutWrapper'
 
-export default function App({ Component, pageProps }) {
+function App({ Component, pageProps }) {
   return (
     // @ts-ignore
     <ThemeProvider attribute="class">
@@ -20,3 +22,5 @@ export default function App({ Component, pageProps }) {
     </ThemeProvider>
   )
 }
+
+export default appWithTranslation(App)

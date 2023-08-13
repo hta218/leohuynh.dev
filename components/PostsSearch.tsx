@@ -1,11 +1,15 @@
+import { useTranslation } from 'next-i18next'
+
 export function PostsSearch({ onChange }: { onChange: (value: string) => void }) {
+  const { t } = useTranslation('common')
+
   return (
     <div className="relative max-w-lg">
       <input
         aria-label="Search posts"
         type="text"
         onChange={(e) => onChange(e.target.value)}
-        placeholder="Search posts"
+        placeholder={t('blog.searchPosts')}
         className="block w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-500 dark:bg-gray-800 dark:text-gray-100"
         data-umami-event="post-search"
       />

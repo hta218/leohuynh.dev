@@ -1,0 +1,23 @@
+---
+heading: '.gitignore tip'
+title: 'Ignore all files in a directory except a specific file'
+date: '2021-08-27'
+type: 'Git'
+draft: false
+summary: 'Ignore all files in a directory except a specific file'
+tags: ['git', 'gitignore']
+---
+
+import Twemoji from './Twemoji.tsx'
+
+Keep 1 file and ignore others in a directory
+
+`.gitignore`
+
+```bash {5} showLineNumbers
+# Ignore all file in a directory
+directory/*
+
+# Keep only this file
+!directory/file-to-keep.ext
+```

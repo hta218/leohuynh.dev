@@ -1,0 +1,61 @@
+---
+heading: 'Color validator'
+title: 'Check if a string is a valid color'
+date: '2021-10-12'
+type: 'Javascript'
+draft: false
+summary: 'Check if a string is a valid color'
+tags: ['javascript', 'color', 'validator']
+---
+
+import Twemoji from './Twemoji.tsx'
+
+#### <Twemoji emoji="warning" /> For client-side only, not work in Node.js
+
+Simple color validator function
+
+```js
+let isValidColor = (color) => {
+  let otpNode = new Option()
+  otpNode.style.color = color
+
+  return !!otpNode.style.color
+}
+```
+
+Usage
+
+```js
+// Valid colors
+isValidColor('purple') // true
+isValidColor('burlywood') // true
+isValidColor('lightsalmon') // true
+isValidColor('rgb(255, 255, 255)') // true
+isValidColor('rgba(255, 255, 255, .5)') // true
+isValidColor('#ccc') // true
+isValidColor('hsl(100, 0%, 18%)') // true
+
+// Invalid colors
+isValidColor('not-a-color-name') // false
+isValidColor('dark gray') // false. Should be 'darkgray'
+isValidColor('rgb(255, 255, 255, 1, 1)') // false
+isValidColor('#ccczzz') // false
+```
+
+Caveat
+
+Strings like `unset`, `initial`, `inherit`, `currentcolor`, `transparent` are also valid values, so if you want to exclude these strings, just change the function a bit:
+
+```js
+let isValidColor = (color) => {
+  let otpNode = new Option()
+  otpNode.style.color = color
+
+  return !!otpNode.style.color && !/(unset|initial|inherit|currentcolor|transparent)/i.test(color)
+}
+
+isValidColor('rgb(-1, 255, 255)') // true
+isValidColor('none') // false
+isValidColor('initial') // false
+isValidColor('gray') // true
+```

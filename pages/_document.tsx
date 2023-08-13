@@ -2,7 +2,7 @@ import Document, { Html, Head, Main, NextScript } from 'next/document'
 class MyDocument extends Document {
   render() {
     return (
-      <Html lang="en">
+      <Html lang="process.env.NEXT_PUBLIC_DEFAULT_LOCALE">
         <Head>
           <link rel="apple-touch-icon" sizes="76x76" href="/static/favicons/hat.png" />
           <link rel="icon" type="image/png" sizes="32x32" href="/static/favicons/hat.png" />

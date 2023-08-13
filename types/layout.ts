@@ -1,7 +1,7 @@
 import type React from 'react'
 import type { CommentConfigType } from './components'
+import type { PaginationType, TOC } from './server'
 import type { AuthorFrontMatter, BlogFrontMatter, MdxFrontMatter, SnippetFrontMatter } from './mdx'
-import type { PaginationType } from './server'
 
 export interface AuthorLayoutProps {
   children: React.ReactNode
@@ -34,4 +34,5 @@ export interface SnippetLayoutProps {
 export interface ResumeLayoutProps {
   children: React.ReactNode
   frontMatter: MdxFrontMatter
+  toc: TOC
 }

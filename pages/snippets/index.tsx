@@ -1,20 +1,24 @@
 import { PageSeo } from 'components/SEO'
-import { siteMetadata } from '~/data/siteMetadata'
 import { SnippetLayout } from '~/layouts/SnippetLayout'
 import { getAllFilesFrontMatter } from '~/libs/mdx'
 import type { SnippetFrontMatter } from '~/types'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useTranslation } from 'next-i18next'
 
-export async function getStaticProps() {
-  let snippets = getAllFilesFrontMatter('snippets')
-  return { props: { snippets } }
+export async function getStaticProps({ locale }: { locale: string }) {
+  let snippets = getAllFilesFrontMatter(`${locale}/snippets`)
+  return {
+    props: { snippets, ...(await serverSideTranslations(locale, ['common'])) },
+  }
 }
 
 export default function Snippet({ snippets }: { snippets: SnippetFrontMatter[] }) {
-  let description = 'Reuseable code snippets collected by me'
+  const { t } = useTranslation('common')
+  let description = t('menu_receptes_2')
   return (
     <>
       <PageSeo
-        title={`Snippets - ${siteMetadata.author} - ${siteMetadata.title}`}
+        title={`Snippets - ${t('siteMetadata_author')} - ${t('siteMetadata_title')}`}
         description={description}
       />
       <SnippetLayout snippets={snippets} description={description} />
