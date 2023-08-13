@@ -4,3 +4,7 @@ export function kebabCase(str: string): string {
     ?.map((x) => x.toLowerCase())
     ?.join('-')
 }
+
+export function capitalize(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1)
+}

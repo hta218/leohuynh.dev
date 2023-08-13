@@ -7,7 +7,7 @@ import { generateRss } from '~/libs/generate-rss'
 import { getAllFilesFrontMatter } from '~/libs/mdx'
 import { getAllTags } from '~/libs/tags'
 import type { BlogFrontMatter } from '~/types'
-import { kebabCase } from '~/utils/kebab-case'
+import { kebabCase } from '~/utils/string'
 import { useTranslation } from 'next-i18next'
 import { getCommon } from '~/libs/files'
 

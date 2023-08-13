@@ -9,7 +9,7 @@ import rehypePrismPlus from 'rehype-prism-plus'
 import rehypeSlug from 'rehype-slug'
 import remarkGFM from 'remark-gfm'
 import { visit } from 'unist-util-visit'
-import { TOKEN_CLASSNAME_MAP } from '~/constant'
+import { TOKEN_CLASSNAMES } from '~/constant'
 import type { BlogFrontMatter, MdxFileData, MdxFrontMatter, TOC, UnistNodeType } from '~/types'
 import { dateSortDesc } from '~/utils/date'
 import { formatSlug, getAllFilesRecursively } from './files'
@@ -26,18 +26,14 @@ export async function getFileBySlug(
   let mdxPath = path.join(root, 'data', locale, type, `${slug}.mdx`)
   let mdPath = path.join(root, 'data', locale, type, `${slug}.md`)
 
-  console.log('mdxPath', mdxPath)
-  console.log('mdPath', mdPath)
-
   if (!fs.existsSync(mdxPath) && !fs.existsSync(mdPath)) {
-    // Si no es troba cap fitxer, retorna null
     return null
   }
 
   let source = fs.existsSync(mdxPath)
     ? fs.readFileSync(mdxPath, 'utf8')
     : fs.readFileSync(mdPath, 'utf8')
-  /**F
+  /**
    * Point esbuild directly at the correct executable for the current platform
    * Ref: https://github.com/kentcdodds/mdx-bundler#nextjs-esbuild-enoent
    */
@@ -93,7 +89,7 @@ export async function getFileBySlug(
             visit(tree, 'element', (node: UnistNodeType) => {
               let [token, type] = node.properties.className || []
               if (token === 'token') {
-                node.properties.className = [TOKEN_CLASSNAME_MAP[type]]
+                node.properties.className = [TOKEN_CLASSNAMES[type]]
               }
             })
           }

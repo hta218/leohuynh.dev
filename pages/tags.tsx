@@ -3,7 +3,7 @@ import { PageSeo } from '~/components/SEO'
 import { Tag } from '~/components/Tag'
 import { getAllTags } from '~/libs/tags'
 import type { TagsCount } from '~/types'
-import { kebabCase } from '~/utils/kebab-case'
+import { kebabCase } from '~/utils/string'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
 
