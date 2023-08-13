@@ -6,9 +6,10 @@ import { headerNavLinks } from '~/data/headerNavLinks'
 import { AnalyticsLink } from './AnalyticsLink'
 import { LanguageSwitcher } from './LanguageSwitcher'
 import { Link } from './Link'
+import { MobileNavToggle } from './MobileNavToggle'
 import { ThemeSwitcher } from './ThemeSwitcher'
 
-export function Header({ onToggleNav }: { onToggleNav: () => void }) {
+export function Header({ navShow, onToggleNav }: { onToggleNav: () => void; navShow: boolean }) {
   let { t } = useTranslation('common')
   let router = useRouter()
 
@@ -50,45 +51,10 @@ export function Header({ onToggleNav }: { onToggleNav: () => void }) {
             <AnalyticsLink />
             <ThemeSwitcher />
             <LanguageSwitcher />
-            <MobileNavToggle onToggleNav={onToggleNav} />
+            <MobileNavToggle navShow={navShow} onToggleNav={onToggleNav} />
           </div>
         </div>
       </div>
     </header>
-  )
-}
-
-function MobileNavToggle({ onToggleNav }: { onToggleNav: () => void }) {
-  return (
-    <button
-      className="ml-2 mr-1 h-8 w-8 rounded sm:hidden"
-      type="button"
-      aria-label="Toggle Menu"
-      onClick={onToggleNav}
-      data-umami-event="mobile-nav-toggle"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 20 20"
-        fill="currentColor"
-        className="text-gray-900 dark:text-gray-100"
-      >
-        <path
-          fillRule="evenodd"
-          d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-          clipRule="evenodd"
-        />
-        <path
-          fillRule="evenodd"
-          d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-          clipRule="evenodd"
-        />
-        <path
-          fillRule="evenodd"
-          d="M3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-          clipRule="evenodd"
-        />
-      </svg>
-    </button>
   )
 }
