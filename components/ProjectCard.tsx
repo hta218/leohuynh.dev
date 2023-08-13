@@ -15,7 +15,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
   return (
     <div className="md p-4 md:w-1/2" style={{ maxWidth: '544px' }}>
-      <div className="flex h-full flex-col overflow-hidden rounded-md border border-gray-400 border-opacity-60 hover:border-gray-500 dark:border-gray-600 dark:hover:border-gray-400">
+      <div className="flex h-full flex-col overflow-hidden rounded-lg border border-transparent shadow-nextjs border-opacity-60 dark:border-gray-600 dark:hover:border-gray-400">
         <Image
           alt={title}
           src={imgSrc}
