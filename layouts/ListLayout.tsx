@@ -30,7 +30,7 @@ export function ListLayout(props: ListLayoutProps) {
           </p>
           <PostsSearch onChange={setSearchValue} />
         </header>
-        <ul className="space-y-10 py-12">
+        <ul className="space-y-14 py-12">
           {!filteredBlogPosts.length && t('blog.noPosts')}
           {displayPosts.map((frontMatter) => (
             <PostListItem key={frontMatter.slug} frontMatter={frontMatter} />
