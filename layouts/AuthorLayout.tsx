@@ -5,10 +5,10 @@ import type { AuthorLayoutProps } from '~/types'
 import { useTranslation } from 'next-i18next'
 
 export function AuthorLayout({ children }: AuthorLayoutProps) {
-  let { t } = useTranslation('common') // utilitza 'common' si els teus strings estan a common.ts o canvia-ho pel nom adequat
-
+  let { t } = useTranslation('common')
   let title = t('menu_sobremi')
   let description = t('about_description')
+
   return (
     <>
       <PageSeo
@@ -20,7 +20,9 @@ export function AuthorLayout({ children }: AuthorLayoutProps) {
           <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
             {title}
           </h1>
-          <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">{description}</p>
+          <p className="text-base md:text-lg md:leading-7 text-gray-500 dark:text-gray-400">
+            {description}
+          </p>
         </div>
         <div className="items-start space-y-2 pt-8 xl:grid xl:grid-cols-3 xl:space-y-0">
           <ProfileCard />
