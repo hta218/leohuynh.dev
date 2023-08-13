@@ -5,8 +5,9 @@ import { Twemoji } from '../Twemoji'
 import { ViewCounter } from '../ViewCounter'
 
 export function BlogMeta({ date, slug, readingTime }: BlogMetaProps) {
-  const { t, i18n } = useTranslation()
-  const lang = i18n.language
+  let { t, i18n } = useTranslation()
+  let lang = i18n.language
+
   return (
     <dd className="flex flex-wrap text-sm font-medium leading-6 text-gray-500 dark:text-gray-400 md:text-base">
       <time dateTime={date} className="flex items-center justify-center">
@@ -17,7 +18,7 @@ export function BlogMeta({ date, slug, readingTime }: BlogMetaProps) {
       <div className="flex items-center">
         <Twemoji emoji="hourglass-not-done" size="" />
         <span className="ml-1.5 md:ml-2">
-          {t('blog.readingTime', { time: readingTime.text.replace('min read', t('blog.mins')) })}
+          {t('blog.readingTime', { time: Math.round(readingTime.minutes) })}
         </span>
       </div>
       <span className="mx-2">{` • `}</span>
