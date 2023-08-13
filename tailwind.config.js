@@ -14,6 +14,12 @@ module.exports = {
       gridTemplateColumns: {
         main: '15em 1fr',
       },
+      boxShadow: {
+        popover:
+          '-0.0625rem 0 1.25rem rgba(23, 24, 24, 0.05), 0 0.0625rem 0.3125rem rgba(0, 0, 0, 0.15)',
+        'popover-dark':
+          '0.0625rem 0 1.25rem rgba(242, 242, 242, 0.05), 0 -0.0625rem 0.3125rem rgba(255, 255, 255, 0.15)',
+      },
       keyframes: {
         wiggle: {
           '0%': { transform: 'rotate(0deg)' },
