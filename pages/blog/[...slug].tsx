@@ -58,7 +58,7 @@ export async function getStaticProps({
   )
 
   // Resol la ruta al fitxer .json basat en l'idioma
-  const lang_siteMetadata = getCommon(locale).siteMetadata
+  let lang_siteMetadata = getCommon(locale).siteMetadata
 
   // rss
   let rss = generateRss(lang_siteMetadata, allPosts)

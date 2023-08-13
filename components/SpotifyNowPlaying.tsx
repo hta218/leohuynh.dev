@@ -1,6 +1,6 @@
 import type { SpotifyNowPlayingData } from '~/types'
 import { fetcher } from '~/utils/fetcher'
-const { default: useSWR } = require('swr')
+let { default: useSWR } = require('swr')
 
 export function SpotifyNowPlaying() {
   let response = useSWR('/api/spotify', fetcher)

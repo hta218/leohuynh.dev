@@ -38,7 +38,7 @@ export async function getStaticProps({
 
   // rss
   let root = process.cwd()
-  const lang_siteMetadata = getCommon(locale).siteMetadata
+  let lang_siteMetadata = getCommon(locale).siteMetadata
 
   console.log('lang_siteMetadata', lang_siteMetadata)
   let rss = generateRss(lang_siteMetadata, filteredPosts, `tags/${params.tag}/feed.xml`)

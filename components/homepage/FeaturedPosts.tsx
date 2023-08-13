@@ -6,8 +6,8 @@ import type { BlogFrontMatter } from '~/types'
 import { formatDate } from '~/utils/date'
 
 export function FeaturedPosts({ posts }: { posts: BlogFrontMatter[] }) {
-  const { t, i18n } = useTranslation()
-  const lang = i18n.language
+  let { t, i18n } = useTranslation()
+  let lang = i18n.language
   return (
     <div className="border-t border-gray-200 dark:border-gray-700">
       <ul className="divide-y divide-gray-200 dark:divide-gray-700">

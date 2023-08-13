@@ -11,10 +11,10 @@ export function SocialButtons({ postUrl, title, fileName }: SocialButtonsProps) 
   let createDiscussonTwitterUrl = (postUrl: string) =>
     `https://twitter.com/search?q=${encodeURIComponent(postUrl)}`
 
-  const CREATE_DISCUS_ON_TWITTER = process.env.NEXT_PUBLIC_CREATE_DISCUS_ON_TWITTER
-  const CREATE_DISCUS_ON_GITHUB = process.env.NEXT_PUBLIC_CREATE_DISCUS_ON_GITHUB
-  const SHARE_ON_TWITTER = process.env.NEXT_PUBLIC_SHARE_ON_TWITTER
-  const SHARE_ON_FACEBOOK = process.env.NEXT_PUBLIC_SHARE_ON_FACEBOOK
+  let CREATE_DISCUS_ON_TWITTER = process.env.NEXT_PUBLIC_CREATE_DISCUS_ON_TWITTER
+  let CREATE_DISCUS_ON_GITHUB = process.env.NEXT_PUBLIC_CREATE_DISCUS_ON_GITHUB
+  let SHARE_ON_TWITTER = process.env.NEXT_PUBLIC_SHARE_ON_TWITTER
+  let SHARE_ON_FACEBOOK = process.env.NEXT_PUBLIC_SHARE_ON_FACEBOOK
 
   return (
     <div className="items-center justify-between pb-6 pt-6 text-sm text-gray-700 dark:text-gray-300 md:flex">

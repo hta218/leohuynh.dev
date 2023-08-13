@@ -31,11 +31,11 @@ export function formatSlug(slug: string) {
 
 export function getCommon(locale) {
   // Resol la ruta al fitxer .json basat en l'idioma
-  const filePath = path.join(process.cwd(), 'public', 'locales', locale, 'common.json')
+  let filePath = path.join(process.cwd(), 'public', 'locales', locale, 'common.json')
 
   // Llegeix el fitxer .json
-  const rawData = fs.readFileSync(filePath, 'utf8')
-  const data = JSON.parse(rawData)
+  let rawData = fs.readFileSync(filePath, 'utf8')
+  let data = JSON.parse(rawData)
   return data
 }
 

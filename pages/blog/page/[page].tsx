@@ -9,10 +9,10 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
 
 export async function getStaticPaths(context: GetStaticPathsContext) {
-  const locales = context.locales || []
-  const paths = []
+  let locales = context.locales || []
+  let paths = []
 
-  for (const locale of locales) {
+  for (let locale of locales) {
     let totalPosts = getAllFilesFrontMatter(`${locale}/blog`) // canviat `${locale}/blog` a `blog/${locale}`
     let totalPages = Math.ceil(totalPosts.length / POSTS_PER_PAGE)
     let localePaths = Array.from({ length: totalPages }, (_, i) => ({

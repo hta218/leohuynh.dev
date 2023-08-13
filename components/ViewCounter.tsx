@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import type { ViewApiResponse, ViewCounterProps } from '~/types'
 import { fetcher } from '~/utils/fetcher'
-const { default: useSWR } = require('swr')
+let { default: useSWR } = require('swr')
 import { useTranslation } from 'next-i18next'
 
 export function ViewCounter({ slug, className }: ViewCounterProps) {

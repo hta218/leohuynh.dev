@@ -5,7 +5,7 @@ import stylesResume from './ResumeLayout.module.css'
 import { useTranslation } from 'next-i18next'
 
 export function ResumeLayout({ children, toc }) {
-  const { t } = useTranslation('common')
+  let { t } = useTranslation('common')
 
   let description = t('resume_description')
 

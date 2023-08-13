@@ -5,7 +5,7 @@ import type { RemarkTocHeadingOptions, UnistNodeType, UnistTreeType } from '~/ty
 
 function transformNode(node, output, indexMap, sluggerInstance) {
   let textContent = toString(node)
-  const transformedNode = {
+  let transformedNode = {
     value: textContent,
     depth: node.depth,
     data: node.data,
@@ -18,7 +18,7 @@ function transformNode(node, output, indexMap, sluggerInstance) {
     output.push(transformedNode)
     indexMap[node.depth] = transformedNode
   } else {
-    const parent = indexMap[node.depth - 1]
+    let parent = indexMap[node.depth - 1]
     if (parent) {
       parent.children.push(transformedNode)
       indexMap[node.depth] = transformedNode
@@ -27,7 +27,7 @@ function transformNode(node, output, indexMap, sluggerInstance) {
 }
 
 function addID(node, nodes, sluggerInstance) {
-  const originalSlug = sluggerInstance.slug(toString(node))
+  let originalSlug = sluggerInstance.slug(toString(node))
 
   if (!nodes[originalSlug]) {
     nodes[originalSlug] = 0
@@ -35,7 +35,7 @@ function addID(node, nodes, sluggerInstance) {
 
   nodes[originalSlug]++
 
-  const id = nodes[originalSlug] > 1 ? `${originalSlug}-${nodes[originalSlug]}` : originalSlug
+  let id = nodes[originalSlug] > 1 ? `${originalSlug}-${nodes[originalSlug]}` : originalSlug
 
   node.data = node.data || {}
   node.data.hProperties = node.data.hProperties || {}
@@ -44,8 +44,8 @@ function addID(node, nodes, sluggerInstance) {
 
 export function remarkTocHeading(options: RemarkTocHeadingOptions) {
   return (tree: UnistTreeType) => {
-    const nodes = {}
-    const sluggerInstance = new Slugger()
+    let nodes = {}
+    let sluggerInstance = new Slugger()
 
     if (!options.cleaned) {
       options.exportRef.length = 0

@@ -7,8 +7,8 @@ import { language } from 'gray-matter'
 
 export function PostListItem({ frontMatter }: { frontMatter: MdxFrontMatter }) {
   let { slug, date, title, summary, tags } = frontMatter
-  const { t, i18n } = useTranslation()
-  const lang = i18n.language
+  let { t, i18n } = useTranslation()
+  let lang = i18n.language
   return (
     <li key={slug}>
       <article className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
