@@ -24,7 +24,7 @@ export function LanguageSwitcher() {
 
   return (
     <Popover>
-      <PopoverTrigger className="p-1.5 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
+      <PopoverTrigger className="p-1.5 hover:bg-gray-200 dark:hover:bg-gray-700 rounded cursor-pointer">
         <Image
           src={currentLocale.flag}
           alt={currentLocale.name}
