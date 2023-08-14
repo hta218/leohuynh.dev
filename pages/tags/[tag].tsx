@@ -36,11 +36,8 @@ export async function getStaticProps({
   )
 
   let root = process.cwd()
-  let rss = generateRss(
-    getCommon(locale).siteMetadata,
-    filteredPosts,
-    `tags/${params.tag}/feed.xml`
-  )
+  let { site_meta_data: metadata } = getCommon(locale)
+  let rss = generateRss(metadata, filteredPosts, `tags/${params.tag}/feed.xml`)
   let rssPath = path.join(root, 'public', 'tags', params.tag)
   fs.mkdirSync(rssPath, { recursive: true })
   fs.writeFileSync(path.join(rssPath, 'feed.xml'), rss)

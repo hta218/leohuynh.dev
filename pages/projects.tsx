@@ -1,7 +1,8 @@
 import { PageSeo } from 'components/SEO'
+import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ProjectCard } from '~/components/ProjectCard'
-import { useTranslation } from 'next-i18next'
+import type { Project } from '~/types/data'
 
 export async function getStaticProps({ locale }) {
   let projectsDataModule = await import(`~/data/${locale}/projectsData.ts`)
@@ -15,7 +16,7 @@ export async function getStaticProps({ locale }) {
   }
 }
 
-export default function Projects({ projectsData }) {
+export default function Projects({ projectsData }: { projectsData: Project[] }) {
   let workProjects = projectsData.filter(({ type }) => type === 'work')
   let sideProjects = projectsData.filter(({ type }) => type === 'self')
   let { t } = useTranslation('common')

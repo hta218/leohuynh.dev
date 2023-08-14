@@ -55,7 +55,8 @@ export async function getStaticProps({
     })
   )
 
-  let rss = generateRss(getCommon(locale).siteMetadata, allPosts)
+  let { site_meta_data: metadata } = getCommon(locale)
+  let rss = generateRss(metadata, allPosts)
   fs.writeFileSync('./public/feed.xml', rss)
   let commentConfig = getCommentConfigs()
 
