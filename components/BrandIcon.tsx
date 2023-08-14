@@ -15,7 +15,7 @@ import Typescript from '~/icons/typescript.svg'
 import Umami from '~/icons/umami.svg'
 import Vercel from '~/icons/vercel.svg'
 
-export let DevIconsMap = {
+export let BrandIconsMap = {
   React,
   Git,
   GitHub,
@@ -34,10 +34,10 @@ export let DevIconsMap = {
   Spotify,
 }
 
-export function DevIcon(props: { type: keyof typeof DevIconsMap; className?: string }) {
+export function BrandIcon(props: { type: keyof typeof BrandIconsMap; className?: string }) {
   let { type, className } = props
-  let Icon = DevIconsMap[type]
-  if (!Icon) return <div>Missing icon for {type}</div> // Add `type` here
+  let Icon = BrandIconsMap[type]
+  if (!Icon) return <div>Missing icon for {type}</div>
 
   let defaultClass = 'h-16 w-16 lg:h-14 lg:w-14 xl:h-24 xl:w-24'
   return <Icon className={className || defaultClass} fill="currentColor" />

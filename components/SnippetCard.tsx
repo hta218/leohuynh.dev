@@ -1,5 +1,5 @@
 import type { SnippetFrontMatter } from '~/types'
-import { DevIcon } from './DevIcon'
+import { BrandIcon } from './BrandIcon'
 import { Link } from './Link'
 
 export function SnippetCard({ snippet }: { snippet: SnippetFrontMatter }) {
@@ -12,7 +12,7 @@ export function SnippetCard({ snippet }: { snippet: SnippetFrontMatter }) {
         className="mb-4 flex cursor-pointer rounded border border-transparent shadow-intense hover:shadow-nextjs dark:border-gray-600 dark:hover:border-gray-400 lg:mb-0"
       >
         <div className="p-3 lg:p-4">
-          <DevIcon type={type} />
+          <BrandIcon type={type} />
         </div>
         <div className="overflow-hidden p-3 md:p-4 lg:p-4 space-y-2">
           <h3 className="overflow-hidden overflow-ellipsis whitespace-nowrap text-lg font-bold leading-8 tracking-tight lg:text-2xl">

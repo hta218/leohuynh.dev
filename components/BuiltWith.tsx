@@ -1,6 +1,6 @@
 import { useTranslation } from 'next-i18next'
 import { siteMetadata } from '~/data/siteMetadata'
-import { DevIcon } from './DevIcon'
+import { BrandIcon } from './BrandIcon'
 import { Link } from './Link'
 
 export function BuiltWith() {
@@ -11,19 +11,19 @@ export function BuiltWith() {
       <span className="mr-1 text-gray-500 dark:text-gray-400">{t('buildWith.built_with')}</span>
       <div className="flex space-x-1.5">
         <Link href="https://nextjs.org?ref=leohuynh.dev">
-          <DevIcon type="NextJS" className="h-5 w-5" />
+          <BrandIcon type="NextJS" className="h-5 w-5" />
         </Link>
         <Link href="https://tailwindcss.com?ref=leohuynh.dev">
-          <DevIcon type="TailwindCSS" className="h-5 w-5" />
+          <BrandIcon type="TailwindCSS" className="h-5 w-5" />
         </Link>
         <Link href="https://www.prisma.io?ref=leohuynh.dev">
-          <DevIcon type="Prisma" className="h-5 w-5" />
+          <BrandIcon type="Prisma" className="h-5 w-5" />
         </Link>
         <Link href="https://www.typescriptlang.org?ref=leohuynh.dev">
-          <DevIcon type="Typescript" className="h-5 w-5" />
+          <BrandIcon type="Typescript" className="h-5 w-5" />
         </Link>
         <Link href="https://umami.is?ref=leohuynh.dev" className="pl-px">
-          <DevIcon type="Umami" className="h-5 w-5" />
+          <BrandIcon type="Umami" className="h-5 w-5" />
         </Link>
       </div>
       <span className="px-1 text-gray-400 dark:text-gray-500">-</span>

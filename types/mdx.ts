@@ -1,5 +1,5 @@
 import type readingTime from 'reading-time'
-import type { DevIconsMap } from '~/components/DevIcon'
+import type { BrandIconsMap } from '~/components/BrandIcon'
 import type { TOC } from './server'
 
 export type MdxPageLayout =
@@ -33,7 +33,7 @@ export interface BlogFrontMatter extends MdxFrontMatter {
 
 export interface SnippetFrontMatter extends BlogFrontMatter {
   heading: string
-  type: keyof typeof DevIconsMap
+  type: keyof typeof BrandIconsMap
 }
 
 export interface AuthorFrontMatter extends MdxFrontMatter {
