@@ -58,7 +58,7 @@ export function ProfileCard() {
         className={clsx(
           'flex flex-col overflow-hidden transition-all duration-200 ease-out xl:rounded-lg',
           'bg-white shadow-demure dark:bg-dark dark:shadow-mondegreen',
-          'border border-gray-100 dark:border-gray-600'
+          'outline outline-1 outline-gray-100 dark:outline-gray-600'
         )}
       >
         <Image
