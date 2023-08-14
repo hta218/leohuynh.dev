@@ -10,8 +10,8 @@ export function ResumeLayout({ children, toc }) {
   return (
     <>
       <PageSeo
-        title={`${t('menu_resume')} - ${t('site_meta_data.fullName')} - ${description}`}
-        description={`${t('menu_resume')} - ${t('site_meta_data.fullName')} - ${description}`}
+        title={`${t('menu_resume')} - ${t('site_meta_data.full_name')} - ${description}`}
+        description={`${t('menu_resume')} - ${t('site_meta_data.full_name')} - ${description}`}
       />
       <ScrollTopButton />
       <div className="resume">
