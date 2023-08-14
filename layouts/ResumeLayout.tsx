@@ -1,12 +1,10 @@
 import { PageSeo } from 'components/SEO'
 import { ScrollTopButton } from '~/components/ScrollTopButton'
 import { ToC } from '~/components/ToC'
-import stylesResume from './ResumeLayout.module.css'
 import { useTranslation } from 'next-i18next'
 
 export function ResumeLayout({ children, toc }) {
   let { t } = useTranslation('common')
-
   let description = t('resume_description')
 
   return (
@@ -16,7 +14,7 @@ export function ResumeLayout({ children, toc }) {
         description={`${t('menu_curriculum')} - ${t('siteMetadata.fullName')} - ${description}`}
       />
       <ScrollTopButton />
-      <div>
+      <div className="resume">
         <header className="space-y-2 pb-8 pt-6 md:space-y-5">
           <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
             {t('menu_curriculum')}
@@ -30,7 +28,7 @@ export function ResumeLayout({ children, toc }) {
           <ToC toc={toc} />
           <div className="border-l border-gray-300 hidden md:block" />
           <div
-            className={`text-gray-900 leading-6 space-y-5 prose prose-slate grow table-auto border-collapse ${stylesResume.customTable}`}
+            className={`text-gray-900 leading-6 space-y-5 prose prose-slate grow table-auto border-collapse`}
           >
             {children}
           </div>

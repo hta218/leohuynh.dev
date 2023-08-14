@@ -1,18 +1,16 @@
-/* ResumeLayout.module.css */
-
-.customTable table {
+.resume table {
   @apply min-w-full border-collapse border border-gray-300 shadow;
 }
 
-.customTable thead {
+.resume thead {
   @apply bg-gray-100;
 }
 
-.customTable th,
-.customTable td {
+.resume th,
+.resume td {
   @apply p-3 border border-gray-300;
 }
 
-.customTable tbody tr:nth-child(odd) {
+.resume tbody tr:nth-child(odd) {
   @apply bg-gray-200;
 }
