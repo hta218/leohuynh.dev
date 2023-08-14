@@ -1,6 +1,5 @@
 import type { ImageProps as NextImageProps } from 'next/image'
 import type React from 'react'
-import type { SocialIconsMap } from '~/components/SocialIcon'
 import type { projectsData } from '~/data/en/projectsData'
 import type { commentConfig } from '~/data/siteMetadata'
 import type { MdxFrontMatter, ReadingTime } from './mdx'
@@ -11,11 +10,6 @@ export interface PageTitleProps {
 
 export interface ImageLightBoxProps extends Pick<NextImageProps, 'src'> {
   closeLightbox: () => void
-}
-
-export interface SocialIconProps {
-  name: keyof typeof SocialIconsMap
-  href: string
 }
 
 export interface ImageProps extends NextImageProps {
