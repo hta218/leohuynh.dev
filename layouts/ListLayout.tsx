@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Pagination } from '~/components/Pagination'
 import { PostListItem } from '~/components/PostListItem'
 import { PostsSearch } from '~/components/PostsSearch'
-import type { ListLayoutProps } from '~/types'
+import type { ListLayoutProps } from '~/types/layout'
 import { useTranslation } from 'next-i18next'
 
 export function ListLayout(props: ListLayoutProps) {

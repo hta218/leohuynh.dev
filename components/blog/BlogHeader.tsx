@@ -1,4 +1,4 @@
-import type { BlogHeaderProps } from '~/types'
+import type { BlogHeaderProps } from '~/types/components'
 import { formatDate } from '~/utils/date'
 import { PageTitle } from '../PageTitle'
 import { Twemoji } from '../Twemoji'

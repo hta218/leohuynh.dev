@@ -1,7 +1,7 @@
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { MDXLayoutRenderer } from '~/components/MDXComponents'
 import { getFileBySlug } from '~/libs/mdx'
-import type { MdxFileData } from '~/types'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import type { MdxFileData } from '~/types/mdx'
 
 export async function getStaticProps({ locale }) {
   let resumeData = await getFileBySlug('authors', 'resume', locale)

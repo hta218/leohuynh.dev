@@ -1,12 +1,11 @@
 import { PageSeo } from 'components/SEO'
 import ListLayout from 'layouts/ListLayout'
 import { POSTS_PER_PAGE } from '~/constant'
-
-import { getAllFilesFrontMatter } from '~/libs/mdx'
-import type { BlogListProps } from '~/types'
 import type { GetStaticPathsContext } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { getAllFilesFrontMatter } from '~/libs/mdx'
+import type { BlogListProps } from '~/types/page'
 
 export async function getStaticPaths(context: GetStaticPathsContext) {
   let locales = context.locales || []

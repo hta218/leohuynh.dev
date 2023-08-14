@@ -8,7 +8,7 @@ import { SectionContainer } from '~/components/SectionContainer'
 import { BlogSeo } from '~/components/SEO'
 import { SocialShareButtons } from '~/components/SocialShareButtons'
 import { siteMetadata } from '~/data/siteMetadata'
-import type { PostLayoutProps } from '~/types'
+import type { PostLayoutProps } from '~/types/layout'
 
 export function PostLayout(props: PostLayoutProps) {
   let { frontMatter, authorDetails, page, children, commentConfig } = props

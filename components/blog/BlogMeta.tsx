@@ -1,5 +1,5 @@
 import { useTranslation } from 'next-i18next'
-import type { BlogMetaProps } from '~/types'
+import type { BlogMetaProps } from '~/types/components'
 import { formatDate } from '~/utils/date'
 import { Twemoji } from '../Twemoji'
 import { ViewCounter } from '../ViewCounter'

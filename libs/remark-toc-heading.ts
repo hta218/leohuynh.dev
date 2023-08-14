@@ -1,7 +1,7 @@
-import { visit } from 'unist-util-visit'
 import Slugger from 'github-slugger'
 import { toString } from 'mdast-util-to-string'
-import type { RemarkTocHeadingOptions, UnistNodeType, UnistTreeType } from '~/types'
+import { visit } from 'unist-util-visit'
+import type { RemarkTocHeadingOptions, UnistNodeType, UnistTreeType } from '~/types/server'
 
 function transformNode(node, output, indexMap, sluggerInstance) {
   let textContent = toString(node)

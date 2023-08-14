@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic'
-import type { CommentsProps } from '~/types'
+import type { CommentsProps } from '~/types/components'
 
 let Giscus = dynamic(() => import('./Giscus'), { ssr: false })
 let Utterances = dynamic(() => import('./Utterances'), { ssr: false })

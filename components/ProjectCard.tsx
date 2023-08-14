@@ -1,10 +1,11 @@
+import { useTranslation } from 'next-i18next'
 import useSWR from 'swr'
-import type { GithubRepository, ProjectCardProps } from '~/types'
+import type { ProjectCardProps } from '~/types/components'
+import type { GithubRepository } from '~/types/server'
 import { fetcher } from '~/utils/fetcher'
 import { GithubRepo } from './GithubRepo'
 import { Image } from './Image'
 import { Link } from './Link'
-import { useTranslation } from 'next-i18next'
 
 export function ProjectCard({ project }: ProjectCardProps) {
   let { t } = useTranslation('common')

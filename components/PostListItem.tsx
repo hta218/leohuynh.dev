@@ -1,5 +1,5 @@
 import { useTranslation } from 'next-i18next'
-import type { MdxFrontMatter } from '~/types'
+import type { MdxFrontMatter } from '~/types/mdx'
 import { formatDate } from '~/utils/date'
 import { Link } from './Link'
 import { Tag } from './Tag'

@@ -1,8 +1,6 @@
-import React from 'react'
-import { PageSeo } from '~/components/SEO'
-import type { AuthorLayoutProps } from '~/types'
 import { useTranslation } from 'next-i18next'
-import { ProfileCard } from '~/components/ProfileCard'
+import { PageSeo } from '~/components/SEO'
+import type { AuthorLayoutProps } from '~/types/layout'
 
 export function AuthorLayout({ children }: AuthorLayoutProps) {
   let { t } = useTranslation('common')

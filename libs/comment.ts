@@ -1,4 +1,4 @@
-import type { CommentConfigType } from '~/types'
+import type { CommentConfigType } from '~/types/components'
 import { commentConfig as DefaultCommentConfig } from '~/data/siteMetadata'
 
 // This is a temporary workaround for the fact that the `mdx-bundler` & `esbuild`

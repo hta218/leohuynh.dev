@@ -1,4 +1,4 @@
-import type { UnsplashPhotoProps } from '~/types'
+import type { UnsplashPhotoProps } from '~/types/components'
 
 export function UnsplashPhotoInfo({ photoURL, author }: UnsplashPhotoProps) {
   return (

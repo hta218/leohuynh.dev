@@ -1,4 +1,4 @@
-import type { AuthorFrontMatter } from '~/types'
+import type { AuthorFrontMatter } from '~/types/mdx'
 import { Link } from '../Link'
 import { Image } from '../Image'
 

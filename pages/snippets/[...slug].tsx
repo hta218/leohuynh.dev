@@ -4,7 +4,8 @@ import { PageTitle } from '~/components/PageTitle'
 import { getCommentConfigs } from '~/libs/comment'
 import { formatSlug, getFiles } from '~/libs/files'
 import { getFileBySlug } from '~/libs/mdx'
-import type { MdxPageLayout, SnippetProps } from '~/types'
+import type { MdxPageLayout } from '~/types/mdx'
+import type { SnippetProps } from '~/types/page'
 
 let DEFAULT_LAYOUT: MdxPageLayout = 'PostSimple'
 

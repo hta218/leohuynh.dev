@@ -1,4 +1,4 @@
-import type { PaginationType } from '~/types'
+import type { PaginationType } from '~/types/server'
 import { Link } from './Link'
 import { useTranslation } from 'next-i18next'
 

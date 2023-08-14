@@ -2,7 +2,7 @@ import { useTranslation } from 'next-i18next'
 import { Link } from '~/components/Link'
 import { BlogTags } from '~/components/blog/BlogTags'
 import { FEATURED_POSTS } from '~/constant'
-import type { BlogFrontMatter } from '~/types'
+import type { BlogFrontMatter } from '~/types/mdx'
 import { formatDate } from '~/utils/date'
 
 export function FeaturedPosts({ posts }: { posts: BlogFrontMatter[] }) {

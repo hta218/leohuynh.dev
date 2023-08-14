@@ -1,5 +1,5 @@
 import { SnippetCard } from '~/components/SnippetCard'
-import type { SnippetLayoutProps } from '~/types'
+import type { SnippetLayoutProps } from '~/types/layout'
 
 export function SnippetLayout({ snippets, description }: SnippetLayoutProps) {
   return (

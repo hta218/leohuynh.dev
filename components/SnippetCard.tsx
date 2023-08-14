@@ -1,4 +1,4 @@
-import type { SnippetFrontMatter } from '~/types'
+import type { SnippetFrontMatter } from '~/types/mdx'
 import { BrandIcon } from './BrandIcon'
 import { Link } from './Link'
 

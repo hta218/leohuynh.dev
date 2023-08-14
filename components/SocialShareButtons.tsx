@@ -2,7 +2,7 @@ import { Facebook } from 'lucide-react'
 import { FacebookShareButton, TwitterShareButton } from 'react-share'
 import { siteMetadata } from '~/data/siteMetadata'
 import TwitterIcon from '~/icons/x.svg'
-import type { SocialButtonsProps } from '~/types'
+import type { SocialButtonsProps } from '~/types/components'
 import { Link } from './Link'
 
 export function SocialShareButtons({ postUrl, title, fileName }: SocialButtonsProps) {

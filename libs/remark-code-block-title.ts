@@ -1,5 +1,5 @@
 import { visit } from 'unist-util-visit'
-import type { UnistNodeType, UnistTreeType } from '~/types'
+import type { UnistNodeType, UnistTreeType } from '~/types/server'
 
 export function remarkCodeBlockTitle() {
   return (tree: UnistTreeType) => {

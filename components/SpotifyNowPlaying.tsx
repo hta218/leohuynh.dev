@@ -1,4 +1,4 @@
-import type { SpotifyNowPlayingData } from '~/types'
+import type { SpotifyNowPlayingData } from '~/types/server'
 import { fetcher } from '~/utils/fetcher'
 let { default: useSWR } = require('swr')
 

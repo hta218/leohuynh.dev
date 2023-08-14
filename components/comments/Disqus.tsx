@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { DISQUS_COMMENTS_ID } from '~/constant'
-import type { DisqusProps } from '~/types'
+import type { DisqusProps } from '~/types/components'
 
 function Disqus({ identifier, disqus }: DisqusProps) {
   let [loaded, setLoaded] = useState(false)

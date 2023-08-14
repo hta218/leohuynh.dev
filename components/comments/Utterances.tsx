@@ -1,7 +1,7 @@
 import { useTheme } from 'next-themes'
 import { useState } from 'react'
 import { UTTERANCES_COMMENTs_ID } from '~/constant'
-import type { UtterancesProps } from '~/types'
+import type { UtterancesProps } from '~/types/components'
 
 let Utterances = ({ config }: UtterancesProps) => {
   let [loaded, setLoaded] = useState(false)

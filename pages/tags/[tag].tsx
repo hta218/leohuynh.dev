@@ -1,15 +1,15 @@
 import { PageSeo } from 'components/SEO'
 import fs from 'fs'
+import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import path from 'path'
 import { ListLayout } from '~/layouts/ListLayout'
+import { getCommon } from '~/libs/files'
 import { generateRss } from '~/libs/generate-rss'
 import { getAllFilesFrontMatter } from '~/libs/mdx'
 import { getAllTags } from '~/libs/tags'
-import type { BlogFrontMatter } from '~/types'
+import type { BlogFrontMatter } from '~/types/mdx'
 import { kebabCase } from '~/utils/string'
-import { useTranslation } from 'next-i18next'
-import { getCommon } from '~/libs/files'
 
 export function getStaticPaths({ locale }) {
   let tags = getAllTags(`${locale}/blog`)

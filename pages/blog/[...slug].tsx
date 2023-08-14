@@ -1,4 +1,6 @@
 import fs from 'fs'
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { MDXLayoutRenderer } from '~/components/MDXComponents'
 import { PageTitle } from '~/components/PageTitle'
 import { POSTS_PER_PAGE } from '~/constant'
@@ -6,9 +8,8 @@ import { getCommentConfigs } from '~/libs/comment'
 import { formatSlug, getCommon, getFiles } from '~/libs/files'
 import { generateRss } from '~/libs/generate-rss'
 import { getAllFilesFrontMatter, getFileBySlug } from '~/libs/mdx'
-import type { AuthorFrontMatter, BlogProps, MdxPageLayout } from '~/types'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useTranslation } from 'next-i18next'
+import type { AuthorFrontMatter, MdxPageLayout } from '~/types/mdx'
+import type { BlogProps } from '~/types/page'
 
 let DEFAULT_LAYOUT: MdxPageLayout = 'PostSimple'
 

@@ -5,7 +5,7 @@ import React, {
   useState,
   type KeyboardEvent as ReactKeyboardEvent,
 } from 'react'
-import type { ImageLightBoxProps } from '~/types'
+import type { ImageLightBoxProps } from '~/types/components'
 import { Twemoji } from './Twemoji'
 
 export function ImageLightbox({ src, closeLightbox }: ImageLightBoxProps) {

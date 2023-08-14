@@ -1,6 +1,6 @@
 import { getMDXComponent } from 'mdx-bundler/client'
 import { useMemo } from 'react'
-import type { MdxLayoutRendererProps } from '~/types'
+import type { MdxLayoutRendererProps } from '~/types/mdx'
 import { Image } from './Image'
 import { Link } from './Link'
 import { Pre } from './Pre'

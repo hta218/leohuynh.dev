@@ -1,7 +1,8 @@
 import fs from 'fs'
 import matter from 'gray-matter'
 import path from 'path'
-import type { MdxFrontMatter, TagsCount } from '~/types'
+import type { MdxFrontMatter } from '~/types/mdx'
+import type { TagsCount } from '~/types/server'
 import { kebabCase } from '~/utils/string'
 import { getFiles } from './files'
 

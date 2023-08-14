@@ -1,7 +1,7 @@
 import fs from 'fs'
 import sizeOf from 'image-size'
 import { visit } from 'unist-util-visit'
-import type { UnistImageNode, UnistNodeType, UnistTreeType } from '~/types'
+import type { UnistImageNode, UnistNodeType, UnistTreeType } from '~/types/server'
 
 export function remarkImgToJsx() {
   return (tree: UnistTreeType) => {

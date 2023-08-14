@@ -4,7 +4,7 @@ import { Link } from '~/components/Link'
 import { PageSeo } from '~/components/SEO'
 import { Tag } from '~/components/Tag'
 import { getAllTags } from '~/libs/tags'
-import type { TagsCount } from '~/types'
+import type { TagsCount } from '~/types/server'
 import { kebabCase } from '~/utils/string'
 
 export async function getStaticProps({ locale }) {

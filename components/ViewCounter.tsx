@@ -1,8 +1,9 @@
+import { useTranslation } from 'next-i18next'
 import { useEffect } from 'react'
-import type { ViewApiResponse, ViewCounterProps } from '~/types'
+import type { ViewCounterProps } from '~/types/components'
+import type { ViewApiResponse } from '~/types/server'
 import { fetcher } from '~/utils/fetcher'
 let { default: useSWR } = require('swr')
-import { useTranslation } from 'next-i18next'
 
 export function ViewCounter({ slug, className }: ViewCounterProps) {
   let { data } = useSWR(`/api/views/${slug}`, fetcher) as ViewApiResponse

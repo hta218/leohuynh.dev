@@ -1,7 +1,7 @@
 import { useTheme } from 'next-themes'
 import { useEffect } from 'react'
 import { GISCUS_COMMENTS_ID } from '~/constant'
-import type { GiscusProps } from '~/types'
+import type { GiscusProps } from '~/types/components'
 
 function Giscus({ config }: GiscusProps) {
   let { theme, resolvedTheme } = useTheme()
