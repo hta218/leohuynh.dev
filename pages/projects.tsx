@@ -26,7 +26,9 @@ export default function Projects({ projectsData }: { projectsData: Project[] }) 
   return (
     <>
       <PageSeo
-        title={`${t('projects.projects_title')} - ${t('site_meta_data.author')}`}
+        title={`${t('projects.projects_title')} - ${t('site_meta_data.author')} - ${t(
+          'site_meta_data.title'
+        )}`}
         description={description}
       />
       <div className="divide-y divide-gray-200 dark:divide-gray-700">

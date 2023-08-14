@@ -29,7 +29,9 @@ export default function Blog({ posts, initialDisplayPosts, pagination }: BlogLis
   return (
     <>
       <PageSeo
-        title={`${t('blog.all_posts_title')} - ${t('site_meta_data.author')}`}
+        title={`${t('blog.all_posts_title')} - ${t('site_meta_data.author')} - ${t(
+          'site_meta_data.title'
+        )}`}
         description={t('site_meta_data.description')}
       />
       <ListLayout
