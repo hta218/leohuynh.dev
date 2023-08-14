@@ -1,9 +1,9 @@
+import clsx from 'clsx'
 import { BLUR_IMAGE_DATA_URL, LOGO_IMAGE_PATH } from 'constant'
 import NextImage from 'next/image'
 import { useState } from 'react'
-import type { ImageProps } from 'types'
+import type { ImageProps } from '~/types/components'
 import { ImageLightbox } from './ImageLightbox'
-import clsx from 'clsx'
 
 export function Image({ shouldOpenLightbox = true, ...rest }: ImageProps) {
   let blurDataURL = ''
