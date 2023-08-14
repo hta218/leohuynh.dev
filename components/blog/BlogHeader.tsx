@@ -5,7 +5,7 @@ import { Twemoji } from '../Twemoji'
 import { useTranslation } from 'next-i18next'
 
 export function BlogHeader({ title, date, readingTime }: BlogHeaderProps) {
-  let { t, i18n } = useTranslation()
+  let { i18n } = useTranslation()
   let lang = i18n.language
 
   let createdAt = formatDate(date, lang)

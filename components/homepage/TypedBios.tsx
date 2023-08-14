@@ -22,20 +22,20 @@ export function TypedBios() {
   return (
     <div>
       <ul id="bios" className="hidden">
-        <li>{t('bio1')}</li>
-        <li>{t('bio2')}</li>
-        <li>{t('bio3')}</li>
-        <li>{t('bio4')}</li>
-        <li>{t('bio5')}</li>
-        <li>{t('bio6')}</li>
-        <li>{t('bio7')}</li>
-        <li>{t('bio8')}</li>
-        <li>{t('bio9')}</li>
+        <li>{t('bio_1')}</li>
+        <li>{t('bio_2')}</li>
+        <li>{t('bio_3')}</li>
+        <li>{t('bio_4')}</li>
+        <li>{t('bio_5')}</li>
+        <li>{t('bio_6')}</li>
+        <li>{t('bio_7')}</li>
+        <li>{t('bio_8')}</li>
+        <li>{t('bio_9')}</li>
         <li>
-          {t('bio10')} <Twemoji emoji="dog" />
+          {t('bio_10')} <Twemoji emoji="dog" />
         </li>
         <li>
-          {t('bio11')}
+          {t('bio_11')}
           <span className="ml-1">
             <Twemoji emoji="soccer-ball" />,
             <Twemoji emoji="man-swimming" />,
@@ -43,16 +43,16 @@ export function TypedBios() {
             <Twemoji emoji="volleyball" />
           </span>
         </li>
-        <li>{t('bio12')}</li>
+        <li>{t('bio_12')}</li>
         <li>
-          {t('bio13')} <Twemoji emoji="musical-keyboard" /> & <Twemoji emoji="guitar" />
+          {t('bio_13')} <Twemoji emoji="musical-keyboard" /> & <Twemoji emoji="guitar" />
         </li>
-        <li>{t('bio14')}</li>
+        <li>{t('bio_14')}</li>
         <li>
-          {t('bio15')} <Twemoji emoji="chess-pawn" />
+          {t('bio_15')} <Twemoji emoji="chess-pawn" />
         </li>
         <li>
-          {t('bio16')} <Twemoji emoji="video-game" />.
+          {t('bio_16')} <Twemoji emoji="video-game" />.
         </li>
       </ul>
       <span ref={el} className="text-neutral-900 dark:text-neutral-200" />

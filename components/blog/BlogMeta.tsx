@@ -18,7 +18,7 @@ export function BlogMeta({ date, slug, readingTime }: BlogMetaProps) {
       <div className="flex items-center">
         <Twemoji emoji="hourglass-not-done" size="" />
         <span className="ml-1.5 md:ml-2">
-          {t('blog.readingTime', { time: Math.round(readingTime.minutes) })}
+          {t('blog.reading_time', { time: Math.ceil(readingTime.minutes) })}
         </span>
       </div>
       <span className="mx-2">{` • `}</span>

@@ -29,14 +29,14 @@ export default function Blog({ posts, initialDisplayPosts, pagination }: BlogLis
   return (
     <>
       <PageSeo
-        title={`${t('blog.allPostsTitle')} - ${t('siteMetadata.author')}`}
-        description={t('siteMetadata.description')}
+        title={`${t('blog.all_posts_title')} - ${t('site_meta_data.author')}`}
+        description={t('site_meta_data.description')}
       />
       <ListLayout
         posts={posts}
         initialDisplayPosts={initialDisplayPosts}
         pagination={pagination}
-        title={t('blog.allPostsTitle')}
+        title={t('blog.all_posts_title')}
       />
     </>
   )

@@ -31,18 +31,18 @@ export function Header({ navShow, onToggleNav }: { onToggleNav: () => void; navS
         </Link>
         <div className="flex items-center gap-4">
           <div className="hidden space-x-1.5 sm:block">
-            {headerNavLinks.map((link) => (
-              <Link key={link.titleKey} href={link.href}>
+            {headerNavLinks.map(({ href, label }) => (
+              <Link key={href} href={href}>
                 <span
                   className={clsx(
                     'inline-block rounded px-3 py-1 font-medium',
-                    router.pathname.startsWith(link.href)
+                    router.pathname.startsWith(href)
                       ? 'bg-gray-200 dark:bg-gray-700'
                       : 'hover:bg-gray-200 dark:hover:bg-gray-700'
                   )}
-                  data-umami-event={`nav-${link.href.replace('/', '')}`}
+                  data-umami-event={`nav-${href.replace('/', '')}`}
                 >
-                  {t(link.titleKey)}{' '}
+                  {t(label)}
                 </span>
               </Link>
             ))}

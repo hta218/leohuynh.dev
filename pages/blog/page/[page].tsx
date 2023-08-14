@@ -63,12 +63,12 @@ export default function PostPage(props: BlogListProps) {
   let { t } = useTranslation('common')
   return (
     <>
-      <PageSeo title={t('siteMetadata.title')} description={t('siteMetadata.description')} />
+      <PageSeo title={t('site_meta_data.title')} description={t('site_meta_data.description')} />
       <ListLayout
         posts={posts}
         initialDisplayPosts={initialDisplayPosts}
         pagination={pagination}
-        title={t('blog.allPostsTitle')}
+        title={t('blog.all_posts_title')}
       />
     </>
   )

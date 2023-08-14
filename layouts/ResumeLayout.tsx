@@ -10,14 +10,14 @@ export function ResumeLayout({ children, toc }) {
   return (
     <>
       <PageSeo
-        title={`${t('menu_curriculum')} - ${t('siteMetadata.fullName')} - ${description}`}
-        description={`${t('menu_curriculum')} - ${t('siteMetadata.fullName')} - ${description}`}
+        title={`${t('menu_resume')} - ${t('site_meta_data.fullName')} - ${description}`}
+        description={`${t('menu_resume')} - ${t('site_meta_data.fullName')} - ${description}`}
       />
       <ScrollTopButton />
       <div className="resume">
         <header className="space-y-2 pb-8 pt-6 md:space-y-5">
           <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-            {t('menu_curriculum')}
+            {t('menu_resume')}
           </h1>
           <p className="text-base md:text-lg md:leading-7 text-gray-500 dark:text-gray-400">
             {description}

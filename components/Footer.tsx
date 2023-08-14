@@ -11,7 +11,7 @@ export function Footer() {
         <div className="my-2 flex space-x-2 text-sm text-gray-500 dark:text-gray-400">
           <div>{`Copyright © ${new Date().getFullYear()}`}</div>
           <span>{` • `}</span>
-          <span>{t('buildWith.copyright_author')}</span>
+          <span>{t('build_with.copyright_author')}</span>
         </div>
       </div>
     </footer>

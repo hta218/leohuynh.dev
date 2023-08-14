@@ -8,7 +8,7 @@ export function BuiltWith() {
 
   return (
     <div className="flex items-center space-x-1">
-      <span className="mr-1 text-gray-500 dark:text-gray-400">{t('buildWith.built_with')}</span>
+      <span className="mr-1 text-gray-500 dark:text-gray-400">{t('build_with.built_with')}</span>
       <div className="flex space-x-1.5">
         <Link href="https://nextjs.org?ref=leohuynh.dev">
           <BrandIcon type="NextJS" className="h-5 w-5" />
@@ -31,7 +31,7 @@ export function BuiltWith() {
         href={siteMetadata.siteRepo}
         className="text-gray-500 underline underline-offset-4 dark:text-gray-400"
       >
-        <span data-umami-event="view-source">{t('buildWith.view_source')}</span>
+        <span data-umami-event="view-source">{t('build_with.view_source')}</span>
       </Link>
     </div>
   )

@@ -6,14 +6,14 @@ import { ProfileCard } from '~/components/ProfileCard'
 
 export function AuthorLayout({ children }: AuthorLayoutProps) {
   let { t } = useTranslation('common')
-  let title = t('menu_sobremi')
+  let title = t('menu_about')
   let description = t('about_description')
 
   return (
     <>
       <PageSeo
-        title={`${title} - ${t('siteMetadata.author')} - ${t('siteMetadata.title')}`}
-        description={`${title} - ${t('siteMetadata.title')} - ${t('siteMetadata.description')}`}
+        title={`${title} - ${t('site_meta_data.author')} - ${t('site_meta_data.title')}`}
+        description={`${title} - ${t('site_meta_data.title')} - ${t('site_meta_data.description')}`}
       />
       <div className="divide-y divide-gray-200 dark:divide-gray-700">
         <header className="space-y-2 pb-8 pt-6 md:space-y-5">

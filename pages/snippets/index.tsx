@@ -14,11 +14,11 @@ export async function getStaticProps({ locale }: { locale: string }) {
 
 export default function Snippet({ snippets }: { snippets: SnippetFrontMatter[] }) {
   let { t } = useTranslation('common')
-  let description = t('menu_receptes_2')
+  let description = t('menu_snippets_2')
   return (
     <>
       <PageSeo
-        title={`Snippets - ${t('siteMetadata_author')} - ${t('siteMetadata_title')}`}
+        title={`Snippets - ${t('site_meta_data.author')} - ${t('site_meta_data.title')}`}
         description={description}
       />
       <SnippetLayout snippets={snippets} description={description} />

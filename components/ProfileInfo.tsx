@@ -13,8 +13,9 @@ export function ProfileCardInfo() {
       <div className="mb-2 mt-4 space-y-4">
         <div className="flex items-center text-gray-700 dark:text-gray-200">
           <Backpack strokeWidth={1} size={22} />
-          <p className="px-2">
-            CTO / Co.Founder @{' '}
+          <p className="flex items-center px-2 space-x-1">
+            <span>CTO / Co.Founder</span>
+            <span>@</span>
             <a
               target="_blank"
               href="https://weaverse.io"

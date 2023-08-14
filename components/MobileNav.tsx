@@ -21,14 +21,14 @@ export function MobileNav({ navShow, onToggleNav }) {
         <Menu strokeWidth={1} size={20} />
       </button>
       <nav className="fixed mt-24 h-full">
-        {headerNavLinks.map((link) => (
-          <div key={link.titleKey} className="px-8 py-4">
+        {headerNavLinks.map(({ href, label }) => (
+          <div key={label} className="px-8 py-4">
             <Link
-              href={link.href}
+              href={href}
               className="text-2xl font-semibold tracking-wide text-gray-900 dark:text-gray-100"
               onClick={onToggleNav}
             >
-              {t(link.titleKey)}{' '}
+              {t(label)}
             </Link>
           </div>
         ))}

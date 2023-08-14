@@ -66,8 +66,8 @@ export default function Tag({ posts, tag }: { posts: BlogFrontMatter[]; tag: str
   return (
     <>
       <PageSeo
-        title={`${tag} - ${t('siteMetadata.title')}`}
-        description={`${tag} tags - ${t('siteMetadata.title')}`}
+        title={`${tag} - ${t('site_meta_data.title')}`}
+        description={`${tag} tag - ${t('site_meta_data.title')}`}
       />
       <ListLayout posts={posts} title={`Tag: #${title}`} />
     </>

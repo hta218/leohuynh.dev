@@ -10,7 +10,7 @@ export function PostsSearch({ onChange }: { onChange: (value: string) => void })
         aria-label="Search posts"
         type="text"
         onChange={(e) => onChange(e.target.value)}
-        placeholder={t('blog.searchPosts')}
+        placeholder={t('blog.search_posts')}
         className="block w-full rounded-md border border-gray-300 bg-white pl-4 pr-10 py-2 text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-500 dark:bg-gray-800 dark:text-gray-100"
         data-umami-event="post-search"
       />

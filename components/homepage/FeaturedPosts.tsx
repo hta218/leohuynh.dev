@@ -61,7 +61,7 @@ export function FeaturedPosts({ posts }: { posts: BlogFrontMatter[] }) {
             className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
             aria-label="all posts"
           >
-            <span data-umami-event="all-posts"> {t('blog.allPostsTitle')} &rarr;</span>
+            <span data-umami-event="all-posts"> {t('blog.all_posts_title')} &rarr;</span>
           </Link>
         </div>
       )}
