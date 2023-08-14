@@ -42,7 +42,7 @@ export function SocialShareButtons({ postUrl, title, fileName }: SocialButtonsPr
           <TwitterShareButton
             url={postUrl}
             title={title}
-            via={siteMetadata.socialAccounts.twitter}
+            via={siteMetadata.socialAccounts.x}
             className="mr-2 flex items-center overflow-hidden rounded !bg-x !py-1.5 !px-2.5 hover:opacity-90"
           >
             <TwitterIcon className="h-5 w-5" fill="#fff" viewBox="0 0 1200 1227" />

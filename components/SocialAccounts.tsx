@@ -17,13 +17,13 @@ export default function SocialAccounts() {
           <Github strokeWidth={1.5} />
         </a>
         <a
-          href={siteMetadata.twitter}
+          href={siteMetadata.x}
           target="_blank"
           className="text-sm text-dark dark:text-white"
           data-umami-event="contact-twitter"
           rel="noopener noreferrer"
         >
-          <span className="sr-only">Twitter</span>
+          <span className="sr-only">X</span>
           <svg
             width="1200"
             height="1227"

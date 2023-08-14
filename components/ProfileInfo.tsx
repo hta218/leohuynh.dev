@@ -66,12 +66,12 @@ export function ProfileCardInfo() {
             <span className="text-gray-400 dark:text-gray-500">|</span>
             <a
               target="_blank"
-              href={siteMetadata.twitter}
+              href={siteMetadata.x}
               rel="noreferrer"
               className="hover:underline"
-              data-umami-event="profile-card-twitter"
+              data-umami-event="profile-card-x"
             >
-              x/{siteMetadata.socialAccounts.twitter}
+              x/{siteMetadata.socialAccounts.x}
             </a>
           </p>
         </div>

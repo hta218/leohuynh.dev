@@ -6,22 +6,22 @@ export let siteMetadata = {
   socialBanner: '/static/images/logo.jpg',
   email: 'leohuynh@pm.me',
   github: 'https://github.com/hta218',
-  twitter: 'https://x.com/hta218_',
+  x: 'https://x.com/hta218_',
   facebook: 'https://facebook.com/hta218',
   youtube: 'https://www.youtube.com/@hta218_',
   linkedin: 'https://www.linkedin.com/in/hta218/',
   locale: 'en-US',
   analyticsURL: 'https://analytics.leohuynh.dev/share/jkwRskv0/leohuynh.dev',
   analytics: {
-    plausibleDataDomain: '', // e.g. tailwind-nextjs-starter-blog.vercel.app
-    simpleAnalytics: false, // true or false
-    umamiWebsiteId: '2df62ae5-7f13-455b-8e54-c15b96ff2b8b', // e.g. 123e4567-e89b-12d3-a456-426614174000
+    plausibleDataDomain: '',
+    simpleAnalytics: false, // true | false
+    umamiWebsiteId: '2df62ae5-7f13-455b-8e54-c15b96ff2b8b',
     googleAnalyticsId: '', // e.g. UA-000000-2 or G-XXXXXXX
   },
   socialAccounts: {
     github: 'hta218',
-    twitter: 'hta218_',
     linkedin: 'hta218',
+    x: 'hta218_',
   },
 }
 

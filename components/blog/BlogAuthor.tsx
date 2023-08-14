@@ -27,7 +27,7 @@ export function Author({ author }: { author: AuthorFrontMatter }) {
       <dl className="whitespace-nowrap text-sm font-medium leading-5">
         <dt className="sr-only">Name</dt>
         <dd className="mb-0.5 text-gray-900 dark:text-gray-100">{author.name}</dd>
-        <dt className="sr-only">Twitter</dt>
+        <dt className="sr-only">Github</dt>
         <dd>
           {author.github && (
             <>
