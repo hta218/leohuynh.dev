@@ -15,7 +15,7 @@ export function ProfileCardInfo() {
         <div className="flex items-center text-gray-700 dark:text-gray-200">
           <Backpack strokeWidth={1} size={20} />
           <p className="flex items-center px-2 space-x-1">
-            <span>CTO / Co.Founder</span>
+            <span>CTO & Co-Founder</span>
             <span>@</span>
             <a
               target="_blank"
