@@ -1,11 +1,11 @@
+import { Facebook } from 'lucide-react'
 import { FacebookShareButton, TwitterShareButton } from 'react-share'
-import TwitterIcon from '~/icons/twitter.svg'
-import FacebookIcon from '~/icons/facebook.svg'
 import { siteMetadata } from '~/data/siteMetadata'
-import { Link } from './Link'
+import TwitterIcon from '~/icons/x.svg'
 import type { SocialButtonsProps } from '~/types'
+import { Link } from './Link'
 
-export function SocialButtons({ postUrl, title, fileName }: SocialButtonsProps) {
+export function SocialShareButtons({ postUrl, title, fileName }: SocialButtonsProps) {
   let creatEditOnGithubUrl = (fileName: string) =>
     `${siteMetadata.siteRepo}/blob/main/data/blog/${fileName}`
   let createDiscussonTwitterUrl = (postUrl: string) =>
@@ -37,15 +37,15 @@ export function SocialButtons({ postUrl, title, fileName }: SocialButtonsProps) 
           </Link>
         )}
       </div>
-      <div className="flex items-center">
+      <div className="flex items-center text-white">
         {SHARE_ON_TWITTER === 'TRUE' && (
           <TwitterShareButton
             url={postUrl}
             title={title}
             via={siteMetadata.socialAccounts.twitter}
-            className="mr-2 flex items-center overflow-hidden rounded !bg-twitter !p-1.5 hover:opacity-90"
+            className="mr-2 flex items-center overflow-hidden rounded !bg-x !py-1.5 !px-2.5 hover:opacity-90"
           >
-            <TwitterIcon className="h-5 w-5" fill="#fff" />
+            <TwitterIcon className="h-5 w-5" fill="#fff" viewBox="0 0 1200 1227" />
             <span className="ml-2.5 mr-1.5 font-extrabold text-white">Tweet</span>
           </TwitterShareButton>
         )}
@@ -53,9 +53,9 @@ export function SocialButtons({ postUrl, title, fileName }: SocialButtonsProps) 
           <FacebookShareButton
             url={postUrl}
             quote={title}
-            className="mr-2 flex items-center overflow-hidden rounded !bg-facebook !p-1.5 hover:opacity-90"
+            className="mr-2 flex items-center overflow-hidden rounded !bg-facebook !py-1.5 !px-2.5 hover:opacity-90"
           >
-            <FacebookIcon className="h-5 w-5" fill="#fff" />
+            <Facebook strokeWidth={1.5} size={20} />
             <span className="ml-2.5 mr-1.5 font-extrabold text-white">Share</span>
           </FacebookShareButton>
         )}

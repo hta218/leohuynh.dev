@@ -6,7 +6,7 @@ import { Comments } from '~/components/comments'
 import { ScrollTopButton } from '~/components/ScrollTopButton'
 import { SectionContainer } from '~/components/SectionContainer'
 import { BlogSeo } from '~/components/SEO'
-import { SocialButtons } from '~/components/SocialButtons'
+import { SocialShareButtons } from '~/components/SocialShareButtons'
 import { siteMetadata } from '~/data/siteMetadata'
 import type { PostLayoutProps } from '~/types'
 
@@ -39,7 +39,7 @@ export function PostLayout(props: PostLayoutProps) {
             </div>
             <div className="divide-y divide-gray-200 !border-t-0 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0">
               <div className="prose prose-lg max-w-none pb-8 pt-10 dark:prose-dark">{children}</div>
-              <SocialButtons postUrl={postUrl} title={title} fileName={fileName} />
+              <SocialShareButtons postUrl={postUrl} title={title} fileName={fileName} />
               <Comments frontMatter={frontMatter} config={commentConfig} />
             </div>
             <footer>

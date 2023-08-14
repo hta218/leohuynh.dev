@@ -5,7 +5,7 @@ import { PageTitle } from '~/components/PageTitle'
 import { ScrollTopButton } from '~/components/ScrollTopButton'
 import { SectionContainer } from '~/components/SectionContainer'
 import { BlogSeo } from '~/components/SEO'
-import { SocialButtons } from '~/components/SocialButtons'
+import { SocialShareButtons } from '~/components/SocialShareButtons'
 import { siteMetadata } from '~/data/siteMetadata'
 import type { PostSimpleLayoutProps } from '~/types'
 
@@ -42,7 +42,7 @@ export function PostSimple(props: PostSimpleLayoutProps) {
                 {children}
               </div>
               <div className="border-t border-gray-200 dark:border-gray-700">
-                <SocialButtons postUrl={postUrl} title={title} fileName={fileName} />
+                <SocialShareButtons postUrl={postUrl} title={title} fileName={fileName} />
                 <Comments frontMatter={frontMatter} config={commentConfig} />
               </div>
             </div>
