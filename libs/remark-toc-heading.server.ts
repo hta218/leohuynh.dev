@@ -16,6 +16,7 @@ function transformNode(
     data: node.data,
     children: [],
     url:
+      // @ts-ignore
       '#' + (node.data.hProperties ? node.data.hProperties.id : sluggerInstance.slug(textContent)),
   }
 
