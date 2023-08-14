@@ -1,9 +1,14 @@
 import { useRouter } from 'next/router'
+import { getLocale } from '~/utils/locale'
 
-let useLocale = () => {
-  let { locale, defaultLocale } = useRouter()
+export function useLocale() {
+  let router = useRouter()
+  let locale = getLocale(router.locale)
+  let localeCodes = router.locales
 
-  return locale || defaultLocale
+  function updateLocale(code: string) {
+    router.push(router.pathname, router.asPath, { locale: code })
+  }
+
+  return [locale, localeCodes, updateLocale] as const
 }
-
-export default useLocale
