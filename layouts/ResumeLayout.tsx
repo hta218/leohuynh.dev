@@ -27,9 +27,7 @@ export function ResumeLayout({ children, toc }) {
         <main className="gap-12 max-w-screen-xl mx-auto p-3 md:p-8 bg-gray-100 my-12 rounded-md md:flex space-y-12 md:space-y-0">
           <ToC toc={toc} />
           <div className="border-l border-gray-300 hidden md:block" />
-          <div
-            className={`text-gray-900 leading-6 space-y-5 prose prose-slate grow table-auto border-collapse`}
-          >
+          <div className="text-gray-900 leading-6 space-y-5 prose prose-slate grow table-auto border-collapse">
             {children}
           </div>
         </main>
