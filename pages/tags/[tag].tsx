@@ -4,7 +4,7 @@ import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import path from 'path'
 import { ListLayout } from '~/layouts/ListLayout'
-import { getCommon } from '~/libs/files'
+import { getMetaData } from '~/libs/files'
 import { generateRss } from '~/libs/generate-rss'
 import { getAllFilesFrontMatter } from '~/libs/mdx'
 import { getAllTags } from '~/libs/tags'
@@ -36,8 +36,7 @@ export async function getStaticProps({
   )
 
   let root = process.cwd()
-  let { site_meta_data: metadata } = getCommon(locale)
-  let rss = generateRss(metadata, filteredPosts, `tags/${params.tag}/feed.xml`)
+  let rss = generateRss(getMetaData(locale), filteredPosts, `tags/${params.tag}/feed.xml`)
   let rssPath = path.join(root, 'public', 'tags', params.tag)
   fs.mkdirSync(rssPath, { recursive: true })
   fs.writeFileSync(path.join(rssPath, 'feed.xml'), rss)

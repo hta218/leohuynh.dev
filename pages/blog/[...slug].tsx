@@ -5,7 +5,7 @@ import { MDXLayoutRenderer } from '~/components/MDXComponents'
 import { PageTitle } from '~/components/PageTitle'
 import { POSTS_PER_PAGE } from '~/constant'
 import { getCommentConfigs } from '~/libs/comment'
-import { formatSlug, getCommon, getFiles } from '~/libs/files'
+import { formatSlug, getMetaData, getFiles } from '~/libs/files'
 import { generateRss } from '~/libs/generate-rss'
 import { getAllFilesFrontMatter, getFileBySlug } from '~/libs/mdx'
 import type { AuthorFrontMatter, MdxPageLayout } from '~/types/mdx'
@@ -56,8 +56,7 @@ export async function getStaticProps({
     })
   )
 
-  let { site_meta_data: metadata } = getCommon(locale)
-  let rss = generateRss(metadata, allPosts)
+  let rss = generateRss(getMetaData(locale), allPosts)
   fs.writeFileSync('./public/feed.xml', rss)
   let commentConfig = getCommentConfigs()
 

@@ -10,7 +10,7 @@ export interface Project {
   builtWith: string[]
 }
 
-export type SiteMetaData = {
+export type SiteMetaData = typeof siteMetadata & {
   title: string
   author: string
   full_name: string
