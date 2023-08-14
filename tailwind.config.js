@@ -82,8 +82,8 @@ module.exports = {
           white: '#fff',
         },
         spotify: '#1DB954',
-        twitter: '#1da1f2',
         facebook: '#1877f2',
+        x: '#0f1419',
       },
       width: {
         4.5: '1.125rem',
