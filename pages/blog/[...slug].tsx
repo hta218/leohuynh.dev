@@ -46,11 +46,11 @@ export async function getStaticProps({
   let next = allPosts[postIndex - 1] || null
   let page = Math.ceil((postIndex + 1) / POSTS_PER_PAGE)
 
-  let post = await getFileBySlug('blog', params.slug.join('/'), locale)
+  let post = await getFileBySlug(locale, 'blog', params.slug.join('/'))
   let authors = post.frontMatter.authors || ['default']
   let authorDetails = await Promise.all(
     authors.map(async (author) => {
-      let authorData = await getFileBySlug('authors', author, locale)
+      let authorData = await getFileBySlug(locale, 'authors', author)
       // eslint-disable-next-line
       return authorData.frontMatter as unknown as AuthorFrontMatter
     })

@@ -4,7 +4,7 @@ import type { MdxFileData } from '~/types/mdx'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 export async function getStaticProps({ locale }: { params: { slug: string[] }; locale: string }) {
-  let authorData = await getFileBySlug('authors', 'default', locale)
+  let authorData = await getFileBySlug(locale, 'authors', 'default')
   return {
     props: { authorData, ...(await serverSideTranslations(locale, ['common'])) },
   }

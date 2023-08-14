@@ -1,7 +1,8 @@
 import { escape } from '~/utils/html-escaper'
 import type { BlogFrontMatter } from '~/types/mdx'
+import type { SiteMetaData } from '~/types/data'
 
-function generateRssItem(lang_siteMetadata, post: BlogFrontMatter) {
+function generateRssItem(lang_siteMetadata: SiteMetaData, post: BlogFrontMatter) {
   return `
   <item>
     <guid>${lang_siteMetadata.siteUrl}/blog/${post.slug}</guid>
@@ -15,7 +16,11 @@ function generateRssItem(lang_siteMetadata, post: BlogFrontMatter) {
 `
 }
 
-export function generateRss(lang_siteMetadata, posts: BlogFrontMatter[], page = 'feed.xml') {
+export function generateRss(
+  lang_siteMetadata: SiteMetaData,
+  posts: BlogFrontMatter[],
+  page = 'feed.xml'
+) {
   return `
   <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>

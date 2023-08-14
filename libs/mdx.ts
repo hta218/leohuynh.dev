@@ -19,9 +19,9 @@ import { remarkImgToJsx } from './remark-img-to-jsx'
 import { remarkTocHeading } from './remark-toc-heading'
 
 export async function getFileBySlug(
+  locale: string = process.env.NEXT_PUBLIC_DEFAULT_LOCALE,
   type: string,
-  slug: string,
-  locale: string = process.env.NEXT_PUBLIC_DEFAULT_LOCALE
+  slug: string
 ): Promise<MdxFileData> {
   let root = process.cwd()
   let mdxPath = path.join(root, 'data', locale, type, `${slug}.mdx`)

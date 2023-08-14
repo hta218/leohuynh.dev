@@ -4,7 +4,7 @@ import { getFileBySlug } from '~/libs/mdx'
 import type { MdxFileData } from '~/types/mdx'
 
 export async function getStaticProps({ locale }) {
-  let resumeData = await getFileBySlug('authors', 'resume', locale)
+  let resumeData = await getFileBySlug(locale, 'authors', 'resume')
   return {
     props: { resumeData, ...(await serverSideTranslations(locale, ['common'])) },
   }

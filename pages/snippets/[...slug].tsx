@@ -30,7 +30,7 @@ export async function getStaticPaths({ locales }: { locales: string[] }) {
 }
 
 export async function getStaticProps({ params, locale }) {
-  let snippet = await getFileBySlug('snippets', params.slug.join('/'), locale)
+  let snippet = await getFileBySlug(locale, 'snippets', params.slug.join('/'))
   let commentConfig = getCommentConfigs()
   return {
     props: { snippet, commentConfig, ...(await serverSideTranslations(locale, ['common'])) },
