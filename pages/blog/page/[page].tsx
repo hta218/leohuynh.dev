@@ -4,7 +4,7 @@ import { POSTS_PER_PAGE } from '~/constant'
 import type { GetStaticPathsContext } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { getAllFilesFrontMatter } from '~/libs/mdx'
+import { getAllFilesFrontMatter } from '~/libs/mdx.server'
 import type { BlogListProps } from '~/types/page'
 
 export async function getStaticPaths(context: GetStaticPathsContext) {

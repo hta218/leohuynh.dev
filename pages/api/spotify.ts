@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { getNowPlaying } from '~/libs/spotify'
+import { getNowPlaying } from '~/libs/spotify.server'
 import type { SpotifyNowPlayingData } from '~/types/server'
 
 export default async function fetchNowPlaying(_: NextApiRequest, res: NextApiResponse) {

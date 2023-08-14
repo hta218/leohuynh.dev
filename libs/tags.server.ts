@@ -4,7 +4,7 @@ import path from 'path'
 import type { MdxFrontMatter } from '~/types/mdx'
 import type { TagsCount } from '~/types/server'
 import { kebabCase } from '~/utils/string'
-import { getFiles } from './files'
+import { getFiles } from './files.server'
 
 export function getAllTags(type: string): TagsCount {
   let files = getFiles(type)

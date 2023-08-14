@@ -13,10 +13,10 @@ import { TOKEN_CLASSNAMES } from '~/constant'
 import type { BlogFrontMatter, MdxFileData, MdxFrontMatter } from '~/types/mdx'
 import type { TOC, UnistNodeType } from '~/types/server'
 import { dateSortDesc } from '~/utils/date'
-import { formatSlug, getAllFilesRecursively } from './files'
-import { remarkCodeBlockTitle } from './remark-code-block-title'
-import { remarkImgToJsx } from './remark-img-to-jsx'
-import { remarkTocHeading } from './remark-toc-heading'
+import { formatSlug, getAllFilesRecursively } from './files.server'
+import { remarkCodeBlockTitle } from './remark-code-block-title.server'
+import { remarkImgToJsx } from './remark-img-to-jsx.server'
+import { remarkTocHeading } from './remark-toc-heading.server'
 
 export async function getFileBySlug(
   locale: string = process.env.NEXT_PUBLIC_DEFAULT_LOCALE,

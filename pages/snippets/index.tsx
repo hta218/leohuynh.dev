@@ -2,7 +2,7 @@ import { PageSeo } from 'components/SEO'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { SnippetLayout } from '~/layouts/SnippetLayout'
-import { getAllFilesFrontMatter } from '~/libs/mdx'
+import { getAllFilesFrontMatter } from '~/libs/mdx.server'
 import type { SnippetFrontMatter } from '~/types/mdx'
 
 export async function getStaticProps({ locale }: { locale: string }) {

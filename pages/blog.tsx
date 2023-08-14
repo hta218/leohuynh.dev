@@ -3,7 +3,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { PageSeo } from '~/components/SEO'
 import { POSTS_PER_PAGE } from '~/constant'
 import { ListLayout } from '~/layouts/ListLayout'
-import { getAllFilesFrontMatter } from '~/libs/mdx'
+import { getAllFilesFrontMatter } from '~/libs/mdx.server'
 import type { BlogListProps } from '~/types/page'
 
 export async function getStaticProps({ locale }) {

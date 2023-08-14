@@ -1,16 +1,15 @@
-import { useEffect, useState } from 'react'
 import { PageSeo } from 'components/SEO'
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { ProfileCard } from '~/components/ProfileCard'
+import { Twemoji } from '~/components/Twemoji'
 import { BlogLinks } from '~/components/homepage/BlogLinks'
 import { FeaturedPosts } from '~/components/homepage/FeaturedPosts'
 import { Greeting } from '~/components/homepage/Greeting'
 import { Heading } from '~/components/homepage/Heading'
 import { ShortDescription } from '~/components/homepage/ShortDescription'
 import { TypedBios } from '~/components/homepage/TypedBios'
-import { ProfileCard } from '~/components/ProfileCard'
-import { Twemoji } from '~/components/Twemoji'
-import { getAllFilesFrontMatter } from '~/libs/mdx'
-import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { getAllFilesFrontMatter } from '~/libs/mdx.server'
 
 export async function getStaticProps({ locale }) {
   let posts = getAllFilesFrontMatter(`${locale}/blog`)

@@ -1,9 +1,9 @@
 import { MDXLayoutRenderer } from 'components/MDXComponents'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { PageTitle } from '~/components/PageTitle'
-import { getCommentConfigs } from '~/libs/comment'
-import { formatSlug, getFiles } from '~/libs/files'
-import { getFileBySlug } from '~/libs/mdx'
+import { getCommentConfigs } from '~/libs/comment.server'
+import { formatSlug, getFiles } from '~/libs/files.server'
+import { getFileBySlug } from '~/libs/mdx.server'
 import type { MdxPageLayout } from '~/types/mdx'
 import type { SnippetProps } from '~/types/page'
 

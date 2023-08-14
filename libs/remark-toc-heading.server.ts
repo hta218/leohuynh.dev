@@ -3,7 +3,12 @@ import { toString } from 'mdast-util-to-string'
 import { visit } from 'unist-util-visit'
 import type { RemarkTocHeadingOptions, UnistNodeType, UnistTreeType } from '~/types/server'
 
-function transformNode(node, output, indexMap, sluggerInstance) {
+function transformNode(
+  node: UnistNodeType,
+  output: RemarkTocHeadingOptions['exportRef'],
+  indexMap: Record<number, any>,
+  sluggerInstance: Slugger
+) {
   let textContent = toString(node)
   let transformedNode = {
     value: textContent,
@@ -26,7 +31,7 @@ function transformNode(node, output, indexMap, sluggerInstance) {
   }
 }
 
-function addID(node, nodes, sluggerInstance) {
+function addID(node: UnistNodeType, nodes: Record<string, number>, sluggerInstance: Slugger) {
   let originalSlug = sluggerInstance.slug(toString(node))
 
   if (!nodes[originalSlug]) {
@@ -39,6 +44,7 @@ function addID(node, nodes, sluggerInstance) {
 
   node.data = node.data || {}
   node.data.hProperties = node.data.hProperties || {}
+  // @ts-ignore
   node.data.hProperties.id = id
 }
 

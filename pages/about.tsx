@@ -1,5 +1,5 @@
 import { MDXLayoutRenderer } from '~/components/MDXComponents'
-import { getFileBySlug } from '~/libs/mdx'
+import { getFileBySlug } from '~/libs/mdx.server'
 import type { MdxFileData } from '~/types/mdx'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
