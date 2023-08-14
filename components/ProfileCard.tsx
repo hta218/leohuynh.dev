@@ -1,12 +1,13 @@
+import { clsx } from 'clsx'
+import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { ProfileCardInfo } from './ProfileInfo'
 import { SpotifyNowPlaying } from './SpotifyNowPlaying'
-import { useTranslation } from 'next-i18next'
-import { clsx } from 'clsx'
 
 export function ProfileCard() {
   let ref = useRef(null)
+  let { t } = useTranslation('common')
   let [style, setStyle] = useState<React.CSSProperties>({})
 
   let onMouseMove = useCallback((e: MouseEvent) => {
@@ -46,7 +47,6 @@ export function ProfileCard() {
     }
   }, [onMouseLeave, onMouseMove])
 
-  let { t } = useTranslation('common')
   return (
     <div
       className="z-10 mb-8 scale-100 transition-all duration-200 ease-out hover:z-50 xl:mb-0 xl:hover:scale-[1.15]"
