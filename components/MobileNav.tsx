@@ -2,6 +2,7 @@ import { headerNavLinks } from '~/data/headerNavLinks'
 import { Link } from './Link'
 import clsx from 'clsx'
 import { useTranslation } from 'next-i18next'
+import { Menu } from 'lucide-react'
 
 export function MobileNav({ navShow, onToggleNav }) {
   let { t } = useTranslation('common')
@@ -17,28 +18,7 @@ export function MobileNav({ navShow, onToggleNav }) {
         className="fixed right-4 top-4 h-8 w-8 cursor-auto focus:outline-none"
         onClick={onToggleNav}
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-          className="text-gray-900 dark:text-gray-100"
-        >
-          <path
-            fillRule="evenodd"
-            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-            clipRule="evenodd"
-          ></path>
-          <path
-            fillRule="evenodd"
-            d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-            clipRule="evenodd"
-          ></path>
-          <path
-            fillRule="evenodd"
-            d="M3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-            clipRule="evenodd"
-          ></path>
-        </svg>
+        <Menu strokeWidth={1} size={20} />
       </button>
       <nav className="fixed mt-24 h-full">
         {headerNavLinks.map((link) => (
