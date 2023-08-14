@@ -26,7 +26,7 @@ export function generateRss(metadata: SiteMetaData, posts: BlogFrontMatter[], pa
         <language>${metadata.language}</language>
         <managingEditor>${metadata.email} (${metadata.author})</managingEditor>
         <webMaster>${metadata.email} (${metadata.author})</webMaster>
-        <lastBuildDate>${new Date(posts[0].date).toUTCString()}</lastBuildDate>
+        <lastBuildDate>${new Date(posts[0]?.date).toUTCString()}</lastBuildDate>
         <atom:link href="${metadata.siteUrl}/${page}" rel="self" type="application/rss+xml"/>
         ${posts.map((post) => generateRssItem(metadata, post)).join('')}
       </channel>
