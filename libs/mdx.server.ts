@@ -113,27 +113,30 @@ export async function getFileBySlug(
   }
 }
 
-export function getAllFilesFrontMatter(folder: string) {
+export function getAllFilesFrontMatter(...folderNames: string[]) {
   let root = process.cwd()
-  let prefixPaths = path.join(root, 'data', folder)
-
-  let files = getAllFilesRecursively(prefixPaths)
   let allFrontMatter: BlogFrontMatter[] = []
 
-  files.forEach((file) => {
-    // Replace is needed to work on Windows
-    let fileName = file.slice(prefixPaths.length + 1).replace(/\\/g, '/')
-    // Remove Unexpected File
-    if (path.extname(fileName) !== '.md' && path.extname(fileName) !== '.mdx') {
-      return
-    }
-    let source = fs.readFileSync(file, 'utf8')
-    let grayMatterData = matter(source)
-    let data = grayMatterData.data as BlogFrontMatter
-    if (data.draft !== true) {
-      allFrontMatter.push({ ...data, slug: formatSlug(fileName) })
-    }
-  })
+  for (const folder of folderNames) {
+    let prefixPaths = path.join(root, 'data', folder)
+    let files = getAllFilesRecursively(prefixPaths)
+
+    files.forEach((file) => {
+      // Replace is needed to work on Windows
+      let fileName = file.slice(prefixPaths.length + 1).replace(/\\/g, '/')
+      // Remove Unexpected File
+      if (path.extname(fileName) !== '.md' && path.extname(fileName) !== '.mdx') {
+        return
+      }
+      let source = fs.readFileSync(file, 'utf8')
+      let grayMatterData = matter(source)
+      let data = grayMatterData.data as BlogFrontMatter
+      data.readingTime = readingTime(grayMatterData.content)
+      if (data.draft !== true) {
+        allFrontMatter.push({ ...data, slug: formatSlug(fileName) })
+      }
+    })
+  }
 
   return allFrontMatter.sort((a, b) => dateSortDesc(a.date, b.date))
 }
