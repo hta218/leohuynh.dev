@@ -84,19 +84,32 @@ export async function getFileBySlug(
         ...(options.rehypePlugins || []),
         rehypeSlug,
         rehypeAutolinkHeadings,
-        [rehypePrismPlus, { ignoreMissing: true }],
-        rehypePresetMinify,
-        () => {
-          return (tree) => {
-            visit(tree, 'element', (node: UnistNodeType) => {
-              let [token, type] = node.properties.className || []
-              if (token === 'token') {
-                node.properties.className = [TOKEN_CLASSNAMES[type]]
-              }
-            })
-          }
-        },
+        // [rehypePrismPlus, { ignoreMissing: true }],
+        // rehypePresetMinify,
+        // () => {
+        //   return (tree) => {
+        //     visit(tree, 'element', (node: UnistNodeType) => {
+        //       let [token, type] = node.properties.className || []
+        //       if (token === 'token') {
+        //         node.properties.className = [TOKEN_CLASSNAMES[type]]
+        //       }
+        //     })
+        //   }
+        // },
       ]
+      // @ts-ignore
+      options.rehypePlugins.push([rehypePrismPlus, { ignoreMissing: true }])
+      options.rehypePlugins.push(rehypePresetMinify)
+      options.rehypePlugins.push(() => {
+        return (tree) => {
+          visit(tree, 'element', (node: UnistNodeType) => {
+            let [token, type] = node.properties.className || []
+            if (token === 'token') {
+              node.properties.className = [TOKEN_CLASSNAMES[type]]
+            }
+          })
+        }
+      })
       return options
     },
   })
