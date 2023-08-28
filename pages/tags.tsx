@@ -8,7 +8,7 @@ import type { TagsCount } from '~/types/server'
 import { kebabCase } from '~/utils/string'
 
 export async function getStaticProps({ locale }) {
-  let tags = getAllTags('blog')
+  let tags = getAllTags('blog', 'snippets')
   return {
     props: { tags, ...(await serverSideTranslations(locale, ['common'])) },
   }
