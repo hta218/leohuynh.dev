@@ -9,7 +9,7 @@ export function SnippetCard({ snippet }: { snippet: SnippetFrontMatter }) {
     <Link href={`/snippets/${slug}`} title={title}>
       <div
         data-umami-event="view-snippet"
-        className="p-3 lg:p-4 gap-6 flex cursor-pointer rounded-lg border border-transparent shadow-intense hover:shadow-nextjs dark:border-gray-600 dark:hover:border-gray-400 lg:mb-0"
+        className="mb-4 p-3 lg:p-4 gap-6 flex cursor-pointer rounded-lg border border-transparent shadow-intense hover:shadow-nextjs dark:shadow-intense-dark dark:hover:shadow-nextjs-dark lg:mb-0"
       >
         <div className="flex items-center justify-center">
           <BrandIcon type={type} />

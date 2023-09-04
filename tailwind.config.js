@@ -18,8 +18,13 @@ module.exports = {
           '-0.0625rem 0 1.25rem rgba(23, 24, 24, 0.05), 0 0.0625rem 0.3125rem rgba(0, 0, 0, 0.15)',
         'popover-dark':
           '0.0625rem 0 1.25rem rgba(242, 242, 242, 0.05), 0 -0.0625rem 0.3125rem rgba(255, 255, 255, 0.15)',
+        // intense: 'rgba(17, 17, 26, 0.1) 0px 0px 16px',
         intense: 'rgba(17, 17, 26, 0.1) 0px 0px 16px',
+        'intense-dark': 'rgba(255, 255, 255, 0.1) 0px 0px 16px',
+        subtle: 'rgba(0, 0, 0, 0.2) 0px 20px 40px -7px',
+        'subtle-dark': 'rgba(255, 255, 255, 0.1) 0px 20px 40px -7px',
         nextjs: '0 8px 30px rgb(0,0,0,0.12)',
+        'nextjs-dark': '0 8px 30px rgb(255,255,255,0.12)',
         demure: 'rgba(0, 0, 0, 0.3) 0 35px 60px -15px',
         mondegreen:
           '5px 5px rgba(0, 98, 90, 0.4), 10px 10px rgba(0, 98, 90, 0.3), 15px 15px rgba(0, 98, 90, 0.2), 20px 20px rgba(0, 98, 90, 0.1), 25px 25px rgba(0, 98, 90, 0.05)',
