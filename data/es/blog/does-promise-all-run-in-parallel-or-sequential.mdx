@@ -1,0 +1,123 @@
+---
+title: 'Does JavaScript Promise.all() run in parallel or sequential?'
+date: '2023-09-04'
+tags: ['javascript', 'promise', 'parallel', 'sequential', 'concurrently']
+draft: false
+summary: "JavaScript is a single-threaded programming language, so it can't run multiple things at the same time, Promise.all() actually runs promises concurrently, not in parallel!. Let's dive in to see how it works."
+images: ['/static/images/road.jpg']
+authors: ['default']
+---
+
+import Twemoji from './Twemoji.tsx'
+import UnsplashPhotoInfo from './UnsplashPhotoInfo.tsx'
+
+![thumbnail-image](/static/images/road.jpg)
+
+<UnsplashPhotoInfo photoURL="https://unsplash.com/photos/rafblRbne3o" author="Karsten Würth" />
+
+Let's say you have a list of async tasks (each return a **Promise**).
+
+```javascript
+let promise1 = async function () {
+  /* ... */
+}
+let promise2 = async function () {
+  /* ... */
+}
+let promise3 = async function () {
+  /* ... */
+}
+```
+
+What would you choose to run them?
+
+Awaiting each promise one by one:
+
+```javascript
+await promise1()
+await promise2()
+await promise3()
+// do other stuff
+```
+
+Or run them all at once:
+
+```javascript
+await Promise.all([promise1(), promise2(), promise3()])
+// do other stuff
+```
+
+The first approach is running them **sequentially**, one after another. It means that the next promise will start only after the previous one is resolved.
+
+Like this:
+
+```javascript
+promise1().then(() => {
+  promise2().then(() => {
+    promise3().then(() => {
+      // do other stuff
+    })
+  })
+})
+```
+
+The second approach is well-known as running them in **"parallel"**, meaning that all promises will start at the same time.
+It's useful when you don't need to wait for the previous promise to be resolved before starting the next one.
+
+But does it really run in parallel (or all at once)? <Twemoji emoji="thinking-face" />
+
+The answer is no. JavaScript is single-threaded programming language, so it can't run multiple things at the exact same time (except for some circumstances such as [web workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers).)
+`Promise.all()` actually runs them concurrently, not in parallel!
+
+What's the difference?
+
+## Concurrent programming vs Parallel programming
+
+> TL;DR: Concurrent programming is about dealing with a lot of things at once, while parallel programming is about doing a lot of things at once.
+
+See also this excellent explanation from [Haskell wiki](https://wiki.haskell.org/Parallelism_vs._Concurrency).
+
+A dead-simple example for a 9-year-old kid:
+
+- **Concurrency**: 2 lines of customers ordering food from a single cashier (lines take turns ordering).
+- **Parallelism**: 2 lines of customers ordering food at the same time from 2 cashiers.
+
+As so, what `Promise.all()` does is, it adds the promises to an event loop queue and calls them all together.
+But it waits for each one to resolve before moving on.
+`Promise.all` will stop if the first promise rejects, unless you handle the error yourself (e.g. with `.catch()`).
+
+That's the major difference between concurrent and parallel, with _concurrent execution_, promises run one after another but don't have to wait for previous ones to end. They make progress at the same time.
+In contrast, _parallel execution_ runs promises at the exact same time in separate processes.
+This allows them to progress completely separately at their own speed.
+
+## Conclusion
+
+The answer for the question in the title is: `Promise.all()` runs concurrently, all promises execute almost at the same time, but not in parallel.
+
+If you have a list promises that don't depend on each other, you can run them concurrently (or parallel-like):
+
+```javascript
+await Promise.all([promise1(), promise2(), promise3()])
+// or
+await Promise.all(
+  items.map(async (item) => {
+    await doSomething(item)
+  })
+)
+```
+
+Or sequentially:
+
+```javascript
+for (let item of items) {
+  await doSomething(item)
+}
+```
+
+## References
+
+- [`Promise.all()` documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all)
+- [Parallelism vs. Concurrency](https://wiki.haskell.org/Parallelism_vs._Concurrency)
+- [JavaScript Event Loop structure](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop)
+
+Happy promise-ing! <Twemoji emoji="clinking-beer-mugs" />
