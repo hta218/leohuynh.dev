@@ -99,6 +99,7 @@ export async function getFileBySlug(
       ]
       // @ts-ignore
       options.rehypePlugins.push([rehypePrismPlus, { ignoreMissing: true }])
+      // @ts-ignore
       options.rehypePlugins.push(rehypePresetMinify)
       options.rehypePlugins.push(() => {
         return (tree) => {
