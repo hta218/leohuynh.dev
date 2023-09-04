@@ -41,6 +41,10 @@ export function BrandIcon(props: { type: keyof typeof BrandIconsMap; className?:
   let Icon = BrandIconsMap[type]
   if (!Icon) return <div>Missing icon for {type}</div>
 
-  let defaultClass = 'h-16 w-16 lg:h-14 lg:w-14 xl:h-24 xl:w-24'
-  return <Icon className={className || defaultClass} fill="currentColor" />
+  return (
+    <Icon
+      className={className || 'h-16 w-16 lg:h-14 lg:w-14 xl:h-20 xl:w-20'}
+      fill="currentColor"
+    />
+  )
 }
