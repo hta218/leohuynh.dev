@@ -6,6 +6,7 @@ import Liquid from '~/icons/liquid.svg'
 import Markdown from '~/icons/markdown.svg'
 import NextJS from '~/icons/nextjs.svg'
 import Node from '~/icons/nodejs.svg'
+import Npm from '~/icons/npm.svg'
 import Prisma from '~/icons/prisma.svg'
 import Railway from '~/icons/railway.svg'
 import React from '~/icons/react.svg'
@@ -24,6 +25,7 @@ export let BrandIconsMap = {
   Javascript,
   Typescript,
   Node,
+  Npm,
   Bash,
   Liquid,
   Markdown,

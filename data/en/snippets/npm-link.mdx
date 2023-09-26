@@ -1,0 +1,41 @@
+---
+heading: 'Link/unlink a npm package'
+title: 'Link/unlink a npm package to use locally and how to remove it'
+date: '2023-09-26'
+type: 'Npm'
+draft: false
+summary: 'Link/unlink a npm package to use locally and how to remove it'
+tags: ['npm', 'link', 'unlink']
+---
+
+import Twemoji from './Twemoji.tsx'
+
+<Twemoji emoji="" />
+
+Link a package to use it locally
+
+```bash
+cd ~/path/to/package
+npm link
+```
+
+Unlink a package
+
+```bash
+cd ~/path/to/package
+npm unlink
+```
+
+Remove from global npm list
+
+```bash
+npm rm --global <package-name>
+```
+
+Check if the package is removed
+
+```bash
+npm list --global
+```
+
+Happy linking! <Twemoji emoji="clinking-beer-mugs" />
