@@ -3,25 +3,45 @@ import fs from 'fs'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import path from 'path'
+import { DEFAULT_LOCALE } from '~/constant'
 import { ListLayout } from '~/layouts/ListLayout'
 import { getMetaData } from '~/libs/files.server'
-import { generateRss } from '~/libs/rss.server'
 import { getAllFilesFrontMatter } from '~/libs/mdx.server'
+import { generateRss } from '~/libs/rss.server'
 import { getAllTags } from '~/libs/tags.server'
 import type { BlogFrontMatter } from '~/types/mdx'
 import { kebabCase } from '~/utils/string'
 
-export function getStaticPaths({ locale }) {
-  let tags = getAllTags(`${locale}/blog`, `${locale}/snippets`)
+export async function getStaticPaths({ locales }: { locales: string[] }) {
+  let tags = getAllTags(`${DEFAULT_LOCALE}/blog`, `${DEFAULT_LOCALE}/snippets`)
+  let paths = []
+  for (let locale of locales) {
+    for (let tag of Object.keys(tags)) {
+      paths.push({
+        params: {
+          tag,
+        },
+        locale: locale,
+      })
+    }
+  }
   return {
-    paths: Object.keys(tags).map((tag) => ({
-      params: {
-        tag,
-      },
-    })),
+    paths,
     fallback: false,
   }
 }
+
+// export function getStaticPaths() {
+//   let tags = getAllTags('blog', 'snippets')
+//   return {
+//     paths: Object.keys(tags).map((tag) => ({
+//       params: {
+//         tag,
+//       },
+//     })),
+//     fallback: false,
+//   }
+// }
 
 export async function getStaticProps({
   params,
@@ -53,10 +73,11 @@ export async function getStaticProps({
 export default function Tag({ posts, tag }: { posts: BlogFrontMatter[]; tag: string }) {
   let { t } = useTranslation('common')
 
-  // Capitalize first letter and convert space to dash
   if (!tag) {
-    return <div>${t('tag.noTagsFound')}</div>
+    return <div>{t('tag.no_tags_found')}</div>
   }
+
+  // Capitalize first letter and convert space to dash
   let title = tag[0] + tag.split(' ').join('-').slice(1)
 
   return (

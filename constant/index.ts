@@ -44,3 +44,5 @@ export let LOCALES = [
     flag: 'https://cdn.jsdelivr.net/gh/lipis/flag-icons/flags/4x3/es.svg',
   },
 ]
+
+export let DEFAULT_LOCALE = 'en'
