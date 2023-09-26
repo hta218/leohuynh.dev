@@ -1,0 +1,69 @@
+---
+heading: 'npm commands'
+title: 'Common npm commands to use locally'
+date: '2023-09-26'
+type: 'Npm'
+draft: false
+summary: 'Common npm commands to use locally: npm link, unlink, rm, list, npx, etc.'
+tags: ['npm', 'commands', 'npx', 'link', 'unlink']
+---
+
+import Twemoji from './Twemoji.tsx'
+
+Link a package to use it locally
+
+```bash
+cd ~/path/to/package
+npm link
+```
+
+Unlink a package
+
+```bash
+cd ~/path/to/package
+npm unlink
+```
+
+Remove from global npm list
+
+```bash
+npm rm --global <package-name>
+```
+
+Check if the package is removed
+
+```bash
+npm list --global
+```
+
+Clear the `npx` cache
+
+```bash
+rm -rf ~/.npm/_npx
+```
+
+Execute a package without installing it globally
+
+```bash
+npx <package-name>
+# add @latest to make sure you're using the latest version
+npx <package-name>@latest
+```
+
+Common `package.json` configs to develop a CLI in **NodeJS** w **Typescript** & **esbuild**
+
+```json
+"scripts": {
+    "dev": "tsc -w && npm run link",
+    "start": "node dist/index.js",
+    "build": "esbuild src/index.ts --bundle --platform=node --target=node18 --outfile=dist/index.js",
+    "up": "npm run build && npm publish --access public && npm run unlink",
+    "link": "npm unlink your-cli && npm i -g && chmod +x ./dist/index.js && npm link your-cli",
+    "unlink": "npm rm -g your-cli && npm unlink your-cli"
+  },
+"bin": {
+  "your-cli": "./dist/index.js"
+}
+```
+
+Happy linking! <Twemoji emoji="clinking-beer-mugs" />
