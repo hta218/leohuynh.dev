@@ -11,7 +11,7 @@ module.exports = withBundleAnalyzer({
     dirs: ['components', 'constant', 'layouts', 'libs', 'pages', 'scripts', 'utils'],
   },
   images: {
-    domains: ['i.scdn.co'],
+    remotePatterns: [{ hostname: 'i.scdn.co' }],
   },
   typescript: { tsconfigPath: './tsconfig.json' },
   i18n,
