@@ -11,6 +11,15 @@ export let projectsData: Project[] = [
   },
   {
     type: 'work',
+    title: 'Weaverse SDKs',
+    description:
+      'Open-source toolkits for seamless integration and development of Shopify Hydrogen themes and headless commerce solutions.',
+    imgSrc: '/static/images/weaverse_x_h2_x_shopify.png',
+    repo: 'weaverse/weaverse',
+    builtWith: ['Turborepo', 'Hydrogen', 'React', 'Typescript'],
+  },
+  {
+    type: 'work',
     title: 'Pilot - Shopify Hydrogen theme',
     description:
       'The first Hydrogen-driven theme for Shopify. Pilot is a Shopify theme that allows you to build a lightning-fast storefront with all the benefits of Hydrogen.',
