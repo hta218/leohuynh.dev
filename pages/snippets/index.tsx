@@ -1,7 +1,7 @@
 import { PageSeo } from 'components/SEO'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { SnippetLayout } from '~/layouts/SnippetLayout'
+import SnippetLayout from '~/layouts/SnippetLayout'
 import { getAllFilesFrontMatter } from '~/libs/mdx.server'
 import type { SnippetFrontMatter } from '~/types/mdx'
 

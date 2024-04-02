@@ -2,7 +2,7 @@ import { useTranslation } from 'next-i18next'
 import { PageSeo } from '~/components/SEO'
 import type { AuthorLayoutProps } from '~/types/layout'
 
-export function AuthorLayout({ children }: AuthorLayoutProps) {
+function AuthorLayout({ children }: AuthorLayoutProps) {
   let { t } = useTranslation('common')
   let title = t('menu_about')
   let description = t('about_description')

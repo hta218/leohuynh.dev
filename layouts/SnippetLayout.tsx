@@ -1,7 +1,7 @@
 import { SnippetCard } from '~/components/SnippetCard'
 import type { SnippetLayoutProps } from '~/types/layout'
 
-export function SnippetLayout({ snippets, description }: SnippetLayoutProps) {
+function SnippetLayout({ snippets, description }: SnippetLayoutProps) {
   return (
     <div className="divide-y divide-gray-200 dark:divide-gray-700">
       <header className="space-y-2 pb-8 pt-6 md:space-y-5">

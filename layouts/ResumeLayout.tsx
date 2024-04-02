@@ -3,7 +3,7 @@ import { ScrollTopButton } from '~/components/ScrollTopButton'
 import { ToC } from '~/components/ToC'
 import { useTranslation } from 'next-i18next'
 
-export function ResumeLayout({ children, toc }) {
+function ResumeLayout({ children, toc }) {
   let { t } = useTranslation('common')
   let description = t('resume_description')
 
