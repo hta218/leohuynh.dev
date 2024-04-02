@@ -3,7 +3,7 @@ import type { Project } from '~/types/data'
 export let projectsData: Project[] = [
   {
     type: 'work',
-    title: 'Weaverse - Constructor de sitios web universal',
+    title: 'Weaverse - Personalizador de Tema Shopify Hydrogen & CMS sin cabeza',
     description: `El primer constructor de sitios web promovido por Hydrogen y potenciado por IA. Weaverse es un canal de ventas de Shopify que te permite crear un sitio web en minutos sin necesidad de programación.`,
     imgSrc: '/static/images/weaverse-hydrogen.jpg',
     url: 'https://www.weaverse.io?ref=leohuynh.dev',
@@ -14,7 +14,7 @@ export let projectsData: Project[] = [
     title: 'Weaverse SDKs',
     description:
       'Kits de herramientas de código abierto para la integración sin problemas y el desarrollo de temas de Shopify Hydrogen y soluciones de comercio sin cabeza.',
-    imgSrc: '/static/images/weaverse_x_h2_x_shopify.png',
+    imgSrc: '/static/images/weaverse_x_h2_x_shopify.jpg',
     repo: 'weaverse/weaverse',
     builtWith: ['Turborepo', 'Hydrogen', 'React', 'Typescript'],
   },
