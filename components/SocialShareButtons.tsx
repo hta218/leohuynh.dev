@@ -6,9 +6,9 @@ import type { SocialButtonsProps } from '~/types/components'
 import { Link } from './Link'
 
 export function SocialShareButtons({ postUrl, title, fileName }: SocialButtonsProps) {
-  let creatEditOnGithubUrl = (fileName: string) =>
+  let createEditOnGithubUrl = (fileName: string) =>
     `${siteMetadata.siteRepo}/blob/main/data/blog/${fileName}`
-  let createDiscussonTwitterUrl = (postUrl: string) =>
+  let createDiscussionTwitterUrl = (postUrl: string) =>
     `https://twitter.com/search?q=${encodeURIComponent(postUrl)}`
 
   let CREATE_DISCUS_ON_TWITTER = process.env.NEXT_PUBLIC_CREATE_DISCUS_ON_TWITTER
@@ -22,7 +22,7 @@ export function SocialShareButtons({ postUrl, title, fileName }: SocialButtonsPr
         {CREATE_DISCUS_ON_TWITTER === 'TRUE' && (
           <>
             <Link
-              href={createDiscussonTwitterUrl(postUrl)}
+              href={createDiscussionTwitterUrl(postUrl)}
               rel="nofollow"
               className="hover:underline"
             >
@@ -32,7 +32,7 @@ export function SocialShareButtons({ postUrl, title, fileName }: SocialButtonsPr
           </>
         )}
         {CREATE_DISCUS_ON_GITHUB === 'TRUE' && (
-          <Link href={creatEditOnGithubUrl(fileName)} className="hover:underline">
+          <Link href={createEditOnGithubUrl(fileName)} className="hover:underline">
             {'View on GitHub'}
           </Link>
         )}
@@ -52,7 +52,6 @@ export function SocialShareButtons({ postUrl, title, fileName }: SocialButtonsPr
         {SHARE_ON_FACEBOOK === 'TRUE' && (
           <FacebookShareButton
             url={postUrl}
-            quote={title}
             className="mr-2 flex items-center overflow-hidden rounded !bg-facebook !py-1.5 !px-2.5 hover:opacity-90"
           >
             <Facebook strokeWidth={1.5} size={20} />
