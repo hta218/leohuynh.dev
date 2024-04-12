@@ -39,12 +39,19 @@ export interface PaginationType {
   totalPages: number
 }
 
-export interface UnistTreeType extends Node<Data> {
-  children: Node<Data>[]
+export interface UnistTreeType extends Node {
+  children: Node[]
 }
-export interface UnistNodeType extends Node<Data> {
+
+export interface ExtendedData extends Data {
+  hProperties?: {
+    id?: string
+  }
+}
+export interface UnistNodeType extends Node {
+  data?: ExtendedData
   lang?: string
-  children: Node<Data>[]
+  children: Node[]
   properties?: { [key: string]: string[] }
   depth?: number
 }
