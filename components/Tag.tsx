@@ -1,13 +1,18 @@
 import Link from 'next/link'
-import { kebabCase } from '~/utils/string'
+import { slug } from 'github-slugger'
+interface Props {
+  text: string
+}
 
-export function Tag({ text }: { text: string }) {
+const Tag = ({ text }: Props) => {
   return (
     <Link
-      href={`/tags/${kebabCase(text)}`}
-      className="mr-3 text-sm font-medium text-primary-500 hover:text-primary-600 dark:text-primary-400 dark:hover:text-primary-300 md:text-base"
+      href={`/tags/${slug(text)}`}
+      className="mr-3 text-sm font-medium uppercase text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
     >
-      <span data-umami-event="tag">#{text.split(' ').join('-')}</span>
+      {text.split(' ').join('-')}
     </Link>
   )
 }
+
+export default Tag

@@ -1,60 +1,53 @@
-import clsx from 'clsx'
-import { useTranslation } from 'next-i18next'
-import NextImage from 'next/image'
-import { useRouter } from 'next/router'
-import { headerNavLinks } from '~/data/headerNavLinks'
-import { AnalyticsLink } from './AnalyticsLink'
-import { LanguageSwitcher } from './LanguageSwitcher'
-import { Link } from './Link'
-import { MobileNavToggle } from './MobileNavToggle'
-import { ThemeSwitcher } from './ThemeSwitcher'
+import siteMetadata from '@/data/siteMetadata'
+import headerNavLinks from '@/data/headerNavLinks'
+import Logo from '@/data/logo.svg'
+import Link from './Link'
+import MobileNav from './MobileNav'
+import ThemeSwitch from './ThemeSwitch'
+import SearchButton from './SearchButton'
 
-export function Header({ navShow, onToggleNav }: { onToggleNav: () => void; navShow: boolean }) {
-  let { t } = useTranslation('common')
-  let router = useRouter()
+const Header = () => {
+  let headerClass = 'flex items-center w-full bg-white dark:bg-gray-950 justify-between py-10'
+  if (siteMetadata.stickyNav) {
+    headerClass += ' sticky top-0 z-50'
+  }
 
   return (
-    <nav className="supports-backdrop-blur:bg-white/95 sticky top-0 z-50 overflow-hidden bg-white/75 py-3 backdrop-blur dark:bg-dark/75">
-      <div className="mx-auto flex max-w-3xl items-center justify-between px-3 xl:max-w-5xl xl:px-0">
-        <Link href="/" aria-label="Leo's Blog">
-          <div className="flex items-center justify-between" data-umami-event="logo">
-            <div className="mr-3 flex items-center justify-center">
-              <NextImage
-                src="/static/images/logo.jpg"
-                alt="Leo's Blog logo"
-                width={45}
-                height={45}
-                className="rounded-full"
-              />
-            </div>
+    <header className={headerClass}>
+      <Link href="/" aria-label={siteMetadata.headerTitle}>
+        <div className="flex items-center justify-between">
+          <div className="mr-3">
+            <Logo />
           </div>
-        </Link>
-        <div className="flex items-center gap-4">
-          <div className="hidden space-x-1.5 sm:block">
-            {headerNavLinks.map(({ href, label }) => (
-              <Link key={href} href={href}>
-                <span
-                  className={clsx(
-                    'inline-block rounded px-3 py-1 font-medium',
-                    router.pathname.startsWith(href)
-                      ? 'bg-gray-200 dark:bg-gray-700'
-                      : 'hover:bg-gray-200 dark:hover:bg-gray-700'
-                  )}
-                  data-umami-event={`nav-${href.replace('/', '')}`}
-                >
-                  {t(label)}
-                </span>
+          {typeof siteMetadata.headerTitle === 'string' ? (
+            <div className="hidden h-6 text-2xl font-semibold sm:block">
+              {siteMetadata.headerTitle}
+            </div>
+          ) : (
+            siteMetadata.headerTitle
+          )}
+        </div>
+      </Link>
+      <div className="flex items-center space-x-4 leading-5 sm:space-x-6">
+        <div className="no-scrollbar hidden max-w-40 items-center space-x-4 overflow-x-auto sm:flex sm:space-x-6 md:max-w-72 lg:max-w-96">
+          {headerNavLinks
+            .filter((link) => link.href !== '/')
+            .map((link) => (
+              <Link
+                key={link.title}
+                href={link.href}
+                className="block font-medium text-gray-900 hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-400"
+              >
+                {link.title}
               </Link>
             ))}
-          </div>
-          <div className="flex items-center gap-1">
-            <AnalyticsLink />
-            <ThemeSwitcher />
-            <LanguageSwitcher />
-            <MobileNavToggle navShow={navShow} onToggleNav={onToggleNav} />
-          </div>
         </div>
+        <SearchButton />
+        <ThemeSwitch />
+        <MobileNav />
       </div>
-    </nav>
+    </header>
   )
 }
+
+export default Header
