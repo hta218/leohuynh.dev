@@ -69,6 +69,7 @@ Internationalization support - [Template with i18n](https://tailwind-nextjs-star
 - [blog.taoluyuan.com 套路猿](https://blog.taoluyuan.com) - A personal tech blog that supports multi-theme switching. 「中英」
 - [LyricsDecode.com](https://lyricsdecode.com) - A song lyrics website offering original lyrics, Romanisation, and English translations with customisable viewing options.
 - [bmacharia.com](https://bmacharia.com/) - Benson Macharia's technical blog about Cybersecurity and IT Risk Management.
+- [armujahid.me](https://armujahid.me/) - Abdul Rauf's personal blog about tech and random stuff.
 
 Using the template? Feel free to create a PR and add your blog to this list.
 
@@ -111,6 +112,7 @@ Thanks to the community of users and contributors to the template! We are no lon
 - [kaveh.page](https://kaveh.page) - Kaveh Tehrani's personal blog. Added tags directory, profile card, time-to-read on posts directory, etc.
 - [drakerossman.com](https://drakerossman.com/) - Drake Rossman's blog about NixOS, Rust, Software Architecture and Engineering Management, as well as general musings.
 - [meamenu.com](https://www.meamenu.com) - Landing page and product blog starting from this template. It also uses [framer-motion](https://www.framer.com/motion) for animations, custom layout templates, [waline](https://waline.js.org/en/) for blog comments and [primereact](https://primereact.org/) forms [Ita]
+- [giovanni.orciuolo.it](https://giovanni.orciuolo.it) - Giovanni Orciuolo's personal website, blog and everything nerd.
 
 ## Motivation
 
@@ -132,7 +134,7 @@ I wanted it to be nearly as feature-rich as popular blogging templates like [bea
 - Integration with [pliny](https://github.com/timlrx/pliny) that provides:
   - Multiple analytics options including [Umami](https://umami.is/), [Plausible](https://plausible.io/), [Simple Analytics](https://simpleanalytics.com/), Posthog and Google Analytics
   - Comments via [Giscus](https://github.com/laymonage/giscus), [Utterances](https://github.com/utterance/utterances) or Disqus
-  - Newsletter API and component with support for Mailchimp, Buttondown, Convertkit, Klaviyo, Revue, and Emailoctopus
+  - Newsletter API and component with support for Mailchimp, Buttondown, Convertkit, Klaviyo, Revue, Emailoctopus and Beehiiv
   - Command palette search with [Kbar](https://github.com/timc1/kbar) or Algolia
 - Server-side syntax highlighting with line numbers and line highlighting via [rehype-prism-plus](https://github.com/timlrx/rehype-prism-plus)
 - Math display supported via [KaTeX](https://katex.org/)
