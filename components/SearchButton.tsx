@@ -3,7 +3,7 @@ import { KBarButton } from 'pliny/search/KBarButton'
 import siteMetadata from '@/data/siteMetadata'
 import { Search } from 'lucide-react'
 
-const SearchButton = () => {
+function SearchButton() {
   let { search } = siteMetadata
   if (search && ['kbar', 'algolia'].includes(search.provider)) {
     let SearchButton = search.provider === 'algolia' ? AlgoliaButton : KBarButton
@@ -13,7 +13,7 @@ const SearchButton = () => {
         aria-label="Search"
         className="rounded p-1.5 hover:bg-gray-200 dark:hover:bg-gray-700"
       >
-        <Search strokeWidth={1.5} size={24} />
+        <Search size={22} />
       </SearchButton>
     )
   }
