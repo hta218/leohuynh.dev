@@ -34,7 +34,7 @@ module.exports = {
         sans: ['var(--font-roboto-flex)', ...fontFamily.sans],
       },
       colors: {
-        primary: colors.pink,
+        primary: colors.slate,
         gray: colors.gray,
         dark: '#22272e',
       },
@@ -52,6 +52,9 @@ module.exports = {
                 color: `${theme('colors.primary.600')}`,
               },
               code: { color: theme('colors.primary.400') },
+            },
+            'h1,h2,h3,h4,h5,h6': {
+              scrollMarginTop: '80px',
             },
             'h1,h2': {
               fontWeight: '700',
