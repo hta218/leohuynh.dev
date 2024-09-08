@@ -22,11 +22,12 @@ module.exports = {
         14: '3.5rem',
       },
       fontFamily: {
-        sans: ['var(--font-space-grotesk)', ...fontFamily.sans],
+        sans: ['var(--font-roboto-flex)', ...fontFamily.sans],
       },
       colors: {
         primary: colors.pink,
         gray: colors.gray,
+        dark: '#22272e',
       },
       zIndex: {
         60: '60',
@@ -50,8 +51,14 @@ module.exports = {
             h3: {
               fontWeight: '600',
             },
+            pre: {
+              code: {
+                fontWeight: '500',
+              },
+            },
             code: {
               color: theme('colors.indigo.500'),
+              fontWeight: '500',
             },
           },
         },
