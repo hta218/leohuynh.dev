@@ -24,6 +24,11 @@ module.exports = {
       animation: {
         'slide-down-and-fade': 'slide-down-and-fade 400ms cubic-bezier(0.16, 1, 0.3, 1) forwards',
       },
+      boxShadow: {
+        demure: 'rgba(0, 0, 0, 0.3) 0 35px 60px -15px',
+        mondegreen:
+          '5px 5px rgba(0, 98, 90, 0.4), 10px 10px rgba(0, 98, 90, 0.3), 15px 15px rgba(0, 98, 90, 0.2), 20px 20px rgba(0, 98, 90, 0.1), 25px 25px rgba(0, 98, 90, 0.05)',
+      },
       lineHeight: {
         11: '2.75rem',
         12: '3rem',
@@ -36,7 +41,18 @@ module.exports = {
       colors: {
         primary: colors.slate,
         gray: colors.gray,
-        dark: '#22272e',
+        dark: '#1f1f1f',
+        spotify: '#1DB954',
+        facebook: '#1877f2',
+        x: '#0f1419',
+      },
+      width: {
+        4.5: '1.125rem',
+        5.5: '1.375rem',
+      },
+      height: {
+        4.5: '1.125rem',
+        5.5: '1.375rem',
       },
       zIndex: {
         60: '60',
