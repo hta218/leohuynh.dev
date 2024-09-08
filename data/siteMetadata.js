@@ -22,6 +22,7 @@ const siteMetadata = {
   instagram: 'https://www.instagram.com/hta218_',
   locale: 'en-US',
   stickyNav: true,
+  analyticsUrl: 'https://analytics.leohuynh.dev/share/jkwRskv0/leohuynh.dev',
   analytics: {
     // If you want to use an analytics provider you have to add it to the
     // content security policy in the `next.config.js` file.
