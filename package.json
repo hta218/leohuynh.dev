@@ -73,5 +73,5 @@
       "prettier --write"
     ]
   },
-  "packageManager": "yarn@3.6.1"
+  "packageManager": "pnpm@9.6.0"
 }
