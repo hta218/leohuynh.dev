@@ -58,3 +58,11 @@ input:-webkit-autofill:focus {
   display: inline-block;
   vertical-align: middle;
 }
+
+code,
+kbd,
+pre,
+samp {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-weight: 500;
+}
