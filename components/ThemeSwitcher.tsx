@@ -31,7 +31,7 @@ const THEMES = [
   },
 ]
 
-function ThemeSwitch() {
+function ThemeSwitcher() {
   let [mounted, setMounted] = useState(false)
   let { theme, setTheme, resolvedTheme } = useTheme()
 
@@ -41,9 +41,12 @@ function ThemeSwitch() {
   return (
     <div className="flex items-center">
       <Menu as="div" className="relative inline-block text-left">
-        <div className="flex items-center justify-center rounded p-1.5 hover:bg-gray-200 dark:hover:bg-gray-700">
+        <div
+          className="flex items-center justify-center rounded p-1.5 hover:bg-gray-200 dark:hover:bg-gray-700"
+          data-umami-event="nav-theme-switcher"
+        >
           <MenuButton aria-label="Theme switcher">
-            {mounted ? resolvedTheme === 'dark' ? <Moon /> : <Sun /> : null}
+            {mounted ? resolvedTheme === 'dark' ? <Moon /> : <Sun /> : <div className="h-6 w-6" />}
           </MenuButton>
         </div>
         <Transition
@@ -83,4 +86,4 @@ function ThemeSwitch() {
   )
 }
 
-export default ThemeSwitch
+export default ThemeSwitcher

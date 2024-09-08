@@ -9,7 +9,7 @@ import Container from './Container'
 import Link from './Link'
 import MobileNav from './MobileNav'
 import SearchButton from './SearchButton'
-import ThemeSwitch from './ThemeSwitch'
+import ThemeSwitcher from './ThemeSwitcher'
 import { AnalyticsLink } from './AnalyticsLink'
 
 function Header() {
@@ -56,7 +56,7 @@ function Header() {
           <div className="flex items-center gap-1">
             <AnalyticsLink />
             <SearchButton />
-            <ThemeSwitch />
+            <ThemeSwitcher />
             <MobileNav />
           </div>
         </div>
