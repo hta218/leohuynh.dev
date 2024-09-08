@@ -24,6 +24,7 @@ module.exports = {
   rules: {
     'prettier/prettier': 'error',
     'react/react-in-jsx-scope': 'off',
+    'prefer-const': 'off',
     'jsx-a11y/anchor-is-valid': [
       'error',
       {
