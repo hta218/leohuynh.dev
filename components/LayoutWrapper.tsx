@@ -1,7 +1,7 @@
 import { Inter } from 'next/font/google'
-import SectionContainer from './SectionContainer'
+import type { ReactNode } from 'react'
+import Container from './Container'
 import Footer from './Footer'
-import { ReactNode } from 'react'
 import Header from './Header'
 
 interface Props {
@@ -14,13 +14,13 @@ const inter = Inter({
 
 const LayoutWrapper = ({ children }: Props) => {
   return (
-    <SectionContainer>
+    <Container>
       <div className={`${inter.className} flex h-screen flex-col justify-between font-sans`}>
         <Header />
         <main className="mb-auto">{children}</main>
         <Footer />
       </div>
-    </SectionContainer>
+    </Container>
   )
 }
 

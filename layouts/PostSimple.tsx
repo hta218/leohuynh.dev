@@ -1,11 +1,11 @@
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import { formatDate } from 'pliny/utils/formatDate'
-import { CoreContent } from 'pliny/utils/contentlayer'
+import type { CoreContent } from 'pliny/utils/contentlayer'
 import type { Blog } from 'contentlayer/generated'
 import Comments from '@/components/Comments'
 import Link from '@/components/Link'
 import PageTitle from '@/components/PageTitle'
-import SectionContainer from '@/components/SectionContainer'
+import Container from '@/components/Container'
 import siteMetadata from '@/data/siteMetadata'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 
@@ -20,7 +20,7 @@ export default function PostLayout({ content, next, prev, children }: LayoutProp
   const { path, slug, date, title } = content
 
   return (
-    <SectionContainer>
+    <Container>
       <ScrollTopAndComment />
       <article>
         <div>
@@ -77,6 +77,6 @@ export default function PostLayout({ content, next, prev, children }: LayoutProp
           </div>
         </div>
       </article>
-    </SectionContainer>
+    </Container>
   )
 }
