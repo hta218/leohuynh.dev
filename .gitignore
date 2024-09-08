@@ -48,4 +48,4 @@ yarn-error.log*
 .contentlayer
 
 # VSCode
-.vscode/
+/.vscode/
