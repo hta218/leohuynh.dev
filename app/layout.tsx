@@ -2,20 +2,30 @@ import 'css/tailwind.css'
 import 'pliny/search/algolia.css'
 import 'remark-github-blockquote-alert/alert.css'
 
-import { Space_Grotesk } from 'next/font/google'
-import { Analytics, AnalyticsConfig } from 'pliny/analytics'
-import { SearchProvider, SearchConfig } from 'pliny/search'
-import Header from '@/components/Header'
-import SectionContainer from '@/components/SectionContainer'
 import Footer from '@/components/Footer'
+import Header from '@/components/Header'
 import siteMetadata from '@/data/siteMetadata'
+import clsx from 'clsx'
+import type { Metadata } from 'next'
+import { JetBrains_Mono, Roboto_Flex } from 'next/font/google'
+import type { AnalyticsConfig } from 'pliny/analytics'
+import { Analytics } from 'pliny/analytics'
+import type { SearchConfig } from 'pliny/search'
+import { SearchProvider } from 'pliny/search'
 import { ThemeProviders } from './theme-providers'
-import { Metadata } from 'next'
 
-const space_grotesk = Space_Grotesk({
+const roboto_flex = Roboto_Flex({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-space-grotesk',
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-roboto-flex',
+})
+
+const jetbrains_mono = JetBrains_Mono({
+  weight: ['400', '500'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-jetbrains-mono',
 })
 
 export const metadata: Metadata = {
@@ -64,7 +74,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang={siteMetadata.language}
-      className={`${space_grotesk.variable} scroll-smooth`}
+      className={clsx('scroll-smooth', roboto_flex.variable, jetbrains_mono.variable)}
       suppressHydrationWarning
     >
       <link
@@ -97,13 +107,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="bg-white pl-[calc(100vw-100%)] text-black antialiased dark:bg-gray-950 dark:text-white">
         <ThemeProviders>
           <Analytics analyticsConfig={siteMetadata.analytics as AnalyticsConfig} />
-          <SectionContainer>
-            <SearchProvider searchConfig={siteMetadata.search as SearchConfig}>
-              <Header />
-              <main className="mb-auto">{children}</main>
-            </SearchProvider>
-            <Footer />
-          </SectionContainer>
+          <SearchProvider searchConfig={siteMetadata.search as SearchConfig}>
+            <Header />
+            <main className="mb-auto">{children}</main>
+          </SearchProvider>
+          <Footer />
         </ThemeProviders>
       </body>
     </html>
