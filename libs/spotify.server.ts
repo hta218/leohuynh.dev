@@ -17,6 +17,7 @@ async function getAccessToken() {
       Authorization: `Basic ${basic}`,
       'Content-Type': 'application/x-www-form-urlencoded',
     },
+    cache: 'no-store',
     body: new URLSearchParams({
       grant_type: 'refresh_token',
       refresh_token,
@@ -35,6 +36,7 @@ export async function getNowPlaying() {
     headers: {
       Authorization: `Bearer ${access_token}`,
     },
+    cache: 'no-store',
   })
 }
 
