@@ -78,7 +78,7 @@ export function ProfileCardInfo() {
                 target="_blank"
                 href={href}
                 rel="noreferrer"
-                className="text flex items-center underline-offset-4 hover:underline"
+                className="flex items-center underline-offset-4 hover:underline"
                 data-umami-event={umamiEvent}
               >
                 <Icon />
