@@ -36,11 +36,11 @@ export default function Home({ posts }) {
         </div>
       </div>
       <LatestPosts posts={posts} />
-      {siteMetadata.newsletter?.provider && (
-        <div className="flex items-center justify-center pt-4">
+      {/* {siteMetadata.newsletter?.provider && (
+        <div className="flex items-center justify-center py-4 lg:py-10">
           <NewsletterForm />
         </div>
-      )}
+      )} */}
     </Container>
   )
 }
