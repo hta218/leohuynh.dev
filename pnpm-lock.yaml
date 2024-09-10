@@ -126,6 +126,9 @@ importers:
       '@types/mdx':
         specifier: ^2.0.12
         version: 2.0.13
+      '@types/node':
+        specifier: ^22.5.4
+        version: 22.5.4
       '@types/react':
         specifier: ^18.2.73
         version: 18.3.5
