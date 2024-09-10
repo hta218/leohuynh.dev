@@ -17,7 +17,7 @@ const siteMetadata = {
   x: 'https://x.com/hta218_',
   facebook: 'https://facebook.com/hta218',
   youtube: 'https://www.youtube.com/@hta218_',
-  linkedin: 'https://www.linkedin.com/in/hta218/',
+  linkedin: 'https://www.linkedin.com/in/hta218',
   threads: 'https://www.threads.net/hta218_',
   instagram: 'https://www.instagram.com/hta218_',
   locale: 'en-US',
