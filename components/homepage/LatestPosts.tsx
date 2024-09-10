@@ -1,18 +1,16 @@
-import { useTranslation } from 'next-i18next'
-import { Link } from '~/components/Link'
+import Link from '~/components/Link'
 import { BlogTags } from '~/components/blog/BlogTags'
-import { FEATURED_POSTS } from '~/constant'
 import type { BlogFrontMatter } from '~/types/mdx'
 import { formatDate } from '~/utils/date'
 
-export function FeaturedPosts({ posts }: { posts: BlogFrontMatter[] }) {
-  let { t, i18n } = useTranslation()
-  let lang = i18n.language
+const MAX_DISPLAY = 5
+
+export function LatestPosts({ posts }: { posts: BlogFrontMatter[] }) {
   return (
     <div className="border-t border-gray-200 dark:border-gray-700">
       <ul className="divide-y divide-gray-200 dark:divide-gray-700">
         {!posts.length && 'No posts found.'}
-        {posts.slice(0, FEATURED_POSTS).map((frontMatter) => {
+        {posts.slice(0, MAX_DISPLAY).map((frontMatter) => {
           let { slug, date, title, summary, tags } = frontMatter
           return (
             <li key={slug} className="py-12">
@@ -21,7 +19,7 @@ export function FeaturedPosts({ posts }: { posts: BlogFrontMatter[] }) {
                   <dl>
                     <dt className="sr-only">Published on</dt>
                     <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                      <time dateTime={date}>{formatDate(date, lang)}</time>
+                      <time dateTime={date}>{formatDate(date)}</time>
                     </dd>
                   </dl>
                   <div className="space-y-5 xl:col-span-3">
@@ -54,14 +52,14 @@ export function FeaturedPosts({ posts }: { posts: BlogFrontMatter[] }) {
           )
         })}
       </ul>
-      {posts.length > FEATURED_POSTS && (
+      {posts.length > MAX_DISPLAY && (
         <div className="flex justify-end text-base font-medium leading-6">
           <Link
             href="/blog"
             className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-            aria-label="all posts"
+            aria-label="All posts"
           >
-            <span data-umami-event="all-posts"> {t('blog.all_posts_title')} &rarr;</span>
+            <span data-umami-event="all-posts">All Posts &rarr;</span>
           </Link>
         </div>
       )}
