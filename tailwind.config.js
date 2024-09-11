@@ -61,9 +61,10 @@ module.exports = {
       },
       fontFamily: {
         sans: ['var(--font-roboto-flex)', ...fontFamily.sans],
+        'space-grotesk': ['var(--font-space-grotesk)'],
       },
       colors: {
-        primary: colors.slate,
+        primary: colors.indigo,
         gray: colors.gray,
         dark: '#1f1f1f',
         spotify: '#1DB954',
@@ -88,6 +89,7 @@ module.exports = {
           css: {
             a: {
               color: theme('colors.primary.500'),
+              'text-underline-offset': '4px',
               '&:hover': {
                 color: `${theme('colors.primary.600')}`,
               },
