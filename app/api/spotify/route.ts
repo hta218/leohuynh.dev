@@ -4,7 +4,7 @@ import type { SpotifyNowPlayingData } from '~/types/data'
 export async function GET() {
   let response = await getNowPlaying()
   if (response.status === 204 || response.status > 400) {
-    return Response.json({ isPlaying: false }, { status: response.status })
+    return Response.json({ isPlaying: false })
   }
 
   let data = await response.json()
