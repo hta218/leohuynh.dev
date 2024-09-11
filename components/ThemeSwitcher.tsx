@@ -46,7 +46,15 @@ function ThemeSwitcher() {
           data-umami-event="nav-theme-switcher"
         >
           <MenuButton aria-label="Theme switcher">
-            {mounted ? resolvedTheme === 'dark' ? <Moon /> : <Sun /> : <div className="h-6 w-6" />}
+            {mounted ? (
+              resolvedTheme === 'dark' ? (
+                <Moon size={22} />
+              ) : (
+                <Sun size={22} />
+              )
+            ) : (
+              <div className="h-6 w-6" />
+            )}
           </MenuButton>
         </div>
         <Transition
@@ -70,9 +78,9 @@ function ThemeSwitcher() {
                   >
                     <MenuItem
                       as="div"
-                      className="flex w-full items-center gap-4 px-2 py-1.5 text-sm"
+                      className="flex w-full items-center gap-3 px-2 py-1.5 text-sm"
                     >
-                      <Icon size={22} />
+                      <Icon size={20} />
                       <span>{label}</span>
                     </MenuItem>
                   </Radio>
