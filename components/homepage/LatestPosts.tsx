@@ -13,9 +13,20 @@ const MAX_DISPLAY = 5
 export function LatestPosts({ posts }: { posts: BlogFrontMatter[] }) {
   return (
     <div className="mt-8 space-y-8 divide-y divide-gray-200 dark:divide-gray-700">
-      <h2 className="text-2xl font-extrabold sm:text-2xl sm:leading-10 md:text-5xl">
-        Latest posts
-      </h2>
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-extrabold sm:text-2xl sm:leading-10 md:text-4xl">
+          Latest posts
+        </h2>
+        {posts.length > MAX_DISPLAY && (
+          <div className="flex justify-end text-base font-medium leading-6">
+            <Link href="/blog" className="" aria-label="All posts">
+              <span data-umami-event="all-posts" className="background-underline">
+                View all posts &rarr;
+              </span>
+            </Link>
+          </div>
+        )}
+      </div>
       <ul className="divide-gray-200 dark:divide-gray-700">
         {!posts.length && 'No posts found.'}
         {posts.slice(0, MAX_DISPLAY).map((frontMatter) => {
@@ -80,17 +91,7 @@ export function LatestPosts({ posts }: { posts: BlogFrontMatter[] }) {
           )
         })}
       </ul>
-      {posts.length > MAX_DISPLAY && (
-        <div className="flex justify-end text-base font-medium leading-6">
-          <Link
-            href="/blog"
-            className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-            aria-label="All posts"
-          >
-            <span data-umami-event="all-posts">All Posts &rarr;</span>
-          </Link>
-        </div>
-      )}
+      <div className="h-10" />
     </div>
   )
 }
