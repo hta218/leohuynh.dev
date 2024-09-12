@@ -1,10 +1,10 @@
-import Comments from '@/components/Comments'
-import Container from '@/components/Container'
-import Image from '@/components/Image'
-import Link from '@/components/Link'
-import PageTitle from '@/components/PageTitle'
-import ScrollTopAndComment from '@/components/ScrollTopAndComment'
-import siteMetadata from '@/data/siteMetadata'
+import Comments from '~/components/Comments'
+import Container from '~/components/Container'
+import Image from '~/components/Image'
+import Link from '~/components/Link'
+import PageTitle from '~/components/PageTitle'
+import ScrollTopAndComment from '~/components/ScrollTopAndComment'
+import siteMetadata from '~/data/siteMetadata'
 import type { Blog } from 'contentlayer/generated'
 import type { CoreContent } from 'pliny/utils/contentlayer'
 import type { ReactNode } from 'react'
@@ -39,13 +39,13 @@ export default function PostMinimal({ content, next, prev, children }: LayoutPro
           </dl>
         </div>
         <div className="flex w-full flex-col gap-4">
-          <div className="-mx-5 md:-mx-10 lg:-mx-32 xl:-mx-40">
+          <div className="-mx-5 md:-mx-10 lg:-mx-32 xl:-mx-40 2xl:-mx-52">
             <Image
               src={displayImage}
               alt={title}
-              width={2000}
-              height={1000}
-              className="h-auto w-full rounded-xl object-cover"
+              width={1600}
+              height={900}
+              className="aspect-video h-auto w-full rounded-xl object-cover object-center"
             />
           </div>
           <BannerInfo author={bannerAuthor} photoURL={bannerUrl} />
