@@ -1,5 +1,10 @@
+import clsx from 'clsx'
+import { MoveRight } from 'lucide-react'
+import type { CSSProperties } from 'react'
+import Image from '~/components/Image'
 import Link from '~/components/Link'
 import { BlogTags } from '~/components/blog/BlogTags'
+import siteMetadata from '~/data/siteMetadata'
 import type { BlogFrontMatter } from '~/types/mdx'
 import { formatDate } from '~/utils/date'
 
@@ -7,27 +12,45 @@ const MAX_DISPLAY = 5
 
 export function LatestPosts({ posts }: { posts: BlogFrontMatter[] }) {
   return (
-    <div className="border-t border-gray-200 dark:border-gray-700">
-      <ul className="divide-y divide-gray-200 dark:divide-gray-700">
+    <div className="mt-8 space-y-8 divide-y divide-gray-200 dark:divide-gray-700">
+      <h2 className="text-2xl font-extrabold sm:text-2xl sm:leading-10 md:text-5xl">
+        Latest posts
+      </h2>
+      <ul className="divide-gray-200 dark:divide-gray-700">
         {!posts.length && 'No posts found.'}
         {posts.slice(0, MAX_DISPLAY).map((frontMatter) => {
-          let { slug, date, title, summary, tags } = frontMatter
+          let { slug, date, title, summary, tags, images, readingTime } = frontMatter
           return (
-            <li key={slug} className="py-12">
+            <li key={slug} className="py-10">
               <article>
-                <div className="space-y-3 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
-                  <dl>
-                    <dt className="sr-only">Published on</dt>
-                    <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                      <time dateTime={date}>{formatDate(date)}</time>
-                    </dd>
-                  </dl>
-                  <div className="space-y-5 xl:col-span-3">
+                <div className="flex flex-col gap-8 space-y-3 md:flex-row">
+                  <Image
+                    src={images && images.length > 0 ? images[0] : siteMetadata.socialBanner}
+                    alt={title}
+                    width={500}
+                    height={500}
+                    className="h-80 w-72 rounded-xl object-cover object-center"
+                  />
+                  <div className="space-y-5">
                     <div className="space-y-6">
                       <div className="space-y-3">
-                        <h2 className="mb-1 text-2xl font-bold tracking-tight md:text-3xl">
+                        <dl>
+                          <dt className="sr-only">Published on</dt>
+                          <dd className="font-medium leading-6 text-gray-500 dark:text-gray-400">
+                            <time dateTime={date}>{formatDate(date)}</time>
+                            <span className="mx-2">{` • `}</span>
+                            <span>{Math.ceil(readingTime.minutes)} mins read</span>
+                          </dd>
+                        </dl>
+                        <h2 className="mb-1 text-xl font-bold tracking-tight md:text-3xl">
                           <Link href={`/blog/${slug}`} className="text-gray-900 dark:text-gray-100">
-                            <span data-umami-event="featured-title">{title}</span>
+                            <span
+                              data-umami-event="latest-post-title"
+                              className="background-underline"
+                              style={{ '--duration': '500ms' } as CSSProperties}
+                            >
+                              {title}
+                            </span>
                           </Link>
                         </h2>
                         <BlogTags tags={tags} />
@@ -39,10 +62,15 @@ export function LatestPosts({ posts }: { posts: BlogFrontMatter[] }) {
                     <div className="text-base font-medium leading-6">
                       <Link
                         href={`/blog/${slug}`}
-                        className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+                        className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400"
                         aria-label={`Read "${title}"`}
                       >
-                        <span data-umami-event="featured-read-more">Read more &rarr;</span>
+                        <span
+                          className="background-underline"
+                          data-umami-event="latest-post-read-more"
+                        >
+                          Read article →
+                        </span>
                       </Link>
                     </div>
                   </div>
