@@ -60,7 +60,7 @@ module.exports = {
         14: '3.5rem',
       },
       fontFamily: {
-        sans: ['var(--font-roboto-flex)', ...fontFamily.sans],
+        sans: ['var(--font-nunito)', ...fontFamily.sans],
         'space-grotesk': ['var(--font-space-grotesk)'],
       },
       colors: {

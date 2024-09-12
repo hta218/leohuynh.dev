@@ -3,26 +3,33 @@ import 'css/twemoji.css'
 import 'pliny/search/algolia.css'
 import 'remark-github-blockquote-alert/alert.css'
 
-import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 import siteMetadata from '@/data/siteMetadata'
 import clsx from 'clsx'
 import type { Metadata } from 'next'
-import { JetBrains_Mono, Roboto_Flex } from 'next/font/google'
+import { Comfortaa, JetBrains_Mono, Noto_Sans, Nunito, Exo_2, Cairo } from 'next/font/google'
 import type { AnalyticsConfig } from 'pliny/analytics'
 import { Analytics } from 'pliny/analytics'
 import type { SearchConfig } from 'pliny/search'
 import { SearchProvider } from 'pliny/search'
+import { Footer } from '~/components/Footer'
 import { ThemeProviders } from './theme-providers'
 
-const roboto_flex = Roboto_Flex({
+const FONT_SPACE_GROTESK = Cairo({
   subsets: ['latin'],
   display: 'swap',
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-roboto-flex',
+  weight: ['300', '400', '500', '600', '700', '800'],
+  variable: '--font-space-grotesk',
 })
 
-const jetbrains_mono = JetBrains_Mono({
+const FONT_NUNITO = Nunito({
+  subsets: ['latin'],
+  display: 'swap',
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-nunito',
+})
+
+const FONT_JETBRAINS_MONO = JetBrains_Mono({
   weight: ['400', '500'],
   subsets: ['latin'],
   display: 'swap',
@@ -75,7 +82,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang={siteMetadata.language}
-      className={clsx('scroll-smooth', roboto_flex.variable, jetbrains_mono.variable)}
+      className={clsx(
+        'scroll-smooth',
+        FONT_NUNITO.variable,
+        FONT_JETBRAINS_MONO.variable,
+        FONT_SPACE_GROTESK.variable
+      )}
       suppressHydrationWarning
     >
       <link rel="apple-touch-icon" sizes="76x76" href={`${basePath}/static/favicons/favicon.png`} />
