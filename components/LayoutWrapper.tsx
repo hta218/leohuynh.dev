@@ -1,7 +1,7 @@
 import { Inter } from 'next/font/google'
 import type { ReactNode } from 'react'
 import Container from './Container'
-import Footer from './Footer'
+import { Footer } from './Footer'
 import Header from './Header'
 
 interface Props {
