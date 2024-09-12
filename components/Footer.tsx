@@ -1,5 +1,6 @@
 import siteMetadata from '~/data/siteMetadata'
 import MadeInVietNameIcon from '~/icons/miv.svg'
+import PoweredByVercelIcon from '~/icons/powered-by-vercel.svg'
 import { BuiltWith } from './BuiltWith'
 import Container from './Container'
 import Link from './Link'
@@ -11,7 +12,7 @@ export function Footer() {
         <BuiltWith />
         <div className="my-2 flex gap-2 text-sm text-gray-500 dark:text-gray-400">
           <span>
-            {`© ${new Date().getFullYear()}`}-present
+            {`© ${new Date().getFullYear()}`}
             {` • `}
             {siteMetadata.title}
           </span>

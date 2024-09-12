@@ -5,7 +5,7 @@ import Link from './Link'
 export function BuiltWith() {
   return (
     <div className="flex items-center space-x-1">
-      <span className="mr-1 text-gray-500 dark:text-gray-400">Build with</span>
+      <span className="mr-1 text-gray-500 dark:text-gray-400">Built with</span>
       <div className="flex space-x-1.5">
         <Link href="https://nextjs.org?ref=leohuynh.dev">
           <BrandIcon type="NextJS" className="h-5 w-5" />
