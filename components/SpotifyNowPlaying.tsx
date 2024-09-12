@@ -20,7 +20,7 @@ export function SpotifyNowPlaying() {
   let { songUrl, title, artist } = nowPlayingSong || {}
 
   return (
-    <div className="flex items-center bg-gray-900 px-3 py-1.5 xl:px-4">
+    <div className="flex items-center bg-gray-900 px-3 py-1.5 xl:px-5">
       <IconSpotify className="h-5.5 w-5.5 flex-shrink-0" />
       <div className="ml-2 inline-flex truncate">
         {songUrl ? (
