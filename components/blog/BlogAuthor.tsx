@@ -1,6 +1,6 @@
 import type { AuthorFrontMatter } from '~/types/mdx'
-import { Link } from '../Link'
-import { Image } from '../Image'
+import Link from '../Link'
+import Image from '../Image'
 
 export function AuthorDetails({ authorDetails }: { authorDetails: AuthorFrontMatter[] }) {
   return (

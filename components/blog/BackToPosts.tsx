@@ -1,5 +1,5 @@
 import { MoveLeft } from 'lucide-react'
-import { Link } from '../Link'
+import Link from '../Link'
 
 export function BackToPosts({ page }: { page: number }) {
   return (

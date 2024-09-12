@@ -28,3 +28,8 @@ export interface BlogFrontMatter extends MdxFrontMatter {
   readingTime: ReadingTime
   fileName: string
 }
+
+export interface AuthorFrontMatter extends MdxFrontMatter {
+  avatar: string
+  github?: string
+}
