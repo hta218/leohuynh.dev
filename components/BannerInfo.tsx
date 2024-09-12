@@ -14,7 +14,7 @@ export function BannerInfo({ photoURL, author }: BannerInfoProps) {
         target="_blank"
         rel="noreferrer"
       >
-        {author}
+        <span data-umami-event="banner-author">{author}</span>
       </a>{' '}
       on{' '}
       <a
@@ -22,8 +22,9 @@ export function BannerInfo({ photoURL, author }: BannerInfoProps) {
         href="https://unsplash.com/"
         target="_blank"
         rel="noreferrer"
+        data-umami-event="unsplash-link"
       >
-        Unsplash
+        <span data-umami-event="banner-unsplash">Unsplash</span>
       </a>
     </div>
   )
