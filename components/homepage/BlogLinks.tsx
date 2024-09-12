@@ -45,13 +45,9 @@ export function BlogLinks() {
   return (
     <div className="flex flex-col gap-3">
       {LINKS.map(({ title, href, emoji, event }) => (
-        <Link
-          key={title}
-          href={href}
-          className="flex items-center underline-offset-4 hover:underline"
-        >
+        <Link key={title} href={href} className="flex items-center gap-1.5">
           <Twemoji emoji={emoji} />
-          <span data-umami-event={event} className="ml-1.5 leading-6">
+          <span data-umami-event={event} className="background-underline leading-6">
             {title}
           </span>
         </Link>

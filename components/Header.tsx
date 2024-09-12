@@ -18,7 +18,7 @@ function Header() {
   return (
     <header
       className={clsx(
-        'bg-white/50 py-3 backdrop-blur dark:bg-dark/75',
+        'bg-white/75 py-3 backdrop-blur dark:bg-dark/75',
         siteMetadata.stickyNav && 'sticky top-0 z-50'
       )}
     >
@@ -37,13 +37,11 @@ function Header() {
           <div className="hidden space-x-1.5 sm:block">
             {HEADER_NAV_LINKS.filter((link) => link.href !== '/').map(({ title, href }) => {
               return (
-                <Link key={title} href={href}>
+                <Link key={title} href={href} className="px-3 py-1 font-medium">
                   <span
                     className={clsx(
-                      'inline-block rounded px-3 py-1 font-medium',
-                      pathname.startsWith(href)
-                        ? 'bg-gray-200 dark:bg-gray-700'
-                        : 'hover:bg-gray-200 dark:hover:bg-gray-700'
+                      'background-underline',
+                      pathname.startsWith(href) && 'bg-[length:100%_50%]'
                     )}
                     data-umami-event={`nav-${href.replace('/', '')}`}
                   >
