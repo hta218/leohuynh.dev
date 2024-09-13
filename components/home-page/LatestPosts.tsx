@@ -12,9 +12,7 @@ export function LatestPosts({ posts }: { posts: BlogFrontMatter[] }) {
   return (
     <div className="mt-12 space-y-4 divide-y divide-gray-200 dark:divide-gray-700 md:mt-8 md:space-y-8">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-extrabold sm:text-2xl sm:leading-10 md:text-4xl">
-          Latest posts
-        </h2>
+        <h2 className="text-2xl font-bold sm:text-2xl sm:leading-10 md:text-4xl">Latest posts</h2>
         {posts.length > MAX_DISPLAY && (
           <div className="flex justify-end text-base font-medium leading-6">
             <Link href="/blog" className="" aria-label="All posts">
@@ -25,25 +23,27 @@ export function LatestPosts({ posts }: { posts: BlogFrontMatter[] }) {
           </div>
         )}
       </div>
-      <ul className="space-y-16 divide-gray-200 pt-6 dark:divide-gray-700 md:space-y-20 md:pt-10">
+      <ul className="space-y-12 divide-gray-200 pt-6 dark:divide-gray-700 md:space-y-20 md:pt-10">
         {!posts.length && 'No posts found.'}
-        {posts.slice(0, MAX_DISPLAY).map((frontMatter) => {
-          let { slug, date, title, summary, tags, images, readingTime } = frontMatter
+        {posts.slice(0, MAX_DISPLAY).map((post) => {
+          let { slug, date, title, summary, tags, images, readingTime } = post
           return (
             <li key={slug}>
               <article>
                 <div className="flex flex-col gap-2 space-y-3 md:flex-row md:gap-8">
-                  <Image
-                    src={images && images.length > 0 ? images[0] : siteMetadata.socialBanner}
-                    alt={title}
-                    width={500}
-                    height={500}
-                    className="aspect-video w-full rounded-xl object-cover object-center md:aspect-auto md:h-80 md:w-72"
-                  />
+                  <Link href={`/blog/${slug}`} className="block shrink-0">
+                    <Image
+                      src={images && images.length > 0 ? images[0] : siteMetadata.socialBanner}
+                      alt={title}
+                      width={500}
+                      height={500}
+                      className="aspect-video h-auto w-full rounded-xl object-cover object-center md:aspect-auto md:h-80 md:w-72"
+                    />
+                  </Link>
                   <div className="space-y-5">
                     <div className="space-y-4 md:space-y-6">
                       <div className="space-y-3">
-                        <dl>
+                        <dl className="text-sm">
                           <dt className="sr-only">Published on</dt>
                           <dd className="font-medium leading-6 text-gray-500 dark:text-gray-400">
                             <time dateTime={date}>{formatDate(date)}</time>
@@ -51,7 +51,7 @@ export function LatestPosts({ posts }: { posts: BlogFrontMatter[] }) {
                             <span>{Math.ceil(readingTime.minutes)} mins read</span>
                           </dd>
                         </dl>
-                        <h2 className="mb-1 text-xl font-bold tracking-tight md:text-3xl">
+                        <h2 className="pb-1 text-xl font-bold tracking-tight md:text-2xl">
                           <Link href={`/blog/${slug}`} className="text-gray-900 dark:text-gray-100">
                             <span
                               data-umami-event="latest-post-title"
@@ -64,7 +64,7 @@ export function LatestPosts({ posts }: { posts: BlogFrontMatter[] }) {
                         </h2>
                         <BlogTags tags={tags} />
                       </div>
-                      <div className="prose max-w-none text-gray-500 dark:text-gray-400">
+                      <div className="line-clamp-2 text-gray-500 dark:text-gray-400 md:line-clamp-3">
                         {summary}
                       </div>
                     </div>
