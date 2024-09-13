@@ -1,18 +1,17 @@
 'use client'
 
 import Container from '@/components/Container'
-import { BlogLinks } from '@/components/homepage/BlogLinks'
-import { Greeting } from '@/components/homepage/Greeting'
-import { Heading } from '@/components/homepage/Heading'
-import { ShortDescription } from '@/components/homepage/ShortDescription'
-import { TypedBios } from '@/components/homepage/TypedBios'
+import { BlogLinks } from '~/components/home-page/BlogLinks'
+import { Greeting } from '~/components/home-page/Greeting'
+import { Heading } from '~/components/home-page/Heading'
+import { ShortDescription } from '~/components/home-page/ShortDescription'
+import { TypedBios } from '~/components/home-page/TypedBios'
 import { ProfileCard } from '@/components/ProfileCard'
 import Twemoji from '@/components/Twemoji'
-import siteMetadata from '@/data/siteMetadata'
 import NewsletterForm from 'pliny/ui/NewsletterForm'
-import { LatestPosts } from '~/components/homepage/LatestPosts'
+import { LatestPosts } from '~/components/home-page/LatestPosts'
 
-export default function Home({ posts }) {
+export function Home({ posts }) {
   return (
     <Container as="div">
       <div className="mt-8 divide-y divide-gray-200 dark:divide-gray-700 md:mt-16">
