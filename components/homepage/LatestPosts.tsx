@@ -1,5 +1,3 @@
-import clsx from 'clsx'
-import { MoveRight } from 'lucide-react'
 import type { CSSProperties } from 'react'
 import Image from '~/components/Image'
 import Link from '~/components/Link'
@@ -12,7 +10,7 @@ const MAX_DISPLAY = 5
 
 export function LatestPosts({ posts }: { posts: BlogFrontMatter[] }) {
   return (
-    <div className="mt-8 space-y-8 divide-y divide-gray-200 dark:divide-gray-700">
+    <div className="mt-12 space-y-4 divide-y divide-gray-200 dark:divide-gray-700 md:mt-8 md:space-y-8">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-extrabold sm:text-2xl sm:leading-10 md:text-4xl">
           Latest posts
@@ -27,23 +25,23 @@ export function LatestPosts({ posts }: { posts: BlogFrontMatter[] }) {
           </div>
         )}
       </div>
-      <ul className="divide-gray-200 dark:divide-gray-700">
+      <ul className="space-y-16 divide-gray-200 pt-6 dark:divide-gray-700 md:space-y-20 md:pt-10">
         {!posts.length && 'No posts found.'}
         {posts.slice(0, MAX_DISPLAY).map((frontMatter) => {
           let { slug, date, title, summary, tags, images, readingTime } = frontMatter
           return (
-            <li key={slug} className="py-10">
+            <li key={slug}>
               <article>
-                <div className="flex flex-col gap-8 space-y-3 md:flex-row">
+                <div className="flex flex-col gap-2 space-y-3 md:flex-row md:gap-8">
                   <Image
                     src={images && images.length > 0 ? images[0] : siteMetadata.socialBanner}
                     alt={title}
                     width={500}
                     height={500}
-                    className="h-80 w-72 rounded-xl object-cover object-center"
+                    className="aspect-video w-full rounded-xl object-cover object-center md:aspect-auto md:h-80 md:w-72"
                   />
                   <div className="space-y-5">
-                    <div className="space-y-6">
+                    <div className="space-y-4 md:space-y-6">
                       <div className="space-y-3">
                         <dl>
                           <dt className="sr-only">Published on</dt>
