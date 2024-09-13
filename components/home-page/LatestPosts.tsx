@@ -1,7 +1,7 @@
 import type { CSSProperties } from 'react'
 import Image from '~/components/Image'
 import Link from '~/components/Link'
-import { BlogTags } from '~/components/blog/BlogTags'
+import { BlogTags } from '~/components/blog/blog-tags'
 import siteMetadata from '~/data/siteMetadata'
 import type { BlogFrontMatter } from '~/types/mdx'
 import { formatDate } from '~/utils/date'

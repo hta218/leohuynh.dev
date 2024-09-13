@@ -1,16 +1,17 @@
+import type { Blog } from 'contentlayer/generated'
+import type { CoreContent } from 'pliny/utils/contentlayer'
+import type { ReactNode } from 'react'
+import { BannerInfo } from '~/components/BannerInfo'
 import Comments from '~/components/Comments'
 import Container from '~/components/Container'
 import Image from '~/components/Image'
 import PageTitle from '~/components/PageTitle'
 import ScrollTopAndComment from '~/components/ScrollTopAndComment'
-import siteMetadata from '~/data/siteMetadata'
-import type { Blog } from 'contentlayer/generated'
-import type { CoreContent } from 'pliny/utils/contentlayer'
-import type { ReactNode } from 'react'
-import { BlogMeta } from '~/components/blog/BlogMeta'
-import { BlogTags } from '~/components/blog/BlogTags'
-import { BannerInfo } from '~/components/BannerInfo'
 import { SocialShareButtons } from '~/components/SocialShareButtons'
+import { BackToPosts } from '~/components/blog/back-to-posts'
+import { BlogMeta } from '~/components/blog/blog-meta'
+import { BlogTags } from '~/components/blog/blog-tags'
+import siteMetadata from '~/data/siteMetadata'
 
 interface LayoutProps {
   content: CoreContent<Blog>
@@ -20,16 +21,28 @@ interface LayoutProps {
 }
 
 export function PostBanner({ content, next, prev, children }: LayoutProps) {
-  let { slug, type, title, images, bannerAuthor, bannerUrl, date, readingTime, tags, filePath } =
-    content
+  let {
+    slug,
+    type,
+    title,
+    images,
+    bannerAuthor,
+    bannerUrl,
+    date,
+    readingTime,
+    tags,
+    filePath,
+    path,
+  } = content
   let displayImage = images?.[0] || siteMetadata.socialBanner
   let postUrl = `${siteMetadata.siteUrl}/${type.toLowerCase()}/${slug}`
+  let basePath = path.split('/')[0]
 
   return (
     <Container>
       <ScrollTopAndComment />
       <article>
-        <div className="space-y-6 py-6 xl:pb-16 xl:pt-16">
+        <div className="space-y-6 py-6 xl:py-16">
           <BlogTags tags={tags} />
           <PageTitle>{title}</PageTitle>
           <dl>

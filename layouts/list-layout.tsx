@@ -137,8 +137,9 @@ function ArticleCard({ post }: { post: CoreContent<Blog> }) {
           />
         </Link>
         <div className="space-y-2 md:space-y-4">
-          <div className="flex items-center gap-x-4 text-xs text-gray-600">
+          <div className="flex items-center gap-x-1.5 text-xs text-gray-600">
             <time dateTime={date}>{formatDate(date)}</time>
+            <span>-</span>
             <span>{Math.ceil(readingTime.minutes)} mins read</span>
           </div>
           <div className="group relative">
