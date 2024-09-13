@@ -22,7 +22,7 @@ function Header() {
         siteMetadata.stickyNav && 'sticky top-0 z-50'
       )}
     >
-      <Container as="div" className="flex w-full items-center justify-between gap-3">
+      <Container as="div" className="flex items-center justify-between gap-3">
         <Link href="/" aria-label={siteMetadata.headerTitle}>
           <NextImage
             src="/static/images/logo.jpg"
