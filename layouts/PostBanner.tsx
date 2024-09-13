@@ -11,6 +11,7 @@ import type { ReactNode } from 'react'
 import { BlogMeta } from '~/components/blog/BlogMeta'
 import { BlogTags } from '~/components/blog/BlogTags'
 import { BannerInfo } from '~/components/BannerInfo'
+import { SocialShareButtons } from '~/components/SocialShareButtons'
 
 interface LayoutProps {
   content: CoreContent<Blog>
@@ -20,9 +21,10 @@ interface LayoutProps {
 }
 
 export default function PostMinimal({ content, next, prev, children }: LayoutProps) {
-  const { slug, title, images, bannerAuthor, bannerUrl, date, readingTime, tags } = content
-  const displayImage =
-    images && images.length > 0 ? images[0] : 'https://picsum.photos/seed/picsum/800/400'
+  let { slug, type, title, images, bannerAuthor, bannerUrl, date, readingTime, tags, filePath } =
+    content
+  let displayImage = images?.[0] || siteMetadata.socialBanner
+  let postUrl = `${siteMetadata.siteUrl}/${type.toLowerCase()}/${slug}`
 
   return (
     <Container>
@@ -50,15 +52,16 @@ export default function PostMinimal({ content, next, prev, children }: LayoutPro
           </div>
           <BannerInfo author={bannerAuthor} photoURL={bannerUrl} />
         </div>
-        <div className="prose prose-lg max-w-none py-10 text-gray-900 dark:prose-invert">
+        <div className="prose prose-lg max-w-none pb-10 pt-10 text-gray-900 dark:prose-invert">
           {children}
         </div>
-        {siteMetadata.comments && (
-          <div className="pb-6 pt-6 text-center text-gray-700 dark:text-gray-300" id="comment">
+        <div className="border-y border-gray-200 py-4 dark:border-gray-700">
+          <SocialShareButtons postUrl={postUrl} title={title} filePath={filePath} />
+          <div className="py-6">
             <Comments slug={slug} />
           </div>
-        )}
-        <footer>
+        </div>
+        {/* <footer>
           <div className="flex flex-col text-sm font-medium sm:flex-row sm:justify-between sm:text-base">
             {prev && prev.path && (
               <div className="pt-4 xl:pt-8">
@@ -83,7 +86,7 @@ export default function PostMinimal({ content, next, prev, children }: LayoutPro
               </div>
             )}
           </div>
-        </footer>
+        </footer> */}
       </article>
     </Container>
   )
