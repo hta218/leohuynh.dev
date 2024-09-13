@@ -1,9 +1,9 @@
-import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer'
-import { allBlogs } from 'contentlayer/generated'
 import { genPageMetadata } from 'app/seo'
-import { ListLayoutWithTags } from '~/layouts/list-layout-with-tags'
+import { allBlogs } from 'contentlayer/generated'
+import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer'
+import { ListLayout } from '~/layouts/list-layout'
 
-let POSTS_PER_PAGE = 5
+const POSTS_PER_PAGE = 12
 
 export let metadata = genPageMetadata({ title: 'Blog' })
 
@@ -20,7 +20,7 @@ export default function BlogPage() {
   }
 
   return (
-    <ListLayoutWithTags
+    <ListLayout
       posts={posts}
       initialDisplayPosts={initialDisplayPosts}
       pagination={pagination}
