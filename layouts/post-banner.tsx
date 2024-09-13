@@ -1,7 +1,6 @@
 import Comments from '~/components/Comments'
 import Container from '~/components/Container'
 import Image from '~/components/Image'
-import Link from '~/components/Link'
 import PageTitle from '~/components/PageTitle'
 import ScrollTopAndComment from '~/components/ScrollTopAndComment'
 import siteMetadata from '~/data/siteMetadata'
@@ -20,7 +19,7 @@ interface LayoutProps {
   prev?: { path: string; title: string }
 }
 
-export default function PostMinimal({ content, next, prev, children }: LayoutProps) {
+export function PostBanner({ content, next, prev, children }: LayoutProps) {
   let { slug, type, title, images, bannerAuthor, bannerUrl, date, readingTime, tags, filePath } =
     content
   let displayImage = images?.[0] || siteMetadata.socialBanner

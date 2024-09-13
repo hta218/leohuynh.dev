@@ -8,7 +8,7 @@ interface Props {
   content: Omit<Authors, '_id' | '_raw' | 'body'>
 }
 
-export default function AuthorLayout({ children, content }: Props) {
+export function AuthorLayout({ children, content }: Props) {
   const { name, avatar, occupation, company, email, twitter, linkedin, github } = content
 
   return (

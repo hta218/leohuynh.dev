@@ -1,7 +1,7 @@
 import { slug } from 'github-slugger'
 import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer'
-import siteMetadata from '@/data/siteMetadata'
-import ListLayout from '@/layouts/ListLayoutWithTags'
+import siteMetadata from '~/data/siteMetadata'
+import { ListLayoutWithTags } from '~/layouts/list-layout-with-tags'
 import { allBlogs } from 'contentlayer/generated'
 import tagData from 'app/tag-data.json'
 import { genPageMetadata } from 'app/seo'
@@ -41,5 +41,5 @@ export default function TagPage({ params }: { params: { tag: string } }) {
   if (filteredPosts.length === 0) {
     return notFound()
   }
-  return <ListLayout posts={filteredPosts} title={title} />
+  return <ListLayoutWithTags posts={filteredPosts} title={title} />
 }

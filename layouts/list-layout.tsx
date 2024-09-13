@@ -21,10 +21,10 @@ interface ListLayoutProps {
 }
 
 function Pagination({ totalPages, currentPage }: PaginationProps) {
-  const pathname = usePathname()
-  const basePath = pathname.split('/')[1]
-  const prevPage = currentPage - 1 > 0
-  const nextPage = currentPage + 1 <= totalPages
+  let pathname = usePathname()
+  let basePath = pathname.split('/')[1]
+  let prevPage = currentPage - 1 > 0
+  let nextPage = currentPage + 1 <= totalPages
 
   return (
     <div className="space-y-2 pb-8 pt-6 md:space-y-5">
@@ -60,20 +60,20 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
   )
 }
 
-export default function ListLayout({
+export function ListLayout({
   posts,
   title,
   initialDisplayPosts = [],
   pagination,
 }: ListLayoutProps) {
-  const [searchValue, setSearchValue] = useState('')
-  const filteredBlogPosts = posts.filter((post) => {
-    const searchContent = post.title + post.summary + post.tags?.join(' ')
+  let [searchValue, setSearchValue] = useState('')
+  let filteredBlogPosts = posts.filter((post) => {
+    let searchContent = post.title + post.summary + post.tags?.join(' ')
     return searchContent.toLowerCase().includes(searchValue.toLowerCase())
   })
 
   // If initialDisplayPosts exist, display it if no searchValue is specified
-  const displayPosts =
+  let displayPosts =
     initialDisplayPosts.length > 0 && !searchValue ? initialDisplayPosts : filteredBlogPosts
 
   return (
@@ -113,7 +113,7 @@ export default function ListLayout({
         <ul>
           {!filteredBlogPosts.length && 'No posts found.'}
           {displayPosts.map((post) => {
-            const { path, date, title, summary, tags } = post
+            let { path, date, title, summary, tags } = post
             return (
               <li key={path} className="py-4">
                 <article className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
