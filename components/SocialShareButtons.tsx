@@ -28,7 +28,8 @@ export function SocialShareButtons({ postUrl, title, filePath }: SocialButtonsPr
               rel="nofollow"
             >
               <span className="background-underline" data-umami-event="discuss-on-x">
-                Discuss on X (formerly Twitter)
+                Discuss on <span className="font-semibold">X</span> (
+                <span className="font-semibold">Twitter</span>)
               </span>
             </Link>
             <span>{` • `}</span>
@@ -37,7 +38,7 @@ export function SocialShareButtons({ postUrl, title, filePath }: SocialButtonsPr
         {CREATE_DISCUS_ON_GITHUB === 'TRUE' && (
           <Link href={`${siteMetadata.siteRepo}/blob/main/data/${filePath}`}>
             <span className="background-underline" data-umami-event="discuss-on-github">
-              View on GitHub
+              View on <span className="font-semibold">GitHub</span>
             </span>
           </Link>
         )}
