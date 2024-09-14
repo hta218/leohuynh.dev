@@ -100,8 +100,8 @@ export function ListLayout({
             {title}
           </h1>
           <p className="text-base text-gray-600 dark:text-gray-500 md:text-lg md:leading-7">
-            I write mostly about web development, tech related, and sometime about my personal life.
-            Use the search below to filter by title.
+            I write about web dev, tech related, and sometime about my personal life. Use the search
+            below to filter by title.
           </p>
           <SearchInput label="Search articles" onChange={(e) => setSearchValue(e.target.value)} />
         </div>
