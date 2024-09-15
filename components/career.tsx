@@ -18,8 +18,12 @@ const EXPERIENCES = [
       return (
         <ul className="[&>li]:my-2 [&>li]:pl-0">
           <li>
-            Building a headless eCommerce platform to help creators build their own high quality and
-            high performance online stores easily.
+            Building a smart{' '}
+            <a target="_blank" rel="noopener noreferrer" href="https://weaverse.io/demo">
+              Shopify Hydrogen Theme Customizer
+            </a>{' '}
+            to help creators build their own high quality and high performance headless storefronts
+            easily.
           </li>
         </ul>
       )
@@ -46,8 +50,7 @@ const EXPERIENCES = [
             >
               Minimog
             </a>{' '}
-            - The Next Generation Shopify Theme (Weekly Bestseller and Top Trending in eCommerce
-            category)
+            - a multipurpose Shopify Theme (top best selling templates on Envato Market)
           </li>
           <li>
             Built{' '}
@@ -66,7 +69,7 @@ const EXPERIENCES = [
   },
   {
     org: 'Coc Coc',
-    url: 'https://coccoc.com/',
+    url: 'https://coccoc.com/en',
     logo: '/static/images/coc-coc-logo.png',
     start: 'May 2020',
     end: 'Apr 2021',
@@ -76,14 +79,17 @@ const EXPERIENCES = [
     details: () => {
       return (
         <ul className="[&>li]:my-2 [&>li]:pl-0">
-          <li>Working on the #1 web browser in Viet Nam with more than 25M+ users</li>
+          <li>
+            Working on the <strong>#1 web browser & search engine</strong> in{' '}
+            <strong>Viet Nam</strong> (30M+ users)
+          </li>
           <li>
             Built{' '}
             <a target="_blank" rel="noopener noreferrer" href="https://coccoc.com/webhp">
               Coc Coc's newsfeed
             </a>
           </li>
-          <li>Maintained and optimized Newtab's widget and performance</li>
+          <li>Maintained and optimized Newtab's widgets and performance</li>
         </ul>
       )
     },
@@ -100,6 +106,7 @@ const EXPERIENCES = [
     details: () => {
       return (
         <ul className="[&>li]:my-2 [&>li]:pl-0">
+          <li>Working on the #1 Page Builder app on Shopify app store</li>
           <li>Built Pagefly's Analytics APIs</li>
           <li>
             Built{' '}
@@ -111,7 +118,6 @@ const EXPERIENCES = [
               Slider-x
             </a>
           </li>
-          <li>Help bringing Pagefly in top 3 Page Builder app on Shopify</li>
         </ul>
       )
     },
@@ -142,7 +148,7 @@ const EXPERIENCES = [
               rel="noopener noreferrer"
               href="https://hta218.github.io/get-a-room-api-docs/"
             >
-              Room Finder
+              Room Finder APIs
             </a>{' '}
             (Back-end Developer)
           </li>
@@ -164,7 +170,7 @@ const EXPERIENCES = [
   },
   {
     org: 'Hanoi University of Science and Technology',
-    url: 'https://www.hust.edu.vn/',
+    url: 'https://www.hust.edu.vn/en/',
     logo: '/static/images/hust-logo.png',
     start: 'Sep 2013',
     end: 'Feb 2019',
@@ -174,10 +180,13 @@ const EXPERIENCES = [
     details: () => {
       return (
         <ul className="[&>li]:my-2 [&>li]:pl-0">
-          <li>Moved to Ha Noi city</li>
           <li>
-            Get a good degree in Electronics and Telecommunications after 5 years of studying at
-            HUST
+            Get a good degree at <strong>School of Electrical & Electronic Engineering</strong>
+          </li>
+          <li>
+            And yeah! My major subject was <strong>Electronics and Telecommunications</strong>, but
+            I couldn't find interest in that field. So I learned Software Engineering instead, and
+            became what I am today.
           </li>
         </ul>
       )
