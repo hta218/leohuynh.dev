@@ -136,10 +136,10 @@ function ArticleCard({ post }: { post: CoreContent<Blog> }) {
             className="aspect-video h-auto w-full rounded-xl object-cover object-center md:aspect-[3/2]"
           />
         </Link>
-        <div className="space-y-2 md:space-y-4">
-          <div className="flex items-center gap-x-1.5 text-xs text-gray-600">
+        <div className="space-y-2 md:space-y-3">
+          <div className="flex items-center gap-x-1.5 text-sm text-gray-600">
             <time dateTime={date}>{formatDate(date)}</time>
-            <span>-</span>
+            <span className="mx-1">{` • `}</span>
             <span>{Math.ceil(readingTime.minutes)} mins read</span>
           </div>
           <div className="group relative">
@@ -148,9 +148,9 @@ function ArticleCard({ post }: { post: CoreContent<Blog> }) {
                 <span className="background-underline">{title}</span>
               </Link>
             </h3>
-            <p className="mt-2 line-clamp-2 text-sm leading-6 text-gray-600 dark:text-gray-500 md:mt-5">
+            {/* <p className="mt-2 line-clamp-2 text-sm leading-6 text-gray-600 dark:text-gray-500 md:mt-3">
               {summary}
-            </p>
+            </p> */}
           </div>
         </div>
       </div>

@@ -26,7 +26,7 @@ export function TypedBios() {
   }, [])
 
   return (
-    <div>
+    <div className="h-8">
       <ul id="bios" className="hidden">
         <li>I'm aliased as Leo at work.</li>
         <li>I'm a learner, builder, and freedom seeker.</li>
@@ -51,7 +51,7 @@ export function TypedBios() {
         </li>
         <li>I love watching football.</li>
         <li>
-          I love playing keyboard & guitar. <Twemoji emoji="musical-keyboard" /> &{' '}
+          I love playing piano & guitar. <Twemoji emoji="musical-keyboard" /> &{' '}
           <Twemoji emoji="guitar" />
         </li>
         <li>I love rock music.</li>

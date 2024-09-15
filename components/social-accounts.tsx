@@ -4,7 +4,7 @@ import siteMetadata from '~/data/siteMetadata'
 export default function SocialAccounts() {
   return (
     <div>
-      <p className="my-3">
+      <p>
         Reach out to me at <a href={`mailto:${siteMetadata.email}`}>{siteMetadata.email}</a> or find
         me on social media:
       </p>
