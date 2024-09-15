@@ -5,12 +5,13 @@ import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'bo
 import { Fragment, useState, useEffect, useRef } from 'react'
 import Link from './Link'
 import HEADER_NAV_LINKS from '@/data/headerNavLinks'
+import { Menu, X } from 'lucide-react'
 
-const MobileNav = () => {
-  const [navShow, setNavShow] = useState(false)
-  const navRef = useRef(null)
+function MobileNav() {
+  let [navShow, setNavShow] = useState(false)
+  let navRef = useRef(null)
 
-  const onToggleNav = () => {
+  let onToggleNav = () => {
     setNavShow((status) => {
       if (status) {
         enableBodyScroll(navRef.current)
@@ -28,20 +29,14 @@ const MobileNav = () => {
 
   return (
     <>
-      <button aria-label="Toggle Menu" onClick={onToggleNav} className="sm:hidden">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-          className="h-8 w-8 text-gray-900 hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-400"
-        >
-          <path
-            fillRule="evenodd"
-            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-            clipRule="evenodd"
-          />
-        </svg>
-      </button>
+      <div
+        className="flex items-center justify-center rounded p-1.5 hover:bg-gray-200 dark:hover:bg-gray-700"
+        data-umami-event="mobile-nav-toggle"
+      >
+        <button aria-label="Toggle Menu" onClick={onToggleNav} className="sm:hidden">
+          <Menu size={22} />
+        </button>
+      </div>
       <Transition appear show={navShow} as={Fragment} unmount={false}>
         <Dialog as="div" onClose={onToggleNav} unmount={false}>
           <Transition.Child
@@ -89,13 +84,7 @@ const MobileNav = () => {
                 aria-label="Toggle Menu"
                 onClick={onToggleNav}
               >
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                  <path
-                    fillRule="evenodd"
-                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                  />
-                </svg>
+                <X className="h-6 w-6" />
               </button>
             </Dialog.Panel>
           </Transition.Child>
