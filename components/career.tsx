@@ -235,7 +235,7 @@ function TimelineItem({ exp, last }: { exp: (typeof EXPERIENCES)[0]; last?: bool
             className={clsx([
               'plus',
               'invisible group-hover/timeline-item:visible',
-              'absolute right-3 top-3',
+              'absolute right-1 top-1',
               'transition-transform duration-300 ease-in-out',
               'text-gray-600 dark:text-gray-500',
             ])}
@@ -245,7 +245,7 @@ function TimelineItem({ exp, last }: { exp: (typeof EXPERIENCES)[0]; last?: bool
             size={18}
             className={clsx([
               'minus hidden',
-              'absolute right-3 top-3',
+              'absolute right-1 top-1',
               'transition-transform duration-300 ease-in-out',
               'text-gray-600 dark:text-gray-500',
             ])}
