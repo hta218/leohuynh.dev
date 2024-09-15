@@ -13,7 +13,8 @@ export default function Page() {
 
   return (
     <AuthorLayout content={mainContent}>
-      <MDXLayoutRenderer code={author.body.code} />
+      {/* TODO: MDX seems to be broken on this page, so I'm back to JSX for now */}
+      {/* <MDXLayoutRenderer code={author.body.code} /> */}
     </AuthorLayout>
   )
 }
