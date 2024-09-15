@@ -73,7 +73,6 @@ export function ListLayoutWithTags({
   let tagCounts = tagData as Record<string, number>
   let tagKeys = Object.keys(tagCounts)
   let sortedTags = tagKeys.sort((a, b) => tagCounts[b] - tagCounts[a])
-
   let displayPosts = initialDisplayPosts.length > 0 ? initialDisplayPosts : posts
 
   return (

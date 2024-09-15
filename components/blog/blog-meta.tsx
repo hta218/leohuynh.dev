@@ -1,11 +1,11 @@
+import type readingTime from 'reading-time'
 import { formatDate } from '~/utils/date'
-import { Twemoji } from '../Twemoji'
-import type { ReadingTime } from '~/types/mdx'
+import { Twemoji } from '~/components/Twemoji'
 
 type BlogMetaProps = {
   date: string
   slug: string
-  readingTime: ReadingTime
+  readingTime: ReturnType<typeof readingTime>
 }
 
 export function BlogMeta({ date, slug, readingTime }: BlogMetaProps) {

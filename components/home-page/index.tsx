@@ -10,8 +10,10 @@ import { ProfileCard } from '@/components/ProfileCard'
 import Twemoji from '@/components/Twemoji'
 import NewsletterForm from 'pliny/ui/NewsletterForm'
 import { LatestPosts } from '~/components/home-page/LatestPosts'
+import type { CoreContent } from 'pliny/utils/contentlayer'
+import type { Blog } from '~/.contentlayer/generated'
 
-export function Home({ posts }) {
+export function Home({ posts }: { posts: CoreContent<Blog>[] }) {
   return (
     <Container as="div">
       <div className="mt-8 divide-y divide-gray-200 dark:divide-gray-700 md:mt-16">
