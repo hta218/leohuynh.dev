@@ -79,6 +79,9 @@ module.exports = {
         4.5: '1.125rem',
         5.5: '1.375rem',
       },
+      spacing: {
+        15: '3.75rem',
+      },
       zIndex: {
         60: '60',
         70: '70',
