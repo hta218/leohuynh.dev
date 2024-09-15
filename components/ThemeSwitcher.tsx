@@ -9,7 +9,7 @@ import {
   Radio,
   Transition,
 } from '@headlessui/react'
-import { Monitor, Moon, Sun } from 'lucide-react'
+import { Monitor, Moon, Sun, SunMoon } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { Fragment, useEffect, useState } from 'react'
 
@@ -53,7 +53,7 @@ function ThemeSwitcher() {
                 <Sun size={22} />
               )
             ) : (
-              <div className="h-6 w-6" />
+              <SunMoon size={22} />
             )}
           </MenuButton>
         </div>
