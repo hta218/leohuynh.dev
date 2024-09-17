@@ -36,7 +36,7 @@ const FONT_JETBRAINS_MONO = JetBrains_Mono({
   variable: '--font-jetbrains-mono',
 })
 
-export const metadata: Metadata = {
+export let metadata: Metadata = {
   metadataBase: new URL(siteMetadata.siteUrl),
   title: {
     default: siteMetadata.title,
@@ -77,7 +77,7 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const basePath = process.env.BASE_PATH || ''
+  let basePath = process.env.BASE_PATH || ''
 
   return (
     <html

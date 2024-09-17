@@ -81,7 +81,7 @@ export function AuthorLayout({ children }: Props) {
               </p>
               <p>
                 A huge thanks to{' '}
-                <a href="https://twitter.com/timlrx" target="_blank">
+                <a href="https://twitter.com/timlrxx" target="_blank">
                   Timothy Lin
                 </a>{' '}
                 for the minimal, lightweight, and super easy-to-customize blog starter.
