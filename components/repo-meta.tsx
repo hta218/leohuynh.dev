@@ -1,7 +1,7 @@
 import { ExternalLink, GitFork, Github, Star } from 'lucide-react'
 import type { GithubRepository } from '~/types/server'
 
-export function GithubRepo({ repo }: { repo: GithubRepository }) {
+export function RepoMeta({ repo }: { repo: GithubRepository }) {
   let mainLanguage = repo.languages[0]
   return (
     <div className="flex items-center justify-between">
