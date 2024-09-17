@@ -1,21 +1,13 @@
-type Project = {
-  type: 'work' | 'self'
-  title: string
-  description?: string
-  imgSrc: string
-  url?: string
-  repo?: string
-  builtWith: string[]
-}
+import type { Project } from '~/types/data'
 
 export const PROJECTS_DATA: Project[] = [
   {
     type: 'work',
-    title: 'Weaverse - Shopify Hydrogen Theme Customizer & Headless CMS',
+    title: 'Weaverse Hydrogen Customizer',
     description: `The first Hydrogen-driven website builder powered by AI. Weaverse is a Shopify sales channel that allows you to create a website in minutes with no coding required.`,
     imgSrc: '/static/images/weaverse-hydrogen.jpg',
     url: 'https://www.weaverse.io?ref=leohuynh.dev',
-    builtWith: ['Remix', 'Prisma', 'Tailwind', 'OpenAI'],
+    builtWith: ['Remix', 'Prisma', 'TailwindCSS', 'OpenAI'],
   },
   {
     type: 'work',
@@ -34,7 +26,7 @@ export const PROJECTS_DATA: Project[] = [
     imgSrc: '/static/images/weaverse-pilot.jpg',
     repo: 'weaverse/pilot',
     url: 'https://pilot.weaverse.io/',
-    builtWith: ['Hydrogen', 'Remix', 'Tailwind', 'Headless UI'],
+    builtWith: ['Hydrogen', 'Remix', 'TailwindCSS', 'HeadlessUI'],
   },
   {
     type: 'work',
@@ -42,7 +34,7 @@ export const PROJECTS_DATA: Project[] = [
     description: `The Next Generation of highest-converting and extensible Shopify theme (Weekly bestseller & Top trending in Themeforest eCommerce category).`,
     imgSrc: '/static/images/minimog.jpg',
     url: 'https://themeforest.net/item/minimog-the-high-converting-shopify-theme/33380968?ref=leohuynh.dev',
-    builtWith: ['Theme-kit', 'Liquid', 'Webpack', 'Tailwind'],
+    builtWith: ['ThemeKit', 'Liquid', 'Webpack', 'TailwindCSS'],
   },
   {
     type: 'work',
@@ -50,69 +42,69 @@ export const PROJECTS_DATA: Project[] = [
     description: `The upsells and boost conversion tools that is built to support Minimog theme.`,
     imgSrc: '/static/images/foxkit.jpg',
     url: 'https://apps.shopify.com/foxkit?ref=leohuynh.dev',
-    builtWith: ['Koa.js', 'JWT', 'MongoDB', 'Polaris'],
+    builtWith: ['KoaJS', 'JWT', 'MongoDB', 'Polaris'],
   },
   {
     type: 'self',
-    title: 'Personal website',
+    title: 'leohuynh.dev',
     imgSrc: '/static/images/leoblog.jpg',
-    repo: 'leohuynh.dev',
-    builtWith: ['Next.js', 'Tailwind', 'Typescript', 'Prisma', 'Umami'],
+    repo: 'hta218/leohuynh.dev',
+    builtWith: ['NextJS', 'TailwindCSS', 'Typescript', 'Prisma', 'Umami'],
   },
   {
     type: 'self',
     title: 'Shopify theme starter',
     imgSrc: '/static/images/shopify-theme-store.png',
-    repo: 'shopify-theme-starter',
-    builtWith: ['Shopify', 'Liquid', 'Webpack', 'Tailwind', 'Theme-kit'],
+    repo: 'hta218/shopify-theme-starter',
+    builtWith: ['ThemeKit', 'Liquid', 'Webpack', 'TailwindCSS'],
   },
   {
     type: 'self',
     title: 'Exercism solutions',
     imgSrc: '/static/images/exercism.png',
-    repo: 'exercism-solutions',
-    builtWith: ['Javascript', 'Bash', 'Exercism'],
+    repo: 'hta218/exercism-solutions',
+    builtWith: ['Exercism', 'Javascript', 'Bash'],
   },
   {
     type: 'self',
     title: 'Animate loading bar',
     imgSrc: '/static/images/animate-loading-bar.jpg',
-    repo: 'animate-loading-bar',
+    repo: 'hta218/animate-loading-bar',
     builtWith: ['Javascript', 'CSS'],
   },
   {
     type: 'self',
     title: 'Shopify KoaJS React boilerplate',
     imgSrc: '/static/images/shopify-app-store.png',
-    repo: 'shopify-koajs-react-boilerplate',
-    builtWith: ['Koa.js', 'JWT', 'MongoDB', 'Polaris'],
+    repo: 'hta218/shopify-koajs-react-boilerplate',
+    builtWith: ['KoaJS', 'JWT', 'MongoDB', 'Polaris'],
   },
   {
     type: 'self',
     title: 'Travel Egypt Picture Puzzle',
     imgSrc: '/static/images/travel-egypt.jpg',
-    repo: 'Travel_Egypt',
+    repo: 'hta218/Travel_Egypt',
     builtWith: ['Python', 'Pygame'],
   },
   {
     type: 'self',
     title: 'Infinite Loading Gallery',
     imgSrc: '/static/images/infinite-gallery.jpg',
-    repo: 'infinite-gallery',
-    builtWith: ['React', 'Semantic UI', 'Picsum API'],
+    repo: 'hta218/infinite-gallery',
+    builtWith: ['React', 'SemanticUI', 'Picsum'],
   },
   {
     type: 'self',
     title: 'Store Manager',
     imgSrc: '/static/images/java-store-manager.jpg',
-    repo: 'StoreManager',
-    builtWith: ['Java', 'Java Swing', 'JDBC', 'SQL Server'],
+    repo: 'hta218/StoreManager',
+    builtWith: ['Java', 'MySQL'],
   },
   {
     type: 'self',
     title: 'Tiny retry',
     imgSrc: '/static/images/tiny-retry.png',
-    repo: 'tiny-retry',
+    repo: 'hta218/tiny-retry',
     builtWith: ['Javascript', 'Node'],
   },
 ]
