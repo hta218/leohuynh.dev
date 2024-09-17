@@ -29,7 +29,7 @@ function Header() {
             alt={siteMetadata.headerTitle}
             width={45}
             height={45}
-            className="rounded-full"
+            className="rounded-xl"
             priority
           />
         </Link>

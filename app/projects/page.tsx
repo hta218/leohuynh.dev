@@ -3,6 +3,7 @@ import Container from '~/components/Container'
 import { ProjectCard } from '~/components/project-card'
 import { PROJECTS_DATA } from '~/data/projectsData'
 import { fetchProjectRepoData } from './github'
+import { PageHeader } from '~/components/page-header'
 
 export let metadata = genPageMetadata({ title: 'Projects' })
 
@@ -16,17 +17,14 @@ export default async function Projects() {
   let sideProjects = PROJECTS_DATA.filter(({ type }) => type === 'self')
 
   return (
-    <Container className="space-y-8 divide-y divide-gray-200 pt-10 dark:divide-gray-700">
-      <div className="space-y-2 pt-6 md:space-y-5">
-        <h1 className="text-3xl font-bold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-          Projects
-        </h1>
-        <p className="text-base text-gray-600 dark:text-gray-500 md:text-lg md:leading-7">
-          My open-source side projects and stuff that I built with my colleagues at work
-        </p>
-      </div>
-      <div className="py-12">
-        <h3 className="mb-8 text-3xl font-semibold leading-9 tracking-tight text-gray-900 dark:text-gray-100">
+    <Container className="sm:pt-4 lg:pt-10">
+      <PageHeader
+        title="Projects"
+        description="My open-source side projects and stuff that I built with my colleagues at work."
+        className="border-b border-gray-200 dark:border-gray-700"
+      />
+      <div className="py-5 md:py-10">
+        <h3 className="mb-6 text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-gray-100 md:text-3xl">
           Work
         </h3>
         <div className="space-y-16">
@@ -35,8 +33,8 @@ export default async function Projects() {
           ))}
         </div>
       </div>
-      <div className="py-12">
-        <h3 className="mb-8 text-3xl font-semibold leading-9 tracking-tight text-gray-900 dark:text-gray-100">
+      <div className="mt-6 border-t border-gray-200 py-5 dark:border-gray-700 md:mt-10 md:py-10">
+        <h3 className="mb-6 text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-gray-100 md:mb-8 md:text-3xl">
           Side projects
         </h3>
         <div className="space-y-16">

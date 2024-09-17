@@ -3,6 +3,7 @@ import type { ReactNode } from 'react'
 import Button from '~/components/button'
 import CareerTimeline from '~/components/career'
 import Container from '~/components/Container'
+import { PageHeader } from '~/components/page-header'
 import { ProfileCard } from '~/components/ProfileCard'
 import SocialAccounts from '~/components/social-accounts'
 import Twemoji from '~/components/Twemoji'
@@ -14,15 +15,12 @@ interface Props {
 
 export function AuthorLayout({ children }: Props) {
   return (
-    <Container className="space-y-8 divide-y divide-gray-200 pt-10 dark:divide-gray-700">
-      <div className="space-y-2 pt-6 md:space-y-5">
-        <h1 className="text-3xl font-bold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-          About
-        </h1>
-        <p className="text-base text-gray-600 dark:text-gray-500 md:text-lg md:leading-7">
-          More about me and this blog.
-        </p>
-      </div>
+    <Container className="sm:pt-4 lg:pt-10">
+      <PageHeader
+        title="About"
+        description="More about me and this blog."
+        className="border-b border-gray-200 dark:border-gray-700"
+      />
       <div className="py-8 md:grid md:grid-cols-3">
         <div>
           <ProfileCard />

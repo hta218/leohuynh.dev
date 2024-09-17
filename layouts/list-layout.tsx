@@ -8,6 +8,7 @@ import { useState } from 'react'
 import { PostCardGridView } from '~/components/blog/post-card-grid-view'
 import Container from '~/components/Container'
 import Link from '~/components/Link'
+import { PageHeader } from '~/components/page-header'
 import { SearchInput } from '~/components/search-input'
 
 interface PaginationProps {
@@ -91,28 +92,24 @@ export function ListLayout({
     initialDisplayPosts.length > 0 && !searchValue ? initialDisplayPosts : filteredBlogPosts
 
   return (
-    <Container>
-      <div className="divide-y divide-gray-200 pt-10 dark:divide-gray-700">
-        <div className="space-y-2 pb-8 pt-6 md:space-y-5">
-          <h1 className="text-3xl font-bold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-            {title}
-          </h1>
-          <p className="text-base text-gray-600 dark:text-gray-500 md:text-lg md:leading-7">
-            I write about web dev, tech related, and sometime about my personal life. Use the search
-            below to filter by title.
-          </p>
-          <SearchInput label="Search articles" onChange={(e) => setSearchValue(e.target.value)} />
+    <Container className="sm:pt-4 lg:pt-10">
+      <PageHeader
+        title={title}
+        description="I write about web dev, tech related, and sometime about my personal life.
+					Use the search below to filter by title."
+        className="border-b border-gray-200 dark:border-gray-700"
+      >
+        <SearchInput label="Search articles" onChange={(e) => setSearchValue(e.target.value)} />
+      </PageHeader>
+      {!filteredBlogPosts.length ? (
+        <div className="py-10">No posts found.</div>
+      ) : (
+        <div className="grid grid-cols-1 gap-x-8 gap-y-16 py-10 md:gap-y-16 lg:grid-cols-2 xl:grid-cols-3">
+          {displayPosts.map((post) => (
+            <PostCardGridView key={post.path} post={post} />
+          ))}
         </div>
-        {!filteredBlogPosts.length ? (
-          <div className="py-10">No posts found.</div>
-        ) : (
-          <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-12 border-t border-gray-200 py-10 md:gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-            {displayPosts.map((post) => (
-              <PostCardGridView key={post.path} post={post} />
-            ))}
-          </div>
-        )}
-      </div>
+      )}
       {pagination && pagination.totalPages > 1 && !searchValue && (
         <Pagination currentPage={pagination.currentPage} totalPages={pagination.totalPages} />
       )}

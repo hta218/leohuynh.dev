@@ -23,11 +23,11 @@ export function ProjectCard({
   return (
     <RadiantCard
       className={clsx([
-        'flex flex-col gap-4 p-3 md:h-80 md:flex-row md:gap-12 md:p-8',
+        'flex flex-col gap-6 p-4 md:h-80 md:flex-row md:gap-12 md:p-8',
         reversed && 'md:flex-row-reverse',
       ])}
     >
-      <div className="flex items-end md:w-1/2">
+      <div className="flex h-56 items-end sm:h-80 md:h-auto md:w-1/2">
         <GradientBorder className="rounded-2xl">
           <Image
             alt={title}

@@ -26,7 +26,7 @@ export function TypedBios() {
   }, [])
 
   return (
-    <div className="h-8">
+    <div className="min-h-8">
       <ul id="bios" className="hidden">
         <li>I'm aliased as Leo at work.</li>
         <li>I'm a learner, builder, and freedom seeker.</li>

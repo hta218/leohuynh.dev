@@ -7,7 +7,7 @@ const MAX_DISPLAY = 5
 
 export function LatestPosts({ posts }: { posts: CoreContent<Blog>[] }) {
   return (
-    <div className="mt-12 space-y-4 divide-y divide-gray-200 dark:divide-gray-700 md:mt-8 md:space-y-8">
+    <div className="space-y-4 divide-y divide-gray-200 dark:divide-gray-700 md:mt-8 md:space-y-8">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold sm:text-2xl sm:leading-10 md:text-4xl">Latest posts</h2>
         {posts.length > MAX_DISPLAY && (
