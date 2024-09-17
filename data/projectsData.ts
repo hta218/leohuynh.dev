@@ -7,7 +7,7 @@ export const PROJECTS_DATA: Project[] = [
     description: `The first Hydrogen-driven website builder powered by AI. Weaverse is a Shopify sales channel that allows you to create a website in minutes with no coding required.`,
     imgSrc: '/static/images/weaverse-hydrogen.jpg',
     url: 'https://www.weaverse.io?ref=leohuynh.dev',
-    builtWith: ['Remix', 'Prisma', 'TailwindCSS', 'OpenAI'],
+    builtWith: ['Shopify', 'Remix', 'TailwindCSS', 'Prisma', 'OpenAI'],
   },
   {
     type: 'work',
@@ -30,7 +30,7 @@ export const PROJECTS_DATA: Project[] = [
   },
   {
     type: 'work',
-    title: 'Minimog - Shopify theme',
+    title: 'Minimog - Next-gen Multipurpose Shopify theme',
     description: `The Next Generation of highest-converting and extensible Shopify theme (Weekly bestseller & Top trending in Themeforest eCommerce category).`,
     imgSrc: '/static/images/minimog.jpg',
     url: 'https://themeforest.net/item/minimog-the-high-converting-shopify-theme/33380968?ref=leohuynh.dev',

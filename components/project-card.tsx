@@ -21,8 +21,13 @@ export function ProjectCard({
   let href = repository?.url || url
 
   return (
-    <RadiantCard className={clsx(['flex h-80', reversed && 'flex-row-reverse'])}>
-      <div className="flex w-1/2 items-end p-8">
+    <RadiantCard
+      className={clsx([
+        'flex flex-col gap-4 p-3 md:h-80 md:flex-row md:gap-12 md:p-8',
+        reversed && 'md:flex-row-reverse',
+      ])}
+    >
+      <div className="flex items-end md:w-1/2">
         <GradientBorder className="rounded-2xl">
           <Image
             alt={title}
@@ -33,7 +38,7 @@ export function ProjectCard({
           />
         </GradientBorder>
       </div>
-      <div className="flex w-1/2 grow flex-col justify-between space-y-6 p-8 md:p-6">
+      <div className="flex grow flex-col justify-between space-y-6 pb-1 md:w-1/2 md:pb-0">
         <div className="space-y-4">
           <h2 className="text-2xl font-semibold leading-8">
             {href ? (
@@ -53,12 +58,14 @@ export function ProjectCard({
                   <Brand
                     key={tool}
                     type={tool as keyof typeof BrandsMap}
-                    iconClassName={clsx(tool === 'Pygame' ? 'h-5.5' : 'h-5.5 w-5.5')}
+                    iconClassName={clsx(
+                      tool === 'Pygame' ? 'h-5 md:h-5.5' : 'h-5 w-5 md:h-5.5 md:w-5.5'
+                    )}
                   />
                 )
               })}
             </div>
-            <p className="text-gray-600 dark:text-gray-500">
+            <p className="line-clamp-3 text-gray-600 dark:text-gray-500">
               {/* {repository?.description || description} */}
               Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas, dolores? Corrupti at
               eum eos. Est et deleniti tempora, ipsum nisi autem. Cupiditate iure deleniti fugit
