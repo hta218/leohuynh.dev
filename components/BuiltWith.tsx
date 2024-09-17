@@ -1,5 +1,5 @@
 import siteMetadata from '~/data/siteMetadata'
-import { BrandIcon } from './BrandIcon'
+import { Brand } from './Brands'
 import Link from './Link'
 
 export function BuiltWith() {
@@ -7,21 +7,11 @@ export function BuiltWith() {
     <div className="flex items-center space-x-1">
       <span className="mr-1 text-gray-500 dark:text-gray-400">Built with</span>
       <div className="flex space-x-1.5">
-        <Link href="https://nextjs.org?ref=leohuynh.dev">
-          <BrandIcon type="NextJS" className="h-5 w-5" />
-        </Link>
-        <Link href="https://tailwindcss.com?ref=leohuynh.dev">
-          <BrandIcon type="TailwindCSS" className="h-5 w-5" />
-        </Link>
-        <Link href="https://www.prisma.io?ref=leohuynh.dev">
-          <BrandIcon type="Prisma" className="h-5 w-5" />
-        </Link>
-        <Link href="https://www.typescriptlang.org?ref=leohuynh.dev">
-          <BrandIcon type="Typescript" className="h-5 w-5" />
-        </Link>
-        <Link href="https://umami.is?ref=leohuynh.dev" className="pl-px">
-          <BrandIcon type="Umami" className="h-5 w-5" />
-        </Link>
+        <Brand type="NextJS" iconClassName="h-5 w-5" />
+        <Brand type="TailwindCSS" iconClassName="h-5 w-5" />
+        <Brand type="Prisma" iconClassName="h-5 w-5" />
+        <Brand type="Typescript" iconClassName="h-5 w-5" />
+        <Brand type="Umami" iconClassName="h-5 w-5" className="pl-px" />
       </div>
       <span className="px-1 text-gray-400 dark:text-gray-500">-</span>
       <Link
