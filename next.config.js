@@ -88,10 +88,28 @@ module.exports = () => {
         },
       ]
     },
-    webpack: (config, options) => {
+    webpack: (config) => {
       config.module.rules.push({
         test: /\.svg$/,
-        use: ['@svgr/webpack'],
+        use: [
+          {
+            loader: '@svgr/webpack',
+            options: {
+              svgoConfig: {
+                plugins: [
+                  {
+                    name: 'prefixIds',
+                    params: {
+                      delim: '__',
+                      prefixIds: true,
+                      prefixClassNames: true,
+                    },
+                  },
+                ],
+              },
+            },
+          },
+        ],
       })
 
       return config
