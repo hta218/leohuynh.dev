@@ -1,10 +1,10 @@
-import { Backpack, Github, Linkedin, Mail, MapPin } from 'lucide-react'
-import Twemoji from './Twemoji'
-import siteMetadata from '@/data/siteMetadata'
-import XIcon from '~/icons/x.svg'
+import siteMetadata from '~/data/siteMetadata'
+import { BriefcaseBusiness, Github, Linkedin, Mail, MapPin } from 'lucide-react'
 import { Fragment } from 'react'
+import XIcon from '~/icons/x.svg'
+import Twemoji from './Twemoji'
 
-function getPlatformHandle(url = '') {
+function getAccountHandle(url = '') {
   let lastPart = url.split('/').pop()
   if (lastPart) {
     return lastPart
@@ -15,21 +15,21 @@ function getPlatformHandle(url = '') {
 const SOCIALS = [
   {
     platform: 'github',
-    handle: getPlatformHandle(siteMetadata.github),
+    handle: getAccountHandle(siteMetadata.github),
     href: siteMetadata.github,
     Icon: () => <Github size={20} strokeWidth={1.5} />,
     umamiEvent: 'profile-card-github',
   },
   {
     platform: 'linkedin',
-    handle: getPlatformHandle(siteMetadata.linkedin),
+    handle: getAccountHandle(siteMetadata.linkedin),
     href: siteMetadata.linkedin,
     Icon: () => <Linkedin size={20} strokeWidth={1.5} />,
     umamiEvent: 'profile-card-linkedin',
   },
   {
     platform: 'x',
-    handle: getPlatformHandle(siteMetadata.x),
+    handle: getAccountHandle(siteMetadata.x),
     href: siteMetadata.x,
     Icon: () => <XIcon className="h-4 w-4" fill="#fff" viewBox="0 0 1200 1227" />,
     umamiEvent: 'profile-card-x',
@@ -38,12 +38,12 @@ const SOCIALS = [
 
 export function ProfileCardInfo() {
   return (
-    <div className="hidden py-4 xl:block xl:px-5">
+    <div className="hidden py-4 md:block md:px-5">
       <h3 className="text-xl font-semibold text-gray-800 dark:text-white">Tuan Anh (Leo) Huynh</h3>
       <h5 className="py-2 text-gray-500 dark:text-gray-400">Learner | Builder</h5>
       <div className="mb-2 mt-4 space-y-4">
         <div className="flex items-center text-gray-700 dark:text-gray-200">
-          <Backpack strokeWidth={1.5} size={20} />
+          <BriefcaseBusiness strokeWidth={1.5} size={20} />
           <p className="flex items-center px-2">
             CTO & Co-Founder @{' '}
             <a

@@ -25,7 +25,7 @@ export function AuthorLayout({ children }: Props) {
         <div>
           <ProfileCard />
         </div>
-        <div className="md:pl-24 xl:col-span-2">
+        <div className="md:col-span-2 md:pl-12 xl:pl-24">
           <div className="prose prose-lg dark:prose-invert">
             <div>
               <h2 className="mt-0">

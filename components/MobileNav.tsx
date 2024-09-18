@@ -6,6 +6,7 @@ import { Fragment, useState, useEffect, useRef } from 'react'
 import Link from './Link'
 import HEADER_NAV_LINKS from '@/data/headerNavLinks'
 import { Menu, X } from 'lucide-react'
+import { clsx } from 'clsx'
 
 function MobileNav() {
   let [navShow, setNavShow] = useState(false)
@@ -30,10 +31,13 @@ function MobileNav() {
   return (
     <>
       <div
-        className="flex items-center justify-center rounded p-1.5 hover:bg-gray-200 dark:hover:bg-gray-700"
+        className={clsx([
+          'rounded p-1.5 hover:bg-gray-200 dark:hover:bg-gray-700',
+          'flex items-center justify-center sm:hidden',
+        ])}
         data-umami-event="mobile-nav-toggle"
       >
-        <button aria-label="Toggle Menu" onClick={onToggleNav} className="sm:hidden">
+        <button aria-label="Toggle Menu" onClick={onToggleNav}>
           <Menu size={22} />
         </button>
       </div>

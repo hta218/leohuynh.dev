@@ -16,13 +16,15 @@ function Header() {
   let pathname = usePathname()
 
   return (
-    <header
+    <Container
+      as="header"
       className={clsx(
-        'bg-white/75 py-3 backdrop-blur dark:bg-dark/75',
-        siteMetadata.stickyNav && 'sticky top-2 z-50 lg:top-4'
+        'bg-white/75 py-2 backdrop-blur dark:bg-dark/75',
+        'rounded-2xl shadow-sm saturate-100',
+        siteMetadata.stickyNav && 'sticky top-2 z-50 lg:top-3'
       )}
     >
-      <Container as="div" className="flex items-center justify-between gap-3">
+      <div className="flex items-center justify-between gap-3">
         <Link
           href="/"
           aria-label={siteMetadata.headerTitle}
@@ -62,8 +64,8 @@ function Header() {
             <MobileNav />
           </div>
         </div>
-      </Container>
-    </header>
+      </div>
+    </Container>
   )
 }
 

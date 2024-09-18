@@ -9,7 +9,7 @@ export function Footer() {
   return (
     <Container
       as="footer"
-      className="mt-8 items-center justify-between space-y-4 border-t border-gray-200 py-8 dark:border-gray-700 xl:flex"
+      className="mt-8 items-center justify-between space-y-4 border-t border-gray-200 py-8 dark:border-gray-700 lg:flex"
     >
       <BuiltWith />
       <div className="my-2 flex flex-wrap items-center gap-1.5 text-gray-500 dark:text-gray-400">

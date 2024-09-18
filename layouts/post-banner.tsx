@@ -36,7 +36,6 @@ export function PostBanner({ content, next, prev, children }: LayoutProps) {
   } = content
   let displayImage = images?.[0] || siteMetadata.socialBanner
   let postUrl = `${siteMetadata.siteUrl}/${type.toLowerCase()}/${slug}`
-  let basePath = path.split('/')[0]
 
   return (
     <Container className="sm:pt-4 lg:pt-10">
@@ -52,7 +51,7 @@ export function PostBanner({ content, next, prev, children }: LayoutProps) {
             </div>
           </dl>
           <div className="space-y-4 pt-4 md:pt-10">
-            <div className="sm:-mx-5 md:-mx-10 lg:-mx-32 xl:-mx-40 2xl:-mx-52">
+            <div className="lg:-mx-8 xl:-mx-36 2xl:-mx-52">
               <Image
                 src={displayImage}
                 alt={title}
