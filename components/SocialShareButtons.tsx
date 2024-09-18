@@ -19,7 +19,7 @@ export function SocialShareButtons({ postUrl, title, filePath }: SocialButtonsPr
   let SHARE_ON_FACEBOOK = process.env.NEXT_PUBLIC_SHARE_ON_FACEBOOK
 
   return (
-    <div className="items-center justify-between pb-6 pt-6 text-sm text-gray-700 dark:text-gray-300 md:flex">
+    <div className="items-center justify-between py-6 text-sm text-gray-700 dark:text-gray-300 md:flex">
       <div className="mb-6 space-x-1 md:mb-0">
         {CREATE_DISCUS_ON_TWITTER === 'TRUE' && (
           <>

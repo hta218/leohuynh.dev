@@ -39,10 +39,10 @@ export function PostBanner({ content, next, prev, children }: LayoutProps) {
   let basePath = path.split('/')[0]
 
   return (
-    <Container>
+    <Container className="sm:pt-4 lg:pt-10">
       <ScrollTopAndComment />
-      <article>
-        <div className="space-y-6 py-6 xl:py-16">
+      <article className="space-y-6 pt-6 lg:space-y-16">
+        <div className="space-y-4">
           <BlogTags tags={tags} />
           <PageTitle>{title}</PageTitle>
           <dl>
@@ -51,27 +51,25 @@ export function PostBanner({ content, next, prev, children }: LayoutProps) {
               <BlogMeta date={date} slug={slug} readingTime={readingTime} />
             </div>
           </dl>
-        </div>
-        <div className="flex w-full flex-col gap-4">
-          <div className="-mx-5 md:-mx-10 lg:-mx-32 xl:-mx-40 2xl:-mx-52">
-            <Image
-              src={displayImage}
-              alt={title}
-              width={1600}
-              height={900}
-              className="aspect-video h-auto w-full rounded-xl object-cover object-center"
-            />
+          <div className="space-y-4 pt-4 md:pt-10">
+            <div className="sm:-mx-5 md:-mx-10 lg:-mx-32 xl:-mx-40 2xl:-mx-52">
+              <Image
+                src={displayImage}
+                alt={title}
+                width={1600}
+                height={900}
+                className="aspect-video h-auto w-full rounded-xl object-cover object-center"
+              />
+            </div>
+            <BannerInfo author={bannerAuthor} photoURL={bannerUrl} />
           </div>
-          <BannerInfo author={bannerAuthor} photoURL={bannerUrl} />
         </div>
-        <div className="prose prose-lg max-w-none pb-10 pt-10 text-gray-900 dark:prose-invert">
-          {children}
-        </div>
-        <div className="border-y border-gray-200 py-4 dark:border-gray-700">
-          <SocialShareButtons postUrl={postUrl} title={title} filePath={filePath} />
-          <div className="py-6">
+        <div className="prose prose-lg max-w-none dark:prose-invert">{children}</div>
+        <div className="border-t border-gray-200 pt-4 dark:border-gray-700 md:pb-10 md:pt-10">
+          <div id="comment">
             <Comments slug={slug} />
           </div>
+          <SocialShareButtons postUrl={postUrl} title={title} filePath={filePath} />
         </div>
         {/* <footer>
           <div className="flex flex-col text-sm font-medium sm:flex-row sm:justify-between sm:text-base">
