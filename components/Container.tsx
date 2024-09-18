@@ -9,9 +9,7 @@ interface Props {
 
 export default function Container({ children, as: Component = 'section', className }: Props) {
   return (
-    <Component
-      className={clsx('mx-auto w-full max-w-3xl px-4 sm:px-6 xl:max-w-5xl xl:px-0', className)}
-    >
+    <Component className={clsx('mx-auto w-full max-w-5xl px-4 sm:px-6', className)}>
       {children}
     </Component>
   )
