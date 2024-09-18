@@ -7,6 +7,7 @@ import type { CoreContent } from 'pliny/utils/contentlayer'
 import { useState } from 'react'
 import { PostCardGridView } from '~/components/blog/post-card-grid-view'
 import Container from '~/components/Container'
+import { GrowingUnderline } from '~/components/growing-underline'
 import Link from '~/components/Link'
 import { PageHeader } from '~/components/page-header'
 import { SearchInput } from '~/components/search-input'
@@ -33,41 +34,39 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
       <nav className="flex justify-between">
         {prevPage ? (
           <Link
-            className="background-underline inline-flex cursor-pointer items-center gap-2"
+            className="cursor-pointer"
             href={currentPage - 1 === 1 ? `/${basePath}/` : `/${basePath}/page/${currentPage - 1}`}
             rel="prev"
           >
-            <ArrowLeft className="h-4 w-4" />
-            <span>Previous</span>
+            <GrowingUnderline className="inline-flex items-center gap-2">
+              <ArrowLeft className="h-4 w-4" />
+              <span>Previous</span>
+            </GrowingUnderline>
           </Link>
         ) : (
-          <button
-            className="background-underline inline-flex cursor-auto items-center gap-2 disabled:opacity-50"
-            disabled={!prevPage}
-          >
-            <ArrowLeft className="h-4 w-4" />
-            <span>Previous</span>
+          <button className="cursor-auto disabled:opacity-50" disabled={!prevPage}>
+            <GrowingUnderline className="inline-flex items-center gap-2">
+              <ArrowLeft className="h-4 w-4" />
+              <span>Previous</span>
+            </GrowingUnderline>
           </button>
         )}
         <span>
           {currentPage} / {totalPages}
         </span>
         {nextPage ? (
-          <Link
-            className="background-underline inline-flex cursor-pointer items-center gap-2"
-            href={`/${basePath}/page/${currentPage + 1}`}
-            rel="next"
-          >
-            <span>Next</span>
-            <ArrowRight className="h-4 w-4" />
+          <Link className="cursor-pointer" href={`/${basePath}/page/${currentPage + 1}`} rel="next">
+            <GrowingUnderline className="inline-flex items-center gap-2">
+              <span>Next</span>
+              <ArrowRight className="h-4 w-4" />
+            </GrowingUnderline>
           </Link>
         ) : (
-          <button
-            className="background-underline inline-flex cursor-auto items-center gap-2 disabled:opacity-50"
-            disabled={!nextPage}
-          >
-            <span>Next</span>
-            <ArrowRight className="h-4 w-4" />
+          <button className="cursor-auto disabled:opacity-50" disabled={!nextPage}>
+            <GrowingUnderline className="inline-flex items-center gap-2">
+              <span>Next</span>
+              <ArrowRight className="h-4 w-4" />
+            </GrowingUnderline>
           </button>
         )}
       </nav>
@@ -92,7 +91,7 @@ export function ListLayout({
     initialDisplayPosts.length > 0 && !searchValue ? initialDisplayPosts : filteredBlogPosts
 
   return (
-    <Container className="sm:pt-4 lg:pt-10">
+    <Container className="pt-4 lg:pt-12">
       <PageHeader
         title={title}
         description="I write about web dev, tech related, and sometime about my personal life.

@@ -1,4 +1,4 @@
-import type { Authors } from 'contentlayer/generated'
+import type { Author } from 'contentlayer/generated'
 import type { ReactNode } from 'react'
 import Button from '~/components/button'
 import CareerTimeline from '~/components/career'
@@ -10,12 +10,12 @@ import Twemoji from '~/components/Twemoji'
 
 interface Props {
   children?: ReactNode
-  content: Omit<Authors, '_id' | '_raw' | 'body'>
+  content: Omit<Author, '_id' | '_raw' | 'body'>
 }
 
 export function AuthorLayout({ children }: Props) {
   return (
-    <Container className="sm:pt-4 lg:pt-10">
+    <Container className="pt-4 lg:pt-12">
       <PageHeader
         title="About"
         description="More about me and this blog."

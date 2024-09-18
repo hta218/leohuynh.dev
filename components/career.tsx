@@ -3,6 +3,7 @@ import Image from './Image'
 import Link from './Link'
 import Twemoji from './Twemoji'
 import { Minus, Plus } from 'lucide-react'
+import { GrowingUnderline } from './growing-underline'
 
 const EXPERIENCES = [
   {
@@ -259,9 +260,7 @@ function TimelineItem({ exp, last }: { exp: (typeof EXPERIENCES)[0]; last?: bool
               href={url}
               className="line-clamp-1 w-fit font-semibold text-gray-900 no-underline hover:text-gray-900 dark:text-white dark:hover:text-white"
             >
-              <span data-umami-event={event} className="background-underline">
-                {org}
-              </span>
+              <GrowingUnderline data-umami-event={event}>{org}</GrowingUnderline>
             </Link>
             <div className="flex items-center gap-1 pt-1 text-sm text-gray-700 dark:text-gray-200">
               <Twemoji emoji={icon} className="!-mt-1" />

@@ -17,7 +17,7 @@ export default async function Projects() {
   let sideProjects = PROJECTS_DATA.filter(({ type }) => type === 'self')
 
   return (
-    <Container className="sm:pt-4 lg:pt-10">
+    <Container className="pt-4 lg:pt-12">
       <PageHeader
         title="Projects"
         description="My open-source side projects and stuff that I built with my colleagues at work."

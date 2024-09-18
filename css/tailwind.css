@@ -2,12 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
-  .background-underline {
-    @apply bg-gradient-to-r from-green-200 to-green-100 bg-[length:0px_50%] bg-left-bottom bg-no-repeat transition-[background-size] duration-[var(--duration,300ms)] hover:bg-[length:100%_50%] group-hover:bg-[length:100%_50%] dark:from-purple-800 dark:to-purple-900;
-  }
-}
-
 .task-list-item::before {
   @apply hidden;
 }

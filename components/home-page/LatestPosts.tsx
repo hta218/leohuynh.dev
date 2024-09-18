@@ -2,6 +2,7 @@ import type { CoreContent } from 'pliny/utils/contentlayer'
 import type { Blog } from '~/.contentlayer/generated'
 import Link from '~/components/Link'
 import { PostCardListView } from '~/components/blog/post-card-list-view'
+import { GrowingUnderline } from '../growing-underline'
 
 const MAX_DISPLAY = 5
 
@@ -13,9 +14,9 @@ export function LatestPosts({ posts }: { posts: CoreContent<Blog>[] }) {
         {posts.length > MAX_DISPLAY && (
           <div className="flex justify-end text-base font-medium leading-6">
             <Link href="/blog" className="" aria-label="All posts">
-              <span data-umami-event="all-posts" className="background-underline">
+              <GrowingUnderline data-umami-event="all-posts">
                 View all posts &rarr;
-              </span>
+              </GrowingUnderline>
             </Link>
           </div>
         )}

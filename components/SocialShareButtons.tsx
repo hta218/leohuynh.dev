@@ -5,6 +5,7 @@ import { FacebookShareButton, TwitterShareButton } from 'react-share'
 import XIcon from '~/icons/x.svg'
 import Link from './Link'
 import siteMetadata from '~/data/siteMetadata'
+import { GrowingUnderline } from './growing-underline'
 
 type SocialButtonsProps = {
   postUrl: string
@@ -27,19 +28,19 @@ export function SocialShareButtons({ postUrl, title, filePath }: SocialButtonsPr
               href={`https://twitter.com/search?q=${encodeURIComponent(postUrl)}`}
               rel="nofollow"
             >
-              <span className="background-underline" data-umami-event="discuss-on-x">
+              <GrowingUnderline data-umami-event="discuss-on-x">
                 Discuss on <span className="font-semibold">X</span> (
                 <span className="font-semibold">Twitter</span>)
-              </span>
+              </GrowingUnderline>
             </Link>
             <span>{` • `}</span>
           </>
         )}
         {CREATE_DISCUS_ON_GITHUB === 'TRUE' && (
           <Link href={`${siteMetadata.siteRepo}/blob/main/data/${filePath}`}>
-            <span className="background-underline" data-umami-event="discuss-on-github">
+            <GrowingUnderline data-umami-event="view-on-github">
               View on <span className="font-semibold">GitHub</span>
-            </span>
+            </GrowingUnderline>
           </Link>
         )}
       </div>

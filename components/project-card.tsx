@@ -8,6 +8,7 @@ import Link from './Link'
 import clsx from 'clsx'
 import { GradientBorder } from './gradient-border'
 import { RadiantCard } from './radiant-card'
+import { GrowingUnderline } from './growing-underline'
 
 export function ProjectCard({
   project,
@@ -40,12 +41,10 @@ export function ProjectCard({
       </div>
       <div className="flex grow flex-col justify-between space-y-6 pb-1 md:w-1/2 md:pb-0">
         <div className="space-y-4">
-          <h2 className="text-2xl font-semibold leading-8">
+          <h2 className="text-[1.75rem] font-semibold leading-8">
             {href ? (
               <Link href={href} aria-label={`Link to ${title}`}>
-                <span data-umami-event="project-title-link" className="background-underline">
-                  {title}
-                </span>
+                <GrowingUnderline data-umami-event="project-title-link">{title}</GrowingUnderline>
               </Link>
             ) : (
               title
@@ -81,9 +80,9 @@ export function ProjectCard({
             className="text-base font-medium leading-6"
             aria-label={`Link to ${title}`}
           >
-            <span className="background-underline" data-umami-event="project-learn-more">
+            <GrowingUnderline data-umami-event="project-learn-more">
               Learn more &rarr;
-            </span>
+            </GrowingUnderline>
           </Link>
         )}
       </div>

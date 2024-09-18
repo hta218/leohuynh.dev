@@ -6,6 +6,7 @@ import siteMetadata from '~/data/siteMetadata'
 import { formatDate } from '~/utils/date'
 import type { Blog } from 'contentlayer/generated'
 import type { CoreContent } from 'pliny/utils/contentlayer'
+import { GrowingUnderline } from '../growing-underline'
 
 export function PostCardListView({ post }: { post: CoreContent<Blog> }) {
   let { slug, date, title, summary, tags, images, readingTime } = post
@@ -34,13 +35,9 @@ export function PostCardListView({ post }: { post: CoreContent<Blog> }) {
               </dl>
               <h2 className="pb-1 text-xl font-bold tracking-tight md:text-2xl">
                 <Link href={`/blog/${slug}`} className="text-gray-900 dark:text-gray-100">
-                  <span
-                    data-umami-event="latest-post-title"
-                    className="background-underline"
-                    style={{ '--duration': '500ms' } as CSSProperties}
-                  >
+                  <GrowingUnderline data-umami-event="latest-post-title" duration={500}>
                     {title}
-                  </span>
+                  </GrowingUnderline>
                 </Link>
               </h2>
               <BlogTags tags={tags} />
@@ -52,12 +49,12 @@ export function PostCardListView({ post }: { post: CoreContent<Blog> }) {
           <div className="text-base font-medium leading-6">
             <Link
               href={`/blog/${slug}`}
-              className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400"
+              className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-300"
               aria-label={`Read "${title}"`}
             >
-              <span className="background-underline" data-umami-event="latest-post-read-more">
+              <GrowingUnderline data-umami-event="latest-post-read-more">
                 Read article →
-              </span>
+              </GrowingUnderline>
             </Link>
           </div>
         </div>

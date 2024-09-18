@@ -11,6 +11,7 @@ import MobileNav from './MobileNav'
 import SearchButton from './SearchButton'
 import ThemeSwitcher from './ThemeSwitcher'
 import { AnalyticsLink } from './AnalyticsLink'
+import { GrowingUnderline } from './growing-underline'
 
 function Header() {
   let pathname = usePathname()
@@ -44,15 +45,12 @@ function Header() {
             {HEADER_NAV_LINKS.filter((link) => link.href !== '/').map(({ title, href }) => {
               return (
                 <Link key={title} href={href} className="px-3 py-1 font-medium">
-                  <span
-                    className={clsx(
-                      'background-underline',
-                      pathname.startsWith(href) && 'bg-[length:100%_50%]'
-                    )}
+                  <GrowingUnderline
+                    className={clsx(pathname.startsWith(href) && 'bg-[length:100%_50%]')}
                     data-umami-event={`nav-${href.replace('/', '')}`}
                   >
                     {title}
-                  </span>
+                  </GrowingUnderline>
                 </Link>
               )
             })}

@@ -188,19 +188,22 @@ export let BrandsMap = {
 
 export function Brand(props: {
   type: keyof typeof BrandsMap
+  as?: 'link' | 'icon'
   className?: string
   iconClassName?: string
 }) {
-  let { type, className, iconClassName } = props
+  let { type, as = 'link', className, iconClassName } = props
   let { Icon, url } = BrandsMap[type] || {}
+
   if (!Icon) return <span>Missing icon for {type}</span>
+
+  if (as === 'icon') {
+    return <Icon className={className} fill="currentColor" />
+  }
 
   return (
     <Link href={`${url}?ref=leohuynh.dev`} className={className}>
-      <Icon
-        fill="currentColor"
-        className={iconClassName || 'h-16 w-16 lg:h-14 lg:w-14 xl:h-20 xl:w-20'}
-      />
+      <Icon className={iconClassName} fill="currentColor" />
     </Link>
   )
 }

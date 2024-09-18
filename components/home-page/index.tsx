@@ -15,7 +15,7 @@ import type { Blog } from '~/.contentlayer/generated'
 
 export function Home({ posts }: { posts: CoreContent<Blog>[] }) {
   return (
-    <Container as="div" className="sm:pt-4 lg:pt-10">
+    <Container as="div" className="pt-4 lg:pt-12">
       <div className="py-6 md:pb-8 xl:grid xl:grid-cols-3">
         <div className="space-y-6 md:space-y-8 md:pr-8 xl:col-span-2">
           <Greeting />

@@ -1,8 +1,8 @@
 import 'css/prism.css'
-import 'katex/dist/katex.css'
+// import 'katex/dist/katex.css'
 
 import { components } from '@/components/MDXComponents'
-import type { Authors, Blog } from 'contentlayer/generated'
+import type { Author, Blog } from 'contentlayer/generated'
 import { allAuthors, allBlogs } from 'contentlayer/generated'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
@@ -92,7 +92,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
   let authorList = post?.authors || ['default']
   let authorDetails = authorList.map((author) => {
     let authorResults = allAuthors.find((p) => p.slug === author)
-    return coreContent(authorResults as Authors)
+    return coreContent(authorResults as Author)
   })
   let mainContent = coreContent(post)
   let jsonLd = post.structuredData

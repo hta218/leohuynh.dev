@@ -1,6 +1,7 @@
 import siteMetadata from '@/data/siteMetadata'
 import Link from '~/components/Link'
 import Twemoji from '~/components/Twemoji'
+import { GrowingUnderline } from '../growing-underline'
 
 const LINKS = [
   {
@@ -47,9 +48,9 @@ export function BlogLinks() {
       {LINKS.map(({ title, href, emoji, event }) => (
         <Link key={title} href={href} className="flex items-center gap-1.5">
           <Twemoji emoji={emoji} />
-          <span data-umami-event={event} className="background-underline leading-6">
+          <GrowingUnderline data-umami-event={event} className="leading-6">
             {title}
-          </span>
+          </GrowingUnderline>
         </Link>
       ))}
     </div>
