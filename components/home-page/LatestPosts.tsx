@@ -28,7 +28,6 @@ export function LatestPosts({ posts }: { posts: CoreContent<Blog>[] }) {
           </li>
         ))}
       </ul>
-      <div className="h-10" />
     </div>
   )
 }
