@@ -1,4 +1,4 @@
-import { getNowPlaying } from '~/libs/spotify.server'
+import { getNowPlaying } from './spotify'
 import type { SpotifyNowPlayingData } from '~/types/data'
 
 export async function GET() {
