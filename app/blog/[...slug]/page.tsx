@@ -30,7 +30,7 @@ export async function generateMetadata({
   let authorList = post?.authors || ['default']
   let authorDetails = authorList.map((author) => {
     let authorResults = allAuthors.find((p) => p.slug === author)
-    return coreContent(authorResults as Authors)
+    return coreContent(authorResults as Author)
   })
   if (!post) {
     return
