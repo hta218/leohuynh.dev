@@ -11,7 +11,7 @@ export function GradientBorder({
     <div
       className={clsx([
         'relative h-full w-full',
-        'border-grey-200 border dark:border-zinc-800',
+        'border border-gray-200 dark:border-zinc-800',
         className,
       ])}
     >
