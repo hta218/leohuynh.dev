@@ -1,15 +1,9 @@
 import { clsx } from 'clsx'
 import TiltedGrid from '~/icons/tilted-grid.svg'
 
-export function TiltedGridBackground() {
+export function TiltedGridBackground({ className }: { className?: string }) {
   return (
-    <div
-      className={clsx([
-        'absolute inset-0 z-[0] rounded-2xl',
-        'transition duration-300',
-        '[mask-image:linear-gradient(white,transparent)]',
-      ])}
-    >
+    <div className={clsx(['absolute [mask-image:linear-gradient(white,transparent)]', className])}>
       <TiltedGrid
         className={clsx([
           'h-[160%] w-full',
