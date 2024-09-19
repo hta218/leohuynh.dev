@@ -7,12 +7,13 @@ import Header from '@/components/Header'
 import siteMetadata from '@/data/siteMetadata'
 import clsx from 'clsx'
 import type { Metadata } from 'next'
-import { Comfortaa, JetBrains_Mono, Noto_Sans, Nunito, Exo_2, Cairo } from 'next/font/google'
+import { Cairo, JetBrains_Mono, Nunito } from 'next/font/google'
 import type { AnalyticsConfig } from 'pliny/analytics'
 import { Analytics } from 'pliny/analytics'
 import type { SearchConfig } from 'pliny/search'
 import { SearchProvider } from 'pliny/search'
 import { Footer } from '~/components/Footer'
+import { TiltedGridBackground } from '~/components/ui/tilted-grid-background'
 import { ThemeProviders } from './theme-providers'
 
 const FONT_SPACE_GROTESK = Cairo({
@@ -113,7 +114,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fff" />
       <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000" />
       <link rel="alternate" type="application/rss+xml" href={`${basePath}/feed.xml`} />
-      <body className="flex min-h-screen flex-col bg-white pl-[calc(100vw-100%)] text-gray-900 antialiased dark:bg-dark dark:text-gray-100">
+      <body
+        className={clsx([
+          'antialiased',
+          'relative min-h-screen pl-[calc(100vw-100%)]',
+          'flex flex-col',
+          'bg-white text-gray-900',
+          'dark:bg-dark dark:text-gray-100',
+        ])}
+      >
+        <TiltedGridBackground className="inset-x-0 top-0 z-[-1] h-[50vh]" />
         <ThemeProviders>
           <Analytics analyticsConfig={siteMetadata.analytics as AnalyticsConfig} />
           <SearchProvider searchConfig={siteMetadata.search as SearchConfig}>
