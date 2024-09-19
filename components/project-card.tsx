@@ -1,14 +1,14 @@
+import clsx from 'clsx'
 import type { PROJECTS_DATA } from '~/data/projectsData'
 import type { GithubRepository } from '~/types/server'
 import type { BrandsMap } from './Brands'
 import { Brand } from './Brands'
-import { RepoMeta } from './repo-meta'
+import { GradientBorder } from './gradient-border'
+import { GrowingUnderline } from './growing-underline'
 import Image from './Image'
 import Link from './Link'
-import clsx from 'clsx'
-import { GradientBorder } from './gradient-border'
 import { RadiantCard } from './radiant-card'
-import { GrowingUnderline } from './growing-underline'
+import { RepoMeta } from './repo-meta'
 
 export function ProjectCard({
   project,
@@ -64,7 +64,7 @@ export function ProjectCard({
                 )
               })}
             </div>
-            <p className="line-clamp-3 text-gray-600 dark:text-gray-500">
+            <p className="line-clamp-3 text-gray-600 dark:text-gray-400">
               {/* {repository?.description || description} */}
               Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas, dolores? Corrupti at
               eum eos. Est et deleniti tempora, ipsum nisi autem. Cupiditate iure deleniti fugit
