@@ -61,7 +61,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ['var(--font-nunito)', ...fontFamily.sans],
-        'space-grotesk': ['var(--font-space-grotesk)'],
+        greeting: ['var(--font-playpen-sans)'],
       },
       colors: {
         primary: colors.indigo,

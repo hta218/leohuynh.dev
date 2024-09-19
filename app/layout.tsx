@@ -7,7 +7,7 @@ import Header from '@/components/Header'
 import siteMetadata from '@/data/siteMetadata'
 import clsx from 'clsx'
 import type { Metadata } from 'next'
-import { Cairo, JetBrains_Mono, Nunito } from 'next/font/google'
+import { Playpen_Sans, JetBrains_Mono, Nunito } from 'next/font/google'
 import type { AnalyticsConfig } from 'pliny/analytics'
 import { Analytics } from 'pliny/analytics'
 import type { SearchConfig } from 'pliny/search'
@@ -16,11 +16,11 @@ import { Footer } from '~/components/Footer'
 import { TiltedGridBackground } from '~/components/ui/tilted-grid-background'
 import { ThemeProviders } from './theme-providers'
 
-const FONT_SPACE_GROTESK = Cairo({
+const FONT_PLAYPEN_SANS = Playpen_Sans({
   subsets: ['latin'],
   display: 'swap',
-  weight: ['300', '400', '500', '600', '700', '800'],
-  variable: '--font-space-grotesk',
+  weight: ['800'],
+  variable: '--font-playpen-sans',
 })
 
 const FONT_NUNITO = Nunito({
@@ -87,7 +87,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         'scroll-smooth',
         FONT_NUNITO.variable,
         FONT_JETBRAINS_MONO.variable,
-        FONT_SPACE_GROTESK.variable
+        FONT_PLAYPEN_SANS.variable
       )}
       suppressHydrationWarning
     >
