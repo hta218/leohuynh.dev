@@ -5,11 +5,11 @@ import {
   MenuButton,
   MenuItem,
   MenuItems,
-  RadioGroup,
   Radio,
+  RadioGroup,
   Transition,
 } from '@headlessui/react'
-import { Monitor, Moon, Sun, SunMoon } from 'lucide-react'
+import { Monitor, MoonStar, Sun, SunMoon } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { Fragment, useEffect, useState } from 'react'
 
@@ -22,7 +22,7 @@ const THEMES = [
   {
     label: 'Dark',
     value: 'dark',
-    icon: Moon,
+    icon: MoonStar,
   },
   {
     label: 'System',
@@ -48,12 +48,12 @@ function ThemeSwitcher() {
           <MenuButton aria-label="Theme switcher">
             {mounted ? (
               resolvedTheme === 'dark' ? (
-                <Moon size={22} />
+                <MoonStar strokeWidth={1.5} size={22} />
               ) : (
-                <Sun size={22} />
+                <Sun strokeWidth={1.5} size={22} />
               )
             ) : (
-              <SunMoon size={22} />
+              <SunMoon strokeWidth={1.5} size={22} />
             )}
           </MenuButton>
         </div>
@@ -80,7 +80,7 @@ function ThemeSwitcher() {
                       as="div"
                       className="flex w-full items-center gap-3 px-2 py-1.5 text-sm"
                     >
-                      <Icon size={20} />
+                      <Icon size={20} strokeWidth={1.5} />
                       <span>{label}</span>
                     </MenuItem>
                   </Radio>

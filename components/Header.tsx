@@ -55,10 +55,15 @@ function Header() {
               )
             })}
           </div>
+          <div
+            data-orientation="vertical"
+            role="none"
+            className="h-4 w-px shrink-0 bg-gray-200 dark:bg-gray-600"
+          />
           <div className="flex items-center gap-1">
+            <ThemeSwitcher />
             <AnalyticsLink />
             <SearchButton />
-            <ThemeSwitcher />
             <MobileNav />
           </div>
         </div>
