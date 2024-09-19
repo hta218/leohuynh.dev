@@ -21,7 +21,7 @@ export function GrowingUnderline({
         'transition-[background-size] duration-[var(--duration,300ms)]',
         'bg-[length:0px_50%] hover:bg-[length:100%_50%]',
         'from-green-200 to-green-100',
-        'dark:from-lime-800 dark:to-lime-900',
+        'dark:from-emerald-800 dark:to-emerald-900',
         className,
       ])}
       style={{ '--duration': `${duration || 300}ms` } as CSSProperties}
