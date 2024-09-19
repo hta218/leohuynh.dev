@@ -1,5 +1,3 @@
-'use client'
-
 import Container from '@/components/Container'
 import { BlogLinks } from '~/components/home-page/BlogLinks'
 import { Greeting } from '~/components/home-page/Greeting'

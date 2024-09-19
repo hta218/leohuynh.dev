@@ -12,9 +12,22 @@ import SearchButton from './SearchButton'
 import ThemeSwitcher from './ThemeSwitcher'
 import { AnalyticsLink } from './AnalyticsLink'
 import { GrowingUnderline } from './growing-underline'
+import { useEffect } from 'react'
+
+let logged = false
+function logASCIItext() {
+  if (logged) return
+  console.info(
+    "  _            _                       _          _            \r\n | |          | |                     | |        | |           \r\n | | ___  ___ | |__  _   _ _   _ _ __ | |__    __| | _____   __\r\n | |/ _ \\/ _ \\| '_ \\| | | | | | | '_ \\| '_ \\  / _` |/ _ \\ \\ / /\r\n | |  __/ (_) | | | | |_| | |_| | | | | | | || (_| |  __/\\ V / \r\n |_|\\___|\\___/|_| |_|\\__,_|\\__, |_| |_|_| |_(_)__,_|\\___| \\_/  \r\n                            __/ |                              \r\n                           |___/                               "
+  )
+  console.log('🧑‍💻 View source:', siteMetadata.siteRepo)
+  console.log('🙌 Find me:', siteMetadata.x)
+  logged = true
+}
 
 function Header() {
   let pathname = usePathname()
+  useEffect(logASCIItext, [])
 
   return (
     <Container
