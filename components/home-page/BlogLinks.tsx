@@ -44,7 +44,7 @@ const LINKS = [
 
 export function BlogLinks() {
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-2.5 md:gap-3">
       {LINKS.map(({ title, href, emoji, event }) => (
         <Link key={title} href={href} className="flex items-center gap-1.5">
           <Twemoji emoji={emoji} />

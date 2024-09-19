@@ -17,7 +17,7 @@ export function Home({ posts }: { posts: CoreContent<Blog>[] }) {
   return (
     <Container as="div" className="pt-4 lg:pt-12">
       <div className="py-6 md:pb-8 xl:grid xl:grid-cols-3">
-        <div className="space-y-6 md:space-y-8 md:pr-8 xl:col-span-2">
+        <div className="space-y-4 md:space-y-6 md:pr-8 xl:col-span-2">
           <Greeting />
           <div className="text-base leading-7 text-gray-600 dark:text-gray-400 md:text-lg md:leading-8">
             <Heading />
