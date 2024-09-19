@@ -65,7 +65,6 @@ module.exports = {
       },
       colors: {
         primary: colors.indigo,
-        gray: colors.gray,
         dark: '#1f1f1f',
         spotify: '#1DB954',
         facebook: '#1877f2',
@@ -116,6 +115,10 @@ module.exports = {
             code: {
               color: theme('colors.indigo.500'),
               fontWeight: '500',
+            },
+            img: {
+              marginLeft: 'auto',
+              marginRight: 'auto',
             },
           },
         },
