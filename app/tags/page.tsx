@@ -1,6 +1,6 @@
 import Tag from '@/components/Tag'
 import { genPageMetadata } from 'app/seo'
-import tagData from 'app/tag-data.json'
+import tagData from '~/json/tag-data.json'
 import Container from '~/components/Container'
 
 export let metadata = genPageMetadata({ title: 'Tags', description: 'Things I blog about' })
@@ -17,11 +17,11 @@ export default async function Page() {
             Tags
           </h1>
         </div>
-        <div className="my-8 flex max-w-lg flex-wrap py-8 md:my-0 md:py-8">
+        <div className="my-8 flex max-w-lg flex-wrap gap-x-5 gap-y-2 py-8 md:my-0 md:py-8">
           {tagKeys.length === 0 && 'No tags found.'}
           {sortedTags.map((t) => {
             return (
-              <div key={t} className="mb-2 mr-5 mt-2 flex items-center gap-0.5">
+              <div key={t} className="flex items-center gap-0.5">
                 <Tag text={t} />
                 <span className="text-sm text-gray-600 dark:text-gray-300">({tagCounts[t]})</span>
               </div>
