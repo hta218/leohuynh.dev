@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import type { PROJECTS_DATA } from '~/data/projectsData'
-import type { GithubRepository } from '~/types/server'
+import type { GithubRepository } from '~/types/data'
 import type { BrandsMap } from './Brands'
 import { Brand } from './Brands'
 import { GradientBorder } from './gradient-border'
