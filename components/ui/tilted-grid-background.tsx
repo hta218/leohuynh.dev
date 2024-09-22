@@ -5,7 +5,7 @@ export function TiltedGridBackground({ className }: { className?: string }) {
   return (
     <div
       className={clsx([
-        'absolute z-[-1] [mask-image:linear-gradient(white,transparent)]',
+        'absolute overflow-hidden [mask-image:linear-gradient(white,transparent)]',
         className,
       ])}
     >
