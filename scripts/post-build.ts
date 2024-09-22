@@ -1,4 +1,5 @@
-import rss from './rss.mjs'
+import { rss } from './rss'
+import './seed'
 
 async function postbuild() {
   await rss()
