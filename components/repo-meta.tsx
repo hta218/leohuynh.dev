@@ -1,5 +1,5 @@
 import { ExternalLink, GitFork, Github, Star } from 'lucide-react'
-import type { GithubRepository } from '~/types/server'
+import type { GithubRepository } from '~/types/data'
 
 export function RepoMeta({ repo }: { repo: GithubRepository }) {
   let mainLanguage = repo.languages[0]

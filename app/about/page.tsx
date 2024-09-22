@@ -7,7 +7,7 @@ import { genPageMetadata } from 'app/seo'
 
 export let metadata = genPageMetadata({ title: 'About' })
 
-export default function Page() {
+export default function AboutPage() {
   let author = allAuthors.find((p) => p.slug === 'default') as Author
   let mainContent = coreContent(author)
 

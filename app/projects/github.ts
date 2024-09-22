@@ -1,6 +1,5 @@
 import { graphql, type GraphQlQueryResponseData } from '@octokit/graphql'
-import type { Project } from '~/types/data'
-import type { GithubRepository } from '~/types/server'
+import type { Project, GithubRepository } from '~/types/data'
 
 export async function fetchProjectRepoData(pro: Project): Promise<GithubRepository | null> {
   let repo = pro?.repo as string

@@ -20,7 +20,7 @@ function logASCIItext() {
   console.info(
     "  _            _                       _          _            \r\n | |          | |                     | |        | |           \r\n | | ___  ___ | |__  _   _ _   _ _ __ | |__    __| | _____   __\r\n | |/ _ \\/ _ \\| '_ \\| | | | | | | '_ \\| '_ \\  / _` |/ _ \\ \\ / /\r\n | |  __/ (_) | | | | |_| | |_| | | | | | | || (_| |  __/\\ V / \r\n |_|\\___|\\___/|_| |_|\\__,_|\\__, |_| |_|_| |_(_)__,_|\\___| \\_/  \r\n                            __/ |                              \r\n                           |___/                               "
   )
-  console.log('🧑‍💻 View source:', siteMetadata.siteRepo)
+  console.log('🧑‍💻 Repo:', siteMetadata.siteRepo)
   console.log('🙌 Find me:', siteMetadata.x)
   logged = true
 }
