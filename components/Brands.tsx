@@ -33,12 +33,17 @@ import Webpack from '~/icons/webpack.svg'
 import Pygame from '~/icons/pygame.svg'
 import Java from '~/icons/java.svg'
 import MySQL from '~/icons/mysql.svg'
+import Goodreads from '~/icons/goodreads.svg'
 import Link from './Link'
 
 export let BrandsMap = {
   React: {
     Icon: React,
     url: 'https://reactjs.org',
+  },
+  Goodreads: {
+    Icon: Goodreads,
+    url: 'https://www.goodreads.com/',
   },
   Remix: {
     Icon: Remix,
