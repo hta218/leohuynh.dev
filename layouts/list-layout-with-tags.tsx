@@ -1,79 +1,108 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 'use client'
 
-import Link from '@/components/Link'
-import tagData from 'app/tag-data.json'
-import type { Blog } from 'contentlayer/generated'
-import { slug } from 'github-slugger'
-import { usePathname } from 'next/navigation'
+import { clsx } from 'clsx'
+import type { Blog, Snippet } from 'contentlayer/generated'
 import type { CoreContent } from 'pliny/utils/contentlayer'
+import { useState } from 'react'
 import Container from '~/components/Container'
+import Tag from '~/components/Tag'
 import { PostCardGridView } from '~/components/blog/post-card-grid-view'
+import { PageHeader } from '~/components/page-header'
+import { SnippetCard } from '~/components/snippet-card'
+import tagData from '~/json/tag-data.json'
 
 interface ListLayoutProps {
-  posts: CoreContent<Blog>[]
   title: string
+  description: React.ReactNode
+  posts: CoreContent<Blog>[]
+  snippets: CoreContent<Snippet>[]
 }
 
-export function ListLayoutWithTags({ posts, title }: ListLayoutProps) {
-  let pathname = usePathname()
+export function ListLayoutWithTags({ title, description, posts, snippets }: ListLayoutProps) {
+  let hasBlogs = posts.length > 0
+  let hasSnippets = snippets.length > 0
+  let [view, setView] = useState<'blogs' | 'snippets'>(hasBlogs ? 'blogs' : 'snippets')
+
+  return (
+    <Container className="pt-4 lg:pt-12">
+      <PageHeader
+        title={title}
+        description={description}
+        className="border-b border-gray-200 dark:border-gray-700"
+      />
+      <div className="flex gap-x-12">
+        <TagsList />
+        <div className="py-5 md:py-10">
+          <div className="mb-6 flex items-center gap-2 text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-gray-100 md:justify-end md:text-3xl">
+            {hasBlogs && (
+              <button
+                className={clsx(
+                  'underline-offset-8',
+                  view === 'blogs'
+                    ? 'underline'
+                    : 'text-gray-400 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100'
+                )}
+                onClick={() => setView('blogs')}
+              >
+                Blogs
+              </button>
+            )}
+            {hasBlogs && hasSnippets ? <span>/</span> : null}
+            {hasSnippets && (
+              <button
+                className={clsx(
+                  'underline-offset-4',
+                  view === 'snippets'
+                    ? 'underline'
+                    : 'text-gray-400 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100'
+                )}
+                onClick={() => setView('snippets')}
+              >
+                Snippets
+              </button>
+            )}
+          </div>
+          {view === 'blogs' ? (
+            <ul className="grid grid-cols-1 gap-x-8 gap-y-12 lg:grid-cols-2">
+              {posts.map((post) => (
+                <li key={post.path}>
+                  <PostCardGridView post={post} />
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <div className="space-y-10">
+              {snippets.map((snippet) => (
+                <SnippetCard snippet={snippet} key={snippet.path} />
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </Container>
+  )
+}
+
+function TagsList() {
   let tagCounts = tagData as Record<string, number>
   let tagKeys = Object.keys(tagCounts)
   let sortedTags = tagKeys.sort((a, b) => tagCounts[b] - tagCounts[a])
 
   return (
-    <Container>
-      <div className="pb-6 pt-6">
-        <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:hidden sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-          {title}
-        </h1>
-      </div>
-      <div className="flex sm:space-x-24">
-        <div className="hidden h-full max-h-screen min-w-[280px] max-w-[280px] flex-wrap overflow-auto rounded bg-gray-50 pt-5 shadow-md dark:bg-gray-900/70 dark:shadow-gray-800/40 sm:flex">
-          <div className="px-6 py-4">
-            {pathname.startsWith('/blog') ? (
-              <h3 className="font-bold uppercase text-primary-500">All Posts</h3>
-            ) : (
-              <Link
-                href={`/blog`}
-                className="font-bold uppercase text-gray-700 hover:text-primary-500 dark:text-gray-300 dark:hover:text-primary-500"
-              >
-                All Posts
-              </Link>
-            )}
-            <ul>
-              {sortedTags.map((t) => {
-                return (
-                  <li key={t} className="my-3">
-                    {pathname.split('/tags/')[1] === slug(t) ? (
-                      <h3 className="inline px-3 py-2 text-sm font-bold uppercase text-primary-500">
-                        {`${t} (${tagCounts[t]})`}
-                      </h3>
-                    ) : (
-                      <Link
-                        href={`/tags/${slug(t)}`}
-                        className="px-3 py-2 text-sm font-medium uppercase text-gray-500 hover:text-primary-500 dark:text-gray-300 dark:hover:text-primary-500"
-                        aria-label={`View posts tagged ${t}`}
-                      >
-                        {`${t} (${tagCounts[t]})`}
-                      </Link>
-                    )}
-                  </li>
-                )
-              })}
-            </ul>
-          </div>
-        </div>
-        <div>
-          <ul className="grid grid-cols-1 gap-x-8 gap-y-12 lg:grid-cols-2">
-            {posts.map((post) => (
-              <li key={post.path}>
-                <PostCardGridView post={post} />
+    <div className="hidden max-h-screen w-[300px] shrink-0 py-5 md:flex md:py-10">
+      <div className="h-full overflow-auto rounded bg-gray-50 dark:bg-gray-900/70 dark:shadow-gray-800/40">
+        <ul className="flex flex-wrap items-center gap-x-5 gap-y-2 px-6 py-4">
+          {sortedTags.map((t) => {
+            return (
+              <li key={t} className="flex items-center gap-0.5">
+                <Tag text={t} size="md" />
+                <span className="text-gray-600 dark:text-gray-300">({tagCounts[t]})</span>
               </li>
-            ))}
-          </ul>
-        </div>
+            )
+          })}
+        </ul>
       </div>
-    </Container>
+    </div>
   )
 }
