@@ -6,7 +6,7 @@ import path from 'path'
 import type { PlinyConfig } from 'pliny/config'
 import { sortPosts } from 'pliny/utils/contentlayer'
 import { escape } from 'pliny/utils/htmlEscaper'
-import tagData from '~/app/tag-data.json' assert { type: 'json' }
+import tagData from '~/json/tag-data.json' assert { type: 'json' }
 import siteMetadata from '~/data/siteMetadata'
 
 function generateRssItem(config: PlinyConfig, post: Blog) {

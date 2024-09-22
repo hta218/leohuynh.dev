@@ -61,11 +61,11 @@ let computedFields: ComputedFields = {
 /**
  * Count the occurrences of all tags across blog posts and write to json file
  */
-function createTagCount(allBlogs) {
+function createTagCount(documents) {
   let tagCount: Record<string, number> = {}
-  allBlogs.forEach((file) => {
+  documents.forEach((file) => {
     if (file.tags && (!isProduction || file.draft !== true)) {
-      file.tags.forEach((tag) => {
+      file.tags.forEach((tag: string) => {
         let formattedTag = slug(tag)
         if (formattedTag in tagCount) {
           tagCount[formattedTag] += 1
@@ -75,7 +75,7 @@ function createTagCount(allBlogs) {
       })
     }
   })
-  writeFileSync('./app/tag-data.json', JSON.stringify(tagCount))
+  writeFileSync('./json/tag-data.json', JSON.stringify(tagCount))
 }
 
 function createSearchIndex(allBlogs) {
@@ -215,8 +215,8 @@ export default makeSource({
     ],
   },
   onSuccess: async (importData) => {
-    let { allBlogs } = await importData()
-    createTagCount(allBlogs)
+    let { allBlogs, allSnippets } = await importData()
+    createTagCount([...allBlogs, ...allSnippets])
     createSearchIndex(allBlogs)
   },
 })
