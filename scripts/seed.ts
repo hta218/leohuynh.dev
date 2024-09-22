@@ -35,6 +35,14 @@ export async function fetchGoodreadsBooks() {
   if (siteMetadata.goodreadsFeedUrl) {
     try {
       let data = await parser.parseURL(siteMetadata.goodreadsFeedUrl)
+      for (let book of data.items) {
+        book.book_description = book.book_description
+          .replace(/<[^>]*(>|$)/g, '')
+          .replace(/\s\s+/g, ' ')
+          .replace(/^["|“]/g, '')
+          .replace(/\.([a-zA-Z0-9])/g, '. $1')
+        book.content = book.content.replace(/\n/g, '').replace(/\s\s+/g, ' ')
+      }
       writeFileSync(`./json/books.json`, JSON.stringify(data.items))
       console.log('📚. Books seeded...')
     } catch (error) {
