@@ -82,6 +82,8 @@ const siteMetadata = {
     //   indexName: 'docsearch',
     // },
   },
+  // Custom properties
+  goodreadsFeedUrl: 'https://www.goodreads.com/review/list_rss/179720035',
 }
 
 module.exports = siteMetadata
