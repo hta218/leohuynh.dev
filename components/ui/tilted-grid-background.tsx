@@ -3,7 +3,12 @@ import TiltedGrid from '~/icons/tilted-grid.svg'
 
 export function TiltedGridBackground({ className }: { className?: string }) {
   return (
-    <div className={clsx(['absolute [mask-image:linear-gradient(white,transparent)]', className])}>
+    <div
+      className={clsx([
+        'absolute z-[-1] [mask-image:linear-gradient(white,transparent)]',
+        className,
+      ])}
+    >
       <TiltedGrid
         className={clsx([
           'h-[160%] w-full',
