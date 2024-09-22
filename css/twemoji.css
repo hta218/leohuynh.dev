@@ -145,6 +145,9 @@
 .twa-clapping-hands {
   background-image: url('https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f44f.svg');
 }
+.twa-writing-hand {
+  background-image: url('https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/270d.svg');
+}
 .twa-star {
   background-image: url('https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/2b50.svg');
 }
@@ -315,4 +318,7 @@
 }
 .twa-page-facing-up {
   background-image: url('https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f4c4.svg');
+}
+.twa-spiral-notepad {
+  background-image: url('https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f5d2.svg');
 }
