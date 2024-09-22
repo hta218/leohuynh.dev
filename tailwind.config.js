@@ -67,6 +67,7 @@ module.exports = {
         primary: colors.indigo,
         dark: '#1f1f1f',
         spotify: '#1DB954',
+        goodreads: '#372213',
         facebook: '#1877f2',
         x: '#0f1419',
       },
