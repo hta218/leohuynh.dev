@@ -22,7 +22,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeCitation from 'rehype-citation'
 import rehypePrismPlus from 'rehype-prism-plus'
 import rehypePresetMinify from 'rehype-preset-minify'
-import siteMetadata from './data/siteMetadata'
+import { SITE_METADATA } from './data/site-metadata'
 import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer.js'
 
 let root = process.cwd()
@@ -80,11 +80,11 @@ function createTagCount(documents) {
 
 function createSearchIndex(allBlogs) {
   if (
-    siteMetadata?.search?.provider === 'kbar' &&
-    siteMetadata.search.kbarConfig.searchDocumentsPath
+    SITE_METADATA?.search?.provider === 'kbar' &&
+    SITE_METADATA.search.kbarConfig.searchDocumentsPath
   ) {
     writeFileSync(
-      `public/${path.basename(siteMetadata.search.kbarConfig.searchDocumentsPath)}`,
+      `public/${path.basename(SITE_METADATA.search.kbarConfig.searchDocumentsPath)}`,
       JSON.stringify(allCoreContent(sortPosts(allBlogs)))
     )
     console.log('Local search index generated...')
@@ -121,8 +121,8 @@ export let Blog = defineDocumentType(() => ({
         datePublished: doc.date,
         dateModified: doc.lastmod || doc.date,
         description: doc.summary,
-        image: doc.images ? doc.images[0] : siteMetadata.socialBanner,
-        url: `${siteMetadata.siteUrl}/${doc._raw.flattenedPath}`,
+        image: doc.images ? doc.images[0] : SITE_METADATA.socialBanner,
+        url: `${SITE_METADATA.siteUrl}/${doc._raw.flattenedPath}`,
       }),
     },
   },
@@ -158,8 +158,8 @@ export let Snippet = defineDocumentType(() => ({
         datePublished: doc.date,
         dateModified: doc.lastmod || doc.date,
         description: doc.summary,
-        image: doc.images ? doc.images[0] : siteMetadata.socialBanner,
-        url: `${siteMetadata.siteUrl}/${doc._raw.flattenedPath}`,
+        image: doc.images ? doc.images[0] : SITE_METADATA.socialBanner,
+        url: `${SITE_METADATA.siteUrl}/${doc._raw.flattenedPath}`,
       }),
     },
   },

@@ -3,7 +3,7 @@
 import { clsx } from 'clsx'
 import Image from 'next/image'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import siteMetadata from '~/data/siteMetadata'
+import { SITE_METADATA } from '~/data/site-metadata'
 import { SpotifyNowPlaying } from './now-playing'
 import { ProfileCardInfo } from './profile-info'
 
@@ -63,8 +63,8 @@ export function ProfileCard() {
         )}
       >
         <Image
-          src={siteMetadata.siteLogo}
-          alt={siteMetadata.title}
+          src={SITE_METADATA.siteLogo}
+          alt={SITE_METADATA.title}
           width={550}
           height={350}
           style={{

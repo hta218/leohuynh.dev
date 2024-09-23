@@ -1,6 +1,6 @@
 import { Link } from '~/components/ui/link'
 import { Container } from '~/components/ui/container'
-import siteMetadata from '~/data/siteMetadata'
+import { SITE_METADATA } from '~/data/site-metadata'
 import MadeInVietNameIcon from '~/icons/miv.svg'
 import { BuiltWith } from './built-with'
 
@@ -12,8 +12,8 @@ export function Footer() {
         <div className="my-2 flex flex-wrap items-center gap-1.5 text-gray-500 dark:text-gray-400">
           <span className="hidden md:block">{`© ${new Date().getFullYear()}`}</span>
           <span className="hidden md:block">-</span>
-          <span>{siteMetadata.title}</span>
-          <Link href={siteMetadata.siteRepo}>
+          <span>{SITE_METADATA.title}</span>
+          <Link href={SITE_METADATA.siteRepo}>
             <span data-umami-event="made-in-vietnam">
               <MadeInVietNameIcon />
             </span>

@@ -4,11 +4,11 @@ import clsx from 'clsx'
 import NextImage from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useEffect } from 'react'
-import { Link } from '~/components/ui/link'
 import { Container } from '~/components/ui/container'
 import { GrowingUnderline } from '~/components/ui/growing-underline'
-import HEADER_NAV_LINKS from '~/data/headerNavLinks'
-import siteMetadata from '~/data/siteMetadata'
+import { Link } from '~/components/ui/link'
+import { HEADER_NAV_LINKS } from '~/data/header-nav-links'
+import { SITE_METADATA } from '~/data/site-metadata'
 import { AnalyticsLink } from './analytics-link'
 import { MobileNav } from './mobile-nav'
 import { SearchButton } from './search'
@@ -20,8 +20,8 @@ function logASCIItext() {
   console.info(
     "  _            _                       _          _            \r\n | |          | |                     | |        | |           \r\n | | ___  ___ | |__  _   _ _   _ _ __ | |__    __| | _____   __\r\n | |/ _ \\/ _ \\| '_ \\| | | | | | | '_ \\| '_ \\  / _` |/ _ \\ \\ / /\r\n | |  __/ (_) | | | | |_| | |_| | | | | | | || (_| |  __/\\ V / \r\n |_|\\___|\\___/|_| |_|\\__,_|\\__, |_| |_|_| |_(_)__,_|\\___| \\_/  \r\n                            __/ |                              \r\n                           |___/                               "
   )
-  console.log('🧑‍💻 Repo:', siteMetadata.siteRepo)
-  console.log('🙌 Find me:', siteMetadata.x)
+  console.log('🧑‍💻 Repo:', SITE_METADATA.siteRepo)
+  console.log('🙌 Find me:', SITE_METADATA.x)
   logged = true
 }
 
@@ -35,18 +35,18 @@ export function Header() {
       className={clsx(
         'bg-white/75 py-2 backdrop-blur dark:bg-dark/75',
         'rounded-2xl shadow-sm saturate-100',
-        siteMetadata.stickyNav && 'sticky top-2 z-50 lg:top-3'
+        SITE_METADATA.stickyNav && 'sticky top-2 z-50 lg:top-3'
       )}
     >
       <div className="flex items-center justify-between gap-3">
         <Link
           href="/"
-          aria-label={siteMetadata.headerTitle}
+          aria-label={SITE_METADATA.headerTitle}
           className="rounded-xl p-0.5 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:ring-white/10"
         >
           <NextImage
             src="/static/images/logo.jpg"
-            alt={siteMetadata.headerTitle}
+            alt={SITE_METADATA.headerTitle}
             width={100}
             height={100}
             className="h-10 w-10 rounded-xl"

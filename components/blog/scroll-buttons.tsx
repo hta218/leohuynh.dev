@@ -2,7 +2,7 @@
 
 import { ChevronsUp, MessageSquareText } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import siteMetadata from '~/data/siteMetadata'
+import { SITE_METADATA } from '~/data/site-metadata'
 
 export function ScrollButtons() {
   let [show, setShow] = useState(false)
@@ -21,7 +21,7 @@ export function ScrollButtons() {
     <div
       className={`fixed bottom-8 right-8 hidden flex-col gap-3 ${show ? 'md:flex' : 'md:hidden'}`}
     >
-      {siteMetadata.comments?.provider && (
+      {SITE_METADATA.comments?.provider && (
         <button
           aria-label="Scroll To Comment"
           onClick={() => {

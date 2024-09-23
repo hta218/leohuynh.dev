@@ -36,7 +36,7 @@ export function Home({ posts }: { posts: CoreContent<Blog>[] }) {
         </div>
       </div>
       <LatestPosts posts={posts} />
-      {/* {siteMetadata.newsletter?.provider && (
+      {/* {SITE_METADATA.newsletter?.provider && (
         <div className="flex items-center justify-center py-4 lg:py-10">
           <NewsletterForm />
         </div>

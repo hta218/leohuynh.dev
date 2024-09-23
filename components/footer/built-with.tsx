@@ -1,6 +1,6 @@
 import { Link } from '~/components/ui/link'
 import { Brand } from '~/components/ui/brand'
-import siteMetadata from '~/data/siteMetadata'
+import { SITE_METADATA } from '~/data/site-metadata'
 
 export function BuiltWith() {
   return (
@@ -15,7 +15,7 @@ export function BuiltWith() {
       </div>
       <span className="px-1 text-gray-400 dark:text-gray-500">-</span>
       <Link
-        href={siteMetadata.siteRepo}
+        href={SITE_METADATA.siteRepo}
         className="text-gray-500 underline underline-offset-4 dark:text-gray-400"
       >
         <span data-umami-event="view-source">View source</span>

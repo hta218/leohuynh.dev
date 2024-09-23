@@ -167,7 +167,7 @@ I wanted it to be nearly as feature-rich as popular blogging templates like [bea
 npx degit 'timlrx/tailwind-nextjs-starter-blog'
 ```
 
-2. Personalize `siteMetadata.js` (site related information)
+2. Personalize `SITE_METADATA.js` (site related information)
 3. Modify the content security policy in `next.config.js` if you want to use
    other analytics provider or a commenting solution other than giscus.
 4. Personalize `authors/default.md` (main author)
@@ -202,7 +202,7 @@ Edit the layout in `app` or content in `data`. With live reloading, the pages au
 
 ## Extend / Customize
 
-`data/siteMetadata.js` - contains most of the site related information which should be modified for a user's need.
+`data/SITE_METADATA.js` - contains most of the site related information which should be modified for a user's need.
 
 `data/authors/default.md` - default author information (required). Additional authors can be added as files in `data/authors`.
 

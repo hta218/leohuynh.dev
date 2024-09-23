@@ -13,7 +13,7 @@ import { SearchProvider } from 'pliny/search'
 import { Footer } from '~/components/footer'
 import { Header } from '~/components/header'
 import { TiltedGridBackground } from '~/components/ui/tilted-grid-background'
-import siteMetadata from '~/data/siteMetadata'
+import { SITE_METADATA } from '~/data/site-metadata'
 import { ThemeProviders } from './theme-providers'
 
 const FONT_PLAYPEN_SANS = Playpen_Sans({
@@ -38,25 +38,25 @@ const FONT_JETBRAINS_MONO = JetBrains_Mono({
 })
 
 export let metadata: Metadata = {
-  metadataBase: new URL(siteMetadata.siteUrl),
+  metadataBase: new URL(SITE_METADATA.siteUrl),
   title: {
-    default: siteMetadata.title,
-    template: `%s | ${siteMetadata.title}`,
+    default: SITE_METADATA.title,
+    template: `%s | ${SITE_METADATA.title}`,
   },
-  description: siteMetadata.description,
+  description: SITE_METADATA.description,
   openGraph: {
-    title: siteMetadata.title,
-    description: siteMetadata.description,
+    title: SITE_METADATA.title,
+    description: SITE_METADATA.description,
     url: './',
-    siteName: siteMetadata.title,
-    images: [siteMetadata.socialBanner],
+    siteName: SITE_METADATA.title,
+    images: [SITE_METADATA.socialBanner],
     locale: 'en_US',
     type: 'website',
   },
   alternates: {
     canonical: './',
     types: {
-      'application/rss+xml': `${siteMetadata.siteUrl}/feed.xml`,
+      'application/rss+xml': `${SITE_METADATA.siteUrl}/feed.xml`,
     },
   },
   robots: {
@@ -71,9 +71,9 @@ export let metadata: Metadata = {
     },
   },
   twitter: {
-    title: siteMetadata.title,
+    title: SITE_METADATA.title,
     card: 'summary_large_image',
-    images: [siteMetadata.socialBanner],
+    images: [SITE_METADATA.socialBanner],
   },
 }
 
@@ -82,7 +82,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <html
-      lang={siteMetadata.language}
+      lang={SITE_METADATA.language}
       className={clsx(
         'scroll-smooth',
         FONT_NUNITO.variable,
@@ -125,8 +125,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       >
         <TiltedGridBackground className="inset-x-0 top-0 z-[-1] h-[50vh]" />
         <ThemeProviders>
-          <Analytics analyticsConfig={siteMetadata.analytics as AnalyticsConfig} />
-          <SearchProvider searchConfig={siteMetadata.search as SearchConfig}>
+          <Analytics analyticsConfig={SITE_METADATA.analytics as AnalyticsConfig} />
+          <SearchProvider searchConfig={SITE_METADATA.search as SearchConfig}>
             <Header />
             <main className="mb-auto grow">{children}</main>
           </SearchProvider>

@@ -4,7 +4,7 @@ import { Facebook } from 'lucide-react'
 import { FacebookShareButton, TwitterShareButton } from 'react-share'
 import { Link } from '~/components/ui/link'
 import { GrowingUnderline } from '~/components/ui/growing-underline'
-import siteMetadata from '~/data/siteMetadata'
+import { SITE_METADATA } from '~/data/site-metadata'
 import XIcon from '~/icons/x.svg'
 
 type SocialButtonsProps = {
@@ -37,7 +37,7 @@ export function SocialShare({ postUrl, title, filePath }: SocialButtonsProps) {
           </>
         )}
         {CREATE_DISCUS_ON_GITHUB === 'TRUE' && (
-          <Link href={`${siteMetadata.siteRepo}/blob/main/data/${filePath}`}>
+          <Link href={`${SITE_METADATA.siteRepo}/blob/main/data/${filePath}`}>
             <GrowingUnderline data-umami-event="view-on-github">
               View on <span className="font-semibold">GitHub</span>
             </GrowingUnderline>
@@ -49,7 +49,7 @@ export function SocialShare({ postUrl, title, filePath }: SocialButtonsProps) {
           <TwitterShareButton
             url={postUrl}
             title={title}
-            via={siteMetadata.x}
+            via={SITE_METADATA.x}
             className="mr-2 flex items-center overflow-hidden rounded !bg-x !px-2.5 !py-1.5 hover:opacity-90"
           >
             <XIcon className="h-5 w-5" fill="#fff" viewBox="0 0 1200 1227" />

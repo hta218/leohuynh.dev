@@ -1,10 +1,10 @@
 import { allBlogs } from 'contentlayer/generated'
 import type { MetadataRoute } from 'next'
-import siteMetadata from '~/data/siteMetadata'
+import { SITE_METADATA } from '~/data/site-metadata'
 
 // TODO: update sitemap
 export default function sitemap(): MetadataRoute.Sitemap {
-  const siteUrl = siteMetadata.siteUrl
+  const siteUrl = SITE_METADATA.siteUrl
 
   const blogRoutes = allBlogs
     .filter((post) => !post.draft)

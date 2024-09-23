@@ -3,7 +3,7 @@ import type { CoreContent } from 'pliny/utils/contentlayer'
 import { formatDate } from 'pliny/utils/formatDate'
 import { Image } from '~/components/ui/image'
 import { Link } from '~/components/ui/link'
-import siteMetadata from '~/data/siteMetadata'
+import { SITE_METADATA } from '~/data/site-metadata'
 import { GrowingUnderline } from '~/components/ui/growing-underline'
 
 export function PostCardGridView({ post }: { post: CoreContent<Blog> }) {
@@ -13,7 +13,7 @@ export function PostCardGridView({ post }: { post: CoreContent<Blog> }) {
       <div className="flex flex-col items-start justify-between gap-4 md:gap-6">
         <Link href={`/${path}`} className="block w-full shrink-0">
           <Image
-            src={images && images.length > 0 ? images[0] : siteMetadata.socialBanner}
+            src={images && images.length > 0 ? images[0] : SITE_METADATA.socialBanner}
             alt={title}
             width={600}
             height={400}

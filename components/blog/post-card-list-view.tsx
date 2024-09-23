@@ -4,7 +4,7 @@ import { Image } from '~/components/ui/image'
 import { Link } from '~/components/ui/link'
 import { TagsList } from '~/components/blog/tags'
 import { GrowingUnderline } from '~/components/ui/growing-underline'
-import siteMetadata from '~/data/siteMetadata'
+import { SITE_METADATA } from '~/data/site-metadata'
 import { formatDate } from '~/utils/date'
 
 export function PostCardListView({ post }: { post: CoreContent<Blog> }) {
@@ -14,7 +14,7 @@ export function PostCardListView({ post }: { post: CoreContent<Blog> }) {
       <div className="flex flex-col gap-2 space-y-3 md:flex-row md:gap-8">
         <Link href={`/blog/${slug}`} className="block shrink-0">
           <Image
-            src={images && images.length > 0 ? images[0] : siteMetadata.socialBanner}
+            src={images && images.length > 0 ? images[0] : SITE_METADATA.socialBanner}
             alt={title}
             width={500}
             height={500}

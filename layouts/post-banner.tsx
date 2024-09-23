@@ -10,7 +10,7 @@ import { SocialShare } from '~/components/blog/social-share'
 import { TagsList } from '~/components/blog/tags'
 import { Container } from '~/components/ui/container'
 import { Image } from '~/components/ui/image'
-import siteMetadata from '~/data/siteMetadata'
+import { SITE_METADATA } from '~/data/site-metadata'
 
 interface LayoutProps {
   content: CoreContent<Blog>
@@ -33,8 +33,8 @@ export function PostBanner({ content, children }: LayoutProps) {
     filePath,
     path,
   } = content
-  let displayImage = images?.[0] || siteMetadata.socialBanner
-  let postUrl = `${siteMetadata.siteUrl}/${type.toLowerCase()}/${slug}`
+  let displayImage = images?.[0] || SITE_METADATA.socialBanner
+  let postUrl = `${SITE_METADATA.siteUrl}/${type.toLowerCase()}/${slug}`
 
   return (
     <Container className="pt-4 lg:pt-12">

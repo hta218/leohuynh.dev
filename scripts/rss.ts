@@ -4,7 +4,7 @@ import { slug } from 'github-slugger'
 import path from 'path'
 import { sortPosts } from 'pliny/utils/contentlayer'
 import { escape } from 'pliny/utils/htmlEscaper'
-import siteMetadata from '~/data/siteMetadata'
+import { SITE_METADATA } from '~/data/site-metadata'
 import tagData from '~/json/tag-data.json' assert { type: 'json' }
 import { allBlogs, allSnippets } from '../.contentlayer/generated/index.mjs'
 
@@ -13,7 +13,7 @@ const snippets = allSnippets as unknown as Snippet[]
 const RSS_PAGE = 'feed.xml'
 
 function generateRssItem(item: Blog | Snippet) {
-  let { siteUrl, email, author } = siteMetadata
+  let { siteUrl, email, author } = SITE_METADATA
   return `
 		<item>
 			<guid>${siteUrl}/blog/${item.slug}</guid>
@@ -28,7 +28,7 @@ function generateRssItem(item: Blog | Snippet) {
 }
 
 function generateRss(items: (Blog | Snippet)[], page = RSS_PAGE) {
-  let { title, siteUrl, description, language, email, author } = siteMetadata
+  let { title, siteUrl, description, language, email, author } = SITE_METADATA
   return `
 		<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 			<channel>

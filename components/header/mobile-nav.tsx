@@ -6,7 +6,7 @@ import { clsx } from 'clsx'
 import { Menu, X } from 'lucide-react'
 import { Fragment, useEffect, useRef, useState } from 'react'
 import { Link } from '~/components/ui/link'
-import HEADER_NAV_LINKS from '~/data/headerNavLinks'
+import { HEADER_NAV_LINKS } from '~/data/header-nav-links'
 
 export function MobileNav() {
   let [navShow, setNavShow] = useState(false)

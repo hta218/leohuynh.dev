@@ -1,16 +1,16 @@
 import { Facebook, Github, Linkedin, Mail, Youtube } from 'lucide-react'
-import siteMetadata from '~/data/siteMetadata'
+import { SITE_METADATA } from '~/data/site-metadata'
 
 export function SocialAccounts() {
   return (
     <div>
       <p>
-        Reach out to me at <a href={`mailto:${siteMetadata.email}`}>{siteMetadata.email}</a> or find
-        me on social media:
+        Reach out to me at <a href={`mailto:${SITE_METADATA.email}`}>{SITE_METADATA.email}</a> or
+        find me on social media:
       </p>
       <div className="flex items-center space-x-4">
         <a
-          href={siteMetadata.github}
+          href={SITE_METADATA.github}
           target="_blank"
           className="text-sm text-dark dark:text-white"
           data-umami-event="contact-github"
@@ -20,7 +20,7 @@ export function SocialAccounts() {
           <Github strokeWidth={1.5} />
         </a>
         <a
-          href={siteMetadata.x}
+          href={SITE_METADATA.x}
           target="_blank"
           className="text-sm text-dark dark:text-white"
           data-umami-event="contact-twitter"
@@ -42,7 +42,7 @@ export function SocialAccounts() {
           </svg>
         </a>
         <a
-          href={siteMetadata.linkedin}
+          href={SITE_METADATA.linkedin}
           target="_blank"
           className="text-sm text-dark dark:text-white"
           data-umami-event="contact-linkedin"
@@ -52,7 +52,7 @@ export function SocialAccounts() {
           <Linkedin strokeWidth={1.5} />
         </a>
         <a
-          href={`mailto:${siteMetadata.email}`}
+          href={`mailto:${SITE_METADATA.email}`}
           target="_self"
           className="text-sm text-dark dark:text-white"
           data-umami-event="contact-mail"
@@ -62,7 +62,7 @@ export function SocialAccounts() {
           <Mail strokeWidth={1.5} />
         </a>
         <a
-          href={siteMetadata.facebook}
+          href={SITE_METADATA.facebook}
           target="_self"
           className="text-sm text-dark dark:text-white"
           data-umami-event="contact-facebook"
@@ -72,7 +72,7 @@ export function SocialAccounts() {
           <Facebook strokeWidth={1.5} />
         </a>
         <a
-          href={siteMetadata.youtube}
+          href={SITE_METADATA.youtube}
           target="_self"
           className="text-sm text-dark dark:text-white"
           data-umami-event="contact-youtube"

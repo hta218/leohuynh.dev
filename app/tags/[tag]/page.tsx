@@ -4,7 +4,7 @@ import { slug } from 'github-slugger'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer'
-import siteMetadata from '~/data/siteMetadata'
+import { SITE_METADATA } from '~/data/site-metadata'
 import tagData from '~/json/tag-data.json'
 import { ListLayoutWithTags } from '~/layouts/list-layout-with-tags'
 
@@ -12,11 +12,11 @@ export async function generateMetadata({ params }: { params: { tag: string } }):
   let tag = decodeURI(params.tag)
   return genPageMetadata({
     title: tag,
-    description: `${siteMetadata.title} ${tag} tagged content`,
+    description: `${SITE_METADATA.title} ${tag} tagged content`,
     alternates: {
       canonical: './',
       types: {
-        'application/rss+xml': `${siteMetadata.siteUrl}/tags/${tag}/feed.xml`,
+        'application/rss+xml': `${SITE_METADATA.siteUrl}/tags/${tag}/feed.xml`,
       },
     },
   })

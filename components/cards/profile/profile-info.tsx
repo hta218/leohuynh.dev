@@ -1,4 +1,4 @@
-import siteMetadata from '~/data/siteMetadata'
+import { SITE_METADATA } from '~/data/site-metadata'
 import { BriefcaseBusiness, Github, Linkedin, Mail, MapPin } from 'lucide-react'
 import { Fragment } from 'react'
 import XIcon from '~/icons/x.svg'
@@ -15,22 +15,22 @@ function getAccountHandle(url = '') {
 const SOCIALS = [
   {
     platform: 'github',
-    handle: getAccountHandle(siteMetadata.github),
-    href: siteMetadata.github,
+    handle: getAccountHandle(SITE_METADATA.github),
+    href: SITE_METADATA.github,
     Icon: () => <Github size={20} strokeWidth={1.5} />,
     umamiEvent: 'profile-card-github',
   },
   {
     platform: 'linkedin',
-    handle: getAccountHandle(siteMetadata.linkedin),
-    href: siteMetadata.linkedin,
+    handle: getAccountHandle(SITE_METADATA.linkedin),
+    href: SITE_METADATA.linkedin,
     Icon: () => <Linkedin size={20} strokeWidth={1.5} />,
     umamiEvent: 'profile-card-linkedin',
   },
   {
     platform: 'x',
-    handle: getAccountHandle(siteMetadata.x),
-    href: siteMetadata.x,
+    handle: getAccountHandle(SITE_METADATA.x),
+    href: SITE_METADATA.x,
     Icon: () => <XIcon className="h-4 w-4" fill="#fff" viewBox="0 0 1200 1227" />,
     umamiEvent: 'profile-card-x',
   },
@@ -67,8 +67,8 @@ export function ProfileCardInfo() {
         </div>
         <div className="flex items-center text-gray-700 dark:text-gray-200">
           <Mail strokeWidth={1.5} size={20} />
-          <a className="px-2" href={`mailto:${siteMetadata.email}`}>
-            {siteMetadata.email}
+          <a className="px-2" href={`mailto:${SITE_METADATA.email}`}>
+            {SITE_METADATA.email}
           </a>
         </div>
         <div className="flex items-center gap-2.5 text-gray-700 dark:text-gray-200">

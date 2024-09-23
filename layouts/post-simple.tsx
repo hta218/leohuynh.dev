@@ -8,7 +8,7 @@ import { PostTitle } from '~/components/blog/post-title'
 import { ScrollButtons } from '~/components/blog/scroll-buttons'
 import { SocialShare } from '~/components/blog/social-share'
 import { Container } from '~/components/ui/container'
-import siteMetadata from '~/data/siteMetadata'
+import { SITE_METADATA } from '~/data/site-metadata'
 
 interface PostSimpleProps {
   content: CoreContent<Blog | Snippet>
@@ -19,7 +19,7 @@ interface PostSimpleProps {
 
 export function PostSimple({ content, children }: PostSimpleProps) {
   let { slug, date, title, type, tags, readingTime, filePath } = content
-  let postUrl = `${siteMetadata.siteUrl}/${type.toLowerCase()}/${slug}`
+  let postUrl = `${SITE_METADATA.siteUrl}/${type.toLowerCase()}/${slug}`
 
   return (
     <Container className="pt-4 lg:pt-12">

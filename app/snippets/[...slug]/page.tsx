@@ -8,7 +8,7 @@ import { notFound } from 'next/navigation'
 import { MDXLayoutRenderer } from 'pliny/mdx-components'
 import { allCoreContent, coreContent, sortPosts } from 'pliny/utils/contentlayer'
 import { MDX_COMPONENTS } from '~/components/mdx'
-import siteMetadata from '~/data/siteMetadata'
+import { SITE_METADATA } from '~/data/site-metadata'
 import { PostBanner } from '~/layouts/post-banner'
 import { PostLayout } from '~/layouts/post-layout'
 import { PostSimple } from '~/layouts/post-simple'
@@ -39,13 +39,13 @@ export async function generateMetadata({
   let publishedAt = new Date(snippet.date).toISOString()
   let modifiedAt = new Date(snippet.lastmod || snippet.date).toISOString()
   let authors = authorDetails.map((author) => author.name)
-  let imageList = [siteMetadata.socialBanner]
+  let imageList = [SITE_METADATA.socialBanner]
   if (snippet.images) {
     imageList = typeof snippet.images === 'string' ? [snippet.images] : snippet.images
   }
   let ogImages = imageList.map((img) => {
     return {
-      url: img.includes('http') ? img : siteMetadata.siteUrl + img,
+      url: img.includes('http') ? img : SITE_METADATA.siteUrl + img,
     }
   })
 
@@ -55,14 +55,14 @@ export async function generateMetadata({
     openGraph: {
       title: snippet.title,
       description: snippet.summary,
-      siteName: siteMetadata.title,
+      siteName: SITE_METADATA.title,
       locale: 'en_US',
       type: 'article',
       publishedTime: publishedAt,
       modifiedTime: modifiedAt,
       url: './',
       images: ogImages,
-      authors: authors.length > 0 ? authors : [siteMetadata.author],
+      authors: authors.length > 0 ? authors : [SITE_METADATA.author],
     },
     twitter: {
       card: 'summary_large_image',

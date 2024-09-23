@@ -8,7 +8,7 @@ import { ScrollButtons } from '~/components/blog/scroll-buttons'
 import { Image } from '~/components/ui/image'
 import { Link } from '~/components/ui/link'
 import { Container } from '~/components/ui/container'
-import siteMetadata from '~/data/siteMetadata'
+import { SITE_METADATA } from '~/data/site-metadata'
 
 interface LayoutProps {
   content: CoreContent<Blog>
@@ -34,7 +34,7 @@ export function PostLayout({ content, authorDetails, next, prev, children }: Lay
                   <dt className="sr-only">Published on</dt>
                   <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
                     <time dateTime={date}>
-                      {new Date(date).toLocaleDateString(siteMetadata.locale, {
+                      {new Date(date).toLocaleDateString(SITE_METADATA.locale, {
                         weekday: 'long',
                         year: 'numeric',
                         month: 'short',
@@ -93,17 +93,17 @@ export function PostLayout({ content, authorDetails, next, prev, children }: Lay
               </div>
               <div className="pb-6 pt-6 text-sm text-gray-700 dark:text-gray-300">
                 <Link
-                  href={`https://mobile.twitter.com/search?q=${encodeURIComponent(`${siteMetadata.siteUrl}/${path}`)}`}
+                  href={`https://mobile.twitter.com/search?q=${encodeURIComponent(`${SITE_METADATA.siteUrl}/${path}`)}`}
                   rel="nofollow"
                 >
                   Discuss on Twitter
                 </Link>
                 {` • `}
-                <Link href={`${siteMetadata.siteRepo}/blob/main/data/${filePath}`}>
+                <Link href={`${SITE_METADATA.siteRepo}/blob/main/data/${filePath}`}>
                   View on GitHub
                 </Link>
               </div>
-              {siteMetadata.comments && (
+              {SITE_METADATA.comments && (
                 <div
                   className="pb-6 pt-6 text-center text-gray-700 dark:text-gray-300"
                   id="comment"

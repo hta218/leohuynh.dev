@@ -1,9 +1,9 @@
 import { NewsletterAPI } from 'pliny/newsletter'
-import siteMetadata from '~/data/siteMetadata'
+import { SITE_METADATA } from '~/data/site-metadata'
 
 const handler = NewsletterAPI({
   // @ts-ignore
-  provider: siteMetadata.newsletter.provider,
+  provider: SITE_METADATA.newsletter.provider,
 })
 
 export { handler as GET, handler as POST }

@@ -1,7 +1,7 @@
 import { Link } from '~/components/ui/link'
 import { Twemoji } from '~/components/ui/twemoji'
 import { GrowingUnderline } from '~/components/ui/growing-underline'
-import siteMetadata from '~/data/siteMetadata'
+import { SITE_METADATA } from '~/data/site-metadata'
 
 const LINKS = [
   {
@@ -36,7 +36,7 @@ const LINKS = [
   },
   {
     title: `Traffic & engagement of this site`,
-    href: siteMetadata.analyticsUrl,
+    href: SITE_METADATA.analyticsUrl,
     emoji: 'bar-chart',
     event: 'home-link-analytics',
   },

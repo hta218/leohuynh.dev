@@ -1,11 +1,11 @@
 'use client'
 
 import { ThemeProvider } from 'next-themes'
-import siteMetadata from '~/data/siteMetadata'
+import { SITE_METADATA } from '~/data/site-metadata'
 
 export function ThemeProviders({ children }: { children: React.ReactNode }) {
   return (
-    <ThemeProvider attribute="class" defaultTheme={siteMetadata.theme} enableSystem>
+    <ThemeProvider attribute="class" defaultTheme={SITE_METADATA.theme} enableSystem>
       {children}
     </ThemeProvider>
   )
