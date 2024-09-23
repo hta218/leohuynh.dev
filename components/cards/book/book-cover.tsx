@@ -7,7 +7,7 @@ export function BookCover({ image, alt }: { image: string; alt: string }) {
       <div className="relative">
         <div
           className={clsx([
-            'absolute bottom-1 left-3 top-0.5 w-11/12',
+            'absolute bottom-1 left-3 top-[3px] w-11/12',
             'rounded-l-sm rounded-r-md bg-white shadow-book-pages',
             'border border-[gray]',
           ])}
