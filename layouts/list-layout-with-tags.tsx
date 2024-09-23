@@ -8,8 +8,8 @@ import { useState } from 'react'
 import Container from '~/components/Container'
 import Tag from '~/components/Tag'
 import { PostCardGridView } from '~/components/blog/post-card-grid-view'
+import { SnippetCard } from '~/components/cards/snippet'
 import { PageHeader } from '~/components/page-header'
-import { SnippetCard } from '~/components/snippet-card'
 import tagData from '~/json/tag-data.json'
 
 interface ListLayoutProps {

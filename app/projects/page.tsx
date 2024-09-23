@@ -1,6 +1,6 @@
 import { genPageMetadata } from 'app/seo'
 import Container from '~/components/Container'
-import { ProjectCard } from '~/components/project-card'
+import { ProjectCard } from '~/components/cards/project'
 import { PROJECTS_DATA } from '~/data/projectsData'
 import { fetchProjectRepoData } from './github'
 import { PageHeader } from '~/components/page-header'

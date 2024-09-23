@@ -3,9 +3,9 @@
 import { clsx } from 'clsx'
 import Image from 'next/image'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import siteMetadata from '@/data/siteMetadata'
-import { ProfileCardInfo } from './ProfileInfo'
-import { SpotifyNowPlaying } from './SpotifyNowPlaying'
+import siteMetadata from '~/data/siteMetadata'
+import { SpotifyNowPlaying } from './now-playing'
+import { ProfileCardInfo } from './profile-info'
 
 export function ProfileCard() {
   let ref = useRef<HTMLDivElement>(null)

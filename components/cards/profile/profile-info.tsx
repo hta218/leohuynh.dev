@@ -2,7 +2,7 @@ import siteMetadata from '~/data/siteMetadata'
 import { BriefcaseBusiness, Github, Linkedin, Mail, MapPin } from 'lucide-react'
 import { Fragment } from 'react'
 import XIcon from '~/icons/x.svg'
-import Twemoji from './Twemoji'
+import Twemoji from '~/components/Twemoji'
 
 function getAccountHandle(url = '') {
   let lastPart = url.split('/').pop()

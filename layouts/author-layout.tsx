@@ -4,7 +4,7 @@ import Button from '~/components/button'
 import CareerTimeline from '~/components/career'
 import Container from '~/components/Container'
 import { PageHeader } from '~/components/page-header'
-import { ProfileCard } from '~/components/ProfileCard'
+import { ProfileCard } from '~/components/cards/profile'
 import SocialAccounts from '~/components/social-accounts'
 import Twemoji from '~/components/Twemoji'
 

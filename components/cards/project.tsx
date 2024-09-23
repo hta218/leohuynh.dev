@@ -1,14 +1,14 @@
 import clsx from 'clsx'
+import type { BrandsMap } from '~/components/Brands'
+import { Brand } from '~/components/Brands'
+import { GradientBorder } from '~/components/gradient-border'
+import { GrowingUnderline } from '~/components/growing-underline'
+import Image from '~/components/Image'
+import { RadiantCard } from '~/components/radiant-card'
+import { RepoMeta } from '~/components/repo-meta'
 import type { PROJECTS_DATA } from '~/data/projectsData'
 import type { GithubRepository } from '~/types/data'
-import type { BrandsMap } from './Brands'
-import { Brand } from './Brands'
-import { GradientBorder } from './gradient-border'
-import { GrowingUnderline } from './growing-underline'
-import Image from './Image'
-import Link from './Link'
-import { RadiantCard } from './radiant-card'
-import { RepoMeta } from './repo-meta'
+import Link from '~/components/Link'
 
 export function ProjectCard({
   project,
