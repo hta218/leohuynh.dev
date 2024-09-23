@@ -1,6 +1,6 @@
-import type { MetadataRoute } from 'next'
 import { allBlogs } from 'contentlayer/generated'
-import siteMetadata from '@/data/siteMetadata'
+import type { MetadataRoute } from 'next'
+import siteMetadata from '~/data/siteMetadata'
 
 // TODO: update sitemap
 export default function sitemap(): MetadataRoute.Sitemap {

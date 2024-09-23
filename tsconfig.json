@@ -19,17 +19,9 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["./*"],
-      "@/components/*": ["components/*"],
-      "@/data/*": ["data/*"],
-      "@/layouts/*": ["layouts/*"],
-      "@/css/*": ["css/*"],
       "contentlayer/generated": ["./.contentlayer/generated"]
     },
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
+    "plugins": [{ "name": "next" }],
     "strictNullChecks": true
   },
   "include": [
