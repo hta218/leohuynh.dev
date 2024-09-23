@@ -1,66 +1,70 @@
-import type { Blog } from 'contentlayer/generated'
-import { allBlogs } from '../.contentlayer/generated/index.mjs'
+import type { Blog, Snippet } from 'contentlayer/generated'
 import { mkdirSync, writeFileSync } from 'fs'
 import { slug } from 'github-slugger'
 import path from 'path'
-import type { PlinyConfig } from 'pliny/config'
 import { sortPosts } from 'pliny/utils/contentlayer'
 import { escape } from 'pliny/utils/htmlEscaper'
-import tagData from '~/json/tag-data.json' assert { type: 'json' }
 import siteMetadata from '~/data/siteMetadata'
+import tagData from '~/json/tag-data.json' assert { type: 'json' }
+import { allBlogs, allSnippets } from '../.contentlayer/generated/index.mjs'
 
-function generateRssItem(config: PlinyConfig, post: Blog) {
+const blogs = allBlogs as unknown as Blog[]
+const snippets = allSnippets as unknown as Snippet[]
+const RSS_PAGE = 'feed.xml'
+
+function generateRssItem(item: Blog | Snippet) {
+  let { siteUrl, email, author } = siteMetadata
   return `
 		<item>
-			<guid>${config.siteUrl}/blog/${post.slug}</guid>
-			<title>${escape(post.title)}</title>
-			<link>${config.siteUrl}/blog/${post.slug}</link>
-			${post.summary && `<description>${escape(post.summary)}</description>`}
-			<pubDate>${new Date(post.date).toUTCString()}</pubDate>
-			<author>${config.email} (${config.author})</author>
-			${post.tags && post.tags.map((t) => `<category>${t}</category>`).join('')}
+			<guid>${siteUrl}/blog/${item.slug}</guid>
+			<title>${escape(item.title)}</title>
+			<link>${siteUrl}/blog/${item.slug}</link>
+			${item.summary && `<description>${escape(item.summary)}</description>`}
+			<pubDate>${new Date(item.date).toUTCString()}</pubDate>
+			<author>${email} (${author})</author>
+			${item.tags && item.tags.map((t) => `<category>${t}</category>`).join('')}
 		</item>
 	`
 }
 
-function generateRss(config: PlinyConfig, posts: Blog[], page = 'feed.xml') {
+function generateRss(items: (Blog | Snippet)[], page = RSS_PAGE) {
+  let { title, siteUrl, description, language, email, author } = siteMetadata
   return `
 		<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 			<channel>
-				<title>${escape(config.title)}</title>
-				<link>${config.siteUrl}/blog</link>
-				<description>${escape(config.description)}</description>
-				<language>${config.language}</language>
-				<managingEditor>${config.email} (${config.author})</managingEditor>
-				<webMaster>${config.email} (${config.author})</webMaster>
-				<lastBuildDate>${new Date(posts[0].date).toUTCString()}</lastBuildDate>
-				<atom:link href="${config.siteUrl}/${page}" rel="self" type="application/rss+xml"/>
-				${posts.map((post) => generateRssItem(config, post)).join('')}
+				<title>${escape(title)}</title>
+				<link>${siteUrl}/blog</link>
+				<description>${escape(description)}</description>
+				<language>${language}</language>
+				<managingEditor>${email} (${author})</managingEditor>
+				<webMaster>${email} (${author})</webMaster>
+				<lastBuildDate>${new Date(items[0].date).toUTCString()}</lastBuildDate>
+				<atom:link href="${siteUrl}/${page}" rel="self" type="application/rss+xml"/>
+				${items.map((item) => generateRssItem(item)).join('')}
 			</channel>
 		</rss>
 	`
 }
 
-async function generateRSS(config: PlinyConfig, allBlogs: Blog[], page = 'feed.xml') {
-  let publishPosts = allBlogs.filter((post) => post.draft !== true)
-  // RSS for blog post
-  if (publishPosts.length > 0) {
-    let rss = generateRss(config, sortPosts(publishPosts))
-    writeFileSync(`./public/${page}`, rss)
+export async function generateRssFeed() {
+  let publishPosts = blogs.filter((post) => post.draft !== true)
+  let publishSnippets = snippets.filter((post) => post.draft !== true)
+  // RSS for blog post & snippet
+  if (publishPosts.length > 0 || publishSnippets.length > 0) {
+    let rss = generateRss(sortPosts([...publishPosts, ...publishSnippets]))
+    writeFileSync(`./public/${RSS_PAGE}`, rss)
   }
 
-  if (publishPosts.length > 0) {
+  if (publishPosts.length > 0 || publishSnippets.length > 0) {
+    // RSS for tags
     for (let tag of Object.keys(tagData)) {
-      let filteredPosts = allBlogs.filter((post) => post.tags.map((t) => slug(t)).includes(tag))
-      let rss = generateRss(config, filteredPosts, `tags/${tag}/${page}`)
+      let filteredPosts = blogs.filter((p) => p.tags.map((t) => slug(t)).includes(tag))
+      let filteredSnippets = snippets.filter((s) => s.tags.map((t) => slug(t)).includes(tag))
+      let rss = generateRss([...filteredPosts, ...filteredSnippets], `tags/${tag}/feed.xml`)
       let rssPath = path.join('public', 'tags', tag)
       mkdirSync(rssPath, { recursive: true })
-      writeFileSync(path.join(rssPath, page), rss)
+      writeFileSync(path.join(rssPath, RSS_PAGE), rss)
     }
   }
-}
-
-export function rss() {
-  generateRSS(siteMetadata, allBlogs as unknown as Blog[])
-  console.log('🗒️. RSS feed generated...')
+  console.log('🗒️. RSS feed generated.')
 }

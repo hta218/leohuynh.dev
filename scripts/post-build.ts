@@ -1,8 +1,8 @@
-import { rss } from './rss'
+import { generateRssFeed } from './rss'
 import './seed'
 
 async function postbuild() {
-  await rss()
+  await generateRssFeed()
 }
 
 postbuild()
