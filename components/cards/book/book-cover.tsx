@@ -1,5 +1,5 @@
 import { clsx } from 'clsx'
-import Image from '~/components/Image'
+import { Image } from '~/components/ui/image'
 
 export function BookCover({ image, alt }: { image: string; alt: string }) {
   return (

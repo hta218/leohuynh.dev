@@ -1,12 +1,12 @@
 import type { Author } from 'contentlayer/generated'
 import type { ReactNode } from 'react'
-import Button from '~/components/button'
-import CareerTimeline from '~/components/career'
-import Container from '~/components/Container'
-import { PageHeader } from '~/components/page-header'
+import { CareerTimeline } from '~/components/author/career'
+import { SocialAccounts } from '~/components/author/social-accounts'
 import { ProfileCard } from '~/components/cards/profile'
-import SocialAccounts from '~/components/social-accounts'
-import Twemoji from '~/components/Twemoji'
+import { Twemoji } from '~/components/ui/twemoji'
+import { Button } from '~/components/ui/button'
+import { Container } from '~/components/ui/container'
+import { PageHeader } from '~/components/ui/page-header'
 
 interface Props {
   children?: ReactNode

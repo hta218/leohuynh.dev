@@ -1,14 +1,14 @@
-import type { ReactNode } from 'react'
+import type { Author, Blog } from 'contentlayer/generated'
 import type { CoreContent } from 'pliny/utils/contentlayer'
-import type { Blog, Author } from 'contentlayer/generated'
-import Comments from '@/components/Comments'
-import Link from '@/components/Link'
-import PageTitle from '@/components/PageTitle'
-import Container from '@/components/Container'
-import Image from '@/components/Image'
-import Tag from '@/components/Tag'
-import siteMetadata from '@/data/siteMetadata'
-import ScrollTopAndComment from '@/components/ScrollTopAndComment'
+import type { ReactNode } from 'react'
+import { Tag } from '~/components/blog/tags'
+import { Comments } from '~/components/blog/comments'
+import { PostTitle } from '~/components/blog/post-title'
+import { ScrollButtons } from '~/components/blog/scroll-buttons'
+import { Image } from '~/components/ui/image'
+import { Link } from '~/components/ui/link'
+import { Container } from '~/components/ui/container'
+import siteMetadata from '~/data/siteMetadata'
 
 interface LayoutProps {
   content: CoreContent<Blog>
@@ -24,7 +24,7 @@ export function PostLayout({ content, authorDetails, next, prev, children }: Lay
 
   return (
     <Container>
-      <ScrollTopAndComment />
+      <ScrollButtons />
       <article>
         <div className="xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700">
           <header className="pt-6 xl:pb-6">
@@ -45,7 +45,7 @@ export function PostLayout({ content, authorDetails, next, prev, children }: Lay
                 </div>
               </dl>
               <div>
-                <PageTitle>{title}</PageTitle>
+                <PostTitle>{title}</PostTitle>
               </div>
             </div>
           </header>

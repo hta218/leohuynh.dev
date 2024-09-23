@@ -1,8 +1,8 @@
 import type { CoreContent } from 'pliny/utils/contentlayer'
 import type { Blog } from '~/.contentlayer/generated'
-import Link from '~/components/Link'
+import { Link } from '~/components/ui/link'
 import { PostCardListView } from '~/components/blog/post-card-list-view'
-import { GrowingUnderline } from '../growing-underline'
+import { GrowingUnderline } from '~/components/ui/growing-underline'
 
 const MAX_DISPLAY = 5
 

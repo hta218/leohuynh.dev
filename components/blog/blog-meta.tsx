@@ -1,6 +1,6 @@
 import type readingTime from 'reading-time'
+import { Twemoji } from '~/components/ui/twemoji'
 import { formatDate } from '~/utils/date'
-import { Twemoji } from '~/components/Twemoji'
 
 type BlogMetaProps = {
   date: string

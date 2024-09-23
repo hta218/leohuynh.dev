@@ -1,12 +1,11 @@
-import type { CSSProperties } from 'react'
-import Image from '~/components/Image'
-import Link from '~/components/Link'
-import { BlogTags } from '~/components/blog/blog-tags'
-import siteMetadata from '~/data/siteMetadata'
-import { formatDate } from '~/utils/date'
 import type { Blog } from 'contentlayer/generated'
 import type { CoreContent } from 'pliny/utils/contentlayer'
-import { GrowingUnderline } from '../growing-underline'
+import { Image } from '~/components/ui/image'
+import { Link } from '~/components/ui/link'
+import { TagsList } from '~/components/blog/tags'
+import { GrowingUnderline } from '~/components/ui/growing-underline'
+import siteMetadata from '~/data/siteMetadata'
+import { formatDate } from '~/utils/date'
 
 export function PostCardListView({ post }: { post: CoreContent<Blog> }) {
   let { slug, date, title, summary, tags, images, readingTime } = post
@@ -40,7 +39,7 @@ export function PostCardListView({ post }: { post: CoreContent<Blog> }) {
                   </GrowingUnderline>
                 </Link>
               </h2>
-              <BlogTags tags={tags} />
+              <TagsList tags={tags} />
             </div>
             <div className="line-clamp-2 text-gray-500 dark:text-gray-400 md:line-clamp-3">
               {summary}

@@ -1,22 +1,27 @@
+import { Link } from '~/components/ui/link'
 import Bash from '~/icons/bash.svg'
 import CSS from '~/icons/css.svg'
 import Exercism from '~/icons/exercism.svg'
 import Git from '~/icons/git.svg'
 import GitHub from '~/icons/github.svg'
+import Goodreads from '~/icons/goodreads.svg'
 import HeadlessUI from '~/icons/headlessui.svg'
 import Hydrogen from '~/icons/hydrogen.svg'
+import Java from '~/icons/java.svg'
 import Javascript from '~/icons/javascript.svg'
 import JWT from '~/icons/jsonwebtokens.svg'
 import Koa from '~/icons/koa.svg'
 import Liquid from '~/icons/liquid.svg'
 import Markdown from '~/icons/markdown.svg'
 import MongoDB from '~/icons/mongodb.svg'
+import MySQL from '~/icons/mysql.svg'
 import NextJS from '~/icons/nextjs.svg'
 import Node from '~/icons/nodejs.svg'
 import Npm from '~/icons/npm.svg'
 import OpenAI from '~/icons/openai.svg'
 import Picsum from '~/icons/picsum.svg'
 import Prisma from '~/icons/prisma.svg'
+import Pygame from '~/icons/pygame.svg'
 import Python from '~/icons/python.svg'
 import Railway from '~/icons/railway.svg'
 import React from '~/icons/react.svg'
@@ -30,11 +35,6 @@ import Typescript from '~/icons/typescript.svg'
 import Umami from '~/icons/umami.svg'
 import Vercel from '~/icons/vercel.svg'
 import Webpack from '~/icons/webpack.svg'
-import Pygame from '~/icons/pygame.svg'
-import Java from '~/icons/java.svg'
-import MySQL from '~/icons/mysql.svg'
-import Goodreads from '~/icons/goodreads.svg'
-import Link from './Link'
 
 export let BrandsMap = {
   React: {
@@ -192,15 +192,15 @@ export let BrandsMap = {
 }
 
 export function Brand(props: {
-  type: keyof typeof BrandsMap
+  name: keyof typeof BrandsMap
   as?: 'link' | 'icon'
   className?: string
   iconClassName?: string
 }) {
-  let { type, as = 'link', className, iconClassName } = props
-  let { Icon, url } = BrandsMap[type] || {}
+  let { name, as = 'link', className, iconClassName } = props
+  let { Icon, url } = BrandsMap[name] || {}
 
-  if (!Icon) return <span>Missing icon for {type}</span>
+  if (!Icon) return <span>Missing brand icon for {name}</span>
 
   if (as === 'icon') {
     return <Icon className={className} fill="currentColor" />

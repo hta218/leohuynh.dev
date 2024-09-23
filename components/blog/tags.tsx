@@ -1,8 +1,22 @@
-import Link from 'next/link'
-import { slug } from 'github-slugger'
 import { clsx } from 'clsx'
+import { slug } from 'github-slugger'
+import Link from 'next/link'
 
-function Tag({ text, size = 'sm' }: { text: string; size?: 'sm' | 'md' }) {
+export function TagsList({ tags }: { tags: string[] }) {
+  if (!tags || tags.length === 0) {
+    return null
+  }
+
+  return (
+    <div className="flex flex-wrap gap-2 md:gap-3">
+      {tags.map((tag) => (
+        <Tag key={tag} text={tag} />
+      ))}
+    </div>
+  )
+}
+
+export function Tag({ text, size = 'sm' }: { text: string; size?: 'sm' | 'md' }) {
   let tagName = text.split(' ').join('-')
   return (
     <Link
@@ -18,5 +32,3 @@ function Tag({ text, size = 'sm' }: { text: string; size?: 'sm' | 'md' }) {
     </Link>
   )
 }
-
-export default Tag

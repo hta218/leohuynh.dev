@@ -1,14 +1,14 @@
 'use client'
 
 import { Dialog, Transition } from '@headlessui/react'
-import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
-import { Fragment, useState, useEffect, useRef } from 'react'
-import Link from './Link'
-import HEADER_NAV_LINKS from '@/data/headerNavLinks'
-import { Menu, X } from 'lucide-react'
+import { clearAllBodyScrollLocks, disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
 import { clsx } from 'clsx'
+import { Menu, X } from 'lucide-react'
+import { Fragment, useEffect, useRef, useState } from 'react'
+import { Link } from '~/components/ui/link'
+import HEADER_NAV_LINKS from '~/data/headerNavLinks'
 
-function MobileNav() {
+export function MobileNav() {
   let [navShow, setNavShow] = useState(false)
   let navRef = useRef(null)
 
@@ -97,5 +97,3 @@ function MobileNav() {
     </>
   )
 }
-
-export default MobileNav

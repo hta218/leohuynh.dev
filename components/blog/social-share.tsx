@@ -2,10 +2,10 @@
 
 import { Facebook } from 'lucide-react'
 import { FacebookShareButton, TwitterShareButton } from 'react-share'
-import XIcon from '~/icons/x.svg'
-import Link from './Link'
+import { Link } from '~/components/ui/link'
+import { GrowingUnderline } from '~/components/ui/growing-underline'
 import siteMetadata from '~/data/siteMetadata'
-import { GrowingUnderline } from './growing-underline'
+import XIcon from '~/icons/x.svg'
 
 type SocialButtonsProps = {
   postUrl: string
@@ -13,7 +13,7 @@ type SocialButtonsProps = {
   filePath: string
 }
 
-export function SocialShareButtons({ postUrl, title, filePath }: SocialButtonsProps) {
+export function SocialShare({ postUrl, title, filePath }: SocialButtonsProps) {
   let CREATE_DISCUS_ON_TWITTER = process.env.NEXT_PUBLIC_CREATE_DISCUS_ON_TWITTER
   let CREATE_DISCUS_ON_GITHUB = process.env.NEXT_PUBLIC_CREATE_DISCUS_ON_GITHUB
   let SHARE_ON_TWITTER = process.env.NEXT_PUBLIC_SHARE_ON_TWITTER

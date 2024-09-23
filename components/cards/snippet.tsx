@@ -1,11 +1,11 @@
 import { clsx } from 'clsx'
 import { type Snippet } from 'contentlayer/generated'
 import { type CoreContent } from 'pliny/utils/contentlayer'
-import type { BrandsMap } from '~/components/Brands'
-import { Brand } from '~/components/Brands'
-import { GradientBorder } from '~/components/gradient-border'
-import { GrowingUnderline } from '~/components/growing-underline'
-import Link from '~/components/Link'
+import { Link } from '~/components/ui/link'
+import type { BrandsMap } from '~/components/ui/brand'
+import { Brand } from '~/components/ui/brand'
+import { GradientBorder } from '~/components/ui/gradient-border'
+import { GrowingUnderline } from '~/components/ui/growing-underline'
 import { TiltedGridBackground } from '~/components/ui/tilted-grid-background'
 
 export function SnippetCard({ snippet }: { snippet: CoreContent<Snippet> }) {
@@ -24,7 +24,7 @@ export function SnippetCard({ snippet }: { snippet: CoreContent<Snippet> }) {
       >
         <TiltedGridBackground className="inset-0" />
         <Brand
-          type={icon as keyof typeof BrandsMap}
+          name={icon as keyof typeof BrandsMap}
           as="icon"
           className="absolute -top-5 left-4 z-10 h-12 w-12 text-gray-900 dark:text-white"
         />

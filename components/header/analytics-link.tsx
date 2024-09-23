@@ -1,6 +1,6 @@
-import siteMetadata from '@/data/siteMetadata'
 import { AreaChart } from 'lucide-react'
-import Link from './Link'
+import { Link } from '~/components/ui/link'
+import siteMetadata from '~/data/siteMetadata'
 
 export function AnalyticsLink() {
   return (

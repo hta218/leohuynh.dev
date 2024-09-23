@@ -1,7 +1,7 @@
 import { Facebook, Github, Linkedin, Mail, Youtube } from 'lucide-react'
 import siteMetadata from '~/data/siteMetadata'
 
-export default function SocialAccounts() {
+export function SocialAccounts() {
   return (
     <div>
       <p>

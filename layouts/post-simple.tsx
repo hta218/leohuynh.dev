@@ -1,14 +1,14 @@
-import Comments from '@/components/Comments'
-import Container from '@/components/Container'
-import PageTitle from '@/components/PageTitle'
-import ScrollTopAndComment from '@/components/ScrollTopAndComment'
-import siteMetadata from '@/data/siteMetadata'
 import type { Blog, Snippet } from 'contentlayer/generated'
 import type { CoreContent } from 'pliny/utils/contentlayer'
 import type { ReactNode } from 'react'
 import { BlogMeta } from '~/components/blog/blog-meta'
-import { BlogTags } from '~/components/blog/blog-tags'
-import { SocialShareButtons } from '~/components/SocialShareButtons'
+import { TagsList } from '~/components/blog/tags'
+import { Comments } from '~/components/blog/comments'
+import { PostTitle } from '~/components/blog/post-title'
+import { ScrollButtons } from '~/components/blog/scroll-buttons'
+import { SocialShare } from '~/components/blog/social-share'
+import { Container } from '~/components/ui/container'
+import siteMetadata from '~/data/siteMetadata'
 
 interface PostSimpleProps {
   content: CoreContent<Blog | Snippet>
@@ -23,11 +23,11 @@ export function PostSimple({ content, children }: PostSimpleProps) {
 
   return (
     <Container className="pt-4 lg:pt-12">
-      <ScrollTopAndComment />
+      <ScrollButtons />
       <article className="space-y-6 divide-y divide-gray-200 pt-6 dark:divide-gray-700 lg:space-y-16">
         <div className="space-y-4">
-          <BlogTags tags={tags} />
-          <PageTitle>{title}</PageTitle>
+          <TagsList tags={tags} />
+          <PostTitle>{title}</PostTitle>
           <dl>
             <div>
               <dt className="sr-only">Published on</dt>
@@ -37,7 +37,7 @@ export function PostSimple({ content, children }: PostSimpleProps) {
         </div>
         <div className="prose prose-lg max-w-none pt-10 dark:prose-invert">{children}</div>
         <div className="md:pb-10 md:pt-4">
-          <SocialShareButtons postUrl={postUrl} title={title} filePath={filePath} />
+          <SocialShare postUrl={postUrl} title={title} filePath={filePath} />
           <div id="comment">
             <Comments slug={slug} />
           </div>

@@ -1,7 +1,7 @@
 import { genPageMetadata } from '~/app/seo'
 import { BookCard } from '~/components/cards/book'
-import Container from '~/components/Container'
-import { PageHeader } from '~/components/page-header'
+import { Container } from '~/components/ui/container'
+import { PageHeader } from '~/components/ui/page-header'
 import books from '~/json/books.json' assert { type: 'json' }
 import type { GoodreadsBook } from '~/types/data'
 

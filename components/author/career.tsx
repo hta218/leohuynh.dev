@@ -1,9 +1,9 @@
 import clsx from 'clsx'
-import Image from './Image'
-import Link from './Link'
-import Twemoji from './Twemoji'
 import { Minus, Plus } from 'lucide-react'
-import { GrowingUnderline } from './growing-underline'
+import { Image } from '~/components/ui/image'
+import { Link } from '~/components/ui/link'
+import { Twemoji } from '~/components/ui/twemoji'
+import { GrowingUnderline } from '~/components/ui/growing-underline'
 
 const EXPERIENCES = [
   {
@@ -275,5 +275,3 @@ function TimelineItem({ exp, last }: { exp: (typeof EXPERIENCES)[0]; last?: bool
     </div>
   )
 }
-
-export default CareerTimeline

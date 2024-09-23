@@ -30,5 +30,3 @@ export function Button({
     </Component>
   )
 }
-
-export default Button

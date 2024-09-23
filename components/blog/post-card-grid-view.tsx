@@ -1,10 +1,10 @@
 import type { Blog } from 'contentlayer/generated'
 import type { CoreContent } from 'pliny/utils/contentlayer'
 import { formatDate } from 'pliny/utils/formatDate'
-import Image from '~/components/Image'
-import Link from '~/components/Link'
+import { Image } from '~/components/ui/image'
+import { Link } from '~/components/ui/link'
 import siteMetadata from '~/data/siteMetadata'
-import { GrowingUnderline } from '../growing-underline'
+import { GrowingUnderline } from '~/components/ui/growing-underline'
 
 export function PostCardGridView({ post }: { post: CoreContent<Blog> }) {
   let { path, date, title, summary, images, readingTime } = post

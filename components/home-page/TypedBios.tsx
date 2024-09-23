@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import Typed from 'typed.js'
-import Twemoji from '../Twemoji'
+import { Twemoji } from '~/components/ui/twemoji'
 
 function createTypedInstance(el: HTMLElement) {
   return new Typed(el, {

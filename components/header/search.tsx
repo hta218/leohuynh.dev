@@ -1,9 +1,9 @@
+import { Command } from 'lucide-react'
 import { AlgoliaButton } from 'pliny/search/AlgoliaButton'
 import { KBarButton } from 'pliny/search/KBarButton'
-import siteMetadata from '@/data/siteMetadata'
-import { Command } from 'lucide-react'
+import siteMetadata from '~/data/siteMetadata'
 
-function SearchButton() {
+export function SearchButton() {
   let { search } = siteMetadata
   if (search && ['kbar', 'algolia'].includes(search.provider)) {
     let SearchButton = search.provider === 'algolia' ? AlgoliaButton : KBarButton
@@ -18,5 +18,3 @@ function SearchButton() {
     )
   }
 }
-
-export default SearchButton

@@ -1,4 +1,4 @@
-import { Twemoji } from '@/components/Twemoji'
+import { Twemoji } from '~/components/ui/twemoji'
 
 export function Heading() {
   return (

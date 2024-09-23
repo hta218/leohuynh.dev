@@ -1,9 +1,9 @@
 'use client'
 
 import { Comments as CommentsComponent } from 'pliny/comments'
-import siteMetadata from '@/data/siteMetadata'
+import siteMetadata from '~/data/siteMetadata'
 
-export default function Comments({ slug }: { slug: string }) {
+export function Comments({ slug }: { slug: string }) {
   if (!siteMetadata.comments?.provider) {
     return null
   }

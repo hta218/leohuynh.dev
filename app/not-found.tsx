@@ -1,7 +1,7 @@
-import { Button } from '~/components/button'
-import Container from '~/components/Container'
-import Link from '~/components/Link'
-import Twemoji from '~/components/Twemoji'
+import { Button } from '~/components/ui/button'
+import { Container } from '~/components/ui/container'
+import { Link } from '~/components/ui/link'
+import { Twemoji } from '~/components/ui/twemoji'
 import FourOhFour from '~/icons/404.svg'
 
 export default function NotFound() {

@@ -1,7 +1,7 @@
-import Tag from '@/components/Tag'
 import { genPageMetadata } from 'app/seo'
+import { Tag } from '~/components/blog/tags'
+import { Container } from '~/components/ui/container'
 import tagData from '~/json/tag-data.json'
-import Container from '~/components/Container'
 
 export let metadata = genPageMetadata({ title: 'Tags', description: 'Things I blog about' })
 

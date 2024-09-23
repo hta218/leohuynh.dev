@@ -1,14 +1,14 @@
 import clsx from 'clsx'
-import type { BrandsMap } from '~/components/Brands'
-import { Brand } from '~/components/Brands'
-import { GradientBorder } from '~/components/gradient-border'
-import { GrowingUnderline } from '~/components/growing-underline'
-import Image from '~/components/Image'
-import { RadiantCard } from '~/components/radiant-card'
-import { RepoMeta } from '~/components/repo-meta'
+import { Image } from '~/components/ui/image'
+import { Link } from '~/components/ui/link'
+import type { BrandsMap } from '~/components/ui/brand'
+import { Brand } from '~/components/ui/brand'
+import { GradientBorder } from '~/components/ui/gradient-border'
+import { GrowingUnderline } from '~/components/ui/growing-underline'
+import { RadiantCard } from '~/components/ui/radiant-card'
 import type { PROJECTS_DATA } from '~/data/projectsData'
 import type { GithubRepository } from '~/types/data'
-import Link from '~/components/Link'
+import { RepoMeta } from './repo-meta'
 
 export function ProjectCard({
   project,
@@ -56,7 +56,7 @@ export function ProjectCard({
                 return (
                   <Brand
                     key={tool}
-                    type={tool as keyof typeof BrandsMap}
+                    name={tool as keyof typeof BrandsMap}
                     iconClassName={clsx(
                       tool === 'Pygame' ? 'h-5 md:h-5.5' : 'h-5 w-5 md:h-5.5 md:w-5.5'
                     )}

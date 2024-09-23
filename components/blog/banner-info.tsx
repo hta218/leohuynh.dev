@@ -29,5 +29,3 @@ export function BannerInfo({ photoURL, author }: BannerInfoProps) {
     </div>
   )
 }
-
-export default BannerInfo

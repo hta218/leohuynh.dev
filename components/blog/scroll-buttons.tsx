@@ -1,10 +1,10 @@
 'use client'
 
-import siteMetadata from '@/data/siteMetadata'
-import { ChevronsUp, MessageSquareHeart, MessageSquareText } from 'lucide-react'
+import { ChevronsUp, MessageSquareText } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import siteMetadata from '~/data/siteMetadata'
 
-function ScrollTopAndComment() {
+export function ScrollButtons() {
   let [show, setShow] = useState(false)
 
   useEffect(() => {
@@ -44,5 +44,3 @@ function ScrollTopAndComment() {
     </div>
   )
 }
-
-export default ScrollTopAndComment

@@ -1,16 +1,14 @@
-'use client'
-
 import clsx from 'clsx'
-import { PenTool, Quote, Star } from 'lucide-react'
-import { useState } from 'react'
-import { Brand } from '~/components/Brands'
-import { GradientBorder } from '~/components/gradient-border'
-import { GrowingUnderline } from '~/components/growing-underline'
-import Link from '~/components/Link'
-import Twemoji from '~/components/Twemoji'
+import { Star } from 'lucide-react'
+import { Link } from '~/components/ui/link'
+import { Twemoji } from '~/components/ui/twemoji'
+import { Brand } from '~/components/ui/brand'
+import { GradientBorder } from '~/components/ui/gradient-border'
+import { GrowingUnderline } from '~/components/ui/growing-underline'
 import { TiltedGridBackground } from '~/components/ui/tilted-grid-background'
 import type { GoodreadsBook } from '~/types/data'
 import { BookCover } from './book-cover'
+import { BookDetails } from './book-details'
 
 export function BookCard({ book }: { book: GoodreadsBook }) {
   return (
@@ -58,74 +56,11 @@ function BookMeta({ book }: { book: GoodreadsBook }) {
   )
 }
 
-function BookDetails({ book }: { book: GoodreadsBook }) {
-  let [tab, setTab] = useState<'summary' | 'review'>('summary')
-  return (
-    <div className="space-y-3">
-      <div className="-ml-1 flex items-center gap-2">
-        <button
-          onClick={() => setTab('summary')}
-          className={clsx(
-            'inline-flex items-center gap-1 font-medium underline-offset-4',
-            tab === 'summary'
-              ? 'underline'
-              : 'text-gray-500 hover:text-gray-900 dark:hover:text-gray-100'
-          )}
-        >
-          <Twemoji emoji="spiral-notepad" />
-          <span>Summary</span>
-        </button>
-        {book.user_review && (
-          <>
-            <span>/</span>
-            <button
-              className={clsx(
-                'inline-flex items-center gap-1 font-medium underline-offset-4',
-                tab === 'review'
-                  ? 'underline'
-                  : 'text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100'
-              )}
-              onClick={() => setTab('review')}
-            >
-              <Twemoji emoji="glowing-star" />
-              <span>My review</span>
-              <span className="md:hidden">({book.user_rating}/5)</span>
-            </button>
-          </>
-        )}
-      </div>
-      <div className="relative md:pr-4">
-        {tab === 'summary' ? (
-          <>
-            <Quote
-              size={20}
-              strokeWidth={1.5}
-              className="absolute -top-4 right-0 z-[-1] h-10 w-10 text-gray-200 dark:text-gray-700 md:-top-2"
-            />
-            <p className="line-clamp-5 font-medium italic text-gray-600 dark:text-gray-400">
-              "{book.book_description}"
-            </p>
-          </>
-        ) : (
-          <>
-            <PenTool
-              size={20}
-              strokeWidth={1.5}
-              className="absolute -top-4 right-0 z-[-1] h-10 w-10 text-gray-200 dark:text-gray-700 md:-top-2"
-            />
-            <p className="font-medium text-gray-600 dark:text-gray-400">{book.user_review}</p>
-          </>
-        )}
-      </div>
-    </div>
-  )
-}
-
 function GoodreadsLink({ url, className }: { url?: string | null; className?: string }) {
   if (url) {
     return (
       <Link href={url} className={className}>
-        <Brand type="Goodreads" as="icon" className="h-5 text-goodreads dark:text-gray-100" />
+        <Brand name="Goodreads" as="icon" className="h-5 text-goodreads dark:text-gray-100" />
       </Link>
     )
   }

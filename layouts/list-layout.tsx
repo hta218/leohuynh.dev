@@ -6,11 +6,11 @@ import { usePathname } from 'next/navigation'
 import type { CoreContent } from 'pliny/utils/contentlayer'
 import { useState } from 'react'
 import { PostCardGridView } from '~/components/blog/post-card-grid-view'
-import Container from '~/components/Container'
-import { GrowingUnderline } from '~/components/growing-underline'
-import Link from '~/components/Link'
-import { PageHeader } from '~/components/page-header'
-import { SearchInput } from '~/components/search-input'
+import { SearchArticles } from '~/components/blog/search-articles'
+import { Link } from '~/components/ui/link'
+import { Container } from '~/components/ui/container'
+import { GrowingUnderline } from '~/components/ui/growing-underline'
+import { PageHeader } from '~/components/ui/page-header'
 
 interface PaginationProps {
   totalPages: number
@@ -98,7 +98,7 @@ export function ListLayout({
 					Use the search below to filter by title."
         className="border-b border-gray-200 dark:border-gray-700"
       >
-        <SearchInput label="Search articles" onChange={(e) => setSearchValue(e.target.value)} />
+        <SearchArticles label="Search articles" onChange={(e) => setSearchValue(e.target.value)} />
       </PageHeader>
       {!filteredBlogPosts.length ? (
         <div className="py-10">No posts found.</div>

@@ -1,15 +1,14 @@
-import Container from '@/components/Container'
+import type { CoreContent } from 'pliny/utils/contentlayer'
+import type { Blog } from '~/.contentlayer/generated'
+import { ProfileCard } from '~/components/cards/profile'
 import { BlogLinks } from '~/components/home-page/BlogLinks'
 import { Greeting } from '~/components/home-page/Greeting'
 import { Heading } from '~/components/home-page/Heading'
+import { LatestPosts } from '~/components/home-page/LatestPosts'
 import { ShortDescription } from '~/components/home-page/ShortDescription'
 import { TypedBios } from '~/components/home-page/TypedBios'
-import { ProfileCard } from '~/components/cards/profile'
-import Twemoji from '@/components/Twemoji'
-import NewsletterForm from 'pliny/ui/NewsletterForm'
-import { LatestPosts } from '~/components/home-page/LatestPosts'
-import type { CoreContent } from 'pliny/utils/contentlayer'
-import type { Blog } from '~/.contentlayer/generated'
+import { Container } from '~/components/ui/container'
+import { Twemoji } from '~/components/ui/twemoji'
 
 export function Home({ posts }: { posts: CoreContent<Blog>[] }) {
   return (

@@ -1,9 +1,9 @@
 import { genPageMetadata } from 'app/seo'
-import Container from '~/components/Container'
+import { Container } from '~/components/ui/container'
 import { ProjectCard } from '~/components/cards/project'
 import { PROJECTS_DATA } from '~/data/projectsData'
 import { fetchProjectRepoData } from './github'
-import { PageHeader } from '~/components/page-header'
+import { PageHeader } from '~/components/ui/page-header'
 
 export let metadata = genPageMetadata({ title: 'Projects' })
 

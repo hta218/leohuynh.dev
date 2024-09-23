@@ -1,8 +1,8 @@
 import { genPageMetadata } from 'app/seo'
 import { allSnippets } from 'contentlayer/generated'
 import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer'
-import Container from '~/components/Container'
-import { PageHeader } from '~/components/page-header'
+import { Container } from '~/components/ui/container'
+import { PageHeader } from '~/components/ui/page-header'
 import { SnippetCard } from '~/components/cards/snippet'
 
 export let metadata = genPageMetadata({ title: 'Snippets' })

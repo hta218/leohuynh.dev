@@ -31,7 +31,7 @@ const THEMES = [
   },
 ]
 
-function ThemeSwitcher() {
+export function ThemeSwitcher() {
   let [mounted, setMounted] = useState(false)
   let { theme, setTheme, resolvedTheme } = useTheme()
 
@@ -93,5 +93,3 @@ function ThemeSwitcher() {
     </div>
   )
 }
-
-export default ThemeSwitcher

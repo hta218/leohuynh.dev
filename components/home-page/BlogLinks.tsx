@@ -1,7 +1,7 @@
-import siteMetadata from '@/data/siteMetadata'
-import Link from '~/components/Link'
-import Twemoji from '~/components/Twemoji'
-import { GrowingUnderline } from '../growing-underline'
+import { Link } from '~/components/ui/link'
+import { Twemoji } from '~/components/ui/twemoji'
+import { GrowingUnderline } from '~/components/ui/growing-underline'
+import siteMetadata from '~/data/siteMetadata'
 
 const LINKS = [
   {

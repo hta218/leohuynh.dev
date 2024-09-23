@@ -1,9 +1,8 @@
+import { Link } from '~/components/ui/link'
+import { Container } from '~/components/ui/container'
 import siteMetadata from '~/data/siteMetadata'
 import MadeInVietNameIcon from '~/icons/miv.svg'
-import PoweredByVercelIcon from '~/icons/powered-by-vercel.svg'
-import { BuiltWith } from './BuiltWith'
-import Container from './Container'
-import Link from './Link'
+import { BuiltWith } from './built-with'
 
 export function Footer() {
   return (

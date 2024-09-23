@@ -1,5 +1,5 @@
 import { clsx } from 'clsx'
-import { TiltedGridBackground } from './ui/tilted-grid-background'
+import { TiltedGridBackground } from './tilted-grid-background'
 
 export function RadiantCard({
   children,

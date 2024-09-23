@@ -1,18 +1,18 @@
 'use client'
 
-import HEADER_NAV_LINKS from '@/data/headerNavLinks'
-import siteMetadata from '@/data/siteMetadata'
 import clsx from 'clsx'
 import NextImage from 'next/image'
 import { usePathname } from 'next/navigation'
-import Container from './Container'
-import Link from './Link'
-import MobileNav from './MobileNav'
-import SearchButton from './SearchButton'
-import ThemeSwitcher from './ThemeSwitcher'
-import { AnalyticsLink } from './AnalyticsLink'
-import { GrowingUnderline } from './growing-underline'
 import { useEffect } from 'react'
+import { Link } from '~/components/ui/link'
+import { Container } from '~/components/ui/container'
+import { GrowingUnderline } from '~/components/ui/growing-underline'
+import HEADER_NAV_LINKS from '~/data/headerNavLinks'
+import siteMetadata from '~/data/siteMetadata'
+import { AnalyticsLink } from './analytics-link'
+import { MobileNav } from './mobile-nav'
+import { SearchButton } from './search'
+import { ThemeSwitcher } from './theme-switcher'
 
 let logged = false
 function logASCIItext() {
@@ -25,7 +25,7 @@ function logASCIItext() {
   logged = true
 }
 
-function Header() {
+export function Header() {
   let pathname = usePathname()
   useEffect(logASCIItext, [])
 
@@ -84,5 +84,3 @@ function Header() {
     </Container>
   )
 }
-
-export default Header

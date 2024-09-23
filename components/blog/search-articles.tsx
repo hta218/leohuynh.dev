@@ -1,7 +1,7 @@
 import { Search } from 'lucide-react'
 import type { ChangeEventHandler } from 'react'
 
-export function SearchInput({
+export function SearchArticles({
   onChange,
   label,
 }: {
