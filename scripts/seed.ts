@@ -1,7 +1,9 @@
+import csv from 'csv-parser'
+import fs, { writeFileSync } from 'fs'
+import path from 'path'
 import Parser from 'rss-parser'
-import { writeFileSync } from 'fs'
 import { SITE_METADATA } from '~/data/site-metadata'
-import type { GoodreadsBook } from '~/types/data'
+import type { GoodreadsBook, ImdbMovie, OmdbMovie } from '~/types/data'
 
 let parser = new Parser<{ [key: string]: any }, GoodreadsBook>({
   customFields: {
@@ -46,13 +48,85 @@ export async function fetchGoodreadsBooks() {
       writeFileSync(`./json/books.json`, JSON.stringify(data.items))
       console.log('📚 Books seeded.')
     } catch (error) {
-      console.error(`Error fetching the Goodread RSS feed: ${error.message}`)
+      console.error(`Error fetching the Goodreads RSS feed: ${error.message}`)
     }
+  } else {
+    console.log('📚 No Goodreads RSS feed found.')
+  }
+}
+
+const IMDB_CSV_FILE_PATH = path.join(process.cwd(), 'scripts', 'imdb-movies.csv')
+async function fetchImdbMovies() {
+  if (!fs.existsSync(IMDB_CSV_FILE_PATH)) {
+    console.log('🎬 IMDB CSV file not found.')
+    return
+  }
+  try {
+    let imdbMovies: ImdbMovie[] = []
+    fs.createReadStream(IMDB_CSV_FILE_PATH)
+      .pipe(
+        csv({
+          mapHeaders: ({ header }) =>
+            header
+              .replace(/(\(.*\))/g, '')
+              .trim()
+              .toLowerCase()
+              .replace(/\s/g, '_'),
+          mapValues: ({ value }) => {
+            if (value.includes(',')) {
+              return value.split(',').map((v: string) => v.trim())
+            }
+            return value.trim()
+          },
+        })
+      )
+      .on('data', async (mv: ImdbMovie) => {
+        imdbMovies.push(mv)
+      })
+      .on('error', (error) => {
+        console.error(`Error parsing IMDB CSV file: ${error.message}`)
+      })
+      .on('end', async () => {
+        let movies: ImdbMovie[] = []
+        await Promise.all(
+          imdbMovies.map(async (mv) => {
+            let res = await fetch(
+              `https://www.omdbapi.com/?apikey=${process.env.OMDB_API_KEY}&i=${mv.const}&plot=full`,
+              {
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+              }
+            )
+            let omdbMovie: OmdbMovie = await res.json()
+            movies.push({
+              ...mv,
+              plot: omdbMovie.Plot,
+              poster: omdbMovie.Poster,
+              language: omdbMovie.Language,
+              country: omdbMovie.Country.split(', '),
+              awards: omdbMovie.Awards,
+              box_office: omdbMovie.BoxOffice,
+              ratings: omdbMovie.Ratings.map((r) => ({
+                source: r.Source,
+                value: r.Value,
+              })),
+            })
+            console.log('🎬 Processed movie:', mv.title)
+          })
+        )
+        writeFileSync(`./json/movies.json`, JSON.stringify(movies))
+        console.log('🎬 IMDB movies seeded.')
+      })
+  } catch (error) {
+    console.error(`Error parsing IMDB CSV file: ${error.message}`)
   }
 }
 
 export async function seed() {
   await fetchGoodreadsBooks()
+  await fetchImdbMovies()
 }
 
 seed()
