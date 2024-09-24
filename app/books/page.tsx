@@ -34,10 +34,10 @@ export default async function BooksPage() {
               textbooks. Today, I strive to keep reading daily, exploring topics such as science,
               technology, nonfiction, business, education, productivity, and history.
               <br />
-              Below is the list of books I've read and am currently reading.
+              This is where I keep track of what I’ve read and what’s on my reading list.
             </p>
             <p className="mt-3 italic">
-              *Data sourced from my{' '}
+              *Data pulled from my{' '}
               <Link href={SITE_METADATA.goodreadsBookshelfUrl} className="font-medium">
                 <GrowingUnderline data-umami-event="goodreads-feed">
                   Goodreads bookshelf
