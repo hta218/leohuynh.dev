@@ -20,6 +20,7 @@ export const SITE_METADATA = {
   instagram: 'https://www.instagram.com/hta218_',
   locale: 'en-US',
   stickyNav: true,
+  goodreadsBookshelfUrl: 'https://www.goodreads.com/review/list/179720035-leo-huynh',
   goodreadsFeedUrl: 'https://www.goodreads.com/review/list_rss/179720035',
   analyticsUrl: 'https://analytics.leohuynh.dev/share/jkwRskv0/leohuynh.dev',
   analytics: {
