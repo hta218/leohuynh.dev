@@ -42,6 +42,59 @@ export type GoodreadsBook = {
   content: string
 }
 
+export type ImdbMovie = {
+  const: string
+  your_rating: string
+  date_rated: string
+  title: string
+  original_title: string
+  url: string
+  title_type: string
+  imdb_rating: string
+  runtime: string
+  year: string
+  genres: string | string[]
+  num_votes: string
+  release_date: string
+  directors: string | string[]
+  // Additional fields from the OMDB API
+  plot: string
+  poster: string
+  language: string
+  country: string[]
+  awards: string
+  box_office: string
+  ratings: Array<{ source: string; value: string }>
+}
+
+export type OmdbMovie = {
+  Title: string
+  Year: string
+  Rated: string
+  Released: string
+  Runtime: string
+  Genre: string
+  Director: string
+  Writer: string
+  Actors: string
+  Plot: string
+  Language: string
+  Country: string
+  Awards: string
+  Poster: string
+  Ratings: Array<{ Source: string; Value: string }>
+  Metascore: string
+  imdbRating: string
+  imdbVotes: string
+  imdbID: string
+  Type: string
+  DVD: string
+  BoxOffice: string
+  Production: string
+  Website: string
+  Response: string
+}
+
 export interface ViewApiResponse {
   data?: {
     total: string
