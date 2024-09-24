@@ -1,12 +1,12 @@
 'use client'
 
-import { Dialog, Transition } from '@headlessui/react'
+import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react'
 import { clearAllBodyScrollLocks, disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
 import { clsx } from 'clsx'
 import { Menu, X } from 'lucide-react'
 import { Fragment, useEffect, useRef, useState } from 'react'
 import { Link } from '~/components/ui/link'
-import { HEADER_NAV_LINKS } from '~/data/header-nav-links'
+import { HEADER_NAV_LINKS, MORE_NAV_LINKS } from '~/data/header-nav-links'
 
 export function MobileNav() {
   let [navShow, setNavShow] = useState(false)
@@ -43,7 +43,7 @@ export function MobileNav() {
       </div>
       <Transition appear show={navShow} as={Fragment} unmount={false}>
         <Dialog as="div" onClose={onToggleNav} unmount={false}>
-          <Transition.Child
+          <TransitionChild
             as={Fragment}
             enter="ease-out duration-300"
             enterFrom="opacity-0"
@@ -54,9 +54,8 @@ export function MobileNav() {
             unmount={false}
           >
             <div className="fixed inset-0 z-60 bg-black/25" />
-          </Transition.Child>
-
-          <Transition.Child
+          </TransitionChild>
+          <TransitionChild
             as={Fragment}
             enter="transition ease-in-out duration-300 transform"
             enterFrom="translate-x-full opacity-0"
@@ -66,12 +65,12 @@ export function MobileNav() {
             leaveTo="translate-x-full opacity-0"
             unmount={false}
           >
-            <Dialog.Panel className="fixed left-0 top-0 z-70 h-full w-full bg-white opacity-95 duration-300 dark:bg-gray-950 dark:opacity-[0.98]">
+            <DialogPanel className="fixed left-0 top-0 z-70 h-full w-full bg-white opacity-95 duration-300 dark:bg-gray-950 dark:opacity-[0.98]">
               <nav
                 ref={navRef}
                 className="mt-8 flex h-full basis-0 flex-col items-start overflow-y-auto pl-12 pt-2 text-left"
               >
-                {HEADER_NAV_LINKS.map((link) => (
+                {[...HEADER_NAV_LINKS, ...MORE_NAV_LINKS].map((link) => (
                   <Link
                     key={link.title}
                     href={link.href}
@@ -82,7 +81,6 @@ export function MobileNav() {
                   </Link>
                 ))}
               </nav>
-
               <button
                 className="fixed right-4 top-7 z-80 h-16 w-16 p-4 text-gray-900 hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-400"
                 aria-label="Toggle Menu"
@@ -90,8 +88,8 @@ export function MobileNav() {
               >
                 <X className="h-6 w-6" />
               </button>
-            </Dialog.Panel>
-          </Transition.Child>
+            </DialogPanel>
+          </TransitionChild>
         </Dialog>
       </Transition>
     </>
