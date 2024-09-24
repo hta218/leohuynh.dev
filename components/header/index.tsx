@@ -11,6 +11,7 @@ import { HEADER_NAV_LINKS } from '~/data/header-nav-links'
 import { SITE_METADATA } from '~/data/site-metadata'
 import { AnalyticsLink } from './analytics-link'
 import { MobileNav } from './mobile-nav'
+import { MoreLinks } from './more-links'
 import { SearchButton } from './search'
 import { ThemeSwitcher } from './theme-switcher'
 
@@ -54,12 +55,13 @@ export function Header() {
           />
         </Link>
         <div className="flex items-center gap-4">
-          <div className="hidden space-x-1.5 sm:block">
-            {HEADER_NAV_LINKS.filter((link) => link.href !== '/').map(({ title, href }) => {
+          <div className="hidden gap-1.5 sm:flex">
+            {HEADER_NAV_LINKS.map(({ title, href }) => {
+              let isActive = pathname.startsWith(href)
               return (
                 <Link key={title} href={href} className="px-3 py-1 font-medium">
                   <GrowingUnderline
-                    className={clsx(pathname.startsWith(href) && 'bg-[length:100%_50%]')}
+                    className={clsx(isActive && 'bg-[length:100%_50%]')}
                     data-umami-event={`nav-${href.replace('/', '')}`}
                   >
                     {title}
@@ -67,6 +69,7 @@ export function Header() {
                 </Link>
               )
             })}
+            <MoreLinks />
           </div>
           <div
             data-orientation="vertical"
