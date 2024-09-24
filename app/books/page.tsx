@@ -13,8 +13,10 @@ export default async function BooksPage() {
   for (let book of books as unknown as GoodreadsBook[]) {
     if (book.user_shelves === 'currently-reading') {
       readingBooks.push(book)
+      readingBooks.sort((a, b) => Number(b.user_rating) - Number(a.user_rating))
     } else {
       readBooks.push(book)
+      readBooks.sort((a, b) => Number(b.user_rating) - Number(a.user_rating))
     }
   }
 
