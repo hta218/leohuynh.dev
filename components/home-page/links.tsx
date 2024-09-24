@@ -7,7 +7,7 @@ const LINKS = [
   {
     title: `What have I built?`,
     href: `/projects`,
-    emoji: 'hammer-and-wrench',
+    emoji: 'man-technologist',
     event: 'home-link-projects',
   },
   {
@@ -17,25 +17,19 @@ const LINKS = [
     event: 'home-link-blog',
   },
   {
-    title: `My snippets collection`,
+    title: `Snippets collection`,
     href: `/snippets`,
     emoji: 'dna',
     event: 'home-link-snippets',
   },
   {
-    title: `More about me & myself`,
+    title: `About me & this blog`,
     href: `/about`,
-    emoji: 'face-with-monocle',
+    emoji: 'smiling-face-with-sunglasses',
     event: 'home-link-about',
   },
   {
-    title: `My career`,
-    href: `/resume`,
-    emoji: 'briefcase',
-    event: 'home-link-resume',
-  },
-  {
-    title: `Traffic & engagement of this site`,
+    title: `Traffic and insights`,
     href: SITE_METADATA.analyticsUrl,
     emoji: 'bar-chart',
     event: 'home-link-analytics',
