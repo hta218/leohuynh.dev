@@ -16,9 +16,7 @@ export function PageHeader({
       <h1 className="text-3xl font-extrabold leading-9 tracking-tight sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
         {title}
       </h1>
-      <div className="flex items-center text-gray-600 dark:text-gray-400 md:text-lg md:leading-7">
-        {description}
-      </div>
+      <div className="text-gray-600 dark:text-gray-400 md:text-lg md:leading-7">{description}</div>
       {children}
     </div>
   )
