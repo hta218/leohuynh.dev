@@ -6,7 +6,10 @@ import { clsx } from 'clsx'
 import { Menu, X } from 'lucide-react'
 import { Fragment, useEffect, useRef, useState } from 'react'
 import { Link } from '~/components/ui/link'
+import { Twemoji } from '~/components/ui/twemoji'
 import { HEADER_NAV_LINKS, MORE_NAV_LINKS } from '~/data/header-nav-links'
+import { SITE_METADATA } from '~/data/site-metadata'
+import { Logo } from './logo'
 
 export function MobileNav() {
   let [navShow, setNavShow] = useState(false)
@@ -66,27 +69,32 @@ export function MobileNav() {
             unmount={false}
           >
             <DialogPanel className="fixed left-0 top-0 z-70 h-full w-full bg-white opacity-95 duration-300 dark:bg-gray-950 dark:opacity-[0.98]">
+              <div className="flex items-center gap-3 pl-10 pt-8">
+                <Logo />
+                <span className="font-medium">{SITE_METADATA.headerTitle}</span>
+              </div>
               <nav
                 ref={navRef}
-                className="mt-8 flex h-full basis-0 flex-col items-start overflow-y-auto pl-12 pt-2 text-left"
+                className="mt-4 flex h-full basis-0 flex-col items-start gap-4 overflow-y-auto pl-12 pt-2"
               >
                 {[...HEADER_NAV_LINKS, ...MORE_NAV_LINKS].map((link) => (
                   <Link
                     key={link.title}
                     href={link.href}
-                    className="mb-4 py-2 pr-4 text-2xl font-bold tracking-widest text-gray-900 outline outline-0 hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-400"
+                    className="py-1 text-xl font-bold tracking-widest text-gray-900 outline outline-0 hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-400"
                     onClick={onToggleNav}
                   >
-                    {link.title}
+                    <Twemoji emoji={link.emoji} />
+                    <span className="ml-2">{link.title}</span>
                   </Link>
                 ))}
               </nav>
               <button
-                className="fixed right-4 top-7 z-80 h-16 w-16 p-4 text-gray-900 hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-400"
+                className="fixed right-4 top-5 z-80 h-16 w-16 p-4 text-gray-900 hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-400"
                 aria-label="Toggle Menu"
                 onClick={onToggleNav}
               >
-                <X className="h-6 w-6" />
+                <X className="h-7 w-7" strokeWidth={1.5} />
               </button>
             </DialogPanel>
           </TransitionChild>

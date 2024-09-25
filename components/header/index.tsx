@@ -1,7 +1,6 @@
 'use client'
 
 import clsx from 'clsx'
-import NextImage from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useEffect } from 'react'
 import { Container } from '~/components/ui/container'
@@ -10,6 +9,7 @@ import { Link } from '~/components/ui/link'
 import { HEADER_NAV_LINKS } from '~/data/header-nav-links'
 import { SITE_METADATA } from '~/data/site-metadata'
 import { AnalyticsLink } from './analytics-link'
+import { Logo } from './logo'
 import { MobileNav } from './mobile-nav'
 import { MoreLinks } from './more-links'
 import { SearchButton } from './search'
@@ -40,20 +40,7 @@ export function Header() {
       )}
     >
       <div className="flex items-center justify-between gap-3">
-        <Link
-          href="/"
-          aria-label={SITE_METADATA.headerTitle}
-          className="rounded-xl p-0.5 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:ring-white/10"
-        >
-          <NextImage
-            src="/static/images/logo.jpg"
-            alt={SITE_METADATA.headerTitle}
-            width={100}
-            height={100}
-            className="h-10 w-10 rounded-xl"
-            priority
-          />
-        </Link>
+        <Logo />
         <div className="flex items-center gap-4">
           <div className="hidden gap-1.5 sm:flex">
             {HEADER_NAV_LINKS.map(({ title, href }) => {
