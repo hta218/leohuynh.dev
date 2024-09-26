@@ -7,6 +7,7 @@ import GitHub from '~/icons/github.svg'
 import Goodreads from '~/icons/goodreads.svg'
 import HeadlessUI from '~/icons/headlessui.svg'
 import Hydrogen from '~/icons/hydrogen.svg'
+import IMBb from '~/icons/imdb.svg'
 import Java from '~/icons/java.svg'
 import Javascript from '~/icons/javascript.svg'
 import JWT from '~/icons/jsonwebtokens.svg'
@@ -26,6 +27,7 @@ import Python from '~/icons/python.svg'
 import Railway from '~/icons/railway.svg'
 import React from '~/icons/react.svg'
 import Remix from '~/icons/remix.svg'
+import RottenTomatoes from '~/icons/rottentomatoes.svg'
 import SemanticUI from '~/icons/semanticui.svg'
 import Shopify from '~/icons/shopify.svg'
 import Spotify from '~/icons/spotify.svg'
@@ -188,6 +190,14 @@ export let BrandsMap = {
   MySQL: {
     Icon: MySQL,
     url: 'https://mysql.com',
+  },
+  RottenTomatoes: {
+    Icon: RottenTomatoes,
+    url: 'https://www.rottentomatoes.com/',
+  },
+  IMBb: {
+    Icon: IMBb,
+    url: 'https://www.imdb.com/',
   },
 }
 
