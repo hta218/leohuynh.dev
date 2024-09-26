@@ -61,6 +61,13 @@ async function fetchImdbMovies() {
     console.log('🎬 IMDB CSV file not found.')
     return
   }
+  if (!process.env.OMDB_API_KEY) {
+    console.log('🎬 No OMDB API key provided.')
+    console.log(
+      '💡 Try re-running the `seed` script with `OMDB_API_KEY=<your-api-key> npm run seed`.'
+    )
+    return
+  }
   try {
     let imdbMovies: ImdbMovie[] = []
     fs.createReadStream(IMDB_CSV_FILE_PATH)
@@ -72,12 +79,6 @@ async function fetchImdbMovies() {
               .trim()
               .toLowerCase()
               .replace(/\s/g, '_'),
-          mapValues: ({ value }) => {
-            if (value.includes(',')) {
-              return value.split(',').map((v: string) => v.trim())
-            }
-            return value.trim()
-          },
         })
       )
       .on('data', async (mv: ImdbMovie) => {
@@ -102,10 +103,11 @@ async function fetchImdbMovies() {
             let omdbMovie: OmdbMovie = await res.json()
             movies.push({
               ...mv,
+              actors: omdbMovie.Actors,
               plot: omdbMovie.Plot,
               poster: omdbMovie.Poster,
               language: omdbMovie.Language,
-              country: omdbMovie.Country.split(', '),
+              country: omdbMovie.Country,
               awards: omdbMovie.Awards,
               box_office: omdbMovie.BoxOffice,
               ratings: omdbMovie.Ratings.map((r) => ({
@@ -113,7 +115,7 @@ async function fetchImdbMovies() {
                 value: r.Value,
               })),
             })
-            console.log('🎬 Processed movie:', mv.title)
+            console.log('✅ Processed movie:', mv.title)
           })
         )
         writeFileSync(`./json/movies.json`, JSON.stringify(movies))
