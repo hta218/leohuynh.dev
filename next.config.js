@@ -81,6 +81,10 @@ module.exports = () => {
           protocol: 'https',
           hostname: 'i.gr-assets.com',
         },
+        {
+          protocol: 'https',
+          hostname: 'm.media-amazon.com',
+        },
       ],
       unoptimized,
     },
