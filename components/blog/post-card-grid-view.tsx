@@ -5,19 +5,37 @@ import { Image } from '~/components/ui/image'
 import { Link } from '~/components/ui/link'
 import { SITE_METADATA } from '~/data/site-metadata'
 import { GrowingUnderline } from '~/components/ui/growing-underline'
+import { clsx } from 'clsx'
 
 export function PostCardGridView({ post }: { post: CoreContent<Blog> }) {
   let { path, date, title, summary, images, readingTime } = post
   return (
     <article>
       <div className="flex flex-col items-start justify-between gap-4 md:gap-6">
-        <Link href={`/${path}`} className="block w-full shrink-0">
+        <Link
+          href={`/${path}`}
+          className={clsx([
+            'relative block shrink-0',
+            'h-auto w-full md:aspect-[3/2]',
+            'pb-3 pl-0 pr-3 pt-0',
+            'transition-all ease-in-out hover:pb-2 hover:pl-1 hover:pr-2 hover:pt-1',
+          ])}
+        >
           <Image
             src={images && images.length > 0 ? images[0] : SITE_METADATA.socialBanner}
             alt={title}
             width={600}
             height={400}
-            className="aspect-video h-auto w-full rounded-xl object-cover object-center md:aspect-[3/2]"
+            className="aspect-video h-full w-full rounded-xl object-cover object-center shadow-2xl"
+          />
+          <div
+            className={clsx([
+              'absolute bottom-0 left-3 right-0 top-3 z-[-1]',
+              'rounded-xl border-2 border-gray-800 dark:border-gray-400',
+              'bg-cover bg-center',
+              '[background-image:url("/static/images/black-grit.png")]',
+              'dark:[background-image:url("/static/images/white-grit.png")]',
+            ])}
           />
         </Link>
         <div className="w-full space-y-3">

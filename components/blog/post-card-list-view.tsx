@@ -6,19 +6,37 @@ import { TagsList } from '~/components/blog/tags'
 import { GrowingUnderline } from '~/components/ui/growing-underline'
 import { SITE_METADATA } from '~/data/site-metadata'
 import { formatDate } from '~/utils/date'
+import clsx from 'clsx'
 
 export function PostCardListView({ post }: { post: CoreContent<Blog> }) {
   let { slug, date, title, summary, tags, images, readingTime } = post
   return (
     <article>
       <div className="flex flex-col gap-2 space-y-3 md:flex-row md:gap-8">
-        <Link href={`/blog/${slug}`} className="block shrink-0">
+        <Link
+          href={`/blog/${slug}`}
+          className={clsx([
+            'relative block shrink-0',
+            'h-auto w-full md:h-80 md:w-72',
+            'pb-3 pl-0 pr-3 pt-0',
+            'transition-all ease-in-out hover:pb-2 hover:pl-1 hover:pr-2 hover:pt-1',
+          ])}
+        >
           <Image
             src={images && images.length > 0 ? images[0] : SITE_METADATA.socialBanner}
             alt={title}
             width={500}
             height={500}
-            className="aspect-video h-auto w-full rounded-xl object-cover object-center md:aspect-auto md:h-80 md:w-72"
+            className="aspect-video h-full w-full rounded-xl object-cover object-center shadow-2xl"
+          />
+          <div
+            className={clsx([
+              'absolute bottom-0 left-3 right-0 top-3 z-[-1]',
+              'rounded-xl border-2 border-gray-800 dark:border-gray-400',
+              'bg-cover bg-center',
+              '[background-image:url("/static/images/black-grit.png")]',
+              'dark:[background-image:url("/static/images/white-grit.png")]',
+            ])}
           />
         </Link>
         <div className="space-y-5">
