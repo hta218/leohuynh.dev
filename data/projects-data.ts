@@ -54,7 +54,7 @@ export const PROJECTS_DATA: Project[] = [
   {
     type: 'self',
     title: 'Shopify theme starter',
-    imgSrc: '/static/images/shopify-theme-store.png',
+    imgSrc: '/static/images/shopify.webp',
     repo: 'hta218/shopify-theme-starter',
     builtWith: ['ThemeKit', 'Liquid', 'Webpack', 'TailwindCSS'],
   },
@@ -75,7 +75,7 @@ export const PROJECTS_DATA: Project[] = [
   {
     type: 'self',
     title: 'Shopify KoaJS React boilerplate',
-    imgSrc: '/static/images/shopify-app-store.png',
+    imgSrc: '/static/images/shopify.webp',
     repo: 'hta218/shopify-koajs-react-boilerplate',
     builtWith: ['KoaJS', 'JWT', 'MongoDB', 'Polaris'],
   },
