@@ -65,6 +65,7 @@ export type ImdbMovie = {
   country: string
   awards: string
   box_office: string
+  total_seasons: string
   ratings: Array<{ source: string; value: string }>
 }
 
@@ -88,6 +89,7 @@ export type OmdbMovie = {
   imdbRating: string
   imdbVotes: string
   imdbID: string
+  totalSeasons: string
   Type: string
   DVD: string
   BoxOffice: string

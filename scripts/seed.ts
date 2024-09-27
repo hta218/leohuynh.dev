@@ -103,6 +103,8 @@ async function fetchImdbMovies() {
             let omdbMovie: OmdbMovie = await res.json()
             movies.push({
               ...mv,
+              total_seasons: omdbMovie.totalSeasons,
+              year: omdbMovie.Year,
               actors: omdbMovie.Actors,
               plot: omdbMovie.Plot,
               poster: omdbMovie.Poster,
