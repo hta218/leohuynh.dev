@@ -1,11 +1,12 @@
 'use client'
 
 import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react'
+import clsx from 'clsx'
 import { ChevronDown } from 'lucide-react'
 import { Fragment } from 'react'
 import { Twemoji } from '~/components/ui/twemoji'
 
-const RATES: {
+export const RATES: {
   label: string
   description: string
   value: RateType
@@ -37,7 +38,7 @@ export function RateFilter({
   rate: RateType
   setRate: React.Dispatch<React.SetStateAction<RateType>>
 }) {
-  let { label, description, emoji } = RATES.find(({ value }) => value === rate) || RATES[0]
+  let { label, value: selectedValue } = RATES.find(({ value }) => value === rate) || RATES[0]
   return (
     <div className="flex items-center">
       <Menu as="div" className="relative inline-block text-left">
@@ -46,10 +47,7 @@ export function RateFilter({
           className="inline-flex items-center gap-2 rounded-lg border border-gray-200 px-3 py-1.5 font-medium dark:border-gray-700"
           data-umami-event="movies-rate-filter"
         >
-          <span>{label}/10</span>
-          <span className="inline-flex items-center gap-1">
-            ({description} <Twemoji emoji={emoji} />)
-          </span>
+          <span>{label}/10 stars</span>
           <ChevronDown strokeWidth={1.5} size={20} />
         </MenuButton>
         <Transition
@@ -67,7 +65,12 @@ export function RateFilter({
                 <MenuItem key={value} as="div">
                   {({ close }) => (
                     <button
-                      className="flex w-full items-center gap-2 rounded-md px-2 py-1.5 hover:bg-gray-200 dark:hover:bg-gray-800"
+                      className={clsx([
+                        'flex w-full items-center gap-2 rounded-md px-2 py-1.5',
+                        value === selectedValue
+                          ? 'bg-gray-200 dark:bg-gray-800'
+                          : 'hover:bg-gray-200 dark:hover:bg-gray-800',
+                      ])}
                       onClick={() => {
                         setRate(value)
                         close()

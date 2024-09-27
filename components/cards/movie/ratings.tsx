@@ -16,12 +16,14 @@ export function Ratings({ movie }: { movie: ImdbMovie }) {
         <Brand name="IMBb" className="h-5 w-5 md:h-6 md:w-6" as="icon" />
         <span>
           {imdb_rating}{' '}
-          <span className="text-gray-500">({shortenNumVotes(Number(num_votes))})</span>
+          <span className="text-gray-500 dark:text-gray-400">
+            ({shortenNumVotes(Number(num_votes))})
+          </span>
         </span>
       </Link>
       <Link href={rottenSearchUrl.toString()} className="flex items-center gap-1.5 md:gap-2">
         <Brand name="RottenTomatoes" as="icon" className="h-5 w-5 md:h-6 md:w-6" />
-        <span>{rotten_rating}</span>
+        <span>{rotten_rating || 'N/A'}</span>
       </Link>
     </div>
   )
