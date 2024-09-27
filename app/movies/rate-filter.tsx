@@ -1,0 +1,89 @@
+'use client'
+
+import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react'
+import { ChevronDown } from 'lucide-react'
+import { Fragment } from 'react'
+import { Twemoji } from '~/components/ui/twemoji'
+
+const RATES: {
+  label: string
+  description: string
+  value: RateType
+  emoji: string
+}[] = [
+  { label: '10', description: 'must watch', value: '10', emoji: 'hundred-points' },
+  {
+    label: '9',
+    description: 'recommended',
+    value: '9',
+    emoji: 'sports-medal',
+  },
+  { label: '8', description: 'good', value: '8', emoji: 'popcorn' },
+  { label: '7', description: 'okay / not bad', value: '7', emoji: 'thumbs-up' },
+  {
+    label: '6-',
+    description: 'i don’t like',
+    value: '<=6',
+    emoji: 'man-gesturing-no',
+  },
+]
+
+export type RateType = '10' | '9' | '8' | '7' | '<=6'
+
+export function RateFilter({
+  rate,
+  setRate,
+}: {
+  rate: RateType
+  setRate: React.Dispatch<React.SetStateAction<RateType>>
+}) {
+  let { label, description, emoji } = RATES.find(({ value }) => value === rate) || RATES[0]
+  return (
+    <div className="flex items-center">
+      <Menu as="div" className="relative inline-block text-left">
+        <MenuButton
+          aria-label="More links"
+          className="inline-flex items-center gap-2 rounded-lg border border-gray-200 px-3 py-1.5 font-medium dark:border-gray-700"
+          data-umami-event="movies-rate-filter"
+        >
+          <span>{label}/10</span>
+          <span className="inline-flex items-center gap-1">
+            ({description} <Twemoji emoji={emoji} />)
+          </span>
+          <ChevronDown strokeWidth={1.5} size={20} />
+        </MenuButton>
+        <Transition
+          as={Fragment}
+          enter="transition ease-out duration-100"
+          enterFrom="transform opacity-0 scale-95"
+          enterTo="transform opacity-100 scale-100"
+          leave="transition ease-in duration-75"
+          leaveFrom="transform opacity-100 scale-100"
+          leaveTo="transform opacity-0 scale-95"
+        >
+          <MenuItems className="absolute right-0 z-50 mt-2 origin-top-right rounded-md bg-white text-right shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-black">
+            <div className="space-y-1 p-1">
+              {RATES.map(({ label, description, value, emoji }) => (
+                <MenuItem key={value} as="div">
+                  {({ close }) => (
+                    <button
+                      className="flex w-full items-center gap-2 rounded-md px-2 py-1.5 hover:bg-gray-200 dark:hover:bg-gray-800"
+                      onClick={() => {
+                        setRate(value)
+                        close()
+                      }}
+                    >
+                      <span>({label})</span>
+                      <span>{description}</span>
+                      <Twemoji emoji={emoji} />
+                    </button>
+                  )}
+                </MenuItem>
+              ))}
+            </div>
+          </MenuItems>
+        </Transition>
+      </Menu>
+    </div>
+  )
+}
