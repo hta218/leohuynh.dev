@@ -115,7 +115,6 @@ async function fetchImdbMovies() {
                 value: r.Value,
               })),
             })
-            console.log('✅ Processed movie:', mv.title)
           })
         )
         writeFileSync(`./json/movies.json`, JSON.stringify(movies))
@@ -127,8 +126,8 @@ async function fetchImdbMovies() {
 }
 
 export async function seed() {
-  await fetchGoodreadsBooks()
   await fetchImdbMovies()
+  await fetchGoodreadsBooks()
 }
 
 seed()
