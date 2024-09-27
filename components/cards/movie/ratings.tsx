@@ -32,6 +32,10 @@ export function Ratings({ movie }: { movie: ImdbMovie }) {
 function shortenNumVotes(n: number, suffix = '') {
   let suffixes = ['', 'K', 'M', 'B', 'T']
   if (n < 1000) {
+    let fixedPoint = n.toFixed(1)
+    if (fixedPoint.endsWith('.0')) {
+      return n.toFixed(0) + suffix
+    }
     return n.toFixed(1) + suffix
   }
   let index = suffix ? suffixes.indexOf(suffix) + 1 : 1
