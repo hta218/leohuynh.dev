@@ -1,11 +1,10 @@
-import clsx from 'clsx'
-import { Star } from 'lucide-react'
-import { Link } from '~/components/ui/link'
-import { Twemoji } from '~/components/ui/twemoji'
 import { Brand } from '~/components/ui/brand'
 import { GradientBorder } from '~/components/ui/gradient-border'
 import { GrowingUnderline } from '~/components/ui/growing-underline'
+import { Link } from '~/components/ui/link'
+import { Rating } from '~/components/ui/rating'
 import { TiltedGridBackground } from '~/components/ui/tilted-grid-background'
+import { Twemoji } from '~/components/ui/twemoji'
 import type { GoodreadsBook } from '~/types/data'
 import { BookCover } from './book-cover'
 import { BookDetails } from './book-details'
@@ -28,7 +27,7 @@ export function BookCard({ book }: { book: GoodreadsBook }) {
               ) : (
                 <h3>{book.title}</h3>
               )}
-              <UserRating rating={book.user_rating} className="hidden md:inline-flex" />
+              <Rating rating={book.user_rating} className="hidden md:inline-flex" />
             </div>
           </div>
           <BookDetails book={book} />
@@ -62,28 +61,6 @@ function GoodreadsLink({ url, className }: { url?: string | null; className?: st
       <Link href={url} className={className}>
         <Brand name="Goodreads" as="icon" className="h-5 text-goodreads dark:text-gray-100" />
       </Link>
-    )
-  }
-  return null
-}
-
-function UserRating({ rating, className }: { rating: string; className?: string }) {
-  if (rating !== '0') {
-    return (
-      <span
-        className={clsx([
-          'text-base',
-          'shrink-0 items-center gap-1',
-          'rounded-full px-3 py-0.5',
-          'font-medium text-gray-700 dark:text-gray-900',
-          'bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-yellow-200 via-emerald-200 to-yellow-200',
-          'dark:bg-gradient-to-l dark:from-emerald-500 dark:to-lime-600',
-          className,
-        ])}
-      >
-        <Star size={18} strokeWidth={1.5} />
-        <span>{rating}</span>
-      </span>
     )
   }
   return null
