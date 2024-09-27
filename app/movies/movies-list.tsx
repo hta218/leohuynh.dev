@@ -29,9 +29,9 @@ export function MoviesList({ movies }: { movies: ImdbMovie[] }) {
   let { description, emoji } = RATES.find(({ value }) => value === rate) || RATES[0]
 
   return (
-    <div className="space-y-4 md:space-y-6">
-      <div className="flex items-center justify-between gap-4">
-        <div className="flex items-center gap-2 text-xl font-medium">
+    <div className="space-y-4 pt-2 md:space-y-6 md:pt-0">
+      <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+        <div className="flex items-center gap-2 text-lg font-medium md:text-xl">
           <Twemoji emoji={emoji} /> {description}{' '}
           <span className="font-normal text-gray-600 dark:text-gray-400">
             ({displayMovies.length} titles)
