@@ -65,10 +65,7 @@ export function ProjectCard({
               })}
             </div>
             <p className="line-clamp-3 text-gray-600 dark:text-gray-400">
-              {/* {repository?.description || description} */}
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas, dolores? Corrupti at
-              eum eos. Est et deleniti tempora, ipsum nisi autem. Cupiditate iure deleniti fugit
-              quod rem, nisi ipsa alias.
+              {repository?.description || description}
             </p>
           </div>
         </div>
