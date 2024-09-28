@@ -2,6 +2,7 @@ import { genPageMetadata } from '~/app/seo'
 import { BookCard } from '~/components/cards/book'
 import { Container } from '~/components/ui/container'
 import { GrowingUnderline } from '~/components/ui/growing-underline'
+import { Image } from '~/components/ui/image'
 import { Link } from '~/components/ui/link'
 import { PageHeader } from '~/components/ui/page-header'
 import { SITE_METADATA } from '~/data/site-metadata'
@@ -67,6 +68,21 @@ export default async function BooksPage() {
           {readBooks.map((book) => (
             <BookCard key={book.guid} book={book} />
           ))}
+        </div>
+      </div>
+      <div className="mt-6 border-t border-gray-200 py-5 dark:border-gray-700 md:mt-10 md:py-10">
+        <h3 className="mb-6 text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-gray-100 md:text-3xl">
+          FYI
+        </h3>
+        <div className="space-y-4">
+          <p>My real life bookshelf and working space.</p>
+          <Image
+            src="/static/images/working-space.jpg"
+            alt="Bookshelf and working space"
+            width={1000}
+            height={1000}
+            className="rounded-2xl object-cover object-center"
+          />
         </div>
       </div>
     </Container>
