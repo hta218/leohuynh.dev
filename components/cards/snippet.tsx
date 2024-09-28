@@ -32,11 +32,7 @@ export function SnippetCard({ snippet }: { snippet: CoreContent<Snippet> }) {
           <h3 className="mt-4 text-xl font-semibold leading-7">
             <GrowingUnderline>{heading}</GrowingUnderline>
           </h3>
-          <p className="mt-1.5 line-clamp-2 text-zinc-600 dark:text-zinc-400">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cum corrupti dolorem
-            aspernatur voluptas, adipisci pariatur magnam corporis blanditiis velit dicta neque qui
-            minus ab at dolor vitae eligendi quaerat nihil.
-          </p>
+          <p className="mt-1.5 line-clamp-2 text-zinc-600 dark:text-zinc-400">{summary}</p>
         </div>
       </Link>
     </GradientBorder>
