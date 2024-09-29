@@ -60,7 +60,7 @@ export function Header() {
           </div>
           <div
             data-orientation="vertical"
-            role="none"
+            role="separator"
             className="h-4 w-px shrink-0 bg-gray-200 dark:bg-gray-600"
           />
           <div className="flex items-center gap-1">
