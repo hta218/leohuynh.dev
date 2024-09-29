@@ -1,6 +1,5 @@
-import { Link } from '~/components/ui/link'
 import { Brand } from '~/components/ui/brand'
-import { SITE_METADATA } from '~/data/site-metadata'
+import { SiteRepoStars } from '~/components/ui/site-repo-stars'
 
 export function BuiltWith() {
   return (
@@ -14,12 +13,7 @@ export function BuiltWith() {
         <Brand name="Umami" iconClassName="h-5 w-5" className="pl-px" />
       </div>
       <span className="px-1 text-gray-400 dark:text-gray-500">-</span>
-      <Link
-        href={SITE_METADATA.siteRepo}
-        className="text-gray-500 underline underline-offset-4 dark:text-gray-400"
-      >
-        <span data-umami-event="view-source">View source</span>
-      </Link>
+      <SiteRepoStars />
     </div>
   )
 }
