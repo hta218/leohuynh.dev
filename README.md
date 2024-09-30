@@ -24,7 +24,7 @@ A few major over-engineering-changes from the original repo:
 - 🎉 Adopting **Typescript**, committing with [Conventional Commits](https://www.conventionalcommits.org/)
 - 📊 Monitoring site with [Umami](https://umami.is/) website analytics
 - 👀 Theming in dark mode with [Github dark dimmed](https://github.blog/changelog/2021-04-14-dark-and-dimmed-themes-are-now-generally-available/) colors for better contrast
-- 👨‍💻 Making a lot of changes to the UI, new homepage design, adding `ProfileCard`, `CareerTimeline` components, adding `/snippets`, `/resume` page, etc.
+- 👨‍💻 Making a lot of changes to the UI, new homepage design, adding `ProfileCard`, `CareerTimeline` components, adding `/snippets`, `/books` page, etc.
 
 ## Assets
 
