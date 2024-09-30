@@ -19,7 +19,7 @@ export const FOOTER_NAV_LINKS = [
   { href: '/snippets', title: 'Snippets' },
   { href: '/projects', title: 'Projects' },
   { href: '/tags', title: 'Tags' },
-  { href: SITE_METADATA.analyticsUrl, title: 'Blog stats' },
+  { href: '/feed.xml', title: 'RSS feed' },
 ]
 
 export const FOOTER_PERSONAL_STUFF = [
@@ -27,5 +27,5 @@ export const FOOTER_PERSONAL_STUFF = [
   { href: '/static/resume.pdf', title: 'Resume' },
   { href: '/books', title: 'Books' },
   { href: '/movies', title: 'Movies' },
-  { href: '#', title: 'Back to top' },
+  { href: SITE_METADATA.analyticsUrl, title: 'Blog stats' },
 ]
