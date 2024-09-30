@@ -1,6 +1,6 @@
 import type { Project } from '~/types/data'
 
-export const PROJECTS_DATA: Project[] = [
+export const PROJECTS: Project[] = [
   {
     type: 'work',
     title: 'Weaverse Hydrogen Customizer',

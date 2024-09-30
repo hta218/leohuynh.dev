@@ -6,7 +6,7 @@ import { GrowingUnderline } from '~/components/ui/growing-underline'
 import { Image } from '~/components/ui/image'
 import { Link } from '~/components/ui/link'
 import { RadiantCard } from '~/components/ui/radiant-card'
-import type { PROJECTS_DATA } from '~/data/projects-data'
+import type { PROJECTS } from '~/data/projects'
 import type { GithubRepository } from '~/types/data'
 import { RepoMeta } from './repo-meta'
 
@@ -14,7 +14,7 @@ export function ProjectCard({
   project,
   reversed,
 }: {
-  project: (typeof PROJECTS_DATA)[0]
+  project: (typeof PROJECTS)[0]
   reversed?: boolean
 }) {
   let { title, description, imgSrc, url, repo, builtWith } = project

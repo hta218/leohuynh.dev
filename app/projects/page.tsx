@@ -2,21 +2,21 @@ import { genPageMetadata } from 'app/seo'
 import { ProjectCard } from '~/components/cards/project'
 import { Container } from '~/components/ui/container'
 import { PageHeader } from '~/components/ui/page-header'
-import { PROJECTS_DATA } from '~/data/projects-data'
+import { PROJECTS } from '~/data/projects'
 import { fetchRepoData } from '~/server/github.server'
 
 export let metadata = genPageMetadata({ title: 'Projects' })
 
 export default async function Projects() {
   await Promise.all(
-    PROJECTS_DATA.map(async (p) => {
+    PROJECTS.map(async (p) => {
       if (p.repo) {
         p.repo = await fetchRepoData(p.repo as string)
       }
     })
   )
-  let workProjects = PROJECTS_DATA.filter(({ type }) => type === 'work')
-  let sideProjects = PROJECTS_DATA.filter(({ type }) => type === 'self')
+  let workProjects = PROJECTS.filter(({ type }) => type === 'work')
+  let sideProjects = PROJECTS.filter(({ type }) => type === 'self')
 
   return (
     <Container className="pt-4 lg:pt-12">
