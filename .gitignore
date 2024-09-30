@@ -4,6 +4,10 @@
 /node_modules
 /.pnp
 .pnp.js
+/.yarn/*
+!/.yarn/releases
+!/.yarn/plugins
+!/.yarn/sdks
 
 # testing
 /coverage
@@ -17,8 +21,12 @@ public/sitemap.xml
 # production
 /build
 *.xml
+
 # rss feed
 /public/feed.xml
+
+# search
+/public/search.json
 
 # misc
 .DS_Store
@@ -30,15 +38,19 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
+.env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
 
-# vscode settings
-.vscode/
+# Contentlayer
+.contentlayer
 
-# .env
-.env
+# VSCode
+/.vscode/
 
-tsconfig.tsbuildinfo
+# eslint cache file
+.eslintcache
+
+scripts/imdb-movies.csv

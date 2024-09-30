@@ -1,0 +1,23 @@
+---
+heading: 'Array utilities'
+title: 'Useful array utilities'
+date: '2021-10-11'
+icon: 'Javascript'
+draft: true
+summary: 'A collection of array utilities that simplify everyday tasks like filtering, sorting, mapping, and more.'
+tags: ['javascript', 'array', 'utilities']
+---
+
+##### Shuffling an array
+
+```js
+let shuffle = (arr) => arr.sort(() => 0.5 - Math.random())
+```
+
+Usage
+
+```js
+shuffle([1, 2, 3, 4, 5]) // [3, 2, 5, 4, 1]
+shuffle([1, 2, 3, 4, 5]) // [3, 1, 5, 4, 2]
+shuffle(['foo', 'bar', 'buzz']) // ['buzz', 'bar', 'foo']
+```

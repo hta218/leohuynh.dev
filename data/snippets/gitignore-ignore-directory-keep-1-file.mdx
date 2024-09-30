@@ -1,0 +1,21 @@
+---
+heading: '.gitignore tips'
+title: 'Ignore all files in a directory except a specific file'
+date: '2021-08-27'
+icon: 'Git'
+draft: false
+summary: 'How to ignore all files in a directory except for a specific one.'
+tags: ['git', 'gitignore']
+---
+
+Keep 1 file and ignore others in a directory
+
+`.gitignore`
+
+```bash {5} showLineNumbers
+# Ignore all file in a directory
+directory/*
+
+# Keep only this file
+!directory/file-to-keep.ext
+```

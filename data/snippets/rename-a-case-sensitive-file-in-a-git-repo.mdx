@@ -1,0 +1,32 @@
+---
+heading: 'Case sensitive renaming'
+title: 'How to safely rename a case sensitive file/directory in a git repo?'
+date: '2022-10-11'
+icon: 'Git'
+draft: false
+summary: 'Safely rename case-sensitive files or directories in a Git repository to avoid conflicts or case inconsistencies.'
+tags: [git, rename, case-sensitive]
+---
+
+Simple file/directory renaming in git is not a problem.
+But what if you want to rename a case sensitive file/directory in your git repo?
+For example, you have a file named `README.md` and you want to rename it to `Readme.md`.
+
+Keep in mind that renaming by **IDE** or **file manager** will not work because git will not recognize the change. <Twemoji emoji="face-with-monocle" />
+
+You can do it with the following command:
+
+```bash
+git mv README.md Readme.md
+```
+
+Then follow with the usual git workflow:
+
+```bash
+git add .
+git commit -m "Rename README.md to Readme.md"
+```
+
+That's it! You have successfully renamed a case sensitive file/directory in a git repo.
+
+Happy commiting! <Twemoji emoji="clinking-beer-mugs" />
