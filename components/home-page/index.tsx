@@ -1,5 +1,5 @@
 import type { CoreContent } from 'pliny/utils/contentlayer'
-import type { Blog } from '~/.contentlayer/generated'
+import type { Blog, Snippet } from '~/.contentlayer/generated'
 import { ProfileCard } from '~/components/cards/profile'
 import { Container } from '~/components/ui/container'
 import { Twemoji } from '~/components/ui/twemoji'
@@ -9,7 +9,13 @@ import { LatestPosts } from './latest-posts'
 import { BlogLinks } from './links'
 import { TypedBios } from './typed-bios'
 
-export function Home({ posts }: { posts: CoreContent<Blog>[] }) {
+export function Home({
+  posts,
+  snippets,
+}: {
+  posts: CoreContent<Blog>[]
+  snippets: CoreContent<Snippet>[]
+}) {
   return (
     <Container as="div" className="pt-4 lg:pt-12">
       <div className="py-6 md:pb-8 xl:grid xl:grid-cols-3">
@@ -35,7 +41,7 @@ export function Home({ posts }: { posts: CoreContent<Blog>[] }) {
           <ProfileCard />
         </div>
       </div>
-      <LatestPosts posts={posts} />
+      <LatestPosts posts={posts} snippets={snippets} />
       {/* {SITE_METADATA.newsletter?.provider && (
         <div className="flex items-center justify-center py-4 lg:py-10">
           <NewsletterForm />
