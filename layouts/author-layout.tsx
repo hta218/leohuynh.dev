@@ -141,8 +141,11 @@ export function AuthorLayout({ children }: Props) {
                 <ul>
                   <li>
                     <code>v1</code> built with <strong>NextJS v13</strong> using Page router:{' '}
-                    <a href="https://leo-blog-v1.vercel.app/" target="_blank">
-                      https://leo-blog-v1.vercel.app/
+                    <a
+                      href="https://leohuynhdev-git-v1-leo-huynhs-projects.vercel.app/"
+                      target="_blank"
+                    >
+                      https://leohuynhdev-git-v1-leo-huynhs-projects.vercel.app/
                     </a>
                   </li>
                   <li>
