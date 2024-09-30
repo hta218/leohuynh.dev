@@ -119,13 +119,14 @@ export function AuthorLayout({ children }: Props) {
                 <li>
                   <Twemoji emoji="man-technologist" /> Making a lot of changes to the UI, new
                   homepage design, adding <code>ProfileCard</code>, <code>CareerTimeline</code>{' '}
-                  components, adding <code>/snippets</code>, <code>/resume</code> page, etc.
+                  components, adding <code>/snippets</code>, <code>/books</code>,{' '}
+                  <code>/movies</code> page, etc.
                 </li>
-                <li>
+                {/* <li>
                   <Twemoji emoji="inbox-tray" /> Bumping up <code>mdx-bundler</code>,{' '}
                   <code>rehype</code>/<code>remark</code> plugins and dependencies to the latest
                   version
-                </li>
+                </li> */}
               </ul>
               <p>
                 See my{' '}
