@@ -22,8 +22,8 @@ export function Footer() {
           <LogoAndRepo />
           <div className="italic text-gray-500 dark:text-gray-400">{SITE_METADATA.description}</div>
           <div className="pt-4">
-            <div className="flex gap-20">
-              <Signature className="h-20 w-40" />
+            <div className="flex gap-10 md:gap-20">
+              <Signature className="h-20 w-36 md:w-40" />
               <AddressAndTime />
             </div>
           </div>
@@ -32,7 +32,7 @@ export function Footer() {
           <FooterNav />
         </div>
       </div>
-      <div className="flex items-center justify-between gap-4 border-t border-gray-200 pt-4 dark:border-gray-700">
+      <div className="flex flex-col items-center justify-between gap-4 border-t border-gray-200 pt-8 dark:border-gray-700 md:flex-row md:pt-4">
         <SpotifyNowPlaying
           className={clsx(['[--artist-color:theme(colors.gray.500)]'])}
           songEffect="underline"
