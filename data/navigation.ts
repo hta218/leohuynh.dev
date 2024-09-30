@@ -13,3 +13,19 @@ export const MORE_NAV_LINKS = [
   { href: '/tags', title: 'Tags', emoji: 'label' },
   { href: SITE_METADATA.analyticsUrl, title: 'Blog stats', emoji: 'bar-chart' },
 ]
+
+export const FOOTER_NAV_LINKS = [
+  { href: '/blog', title: 'Blog' },
+  { href: '/snippets', title: 'Snippets' },
+  { href: '/projects', title: 'Projects' },
+  { href: '/tags', title: 'Tags' },
+  { href: SITE_METADATA.analyticsUrl, title: 'Blog stats' },
+]
+
+export const FOOTER_PERSONAL_STUFF = [
+  { href: '/about', title: 'About' },
+  { href: '/static/resume.pdf', title: 'Resume' },
+  { href: '/books', title: 'Books' },
+  { href: '/movies', title: 'Movies' },
+  { href: '#', title: 'Back to top' },
+]
