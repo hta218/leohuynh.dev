@@ -3,10 +3,10 @@
 import { Star } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Logo } from '~/components/header/logo'
+import { GrowingUnderline } from '~/components/ui/growing-underline'
 import { Link } from '~/components/ui/link'
 import { SITE_METADATA } from '~/data/site-metadata'
 import type { GithubRepository } from '~/types/data'
-import { GrowingUnderline } from '../ui/growing-underline'
 
 export function LogoAndRepo() {
   let [repo, setRepo] = useState<GithubRepository | null>(null)

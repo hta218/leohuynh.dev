@@ -34,11 +34,11 @@ export function ListLayoutWithTags({ title, description, posts, snippets }: List
       <div className="flex gap-x-12">
         <TagsList />
         <div className="py-5 md:py-10">
-          <div className="mb-6 flex items-center gap-2 text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-gray-100 md:justify-end md:text-3xl">
+          <div className="mb-6 flex items-center gap-2 text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-gray-100 md:mb-10 md:justify-end md:text-3xl">
             {hasBlogs && (
               <button
                 className={clsx(
-                  'underline-offset-8',
+                  'underline-offset-4',
                   view === 'blogs'
                     ? 'underline'
                     : 'text-gray-400 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100'
