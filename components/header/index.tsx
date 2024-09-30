@@ -6,9 +6,8 @@ import { useEffect } from 'react'
 import { Container } from '~/components/ui/container'
 import { GrowingUnderline } from '~/components/ui/growing-underline'
 import { Link } from '~/components/ui/link'
-import { HEADER_NAV_LINKS } from '~/data/header-nav-links'
+import { HEADER_NAV_LINKS } from '~/data/navigation'
 import { SITE_METADATA } from '~/data/site-metadata'
-import { AnalyticsLink } from './analytics-link'
 import { Logo } from './logo'
 import { MobileNav } from './mobile-nav'
 import { MoreLinks } from './more-links'
@@ -63,9 +62,8 @@ export function Header() {
             role="separator"
             className="h-4 w-px shrink-0 bg-gray-200 dark:bg-gray-600"
           />
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-2">
             <ThemeSwitcher />
-            <AnalyticsLink />
             <SearchButton />
             <MobileNav />
           </div>

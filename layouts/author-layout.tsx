@@ -3,10 +3,11 @@ import type { ReactNode } from 'react'
 import { CareerTimeline } from '~/components/author/career'
 import { SocialAccounts } from '~/components/author/social-accounts'
 import { ProfileCard } from '~/components/cards/profile'
-import { Twemoji } from '~/components/ui/twemoji'
 import { Button } from '~/components/ui/button'
 import { Container } from '~/components/ui/container'
 import { PageHeader } from '~/components/ui/page-header'
+import { Twemoji } from '~/components/ui/twemoji'
+import { SITE_METADATA } from '~/data/site-metadata'
 
 interface Props {
   children?: ReactNode
@@ -175,6 +176,11 @@ export function AuthorLayout({ children }: Props) {
             </div>
             <div>
               <h2>Contact</h2>
+              <p>
+                Reach out to me at{' '}
+                <a href={`mailto:${SITE_METADATA.email}`}>{SITE_METADATA.email}</a> or find me on
+                social media:
+              </p>
               <SocialAccounts />
             </div>
           </div>

@@ -6,7 +6,7 @@ import { Fragment } from 'react'
 import { GrowingUnderline } from '~/components/ui/growing-underline'
 import { Link } from '~/components/ui/link'
 import { Twemoji } from '~/components/ui/twemoji'
-import { MORE_NAV_LINKS } from '~/data/header-nav-links'
+import { MORE_NAV_LINKS } from '~/data/navigation'
 
 export function MoreLinks() {
   return (
