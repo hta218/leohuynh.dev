@@ -1,5 +1,5 @@
 import { clsx } from 'clsx'
-import NextImage from 'next/image'
+import { Image } from '~/components/ui/image'
 import { Link } from '~/components/ui/link'
 import { SITE_METADATA } from '~/data/site-metadata'
 
@@ -15,7 +15,7 @@ export function Logo({ className }: { className?: string }) {
         className,
       ])}
     >
-      <NextImage
+      <Image
         src="/static/images/logo.jpg"
         alt={SITE_METADATA.headerTitle}
         width={100}
