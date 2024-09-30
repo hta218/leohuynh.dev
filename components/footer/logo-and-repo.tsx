@@ -16,6 +16,7 @@ export function LogoAndRepo() {
       .then(setRepo)
       .catch(console.error)
   }, [])
+
   return (
     <div className="flex items-center gap-4">
       <Logo />
