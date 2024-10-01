@@ -32,18 +32,22 @@ export function Footer() {
           <FooterNav />
         </div>
       </div>
-      <div className="flex flex-col items-center justify-between gap-4 border-t border-gray-200 pt-8 dark:border-gray-700 md:flex-row md:pt-4">
+      <div
+        className={clsx([
+          'pt-5 md:my-2',
+          'flex flex-col items-center justify-center gap-4 md:flex-row md:justify-between',
+          'border-t border-gray-200 dark:border-gray-700',
+        ])}
+      >
         <SpotifyNowPlaying
-          className={clsx(['[--artist-color:theme(colors.gray.500)]'])}
+          className="[--artist-color:theme(colors.gray.500)]"
           songEffect="underline"
         />
-        <div className="my-0.5 flex flex-wrap items-center gap-1.5 text-gray-500 dark:text-gray-400 md:my-2">
-          <Link href={SITE_METADATA.siteRepo}>
-            <span data-umami-event="made-in-vietnam">
-              <MadeInVietNam />
-            </span>
-          </Link>
-        </div>
+        <Link href={SITE_METADATA.siteRepo}>
+          <span data-umami-event="made-in-vietnam">
+            <MadeInVietNam />
+          </span>
+        </Link>
       </div>
     </Container>
   )

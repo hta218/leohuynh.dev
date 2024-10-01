@@ -29,7 +29,7 @@ export function SpotifyNowPlaying({
       ) : (
         <Brand as="icon" name="Spotify" className="h-5.5 w-5.5 flex-shrink-0" />
       )} */}
-      <Brand as="icon" name="Spotify" className="h-5.5 w-5.5 flex-shrink-0" />
+      <Brand as="icon" name="Spotify" className="h-5.5 w-5.5 shrink-0" />
       <div className="ml-2 inline-flex truncate">
         {songUrl ? (
           <>
