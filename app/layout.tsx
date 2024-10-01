@@ -1,15 +1,14 @@
 import 'css/tailwind.css'
 import 'css/twemoji.css'
-import 'pliny/search/algolia.css'
+// import 'pliny/search/algolia.css'
 import 'remark-github-blockquote-alert/alert.css'
 
 import clsx from 'clsx'
 import type { Metadata } from 'next'
 import { JetBrains_Mono, Nunito, Playpen_Sans } from 'next/font/google'
-import type { AnalyticsConfig } from 'pliny/analytics'
-import { Analytics } from 'pliny/analytics'
 import type { SearchConfig } from 'pliny/search'
 import { SearchProvider } from 'pliny/search'
+import { UmamiAnalytics } from '~/components/analytics/umami'
 import { Footer } from '~/components/footer'
 import { Header } from '~/components/header'
 import { TiltedGridBackground } from '~/components/ui/tilted-grid-background'
@@ -125,7 +124,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       >
         <TiltedGridBackground className="inset-x-0 top-0 z-[-1] h-[50vh]" />
         <ThemeProviders>
-          <Analytics analyticsConfig={SITE_METADATA.analytics as AnalyticsConfig} />
+          <UmamiAnalytics
+            umamiWebsiteId={SITE_METADATA.analytics.umamiAnalytics.umamiWebsiteId}
+            src="http://localhost:3001/script.js"
+          />
           <SearchProvider searchConfig={SITE_METADATA.search as SearchConfig}>
             <Header />
             <main className="mb-auto grow">{children}</main>
