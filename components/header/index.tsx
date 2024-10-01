@@ -34,7 +34,7 @@ export function Header() {
       as="header"
       className={clsx(
         'bg-white/75 py-2 backdrop-blur dark:bg-dark/75',
-        'rounded-2xl shadow-sm saturate-100',
+        'shadow-sm saturate-100 md:rounded-2xl',
         SITE_METADATA.stickyNav && 'sticky top-2 z-50 lg:top-3'
       )}
     >
@@ -60,7 +60,7 @@ export function Header() {
           <div
             data-orientation="vertical"
             role="separator"
-            className="h-4 w-px shrink-0 bg-gray-200 dark:bg-gray-600"
+            className="hidden h-4 w-px shrink-0 bg-gray-200 dark:bg-gray-600 md:block"
           />
           <div className="flex items-center gap-2">
             <ThemeSwitcher />

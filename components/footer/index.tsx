@@ -22,8 +22,8 @@ export function Footer() {
           <LogoAndRepo />
           <div className="italic text-gray-500 dark:text-gray-400">{SITE_METADATA.description}</div>
           <div className="pt-4">
-            <div className="flex gap-10 md:gap-20">
-              <Signature className="h-20 w-36 md:w-40" />
+            <div className="flex gap-8 md:gap-20">
+              <Signature className="h-20 w-32 md:w-40" />
               <AddressAndTime />
             </div>
           </div>
@@ -37,7 +37,7 @@ export function Footer() {
           className={clsx(['[--artist-color:theme(colors.gray.500)]'])}
           songEffect="underline"
         />
-        <div className="my-2 flex flex-wrap items-center gap-1.5 text-gray-500 dark:text-gray-400">
+        <div className="my-0.5 flex flex-wrap items-center gap-1.5 text-gray-500 dark:text-gray-400 md:my-2">
           <Link href={SITE_METADATA.siteRepo}>
             <span data-umami-event="made-in-vietnam">
               <MadeInVietNam />
