@@ -11,7 +11,8 @@ export let siteMetadata = {
   youtube: 'https://www.youtube.com/@hta218_',
   linkedin: 'https://www.linkedin.com/in/hta218/',
   locale: 'en-US',
-  analyticsURL: 'https://analytics.leohuynh.dev/share/jkwRskv0/leohuynh.dev',
+  analyticsURL:
+    'https://analytics.leohuynh.dev/share/jkwRskv0/leohuynhdev-git-v1-leo-huynhs-projects.vercel.app',
   analytics: {
     plausibleDataDomain: '',
     simpleAnalytics: false, // true | false
