@@ -230,7 +230,7 @@ function TimelineItem({ exp, last }: { exp: (typeof EXPERIENCES)[0]; last?: bool
         height={200}
       />
       <details className="w-full [&_.minus]:open:block [&_.plus]:open:hidden">
-        <summary className="relative marker:content-none">
+        <summary className="relative pr-10 marker:content-none">
           <Plus
             size={18}
             className={clsx([

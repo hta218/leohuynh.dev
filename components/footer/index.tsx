@@ -40,7 +40,7 @@ export function Footer() {
         ])}
       >
         <SpotifyNowPlaying
-          className="[--artist-color:theme(colors.gray.500)]"
+          className="w-full justify-center [--artist-color:theme(colors.gray.500)] md:justify-start"
           songEffect="underline"
         />
         <Link href={SITE_METADATA.siteRepo}>
