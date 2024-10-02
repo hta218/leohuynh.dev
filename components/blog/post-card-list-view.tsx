@@ -8,7 +8,13 @@ import { SITE_METADATA } from '~/data/site-metadata'
 import { formatDate } from '~/utils/date'
 import clsx from 'clsx'
 
-export function PostCardListView({ post }: { post: CoreContent<Blog> }) {
+export function PostCardListView({
+  post,
+  priority,
+}: {
+  post: CoreContent<Blog>
+  priority?: boolean
+}) {
   let { slug, date, title, summary, tags, images, readingTime } = post
   return (
     <article>
@@ -28,6 +34,7 @@ export function PostCardListView({ post }: { post: CoreContent<Blog> }) {
             width={500}
             height={500}
             className="aspect-video h-full w-full rounded-xl object-cover object-center shadow-2xl"
+            priority={priority}
           />
           <div
             className={clsx([

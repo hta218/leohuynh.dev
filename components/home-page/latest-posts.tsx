@@ -58,9 +58,9 @@ export function LatestPosts({
       {view === 'posts' ? (
         <ul className="space-y-12 divide-gray-200 pt-6 dark:divide-gray-700 md:space-y-20 md:pt-10">
           {!posts.length && 'No posts found.'}
-          {posts.map((post) => (
+          {posts.map((post, idx) => (
             <li key={post.slug}>
-              <PostCardListView post={post} />
+              <PostCardListView post={post} priority={idx === 0} />
             </li>
           ))}
         </ul>
