@@ -18,10 +18,12 @@ export default async function MoviesPage() {
         description={
           <>
             <p>
-              This is where I log all the movies and TV series I’ve watched. I’m a huge fan of Tom
-              Hanks and Christopher Nolan, so expect to see a lot of them in the top spots! Anything
-              I’ve rated 10 stars is something I absolutely love and have probably rewatched many
-              times (highly recommended). Take a look and maybe find your next favorite film!
+              This is where I log all the movies and TV series I’ve watched. I’m a huge fan of{' '}
+              <span className="font-medium">Tom Hanks</span> and{' '}
+              <span className="font-medium">Christopher Nolan</span>, so expect to see a lot of them
+              in the top spots! Anything I’ve rated 10 stars is something I absolutely love and have
+              probably rewatched many times (highly recommended). Take a look and maybe find your
+              next favorite film!
             </p>
             <p className="mt-3 italic">
               *Data is exported from my{' '}

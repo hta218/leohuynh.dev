@@ -11,12 +11,12 @@ export function Ratings({ movie }: { movie: ImdbMovie }) {
   rottenSearchUrl.searchParams.set('search', title)
 
   return (
-    <div className="flex items-center gap-3 md:gap-4">
+    <div className="flex items-center gap-4">
       <Link href={url} className="flex items-center gap-1.5 md:gap-2">
         <Brand name="IMBb" className="h-5 w-5 md:h-6 md:w-6" as="icon" />
         <span>
           {imdb_rating}{' '}
-          <span className="text-gray-500 dark:text-gray-400">
+          <span className="hidden text-gray-500 dark:text-gray-400 md:inline">
             ({shortenNumVotes(Number(num_votes))})
           </span>
         </span>

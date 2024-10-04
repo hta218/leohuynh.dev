@@ -30,8 +30,8 @@ export function MoviesList({ movies }: { movies: ImdbMovie[] }) {
 
   return (
     <div className="space-y-4 pt-2 md:space-y-6 md:pt-0">
-      <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-        <div className="flex items-center gap-2 text-lg font-medium md:text-xl">
+      <div className="flex flex-col-reverse items-center justify-between gap-5 md:flex-row md:gap-4">
+        <div className="flex items-center gap-2 text-xl font-medium">
           <Twemoji emoji={emoji} /> {description}{' '}
           <span className="font-normal text-gray-600 dark:text-gray-400">
             ({displayMovies.length} titles)
@@ -39,10 +39,12 @@ export function MoviesList({ movies }: { movies: ImdbMovie[] }) {
         </div>
         <div className="flex gap-5">
           <div className="flex items-center gap-2">
-            Type: <TitleTypeFilter type={type} setType={setType} />
+            <span>Type: </span>
+            <TitleTypeFilter type={type} setType={setType} />
           </div>
           <div className="flex items-center gap-2">
-            My rate: <RateFilter rate={rate} setRate={setRate} />
+            <span>My rate: </span>
+            <RateFilter rate={rate} setRate={setRate} />
           </div>
         </div>
       </div>

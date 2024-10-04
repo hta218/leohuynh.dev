@@ -59,7 +59,14 @@ export function TitleTypeFilter({
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <MenuItems className="absolute right-0 z-50 mt-2 w-36 origin-top-right rounded-md bg-white text-right shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-black">
+          <MenuItems
+            className={clsx([
+              'absolute left-0 z-50 md:left-auto md:right-0',
+              'mt-2 w-36 origin-top-right rounded-md text-right shadow-lg',
+              'bg-white dark:bg-black',
+              'ring-1 ring-black ring-opacity-5 focus:outline-none',
+            ])}
+          >
             <div className="space-y-1 p-1">
               {TITLE_TYPES.map(({ label, value, emoji }) => (
                 <MenuItem key={value} as="div">

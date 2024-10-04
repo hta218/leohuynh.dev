@@ -47,7 +47,9 @@ export function RateFilter({
           className="inline-flex items-center gap-2 rounded-lg border border-gray-200 px-3 py-1.5 font-medium dark:border-gray-700"
           data-umami-event="movies-rate-filter"
         >
-          <span>{label}/10 stars</span>
+          <span>
+            {label}/10 <span className="hidden md:inline">stars</span>
+          </span>
           <ChevronDown strokeWidth={1.5} size={20} />
         </MenuButton>
         <Transition
@@ -59,7 +61,14 @@ export function RateFilter({
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <MenuItems className="absolute right-0 z-50 mt-2 origin-top-right rounded-md bg-white text-right shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-black">
+          <MenuItems
+            className={clsx([
+              'absolute right-0 z-50',
+              'mt-2 origin-top-right rounded-md text-right shadow-lg',
+              'bg-white dark:bg-black',
+              'ring-1 ring-black ring-opacity-5 focus:outline-none',
+            ])}
+          >
             <div className="space-y-1 p-1">
               {RATES.map(({ label, description, value, emoji }) => (
                 <MenuItem key={value} as="div">
