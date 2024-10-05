@@ -56,7 +56,7 @@ export function PostBanner({ content, children }: LayoutProps) {
                 alt={title}
                 width={1600}
                 height={900}
-                className="aspect-video h-auto w-full rounded-xl object-cover object-center"
+                className="aspect-video h-auto w-full rounded-2xl object-cover object-center"
               />
             </div>
             <BannerInfo author={bannerAuthor} photoURL={bannerUrl} />
