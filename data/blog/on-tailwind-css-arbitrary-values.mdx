@@ -1,0 +1,167 @@
+---
+title: 'On Tailwind CSS arbitrary values'
+date: '2024-10-04'
+tags: ['tailwind-css', 'arbitrary-values', 'custom-styles']
+draft: false
+summary: 'How to use arbitrary values in Tailwind CSS to create custom styles for your components. Some nice tips to make your Tailwind CSS workflow more efficient.'
+images: ['/static/images/books.jpg']
+bannerAuthor: 'Morgan Harper Nichols'
+bannerUrl: 'https://unsplash.com/photos/assorted-reading-books-on-table-OMXPrCAhxrE'
+authors: ['default']
+---
+
+I have been using [Tailwind CSS](https://tailwindcss.com/) since 2018 and I super love the framework.
+It's so flexible, powerful, and brings so much joy writing CSS.
+
+Here are some of my favorite tips when using **Tailwind CSS Arbitrary Values** to write custom styles for your components.
+Some of them are covered in the official documentation, some I couldn't find (maybe they are their hidden gems <Twemoji emoji="grinning-face-with-sweat" />), and some are just my own personal tricks.
+
+> [!NOTE]
+> All the examples below are in React since I guess Tailwind is mostly used with a frontend framework.
+
+## Arbitrary values
+
+Arbitrary values are values that are not predefined in the Tailwind CSS configuration.
+We use the square brackets annotation `[]` to generate a class on the fly with any value:
+
+```jsx
+<div className="bg-[#f00]" />
+```
+
+This will output the following CSS:
+
+```css
+.bg-\[\#f00\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 0 0 / var(--tw-bg-opacity)) /* #ff0000 */;
+}
+```
+
+## Referencing design tokens
+
+We can use the `theme()` function to reference design tokens in `tailwind.config.js`:
+
+```jsx
+<div className="[--song-color:theme(colors.gray.200)]" />
+```
+
+Output CSS:
+
+```css
+.\[--song-color\:theme\(colors\.gray\.200\)\] {
+  --song-color: #e5e7eb;
+}
+```
+
+## With CSS variables
+
+We can also use CSS variables to generate arbitrary values:
+
+```jsx
+<div className="h-[var(--section-height)]" />
+```
+
+You can get rid of the `var(...)` wrapper, just provide the variable name is enough:
+
+```jsx
+<div className="h-[--section-height]" />
+```
+
+This will output the following CSS:
+
+```css
+.h-\[var\(--section-height\)\] {
+  height: var(--section-height);
+}
+```
+
+But for variables with fallback values to another variable, we still need to use the `var(...)` wrapper:
+
+```jsx
+<div className="h-[var(--section-height,var(--fallback-height))]" />
+```
+
+Output CSS:
+
+```css
+.h-\[var\(--section-height\,var\(--fallback-height\)\)\] {
+  height: var(--section-height, var(--fallback-height));
+}
+```
+
+## Injecting CSS variables
+
+CSS variables can be injected into the DOM with inline styles like this:
+
+```jsx
+<div style={{ '--song-color': '#f00' }} />
+```
+
+But with arbitrary values, we can do this:
+
+```jsx
+<div className="[--song-color:#f00]" />
+```
+
+Which will output the same CSS variables declaration as above.
+
+## Out of the box utilities
+
+For properties that are not supported by default in Tailwind CSS, we can also use the square bracket notation to write completely arbitrary CSS:
+
+```jsx
+<div className='[background-image:url("/static/images/black-grit.png")]' />
+```
+
+## Handling whitespaces
+
+We **must** remove whitespaces from the arbitrary classes to make them work or use the underscore notation `_` for better readability:
+
+```jsx
+<div className="shadow-[6px_6px_12px_-1px_rgba(0,_0,_0,_0.1)]" />
+```
+
+## Resolving namespace collisions
+
+Many CSS properties share the same namespace in Tailwind CSS, for example `bg-red-500` and `bg-cover`, or `text-gray-900` and `text-2xl`.
+
+To avoid collisions when using arbitrary values, we can prefix a [CSS data types](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Types)
+(`color:`, `length:`, etc.) to the property value:
+
+```jsx
+<div className="bg-[length:100%_50%]" />
+```
+
+This is super useful when using with variables, for example:
+
+```jsx
+<div className="bg-[color:--variable]" />
+// or just `bg-[--variable]`
+```
+
+will output CSS for background color:
+
+```css
+.bg-\[--variable\] {
+  background-color: var(--variable);
+}
+```
+
+And adding a `length:` prefix will output the css for `background-size`:
+
+```jsx
+<div className="bg-[length:--variable]" />
+```
+
+Output:
+
+```css
+.bg-\[length\:--variable\] {
+  background-size: var(--variable);
+}
+```
+
+That's some of my favorite notes when using Tailwind CSS Arbitrary Values.
+Do you have any other tips? Please let me know in the comment section <Twemoji emoji="backhand-index-pointing-down" />
+
+Happy styling (with Tailwind CSS) <Twemoji emoji="clinking-beer-mugs" />
