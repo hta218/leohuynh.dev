@@ -11,7 +11,7 @@ export const MORE_NAV_LINKS = [
   { href: '/books', title: 'Books', emoji: 'books' },
   { href: '/movies', title: 'Movies', emoji: 'film-frames' },
   { href: '/tags', title: 'Tags', emoji: 'label' },
-  { href: SITE_METADATA.analyticsUrl, title: 'Blog stats', emoji: 'bar-chart' },
+  // { href: SITE_METADATA.analyticsUrl, title: 'Blog stats', emoji: 'bar-chart' },
 ]
 
 export const FOOTER_NAV_LINKS = [
@@ -27,5 +27,5 @@ export const FOOTER_PERSONAL_STUFF = [
   { href: '/static/resume.pdf', title: 'Resume' },
   { href: '/books', title: 'Books' },
   { href: '/movies', title: 'Movies' },
-  { href: SITE_METADATA.analyticsUrl, title: 'Blog stats' },
+  // { href: SITE_METADATA.analyticsUrl, title: 'Blog stats' },
 ]
