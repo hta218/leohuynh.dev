@@ -128,6 +128,18 @@ module.exports = {
               marginLeft: 'auto',
               marginRight: 'auto',
             },
+            '.markdown-alert': {
+              'p.markdown-alert-title': {
+                fontSize: '1.125rem',
+                fontWeight: '700',
+                marginBottom: '0',
+                marginTop: '0.5rem',
+                svg: {
+                  width: '20px',
+                  height: '20px',
+                },
+              },
+            },
           },
         },
         invert: {
