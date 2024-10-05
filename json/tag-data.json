@@ -1,5 +1,8 @@
 {
   "443": 1,
+  "tailwind-css": 2,
+  "arbitrary-values": 1,
+  "custom-styles": 1,
   "javascript": 11,
   "promise": 1,
   "parallel": 1,
@@ -60,7 +63,6 @@
   "arrow-function": 1,
   "es5": 1,
   "es6": 1,
-  "tailwind-css": 1,
   "react": 3,
   "postcss": 1,
   "integration": 1,
