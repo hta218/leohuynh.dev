@@ -1,54 +1,51 @@
 ---
-title: 'Tích hợp Tailwind CSS vào React application'
+title: 'Integrating Tailwind CSS into a React Application'
 date: '2020-08-31'
 tags: ['tailwind-css', 'react', 'postcss', 'integration']
-draft: true
-summary: 'Tailwind CSS là 1 low-level CSS framework rất dễ tùy biến, không như các framework khác khi tập trung vào các pre-design components như buttons, cards, modals... có thể giúp bạn phát triển nhanh ban đầu nhưng sau đó sẽ rất mất công để custom các component có sẵn, Tailwind tập trung vào low-level utility classes...'
-images: ['/static/images/tailwindcss.png']
+summary: 'Tailwind CSS is a low-level CSS framework that’s highly customizable. Unlike other frameworks that focus on pre-designed components like buttons, cards, or modals, which are easy to start with but hard to customize later, Tailwind lets you build your own designs from scratch using utility classes...'
+images: ['/static/images/plant-pots.jpg']
 authors: ['default']
 ---
 
-![tailwindcss](/static/images/tailwindcss.png)
+[Tailwind CSS](https://tailwindcss.com/) is a **low-level** CSS framework that’s highly customizable. Unlike other frameworks or UI kits that provide pre-designed components (buttons, cards, modals, etc.) to help you get started quickly but can be cumbersome to customize later, Tailwind focuses on low-level utility classes (**utility-first**), allowing you to build your own design without worrying about **overriding** existing **styles**.
 
-[Tailwind CSS](https://tailwindcss.com/) là 1 **low-level** CSS framework rất dễ tùy biến, không như những framework, UI Kits khác khi tập trung vào các **pre-design components** (buttons, cards, modals...) có thể giúp bạn phát triển nhanh ban đầu nhưng sau đó sẽ rất mất công để custom styling cho các component đó. Tailwind tập trung vào low-level utility classes (**utility-first**) giúp bạn tự build hoàn toàn design của mình mà không phải lo lắng về việc **override** các **style** có sẵn.
+In this post, I’ll guide you on how to integrate Tailwind CSS into a React app <Twemoji emoji="beaming face with smiling eyes" />
 
-Bài này mình sẽ hướng dẫn anh em cách để tích hợp Tailwind CSS vào React app nhé <Twemoji emoji="beaming face with smiling eyes" />
+## Create a React App
 
-## Tạo react app
-
-Cách đơn giản nhất để tạo react app là sử dụng [create-react-app](https://create-react-app.dev/docs/getting-started/) script với `npx`
+The simplest way to create a React app is by using the [create-react-app](https://create-react-app.dev/docs/getting-started/) script with `npx`
 
 ```bash
 npx create-react-app my-app && cd my-app
 ```
 
-Sử dụng `npx` anh em có thể chạy `create-react-app` script mà không cần phải cài **package** này
+Using npx lets you run the create-react-app script without needing to install the package.
 
-## Thêm dependencies
+## Add Dependencies
 
-Cài đặt các **devDependencies** sau để set up **Tailwind CSS**
+Install the following devDependencies to set up Tailwind CSS
 
 ```bash
 yarn add tailwindcss postcss-cli autoprefixer -D
-## hoặc npm install tailwindcss postcss-cli autoprefixer --save-dev
+## or npm install tailwindcss postcss-cli autoprefixer --save-dev
 ```
 
-Ở đây ngoài **Tailwind CSS** chúng ta cài thêm:
+Besides Tailwind CSS, we’ll also install:
 
-- [PostCSS](https://github.com/postcss/postcss): 1 công cụ để phân tích và chuyển đổi **styling** bằng các **JS plugin**, giúp bạn gợi ý **CSS**, hỗ trợ **variables** và **mixins**, biên dịch các CSS mới...
-- [Autoprefixer](https://github.com/postcss/autoprefixer): 1 plugin của **PostCSS** hỗ trợ việc thêm các [vendor prefix](https://www.lifewire.com/css-vendor-prefixes-3466867)(`-webkit-`, `-moz-`, `-ms-`, `-o-`,...) bằng cách lấy thông tin từ [Can I Use](https://caniuse.com/) để CSS bạn viết có thể tương thích ở nhiều trình duyệt khác nhau
+- [PostCSS](https://github.com/postcss/postcss): A tool for analyzing and transforming styling using JS plugins, which helps with CSS suggestions, supporting variables and mixins, compiling new CSS features, etc.
+- [Autoprefixer](https://github.com/postcss/autoprefixer): A PostCSS plugin that automatically adds [vendor prefix](https://www.lifewire.com/css-vendor-prefixes-3466867) (`-webkit-`, `-moz-`, `-ms-`, `-o-`, etc.) based on data from **Can I Use** to ensure your CSS works on multiple browsers.
 
-## Config PostCSS
+## Configuring PostCSS
 
-PostCSS giúp quản lý và cấu hình việc build CSS.
+PostCSS helps manage and configure your CSS build process.
 
-Tạo file config:
+Create a config file:
 
 ```bash
 touch postcss.config.js
 ```
 
-Thêm config sau:
+Add the following config:
 
 ```javascript
 module.exports = {
@@ -56,19 +53,19 @@ module.exports = {
 }
 ```
 
-Quá trình **build** sử dụng 2 **plugin** là `tailwindcss` và `autoprefixer`
+This build process uses two plugins: `tailwindcss` and `autoprefixer`.
 
 ## Injecting Tailwind CSS
 
-Tạo 1 **sub-folder** là **styles** trong folder **src**. Trong folder **styles** tạo file **tailwind.css**
+Create a sub-folder named `styles` inside the src folder. In the styles folder, create a file called `tailwind.css`.
 
-Hoặc dùng **command line**:
+Or use the command line:
 
 ```bash
 mkdir src/styles && touch src/styles/tailwind.css
 ```
 
-**Import** các **module** sau của Tailwind CSS
+Import the following modules from Tailwind CSS:
 
 ```css
 @tailwind base;
@@ -78,32 +75,32 @@ mkdir src/styles && touch src/styles/tailwind.css
 @tailwind utilities;
 ```
 
-> **Folder** chứa file **tailwind.css** các bạn có thể đặt tùy ý theo **project** của mình nhé, có thể là `src/static`, `src/assets`, `src/styles` ...
+You can place the `tailwind.css` file in any folder you like, such as `src/static`, `src/assets`, `src/styles` ...
 
-## Thêm build script
+## Adding Build Script
 
-Mở file `package.json`, thêm **build script** sau (vào object `scripts`):
+Open the `package.json` file and add the following build script (inside the scripts object):
 
 ```json
 "build:css": "postcss src/styles/tailwind.css -o src/styles/main.css"
 ```
 
-Script này sẽ sử dụng [PostCSS CLI](https://github.com/postcss/postcss-cli) để build css dựa trên những **config** trong file **tailwind.css** với output (flag `-o`) là file **main.css**
+This script uses **PostCSS CLI** to build the CSS based on the config in the `tailwind.css` file, with the output (flag `-o`) as `main.css`.
 
-Anh em có thể tùy ý chọn tên file và vị trí, ở đây mình để cả file **input** chứa **config** và **output** trong cùng 1 folder là `src/styles`
+You can choose the file name and location as you like. Here, I’m putting both the input config file and output in the same folder: `src/styles`.
 
-Bây giờ anh em có thể tự **trigger** build bằng lệnh:
+Now you can manually trigger the build with the command:
 
 ```bash
 yarn build:css
-# hoặc npm run build:css
+# or npm run build:css
 ```
 
-Sau khi config và build xong, project của bạn sẽ trông như thế này:
+After configuring and building, your project structure should look like this:
 
 ![Project structure](/static/images/tailwind-project.png)
 
-Để tiện hơn thì các bạn nên tích hợp `build:css` command vào script `start` và `build` của **project**, như vậy sẽ đảm bảo CSS luôn được build lại theo những update mới nhất của mình mỗi lần **start project**:
+To make things easier, you can integrate the `build:css` command into the start and build scripts of your project, ensuring that your CSS is always rebuilt with the latest updates each time you start the project:
 
 ```json
 "scripts": {
@@ -115,22 +112,18 @@ Sau khi config và build xong, project của bạn sẽ trông như thế này:
 }
 ```
 
-<div style={{ textAlign: 'center' }}>
-  <small>Tất cả **scripts** sau khi hoàn thiện</small>
-</div>
+Now to build the CSS and start the project, you just need to run `yarn start`.
 
-Bây giờ để build CSS và start project thì chỉ cần `yarn start` là đủ.
+## Using Tailwind CSS in a React Component
 
-## Sử dụng trong react component
-
-**Import** CSS đã build vào file start của **project** (của mình là `index.js`):
+Import the built CSS into the start file of your project (mine is `index.js`):
 
 ```javascript
 import './styles/main.css'
 // ... other imports
 ```
 
-Tạo 1 component cơ bản:
+Create a basic component:
 
 ```js
 import React from 'react'
@@ -177,17 +170,18 @@ function App() {
 export default App
 ```
 
-Kết quả <Twemoji emoji="party popper" /> <Twemoji emoji="party popper" />
+Here’s the result <Twemoji emoji="party-popper" /> <Twemoji emoji="party-popper" />
 
 ![Tailwind css result](/static/images/messi.jpg)
 
-## Kết bài
+## Conclusion
 
-Hi vọng anh em có thể tích hợp và sử dụng **Tailwind CSS** trong **project** của mình qua [tutorial](/category//tutorial) này, cá nhân mình thấy đây là 1 **framework** khá đơn giản và dễ sử dụng, chất lượng ổn.
+I hope you can integrate and use Tailwind CSS in your project through this tutorial.
+Personally, I find this framework quite simple, easy to use, and of good quality.
 
-Anh em để lại nhận xét cho mình ở dưới comment nhé :D
+Leave your comments below if you have any feedback
 
-## Refs
+## References
 
 - [Tailwind CSS Documentation](https://tailwindcss.com/docs/installation)
 - [Create React App](https://create-react-app.dev/docs/getting-started/)
