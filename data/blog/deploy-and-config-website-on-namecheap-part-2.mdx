@@ -1,90 +1,87 @@
 ---
-title: 'Deploy và cấu hình website trên namecheap trong vòng 1 nốt nhạc [Part 2]'
+title: '[Part 2] Deploy and configure your website on Namecheap in the simplest way'
 date: '2020-04-25'
 tags: ['deployment', 'domain', 'hosting', 'dns', 'namecheap']
-draft: true
-summary: 'Ở phần trước mình đã hướng dẫn anh em mua và connect domain với hosting, activate SSL Certificate. Phần này mình sẽ hướng dẫn cách đẩy code lên server để website go live nhé...'
-images: ['/static/images/rocket.jpg']
-bannerAuthor: 'John Baker'
-bannerUrl: 'https://unsplash.com/photos/UzOKDfoRrDU'
+summary: 'In the previous part, I guided you through buying and connecting your domain to hosting, and activating the SSL Certificate. In this part, I’ll show you how to push your code to the server to get your website live...'
+images: ['/static/images/server-2.jpg']
+bannerAuthor: 'Thomas Jensen'
+bannerUrl: 'https://unsplash.com/photos/black-network-switch-with-cables-ISG-rUel0Uw'
 authors: ['default']
 ---
 
-![rocket](/static/images/rocket.jpg)
+In the [previous part](/blog/deploy-and-config-website-on-name-cheap-part-1), I guided you through buying and connecting your **domain** to **hosting**, and activating the **SSL Certificate**.
 
-Ở [phần trước](/blog/deploy-and-config-website-on-name-cheap-part-1) mình đã hướng dẫn anh em mua và connect **domain** với **hosting**, activate **SSL Certificate**.
+In this part, I’ll show you how to push your code to the **server** and get your website live <Twemoji emoji="rocket" />
 
-Phần này mình sẽ hướng dẫn cách đẩy code lên **server** để website go live nhé <Twemoji emoji="rocket" />
+## What’s on the server <Twemoji emoji="eyes" size="" />?
 
-## Trên server có những gì <Twemoji emoji="eyes" size="" /> ?
-
-Để tìm hiểu cấu trúc folder trên server anh em vào **cPanel** (bài trước mình có hướng dẫn cách vào). Mở **File Manager** trong section **Files**
+To understand the folder structure on the server, go to **cPanel** (I showed you how to access it in the previous post). Open **File Manager** in the **Files** section.
 
 ![cpanel file manager](/static/images/file-manager.png)
 
-Đây chính là cấu trúc thư mục trên server! By default mình sẽ ở **root directory** là `/home/<cpanel-username>`
+This is the folder structure on the server! By default, we’ll be in the **root directory**: `/home/<cpanel-username>`.
 
-Folder chúng ta cần quan tâm là `./public_html`, đây là nơi chứa toàn bộ source code (_html_, _css_, _js_) của trang. Mục tiêu chính là đưa toàn bộ file code lên đây.
+The folder we need to focus on is `./public_html`, which contains all the source code (_html_, _css_, _js_) of the website. Our main goal is to put all the code files here.
 
-**File Manager** cho phép upload trực tiếp file lên nhưng không cho upload **folder** <Twemoji emoji="man-getting-massage" />. Chính vì vậy mình sử dụng 1 tool được **namecheap** [recommend](https://www.namecheap.com/support/knowledgebase/article.aspx/1279/205/how-to-set-up-filezilla/) là [FileZilla](https://filezilla-project.org/).
+**File Manager** allows direct upload of files but not **folders** <Twemoji emoji="man-getting-massage" />. That’s why I use a tool **Namecheap** [recommends](https://www.namecheap.com/support/knowledgebase/article.aspx/1279/205/how-to-set-up-filezilla/), which is [FileZilla](https://filezilla-project.org/).
 
 ## Authorize FileZilla
 
-**FileZilla** sẽ kết nối và <Twemoji emoji="delivery-truck" /> lên **server** thông qua việc truy cập đến server bằng FTP (**File Transfer Protocol**).
+**FileZilla** will connect and <Twemoji emoji="delivery-truck" /> push the code to the **server** by accessing the server using FTP (**File Transfer Protocol**).
 
-Để 1 **middle-man** <Twemoji emoji="man-construction-worker-medium-light-skin-tone" /> có thể giúp chúng ta đưa file lên **server**, nghiễm nhiên cần cấp quyền cho tool đó => cần tạo 1 [**FTP Account**](https://www.namecheap.com/support/knowledgebase/article.aspx/9523/205/how-to-create-an-ftp-account), **FileZilla** sẽ dùng tài khoản này để đưa code lên server cho chúng ta.
+For a **middle-man** <Twemoji emoji="man-construction-worker-medium-light-skin-tone" /> to help us upload files to the **server**, we need to grant access to that tool => Create an [**FTP Account**](https://www.namecheap.com/support/knowledgebase/article.aspx/9523/205/how-to-create-an-ftp-account), and **FileZilla** will use this account to upload code for us.
 
-Tạo 1 **FTP Account** rất đơn giản:
+Creating an **FTP Account** is very simple:
 
-- Vào **cPanel**, click **FPT Accounts** trong section **Files**.
-- Nhập **username**, **password** (chú ý đừng quên nhé <Twemoji emoji="grinning-face-with-sweat" />).
+- Go to **cPanel**, click **FTP Accounts** in the **Files** section.
+- Enter the **username** and **password** (don’t forget it <Twemoji emoji="grinning-face-with-sweat" />).
 
 ![FTP Account](/static/images/ftp.png)
 
-**Note <Twemoji emoji="warning" />:** 1 điểm cần chú ý khi tạo **FTP Account** là anh em cần để `access-directory` cho account này là `root-directory` nhé, không thì account này sẽ không có quyền access vào `./public_html` folder đâu <Twemoji emoji="grinning-face-with-sweat" />
+**Note <Twemoji emoji="warning" />:** When creating an **FTP Account**, make sure to set the `access-directory` of this account to the `root-directory`. Otherwise, this account won’t have access to the `./public_html` folder <Twemoji emoji="grinning-face-with-sweat" />
 
 ## Setup FileZilla
 
-Sau khi đã [download](https://filezilla-project.org/) và cài đặt **FileZilla**, chúng ta sẽ connect đến server bằng **FTP Account** vừa tạo.
+After [downloading](https://filezilla-project.org/) and installing **FileZilla**, we will connect to the server using the **FTP Account** we just created.
 
-[Quick connect](https://www.namecheap.com/support/knowledgebase/article.aspx/1279/205/how-to-set-up-filezilla/#quickconnect) là cách đơn giản nhất để connect đến server, anh em cần 4 thông tin:
+[Quick connect](https://www.namecheap.com/support/knowledgebase/article.aspx/1279/205/how-to-set-up-filezilla/#quickconnect) is the simplest way to connect to the server. You’ll need 4 pieces of information:
 
-- **Host name**: `ftpes://<host-name>` (đừng quên prefix `ftpes://` nhé!)
+- **Host name**: `ftpes://<host-name>` (don’t forget the `ftpes://` prefix!)
 
 ![Host name](/static/images/hostname.png)
 
-_(Host name ở ngay trên **URL** trong **cPanel**)_.
+_(The host name is right at the **URL** in **cPanel**)_.
 
-- **Username**: chính là **FTP Account** anh em vừa tạo, với format: `<ftp-account-name>@<your-domain>`
+- **Username**: The **FTP Account** username you just created, in this format: `<ftp-account-name>@<your-domain>`
 - **Password**
-- **Port**: auto là `21`.
+- **Port**: default is `21`.
 
-Cung cấp đủ thông tin rồi click **Quickconnect**.
-Phải thấy tín hiệu **successful** thì mới được nhé.
+Enter all the information and click **Quickconnect**.
+You should see a **successful** signal to proceed.
 
 ![Connect to server via FileZilla](/static/images/filezilla.png)
 
-_(Đừng giật mình khi thấy mất **port** nhé, **FileZilla** tự xoá đấy <Twemoji emoji="face-with-steam-from-nose" />)_
+_(Don’t worry if you see the **port** disappear, **FileZilla** does that automatically <Twemoji emoji="face-with-steam-from-nose" />)_
 
-## Đẩy code lên server
+## Push code to the server
 
-Phần phức tạp nhất đã xong <Twemoji emoji="see-no-evil-monkey" /> <Twemoji emoji="hear-no-evil-monkey" />, bây giờ đẩy code lên **server** thôi!
+The complicated part is done <Twemoji emoji="see-no-evil-monkey" /> <Twemoji emoji="hear-no-evil-monkey" />, now it’s time to push your code to the **server**!
 
 <div>
   <img src="/static/images/close.gif" alt="close" style={{ margin: '0 auto' }} />
 </div>
 
-Trong **FileZilla** gồm 2 phần:
+In **FileZilla**, there are 2 sections:
 
-- **Local site**: toàn bộ thư mục trong máy, anh em tìm đến folder chứa code của mình (chú ý là phần code đã build nhé) - trong trường hợp này của mình là folder `./public` (có thể là `./build`, `./dist`, `./public` ... tuỳ theo config app)
+- **Local site**: This contains all the folders on your machine. Navigate to the folder containing your code (make sure it’s the built code). In my case, it’s the `./public` folder (it could be `./build`, `./dist`, `./public` ... depending on your app configuration).
 
-- **Remote site**: toàn bộ folder trên **server**, anh em tìm đến `./public_html`.
+- **Remote site**: This shows all the folders on the **server**. Navigate to `./public_html`.
 
 ![Close](/static/images/filezilla2.png)
 
-Chọn tất cả file ở **Local** và kéo sang **Remote** là ... xong <Twemoji emoji="party-popper" />
+Select all files in **Local** and drag them over to **Remote** ... and it’s done <Twemoji emoji="party-popper" />
 
-Bây giờ chỉ việc mở site của mình ra kiểm tra thành quả rồi fix lỗi typo thôi <Twemoji emoji="grinning-squinting-face" /><Twemoji emoji="grinning-squinting-face" /><Twemoji emoji="grinning-squinting-face" />
+Now just open your site, check the results, and fix typos if any <Twemoji emoji="grinning-squinting-face" /><Twemoji emoji="grinning-squinting-face" /><Twemoji emoji="grinning-squinting-face" />
 
 <img
   src="https://media.giphy.com/media/SfYTJuxdAbsVW/giphy.gif"
@@ -92,31 +89,31 @@ Bây giờ chỉ việc mở site của mình ra kiểm tra thành quả rồi f
   style={{ margin: '0 auto' }}
 />
 
-## Two Factor Authentication (Optional)
+## Two-Factor Authentication (Optional)
 
-Two Factor Authentication (**2FA**) hay bảo mật 2 lớp (hoàn toàn free từ [namecheap](https://www.namecheap.com/security/2fa-two-factor-authentication/)) là việc thêm 1 lớp bảo mật cho tài khoản **namecheap** (phải qua được cả 2 lớp mới truy cập được resource của mình - sẽ không lo lắng nếu chẳng may bị mất account vì lớp bảo mật thứ 2 nằm trên 1 device khác).
+Two-Factor Authentication (**2FA**) is an additional security layer for your **Namecheap** account (you need to pass both layers to access your resources, so you won’t have to worry if your account gets compromised, since the second layer is on a separate device).
 
-Lớp thứ nhất chính là **username/password** lớp thứ 2 có thể chọn 1 trong nhiều cách:
+The first layer is your **username/password**, and the second layer can be one of the following:
 
-- **U2F (Universal 2nd Factor)**: sử dụng 1 [physical device](https://www.namecheap.com/support/knowledgebase/article.aspx/10102/45/how-can-i-use-the-u2f-method-for-twofactor-authentication) giống như 1 chiếc chìa khoá để bảo mật.
-- **TOTP (Time-based One-Time Password)**: sử dụng 1 password ngắn hạn trên 1 device khác thông qua **Authentication app** như: [Google Authenticator](https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en), [Authy](https://authy.com/) ...
-- **Text Message Authentication**: thông qua tin nhắn trên điện thoại.
+- **U2F (Universal 2nd Factor)**: Using a [physical device](https://www.namecheap.com/support/knowledgebase/article.aspx/10102/45/how-can-i-use-the-u2f-method-for-twofactor-authentication) like a key to unlock the account.
+- **TOTP (Time-based One-Time Password)**: Using a short-term password on another device via an **Authentication app** like: [Google Authenticator](https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en), [Authy](https://authy.com/) ...
+- **Text Message Authentication**: Using SMS on your phone.
 
-Mình chọn sử dụng **TOTP** thông qua app [Google Authenticator](https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en).
+I chose **TOTP** via the [Google Authenticator](https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en) app.
 
-Anh em tải app về điện thoại rồi vào **cPanel** mở **Two Factor Authentication** trong section **Security**, scan **QR Code**, Done!
+Download the app on your phone, then go to **cPanel** and open **Two-Factor Authentication** in the **Security** section, scan the **QR Code**, and you’re done!
 
-Mỗi lần đăng nhập **namecheap** sẽ hỏi thêm **TOTP** từ app để bảo an toàn.
+From now on, Namecheap will ask for the **TOTP** code from the app whenever you log in to ensure security.
 
-## Kết bài
+## Wrap Up
 
-Hi vọng tutorial này giúp anh em hiểu thêm về server và có thể tự host 1 trang của riêng mình.
+I hope this tutorial helps you understand more about the server and how to host your own website.
 
-Nếu không muốn mua chúng ta hoàn toàn có thể sử dụng các **Free Hosting Service** khác như: **Github Page**, **Heroku**, **Netlify**, **Vercel**... (đều có hỗ trợ **build tool** và **config** đầy đủ, chỉ cần **connect** source code là xong).
+If you don’t want to buy hosting, you can use other **Free Hosting Services** like: **Github Page**, **Heroku**, **Netlify**, **Vercel** ... (all of them support **build tools** and **configuration**, so you just need to **connect** your source code and you’re good to go).
 
 Happy deploying!
 
-## Refs
+## References
 
 - [https://www.namecheap.com/resource-center/tutorials/building-your-first-website/](https://www.namecheap.com/resource-center/tutorials/building-your-first-website/)
 - [https://www.namecheap.com/support/knowledgebase/article.aspx/1279/205/how-to-set-up-filezilla/](https://www.namecheap.com/support/knowledgebase/article.aspx/1279/205/how-to-set-up-filezilla/)

@@ -1,108 +1,105 @@
 ---
-title: 'Deploy và cấu hình website trên namecheap trong vòng 1 nốt nhạc [Part 1]'
+title: '[Part 1] Deploy and configure your website on Namecheap in the simplest way'
 date: '2020-04-23'
 tags: ['deployment', 'domain', 'hosting', 'dns', 'namecheap']
-draft: true
-summary: 'Trước giờ mình luôn muốn sở hữu 1 site cá nhân, nhưng vì mình không có thời gian nên đợt này nghỉ việc, ở nhà cách ly mới tìm hiểu để làm được...'
-images: ['/static/images/server.jpg']
-bannerAuthor: 'Science in HD'
-bannerUrl: 'https://unsplash.com/photos/iPrjQEDnNEY'
+summary: 'I’ve always wanted to have my own personal site, but due to lack of time, I only got to work on it recently during my stay-at-home time...'
+images: ['/static/images/server-1.jpg']
+bannerAuthor: 'Albert Stoynov'
+bannerUrl: 'https://unsplash.com/photos/a-close-up-of-a-network-with-wires-connected-to-it-dyUp7WPu5q4'
 authors: ['default']
 ---
 
-![server](/static/images/server.jpg)
+I’ve always wanted to have my own personal site, but due to ~~laziness~~ lack of time, I only got to work on it recently while staying at home during the quarantine.
 
-Trước giờ mình luôn muốn sở hữu 1 site cá nhân, nhưng vì mình ~~lười~~ không có thời gian nên đợt này nghỉ việc, ở nhà cách ly mới tìm hiểu để làm được.
+In this post, I’ll guide you on how to set up and configure a **domain** and **web hosting** that you purchased on Namecheap (assuming you already have your own source code <Twemoji emoji="smiling-face-with-sunglasses" />)
 
-Bài này mình chỉ hướng dẫn anh em cách config **domain** và **web hosting** mua trên namecheap (nên mặc định anh em đã có source code của riêng mình rồi nhé <Twemoji emoji="smiling-face-with-sunglasses" />)
+## Why this tutorial?
 
-## Tại sao có tutorial này?
-
-Mặc dù namecheap đã có [hướng dẫn](https://www.namecheap.com/resource-center/tutorials/building-your-first-website/) đầy đủ để build 1 website from scratch nhưng bơi <Twemoji emoji="man-swimming" /> trong 1 đống document là không dễ dàng gì.
+Even though Namecheap has a [detailed tutorial](https://www.namecheap.com/resource-center/tutorials/building-your-first-website/) on building a website from scratch, swimming <Twemoji emoji="man-swimming" /> through a sea of documentation isn’t that easy.
 
 ![Kid swimming](/static/images/swim.gif)
 
-Nên mình viết tutorial này để chia sẻ lại những gì mình đã làm và tìm hiểu trong **2 ngày** để ~~mình xem lại nhỡ sau này quên~~ giúp anh em có thể tự config site của mình nhanh hơn nhé <Twemoji emoji="beaming-face-with-smiling-eyes" />.
+So, I wrote this tutorial to share what I learned and did in **2 days** to ~~remind myself if I forget in the future~~ help you set up your site faster <Twemoji emoji="beaming-face-with-smiling-eyes" />.
 
-## Để có 1 site hoàn chỉnh cần những gì?
+## What do you need for a complete site?
 
-Lúc đầu mình nghĩ chỉ cần mua 1 tên miền (**domain**) rồi đẩy code lên đó là xong. Nhưng không phải thế, 3 thứ cơ bản để chạy 1 website bao gồm: **domain name**, **hosting** và **platform**
+At first, I thought I only needed to buy a **domain** and push my code there. But that’s not enough; the 3 basics to run a website are: **domain name**, **hosting**, and **platform**
 
-- **Domain name** <Twemoji emoji="magnifying-glass-tilted-right" />: là địa chỉ website của mình, vd: _[pondhub.com](http://www.thepondhub.com/)_, _[leohuynh.dev](https://leohuynh.dev)_ ... Có thể hiểu đây như là địa chỉ nhà của mình, thay cho địa chỉ ip giúp ng khác dễ dàng tìm kiếm.
-- **Hosting** <Twemoji emoji="house" />: là nơi lưu trữ toàn bộ data và thông tin về website.
-  > -- Web hosting, in the simplest term, is a remote hard drive connected to your computer by (you guessed it) the Internet.
+- **Domain name** <Twemoji emoji="magnifying-glass-tilted-right" />: This is your website address, e.g., _[pondhub.com](http://www.thepondhub.com/)_, _[leohuynh.dev](https://leohuynh.dev)_ ... Think of it like your home address, making it easier to find than using an IP address.
+- **Hosting** <Twemoji emoji="house" />: This is where all your website’s data and information are stored.
+  > -- Web hosting, in simple terms, is a remote hard drive connected to your computer via (you guessed it) the Internet.
 
-Nếu domain là địa chỉ nhà thì hosting chính là ngôi nhà của mình.
+If the domain is your home address, then hosting is your actual house.
 
-- **Platform** <Twemoji emoji="laptop" />: là những công cụ để build trang web, sản phẩm chính là phần source code của website.
+- **Platform** <Twemoji emoji="laptop" />: These are the tools to build your website, with the source code being the main product.
 
-=> cần mua **domain** và **hosting** để có 1 trang hoàn chỉnh.
+=> You need to buy both **domain** and **hosting** for a complete site.
 
-Mình quyết định mua cả 2 trên namecheap ~~do chưa có nhiều kinh nghiệm~~ cho tiện config và có gì còn dễ hỏi support bên họ <Twemoji emoji="beaming-face-with-smiling-eyes" />
+I decided to buy both on Namecheap ~~due to lack of experience~~ for easy configuration and support from their team <Twemoji emoji="beaming-face-with-smiling-eyes" />
 
-Anh em lên [https://www.namecheap.com/domains/](https://www.namecheap.com/domains/) (nhớ tạo account trước nhé), search domain, click **Add To Cart** thì namecheap sẽ gợi ý mua cùng **Web Hosting** và **PositiveSSL** (cái này để bảo mật cho site của mình, giải thích rõ hơn [ở dưới](#activate-ssl-certificate)).
+Go to [https://www.namecheap.com/domains/](https://www.namecheap.com/domains/) (make sure to create an account first), search for a domain, click **Add To Cart**. Namecheap will suggest buying **Web Hosting** and **PositiveSSL** (which is for securing your site—more on that [below](#activate-ssl-certificate)).
 
 ![namecheap domain search](/static/images/namecheap1.png)
 
-Mua trên namecheap khá đơn giản, chỉ cần cung cấp đủ thông tin rồi <Twemoji emoji="money-with-wings" /><Twemoji emoji="money-with-wings" /><Twemoji emoji="money-with-wings" /> thế là xong.
+Buying on Namecheap is pretty straightforward. Just provide the required information, pay up <Twemoji emoji="money-with-wings" /><Twemoji emoji="money-with-wings" /><Twemoji emoji="money-with-wings" /> and you’re done.
 
 ![namecheap bill](/static/images/bill.png)
 
-## Connect domain với hosting như thế nào?
+## How to connect domain and hosting?
 
-Nhà và địa chỉ tất nhiên ở 1 nơi rồi, tại sao phải connect làm gì nữa <Twemoji emoji="eyes" />?
+Your house and address are obviously in one place, so why connect them <Twemoji emoji="eyes" />?
 
-Lí do đơn giản là vì địa chỉ nhà (**Web hosting**) thực chất là 1 dãy số (**IP Address**, vd: **127.0.0.1**) chúng ta đi đến địa chỉ này mới thực sự là truy cập vào website.
+The simple reason is that a house address (**Web hosting**) is actually a sequence of numbers (**IP Address**, e.g., **127.0.0.1**). You need to go to that address to access the website.
 
-=> cần connect **domain name** với **hosting** để có thể đến đúng nơi bằng địa chỉ dễ nhớ.
+=> You need to connect the **domain name** to **hosting** so people can get to the right place using an easy-to-remember address.
 
 ![name cheap dns](/static/images/dns.jpg)
 
-Khi mua **domain** và **hosting** cùng ở **namecheap**, việc config này sẽ rất dễ dàng
+If you buy both **domain** and **hosting** on **Namecheap**, the configuration is quite easy:
 
-- Vào **Account / Dashboard / Domain List**, click **Manage** ở domain vừa mua
-- Chọn **Namecheap Web Hosting DNS** ở section **Nameservers**
-- Click save (dấu <Twemoji emoji="check-mark-button" /> ở cuối dòng)
-- Done
+- Go to **Account / Dashboard / Domain List**, click **Manage** on the domain you just bought.
+- Select **Namecheap Web Hosting DNS** in the **Nameservers** section.
+- Click save (the <Twemoji emoji="check-mark-button" /> icon at the end of the line).
+- Done.
 
-Vậy tại sao truy cập vào ~~**domain name**~~ địa chỉ dễ nhớ hơn chúng ta vẫn đến được nơi cần đến <Twemoji emoji="eyes" />??
+Why can we access the website using ~~**domain name**~~ a simpler address <Twemoji emoji="eyes" />?
 
-Chính là nhờ DNS (Mình không đi sâu vào khái niệm này)
+It’s all thanks to DNS (I won’t dive into this concept).
 
-> DNS (domain name system) hiểu đơn giản là **_The Phone Book of the Internet_**, bạn hoàn toàn có thể bấm trực tiếp số (IP Address) để gọi cho gấu (hosting) hoặc tìm theo tên (domain) trong danh bạ.
+> DNS (domain name system) is simply **_The Phone Book of the Internet_**. You can dial the number (IP Address) directly to call your crush (hosting), or look them up by name (domain) in your contact list.
 
 ## Activate SSL Certificate
 
-Nếu anh em không mua **PositiveSSL** có thể bỏ qua phần này nhé.
+If you didn’t buy **PositiveSSL**, you can skip this section.
 
-**SSL** (Secure Sockets Layer) là 1 lớp bảo mật cho website, bảo vệ website bằng **HTTPS** với 2 nhiệm vụ chính:
+**SSL** (Secure Sockets Layer) is a security layer for your website, protecting it with **HTTPS** with two main purposes:
 
-- Đảm bảo data đến và đi từ website luôn được mã hóa.
-- Kiểm duyệt data đến và đi có nội dung chính xác.
+- Ensuring that the data going to and from your site is always encrypted.
+- Verifying that the incoming and outgoing data is accurate.
 
 ![SSL certificate](/static/images/https.png)
 
-Trang nào có **SSL Certificate** sẽ được gắn cờ **Secured** trên Web browser, đảm bảo sự tin tưởng khi truy cập.
+Websites with **SSL Certificate** are marked as **Secured** on browsers, ensuring user trust.
 
-Mình sẽ hướng dẫn anh em cách đơn giản nhất đó là sử dụng **cPanel** của **namecheap**:
+The simplest way to activate this is through **cPanel** on **Namecheap**:
 
 ![Go to cPanel](/static/images/cpanel.png)
 
-- Vào **Account / Dashboard / Domain List**, chọn tab **Products**.
-- Click **Go to cPanel**, đăng nhập với tài khoản **namecheap**.
-- Trong **cPanel** mở **Namecheap SSL**.
-- Click **Activate** PossitiveSSL.
+- Go to **Account / Dashboard / Domain List**, select the **Products** tab.
+- Click **Go to cPanel**, log in with your **Namecheap** account.
+- In **cPanel**, open **Namecheap SSL**.
+- Click **Activate** PositiveSSL.
 
-Đợi khoảng 5-10' rồi ấn **sync** để xem đã **activate** thành công chưa nhé (nếu chưa thì anh em đợi thêm rồi **sync** lại cho đến khi status chuyển sang **active** là được).
+Wait for about 5-10 minutes, then click **sync** to see if it’s been successfully activated (if not, wait a bit more and **sync** again until the status changes to **active**).
 
 ![Go to cPanel](/static/images/cpanel3.png)
 
-## Tạm kết
+## Wrap Up
 
-Đến đây anh em đã hoàn thiện được 90% website của mình rồi <Twemoji emoji="astonished-face" />, [phần tiếp theo](/blog/deploy-and-config-website-on-namecheap-part-2) mình sẽ hướng dẫn ~~90%~~ 10% còn lại <Twemoji emoji="smiling-face-with-tear" /> bao gồm:
+By now, you’ve completed 90% of your website setup <Twemoji emoji="astonished-face" />, in the [next part](/blog/deploy-and-config-website-on-namecheap-part-2), I’ll guide you through the remaining ~~90%~~ 10% <Twemoji emoji="smiling-face-with-tear" />, including:
 
-- Tìm hiểu cấu trúc thư mục trên server (**web hosting**).
-- Sử dụng [FileZilla](https://filezilla-project.org/) để đẩy code lên server.
-- Set up 2FA (**Two Factor Authentication** - hay bảo mật 2 lớp) để tăng bảo mật.
+- Understanding the folder structure on the server (**web hosting**).
+- Using [FileZilla](https://filezilla-project.org/) to push code to the server.
+- Setting up 2FA (**Two-Factor Authentication**) to enhance security.
 
-Rất cảm ơn anh em đã kiên nhẫn đọc đến đây <Twemoji emoji="folded-hands" />, để lại suy nghĩ cho mình dưới phần bình luận nhé. Thanks you so much!
+Thanks a lot for reading <Twemoji emoji="folded-hands" />, leave your thoughts in the comments below. Thank you so much!
