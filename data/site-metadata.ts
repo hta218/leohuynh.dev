@@ -10,7 +10,7 @@ export const SITE_METADATA = {
   siteRepo: 'https://github.com/hta218/leohuynh.dev',
   siteLogo: `${process.env.BASE_PATH || ''}/static/images/logo.jpg`,
   socialBanner: `${process.env.BASE_PATH || ''}/static/images/twitter-card.jpeg`,
-  email: 'leohuynh@pm.me',
+  email: 'contact@leohuynh.dev',
   github: 'https://github.com/hta218',
   x: 'https://x.com/hta218_',
   facebook: 'https://facebook.com/hta218',
