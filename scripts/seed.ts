@@ -41,7 +41,7 @@ export async function fetchGoodreadsBooks() {
         book.book_description = book.book_description
           .replace(/<[^>]*(>|$)/g, '')
           .replace(/\s\s+/g, ' ')
-          .replace(/^["|“]/g, '')
+          .replace(/^["|“]|["|“]$/g, '')
           .replace(/\.([a-zA-Z0-9])/g, '. $1')
         book.content = book.content.replace(/\n/g, '').replace(/\s\s+/g, ' ')
       }
