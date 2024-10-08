@@ -3,16 +3,16 @@ import clsx from 'clsx'
 import { ChevronDown } from 'lucide-react'
 import { Fragment } from 'react'
 
-const SHELVES: {
+export const SHELVES: {
   label: string
-  value: Shelf
+  value: ShelfType
 }[] = [
   {
     label: 'All',
     value: 'all',
   },
   {
-    label: 'Currently reading',
+    label: 'Reading',
     value: 'currently-reading',
   },
   {
@@ -25,14 +25,14 @@ const SHELVES: {
   },
 ]
 
-export type Shelf = 'all' | 'currently-reading' | 'read' | 'abandoned'
+export type ShelfType = 'all' | 'currently-reading' | 'read' | 'abandoned'
 
 export function ShelveSelect({
   shelf,
   setShelf,
 }: {
-  shelf: Shelf
-  setShelf: React.Dispatch<React.SetStateAction<Shelf>>
+  shelf: ShelfType
+  setShelf: React.Dispatch<React.SetStateAction<ShelfType>>
 }) {
   let { label, value: selectedValue } = SHELVES.find(({ value }) => value === shelf) || SHELVES[0]
 
@@ -58,8 +58,8 @@ export function ShelveSelect({
         >
           <MenuItems
             className={clsx([
-              'absolute left-0 z-50 md:left-auto md:right-0',
-              'mt-2 w-40 origin-top-right rounded-md text-right shadow-lg',
+              'absolute right-0 z-50',
+              'mt-2 w-32 origin-top-right rounded-md text-right shadow-lg',
               'bg-white dark:bg-black',
               'ring-1 ring-black ring-opacity-5 focus:outline-none',
             ])}
