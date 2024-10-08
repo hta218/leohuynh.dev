@@ -2,7 +2,7 @@ import Script from 'next/script.js'
 
 export function UmamiAnalytics({
   umamiWebsiteId,
-  src = '/static/umami.js',
+  src = '/stats/script.js',
 }: {
   umamiWebsiteId: string
   src?: string
