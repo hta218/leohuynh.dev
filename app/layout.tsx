@@ -9,6 +9,7 @@ import { JetBrains_Mono, Nunito, Playpen_Sans } from 'next/font/google'
 import type { SearchConfig } from 'pliny/search'
 import { SearchProvider } from 'pliny/search'
 import { Posthog } from '~/components/analytics/posthog'
+import { UmamiAnalytics } from '~/components/analytics/umami'
 import { Footer } from '~/components/footer'
 import { Header } from '~/components/header'
 import { TiltedGridBackground } from '~/components/ui/tilted-grid-background'
@@ -124,6 +125,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       >
         <TiltedGridBackground className="inset-x-0 top-0 z-[-1] h-[50vh]" />
         <ThemeProviders>
+          <UmamiAnalytics umamiWebsiteId={SITE_METADATA.analytics.umamiAnalytics.umamiWebsiteId} />
           <Posthog
             projectAPIkey={process.env.NEXT_PUBLIC_POSTHOG_KEY}
             apiHost={process.env.NEXT_PUBLIC_POSTHOG_HOST}
