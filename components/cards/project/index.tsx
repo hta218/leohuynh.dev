@@ -3,12 +3,12 @@ import type { BrandsMap } from '~/components/ui/brand'
 import { Brand } from '~/components/ui/brand'
 import { GradientBorder } from '~/components/ui/gradient-border'
 import { GrowingUnderline } from '~/components/ui/growing-underline'
-import { Image } from '~/components/ui/image'
 import { Link } from '~/components/ui/link'
 import { RadiantCard } from '~/components/ui/radiant-card'
 import type { PROJECTS } from '~/data/projects'
 import type { GithubRepository } from '~/types/data'
 import { RepoMeta } from './repo-meta'
+import { Image } from '~/components/ui/image'
 
 export function ProjectCard({
   project,
@@ -31,11 +31,11 @@ export function ProjectCard({
       <div className="flex h-56 items-end sm:h-80 md:h-auto md:w-1/2">
         <GradientBorder className="rounded-2xl">
           <Image
-            alt={title}
             src={imgSrc}
-            className="h-full max-h-full w-full rounded-2xl object-cover object-center shadow-lg"
-            width={1000}
-            height={1000}
+            alt={title}
+            width={858}
+            height={504}
+            className="h-full w-full rounded-2xl shadow-lg"
           />
         </GradientBorder>
       </div>

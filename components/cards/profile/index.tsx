@@ -73,7 +73,7 @@ export function ProfileCard() {
             width: '100%',
             aspectRatio: '17/11',
           }}
-          priority
+          loading="eager"
         />
         <SpotifyNowPlaying
           className={clsx([

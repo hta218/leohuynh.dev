@@ -60,7 +60,7 @@ export function LatestPosts({
           {!posts.length && 'No posts found.'}
           {posts.map((post, idx) => (
             <li key={post.slug}>
-              <PostCardListView post={post} priority={idx === 0} />
+              <PostCardListView post={post} loading={idx === 0 ? 'eager' : 'lazy'} />
             </li>
           ))}
         </ul>

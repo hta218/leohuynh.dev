@@ -225,7 +225,8 @@ function TimelineItem({ exp, last }: { exp: (typeof EXPERIENCES)[0]; last?: bool
       <Image
         src={logo}
         alt={org}
-        className="my-0 h-12 w-12 rounded-md object-contain object-center"
+        className="h-12 w-12 shrink-0 rounded-md"
+        style={{ objectFit: 'contain' }}
         width={200}
         height={200}
       />
