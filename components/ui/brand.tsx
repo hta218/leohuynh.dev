@@ -38,6 +38,7 @@ import Umami from '~/icons/umami.svg'
 import Vercel from '~/icons/vercel.svg'
 import Webpack from '~/icons/webpack.svg'
 import VSCode from '~/icons/vscode.svg'
+import Pnpm from '~/icons/pnpm.svg'
 
 export let BrandsMap = {
   React: {
@@ -203,6 +204,10 @@ export let BrandsMap = {
   VSCode: {
     Icon: VSCode,
     url: 'https://code.visualstudio.com/',
+  },
+  Pnpm: {
+    Icon: Pnpm,
+    url: 'https://pnpm.io/',
   },
 }
 
