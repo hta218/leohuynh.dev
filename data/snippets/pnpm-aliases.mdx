@@ -1,0 +1,105 @@
+---
+date: '2024-10-11'
+heading: 'Pnpm aliases'
+title: 'Pnpm aliases'
+icon: 'Pnpm'
+summary: 'How to install and update pnpm, create a shell alias for it, and upgrade project dependencies efficiently.'
+tags: ['pnpm', 'aliases', '.zprofile', '.bash_profile']
+---
+
+## Install & upgrade `pnpm`
+
+I recommend you to install `pnpm` globally using `npm` with:
+
+```bash
+npm i -g pnpm
+```
+
+To upgrade to the latest version, run:
+
+```bash
+npm i -g pnpm@latest
+```
+
+## Add an alias for `pnpm` in your shell
+
+Open your shell profile file (e.g. `.zprofile` or `.bash_profile`):
+
+```bash
+$ code ~/.zprofile
+# or code ~/.bash_profile
+```
+
+Or if you prefer **Vim**:
+
+```bash
+$ vim ~/.zprofile
+# or vim ~/.bash_profile
+```
+
+Add the following line to your shell profile file:
+
+```bash
+alias pn=pnpm
+```
+
+And reload it with:
+
+```bash
+source ~/.zprofile
+# or source ~/.bash_profile
+```
+
+Now you can use `pn` instead of `pnpm` in your shell.
+
+```bash
+$ pn -v
+9.12.1
+```
+
+## Bump dependencies in your project to the latest version
+
+If you want to upgrade all the dependencies in your project to the latest version, you can use the following command:
+
+```bash
+pnpm up -i -L
+```
+
+Which will show you the list of packages that will be upgraded and ask you to confirm the upgrade.
+
+```bash
+$ pn up -i -L
+? Choose which packages to update (Press <space> to select, <a> to toggle all, <i> to invert selection) …
+❯ ○ devDependencies
+    ○ Package                                                    Current   Target
+    ○ @commitlint/cli                                             19.4.1 ❯ 19.5.0
+    ○ @commitlint/config-conventional                             19.4.1 ❯ 19.5.0
+    ○ @types/node                                                 22.5.4 ❯ 22.7.5
+    ○ @types/react                                                18.3.5 ❯ 18.3.11
+    ○ @typescript-eslint/eslint-plugin                            6.21.0 ❯ 8.8.1
+    ○ @typescript-eslint/parser                                   6.21.0 ❯ 8.8.1
+    ○ eslint                                                      8.57.0 ❯ 9.12.0
+    ○ eslint-config-next                                          14.2.8 ❯ 14.2.15
+    ○ eslint-config-prettier                                      8.10.0 ❯ 9.1.0
+    ○ husky                                                        9.1.5 ❯ 9.1.6
+    ○ prettier-plugin-tailwindcss                                  0.6.6 ❯ 0.6.8
+    ○ typescript                                                   5.5.4 ❯ 5.6.3
+  ○ dependencies
+    ○ Package                                                    Current   Target
+    ○ @headlessui/react                                            2.1.5 ❯ 2.1.10
+    ○ @next/bundle-analyzer                                       14.2.8 ❯ 14.2.15
+    ○ contentlayer2                                                0.5.0 ❯ 0.5.1
+    ○ esbuild                                                     0.23.1 ❯ 0.24.0
+    ○ lucide-react                                               0.439.0 ❯ 0.451.0
+    ○ next                                                        14.2.8 ❯ 14.2.15
+    ○ next-contentlayer2                                           0.5.0 ❯ 0.5.1
+    ○ pliny                                                        0.3.1 ❯ 0.3.2
+    ○ postcss                                                     8.4.45 ❯ 8.4.47
+    ○ rehype-citation                                              2.1.1 ❯ 2.2.0
+    ○ rehype-preset-minify                                         7.0.0 ❯ 7.0.1
+    ○ tailwindcss                                                 3.4.10 ❯ 3.4.13
+
+Enter to start updating. Ctrl-c to cancel.
+```
+
+Happy aliasing! <Twemoji emoji="clinking-beer-mugs" />
