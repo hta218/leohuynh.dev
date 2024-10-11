@@ -3,11 +3,39 @@ heading: 'VSCode settings'
 title: 'VSCode settings and keyboard shortcuts'
 date: '2024-10-11'
 icon: 'VSCode'
-summary: 'My personal VSCode settings and key bindings that I use across all my devices.'
+summary: 'My personal VSCode configurations, settings, and key bindings that I use across all my devices.'
 tags: ['vscode', 'settings', 'keybindings']
 ---
 
-My personal VSCode settings and key bindings that I use across all my devices.
+## Launching `code` from the command line
+
+In order to launch `code` from the command line, you need to add `code` to your `PATH` environment variable.
+
+Open the VSCode's **Command Palette** (`Cmd+Shift+P`) and type `shell command` to open the **Shell Command** menu:
+
+![Shell command](/static/images/install-code.png)
+
+Select `Install 'code' command in PATH`.
+
+If you got permission denied error from your system like this:
+
+```bash
+EACCES: permission denied
+unlink '/usr/local/bin/code'
+```
+
+Simply run `Unintall 'code' command in PATH` first, then run `Install 'code' command in PATH` again. That's should fix it.
+
+Now try open a file or folder with `code` command:
+
+```bash
+$ code ~/.bash_profile
+# or cd ./your-project && code .
+```
+
+The project/file should open in VSCode now.
+
+## VSCode settings
 
 ```json:settings.json
 {
@@ -156,7 +184,7 @@ My personal VSCode settings and key bindings that I use across all my devices.
 }
 ```
 
-Keyboard shortcuts:
+## Keyboard shortcuts:
 
 ```json:keybindings.json
 [
