@@ -1,5 +1,6 @@
 'use client'
 
+import { clsx } from 'clsx'
 import { useEffect, useRef } from 'react'
 import Typed from 'typed.js'
 import { Twemoji } from '~/components/ui/twemoji'
@@ -26,9 +27,23 @@ export function TypedBios() {
   }, [])
 
   return (
-    <div className="min-h-8">
+    <div
+      className={clsx([
+        'flex min-h-8 items-center gap-0.5',
+        [
+          '[&_.typed-cursor]:inline-block',
+          '[&_.typed-cursor]:w-2',
+          '[&_.typed-cursor]:h-5.5',
+          '[&_.typed-cursor]:text-transparent',
+          '[&_.typed-cursor]:bg-slate-800',
+          'dark:[&_.typed-cursor]:bg-slate-100',
+        ],
+      ])}
+    >
       <ul id="bios" className="hidden">
-        <li>I'm aliased as Leo at work.</li>
+        <li>
+          I'm aliased as <span className="font-medium">Leo</span> at work.
+        </li>
         <li>I'm a learner, builder, and freedom seeker.</li>
         <li>I live in Ha Noi, Viet Nam.</li>
         <li>I was born in the beautiful Moc Chau plateau.</li>
