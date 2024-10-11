@@ -9,6 +9,7 @@ import { ScrollButtons } from '~/components/blog/scroll-buttons'
 import { SocialShare } from '~/components/blog/social-share'
 import { TagsList } from '~/components/blog/tags'
 import { Container } from '~/components/ui/container'
+import { GritBackground } from '~/components/ui/grit-background'
 import { Image } from '~/components/ui/image'
 import { SITE_METADATA } from '~/data/site-metadata'
 
@@ -50,7 +51,7 @@ export function PostBanner({ content, children }: LayoutProps) {
             </div>
           </dl>
           <div className="space-y-4 pt-4 md:pt-10">
-            <div className="lg:-mx-8 xl:-mx-36 2xl:-mx-52">
+            <div className="relative lg:-mx-8 xl:-mx-36 2xl:-mx-52">
               <Image
                 src={displayImage}
                 alt={title}
@@ -58,6 +59,7 @@ export function PostBanner({ content, children }: LayoutProps) {
                 height={900}
                 className="aspect-video h-auto w-full rounded-2xl object-cover object-center"
               />
+              <GritBackground className="inset-0 rounded-2xl opacity-30" />
             </div>
             <BannerInfo author={bannerAuthor} photoURL={bannerUrl} />
           </div>

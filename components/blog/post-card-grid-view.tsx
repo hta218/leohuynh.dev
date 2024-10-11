@@ -1,11 +1,12 @@
+import { clsx } from 'clsx'
 import type { Blog } from 'contentlayer/generated'
 import type { CoreContent } from 'pliny/utils/contentlayer'
 import { formatDate } from 'pliny/utils/formatDate'
+import { GritBackground } from '~/components/ui/grit-background'
+import { GrowingUnderline } from '~/components/ui/growing-underline'
 import { Image } from '~/components/ui/image'
 import { Link } from '~/components/ui/link'
 import { SITE_METADATA } from '~/data/site-metadata'
-import { GrowingUnderline } from '~/components/ui/growing-underline'
-import { clsx } from 'clsx'
 
 export function PostCardGridView({ post }: { post: CoreContent<Blog> }) {
   let { path, date, title, summary, images, readingTime } = post
@@ -26,15 +27,12 @@ export function PostCardGridView({ post }: { post: CoreContent<Blog> }) {
             alt={title}
             width={600}
             height={400}
-            className="aspect-video h-full w-full rounded-xl object-cover object-center shadow-2xl"
+            className="aspect-video h-full w-full rounded-xl shadow-2xl"
           />
-          <div
+          <GritBackground
             className={clsx([
-              'absolute bottom-0 left-3 right-0 top-3 z-[-1]',
+              'bottom-0 left-3 right-0 top-3',
               'rounded-xl border-2 border-gray-800 dark:border-gray-400',
-              'bg-cover bg-center',
-              '[background-image:url("/static/images/black-grit.png")]',
-              'dark:[background-image:url("/static/images/white-grit.png")]',
             ])}
           />
         </Link>
