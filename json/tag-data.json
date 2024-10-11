@@ -132,5 +132,8 @@
   "github-api": 1,
   "verify-webhook-signature": 1,
   "regex": 1,
-  "replace": 1
+  "replace": 1,
+  "vscode": 1,
+  "settings": 1,
+  "settingsjson": 1
 }
