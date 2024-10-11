@@ -1,5 +1,4 @@
 import { Brand } from '~/components/ui/brand'
-import { SiteRepoStars } from '~/components/ui/site-repo-stars'
 
 export function BuiltWith() {
   return (
@@ -12,8 +11,6 @@ export function BuiltWith() {
         <Brand name="Typescript" iconClassName="h-5 w-5" />
         <Brand name="Umami" iconClassName="h-5 w-5" className="pl-px" />
       </div>
-      {/* <span className="px-1 text-gray-400 dark:text-gray-500">-</span>
-      <SiteRepoStars /> */}
     </div>
   )
 }

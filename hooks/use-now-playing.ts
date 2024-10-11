@@ -1,20 +1,8 @@
-import { useEffect, useState } from 'react'
+import useSWR from 'swr'
 import type { SpotifyNowPlayingData } from '~/types/data'
+import { fetcher } from '~/utils/fetch'
 
 export function useNowPlaying() {
-  let [nowPlayingSong, setNowPlayingSong] = useState<SpotifyNowPlayingData>()
-
-  useEffect(() => {
-    function fetchNowPlayingSong() {
-      fetch('/api/spotify')
-        .then((res) => res.json())
-        .then(setNowPlayingSong)
-        .catch(console.error)
-    }
-    fetchNowPlayingSong()
-    window.addEventListener('focus', fetchNowPlayingSong)
-    return () => window.removeEventListener('focus', fetchNowPlayingSong)
-  }, [])
-
-  return nowPlayingSong || { isPlaying: false }
+  let { data } = useSWR<SpotifyNowPlayingData>('/api/spotify', fetcher)
+  return data || { isPlaying: false }
 }

@@ -1,21 +1,17 @@
 'use client'
 
 import { Star } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import useSWR from 'swr'
 import { Logo } from '~/components/header/logo'
 import { GrowingUnderline } from '~/components/ui/growing-underline'
 import { Link } from '~/components/ui/link'
 import { SITE_METADATA } from '~/data/site-metadata'
 import type { GithubRepository } from '~/types/data'
+import { fetcher } from '~/utils/fetch'
 
 export function LogoAndRepo() {
-  let [repo, setRepo] = useState<GithubRepository | null>(null)
-  useEffect(() => {
-    fetch(`/api/github?repo=${SITE_METADATA.siteRepo.replace('https://github.com/', '')}`)
-      .then((res) => res.json())
-      .then(setRepo)
-      .catch(console.error)
-  }, [])
+  let siteRepo = SITE_METADATA.siteRepo.replace('https://github.com/', '')
+  let { data: repo } = useSWR<GithubRepository>(`/api/github?repo=${siteRepo}`, fetcher)
 
   return (
     <div className="flex items-center gap-4">
