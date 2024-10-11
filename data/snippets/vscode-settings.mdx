@@ -1,15 +1,15 @@
 ---
 heading: 'VSCode settings'
-title: 'My personal VSCode settings that I use across all my devices'
+title: 'VSCode settings and keyboard shortcuts'
 date: '2024-10-11'
 icon: 'VSCode'
-summary: 'A collection of VSCode settings that I use across all my devices.'
-tags: ['vscode', 'settings', 'settings.json']
+summary: 'My personal VSCode settings and key bindings that I use across all my devices.'
+tags: ['vscode', 'settings', 'keybindings']
 ---
 
-My personal VSCode settings that I use across all my devices.
+My personal VSCode settings and key bindings that I use across all my devices.
 
-```json
+```json:settings.json
 {
   "editor.fontFamily": "JetBrains Mono, Monaco, 'Courier New', monospace",
   "prettier.useTabs": false,
@@ -154,6 +154,182 @@ My personal VSCode settings that I use across all my devices.
   },
   "security.workspace.trust.untrustedFiles": "open"
 }
+```
+
+Keyboard shortcuts:
+
+```json:keybindings.json
+[
+	{
+		"key": "cmd+r",
+		"command": "-workbench.action.reloadWindow",
+		"when": "isDevelopment"
+	},
+	{
+		"key": "cmd+k",
+		"command": "workbench.action.terminal.clear",
+		"when": "terminalFocus"
+	},
+	{
+		"key": "ctrl+shift+r",
+		"command": "-editor.action.refactor",
+		"when": "editorHasCodeActionsProvider && editorTextFocus && !editorReadonly"
+	},
+	{
+		"key": "cmd+r",
+		"command": "editor.action.rename",
+		"when": "editorHasRenameProvider && editorTextFocus && !editorReadonly"
+	},
+	{
+		"key": "f2",
+		"command": "-editor.action.rename",
+		"when": "editorHasRenameProvider && editorTextFocus && !editorReadonly"
+	},
+	{
+		"key": "shift+cmd+d",
+		"command": "-workbench.view.debug",
+		"when": "viewContainer.workbench.view.debug.enabled"
+	},
+	{
+		"key": "shift+cmd+d",
+		"command": "duplicate.execute"
+	},
+	{
+		"key": "cmd+l",
+		"command": "turboConsoleLog.displayLogMessage"
+	},
+	{
+		"key": "ctrl+alt+l",
+		"command": "-turboConsoleLog.displayLogMessage"
+	},
+	{
+		"key": "cmd+j",
+		"command": "-workbench.action.togglePanel"
+	},
+	{
+		"key": "cmd+j",
+		"command": "workbench.action.terminal.toggleTerminal",
+		"when": "terminal.active"
+	},
+	{
+		"key": "ctrl+`",
+		"command": "-workbench.action.terminal.toggleTerminal",
+		"when": "terminal.active"
+	},
+	{
+		"key": "shift+cmd+l",
+		"command": "turboConsoleLog.deleteAllLogMessages"
+	},
+	{
+		"key": "shift+alt+d",
+		"command": "-turboConsoleLog.deleteAllLogMessages"
+	},
+	{
+		"key": "shift+cmd+g",
+		"command": "workbench.view.scm",
+		"when": "workbench.scm.active"
+	},
+	{
+		"key": "ctrl+shift+g",
+		"command": "-workbench.view.scm",
+		"when": "workbench.scm.active"
+	},
+	{
+		"key": "alt+p",
+		"command": "git.push"
+	},
+	{
+		"key": "shift+alt+p",
+		"command": "git.pullFrom"
+	},
+	{
+		"key": "cmd+u",
+		"command": "references-view.findReferences",
+		"when": "editorHasReferenceProvider"
+	},
+	{
+		"key": "shift+alt+f12",
+		"command": "-references-view.findReferences",
+		"when": "editorHasReferenceProvider"
+	},
+	{
+		"key": "cmd+u",
+		"command": "-cursorUndo",
+		"when": "textInputFocus"
+	},
+	{
+		"key": "alt+tab",
+		"command": "workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup",
+		"when": "!activeEditorGroupEmpty"
+	},
+	{
+		"key": "ctrl+tab",
+		"command": "-workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup",
+		"when": "!activeEditorGroupEmpty"
+	},
+	{
+		"key": "alt+tab",
+		"command": "workbench.action.quickOpenNavigateNextInEditorPicker",
+		"when": "inEditorsPicker && inQuickOpen"
+	},
+	{
+		"key": "ctrl+tab",
+		"command": "-workbench.action.quickOpenNavigateNextInEditorPicker",
+		"when": "inEditorsPicker && inQuickOpen"
+	},
+	{
+		"key": "shift+alt+tab",
+		"command": "workbench.action.quickOpenLeastRecentlyUsedEditorInGroup",
+		"when": "!activeEditorGroupEmpty"
+	},
+	{
+		"key": "ctrl+shift+tab",
+		"command": "-workbench.action.quickOpenLeastRecentlyUsedEditorInGroup",
+		"when": "!activeEditorGroupEmpty"
+	},
+	{
+		"key": "shift+alt+tab",
+		"command": "workbench.action.quickOpenNavigatePreviousInEditorPicker",
+		"when": "inEditorsPicker && inQuickOpen"
+	},
+	{
+		"key": "ctrl+shift+tab",
+		"command": "-workbench.action.quickOpenNavigatePreviousInEditorPicker",
+		"when": "inEditorsPicker && inQuickOpen"
+	},
+	{
+		"key": "shift+cmd+,",
+		"command": "workbench.action.openSettings"
+	},
+	{
+		"key": "cmd+,",
+		"command": "-workbench.action.openSettings"
+	},
+	{
+		"key": "cmd+q",
+		"command": "-workbench.action.quit"
+	},
+	{
+		"key": "cmd+o",
+		"command": "-workbench.action.files.openFile",
+		"when": "false"
+	},
+	{
+		"key": "cmd+o",
+		"command": "-workbench.action.files.openFolderViaWorkspace",
+		"when": "!openFolderWorkspaceSupport && workbenchState == 'workspace'"
+	},
+	{
+		"key": "cmd+o",
+		"command": "-workbench.action.files.openFileFolder",
+		"when": "isMacNative && openFolderWorkspaceSupport"
+	},
+	{
+		"key": "cmd+o",
+		"command": "-workbench.action.files.openLocalFileFolder",
+		"when": "remoteFileDialogVisible"
+	}
+]
 ```
 
 Happy coding! <Twemoji emoji="clinking-beer-mugs" />
