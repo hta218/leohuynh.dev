@@ -37,9 +37,9 @@ export function SocialShare({ postUrl, title, filePath }: SocialButtonsProps) {
           </>
         )}
         {CREATE_DISCUS_ON_GITHUB === 'TRUE' && (
-          <Link href={`${SITE_METADATA.siteRepo}/blob/main/data/${filePath}`}>
+          <Link href={`${SITE_METADATA.siteRepo}/blob/main/data/${filePath}?plain=1`}>
             <GrowingUnderline data-umami-event="view-on-github">
-              View on <span className="font-semibold">GitHub</span>
+              Edit on <span className="font-semibold">GitHub</span>
             </GrowingUnderline>
           </Link>
         )}
