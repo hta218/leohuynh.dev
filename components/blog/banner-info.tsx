@@ -9,7 +9,7 @@ export function BannerInfo({ photoURL, author }: BannerInfoProps) {
     <div className="text-right text-sm italic">
       Photo by{' '}
       <a
-        className="text-primary-500 underline-offset-4 hover:underline"
+        className="text-primary-500 underline-offset-4 hover:underline dark:text-primary-400"
         href={photoURL}
         target="_blank"
         rel="noreferrer"
@@ -18,7 +18,7 @@ export function BannerInfo({ photoURL, author }: BannerInfoProps) {
       </a>{' '}
       on{' '}
       <a
-        className="text-primary-500 underline-offset-4 hover:underline"
+        className="text-primary-500 underline-offset-4 hover:underline dark:text-primary-400"
         href="https://unsplash.com/"
         target="_blank"
         rel="noreferrer"
