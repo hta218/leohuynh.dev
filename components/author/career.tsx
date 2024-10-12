@@ -218,7 +218,7 @@ function TimelineItem({ exp, last }: { exp: (typeof EXPERIENCES)[0]; last?: bool
         !last && [
           'before:absolute before:left-9 before:top-15',
           'before:h-full before:w-px',
-          'before:bg-gray-300',
+          'before:bg-gray-300 dark:before:bg-gray-500',
         ]
       )}
     >
