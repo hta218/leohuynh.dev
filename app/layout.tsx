@@ -1,6 +1,6 @@
 import 'css/tailwind.css'
 import 'css/twemoji.css'
-// import 'pliny/search/algolia.css'
+import 'react-medium-image-zoom/dist/styles.css'
 import 'remark-github-blockquote-alert/alert.css'
 
 import clsx from 'clsx'
@@ -121,6 +121,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           'flex flex-col',
           'bg-white text-gray-900',
           'dark:bg-dark dark:text-gray-100',
+          '[&_[data-rmiz-modal-img]]:rounded-lg',
+          '[&_[data-rmiz-btn-unzoom]]:hidden',
+          '[&_[data-rmiz-modal-overlay="visible"]]:bg-black/70',
         ])}
       >
         <TiltedGridBackground className="inset-x-0 top-0 z-[-1] h-[50vh]" />
