@@ -1,8 +1,8 @@
 'use client'
 
 import { clsx } from 'clsx'
-import Image from 'next/image'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { Image } from '~/components/ui/image'
 import { SpotifyNowPlaying } from '~/components/ui/now-playing'
 import { SITE_METADATA } from '~/data/site-metadata'
 import { ProfileCardInfo } from './profile-info'
@@ -69,8 +69,6 @@ export function ProfileCard() {
           height={350}
           style={{
             objectPosition: '50% 16%',
-            objectFit: 'cover',
-            width: '100%',
             aspectRatio: '17/11',
           }}
           loading="eager"
@@ -83,7 +81,7 @@ export function ProfileCard() {
           ])}
         />
         <ProfileCardInfo />
-        <span className="h-1.5 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"></span>
+        <span className="h-1.5 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600" />
       </div>
     </div>
   )
