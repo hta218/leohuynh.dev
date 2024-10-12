@@ -4,7 +4,7 @@ import { TiltedGridBackground } from './tilted-grid-background'
 export function RadiantCard({
   children,
   className,
-  radius = '16px',
+  radius = '1rem',
 }: {
   children: React.ReactNode
   radius?: string
