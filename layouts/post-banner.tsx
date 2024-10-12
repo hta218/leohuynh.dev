@@ -61,7 +61,7 @@ export function PostBanner({ content, children }: LayoutProps) {
                   className="h-auto w-full rounded-lg object-cover object-center"
                 />
               </Zoom>
-              <GritBackground className="inset-0 rounded-2xl opacity-30" />
+              <GritBackground className="inset-0 rounded-2xl opacity-75" />
             </div>
             <BannerInfo author={bannerAuthor} photoURL={bannerUrl} />
           </div>
