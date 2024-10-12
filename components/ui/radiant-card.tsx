@@ -34,7 +34,7 @@ export function RadiantCard({
           className,
         ])}
       >
-        <TiltedGridBackground className="inset-0 hidden dark:block" />
+        <TiltedGridBackground className="inset-0 z-[-1] hidden dark:block" />
         {children}
         <span
           className={clsx([
