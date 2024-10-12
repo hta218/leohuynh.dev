@@ -124,9 +124,14 @@ module.exports = {
               color: theme('colors.indigo.500'),
               fontWeight: '500',
             },
-            img: {
+            '.image-container': {
+              width: 'fit-content',
               marginLeft: 'auto',
               marginRight: 'auto',
+              img: {
+                marginTop: 0,
+                marginBottom: 0,
+              },
             },
             '.markdown-alert': {
               'p.markdown-alert-title': {
