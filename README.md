@@ -32,6 +32,16 @@ The images in this blog are from [Unsplash](https://unsplash.com/), gifs from [G
 
 Thanks for the free resources 🙏
 
+## Star History
+
+<a href="https://star-history.com/#hta218/leohuynh.dev&Date">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=hta218/leohuynh.dev&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=hta218/leohuynh.dev&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=hta218/leohuynh.dev&type=Date" />
+ </picture>
+</a>
+
 ---
 
 Copyright (c) 2024 - Leo's dev blog – stories, insights, and ideas.
