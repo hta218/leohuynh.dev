@@ -128,6 +128,7 @@ module.exports = {
               width: 'fit-content',
               marginLeft: 'auto',
               marginRight: 'auto',
+              borderRadius: '0.5rem',
               img: {
                 marginTop: 0,
                 marginBottom: 0,
