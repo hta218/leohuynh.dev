@@ -63,5 +63,7 @@ export const SITE_METADATA = {
   },
   support: {
     buyMeACoffee: 'https://www.buymeacoffee.com/leohuynh.dev',
+    paypal: 'https://paypal.me/hta218?country.x=VN&locale.x=en_US',
+    kofi: 'https://ko-fi.com/hta218',
   },
 }

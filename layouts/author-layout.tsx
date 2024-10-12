@@ -191,19 +191,47 @@ export function AuthorLayout({ children }: Props) {
             <div>
               <h2>Support</h2>
               <p>If you like my work, consider supporting me:</p>
-              <a
-                href={SITE_METADATA.support.buyMeACoffee}
-                target="_blank"
-                className="[&_.image-container]:mx-0"
-              >
-                <Image
-                  src="/static/images/bmc-button.png"
-                  alt="Buy Me A Coffee"
-                  width={213.7}
-                  height={60}
-                  style={{ width: 213.7, height: 60 }}
-                />
-              </a>
+              <div className="flex flex-col gap-4">
+                <a
+                  href={SITE_METADATA.support.buyMeACoffee}
+                  target="_blank"
+                  className="[&_.image-container]:mx-0"
+                >
+                  <Image
+                    src="/static/images/bmc-button.png"
+                    alt="Buy Me A Coffee"
+                    width={213.7}
+                    height={60}
+                    style={{ height: 60 }}
+                  />
+                </a>
+                <a
+                  href={SITE_METADATA.support.paypal}
+                  target="_blank"
+                  className="flex h-15 w-[214px] items-center rounded-lg bg-[#009cde]/70 p-1"
+                >
+                  <Image
+                    src="/static/images/paypal-logo.png"
+                    alt="Donate via PayPal"
+                    width={225.88}
+                    height={60}
+                    style={{ height: 30 }}
+                  />
+                </a>
+                <a
+                  href={SITE_METADATA.support.kofi}
+                  target="_blank"
+                  className="[&_.image-container]:mx-0"
+                >
+                  <Image
+                    src="/static/images/kofi.png"
+                    alt="Support me on Ko-fi"
+                    width={297}
+                    height={60}
+                    style={{ height: 60 }}
+                  />
+                </a>
+              </div>
             </div>
           </div>
         </div>
