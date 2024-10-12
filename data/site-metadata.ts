@@ -61,4 +61,7 @@ export const SITE_METADATA = {
       searchDocumentsPath: `${process.env.BASE_PATH || ''}/search.json`,
     },
   },
+  support: {
+    buyMeACoffee: 'https://www.buymeacoffee.com/leohuynh.dev',
+  },
 }

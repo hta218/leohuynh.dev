@@ -5,6 +5,7 @@ import { SocialAccounts } from '~/components/author/social-accounts'
 import { ProfileCard } from '~/components/cards/profile'
 import { Button } from '~/components/ui/button'
 import { Container } from '~/components/ui/container'
+import { Image } from '~/components/ui/image'
 import { PageHeader } from '~/components/ui/page-header'
 import { Twemoji } from '~/components/ui/twemoji'
 import { SITE_METADATA } from '~/data/site-metadata'
@@ -186,6 +187,23 @@ export function AuthorLayout({ children }: Props) {
                 social media:
               </p>
               <SocialAccounts />
+            </div>
+            <div>
+              <h2>Support</h2>
+              <p>If you like my work, consider supporting me:</p>
+              <a
+                href={SITE_METADATA.support.buyMeACoffee}
+                target="_blank"
+                className="[&_.image-container]:mx-0"
+              >
+                <Image
+                  src="/static/images/bmc-button.png"
+                  alt="Buy Me A Coffee"
+                  width={213.7}
+                  height={60}
+                  style={{ width: 213.7, height: 60 }}
+                />
+              </a>
             </div>
           </div>
         </div>
