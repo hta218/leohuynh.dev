@@ -1,25 +1,50 @@
 import { GradientBorder } from '~/components/ui/gradient-border'
 import { GrowingUnderline } from '~/components/ui/growing-underline'
-import { Image } from '~/components/ui/image'
+import { Image, Zoom } from '~/components/ui/image'
 import { Link } from '~/components/ui/link'
 import { TiltedGridBackground } from '~/components/ui/tilted-grid-background'
 import type { ImdbMovie } from '~/types/data'
 import { Ratings } from './ratings'
 
+function getLargePoster(poster: string, size = 1000) {
+  return poster.replace('._V1_SX300', `._V1_SX${size}`)
+}
+
 export function MovieCard({ movie }: { movie: ImdbMovie }) {
   let { url, title, title_type, poster, year, runtime, total_seasons } = movie
+
+  function handleZoom(e: React.MouseEvent<HTMLDivElement>) {
+    let rmiz = e.currentTarget.querySelector('[data-rmiz]')
+    let modalId = rmiz?.getAttribute('aria-owns')?.split('-').pop()
+    if (modalId) {
+      let zoomedPoster = document.getElementById(`rmiz-modal-img-${modalId}`)
+      if (zoomedPoster) {
+        zoomedPoster.removeAttribute('srcset')
+      }
+    }
+  }
+
   return (
     <GradientBorder className="space-y-2 rounded-xl shadow-sm dark:bg-white/5">
       <TiltedGridBackground className="inset-0 z-[-1]" />
       <div className="flex gap-5 md:gap-5">
-        <div className="-mt-12 mb-4 ml-4 flex h-52 w-36 shrink-0 items-end md:-mt-16 md:h-56">
-          <Image
-            src={poster}
-            alt={title}
-            width={300}
-            height={450}
-            className="dark-border-gray-700 h-auto w-full rounded-xl shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px]"
-          />
+        <div
+          onClick={handleZoom}
+          className="-mt-12 mb-4 ml-4 flex h-52 w-36 shrink-0 items-end md:-mt-16 md:h-56"
+        >
+          <Zoom
+            zoomImg={{ src: getLargePoster(poster), alt: title }}
+            canSwipeToUnzoom={false} // Not working
+            zoomMargin={20}
+          >
+            <Image
+              src={poster}
+              alt={title}
+              width={300}
+              height={450}
+              className="h-auto w-full rounded-xl shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px]"
+            />
+          </Zoom>
         </div>
         <div className="relative flex grow flex-col gap-1 overflow-hidden pb-4 pr-2 pt-2 md:pr-4">
           <div className="flex items-start justify-between gap-3 text-xl font-semibold md:text-2xl">

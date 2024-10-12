@@ -2,9 +2,9 @@
 
 import { useState } from 'react'
 import { MovieCard } from '~/components/cards/movie'
+import { Twemoji } from '~/components/ui/twemoji'
 import type { ImdbMovie } from '~/types/data'
 import { RateFilter, RATES, type RateType } from './rate-filter'
-import { Twemoji } from '~/components/ui/twemoji'
 import { TitleTypeFilter, type TitleType } from './title-type-filter'
 
 export function MoviesList({ movies }: { movies: ImdbMovie[] }) {
