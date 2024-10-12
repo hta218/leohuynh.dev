@@ -1,6 +1,12 @@
-# My 🏠 on the ☁️
+<h1 align="center">leohuynh.dev 🧑‍💻</h1>
 
-My personal over-engineering site on the cloud.
+<div align="center">
+
+[![Made in Vietnam](https://raw.githubusercontent.com/webuild-community/badge/master/svg/made-modern.svg)](https://leohuynh.dev)
+
+</div>
+
+![leohuynh.dev](https://cdn.shopify.com/s/files/1/0669/0262/2504/files/pawelzmarlak-2024-10-12T14_51_02.315Z.png?v=1728744886)
 
 ## Motivation
 
@@ -20,7 +26,7 @@ A huge thanks to [Timothy Lin](https://twitter.com/timlrxx) for the minimal, lig
 
 A few major over-engineering-changes from the original repo:
 
-- ⚛️ Upgrading to **React 18+**, **NextJS 14+**
+- ⚛️ **React 18+**, **NextJS 14+** (App Router)
 - 🎉 Adopting **Typescript**, committing with [Conventional Commits](https://www.conventionalcommits.org/)
 - 📊 Monitoring site with [Umami](https://umami.is/) website analytics
 - 👀 Theming in dark mode with [Github dark dimmed](https://github.blog/changelog/2021-04-14-dark-and-dimmed-themes-are-now-generally-available/) colors for better contrast
