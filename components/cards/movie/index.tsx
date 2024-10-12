@@ -42,7 +42,7 @@ export function MovieCard({ movie }: { movie: ImdbMovie }) {
               alt={title}
               width={300}
               height={450}
-              className="h-auto w-full rounded-xl shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px]"
+              className="h-auto w-full rounded-lg shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px]"
             />
           </Zoom>
         </div>
