@@ -1,0 +1,191 @@
+---
+title: 'How to create an image with blurry loading effect in NextJS'
+date: '2024-10-12'
+tags: ['nextjs', 'image', 'blur', 'loading']
+summary: 'NextJS has provided a built-in image component that has many useful features, we can leverage them with some custom styles to create a beautiful image with a blurry loading effect.'
+images: ['/static/images/white-flower.jpg']
+bannerAuthor: 'Katarzyna Grabowska'
+bannerUrl: 'https://unsplash.com/photos/closeup-photo-of-white-petaled-flowers-m8ayci69oWw'
+authors: ['default']
+---
+
+**NextJS** has provided a [built-in image component](https://nextjs.org/docs/app/api-reference/components/image)
+that has many useful features, we can leverage them with some custom styles to create a beautiful image with a blurry loading effect.
+
+> [!NOTE]
+> All the examples below are in React with TypeScript and style is written in Tailwind CSS
+
+## Blurred image
+
+```tsx:image.tsx
+'use client'
+
+import { clsx } from 'clsx'
+import type { ImageProps as NextImageProps } from 'next/image'
+import NextImage from 'next/image'
+import { useState } from 'react'
+
+export interface ImageProps extends Omit<NextImageProps, 'src' | 'priority'> {
+  src: string
+}
+
+export function Image(props: ImageProps) {
+  let { alt, src, loading = 'lazy', style, className, ...rest } = props
+  let [loaded, setLoaded] = useState(false)
+
+  return (
+    <div
+      className={clsx(
+        // Add a `image-container` class to the parent element
+        // to make it easier to adjust the styles in mdx file content
+        'image-container overflow-hidden',
+        !loaded && 'animate-pulse [animation-duration:4s]',
+        className
+      )}
+    >
+      <NextImage
+        className={clsx(
+          '[transition:filter_500ms_cubic-bezier(.4,0,.2,1)]',
+          'h-full max-h-full w-full object-center',
+          loaded ? 'blur-0' : 'blur-xl'
+        )}
+        src={src}
+        alt={alt}
+        style={{ objectFit: 'cover', ...style }}
+        loading={loading}
+        priority={loading === 'eager'}
+        quality={100}
+        onLoad={() => setLoaded(true)}
+        {...rest}
+      />
+    </div>
+  )
+}
+```
+
+I'm using Tailwind [blur filters](https://tailwindcss.com/docs/blur) utility to create the blur effect.
+You can create your own variation by mixing the `blur` utility with others like [grayscale](https://tailwindcss.com/docs/grayscale), [scale](https://tailwindcss.com/docs/scale), etc.
+(Remember to update the `transition` property as well).
+
+## Adjusting the size
+
+The component is auto-sized following the child image, you can pass `className` to customize its size.
+For example:
+
+```tsx
+<Image
+  src={logo}
+  alt={org}
+  className="h-12 w-12 shrink-0 rounded-md"
+  style={{ objectFit: 'contain' }}
+  width={200}
+  height={200}
+/>
+```
+
+## MDX support
+
+If you want to use the component to render images in MDX files, you will need to update tailwind typography config
+to make the images responsive.
+
+```js:tailwind.config.js
+module.exports = {
+  theme: {
+    extend: {
+      typography: ({ theme }) => ({
+        DEFAULT: {
+          css: {
+            '.image-container': {
+              width: 'fit-content',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              img: {
+                marginTop: 0,
+                marginBottom: 0,
+              },
+            },
+            // ... more typography styles
+          },
+        },
+      }),
+    },
+  },
+}
+```
+
+## Avoid blurring on every render
+
+The blur effect is happening every time the `Image` component is rendered (even if the image is already loaded).
+If you want to avoid this, you will need to control the `loaded` state manually:
+
+```tsx:image.tsx {9-25,33} showLineNumbers
+'use client'
+
+import { clsx } from 'clsx'
+import type { ImageProps as NextImageProps } from 'next/image'
+import NextImage from 'next/image'
+import { usePathname } from 'next/navigation'
+import { useState } from 'react'
+
+let loadedImages: string[] = []
+
+// Detecting if the image is already loaded to avoid the blur effect
+// happens every time the component is rendered based on the route pathname
+function useImageLoadedState(src: string) {
+  let pathname = usePathname()
+  let uniqueImagePath = pathname + '__' + src
+  let [loaded, setLoaded] = useState(() => loadedImages.includes(uniqueImagePath))
+  return [
+    loaded,
+    () => {
+      if (loaded) return
+      loadedImages.push(uniqueImagePath)
+      setLoaded(true)
+    },
+  ] as const
+}
+
+export interface ImageProps extends Omit<NextImageProps, 'src' | 'priority'> {
+  src: string
+}
+
+export function Image(props: ImageProps) {
+  let { alt, src, loading = 'lazy', style, className, ...rest } = props
+  let [loaded, onLoad] = useImageLoadedState(src)
+
+  return (
+    <div
+      className={clsx(
+        'image-container overflow-hidden',
+        !loaded && 'animate-pulse [animation-duration:4s]',
+        className
+      )}
+    >
+      <NextImage
+        className={clsx(
+          '[transition:filter_500ms_cubic-bezier(.4,0,.2,1)]',
+          'h-full max-h-full w-full object-center',
+          loaded ? 'blur-0' : 'blur-xl'
+        )}
+        src={src}
+        alt={alt}
+        style={{ objectFit: 'cover', ...style }}
+        loading={loading}
+        priority={loading === 'eager'}
+        quality={100}
+        onLoad={onLoad}
+        {...rest}
+      />
+    </div>
+  )
+}
+```
+
+Now the image will be blurred when it is loaded for the first time on each page.
+
+> [!TIP]
+> If you want to prioritize a image that is above the fold, you can set the `loading` prop to `eager`.
+
+My blog is using this component to render images, you can navigate around the site and see the beautiful loading effect in action.
+
+Happy blurring! <Twemoji emoji="clinking-beer-mugs" />
