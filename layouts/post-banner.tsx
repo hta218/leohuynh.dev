@@ -10,7 +10,7 @@ import { SocialShare } from '~/components/blog/social-share'
 import { TagsList } from '~/components/blog/tags'
 import { Container } from '~/components/ui/container'
 import { GritBackground } from '~/components/ui/grit-background'
-import { Image } from '~/components/ui/image'
+import { Image, Zoom } from '~/components/ui/image'
 import { SITE_METADATA } from '~/data/site-metadata'
 
 interface LayoutProps {
@@ -52,13 +52,15 @@ export function PostBanner({ content, children }: LayoutProps) {
           </dl>
           <div className="space-y-4 pt-4 md:pt-10">
             <div className="relative lg:-mx-8 xl:-mx-36 2xl:-mx-52">
-              <Image
-                src={displayImage}
-                alt={title}
-                width={1600}
-                height={900}
-                className="aspect-video h-auto w-full rounded-2xl object-cover object-center"
-              />
+              <Zoom>
+                <Image
+                  src={displayImage}
+                  alt={title}
+                  width={1600}
+                  height={900}
+                  className="h-auto w-full rounded-lg object-cover object-center"
+                />
+              </Zoom>
               <GritBackground className="inset-0 rounded-2xl opacity-30" />
             </div>
             <BannerInfo author={bannerAuthor} photoURL={bannerUrl} />
