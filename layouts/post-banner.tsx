@@ -29,10 +29,11 @@ export function PostBanner({ content, children }: LayoutProps) {
     bannerAuthor,
     bannerUrl,
     date,
+    lastmod,
     readingTime,
     tags,
     filePath,
-    path,
+    toc,
   } = content
   let displayImage = images?.[0] || SITE_METADATA.socialBanner
   let postUrl = `${SITE_METADATA.siteUrl}/${type.toLowerCase()}/${slug}`
@@ -47,7 +48,7 @@ export function PostBanner({ content, children }: LayoutProps) {
           <dl>
             <div>
               <dt className="sr-only">Published on</dt>
-              <BlogMeta date={date} slug={slug} readingTime={readingTime} />
+              <BlogMeta date={date} lastmod={lastmod} slug={slug} readingTime={readingTime} />
             </div>
           </dl>
           <div className="space-y-4 pt-4 md:pt-10">
