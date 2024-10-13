@@ -1,12 +1,27 @@
-import { kebabCase } from 'utils/string'
+import { cva, type VariantProps } from 'class-variance-authority'
+import clsx from 'clsx'
 
-type TwemojiProps = {
+let variants = cva('twa inline-block', {
+  variants: {
+    size: {
+      base: '',
+      lg: 'twa-lg',
+      '2x': 'twa-2x',
+      '3x': 'twa-3x',
+      '4x': 'twa-4x',
+      '5x': 'twa-5x',
+    },
+  },
+  defaultVariants: {
+    size: 'lg',
+  },
+})
+
+interface TwemojiProps extends VariantProps<typeof variants> {
   emoji: string
-  size?: string
   className?: string
 }
 
-export function Twemoji({ emoji, size = 'twa-lg', className }: TwemojiProps) {
-  let cls = `inline-block twa ${size} twa-${kebabCase(emoji)} ${className || ''}`
-  return <i className={cls.trim()} />
+export function Twemoji({ emoji, size, className }: TwemojiProps) {
+  return <i className={(clsx(variants({ size }), `twa-${emoji}`), className)} />
 }
