@@ -8,6 +8,7 @@ import { PostTitle } from '~/components/blog/post-title'
 import { ScrollButtons } from '~/components/blog/scroll-buttons'
 import { SocialShare } from '~/components/blog/social-share'
 import { TagsList } from '~/components/blog/tags'
+import { TableOfContents } from '~/components/blog/toc'
 import { Container } from '~/components/ui/container'
 import { GritBackground } from '~/components/ui/grit-background'
 import { Image, Zoom } from '~/components/ui/image'
@@ -66,6 +67,7 @@ export function PostBanner({ content, children }: LayoutProps) {
             </div>
             <BannerInfo author={bannerAuthor} photoURL={bannerUrl} />
           </div>
+          {/* <TableOfContents toc={toc} asDisclosure /> */}
         </div>
         <div className="prose prose-lg max-w-none dark:prose-invert">{children}</div>
         <div className="border-t border-gray-200 dark:border-gray-700 md:pb-10 md:pt-4">
