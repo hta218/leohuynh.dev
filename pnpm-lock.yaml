@@ -36,8 +36,8 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       contentlayer2:
-        specifier: 0.5.0
-        version: 0.5.0(esbuild@0.23.1)
+        specifier: 0.5.1
+        version: 0.5.1(esbuild@0.23.1)
       esbuild:
         specifier: 0.23.1
         version: 0.23.1
@@ -60,8 +60,8 @@ importers:
         specifier: 14.2.8
         version: 14.2.8(@babel/core@7.25.8)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       next-contentlayer2:
-        specifier: 0.5.0
-        version: 0.5.0(contentlayer2@0.5.0(esbuild@0.23.1))(esbuild@0.23.1)(next@14.2.8(@babel/core@7.25.8)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.5.1
+        version: 0.5.1(contentlayer2@0.5.1(esbuild@0.23.1))(esbuild@0.23.1)(next@14.2.8(@babel/core@7.25.8)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       next-themes:
         specifier: ^0.3.0
         version: 0.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -900,14 +900,14 @@ packages:
     resolution: {integrity: sha512-DSHae2obMSMkAtTBSOulg5X7/z+rGLxcXQIkg3OmWvY6wifojge5uVMydfhUvs7yQj+V7jNmRZ2Xzl8GJyqRgg==}
     engines: {node: '>=v18'}
 
-  '@contentlayer2/cli@0.5.0':
-    resolution: {integrity: sha512-V6mhjqFN1GNlea75TRsTAdJaT/wG2EwaRUwl13Zv3302682TB8Pkewfew19JvNX+V3c8y7zMYhQ44c2QgR2h9w==}
+  '@contentlayer2/cli@0.5.1':
+    resolution: {integrity: sha512-nwDTAXKBXUg/eORBxXLDA9FoCxaSqhengSb6FjlyBCkrRyJ3IKQhWilld9Ol1xyYfTisI/5iddHa9ZB4kqltNg==}
 
-  '@contentlayer2/client@0.5.0':
-    resolution: {integrity: sha512-YEsGjKWZvp+wanyK2I38r5X50NQKfRvnQ8BL23H51WeB5Y4J8KrjaDm1fF4qg91RZQCSe+l3z2t7wN6IqunXkQ==}
+  '@contentlayer2/client@0.5.1':
+    resolution: {integrity: sha512-5/mNEEJN47h9AQ11qt9iu3XJCAMhgAPRJRp64+Trgr1iKHRVOWg9VvV+NHL3NCnDqMbJrw7vWICCgdCWn114IQ==}
 
-  '@contentlayer2/core@0.5.0':
-    resolution: {integrity: sha512-yf6sBc2wov/TNVtEms0X5VBzdYf3kxRUObGcn68+G0EE1/mrS7Ynl3aILghxAT//7Re+KeovNkLl+UdTTPF7sg==}
+  '@contentlayer2/core@0.5.1':
+    resolution: {integrity: sha512-PR9uJ5lZC6wSq37uX252LZzNpWLmxJjlOzuxcBvFtmX4aSfOBbykSG/EVlwaLK0dFAT/q0vx+nObg7D2mpQ0YA==}
     peerDependencies:
       esbuild: '>=0.17'
       markdown-wasm: 1.x
@@ -917,14 +917,14 @@ packages:
       markdown-wasm:
         optional: true
 
-  '@contentlayer2/source-files@0.5.0':
-    resolution: {integrity: sha512-jdRgHvXy9BQ45BgrNleqx9aWlcUgvZUiakQIk+A1vqGUFpzSFh03TnTUKZw2sC/8QH6Aqtg7+YP1F5C/gCPVLg==}
+  '@contentlayer2/source-files@0.5.1':
+    resolution: {integrity: sha512-M2Z/LtfU9TwE9z9dH0jqU7UEI80KuFzVvnz51ykRsktfsbZ76n/0fU6ERojiqGS5KgK8Djg3SoxJsY521dvHjQ==}
 
-  '@contentlayer2/source-remote-files@0.5.0':
-    resolution: {integrity: sha512-Sj4F0QNHJKzJkfPalWtf8Yb0HJkvAL751sC4LiEevvoqFhIkNMEuVVyPzBA81c8aNBxnSw7NEjPHOlKH1dKJNA==}
+  '@contentlayer2/source-remote-files@0.5.1':
+    resolution: {integrity: sha512-VJRhJEIMXVr8qq4otmND1F8qvjU28fOZ9c9tmLuga2dHbiMiZbnSM4WOOkvJJ4tNJH/3OCfdWgznj/fdP2NyLw==}
 
-  '@contentlayer2/utils@0.5.0':
-    resolution: {integrity: sha512-7rE37WJrP9U/oz7Y9jC2BPUwNw1/Vz1Xf7LT9C0ontF2uVlAbAzDmZMDxku+aIm+i912563ZZ11HRm7pkfZvCw==}
+  '@contentlayer2/utils@0.5.1':
+    resolution: {integrity: sha512-cIsQ7ySGAbTZFhp8KdiSwHTYpD5GNmvTmCJtI/zaua23l33DuvEt9KCpZa9CmQ2IQyaGlTHKL2wv994bblCH8w==}
     peerDependencies:
       '@effect-ts/otel-node': '*'
     peerDependenciesMeta:
@@ -2039,8 +2039,8 @@ packages:
   concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
-  contentlayer2@0.5.0:
-    resolution: {integrity: sha512-Q8OqhJv+mGIl/yqLOTJd6hNIs0241PGMAFfobCSq/A29dOQeOTvA1CwlePx/QxgrvLfqsx/stga8rb/1SRNz2Q==}
+  contentlayer2@0.5.1:
+    resolution: {integrity: sha512-lsLaYijf5OrHXdi7WgHRHpBxWZr+EIB++IAwJj4svOId+2IW9GNTUW4hixKsAp6e/lzOl7ZnW1o1zk6tCLvOSA==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -3164,10 +3164,10 @@ packages:
     engines: {node: '>= 4.4.x'}
     hasBin: true
 
-  next-contentlayer2@0.5.0:
-    resolution: {integrity: sha512-pcJGCvxbYfpxD3oBFCsfTNyIPGbz5Aj/n2EU08Db2VgXC0T/vbzfG3cihRFRh1/YmnsoGHXLhnmfh3oeCVfiZg==}
+  next-contentlayer2@0.5.1:
+    resolution: {integrity: sha512-thDT4nsPAP6lHZlaHIPI25urR0+XDVSUexoZytze7PAAcEBRfiddrklA7JYZR7rhFgaCspDg1ryc7Six6lYUgw==}
     peerDependencies:
-      contentlayer2: 0.5.0
+      contentlayer2: 0.5.1
       next: '>=12.0.0'
       react: '*'
       react-dom: '*'
@@ -5192,10 +5192,10 @@ snapshots:
       '@types/conventional-commits-parser': 5.0.0
       chalk: 5.3.0
 
-  '@contentlayer2/cli@0.5.0(esbuild@0.23.1)':
+  '@contentlayer2/cli@0.5.1(esbuild@0.23.1)':
     dependencies:
-      '@contentlayer2/core': 0.5.0(esbuild@0.23.1)
-      '@contentlayer2/utils': 0.5.0
+      '@contentlayer2/core': 0.5.1(esbuild@0.23.1)
+      '@contentlayer2/utils': 0.5.1
       clipanion: 3.2.1(typanion@3.14.0)
       typanion: 3.14.0
     transitivePeerDependencies:
@@ -5204,18 +5204,18 @@ snapshots:
       - markdown-wasm
       - supports-color
 
-  '@contentlayer2/client@0.5.0(esbuild@0.23.1)':
+  '@contentlayer2/client@0.5.1(esbuild@0.23.1)':
     dependencies:
-      '@contentlayer2/core': 0.5.0(esbuild@0.23.1)
+      '@contentlayer2/core': 0.5.1(esbuild@0.23.1)
     transitivePeerDependencies:
       - '@effect-ts/otel-node'
       - esbuild
       - markdown-wasm
       - supports-color
 
-  '@contentlayer2/core@0.5.0(esbuild@0.23.1)':
+  '@contentlayer2/core@0.5.1(esbuild@0.23.1)':
     dependencies:
-      '@contentlayer2/utils': 0.5.0
+      '@contentlayer2/utils': 0.5.1
       camel-case: 4.1.2
       comment-json: 4.2.5
       gray-matter: 4.0.3
@@ -5233,10 +5233,10 @@ snapshots:
       - '@effect-ts/otel-node'
       - supports-color
 
-  '@contentlayer2/source-files@0.5.0(esbuild@0.23.1)':
+  '@contentlayer2/source-files@0.5.1(esbuild@0.23.1)':
     dependencies:
-      '@contentlayer2/core': 0.5.0(esbuild@0.23.1)
-      '@contentlayer2/utils': 0.5.0
+      '@contentlayer2/core': 0.5.1(esbuild@0.23.1)
+      '@contentlayer2/utils': 0.5.1
       chokidar: 3.6.0
       fast-glob: 3.3.2
       gray-matter: 4.0.3
@@ -5252,18 +5252,18 @@ snapshots:
       - markdown-wasm
       - supports-color
 
-  '@contentlayer2/source-remote-files@0.5.0(esbuild@0.23.1)':
+  '@contentlayer2/source-remote-files@0.5.1(esbuild@0.23.1)':
     dependencies:
-      '@contentlayer2/core': 0.5.0(esbuild@0.23.1)
-      '@contentlayer2/source-files': 0.5.0(esbuild@0.23.1)
-      '@contentlayer2/utils': 0.5.0
+      '@contentlayer2/core': 0.5.1(esbuild@0.23.1)
+      '@contentlayer2/source-files': 0.5.1(esbuild@0.23.1)
+      '@contentlayer2/utils': 0.5.1
     transitivePeerDependencies:
       - '@effect-ts/otel-node'
       - esbuild
       - markdown-wasm
       - supports-color
 
-  '@contentlayer2/utils@0.5.0':
+  '@contentlayer2/utils@0.5.1':
     dependencies:
       '@effect-ts/core': 0.60.5
       '@effect-ts/otel': 0.15.1(@effect-ts/core@0.60.5)(@opentelemetry/api@1.9.0)(@opentelemetry/core@1.26.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.26.0(@opentelemetry/api@1.9.0))
@@ -6357,14 +6357,14 @@ snapshots:
 
   concat-map@0.0.1: {}
 
-  contentlayer2@0.5.0(esbuild@0.23.1):
+  contentlayer2@0.5.1(esbuild@0.23.1):
     dependencies:
-      '@contentlayer2/cli': 0.5.0(esbuild@0.23.1)
-      '@contentlayer2/client': 0.5.0(esbuild@0.23.1)
-      '@contentlayer2/core': 0.5.0(esbuild@0.23.1)
-      '@contentlayer2/source-files': 0.5.0(esbuild@0.23.1)
-      '@contentlayer2/source-remote-files': 0.5.0(esbuild@0.23.1)
-      '@contentlayer2/utils': 0.5.0
+      '@contentlayer2/cli': 0.5.1(esbuild@0.23.1)
+      '@contentlayer2/client': 0.5.1(esbuild@0.23.1)
+      '@contentlayer2/core': 0.5.1(esbuild@0.23.1)
+      '@contentlayer2/source-files': 0.5.1(esbuild@0.23.1)
+      '@contentlayer2/source-remote-files': 0.5.1(esbuild@0.23.1)
+      '@contentlayer2/utils': 0.5.1
     transitivePeerDependencies:
       - '@effect-ts/otel-node'
       - esbuild
@@ -7862,11 +7862,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  next-contentlayer2@0.5.0(contentlayer2@0.5.0(esbuild@0.23.1))(esbuild@0.23.1)(next@14.2.8(@babel/core@7.25.8)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  next-contentlayer2@0.5.1(contentlayer2@0.5.1(esbuild@0.23.1))(esbuild@0.23.1)(next@14.2.8(@babel/core@7.25.8)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
-      '@contentlayer2/core': 0.5.0(esbuild@0.23.1)
-      '@contentlayer2/utils': 0.5.0
-      contentlayer2: 0.5.0(esbuild@0.23.1)
+      '@contentlayer2/core': 0.5.1(esbuild@0.23.1)
+      '@contentlayer2/utils': 0.5.1
+      contentlayer2: 0.5.1(esbuild@0.23.1)
       next: 14.2.8(@babel/core@7.25.8)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -8042,13 +8042,13 @@ snapshots:
       '@docsearch/react': 3.6.2(@algolia/client-search@4.24.0)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(search-insights@2.17.2)
       '@giscus/react': 3.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@mailchimp/mailchimp_marketing': 3.0.80
-      contentlayer2: 0.5.0(esbuild@0.23.1)
+      contentlayer2: 0.5.1(esbuild@0.23.1)
       copyfiles: 2.4.1
       github-slugger: 2.0.0
       js-yaml: 4.1.0
       kbar: 0.1.0-beta.45(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       next: 14.2.8(@babel/core@7.25.8)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      next-contentlayer2: 0.5.0(contentlayer2@0.5.0(esbuild@0.23.1))(esbuild@0.23.1)(next@14.2.8(@babel/core@7.25.8)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      next-contentlayer2: 0.5.1(contentlayer2@0.5.1(esbuild@0.23.1))(esbuild@0.23.1)(next@14.2.8(@babel/core@7.25.8)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       next-themes: 0.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       probe-image-size: 7.2.3
       react: 18.3.1
