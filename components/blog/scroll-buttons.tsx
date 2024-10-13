@@ -7,7 +7,6 @@ import { SITE_METADATA } from '~/data/site-metadata'
 
 export function ScrollButtons() {
   let [show, setShow] = useState(false)
-  let commentSection = document.getElementById('comment')
 
   useEffect(() => {
     function handleWindowScroll() {
@@ -27,7 +26,7 @@ export function ScrollButtons() {
       {SITE_METADATA.comments?.provider && (
         <ScrollButton
           ariaLabel="Scroll To Comment"
-          onClick={() => commentSection?.scrollIntoView()}
+          onClick={() => document.getElementById('comment')?.scrollIntoView()}
           icon={MessageSquareText}
         />
       )}
