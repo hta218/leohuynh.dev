@@ -6,8 +6,6 @@ export function formatDate(date: string) {
   })
 }
 
-export function dateSortDesc(a: string, b: string) {
-  if (a > b) return -1
-  if (a < b) return 1
-  return 0
+export async function fetcher(url: string) {
+  return fetch(url).then((res) => res.json())
 }

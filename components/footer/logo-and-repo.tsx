@@ -7,7 +7,7 @@ import { GrowingUnderline } from '~/components/ui/growing-underline'
 import { Link } from '~/components/ui/link'
 import { SITE_METADATA } from '~/data/site-metadata'
 import type { GithubRepository } from '~/types/data'
-import { fetcher } from '~/utils/fetch'
+import { fetcher } from '~/utils/misc'
 
 export function LogoAndRepo() {
   let siteRepo = SITE_METADATA.siteRepo.replace('https://github.com/', '')

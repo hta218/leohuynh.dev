@@ -7,7 +7,7 @@ import { GrowingUnderline } from '~/components/ui/growing-underline'
 import { Image } from '~/components/ui/image'
 import { Link } from '~/components/ui/link'
 import { SITE_METADATA } from '~/data/site-metadata'
-import { formatDate } from '~/utils/date'
+import { formatDate } from '~/utils/misc'
 
 export function PostCardListView({
   post,
