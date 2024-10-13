@@ -6,7 +6,7 @@
 
 </div>
 
-![leohuynh.dev](https://cdn.shopify.com/s/files/1/0669/0262/2504/files/pawelzmarlak-2024-10-12T14_51_02.315Z.png?v=1728744886)
+![leohuynh.dev @ #250a4c5](https://cdn.shopify.com/s/files/1/0669/0262/2504/files/pawelzmarlak-2024-10-12T14_51_02.315Z.png?v=1728744886)
 
 ## Motivation
 
