@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import { Twemoji } from '~/components/ui/twemoji'
 
 export function Greeting() {
   return (
@@ -11,7 +12,7 @@ export function Greeting() {
         'dark:bg-gradient-to-l dark:from-emerald-500 dark:to-lime-600'
       )}
     >
-      Howdy, fellow! <i className="twa twa-waving-hand" />
+      Howdy, fellow! <Twemoji emoji="waving-hand" size="base" />
     </div>
   )
 }

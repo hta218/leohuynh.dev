@@ -23,5 +23,5 @@ interface TwemojiProps extends VariantProps<typeof variants> {
 }
 
 export function Twemoji({ emoji, size, className }: TwemojiProps) {
-  return <i className={(clsx(variants({ size }), `twa-${emoji}`), className)} />
+  return <i className={clsx(variants({ size }), `twa-${emoji}`, className)} />
 }
