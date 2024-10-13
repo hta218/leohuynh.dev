@@ -106,7 +106,7 @@ module.exports = {
               code: { color: theme('colors.primary.400') },
             },
             'h1,h2,h3,h4,h5,h6': {
-              scrollMarginTop: '80px',
+              scrollMarginTop: '96px',
             },
             'h1,h2': {
               fontWeight: '700',
