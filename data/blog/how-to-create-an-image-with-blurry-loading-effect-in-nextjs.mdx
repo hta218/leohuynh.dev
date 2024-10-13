@@ -1,6 +1,7 @@
 ---
 title: 'How to create an image with blurry loading effect in NextJS'
 date: '2024-10-12'
+lastmod: '2024-10-13'
 tags: ['nextjs', 'image', 'blur', 'loading']
 summary: 'NextJS has provided a built-in image component that has many useful features, we can leverage them with some custom styles to create a beautiful image with a blurry loading effect.'
 images: ['/static/images/white-flower.jpg']
@@ -17,7 +18,9 @@ that has many useful features, we can leverage them with some custom styles to c
 
 ## Blurred image
 
-```tsx:image.tsx
+The simple idea here is to make the image blurry at first (with `blur-xl` class), and then fade it in by removing the blur effect (with `blur-0`) when the image is [loaded](https://nextjs.org/docs/app/api-reference/components/image#onload).
+
+```tsx:image.tsx showLineNumbers
 'use client'
 
 import { clsx } from 'clsx'
@@ -72,7 +75,7 @@ You can create your own variation by mixing the `blur` utility with others like 
 The component is auto-sized following the child image, you can pass `className` to customize its size.
 For example:
 
-```tsx
+```tsx showLineNumbers
 <Image
   src={logo}
   alt={org}
@@ -88,7 +91,7 @@ For example:
 If you want to use the component to render images in MDX files, you will need to update tailwind typography config
 to make the images responsive.
 
-```js:tailwind.config.js
+```js:tailwind.config.js showLineNumbers
 module.exports = {
   theme: {
     extend: {
