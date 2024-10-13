@@ -1,46 +1,65 @@
 'use client'
 
+import { clsx } from 'clsx'
 import { ChevronsUp, MessageSquareText } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { SITE_METADATA } from '~/data/site-metadata'
 
 export function ScrollButtons() {
   let [show, setShow] = useState(false)
+  let commentSection = document.getElementById('comment')
 
   useEffect(() => {
     function handleWindowScroll() {
-      if (window.scrollY > 50) setShow(true)
-      else setShow(false)
+      setShow(window.scrollY > 50)
     }
-
     window.addEventListener('scroll', handleWindowScroll)
     return () => window.removeEventListener('scroll', handleWindowScroll)
   }, [])
 
   return (
     <div
-      className={`fixed bottom-8 right-8 hidden flex-col gap-3 ${show ? 'md:flex' : 'md:hidden'}`}
+      className={clsx(
+        'fixed bottom-8 right-8 hidden flex-col gap-3',
+        show ? 'md:flex' : 'md:hidden'
+      )}
     >
       {SITE_METADATA.comments?.provider && (
-        <button
-          aria-label="Scroll To Comment"
-          onClick={() => {
-            document.getElementById('comment')?.scrollIntoView()
-          }}
-          className="rounded-lg p-2 ring-1 ring-inset ring-zinc-900/10 transition-all hover:bg-gray-100 dark:ring-white/20 dark:hover:bg-gray-800"
-        >
-          <MessageSquareText className="h-5 w-5" />
-        </button>
+        <ScrollButton
+          ariaLabel="Scroll To Comment"
+          onClick={() => commentSection?.scrollIntoView()}
+          icon={MessageSquareText}
+        />
       )}
-      <button
-        aria-label="Scroll To Top"
-        onClick={() => {
-          window.scrollTo({ top: 0 })
-        }}
-        className="rounded-lg p-2 ring-1 ring-inset ring-zinc-900/10 transition-all hover:bg-gray-100 dark:ring-white/20 dark:hover:bg-gray-800"
-      >
-        <ChevronsUp className="h-5 w-5" />
-      </button>
+      <ScrollButton
+        ariaLabel="Scroll To Top"
+        onClick={() => window.scrollTo({ top: 0 })}
+        icon={ChevronsUp}
+      />
     </div>
+  )
+}
+
+function ScrollButton({
+  onClick,
+  ariaLabel,
+  icon: Icon,
+}: {
+  onClick: () => void
+  ariaLabel: string
+  icon: React.FC<React.SVGProps<SVGSVGElement>>
+}) {
+  return (
+    <button
+      aria-label={ariaLabel}
+      onClick={onClick}
+      className={clsx([
+        'rounded-lg p-2 transition-all',
+        'hover:bg-gray-100 dark:hover:bg-gray-800',
+        'ring-1 ring-inset ring-zinc-900/10 dark:ring-white/20',
+      ])}
+    >
+      <Icon className="h-5 w-5" />
+    </button>
   )
 }
