@@ -12,7 +12,7 @@ import { AreaChart, Rss } from 'lucide-react'
 
 export function Footer() {
   return (
-    <Container as="footer" className="my-8 md:mt-16">
+    <Container as="footer" className="mb-4 mt-8 md:mt-16">
       <div
         className={clsx([
           'grid grid-cols-1 gap-x-8 gap-y-8 py-8 md:grid-cols-2',
@@ -43,6 +43,7 @@ export function Footer() {
         <SpotifyNowPlaying
           className="w-full justify-center [--artist-color:theme(colors.gray.500)] md:justify-start"
           songEffect="underline"
+          showCover
         />
         <div className="flex items-center">
           <Link href={SITE_METADATA.siteRepo}>
