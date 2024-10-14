@@ -1,0 +1,113 @@
+---
+date: '2024-10-14'
+heading: 'Connecting to GitHub using SSH'
+title: 'Enhance Github security by connecting using Secure Shell Protocol (SSH)'
+draft: true
+icon: 'GitHub'
+summary: 'Using the SSH protocol, you can connect and authenticate to remote Github servers and services without supplying your username and personal access token at each visit.'
+tags: ['github', 'ssh', 'security']
+---
+
+> [!CAUTION]
+> This instruction is for MacOS devices only.
+
+## GitHub's SSH key fingerprints
+
+When try to clone a Github repo using `SSH`, you might get an error like this:
+
+```bash
+$ git clone git@github.com:username/repo.git
+Cloning into 'repo'...
+The authenticity of host 'github.com (ip)' can't be established.
+RSA key fingerprint is SHA256:nThbg6kXU...ARLviKw6E5SY8.
+Are you sure you want to continue connecting (yes/no)?
+```
+
+This is because you're missing the public key fingerprints,
+the key can be used to validate a connection to Github remote server.
+
+You can add the following ssh key entries to your `~/.ssh/known_hosts` file to avoid manually verifying GitHub hosts.
+
+```bash
+# Open the file in VSCode
+$ code ~/.ssh/known_hosts
+```
+
+Paste the following content to the file:
+
+```txt
+github.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl
+github.com ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEmKSENjQEezOmxkZMy7opKgwFB9nkt5YRrYMjNuG5N87uRgg6CLrbo5wAdT/y6v0mKV0U2w0WZ2YB/++Tpockg=
+github.com ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCj7ndNxQowgcQnjshcLrqPEiiphnt+VTTvDP6mHBL9j1aNUkY4Ue1gvwnGLVlOhGeYrnZaMgRK6+PKCUXaDbC7qtbW8gIkhL7aGCsOr/C56SJMy/BCZfxd1nWzAOxSDPgVsmerOBYfNqltV9/hWCqBywINIR+5dIg6JTJ72pcEpEjcYgXkE2YEFXV1JHnsKgbLWNlhScqb2UmyRkQyytRLtL+38TGxkxCflmO+5Z8CSSNY7GidjMIZ7Q4zMjA2n1nGrlTDkzwDCsw+wqFPGQA179cnfGWOWRVruj16z6XyvxvjJwbz0wQZ75XK5tKSb7FNyeIEs4TT4jk+S4dhPeAUC5y+bDYirYgM4GC7uEnztnZyaVWQ7B381AK4Qdrwt51ZqExKbQpTUNn+EjqoTwvqNj4kqx5QUCI0ThS/YkOxJCXmPUWZbhjpCg56i+2aB6CmK2JGhn57K5mj0MNdBXA4/WnwH6XoPWJzK5Nyu2zB3nAZp+S5hpQs+p1vN1/wsjk=
+```
+
+It's the default SSH key fingerprints from [Github's documentation](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/githubs-ssh-key-fingerprints).
+
+## Generating SSH key
+
+Next you might get an error like this when trying to clone a repo:
+
+```bash
+Permission denied (publickey)
+```
+
+This is because you're missing the SSH key, you can generate a new one by following the steps below:
+
+1. Open your terminal and run the following command:
+
+```bash
+ssh-keygen -t ed25519 -C "<YOUR_EMAIL_ON_GITHUB>@gmail.com"
+```
+
+The system might ask you to enter a passphrase like this:
+
+```bash
+> Enter passphrase (empty for no passphrase): [Type a passphrase]
+> Enter same passphrase again: [Type passphrase again]
+```
+
+{' '}
+<Twemoji emoji="warning" /> Type a simple one and don't forget it since you'll need it later.
+
+2. Start the SSH agent:
+
+```bash
+$ eval "$(ssh-agent -s)"
+> Agent pid 59566
+```
+
+Then create the `~/.ssh/config` file (or update the existing one):
+
+```bash
+$ touch ~/.ssh/config # create the file if it doesn't exist
+```
+
+Add the following content to the file:
+
+```txt
+Host github.com
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_ed25519
+```
+
+Then add your SSH private key to the ssh-agent and store your passphrase in the keychain:
+
+```bash
+$ ssh-add --apple-use-keychain ~/.ssh/id_ed25519
+```
+
+3. Add the new SSH key to your GitHub account:
+
+```bash
+# Copy the SSH key to the clipboard
+$ pbcopy < ~/.ssh/id_ed25519.pub
+```
+
+Open your Github account and navigate to your **[SSH and GPG keys](https://github.com/settings/keys)** page settings, then create a new SSH key.
+
+![Github SSH keys](/static/images/ssh-keys.png)
+
+Now you're good to go! Try to clone a Github repo using SSH to make sure everything is working.
+
+Happy securing! <Twemoji emoji="clinking-beer-mugs" />
