@@ -1,11 +1,13 @@
 import Script from 'next/script.js'
 
-export function UmamiAnalytics({
-  umamiWebsiteId,
-  src = '/stats/script.js',
-}: {
-  umamiWebsiteId: string
+interface UmamiAnalyticsProps {
+  websiteId?: string
   src?: string
-}) {
-  return <Script async defer data-website-id={umamiWebsiteId} src={src} />
+}
+
+export function UmamiAnalytics({ websiteId, src = '/stats/script.js' }: UmamiAnalyticsProps) {
+  if (websiteId) {
+    return <Script async defer data-website-id={websiteId} src={src} />
+  }
+  return null
 }

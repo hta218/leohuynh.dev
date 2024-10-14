@@ -30,7 +30,7 @@ const LINKS = [
   },
   {
     title: `Traffic and insights`,
-    href: SITE_METADATA.analyticsUrl,
+    href: SITE_METADATA.analytics.umamiAnalytics.shareUrl,
     emoji: 'bar-chart',
     event: 'home-link-analytics',
   },

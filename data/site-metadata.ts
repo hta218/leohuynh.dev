@@ -23,13 +23,10 @@ export const SITE_METADATA = {
   goodreadsBookshelfUrl: 'https://www.goodreads.com/review/list/179720035-leo-huynh',
   goodreadsFeedUrl: 'https://www.goodreads.com/review/list_rss/179720035',
   imdbRatingsList: 'https://www.imdb.com/user/ur154483197/ratings/?view=grid',
-  analyticsUrl: 'https://analytics.leohuynh.dev/share/c9ErglxqzY5CQJ8g/leohuynh.dev',
   analytics: {
     umamiAnalytics: {
-      umamiWebsiteId: process.env.NEXT_UMAMI_ID!,
-      // You may also need to overwrite the script if you're storing data in the US - ex:
-      // src: 'https://us.umami.is/script.js'
-      // Remember to add 'us.umami.is' in `next.config.js` as a permitted domain for the CSP
+      websiteId: process.env.NEXT_UMAMI_ID,
+      shareUrl: 'https://analytics.leohuynh.dev/share/c9ErglxqzY5CQJ8g/leohuynh.dev',
     },
   },
   newsletter: {
