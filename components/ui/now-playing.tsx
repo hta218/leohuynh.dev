@@ -6,30 +6,32 @@ import { GrowingUnderline } from '~/components/ui/growing-underline'
 import { Link } from '~/components/ui/link'
 import { MusicWaves } from '~/components/ui/music-waves'
 import { useNowPlaying } from '~/hooks/use-now-playing'
+import { Image } from './image'
 
 export function SpotifyNowPlaying({
   className,
+  showCover,
   songEffect = 'none',
 }: {
   className?: string
+  showCover?: boolean
   songEffect?: 'none' | 'underline'
 }) {
   let { songUrl, title, artist, albumImageUrl } = useNowPlaying()
 
   return (
     <div className={clsx(['flex items-center', className])}>
-      {/* {albumImageUrl ? (
+      {showCover && albumImageUrl ? (
         <Image
           src={albumImageUrl}
           alt={title!}
           width={40}
           height={40}
-          className="h-5 w-5 animate-spin rounded-full [animation-duration:6s]"
+          className="h-5.5 w-5.5 animate-spin rounded-full border border-gray-300 [animation-duration:6s] dark:border-gray-700"
         />
       ) : (
-        <Brand as="icon" name="Spotify" className="h-5.5 w-5.5 flex-shrink-0" />
-      )} */}
-      <Brand as="icon" name="Spotify" className="h-5.5 w-5.5 shrink-0" />
+        <Brand as="icon" name="Spotify" className="h-5.5 w-5.5 shrink-0" />
+      )}
       <div className="ml-2 inline-flex truncate">
         {songUrl ? (
           <>
