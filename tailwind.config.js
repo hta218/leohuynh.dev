@@ -77,6 +77,7 @@ module.exports = {
         goodreads: '#372213',
         facebook: '#1877f2',
         x: '#0f1419',
+        linkedin: '#0077B5',
       },
       width: {
         4.5: '1.125rem',
@@ -106,7 +107,7 @@ module.exports = {
               code: { color: theme('colors.primary.400') },
             },
             'h1,h2,h3,h4,h5,h6': {
-              scrollMarginTop: '96px',
+              scrollMarginTop: '6rem',
             },
             'h1,h2': {
               fontWeight: '700',
