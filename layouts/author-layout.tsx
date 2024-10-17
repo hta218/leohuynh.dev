@@ -215,7 +215,7 @@ export function AuthorLayout({ children }: Props) {
                     alt="Donate via PayPal"
                     width={225.88}
                     height={60}
-                    style={{ height: 30 }}
+                    style={{ height: 30, width: 'auto' }}
                   />
                 </a>
                 <a
@@ -228,7 +228,7 @@ export function AuthorLayout({ children }: Props) {
                     alt="Support me on Ko-fi"
                     width={297}
                     height={60}
-                    style={{ height: 60 }}
+                    style={{ height: 60, width: 'auto' }}
                   />
                 </a>
               </div>
