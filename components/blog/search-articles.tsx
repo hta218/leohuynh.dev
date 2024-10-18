@@ -11,7 +11,7 @@ export function SearchArticles({
   return (
     <div className="relative max-w-lg">
       <label>
-        <span className="sr-only">Search articles</span>
+        <span className="sr-only">{label}</span>
         <input
           aria-label={label}
           type="text"

@@ -34,16 +34,16 @@ export function Image(props: ImageProps) {
   return (
     <div
       className={clsx(
-        'image-container overflow-hidden',
+        'image-container relative overflow-hidden',
         !loaded && 'animate-pulse [animation-duration:4s]',
         className
       )}
     >
       <NextImage
         className={clsx(
-          '[transition:filter_500ms_cubic-bezier(.4,0,.2,1)]',
+          'transition-all duration-500 [transition-timing-function:cubic-bezier(.4,0,.2,1)]',
           'h-full max-h-full w-full object-center',
-          loaded ? 'blur-0' : 'blur-xl'
+          loaded ? 'scale-100 blur-0' : 'scale-[.95] blur-xl'
         )}
         src={src}
         alt={alt}

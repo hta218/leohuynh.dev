@@ -1,6 +1,6 @@
 import { clsx } from 'clsx'
 import { slug } from 'github-slugger'
-import Link from 'next/link'
+import { Link } from '~/components/ui/link'
 
 export function TagsList({ tags }: { tags: string[] }) {
   if (!tags || tags.length === 0) {
