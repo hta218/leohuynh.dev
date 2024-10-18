@@ -1,6 +1,6 @@
 import { MoveLeft } from 'lucide-react'
+import { GrowingUnderline } from '~/components/ui/growing-underline'
 import { Link } from '~/components/ui/link'
-import { GrowingUnderline } from '../ui/growing-underline'
 
 export function BackToPosts({ label, className }: { label: string; className?: string }) {
   return (

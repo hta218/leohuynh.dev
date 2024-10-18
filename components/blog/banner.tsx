@@ -1,8 +1,8 @@
 import { clsx } from 'clsx'
 import { GritBackground } from '~/components/ui/grit-background'
 import { Image, Zoom } from '~/components/ui/image'
+import { Link } from '~/components/ui/link'
 import { capitalize, kebabCaseToPlainText } from '~/utils/misc'
-import { Link } from '../ui/link'
 
 export function Banner({ banner, className }: { banner: string; className?: string }) {
   let [path, author, id] = banner.split('__')
