@@ -15,7 +15,7 @@ type SocialButtonsProps = {
 export function SocialShare({ postUrl, title, className }: SocialButtonsProps) {
   return (
     <div className={clsx('flex items-center gap-2 text-white', className)}>
-      <span className="text-gray-500">Share:</span>
+      <span className="hidden text-gray-500 lg:inline">Share:</span>
       <TwitterShareButton
         url={postUrl}
         title={title}

@@ -13,7 +13,7 @@ export function BlogMeta({ date, lastmod, slug, readingTime }: BlogMetaProps) {
   return (
     <dl>
       <dt className="sr-only">Published on</dt>
-      <dd className="flex flex-wrap items-center gap-3 text-sm font-medium leading-6 text-gray-500 dark:text-gray-400 md:text-base">
+      <dd className="flex flex-wrap items-center gap-2 text-sm font-medium leading-6 text-gray-500 dark:text-gray-400 md:gap-3 md:text-base">
         <time dateTime={date} className="flex items-center justify-center">
           <Twemoji emoji="calendar" size="base" />
           <span className="ml-1.5 md:ml-2">{formatDate(date)}</span>
