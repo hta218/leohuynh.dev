@@ -11,7 +11,7 @@ import { PostBanner } from '~/layouts/post-banner'
 import { PostLayout } from '~/layouts/post-layout'
 import { PostSimple } from '~/layouts/post-simple'
 
-const DEFAULT_LAYOUT = 'PostBanner'
+const DEFAULT_LAYOUT = 'PostLayout'
 const LAYOUTS = {
   PostSimple,
   PostLayout,
