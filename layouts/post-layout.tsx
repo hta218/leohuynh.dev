@@ -39,10 +39,10 @@ export function PostLayout({ content, next, prev, children }: LayoutProps) {
             <div className="space-y-4 pt-4 md:pt-10">
               <Banner banner={images?.[0] || SITE_METADATA.socialBanner} title={title} />
             </div>
-          </div>
-          <div className="flex items-center justify-between pb-4 pt-8">
-            <BlogMeta date={date} lastmod={lastmod} slug={slug} readingTime={readingTime} />
-            <SocialShare postUrl={postUrl} title={title} />
+            <div className="flex items-center justify-between pb-4 pt-2">
+              <BlogMeta date={date} lastmod={lastmod} slug={slug} readingTime={readingTime} />
+              <SocialShare postUrl={postUrl} title={title} />
+            </div>
           </div>
           <div className="grid grid-cols-1 gap-x-12 gap-y-12 pb-10 lg:grid-cols-12">
             <div className="col-span-12 divide-y divide-gray-200 dark:divide-gray-700 lg:col-span-8 xl:col-span-9">
