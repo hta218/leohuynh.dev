@@ -1,6 +1,6 @@
 export function formatDate(date: string) {
   return new Date(date).toLocaleDateString('en', {
-    year: '2-digit',
+    year: 'numeric',
     month: 'short',
     day: '2-digit',
   })
