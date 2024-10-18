@@ -37,7 +37,7 @@ export function PostSimple({ content, children }: PostSimpleProps) {
         </div>
         <div className="prose prose-lg max-w-none pt-10 dark:prose-invert">{children}</div>
         <div className="md:pb-10 md:pt-4">
-          <SocialShare postUrl={postUrl} title={title} filePath={filePath} />
+          <SocialShare postUrl={postUrl} title={title} />
           <Comments slug={slug} />
         </div>
       </article>
