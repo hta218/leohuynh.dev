@@ -19,11 +19,13 @@ function remarkTocHeadings() {
     let toc: Toc = []
     visit(tree, 'heading', (node) => {
       let textContent = toString(node).replace(/<[^>]*(>|$)/g, '')
-      toc.push({
-        value: textContent,
-        url: '#' + slug(textContent),
-        depth: node.depth,
-      })
+      if (textContent) {
+        toc.push({
+          value: textContent,
+          url: '#' + slug(textContent),
+          depth: node.depth,
+        })
+      }
     })
     file.data.toc = toc
   }
