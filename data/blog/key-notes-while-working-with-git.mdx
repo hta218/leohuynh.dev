@@ -3,9 +3,10 @@ title: 'Key notes while working with git'
 date: '2021-08-12'
 tags: ['git', 'git-notes', 'git-alias', 'git-workflows']
 summary: 'Key notes to save plenty of time while working with git for command-line-developer'
-images: ['/static/images/git-notes.jpg']
-bannerAuthor: 'Yancy Min'
-bannerUrl: 'https://unsplash.com/photos/842ofHC6MaI'
+images:
+  [
+    '/static/images/banners/a-close-up-of-a-text-description-on-a-computer-screen__yancymin__842ofHC6MaI.jpeg',
+  ]
 authors: ['default']
 ---
 
@@ -15,11 +16,9 @@ This post is written for developers who prefer working with `git` via `command-l
 
 > Git aliases are a powerful workflow tool that create shortcuts to frequently used Git commands
 
-### <Twemoji emoji="eyes" />
-
 `git alias` in the simpleset term is creating a _shortcut_ (short `command`) for the long ones, make them easier to remember and you can type it faster.
 
-#### Syntax
+### Syntax
 
 ```bash
 $ git config --global alias.<shortcut> <original-command>
@@ -235,7 +234,7 @@ $ git config --global alias.d 'diff'
 $ git d style.css
 ```
 
-#### Note
+### Note
 
 All your aliases can be found in `~/.gitconfig` file (MacOS). You can open this file directly and edit any alias you want.
 
