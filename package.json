@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "private": true,
   "scripts": {
-    "start": "next dev",
+    "start": "PORT=3435 next dev",
     "dev": "PORT=3434 cross-env INIT_CWD=$PWD next dev",
     "build": "cross-env INIT_CWD=$PWD next build && npm run postbuild",
     "postbuild": "cross-env NODE_OPTIONS='--experimental-json-modules' tsx ./scripts/post-build.ts",
@@ -30,6 +30,7 @@
     "hast-util-from-html-isomorphic": "^2.0.0",
     "image-size": "1.1.1",
     "lucide-react": "^0.452.0",
+    "mdast-util-to-string": "^4.0.0",
     "next": "14.2.15",
     "next-contentlayer2": "0.5.1",
     "next-themes": "^0.3.0",
