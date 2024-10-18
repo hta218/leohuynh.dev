@@ -10,7 +10,7 @@ type TocItem = {
   depth: number
 }
 
-export function TableOfContents({ toc }: { toc: TocItem[] }) {
+export function TableOfContents({ toc, className }: { toc: TocItem[]; className?: string }) {
   let [inViewIds, setInViewIds] = useState<string[]>([])
   let observer = useRef<IntersectionObserver | null>(null)
   let ids = toc.map((item) => item.url)
@@ -44,7 +44,7 @@ export function TableOfContents({ toc }: { toc: TocItem[] }) {
   }, [ids])
 
   return (
-    <div className="space-y-4 pt-6">
+    <div className={clsx('space-y-4 pt-6', className)}>
       <h3 className="text-2xl font-semibold">On this page</h3>
       <ul className="flex flex-col space-y-2">
         {toc.map(({ value, depth, url }) => (

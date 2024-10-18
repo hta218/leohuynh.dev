@@ -24,23 +24,8 @@ interface LayoutProps {
   children: ReactNode
 }
 
-export function PostLayout({ content, authorDetails, next, prev, children }: LayoutProps) {
-  let {
-    filePath,
-    path,
-    slug,
-    images,
-    lastmod,
-    readingTime,
-    date,
-    title,
-    tags,
-    bannerAuthor,
-    bannerUrl,
-    summary,
-    toc,
-    type,
-  } = content
+export function PostLayout({ content, next, prev, children }: LayoutProps) {
+  let { slug, images, lastmod, readingTime, date, title, tags, toc, type } = content
   let postUrl = `${SITE_METADATA.siteUrl}/${type.toLowerCase()}/${slug}`
 
   return (
@@ -51,7 +36,6 @@ export function PostLayout({ content, authorDetails, next, prev, children }: Lay
           <div className="space-y-4">
             <TagsList tags={tags} />
             <PostTitle>{title}</PostTitle>
-            {/* <BlogMeta date={date} lastmod={lastmod} slug={slug} readingTime={readingTime} /> */}
             <div className="space-y-4 pt-4 md:pt-10">
               <Banner banner={images?.[0] || SITE_METADATA.socialBanner} title={title} />
             </div>
@@ -61,19 +45,18 @@ export function PostLayout({ content, authorDetails, next, prev, children }: Lay
             <SocialShare postUrl={postUrl} title={title} />
           </div>
           <div className="grid grid-cols-1 gap-x-12 gap-y-12 pb-10 lg:grid-cols-12">
-            <div className="divide-y divide-gray-200 dark:divide-gray-700 lg:col-span-8 xl:col-span-9">
+            <div className="col-span-12 divide-y divide-gray-200 dark:divide-gray-700 lg:col-span-8 xl:col-span-9">
               <div className="prose max-w-none pb-8 pt-10 dark:prose-invert lg:prose-lg">
                 {children}
               </div>
             </div>
             <div className="col-span-12 lg:col-span-4 xl:col-span-3">
-              <div className="sticky top-20">
-                <TableOfContents toc={toc} />
+              <div className="lg:sticky lg:top-20">
+                <TableOfContents toc={toc} className="hidden lg:block" />
               </div>
             </div>
           </div>
           <div className="space-y-4">
-            {/* <DiscussAndEdit postUrl={postUrl} filePath={filePath} /> */}
             <PostNav
               next={next}
               nextLabel="Next article"
