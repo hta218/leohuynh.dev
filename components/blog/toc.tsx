@@ -1,114 +1,67 @@
+'use client'
+
+import { clsx } from 'clsx'
+import { useState, useRef, useEffect } from 'react'
+import { Link } from '~/components/ui/link'
+
 type TocItem = {
   value: string
   url: string
   depth: number
 }
 
-interface TOCInlineProps {
-  toc: TocItem[]
-  fromHeading?: number
-  toHeading?: number
-  asDisclosure?: boolean
-  exclude?: string | string[]
-  collapse?: boolean
-  ulClassName?: string
-  liClassName?: string
-}
+export function TableOfContents({ toc }: { toc: TocItem[] }) {
+  let [inViewIds, setInViewIds] = useState<string[]>([])
+  let observer = useRef<IntersectionObserver | null>(null)
+  let ids = toc.map((item) => item.url)
+  let firstActiveId = inViewIds[0]
 
-interface NestedTocItem extends TocItem {
-  children?: NestedTocItem[]
-}
-
-function createNestedList(items: TocItem[]): NestedTocItem[] {
-  let nestedList: NestedTocItem[] = []
-  let stack: NestedTocItem[] = []
-
-  items.forEach((item) => {
-    let newItem: NestedTocItem = { ...item }
-    while (stack.length > 0 && stack[stack.length - 1].depth >= newItem.depth) {
-      stack.pop()
+  useEffect(() => {
+    if (document) {
+      let headings = ids.map((id) => document.querySelector(id))
+      observer.current?.disconnect()
+      observer.current = new IntersectionObserver(
+        (entries) => {
+          for (let { intersectionRatio, target } of entries) {
+            if (intersectionRatio > 0) {
+              if (!inViewIds.includes(target.id)) {
+                setInViewIds([...inViewIds, target.id])
+              }
+            } else {
+              if (inViewIds.includes(target.id) && inViewIds.length > 1) {
+                setInViewIds(inViewIds.filter((id) => id !== target.id))
+              }
+            }
+          }
+        },
+        { rootMargin: '-96px 0% 0% 0%' }
+      )
+      for (let el of headings) {
+        el && observer.current.observe(el)
+      }
+      return () => observer.current?.disconnect()
     }
+  }, [ids])
 
-    let parent = stack.length > 0 ? stack[stack.length - 1] : null
-    if (parent) {
-      parent.children = parent.children || []
-      parent.children.push(newItem)
-    } else {
-      nestedList.push(newItem)
-    }
-    stack.push(newItem)
-  })
-
-  return nestedList
-}
-
-/**
- * Generates an inline table of contents
- * Exclude titles matching this string (new RegExp('^(' + string + ')$', 'i')).
- * If an array is passed the array gets joined with a pipe (new RegExp('^(' + array.join('|') + ')$', 'i')).
- *
- * `asDisclosure` will wrap the TOC in a `details` element with a `summary` element.
- * `collapse` will collapse the TOC when `AsDisclosure` is true.
- *
- * If you are using tailwind css and want to revert to the default HTML list style, set `ulClassName="[&_ul]:list-[revert]"`
- * @param {TOCInlineProps} {
- *   toc,
- *   fromHeading = 1,
- *   toHeading = 6,
- *   asDisclosure = false,
- *   exclude = '',
- *   collapse = false,
- *   ulClassName = '',
- *   liClassName = '',
- * }
- *
- */
-export function TableOfContents({
-  toc,
-  fromHeading = 1,
-  toHeading = 6,
-  asDisclosure = false,
-  exclude = '',
-  collapse = false,
-  ulClassName = '',
-  liClassName = '',
-}: TOCInlineProps) {
-  let re = Array.isArray(exclude)
-    ? new RegExp('^(' + exclude.join('|') + ')$', 'i')
-    : new RegExp('^(' + exclude + ')$', 'i')
-
-  let filteredToc = toc.filter(
-    (heading) =>
-      heading.depth >= fromHeading && heading.depth <= toHeading && !re.test(heading.value)
-  )
-
-  function createList(items: NestedTocItem[] | undefined) {
-    if (!items || items.length === 0) {
-      return null
-    }
-
-    return (
-      <ul className={ulClassName}>
-        {items.map((item, index) => (
-          <li key={index} className={liClassName}>
-            <a href={item.url}>{item.value}</a>
-            {createList(item.children)}
+  return (
+    <div className="space-y-4 pt-6">
+      <h3 className="text-2xl font-semibold">On this page</h3>
+      <ul className="flex flex-col space-y-2">
+        {toc.map(({ value, depth, url }) => (
+          <li
+            key={url}
+            className={clsx([
+              'font-medium',
+              url === `#${firstActiveId}`
+                ? 'text-gray-700 dark:text-gray-200'
+                : 'text-gray-400 hover:text-gray-700 dark:text-gray-500 dark:hover:text-gray-200',
+            ])}
+            style={{ paddingLeft: (depth - 2) * 16 }}
+          >
+            <Link href={url}>{value}</Link>
           </li>
         ))}
       </ul>
-    )
-  }
-
-  let nestedList = createNestedList(filteredToc)
-
-  if (asDisclosure) {
-    return (
-      <details open={!collapse}>
-        <summary className="ml-6 pb-2 pt-2 text-xl font-bold">Table of Contents</summary>
-        <div className="ml-6">{createList(nestedList)}</div>
-      </details>
-    )
-  }
-
-  return createList(nestedList)
+    </div>
+  )
 }
