@@ -25,6 +25,7 @@ const FONT_PLAYPEN_SANS = Playpen_Sans({
 const FONT_NUNITO = Nunito({
   subsets: ['latin'],
   display: 'swap',
+  style: ['normal', 'italic'],
   weight: ['400', '500', '600', '700', '800'],
   variable: '--font-nunito',
 })
