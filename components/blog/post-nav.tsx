@@ -1,38 +1,45 @@
 import { Link } from '~/components/ui/link'
+import { GrowingUnderline } from '../ui/growing-underline'
 
 export function PostNav({
   next,
+  nextLabel,
   prev,
+  prevLabel,
 }: {
   next?: { path: string; title: string }
+  nextLabel?: string
   prev?: { path: string; title: string }
+  prevLabel?: string
 }) {
-  return (
-    <footer>
-      <div className="flex flex-col text-sm font-medium sm:flex-row sm:justify-between sm:text-base">
+  if (next || prev) {
+    return (
+      <div className="flex justify-between py-4 xl:py-8">
         {prev && prev.path && (
-          <div className="pt-4 xl:pt-8">
-            <Link
-              href={`/${prev.path}`}
-              className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-              aria-label={`Previous post: ${prev.title}`}
-            >
-              ← {prev.title}
+          <div className="flex flex-col gap-1">
+            <NavLabel label={`←  ${prevLabel}`} />
+            <Link href={`/${prev.path}`}>
+              <GrowingUnderline data-umami-event="post-nav-prev">{prev.title}</GrowingUnderline>
             </Link>
           </div>
         )}
         {next && next.path && (
-          <div className="pt-4 xl:pt-8">
-            <Link
-              href={`/${next.path}`}
-              className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-              aria-label={`Next post: ${next.title}`}
-            >
-              {next.title} →
+          <div className="flex flex-col items-end gap-1">
+            <NavLabel label={`${nextLabel}  →`} />
+            <Link href={`/${next.path}`}>
+              <GrowingUnderline data-umami-event="post-nav-next">{next.title}</GrowingUnderline>
             </Link>
           </div>
         )}
       </div>
-    </footer>
-  )
+    )
+  }
+  return null
+}
+
+function NavLabel({ label }: { label?: string }) {
+  if (label) {
+    return <span className="tracking-wide text-gray-500 dark:text-gray-400">{label}</span>
+  }
+  return null
 }
