@@ -51,7 +51,7 @@ export function PostCardListView({
                 <dt className="sr-only">Published on</dt>
                 <dd className="font-medium leading-6 text-gray-500 dark:text-gray-400">
                   <time dateTime={date}>{formatDate(date)}</time>
-                  <span className="mx-2">{` • `}</span>
+                  <span className="mx-2 text-gray-400">/</span>
                   <span>{Math.ceil(readingTime.minutes)} mins read</span>
                 </dd>
               </dl>
