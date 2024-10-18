@@ -43,7 +43,7 @@ export function Image(props: ImageProps) {
         className={clsx(
           'transition-all duration-500 [transition-timing-function:cubic-bezier(.4,0,.2,1)]',
           'h-full max-h-full w-full object-center',
-          loaded ? 'scale-100 blur-0' : 'scale-[.95] blur-xl'
+          loaded ? 'blur-0' : 'blur-xl'
         )}
         src={src}
         alt={alt}
