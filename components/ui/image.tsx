@@ -63,9 +63,18 @@ interface ZoomProps extends UncontrolledProps {
 }
 
 export function Zoom(props: ZoomProps) {
-  let { children, ...rest } = props
+  let { children, classDialog, ...rest } = props
   return (
-    <ReactMediumImageZoom zoomMargin={20} {...rest}>
+    <ReactMediumImageZoom
+      zoomMargin={20}
+      classDialog={clsx([
+        '[&_[data-rmiz-modal-img]]:rounded-lg',
+        '[&_[data-rmiz-btn-unzoom]]:hidden',
+        '[&_[data-rmiz-modal-overlay="visible"]]:bg-black/70',
+        classDialog,
+      ])}
+      {...rest}
+    >
       {children}
     </ReactMediumImageZoom>
   )
