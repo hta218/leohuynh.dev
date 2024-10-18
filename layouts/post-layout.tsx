@@ -41,14 +41,14 @@ export function PostLayout({ content, next, prev, children }: LayoutProps) {
               <SocialShare postUrl={postUrl} title={title} />
             </div>
           </div>
-          <div className="grid grid-cols-1 gap-x-12 gap-y-12 pb-10 lg:grid-cols-12">
+          <div className="grid grid-cols-1 gap-8 pb-10 pt-8 lg:grid-cols-12 lg:pt-10">
             <div className="divide-y divide-gray-200 dark:divide-gray-700 lg:col-span-8 xl:col-span-9">
-              <div className="prose max-w-none pt-8 dark:prose-invert lg:prose-lg lg:pb-8 lg:pt-10">
+              <div className="prose max-w-none dark:prose-invert lg:prose-lg lg:pb-8">
                 {children}
               </div>
             </div>
             <div className="hidden lg:col-span-4 lg:block xl:col-span-3">
-              <div className="lg:sticky lg:top-20">
+              <div className="lg:sticky lg:top-24">
                 <TableOfContents toc={toc} />
               </div>
             </div>

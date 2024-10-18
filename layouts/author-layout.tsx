@@ -24,10 +24,10 @@ export function AuthorLayout({ children }: Props) {
         className="border-b border-gray-200 dark:border-gray-700"
       />
       <div className="py-8 md:grid md:grid-cols-3">
-        <div>
+        <div className="pr-2">
           <ProfileCard />
         </div>
-        <div className="md:col-span-2 md:pl-12 xl:pl-24">
+        <div className="md:col-span-2 md:pl-12 xl:pl-16">
           <div className="prose prose-lg dark:prose-invert">
             <div>
               <h2 className="mt-0">
