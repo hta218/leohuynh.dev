@@ -24,7 +24,7 @@ export function PostSimple({ content, children }: PostSimpleProps) {
   return (
     <Container className="pt-4 lg:pt-12">
       <ScrollButtons />
-      <article className="space-y-6 divide-y divide-gray-200 pt-6 dark:divide-gray-700 lg:space-y-16">
+      <article className="space-y-6 divide-y divide-gray-200 pt-6 dark:divide-gray-700 lg:space-y-12">
         <div className="space-y-4">
           <TagsList tags={tags} />
           <PostTitle>{title}</PostTitle>
@@ -38,9 +38,7 @@ export function PostSimple({ content, children }: PostSimpleProps) {
         <div className="prose prose-lg max-w-none pt-10 dark:prose-invert">{children}</div>
         <div className="md:pb-10 md:pt-4">
           <SocialShare postUrl={postUrl} title={title} filePath={filePath} />
-          <div id="comment">
-            <Comments slug={slug} />
-          </div>
+          <Comments slug={slug} />
         </div>
       </article>
     </Container>

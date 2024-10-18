@@ -4,11 +4,11 @@ import type { ReactNode } from 'react'
 import { BannerInfo } from '~/components/blog/banner-info'
 import { BlogMeta } from '~/components/blog/blog-meta'
 import { Comments } from '~/components/blog/comments'
+import { DiscussAndEdit } from '~/components/blog/discuss-and-edit'
 import { PostTitle } from '~/components/blog/post-title'
 import { ScrollButtons } from '~/components/blog/scroll-buttons'
 import { SocialShare } from '~/components/blog/social-share'
 import { TagsList } from '~/components/blog/tags'
-import { TableOfContents } from '~/components/blog/toc'
 import { Container } from '~/components/ui/container'
 import { GritBackground } from '~/components/ui/grit-background'
 import { Image, Zoom } from '~/components/ui/image'
@@ -59,8 +59,8 @@ export function PostBanner({ content, children }: LayoutProps) {
                   src={displayImage}
                   alt={title}
                   width={1600}
-                  height={900}
-                  className="h-auto w-full rounded-lg object-cover object-center"
+                  height={1200}
+                  className="h-auto w-full rounded-lg"
                 />
               </Zoom>
               <GritBackground className="inset-0 rounded-2xl opacity-75" />
@@ -71,10 +71,11 @@ export function PostBanner({ content, children }: LayoutProps) {
         </div>
         <div className="prose prose-lg max-w-none dark:prose-invert">{children}</div>
         <div className="border-t border-gray-200 dark:border-gray-700 md:pb-10 md:pt-4">
-          <SocialShare postUrl={postUrl} title={title} filePath={filePath} />
-          <div id="comment">
-            <Comments slug={slug} />
+          <div className="flex flex-col items-center justify-center gap-6 py-6 text-sm text-gray-700 dark:text-gray-300 md:flex-row md:justify-between">
+            <DiscussAndEdit postUrl={postUrl} filePath={filePath} />
+            <SocialShare postUrl={postUrl} title={title} />
           </div>
+          <Comments slug={slug} />
         </div>
       </article>
     </Container>
