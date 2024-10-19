@@ -50,6 +50,9 @@ export function PostLayout({ content, next, prev, children }: LayoutProps) {
             <div className="hidden lg:col-span-4 lg:block xl:col-span-3">
               <div className="lg:sticky lg:top-24">
                 <TableOfContents toc={toc} />
+                <div>
+                  <script src="//servedby.eleavers.com/ads/ads.php?t=MzA5NzQ7MjEwNjA7c3F1YXJlLnNxdWFyZV9ib3g=&index=1"></script>
+                </div>
               </div>
             </div>
           </div>
