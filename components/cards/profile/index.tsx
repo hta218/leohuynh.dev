@@ -68,8 +68,8 @@ export function ProfileCard() {
           width={550}
           height={350}
           style={{
-            objectPosition: '50% 16%',
-            aspectRatio: '17/11',
+            objectPosition: '50% 15%',
+            aspectRatio: '383/240',
           }}
           loading="eager"
         />

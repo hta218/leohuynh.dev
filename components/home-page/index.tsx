@@ -37,7 +37,7 @@ export function Home({
             </p>
           </div>
         </div>
-        <div className="hidden pl-2 pt-8 xl:block">
+        <div className="hidden pl-4 pt-8 xl:block">
           <ProfileCard />
         </div>
       </div>
