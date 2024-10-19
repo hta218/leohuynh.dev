@@ -1,12 +1,14 @@
 'use client'
 
-import { useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { BookCard } from '~/components/cards/book'
 import type { GoodreadsBook } from '~/types/data'
 import { SHELVES, ShelveSelect, type ShelfType } from './shelve-select'
 
 export function BooksList({ books }: { books: GoodreadsBook[] }) {
-  let [shelf, setShelf] = useState<ShelfType>('all')
+  let searchParams = useSearchParams()
+  let shelf = (searchParams.get('shelf') as ShelfType) || 'all'
+
   let displayBooks =
     shelf === 'all'
       ? books
@@ -27,7 +29,7 @@ export function BooksList({ books }: { books: GoodreadsBook[] }) {
         </span>
         <div className="flex items-center gap-1 md:gap-2">
           <span>Shelve: </span>
-          <ShelveSelect shelf={shelf} setShelf={setShelf} />
+          <ShelveSelect shelf={shelf} />
         </div>
       </div>
       <div className="space-y-10">

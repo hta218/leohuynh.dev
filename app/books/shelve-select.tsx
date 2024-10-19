@@ -2,6 +2,7 @@ import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/r
 import clsx from 'clsx'
 import { ChevronDown } from 'lucide-react'
 import { Fragment } from 'react'
+import { Link } from '~/components/ui/link'
 
 export const SHELVES: {
   label: string
@@ -27,13 +28,7 @@ export const SHELVES: {
 
 export type ShelfType = 'all' | 'currently-reading' | 'read' | 'abandoned'
 
-export function ShelveSelect({
-  shelf,
-  setShelf,
-}: {
-  shelf: ShelfType
-  setShelf: React.Dispatch<React.SetStateAction<ShelfType>>
-}) {
+export function ShelveSelect({ shelf }: { shelf: ShelfType }) {
   let { label, value: selectedValue } = SHELVES.find(({ value }) => value === shelf) || SHELVES[0]
 
   return (
@@ -68,20 +63,18 @@ export function ShelveSelect({
               {SHELVES.map(({ label, value }) => (
                 <MenuItem key={value} as="div">
                   {({ close }) => (
-                    <button
+                    <Link
                       className={clsx([
                         'flex w-full items-center gap-2 rounded-md px-2 py-1.5',
                         value === selectedValue
                           ? 'bg-gray-200 dark:bg-gray-800'
                           : 'hover:bg-gray-200 dark:hover:bg-gray-800',
                       ])}
-                      onClick={() => {
-                        setShelf(value)
-                        close()
-                      }}
+                      href={`/books?shelf=${value}`}
+                      onClick={close}
                     >
-                      <span>{label}</span>
-                    </button>
+                      <span data-umami-event="books-shelf-select">{label}</span>
+                    </Link>
                   )}
                 </MenuItem>
               ))}
