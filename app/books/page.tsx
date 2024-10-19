@@ -11,7 +11,7 @@ import { BooksList } from './books-list'
 
 export let metadata = genPageMetadata({ title: 'My bookshelf' })
 
-export default async function BooksPage() {
+export default async function BooksPage({ searchParams }) {
   return (
     <Container className="pt-4 lg:pt-12">
       <PageHeader
@@ -44,6 +44,7 @@ export default async function BooksPage() {
             (a, b) => Number(b.user_rating) - Number(a.user_rating)
           ) as unknown as GoodreadsBook[]
         }
+        shelf={searchParams.shelf}
       />
       <div className="mt-6 border-t border-gray-200 py-5 dark:border-gray-700 md:mt-10 md:py-10">
         <h3 className="mb-6 text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-gray-100 md:text-3xl">

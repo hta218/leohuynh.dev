@@ -1,14 +1,13 @@
-'use client'
-
-import { useSearchParams } from 'next/navigation'
 import { BookCard } from '~/components/cards/book'
 import type { GoodreadsBook } from '~/types/data'
 import { SHELVES, ShelveSelect, type ShelfType } from './shelve-select'
 
-export function BooksList({ books }: { books: GoodreadsBook[] }) {
-  let searchParams = useSearchParams()
-  let shelf = (searchParams.get('shelf') as ShelfType) || 'all'
+interface BooksListProps {
+  books: GoodreadsBook[]
+  shelf: ShelfType
+}
 
+export function BooksList({ books, shelf = 'all' }: BooksListProps) {
   let displayBooks =
     shelf === 'all'
       ? books

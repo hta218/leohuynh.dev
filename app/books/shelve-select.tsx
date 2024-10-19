@@ -62,20 +62,17 @@ export function ShelveSelect({ shelf }: { shelf: ShelfType }) {
             <div className="space-y-1 p-1">
               {SHELVES.map(({ label, value }) => (
                 <MenuItem key={value} as="div">
-                  {({ close }) => (
-                    <Link
-                      className={clsx([
-                        'flex w-full items-center gap-2 rounded-md px-2 py-1.5',
-                        value === selectedValue
-                          ? 'bg-gray-200 dark:bg-gray-800'
-                          : 'hover:bg-gray-200 dark:hover:bg-gray-800',
-                      ])}
-                      href={`/books?shelf=${value}`}
-                      onClick={close}
-                    >
-                      <span data-umami-event="books-shelf-select">{label}</span>
-                    </Link>
-                  )}
+                  <Link
+                    className={clsx([
+                      'flex w-full items-center gap-2 rounded-md px-2 py-1.5',
+                      value === selectedValue
+                        ? 'bg-gray-200 dark:bg-gray-800'
+                        : 'hover:bg-gray-200 dark:hover:bg-gray-800',
+                    ])}
+                    href={`/books?shelf=${value}`}
+                  >
+                    <span data-umami-event="books-shelf-select">{label}</span>
+                  </Link>
                 </MenuItem>
               ))}
             </div>
