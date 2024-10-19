@@ -35,7 +35,6 @@ export function MovieCard({ movie }: { movie: ImdbMovie }) {
           <Zoom
             zoomImg={{ src: getLargePoster(poster), alt: title }}
             canSwipeToUnzoom={false} // Not working
-            zoomMargin={20}
           >
             <Image
               src={poster}

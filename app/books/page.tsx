@@ -1,7 +1,7 @@
 import { genPageMetadata } from '~/app/seo'
 import { Container } from '~/components/ui/container'
 import { GrowingUnderline } from '~/components/ui/growing-underline'
-import { Image } from '~/components/ui/image'
+import { Image, Zoom } from '~/components/ui/image'
 import { Link } from '~/components/ui/link'
 import { PageHeader } from '~/components/ui/page-header'
 import { SITE_METADATA } from '~/data/site-metadata'
@@ -51,13 +51,15 @@ export default async function BooksPage() {
         </h3>
         <div className="space-y-4">
           <p>My real life bookshelf and working space.</p>
-          <Image
-            src="/static/images/working-space.jpg"
-            alt="Bookshelf and working space"
-            width={1000}
-            height={1000}
-            className="rounded-2xl object-cover object-center"
-          />
+          <Zoom>
+            <Image
+              src="/static/images/working-space.jpg"
+              alt="Bookshelf and working space"
+              width={1600}
+              height={1200}
+              className="rounded-2xl object-cover object-center"
+            />
+          </Zoom>
         </div>
       </div>
     </Container>
