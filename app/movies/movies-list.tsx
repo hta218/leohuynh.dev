@@ -1,19 +1,26 @@
 'use client'
 
-import { useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { MovieCard } from '~/components/cards/movie'
 import { Twemoji } from '~/components/ui/twemoji'
 import type { ImdbMovie } from '~/types/data'
 import { RateFilter, RATES, type RateType } from './rate-filter'
 import { TitleTypeFilter, type TitleType } from './title-type-filter'
 
+const MOVIES_TITLE_TYPES: Record<TitleType, string> = {
+  all: 'All',
+  movie: 'Movie',
+  'tv-series': 'TV Series',
+}
+
 export function MoviesList({ movies }: { movies: ImdbMovie[] }) {
-  let [rate, setRate] = useState<RateType>('10')
-  let [type, setType] = useState<TitleType>('All')
+  let searchParams = useSearchParams()
+  let rate = (searchParams.get('rate') as RateType) || '10'
+  let type = (searchParams.get('type') as TitleType) || 'all'
 
   let displayMovies = movies
     .filter((movie) => {
-      if (type === 'All' || type === movie.title_type) {
+      if (type === 'all' || MOVIES_TITLE_TYPES[type] === movie.title_type) {
         if (rate === '<=6') {
           return Number(movie.your_rating) <= 6
         }
@@ -40,11 +47,11 @@ export function MoviesList({ movies }: { movies: ImdbMovie[] }) {
         <div className="flex gap-5">
           <div className="flex items-center gap-2">
             <span>Type: </span>
-            <TitleTypeFilter type={type} setType={setType} />
+            <TitleTypeFilter type={type} rate={rate} />
           </div>
           <div className="flex items-center gap-2">
             <span>My rate: </span>
-            <RateFilter rate={rate} setRate={setRate} />
+            <RateFilter type={type} rate={rate} />
           </div>
         </div>
       </div>

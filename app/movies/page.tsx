@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { genPageMetadata } from '~/app/seo'
 import { Container } from '~/components/ui/container'
 import { GrowingUnderline } from '~/components/ui/growing-underline'
@@ -45,7 +46,9 @@ export default async function MoviesPage() {
         className="border-b border-gray-200 dark:border-gray-700"
       />
       <div className="py-5 md:py-10">
-        <MoviesList movies={movies as unknown as ImdbMovie[]} />
+        <Suspense>
+          <MoviesList movies={movies as unknown as ImdbMovie[]} />
+        </Suspense>
       </div>
     </Container>
   )

@@ -4,7 +4,9 @@ import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/r
 import clsx from 'clsx'
 import { ChevronDown } from 'lucide-react'
 import { Fragment } from 'react'
+import { Link } from '~/components/ui/link'
 import { Twemoji } from '~/components/ui/twemoji'
+import type { RateType } from './rate-filter'
 
 export const TITLE_TYPES: {
   label: string
@@ -13,30 +15,24 @@ export const TITLE_TYPES: {
 }[] = [
   {
     label: 'All',
-    value: 'All',
+    value: 'all',
     emoji: 'popcorn',
   },
   {
     label: 'Movie',
-    value: 'Movie',
+    value: 'movie',
     emoji: 'movie-camera',
   },
   {
     label: 'TV Series',
-    value: 'TV Series',
+    value: 'tv-series',
     emoji: 'television',
   },
 ]
 
-export type TitleType = 'Movie' | 'TV Series' | 'All'
+export type TitleType = 'movie' | 'tv-series' | 'all'
 
-export function TitleTypeFilter({
-  type,
-  setType,
-}: {
-  type: TitleType
-  setType: React.Dispatch<React.SetStateAction<TitleType>>
-}) {
+export function TitleTypeFilter({ type, rate }: { type: TitleType; rate: RateType }) {
   let { label, value: selectedValue } =
     TITLE_TYPES.find(({ value }) => value === type) || TITLE_TYPES[0]
   return (
@@ -71,21 +67,19 @@ export function TitleTypeFilter({
               {TITLE_TYPES.map(({ label, value, emoji }) => (
                 <MenuItem key={value} as="div">
                   {({ close }) => (
-                    <button
+                    <Link
                       className={clsx([
                         'flex w-full items-center gap-2 rounded-md px-2 py-1.5',
                         value === selectedValue
                           ? 'bg-gray-200 dark:bg-gray-800'
                           : 'hover:bg-gray-200 dark:hover:bg-gray-800',
                       ])}
-                      onClick={() => {
-                        setType(value)
-                        close()
-                      }}
+                      href={`/movies?type=${value}&rate=${rate}`}
+                      onClick={close}
                     >
                       <Twemoji emoji={emoji} />
                       <span>{label}</span>
-                    </button>
+                    </Link>
                   )}
                 </MenuItem>
               ))}

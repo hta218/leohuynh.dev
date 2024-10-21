@@ -4,7 +4,9 @@ import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/r
 import clsx from 'clsx'
 import { ChevronDown } from 'lucide-react'
 import { Fragment } from 'react'
+import { Link } from '~/components/ui/link'
 import { Twemoji } from '~/components/ui/twemoji'
+import type { TitleType } from './title-type-filter'
 
 export const RATES: {
   label: string
@@ -31,13 +33,7 @@ export const RATES: {
 
 export type RateType = '10' | '9' | '8' | '7' | '<=6'
 
-export function RateFilter({
-  rate,
-  setRate,
-}: {
-  rate: RateType
-  setRate: React.Dispatch<React.SetStateAction<RateType>>
-}) {
+export function RateFilter({ rate, type }: { rate: RateType; type: TitleType }) {
   let { label, value: selectedValue } = RATES.find(({ value }) => value === rate) || RATES[0]
   return (
     <div className="flex items-center">
@@ -73,22 +69,20 @@ export function RateFilter({
               {RATES.map(({ label, description, value, emoji }) => (
                 <MenuItem key={value} as="div">
                   {({ close }) => (
-                    <button
+                    <Link
                       className={clsx([
                         'flex w-full items-center gap-2 rounded-md px-2 py-1.5',
                         value === selectedValue
                           ? 'bg-gray-200 dark:bg-gray-800'
                           : 'hover:bg-gray-200 dark:hover:bg-gray-800',
                       ])}
-                      onClick={() => {
-                        setRate(value)
-                        close()
-                      }}
+                      href={`/movies?type=${type}&rate=${value}`}
+                      onClick={close}
                     >
                       <span>({label})</span>
                       <span>{description}</span>
                       <Twemoji emoji={emoji} />
-                    </button>
+                    </Link>
                   )}
                 </MenuItem>
               ))}
