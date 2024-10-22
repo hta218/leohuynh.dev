@@ -55,7 +55,7 @@ function ScrollButton({
       className={clsx([
         'rounded-lg p-2 transition-all',
         'hover:bg-gray-100 dark:hover:bg-gray-800',
-        'ring-1 ring-inset ring-zinc-900/10 dark:ring-white/20',
+        'ring-1 ring-inset ring-zinc-900/20 dark:ring-white/20',
       ])}
     >
       <Icon className="h-5 w-5" />
