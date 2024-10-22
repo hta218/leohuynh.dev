@@ -13,15 +13,21 @@ export function DiscussAndEdit({
   className?: string
 }) {
   return (
-    <div className={clsx('space-x-1', className)}>
-      <Link href={`https://x.com/search?q=${encodeURIComponent(postUrl)}`} rel="nofollow">
+    <div className={clsx('flex flex-col gap-2', className)}>
+      <Link
+        className="text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
+        href={`https://x.com/search?q=${encodeURIComponent(postUrl)}`}
+        rel="nofollow"
+      >
         <GrowingUnderline data-umami-event="discuss-on-x">
           Discuss on <span className="font-semibold">X</span>
-          <span className="font-semibold">(Twitter)</span>
+          <span className="font-semibold"> (Twitter)</span>
         </GrowingUnderline>
       </Link>
-      <span className="text-gray-400 dark:text-gray-400">|</span>
-      <Link href={`${SITE_METADATA.siteRepo}/blob/main/data/${filePath}?plain=1`}>
+      <Link
+        className="text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
+        href={`${SITE_METADATA.siteRepo}/blob/main/data/${filePath}?plain=1`}
+      >
         <GrowingUnderline data-umami-event="view-on-github">
           Edit on <span className="font-semibold">GitHub</span>
         </GrowingUnderline>

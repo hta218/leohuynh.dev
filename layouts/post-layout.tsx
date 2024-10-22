@@ -1,9 +1,11 @@
 import type { Author, Blog } from 'contentlayer/generated'
 import type { CoreContent } from 'pliny/utils/contentlayer'
 import type { ReactNode } from 'react'
+import { BackToPosts } from '~/components/blog/back-to-posts'
 import { Banner } from '~/components/blog/banner'
 import { BlogMeta } from '~/components/blog/blog-meta'
 import { Comments } from '~/components/blog/comments'
+import { DiscussAndEdit } from '~/components/blog/discuss-and-edit'
 import { PostNav } from '~/components/blog/post-nav'
 import { PostTitle } from '~/components/blog/post-title'
 import { ScrollButtons } from '~/components/blog/scroll-buttons'
@@ -22,7 +24,7 @@ interface LayoutProps {
 }
 
 export function PostLayout({ content, next, prev, children }: LayoutProps) {
-  let { slug, images, lastmod, readingTime, date, title, tags, toc, type } = content
+  let { slug, images, lastmod, readingTime, date, title, tags, filePath, toc, type } = content
   let postUrl = `${SITE_METADATA.siteUrl}/${type.toLowerCase()}/${slug}`
 
   return (
@@ -48,10 +50,29 @@ export function PostLayout({ content, next, prev, children }: LayoutProps) {
               </div>
             </div>
             <div className="hidden lg:col-span-4 lg:block xl:col-span-3">
-              <div className="lg:sticky lg:top-24">
-                <TableOfContents toc={toc} />
-                <div>
-                  <script src="//servedby.eleavers.com/ads/ads.php?t=MzA5NzQ7MjEwNjA7c3F1YXJlLnNxdWFyZV9ib3g=&index=1"></script>
+              <div className="space-y-4 divide-y divide-gray-200 dark:divide-gray-700 lg:sticky lg:top-24">
+                <BackToPosts label="Back to posts" />
+                <TableOfContents toc={toc} className="pt-4" />
+                <DiscussAndEdit postUrl={postUrl} filePath={filePath} className="pt-8" />
+                <div className="hidden">
+                  {/* <script src="//servedby.eleavers.com/ads/ads.php?t=MzA5NzQ7MjEwNjA7c3F1YXJlLnNxdWFyZV9ib3g=&index=1"></script> */}
+                  <script
+                    type="text/javascript"
+                    dangerouslySetInnerHTML={{
+                      __html: `
+                        atOptions = {
+                          'key' : '1a0dbe126a158e715cd3377a597850d8',
+                          'format' : 'iframe',
+                          'height' : 300,
+                          'width' : 160,
+                          'params' : {}
+                        };`,
+                    }}
+                  />
+                  <script
+                    type="text/javascript"
+                    src="//www.topcpmcreativeformat.com/1a0dbe126a158e715cd3377a597850d8/invoke.js"
+                  />
                 </div>
               </div>
             </div>
