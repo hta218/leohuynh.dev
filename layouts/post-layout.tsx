@@ -43,7 +43,7 @@ export function PostLayout({ content, next, prev, children }: LayoutProps) {
               <SocialShare postUrl={postUrl} title={title} />
             </div>
           </div>
-          <div className="grid grid-cols-1 gap-8 pb-10 pt-8 lg:grid-cols-12 lg:pt-10">
+          <div className="grid grid-cols-1 gap-12 pb-10 pt-8 lg:grid-cols-12 lg:pt-10">
             <div className="divide-y divide-gray-200 dark:divide-gray-700 lg:col-span-8 xl:col-span-9">
               <div className="prose max-w-none dark:prose-invert lg:prose-lg lg:pb-8">
                 {children}
@@ -53,7 +53,7 @@ export function PostLayout({ content, next, prev, children }: LayoutProps) {
               <div className="space-y-4 divide-y divide-gray-200 dark:divide-gray-700 lg:sticky lg:top-24">
                 <BackToPosts label="Back to posts" />
                 <TableOfContents toc={toc} className="pt-4" />
-                <DiscussAndEdit postUrl={postUrl} filePath={filePath} className="pt-8" />
+                <DiscussAndEdit postUrl={postUrl} filePath={filePath} className="pt-4" />
                 <div className="hidden">
                   {/* <script src="//servedby.eleavers.com/ads/ads.php?t=MzA5NzQ7MjEwNjA7c3F1YXJlLnNxdWFyZV9ib3g=&index=1"></script> */}
                   <script
