@@ -70,7 +70,7 @@ export function Zoom(props: ZoomProps) {
       classDialog={clsx([
         '[&_[data-rmiz-modal-img]]:rounded-lg',
         '[&_[data-rmiz-btn-unzoom]]:hidden',
-        '[&_[data-rmiz-modal-overlay="visible"]]:bg-black/70',
+        '[&_[data-rmiz-modal-overlay="visible"]]:bg-black/80',
         classDialog,
       ])}
       {...rest}
