@@ -40,6 +40,11 @@ module.exports = {
           '35.7%': { height: '0%' },
           '85.7%': { height: '70%' },
         },
+        'scale-up': {
+          '0%': { transform: 'scale(1)' },
+          '50%': { transform: 'scale(1.18)' },
+          '100%': { transform: 'scale(1)' },
+        },
       },
       animation: {
         wiggle: 'wiggle 7s linear infinite',
@@ -47,6 +52,7 @@ module.exports = {
         'music-bar-2': 'music-bar-2 .8s linear infinite',
         'music-bar-3': 'music-bar-3 .8s linear infinite',
         'music-bar-4': 'music-bar-4 .8s linear infinite',
+        'scale-up': 'scale-up 150ms ease-in-out forwards',
       },
       boxShadow: {
         demure: 'rgba(0, 0, 0, 0.3) 0 35px 60px -15px',
