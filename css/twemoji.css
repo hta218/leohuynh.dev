@@ -124,9 +124,6 @@
 .twa-backhand-index-pointing-down {
   background-image: url('https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f447.svg');
 }
-.twa-clapping-hands {
-  background-image: url('https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f44f.svg');
-}
 .twa-folded-hands {
   background-image: url('https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f64f.svg');
 }
@@ -181,6 +178,9 @@
 .twa-smiling-face-with-heart-eyes {
   background-image: url('https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f60d.svg');
 }
+.twa-sparkling-heart {
+  background-image: url('https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f496.svg');
+}
 .twa-man-swimming {
   background-image: url('https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f3ca-200d-2642-fe0f.svg');
 }
@@ -207,6 +207,9 @@
 }
 .twa-clinking-beer-mugs {
   background-image: url('https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f37b.svg');
+}
+.twa-beer-mug {
+  background-image: url('https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f37a.svg');
 }
 .twa-partying-face {
   background-image: url('https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f973.svg');
@@ -363,4 +366,10 @@
 }
 .twa-love-you-gesture {
   background-image: url('https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f91f.svg');
+}
+.twa-magic-wand {
+  background-image: url('https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1fa84.svg');
+}
+.twa-bullseye {
+  background-image: url('https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f3af.svg');
 }
