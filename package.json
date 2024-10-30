@@ -1,7 +1,6 @@
 {
   "name": "leohuynh.dev",
   "version": "2.0.0",
-  "private": true,
   "scripts": {
     "start": "PORT=3435 next dev",
     "dev": "PORT=3434 cross-env INIT_CWD=$PWD next dev",
@@ -11,7 +10,10 @@
     "analyze": "cross-env ANALYZE=true next build",
     "lint": "next lint --fix --dir pages --dir app --dir components --dir lib --dir layouts --dir scripts",
     "prepare": "husky",
-    "seed": "tsx ./scripts/seed.ts"
+    "db:init": "npx drizzle-kit generate && npx drizzle-kit push",
+    "db:studio": "npx drizzle-kit studio --port 8088",
+    "seed": "tsx ./scripts/seed.ts",
+    "typecheck": "npx tsc -b"
   },
   "dependencies": {
     "@headlessui/react": "2.1.10",
@@ -24,6 +26,8 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "contentlayer2": "0.5.1",
+    "dotenv": "^16.4.5",
+    "drizzle-orm": "^0.35.3",
     "esbuild": "0.24.0",
     "github-slugger": "^2.0.0",
     "gray-matter": "^4.0.2",
@@ -36,6 +40,7 @@
     "next-themes": "^0.3.0",
     "pliny": "0.3.2",
     "postcss": "^8.4.24",
+    "postgres": "^3.4.5",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-medium-image-zoom": "^5.2.10",
@@ -65,6 +70,7 @@
     "@types/react": "^18.2.73",
     "cross-env": "^7.0.3",
     "csv-parser": "^3.0.0",
+    "drizzle-kit": "^0.26.2",
     "husky": "^9.1.5",
     "lint-staged": "^15.2.10",
     "prettier": "^3.0.0",
