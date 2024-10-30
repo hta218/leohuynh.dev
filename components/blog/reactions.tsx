@@ -3,39 +3,65 @@
 import { clsx } from 'clsx'
 import { useRef, useState } from 'react'
 import { Twemoji } from '~/components/ui/twemoji'
+import { useBlogStats, useUpdateBlogStats } from '~/hooks/use-blog-stats'
+import type { SelectStats, StatsType } from '~/db/schema'
 
 const MAX_REACTIONS = 10
 
-const REACTIONS = [
+const REACTIONS: Array<{ emoji: string; key: keyof SelectStats }> = [
   {
     emoji: 'sparkling-heart',
-    count: Math.floor(Math.random() * 30),
+    key: 'loves',
   },
   {
     emoji: 'clapping-hands',
-    count: Math.floor(Math.random() * 30),
+    key: 'applauses',
   },
   {
     emoji: 'bullseye',
-    count: Math.floor(Math.random() * 30),
+    key: 'bullseyes',
   },
   {
     emoji: 'light-bulb',
-    count: Math.floor(Math.random() * 30),
+    key: 'ideas',
   },
 ]
 
-export function Reactions({ className }: { className?: string }) {
+export function Reactions({
+  type,
+  slug,
+  className,
+}: {
+  type: StatsType
+  slug: string
+  className?: string
+}) {
+  let stats = useBlogStats(type, slug)
+  let updateReaction = useUpdateBlogStats()
+
   return (
     <div className={clsx('flex items-center gap-6', className)}>
-      {REACTIONS.map(({ emoji, count }) => (
-        <Reaction key={emoji} emoji={emoji} count={count} />
+      {REACTIONS.map(({ emoji, key }) => (
+        <Reaction
+          key={emoji}
+          emoji={emoji}
+          value={stats[key] as number}
+          onChange={(value) => updateReaction({ type, slug, [key]: value })}
+        />
       ))}
     </div>
   )
 }
 
-function Reaction({ emoji, count }: { emoji: string; count: number }) {
+function Reaction({
+  emoji,
+  value,
+  onChange,
+}: {
+  emoji: string
+  value: number
+  onChange: (v: number) => void
+}) {
   let [reactionCount, setReactionCount] = useState(0)
   let [reacting, setReacting] = useState(false)
   let countRef = useRef<HTMLSpanElement>(null)
@@ -61,6 +87,7 @@ function Reaction({ emoji, count }: { emoji: string; count: number }) {
     if (reacting) {
       reactingTimeoutId = setTimeout(() => {
         setReacting(false)
+        onChange(value + reactionCount)
       }, 1000)
     }
   }
@@ -81,7 +108,7 @@ function Reaction({ emoji, count }: { emoji: string; count: number }) {
             reacting ? '-translate-y-6 opacity-0' : 'translate-y-0 opacity-100'
           )}
         >
-          {count + reactionCount}
+          {value + reactionCount}
         </span>
         <span
           ref={countRef}
