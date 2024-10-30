@@ -2,15 +2,16 @@ import type { Blog, Snippet } from 'contentlayer/generated'
 import type { CoreContent } from 'pliny/utils/contentlayer'
 import type { ReactNode } from 'react'
 import { BlogMeta } from '~/components/blog/blog-meta'
-import { TagsList } from '~/components/blog/tags'
 import { Comments } from '~/components/blog/comments'
+import { DiscussOnX } from '~/components/blog/discuss-on-x'
+import { EditOnGithub } from '~/components/blog/edit-on-github'
 import { PostTitle } from '~/components/blog/post-title'
 import { ScrollButtons } from '~/components/blog/scroll-buttons'
 import { SocialShare } from '~/components/blog/social-share'
+import { TagsList } from '~/components/blog/tags'
 import { Container } from '~/components/ui/container'
 import { SITE_METADATA } from '~/data/site-metadata'
-import { DiscussOnX } from '~/components/blog/discuss-on-x'
-import { EditOnGithub } from '~/components/blog/edit-on-github'
+import type { StatsType } from '~/db/schema'
 
 interface PostSimpleProps {
   content: CoreContent<Blog | Snippet>
@@ -33,7 +34,12 @@ export function PostSimple({ content, children }: PostSimpleProps) {
           <dl>
             <div>
               <dt className="sr-only">Published on</dt>
-              <BlogMeta date={date} slug={slug} readingTime={readingTime} />
+              <BlogMeta
+                date={date}
+                type={type.toLowerCase() as StatsType}
+                slug={slug}
+                readingTime={readingTime}
+              />
             </div>
           </dl>
         </div>

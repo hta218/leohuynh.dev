@@ -22,5 +22,5 @@ export function ViewsCounter({
     }
   }, [stats, isLoading])
 
-  return <span className={className}>{isLoading ? '---' : stats['views'] + ' views'}</span>
+  return <span className={className}>{isLoading ? '---' : (stats['views'] || 0) + ' views'}</span>
 }

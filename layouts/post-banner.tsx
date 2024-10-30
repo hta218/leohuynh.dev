@@ -13,6 +13,7 @@ import { SocialShare } from '~/components/blog/social-share'
 import { TagsList } from '~/components/blog/tags'
 import { Container } from '~/components/ui/container'
 import { SITE_METADATA } from '~/data/site-metadata'
+import type { StatsType } from '~/db/schema'
 
 interface LayoutProps {
   content: CoreContent<Blog>
@@ -22,7 +23,7 @@ interface LayoutProps {
 }
 
 export function PostBanner({ content, children }: LayoutProps) {
-  let { slug, type, title, images, date, lastmod, readingTime, tags, filePath, toc } = content
+  let { slug, type, title, images, date, lastmod, readingTime, tags, filePath } = content
   let postUrl = `${SITE_METADATA.siteUrl}/${type.toLowerCase()}/${slug}`
 
   return (
@@ -35,7 +36,13 @@ export function PostBanner({ content, children }: LayoutProps) {
           <dl>
             <div>
               <dt className="sr-only">Published on</dt>
-              <BlogMeta date={date} lastmod={lastmod} slug={slug} readingTime={readingTime} />
+              <BlogMeta
+                date={date}
+                lastmod={lastmod}
+                type={type.toLowerCase() as StatsType}
+                slug={slug}
+                readingTime={readingTime}
+              />
             </div>
           </dl>
           <div className="space-y-4 pt-4 md:pt-10">
