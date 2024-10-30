@@ -1,42 +1,34 @@
 import type readingTime from 'reading-time'
-import { Twemoji } from '~/components/ui/twemoji'
-import { formatDate } from '~/utils/misc'
+import type { StatsType } from '~/db/schema'
+import { formatDate, getTimeAgo } from '~/utils/misc'
+import { ViewsCounter } from './views-counter'
 
 type BlogMetaProps = {
   date: string
   lastmod?: string
   slug: string
+  type: StatsType
   readingTime: ReturnType<typeof readingTime>
 }
 
-export function BlogMeta({ date, lastmod, slug, readingTime }: BlogMetaProps) {
+export function BlogMeta({ date, lastmod, type, slug, readingTime }: BlogMetaProps) {
   return (
     <dl>
       <dt className="sr-only">Published on</dt>
-      <dd className="flex flex-wrap items-center gap-2 text-sm font-medium leading-6 text-gray-500 dark:text-gray-400 md:gap-3 md:text-base">
+      <dd className="flex flex-wrap items-center gap-2 text-sm font-medium leading-6 text-gray-500 dark:text-gray-400 md:text-base">
         <time dateTime={date} className="flex items-center justify-center">
-          <Twemoji emoji="calendar" size="base" />
-          <span className="ml-1.5 md:ml-2">{formatDate(date)}</span>
-        </time>
-        {lastmod && (
-          <>
-            <span className="text-gray-400">/</span>
-            <time dateTime={date} className="flex items-center justify-center">
-              <span>Updated</span>
-              <span className="ml-1.5 md:ml-2">{formatDate(lastmod)}</span>
+          <span>{formatDate(date)}</span>
+          {lastmod && (
+            <time dateTime={date} className="ml-1.5 flex items-center justify-center md:ml-2">
+              (<span>updated</span>
+              <span className="ml-1.5 md:ml-2">{getTimeAgo(lastmod)}</span>)
             </time>
-          </>
-        )}
-        <span className="text-gray-400">/</span>
-        <div className="flex items-center">
-          <Twemoji emoji="three-o-clock" size="base" />
-          <span className="ml-1.5 md:ml-2">{Math.ceil(readingTime.minutes)} mins read</span>
-        </div>
-        {/* <span className="mx-2 text-gray-500">|</span>
-      <div className="flex items-center">
-        <Twemoji emoji="eye" size="base" />
-        <ViewCounter className="ml-1.5 md:ml-2" slug={slug} />
-      </div> */}
+          )}
+        </time>
+        <span className="text-gray-300 dark:text-gray-700">/</span>
+        <span>{Math.ceil(readingTime.minutes)} mins read</span>
+        <span className="text-gray-300 dark:text-gray-700">/</span>
+        <ViewsCounter type={type} slug={slug} />
       </dd>
     </dl>
   )

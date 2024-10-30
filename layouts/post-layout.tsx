@@ -40,7 +40,13 @@ export function PostLayout({ content, next, prev, children }: LayoutProps) {
             <Banner banner={images?.[0] || SITE_METADATA.socialBanner} />
           </div>
           <div className="flex items-center justify-between gap-2 pb-4 lg:pt-2">
-            <BlogMeta date={date} lastmod={lastmod} slug={slug} readingTime={readingTime} />
+            <BlogMeta
+              date={date}
+              lastmod={lastmod}
+              type={type.toLowerCase() as StatsType}
+              slug={slug}
+              readingTime={readingTime}
+            />
             <SocialShare postUrl={postUrl} title={title} className="hidden md:flex" />
           </div>
         </div>
