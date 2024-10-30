@@ -10,6 +10,7 @@ import { ScrollButtons } from '~/components/blog/scroll-buttons'
 import { SocialShare } from '~/components/blog/social-share'
 import { TagsList } from '~/components/blog/tags'
 import { Container } from '~/components/ui/container'
+import { GradientDivider } from '~/components/ui/gradient-divider'
 import { SITE_METADATA } from '~/data/site-metadata'
 import type { StatsType } from '~/db/schema'
 
@@ -27,7 +28,7 @@ export function PostSimple({ content, children }: PostSimpleProps) {
   return (
     <Container className="pt-4 lg:pt-12">
       <ScrollButtons />
-      <article className="space-y-6 divide-y divide-gray-200 pt-6 dark:divide-gray-700 lg:space-y-12">
+      <article className="space-y-6 pt-6 lg:space-y-12">
         <div className="space-y-4">
           <TagsList tags={tags} />
           <PostTitle>{title}</PostTitle>
@@ -43,7 +44,9 @@ export function PostSimple({ content, children }: PostSimpleProps) {
             </div>
           </dl>
         </div>
-        <div className="prose prose-lg max-w-none pt-10 dark:prose-invert">{children}</div>
+        <GradientDivider />
+        <div className="prose prose-lg max-w-none pt-4 dark:prose-invert">{children}</div>
+        <GradientDivider className="mb-2 mt-1" />
         <div className="space-y-8 pt-6">
           <div className="flex justify-between gap-4">
             <div className="flex items-center gap-2">
