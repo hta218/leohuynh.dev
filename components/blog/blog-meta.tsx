@@ -19,9 +19,12 @@ export function BlogMeta({ date, lastmod, type, slug, readingTime }: BlogMetaPro
         <time dateTime={date} className="flex items-center justify-center">
           <span>{formatDate(date)}</span>
           {lastmod && (
-            <time dateTime={date} className="ml-1.5 flex items-center justify-center md:ml-2">
+            <time
+              dateTime={date}
+              className="ml-1.5 hidden items-center justify-center md:ml-2 md:flex"
+            >
               (<span>updated</span>
-              <span className="ml-1.5 md:ml-2">{getTimeAgo(lastmod)}</span>)
+              <span className="ml-1.5">{getTimeAgo(lastmod)}</span>)
             </time>
           )}
         </time>
