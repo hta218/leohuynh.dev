@@ -36,7 +36,7 @@ export function Reactions({
   slug: string
   className?: string
 }) {
-  let stats = useBlogStats(type, slug)
+  let [stats, isLoading] = useBlogStats(type, slug)
   let updateReaction = useUpdateBlogStats()
 
   return (
@@ -45,7 +45,7 @@ export function Reactions({
         <Reaction
           key={emoji}
           emoji={emoji}
-          value={stats[key] as number}
+          value={isLoading ? '--' : stats[key]}
           onChange={(value) => updateReaction({ type, slug, [key]: value })}
         />
       ))}
@@ -59,7 +59,7 @@ function Reaction({
   onChange,
 }: {
   emoji: string
-  value: number
+  value: string | number
   onChange: (v: number) => void
 }) {
   let [reactionCount, setReactionCount] = useState(0)
@@ -68,17 +68,19 @@ function Reaction({
   let reactingTimeoutId: ReturnType<typeof setTimeout> | undefined
 
   function handleReact() {
-    if (reactingTimeoutId) {
-      clearTimeout(reactingTimeoutId)
-    }
-    setReacting(true)
-    setReactionCount((c) => (c >= MAX_REACTIONS ? MAX_REACTIONS : c + 1))
-    if (countRef.current) {
-      if (reactionCount >= MAX_REACTIONS) {
-        countRef.current.classList.add('animate-scale-up')
-        setTimeout(() => {
-          countRef.current!.classList.remove('animate-scale-up')
-        }, 150)
+    if (typeof value === 'number') {
+      if (reactingTimeoutId) {
+        clearTimeout(reactingTimeoutId)
+      }
+      setReacting(true)
+      setReactionCount((c) => (c >= MAX_REACTIONS ? MAX_REACTIONS : c + 1))
+      if (countRef.current) {
+        if (reactionCount >= MAX_REACTIONS) {
+          countRef.current.classList.add('animate-scale-up')
+          setTimeout(() => {
+            countRef.current!.classList.remove('animate-scale-up')
+          }, 150)
+        }
       }
     }
   }
@@ -87,7 +89,9 @@ function Reaction({
     if (reacting) {
       reactingTimeoutId = setTimeout(() => {
         setReacting(false)
-        onChange(value + reactionCount)
+        if (typeof value === 'number') {
+          onChange(value + reactionCount)
+        }
       }, 1000)
     }
   }
@@ -108,7 +112,7 @@ function Reaction({
             reacting ? '-translate-y-6 opacity-0' : 'translate-y-0 opacity-100'
           )}
         >
-          {value + reactionCount}
+          {typeof value === 'string' ? value : value + reactionCount}
         </span>
         <span
           ref={countRef}
