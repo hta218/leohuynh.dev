@@ -57,3 +57,6 @@ scripts/imdb-movies.csv
 
 # supabase
 supabase/
+
+# ts build
+tsconfig.tsbuildinfo
