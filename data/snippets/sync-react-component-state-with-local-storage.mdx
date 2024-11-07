@@ -1,0 +1,77 @@
+---
+heading: 'Sync component state with local storage'
+title: 'Synchronize React component state with local storage'
+date: '2021-08-27'
+lastmod: '2024-11-07'
+icon: 'React'
+draft: false
+summary: 'Utilize a custom hook that syncs state with local storage, allowing for persistent state between sessions.'
+tags: ['react', 'state', 'hooks', 'local-storage']
+---
+
+Simple custom hook to synchronize component state with local storage.
+
+```ts:use-local-storage-state.ts showLineNumbers
+import { useState, useEffect } from 'react'
+
+export function useLocalStorageState<T = { [key: string]: any }>(key: string, defaultValue?: T) {
+  let [state, setState] = useState<T>(() => {
+    let storage = localStorage.getItem(key)
+    if (storage) {
+      return JSON.parse(storage)
+    }
+    return defaultValue || {}
+  })
+
+  useEffect(() => {
+    localStorage.setItem(key, JSON.stringify(state))
+  }, [state])
+
+  // Using `as const` to ensure the type of the returned array is correct
+  return [state, setState] as const
+}
+```
+
+In some cases, you might need to check for browser environment, cause local storage is available only in the client side.
+
+```ts:use-local-storage-state.ts showLineNumbers {3,7-12}
+import { useState, useEffect } from 'react'
+
+let isBrowser = typeof window !== 'undefined' // Check for browser/client environment
+
+export function useLocalStorageState<T = { [key: string]: any }>(key: string, defaultValue?: T) {
+  let [state, setState] = useState<T>(() => {
+    if (isBrowser) {
+      let storage = localStorage.getItem(key)
+      if (storage) {
+        return JSON.parse(storage)
+      }
+    }
+    return defaultValue || {}
+  })
+
+  useEffect(() => {
+    localStorage.setItem(key, JSON.stringify(state))
+  }, [state])
+
+  return [state, setState] as const
+}
+```
+
+## Usage
+
+A simple example of using the hook to synchronize component state with local storage
+is shown below:
+
+```tsx:theme-switcher.tsx showLineNumbers
+function ThemeSwitcher() {
+  let [theme, setTheme] = useLocalStorageState<'dark' | 'light'>('theme', 'light')
+
+  return (
+    <select onChange={ev => setTheme(ev.target.value)}>
+      <option value="dark">Dark</option>
+      <option value="light">Light</option>
+    </select>
+  )
+}
+```
