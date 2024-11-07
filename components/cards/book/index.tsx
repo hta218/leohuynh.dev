@@ -1,10 +1,10 @@
-import { Brand } from '~/components/ui/brand'
 import { GradientBorder } from '~/components/ui/gradient-border'
 import { GrowingUnderline } from '~/components/ui/growing-underline'
 import { Link } from '~/components/ui/link'
 import { Rating } from '~/components/ui/rating'
 import { TiltedGridBackground } from '~/components/ui/tilted-grid-background'
 import { Twemoji } from '~/components/ui/twemoji'
+import GoodreadsLogo from '~/icons/goodreads-big.svg'
 import type { GoodreadsBook } from '~/types/data'
 import { BookCover } from './book-cover'
 import { BookDetails } from './book-details'
@@ -59,7 +59,7 @@ function GoodreadsLink({ url, className }: { url?: string | null; className?: st
   if (url) {
     return (
       <Link href={url} className={className}>
-        <Brand name="Goodreads" as="icon" className="h-5 text-goodreads dark:text-gray-100" />
+        <GoodreadsLogo className="h-5 text-goodreads dark:text-gray-100" />
       </Link>
     )
   }
