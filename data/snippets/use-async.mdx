@@ -10,7 +10,7 @@ tags: ['react', 'hooks', 'async', 'effect']
 
 Custom hooks to use an async effect
 
-```js
+```js showLineNumbers
 function useAsync(asyncCallback) {
   let [state, dispatch] = React.useReducer(asyncReducer)
 
@@ -30,7 +30,7 @@ function useAsync(asyncCallback) {
 
 Usage:
 
-```js
+```js showLineNumbers
 function Component({ input }) {
   // Remember to wrap the async job in a useCallback
   let asyncCallback = React.useCallback(() => {
@@ -59,7 +59,7 @@ function Component({ input }) {
 
 How to clean the side effect (the async job start but then the component unmounted) ? - `useSafeDispatch` !
 
-```js
+```js showLineNumbers
 function useSafeDispatch(dispatch) {
   let mountedRef = React.useRef(false)
   React.useEffect(() => {
@@ -82,7 +82,7 @@ function useSafeDispatch(dispatch) {
 
 Now change the `useAsync` function:
 
-```js
+```js showLineNumbers
 function useAsync(asyncCallback) {
   let [state, unsafeDispatch] = React.useReducer(asyncReducer)
   let dispatch = useSafeDispatch(unsafeDispatch)

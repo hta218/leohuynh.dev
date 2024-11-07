@@ -13,12 +13,12 @@ tags: ['bash', 'macos', 'kill', 'process', 'port']
 List all the processes by ports with their PIDs
 
 ```bash
-$ sudo lsof -i -P | grep LISTEN
+sudo lsof -i -P | grep LISTEN
 ```
 
 The result should look like this:
 
-```bash
+```bash showLineNumbers
 rapportd    123            leo    5u  IPv4 0x84512a8572c9xxxx      0t0    TCP *:62003 (LISTEN)
 rapportd    123            leo    6u  IPv6 0x84512a857627xxxx      0t0    TCP *:62003 (LISTEN)
 mongod      414            leo    9u  IPv4 0x84512a857926xxxx      0t0    TCP localhost:27017 (LISTEN)
@@ -32,14 +32,14 @@ The 2nd column is the PID of the process on the port in the last column
 Now kill the process in that port by using `sudo kill -9 <PID>`
 
 ```bash
-$ sudo kill -9 68336
+sudo kill -9 68336
 ```
 
 `68336` is the PID of the process running on port `443`
 
 Check again
 
-```bash
+```bash showLineNumbers
 $ sudo lsof -i -P | grep LISTEN
 
 rapportd    123            leo    5u  IPv4 0x84512a8572c9xxxx      0t0    TCP *:62003 (LISTEN)

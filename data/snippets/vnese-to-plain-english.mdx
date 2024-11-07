@@ -8,9 +8,9 @@ summary: 'Convert Vietnamese text to plain English by replacing accented charact
 tags: ['javascript', 'regex', 'replace']
 ---
 
-Replace all `VNese` letters with the corresponding English accents
+Replace all `Vietnamese` letters with the corresponding English accents
 
-```js
+```js:vnese-to-english.js showLineNumbers
 let toPlainEnglish = (str) => {
   str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, 'a')
   str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, 'e')

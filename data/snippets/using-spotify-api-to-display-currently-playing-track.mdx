@@ -1,6 +1,6 @@
 ---
-heading: 'Getting Spotify token'
-title: 'Getting Spotify token to display now playing track on your website'
+heading: 'Display Spotify currently playing track'
+title: "How to work with Spotify's API to display currently playing track on a website?"
 date: '2023-04-06'
 icon: 'Spotify'
 draft: false
@@ -29,7 +29,6 @@ We will use these values in the next step.
 ## Authentication
 
 Since we only need to generate the token once, we will use the [Authorization Code Flow](https://developer.spotify.com/documentation/web-api/concepts/authorization#authorization-code-flow).
-
 Navigate to the following URL and replace the `CLIENT_ID` with your Spotify app `Client ID`:
 
 ```bash
@@ -37,13 +36,11 @@ https://accounts.spotify.com/authorize?client_id=CLIENT_ID&response_type=code&re
 ```
 
 Remember to use the same redirect URI that you added to your Spotify app.
-
 In my case, it's `http://localhost:3434`.
 
 ![Spotify auth](/static/images/spotify-auth.png)
 
 After the authentication process, you will be redirected to the redirect URI with a `code` query parameter.
-
 The redirect URI will look like this:
 
 ```bash
@@ -56,9 +53,9 @@ Save this `code` value, we will use it in the next step.
 
 Next step is to send a POST request to the Spotify API to get the token. We'll simply open a new tab in the browser and send the request using the `fetch` API in the browser developer tools.
 
-Run this code in the Console tab of the browser developer tools:
+Run this code in the **Console** tab of the browser developer tools:
 
-```javascript {3,18} showLineNumbers
+```javascript:spotify.ts {3,18} showLineNumbers
 let data = {
   grant_type: 'authorization_code',
   code: 'AQB....GemX',
@@ -94,13 +91,12 @@ The value format should be `client_id:client_secret`
 
 The request will return a response containing a `refresh_token`, this token is valid indefinitely unless you revoke it or you change the password of your Spotify account.
 
-## Bonus: fetching the now playing track
+## Querying the nowplaying track
 
 Now that we have the token, we can use it to fetch the now playing track from Spotify API.
-
 Use this code to fetch the now playing track in your node server:
 
-```typescript
+```typescript:spotify.ts showLineNumbers
 import fetch from 'isomorphic-unfetch'
 
 let SPOTIFY_TOKEN_API = `https://accounts.spotify.com/api/token`
@@ -146,7 +142,7 @@ export async function getNowPlaying() {
 
 Remember to add the required environment variables to your `.env` file.
 
-```bash
+```bash showLineNumbers
 SPOTIFY_CLIENT_ID=your_spotify_client_id
 SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
 SPOTIFY_REFRESH_TOKEN=your_spotify_refresh_token
@@ -154,4 +150,4 @@ SPOTIFY_REFRESH_TOKEN=your_spotify_refresh_token
 
 That's it! Now you can use the `getNowPlaying` function to fetch the now playing track from Spotify API.
 
-Happy coding! <Twemoji emoji="clinking-beer-mugs" />
+Happy playing! <Twemoji emoji="clinking-beer-mugs" />

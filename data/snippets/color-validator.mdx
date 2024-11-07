@@ -1,19 +1,20 @@
 ---
 heading: 'Color validator'
-title: 'Check if a string is a valid color'
+title: 'Validate if a string is a valid color'
 date: '2021-10-12'
-icon: 'Javascript'
+icon: 'Typescript'
 draft: false
 summary: 'Validate strings to ensure they represent valid colors in various formats (hex, RGB, and named colors).'
-tags: ['javascript', 'color', 'validator']
+tags: ['typescript', 'color', 'validator']
 ---
 
-#### <Twemoji emoji="warning" /> For client-side only, not work in Node.js
+> [!WARNING]
+> This util is for client-side only, do not use it in Server environments.
 
 Simple color validator function
 
-```js
-let isValidColor = (color) => {
+```ts:utils.ts showLineNumbers
+export function isValidColor(color: string) {
   let otpNode = new Option()
   otpNode.style.color = color
 
@@ -23,7 +24,7 @@ let isValidColor = (color) => {
 
 Usage
 
-```js
+```ts:index.ts showLineNumbers
 // Valid colors
 isValidColor('purple') // true
 isValidColor('burlywood') // true
@@ -44,8 +45,8 @@ Caveat
 
 Strings like `unset`, `initial`, `inherit`, `currentcolor`, `transparent` are also valid values, so if you want to exclude these strings, just change the function a bit:
 
-```js
-let isValidColor = (color) => {
+```ts:utils.ts showLineNumbers
+export function isValidColor(color: string) {
   let otpNode = new Option()
   otpNode.style.color = color
 

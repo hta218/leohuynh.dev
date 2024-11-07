@@ -1,7 +1,8 @@
 ---
 heading: 'Verify Github webhooks'
-title: 'Verifying Github webhooks requests with Node.js'
+title: 'Verifying Github webhooks requests in Node.js'
 date: '2023-07-09'
+lastmod: '2024-11-07'
 icon: 'GitHub'
 draft: false
 summary: "Verify and process incoming GitHub webhooks. How to set up listeners, validate requests, and handle Github's webhook events."
@@ -13,7 +14,7 @@ It is important to ensure that the webhook request is coming from Github and pro
 
 This is how you can simply verify the webhook signature in a [Remix](https://remix.run) app (or any Node.js server).
 
-```typescript
+```typescript:github.ts showLineNumbers
 import type { ActionFunction } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import crypto from 'crypto'
@@ -57,7 +58,7 @@ export let action: ActionFunction = async ({ request }) => {
     }
     return json({ message: 'Webhook processed successfully!', event }, 200)
   } catch (err) {
-    console.log(`❌ Error processing webhook: ${err?.toString()}`)
+    console.log(`❌ Error processing webhook event: ${err?.toString()}`)
     // Return a 200 status to Github to avoid retries
     // even if the webhook payload is not processed successfully in your app
     return json({ message: 'Webhook processed!', event }, 200)

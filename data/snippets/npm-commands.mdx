@@ -50,18 +50,20 @@ npx <package-name>@latest
 
 Common `package.json` configs to develop a CLI in **NodeJS** w **Typescript** & **esbuild**
 
-```json
+```json:package.json showLineNumbers
+// ...
 "scripts": {
-    "dev": "tsc -w && npm run link",
-    "start": "node dist/index.js",
-    "build": "esbuild src/index.ts --bundle --platform=node --target=node18 --outfile=dist/index.js",
-    "up": "npm run build && npm publish --access public && npm run unlink",
-    "link": "npm unlink your-cli && npm i -g && chmod +x ./dist/index.js && npm link your-cli",
-    "unlink": "npm rm -g your-cli && npm unlink your-cli"
-  },
+  "dev": "tsc -w && npm run link",
+  "start": "node dist/index.js",
+  "build": "esbuild src/index.ts --bundle --platform=node --target=node18 --outfile=dist/index.js",
+  "up": "npm run build && npm publish --access public && npm run unlink",
+  "link": "npm unlink your-cli && npm i -g && chmod +x ./dist/index.js && npm link your-cli",
+  "unlink": "npm rm -g your-cli && npm unlink your-cli"
+},
 "bin": {
   "your-cli": "./dist/index.js"
 }
+// more configs...
 ```
 
 Happy linking! <Twemoji emoji="clinking-beer-mugs" />

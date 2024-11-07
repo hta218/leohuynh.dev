@@ -19,7 +19,7 @@ Select `Install 'code' command in PATH`.
 
 If you got permission denied error from your system like this:
 
-```bash
+```bash showLineNumbers
 EACCES: permission denied
 unlink '/usr/local/bin/code'
 ```
@@ -28,7 +28,7 @@ Simply run `Unintall 'code' command in PATH` first, then run `Install 'code' com
 
 Now try open a file or folder with `code` command:
 
-```bash
+```bash showLineNumbers
 $ code ~/.bash_profile
 # or cd ./your-project && code .
 ```
@@ -37,7 +37,7 @@ The project/file should open in VSCode now.
 
 ## VSCode settings
 
-```json:settings.json
+```json:settings.json showLineNumbers
 {
   "editor.fontFamily": "JetBrains Mono, Monaco, 'Courier New', monospace",
   "prettier.useTabs": false,
@@ -186,7 +186,7 @@ The project/file should open in VSCode now.
 
 ## Keyboard shortcuts:
 
-```json:keybindings.json
+```json:keybindings.json showLineNumbers
 [
 	{
 		"key": "cmd+r",
