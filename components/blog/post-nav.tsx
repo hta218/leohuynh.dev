@@ -15,13 +15,15 @@ export function PostNav({
   if (next || prev) {
     return (
       <div className="flex flex-col gap-2 py-4 md:flex-row md:justify-between md:gap-12 xl:py-8">
-        {prev && prev.path && (
+        {prev && prev.path ? (
           <div className="flex flex-col gap-1">
             <NavLabel label={`←  ${prevLabel}`} />
             <Link href={`/${prev.path}`}>
               <GrowingUnderline data-umami-event="post-nav-prev">{prev.title}</GrowingUnderline>
             </Link>
           </div>
+        ) : (
+          <div />
         )}
         {next && next.path && (
           <div className="flex flex-col items-end gap-1 text-right">
