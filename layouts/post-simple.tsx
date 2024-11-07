@@ -22,7 +22,7 @@ interface PostSimpleProps {
 }
 
 export function PostSimple({ content, children }: PostSimpleProps) {
-  let { slug, date, title, type, tags, readingTime, filePath } = content
+  let { slug, date, lastmod, title, type, tags, readingTime, filePath } = content
   let postUrl = `${SITE_METADATA.siteUrl}/${type.toLowerCase()}/${slug}`
 
   return (
@@ -37,6 +37,7 @@ export function PostSimple({ content, children }: PostSimpleProps) {
               <dt className="sr-only">Published on</dt>
               <BlogMeta
                 date={date}
+                lastmod={lastmod}
                 type={type.toLowerCase() as StatsType}
                 slug={slug}
                 readingTime={readingTime}
