@@ -49,7 +49,7 @@ export const PROJECTS: Project[] = [
     title: 'leohuynh.dev',
     imgSrc: '/static/images/leoblog.jpg',
     repo: 'hta218/leohuynh.dev',
-    builtWith: ['NextJS', 'TailwindCSS', 'Typescript', 'Prisma', 'Umami'],
+    builtWith: ['NextJS', 'TailwindCSS', 'Typescript', 'Drizzle', 'Umami'],
   },
   {
     type: 'self',

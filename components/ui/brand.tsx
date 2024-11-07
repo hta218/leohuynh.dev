@@ -38,12 +38,17 @@ import Umami from '~/icons/umami.svg'
 import Vercel from '~/icons/vercel.svg'
 import Webpack from '~/icons/webpack.svg'
 import VSCode from '~/icons/vscode.svg'
+import Drizzle from '~/icons/drizzle.svg'
 import Pnpm from '~/icons/pnpm.svg'
 
 export let BrandsMap = {
   React: {
     Icon: React,
     url: 'https://reactjs.org',
+  },
+  Drizzle: {
+    Icon: Drizzle,
+    url: 'https://orm.drizzle.team/',
   },
   Goodreads: {
     Icon: Goodreads,
