@@ -32,7 +32,7 @@ export function FooterBottom() {
         <Link
           href={SITE_METADATA.analytics.umamiAnalytics.shareUrl}
           aria-label="Open analytics"
-          data-umami-event="nav-analytics"
+          data-umami-event="footer-analytics"
           className="ml-2"
         >
           <AreaChart strokeWidth={1.5} size={22} />
