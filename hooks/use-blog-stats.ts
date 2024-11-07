@@ -4,15 +4,20 @@ import type { SelectStats, StatsType } from '~/db/schema'
 import { fetcher } from '~/utils/misc'
 
 export function useBlogStats(type: StatsType, slug: string) {
-  let { data, isLoading } = useSWR<SelectStats>(`/api/stats?slug=${slug}&type=${type}`, fetcher)
-  let stats: SelectStats = data || {
+  let { data, isLoading } = useSWR<SelectStats>(`/api/stats?slug=${slug}&type=${type}`, fetcher, {
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+  })
+  let { views, loves, applauses, ideas, bullseyes } = data || {}
+  let stats: SelectStats = {
     type,
     slug,
-    views: 0,
-    loves: 0,
-    applauses: 0,
-    ideas: 0,
-    bullseyes: 0,
+    views: views || 0,
+    loves: loves || 0,
+    applauses: applauses || 0,
+    ideas: ideas || 0,
+    bullseyes: bullseyes || 0,
   }
   return [stats, isLoading] as const
 }

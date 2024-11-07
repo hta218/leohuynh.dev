@@ -1,10 +1,10 @@
 'use client'
 
 import { clsx } from 'clsx'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Twemoji } from '~/components/ui/twemoji'
-import { useBlogStats, useUpdateBlogStats } from '~/hooks/use-blog-stats'
 import type { SelectStats, StatsType } from '~/db/schema'
+import { useBlogStats, useUpdateBlogStats } from '~/hooks/use-blog-stats'
 
 const MAX_REACTIONS = 10
 
@@ -38,15 +38,36 @@ export function Reactions({
 }) {
   let [stats, isLoading] = useBlogStats(type, slug)
   let updateReaction = useUpdateBlogStats()
+  let [initialReactions, setInitialReactions] = useState({})
+  let [reactions, setReactions] = useState({})
+
+  useEffect(() => {
+    try {
+      let data = JSON.parse(localStorage.getItem(`${type}/${slug}`) || '{}')
+      data.loves = data.loves || 0
+      data.applauses = data.applauses || 0
+      data.ideas = data.ideas || 0
+      data.bullseyes = data.bullseyes || 0
+      setInitialReactions(Object.assign({}, data))
+      setReactions(Object.assign({}, data))
+    } catch (e) {}
+  }, [])
+
+  function handleChange(key: string) {
+    updateReaction({ type, slug, [key]: stats[key] + reactions[key] - initialReactions[key] })
+    localStorage.setItem(`${type}/${slug}`, JSON.stringify(reactions))
+  }
 
   return (
     <div className={clsx('flex items-center gap-6', className)}>
-      {REACTIONS.map(({ emoji, key }) => (
+      {REACTIONS.map(({ key, emoji }) => (
         <Reaction
-          key={emoji}
+          key={key}
           emoji={emoji}
-          value={isLoading ? '--' : stats[key]}
-          onChange={(value) => updateReaction({ type, slug, [key]: value })}
+          value={isLoading ? '--' : stats[key] + reactions[key] - initialReactions[key]}
+          reactions={reactions[key]}
+          onReact={(v) => setReactions((r) => ({ ...r, [key]: v }))}
+          onSave={() => handleChange(key)}
         />
       ))}
     </div>
@@ -56,13 +77,16 @@ export function Reactions({
 function Reaction({
   emoji,
   value,
-  onChange,
+  reactions,
+  onReact,
+  onSave,
 }: {
   emoji: string
   value: string | number
-  onChange: (v: number) => void
+  reactions: number
+  onReact: (v: number) => void
+  onSave: () => void
 }) {
-  let [reactionCount, setReactionCount] = useState(0)
   let [reacting, setReacting] = useState(false)
   let countRef = useRef<HTMLSpanElement>(null)
   let reactingTimeoutId: ReturnType<typeof setTimeout> | undefined
@@ -73,12 +97,15 @@ function Reaction({
         clearTimeout(reactingTimeoutId)
       }
       setReacting(true)
-      setReactionCount((c) => (c >= MAX_REACTIONS ? MAX_REACTIONS : c + 1))
+      let newReactions = reactions >= MAX_REACTIONS ? MAX_REACTIONS : reactions + 1
+      onReact(newReactions)
       if (countRef.current) {
-        if (reactionCount >= MAX_REACTIONS) {
+        if (reactions >= MAX_REACTIONS) {
           countRef.current.classList.add('animate-scale-up')
           setTimeout(() => {
-            countRef.current!.classList.remove('animate-scale-up')
+            if (countRef.current) {
+              countRef.current.classList.remove('animate-scale-up')
+            }
           }, 150)
         }
       }
@@ -86,13 +113,13 @@ function Reaction({
   }
 
   function handleMouseLeave() {
-    if (reacting) {
-      reactingTimeoutId = setTimeout(() => {
-        setReacting(false)
-        if (typeof value === 'number') {
-          onChange(value + reactionCount)
-        }
-      }, 1000)
+    if (typeof value === 'number') {
+      if (reacting) {
+        reactingTimeoutId = setTimeout(() => {
+          setReacting(false)
+          onSave()
+        }, 1000)
+      }
     }
   }
 
@@ -102,7 +129,11 @@ function Reaction({
       onMouseLeave={handleMouseLeave}
       className="relative flex flex-col items-center justify-center gap-1.5"
     >
-      <Twemoji emoji={emoji} size="2x" />
+      <Twemoji
+        emoji={emoji}
+        size="2x"
+        // className="grayscale transition-[filter] hover:grayscale-0"
+      />
       <span className="relative h-6 w-8 overflow-hidden">
         <span
           className={clsx(
@@ -112,7 +143,7 @@ function Reaction({
             reacting ? '-translate-y-6 opacity-0' : 'translate-y-0 opacity-100'
           )}
         >
-          {typeof value === 'string' ? value : value + reactionCount}
+          {typeof value === 'string' ? '--' : value}
         </span>
         <span
           ref={countRef}
@@ -123,7 +154,7 @@ function Reaction({
             reacting ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
           )}
         >
-          +{reactionCount}
+          +{reactions}
         </span>
       </span>
     </button>
