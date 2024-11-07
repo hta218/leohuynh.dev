@@ -89,7 +89,7 @@ Next, switch to the **Body** tab, select **GraphQL**
 
 And add the following `query`
 
-```js
+```js showLineNumbers
 {
   files(first: 250) {
     edges {
@@ -145,7 +145,7 @@ Now we only need to download the 1000 files, save them with the extracted name f
 
 With just a few lines of `Node.js` code combined with `regex`, we can extract the name and download the file:
 
-```javascript
+```javascript showLineNumbers
 let fs = require('fs')
 let fetch = require('node-fetch')
 let fileData = require('./data')
@@ -195,7 +195,5 @@ Happy migrating <Twemoji emoji="clinking-beer-mugs" />.
 ### Refs
 
 - [https://shopify.dev/apps/auth/basic-http](https://shopify.dev/apps/auth/basic-http)
-
 - [https://www.shopify.com/partners/blog/getting-started-with-graphql](https://www.shopify.com/partners/blog/getting-started-with-graphql)
-
 - [https://help.shopify.com/en/manual/apps/private-apps#enable-private-app-development-from-the-shopify-admin](https://help.shopify.com/en/manual/apps/private-apps#enable-private-app-development-from-the-shopify-admin)

@@ -41,7 +41,7 @@ Here are some ways to help your page load faster.
 
 When you want to load CSS into your web page, you will use the `link` tag like this:
 
-```html
+```html showLineNumbers
 <link href="style.css" rel="stylesheet" />
 <link href="print.css" rel="stylesheet" />
 <link href="style.mobile.css" rel="stylesheet" />
@@ -53,7 +53,7 @@ However, `print.css` is only used when **printing** a document (**Ctrl/Cmd + P**
 
 In this case, we can use the [media attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#attr-media).
 
-```html
+```html showLineNumbers
 <link href="style.css" rel="stylesheet" />
 <link href="print.css" media="print" rel="stylesheet" />
 <link href="style.mobile.css" media="(max-width: 568px)" rel="stylesheet" />
@@ -64,7 +64,6 @@ Now the browser understands that it only needs to load the `style.css` file to d
 For links that use the **media attribute**:
 
 - `media="print"`: the styles in this file will only apply when **printing** a document, so there is no need for rendering and it will not block the first render when loading the page.
-
 - `media="(max-width: 568px)"`: these styles only apply on devices with `max-width=568px`, and will not block the first render when loading the page on a **desktop/tablet** device.
 
 Using the **media attribute**, we can adjust the display of the page in specific cases such as after rendering, adjusting screen size, changing device orientation (horizontal/vertical)...
@@ -91,14 +90,14 @@ I have provided a simple example to help you understand **Render Blocking CSS** 
 
 In the example, I loaded two CSS files and compared the **page rendering time** on screens with **device-width** larger and smaller than `800px`.
 
-```html
+```html showLineNumbers
 <link rel="stylesheet" href="tailwind.css" media="(min-width: 800px)" />
 <link rel="stylesheet" href="bootstrap.css" media="(min-width: 800px)" />
 ```
 
 To use the **Performance API**, it is important to check **browser compatibility**.
 
-```javascript
+```javascript showLineNumbers
 if ('PerformanceObserver' in window) {
   try {
     // Create PerformanceObserver instance
@@ -143,7 +142,7 @@ The results measured with **Performance API** are summarized below.
 
 Alternatively, you can use the [PerformancePaintTiming API](https://developer.mozilla.org/en-US/docs/Web/API/PerformancePaintTiming) directly.
 
-```javascript
+```javascript showLineNumbers
 if (window.performance) {
 	let performance = window.performance;
 	let perfEntries = performance.getEntriesByType('paint');

@@ -24,11 +24,11 @@ npx create-react-app my-app && cd my-app
 
 Using npx lets you run the create-react-app script without needing to install the package.
 
-## Add Dependencies
+## Adding dependencies
 
 Install the following devDependencies to set up Tailwind CSS
 
-```bash
+```bash showLineNumbers
 yarn add tailwindcss postcss-cli autoprefixer -D
 ## or npm install tailwindcss postcss-cli autoprefixer --save-dev
 ```
@@ -50,7 +50,7 @@ touch postcss.config.js
 
 Add the following config:
 
-```javascript
+```javascript:postcss.config.js showLineNumbers
 module.exports = {
   plugins: [require('tailwindcss'), require('autoprefixer')],
 }
@@ -70,7 +70,7 @@ mkdir src/styles && touch src/styles/tailwind.css
 
 Import the following modules from Tailwind CSS:
 
-```css
+```css:tailwind.css showLineNumbers
 @tailwind base;
 
 @tailwind components;
@@ -80,7 +80,7 @@ Import the following modules from Tailwind CSS:
 
 You can place the `tailwind.css` file in any folder you like, such as `src/static`, `src/assets`, `src/styles` ...
 
-## Adding Build Script
+## Adding build script
 
 Open the `package.json` file and add the following build script (inside the scripts object):
 
@@ -94,7 +94,7 @@ You can choose the file name and location as you like. Here, I’m putting both 
 
 Now you can manually trigger the build with the command:
 
-```bash
+```bash showLineNumbers
 yarn build:css
 # or npm run build:css
 ```
@@ -105,7 +105,7 @@ After configuring and building, your project structure should look like this:
 
 To make things easier, you can integrate the `build:css` command into the start and build scripts of your project, ensuring that your CSS is always rebuilt with the latest updates each time you start the project:
 
-```json
+```json:package.json showLineNumbers
 "scripts": {
 	"start": "npm run build:css && react-scripts start",
 	"build": "npm run build:css && react-scripts build",
@@ -113,22 +113,22 @@ To make things easier, you can integrate the `build:css` command into the start 
 	"eject": "react-scripts eject",
 	"build:css": "postcss src/styles/tailwind.css -o src/styles/main.css"
 }
+// more configs...
 ```
 
 Now to build the CSS and start the project, you just need to run `yarn start`.
 
-## Using Tailwind CSS in a React Component
+## Using Tailwind CSS in a React component
 
 Import the built CSS into the start file of your project (mine is `index.js`):
 
 ```javascript
 import './styles/main.css'
-// ... other imports
 ```
 
 Create a basic component:
 
-```js
+```js:app.jsx showLineNumbers
 import React from 'react'
 
 function App() {

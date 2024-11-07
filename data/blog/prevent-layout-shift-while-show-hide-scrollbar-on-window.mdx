@@ -1,6 +1,7 @@
 ---
 title: 'Prevent layout shift when toggling scrollbar on Window'
 date: '2021-08-16'
+lastmod: '2024-11-07'
 tags: ['css', 'tricks', 'layout-shift', 'scrollbar', 'window']
 summary: 'When toggling the scrollbar on the Window, the layout shifts. This is because the scrollbar is added to the Window. How to prevent this with CSS?'
 images: ['/static/images/banners/macbook-pro-on-brown-wooden-table__vinayak_125__AWSHg2mK-Ho.jpeg']
@@ -20,7 +21,7 @@ So let's prevent this layout shift with CSS.
 
 ## The classic fix
 
-```css
+```css:global.css showLineNumbers
 html {
   overflow-y: scroll;
 }
@@ -46,7 +47,7 @@ If you don't know yet, `vw` or [view width](https://developer.mozilla.org/en-US/
 
 So, we can calculate the width of the scrollbar by subtracting the `100%` width from the `100vw` width with the CSS's `calc()` function like this:
 
-```css
+```css:global.css showLineNumbers
 html {
   margin-left: calc(100vw - 100%);
 }
@@ -54,23 +55,23 @@ html {
 
 The `margin-left` value will equal `0` when the `Window` isn't scrollable and equal to the scrollbar's width when the `Window` is scrollable.
 
-#### Note
-
-If you use this way to prevent layout shift and your application has a `fixed`'s element (like a **Popup** or a **Modal**) which prevents Window scroll with the `overflow-y: hidden` style when it's open,
-you should also add the `margin-left` to the `fixed` element.
+> [!NOTE]
+> If you use this way to prevent layout shift and your application has a `fixed`'s element (like a **Popup** or a **Modal**) which prevents Window scroll with the `overflow-y: hidden` style when it's open,
+> then you should also add the `margin-left` to the `fixed` element as well.
 
 For example:
 
-```css
+```css:global.css showLineNumbers
 html,
-.popup-overlay {
+.popup-overlay,
+.modal-overlay {
   margin-left: calc(100vw - 100%);
 }
 ```
 
 Another solution is to set the width of the `html` element to `100vw` and prevent horizontal scroll:
 
-```CSS
+```css:global.css showLineNumbers
 html {
   width: 100vw;
   overflow-x: hidden;
@@ -78,16 +79,15 @@ html {
 ```
 
 This solution only makes sense if your application doesn't have to scroll horizontally (like a blog or a documentation website).
-
-And I'm using this in my blog (you can open the `devtool` and check the `html` styles to see it <Twemoji emoji="beaming-face-with-smiling-eyes" />).
+And I'm using this in my blog, you can open the `devtool` and check the `html` styles to see it <Twemoji emoji="beaming-face-with-smiling-eyes" />.
 
 ## The no-code way <Twemoji emoji="star-struck" size="base" />
 
 There are 2 ways to prevent layout shift without writing any CSS code:
 
-- The first one is to tell your users not to use **Window** device and to use a **Mac** or a **Linux** device instead <Twemoji emoji="grinning-squinting-face" /><Twemoji emoji="grinning-squinting-face" /><Twemoji emoji="grinning-squinting-face" />
+- The first one is to tell your users not to use **Window** device and to use a **Mac** or a **Linux** device instead <Twemoji emoji="grinning-squinting-face" />
 
-- The second one is to just... leave it as it is, sometimes it's not a big deal, and your user doesn't actually care about this layout shift <Twemoji emoji="man-shrugging" />
+- The second one is to just... leave it as it is, sometimes it's not a big deal, and your user doesn't actually care about that <Twemoji emoji="man-shrugging" />
 
 If you have any other solutions, please let me know in the comments below.
 

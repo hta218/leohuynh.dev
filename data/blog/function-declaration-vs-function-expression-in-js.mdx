@@ -25,7 +25,7 @@ so that every time they need to remember, they can come here to review instead o
 
 Surely, those of you who work with **JavaScript** every day will write many functions with syntaxes such as:
 
-```javascript
+```javascript showLineNumbers
 function doSomething() {} // function declaration
 
 // or
@@ -50,7 +50,7 @@ function doSomething() {}
 
 - **Function Expression** is declared similarly to **Function Declaration** but is assigned to a **variable** and will run when called through that **variable**. The name of the **function** can be omitted (**Anonymous Function**).
 
-```javascript
+```javascript showLineNumbers
 let doSomething = function () {}
 
 // Anonymous function in ES6 syntax
@@ -65,7 +65,7 @@ let doSomething = () => {}
 
 You can understand it simply through the following example:
 
-```js
+```js showLineNumbers
 sayHello() // => "Hello"
 
 function sayHello() {
@@ -77,7 +77,7 @@ You can **call** Function Declaration anywhere in the **scope** it initializes.
 
 However, **Function Expression** can only be called after it is defined.
 
-```js
+```js showLineNumbers
 sayHello() // => Uncaught ReferenceError: Cannot access 'sayHello' before initialization
 
 let sayHello = function () {
@@ -94,7 +94,7 @@ However, there are some special cases where **Function Expression** is used.
 
 [Immediately Invoked Function Expressions](https://mariusschulz.com/blog/use-cases-for-javascripts-iifes) or an **Anonymous Function** that is executed immediately after initialization.
 
-```js
+```js showLineNumbers
 ;(function () {
   console.log('Code runs!')
 })()
@@ -109,7 +109,7 @@ However, there are some special cases where **Function Expression** is used.
 
 Another case where **Function Expression** is used is as a **callback**.
 
-```js
+```js showLineNumbers
 buttonElement.addEventListener('click', function (e) {
   console.log('Button is clicked!')
 })
@@ -117,7 +117,7 @@ buttonElement.addEventListener('click', function (e) {
 
 or
 
-```js
+```js showLineNumbers
 array.map((item) => {
   // do stuff to an item
 })

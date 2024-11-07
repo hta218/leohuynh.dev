@@ -19,7 +19,7 @@ Let's walk through some basic knowledge
 
 Giving this array
 
-```js
+```js showLineNumbers
 let devs = [
   { id: '1', name: 'Leo', yob: 1995 },
   { id: '2', name: 'Paul', yob: 1995 },
@@ -32,7 +32,7 @@ What can we do using **map()** function:
 
 - Getting new values from array
 
-```js
+```js showLineNumbers
 let ages = devs.map((dev) => {
   let currentYear = new Date().getFullYear()
   return currentYear - dev.yob
@@ -43,7 +43,7 @@ console.log(ages) // => [25, 25, 24, 23]
 
 - Extracting values from array of objects
 
-```js
+```js showLineNumbers
 let names = devs.map((dev) => dev.name)
 
 console.log(names) // => ["Leo", "Paul", "Jesse", "Ken"]
@@ -51,7 +51,7 @@ console.log(names) // => ["Leo", "Paul", "Jesse", "Ken"]
 
 - Rendering list in React application
 
-```js
+```js showLineNumbers
 import React from 'react'
 
 export default DeveloperProfiles = ({ devs }) => {
@@ -69,7 +69,7 @@ export default DeveloperProfiles = ({ devs }) => {
 
 It is common to pass the pre-defined **callback** function as **map()** argument like this:
 
-```js
+```js showLineNumbers
 let extractId = (dev) => {
   return dev.id
 }
@@ -83,7 +83,7 @@ But this habit may lead to unexpected behaviors with **functions** that take add
 
 Consider this case - we need to get all **ids** as **numbers**:
 
-```js
+```js showLineNumbers
 // ids = ["1", "2", "3", "4"]
 let idsInNumber = ids.map(parseInt)
 
@@ -102,7 +102,7 @@ Usually, we use **map()** callback with 1 **argument** (the element being traver
 
 And the callback in this case - [parseInt](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt) is often used with 1 **argument** but it takes 2:
 
-```js
+```js showLineNumbers
 // Syntax
 parseInt(string [, radix])
 ```
@@ -112,7 +112,7 @@ parseInt(string [, radix])
 
 For example:
 
-```js
+```js showLineNumbers
 parseInt('10') // => 10
 parseInt('10', 10) // => 10
 parseInt('10', 2) // => 2
@@ -125,7 +125,7 @@ The third **argument** of **map()** is ignored by **parseInt** - but **_not_** t
 
 Hence, the **iteration** steps of **map()** look like this:
 
-```js
+```js showLineNumbers
 // map(parseInt) => map(parseInt(value, index))
 
 /* index is 0 */ parseInt('1', 0) // => 1
@@ -140,7 +140,7 @@ As you've known the source of the problem, the solution is not to pass all of th
 
 - Passing only the arguments that your callback needs
 
-```js
+```js showLineNumbers
 function returnInt(element) {
   return parseInt(element, 10)
 }
@@ -156,7 +156,7 @@ function returnInt(element) {
 
 - A simpler way to achieve our case like [Airbnb style guide](https://github.com/airbnb/javascript#coercion--numbers)
 
-```js
+```js showLineNumbers
 ;['1', '2', '3', '4'].map(Number)
 // => [1, 2, 3, 4]
 ```
@@ -168,11 +168,7 @@ Happy coding!
 ## Refs
 
 - [Array.prototype.map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
-
 - [**parseInt** is a bad guy](https://github.com/denysdovhan/wtfjs#parseint-is-a-bad-guy)
-
 - [A JavaScript Optional Argument Hazard](http://www.wirfs-brock.com/allen/posts/166)
-
 - [https://codesource.io/use-cases-of-array-map-you-should-know](https://codesource.io/use-cases-of-array-map-you-should-know)
-
 - [https://github.com/airbnb/javascript#coercion--numbers](https://github.com/airbnb/javascript#coercion--numbers)

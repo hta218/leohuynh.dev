@@ -41,7 +41,7 @@ First, we need to create a [Root SSL Certificate](https://support.dnsimple.com/a
 Use the following command to create a `key` to generate **Root SSL Certificate** in the next step:
 
 ```bash
-$ openssl genrsa -des3 -out rootCA.key 2048
+openssl genrsa -des3 -out rootCA.key 2048
 ```
 
 ![root-ca-key](/static/images/root-ca-key.png)
@@ -53,7 +53,7 @@ You will be asked to enter a **pass phrase** to generate the key, just enter a r
 The generated key will be saved in `rootCA.key` file, use it to generate **Root SSL Certificate** with the following command:
 
 ```bash
-$ openssl req -x509 -new -nodes -key rootCA.key -sha256 -days 7300 -out rootCA.pem
+openssl req -x509 -new -nodes -key rootCA.key -sha256 -days 7300 -out rootCA.pem
 ```
 
 ![root-ca-pem](/static/images/root-ca-pem.png)
@@ -88,7 +88,7 @@ Now, we will use the trusted **Root SSL Certificate** to generate an **SSL Certi
 
 Create a config file named `server.csr.cnf` with the following cotent. **OpenSSL** will use this file to generate the **Certificate key**:
 
-```bash:server.csr.cnf
+```bash:server.csr.cnf showLineNumbers
 [req]
 default_bits = 2048
 prompt = no
@@ -108,7 +108,7 @@ CN = localhost
 Create a **Certificate key** with the above configs and save it to the `server.key` file:
 
 ```bash
-$ openssl req -new -sha256 -nodes -out server.csr -newkey rsa:2048 -keyout server.key -config <( cat server.csr.cnf )
+openssl req -new -sha256 -nodes -out server.csr -newkey rsa:2048 -keyout server.key -config <( cat server.csr.cnf )
 ```
 
 ![server-key](/static/images/server-key.png)
@@ -117,7 +117,7 @@ $ openssl req -new -sha256 -nodes -out server.csr -newkey rsa:2048 -keyout serve
 
 Create a `v3.ext` file with the configurations below to generate the certificate:
 
-```bash:v3.ext
+```bash:v3.ext showLineNumbers
 authorityKeyIdentifier=keyid,issuer
 basicConstraints=CA:FALSE
 keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
@@ -130,7 +130,7 @@ DNS.1 = localhost
 Generate certificate with **Root SSL Certificate** and `v3.ext` config file then save to `server.crt` with this command:
 
 ```bash
-$ openssl x509 -req -in server.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out server.crt -days 825 -sha256 -extfile v3.ext
+openssl x509 -req -in server.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out server.crt -days 825 -sha256 -extfile v3.ext
 ```
 
 <Twemoji emoji="warning" /> Remember to use the same pass phrase in the steps above!
@@ -150,7 +150,7 @@ The most important work of generating `server.key` and `server.crt` is done, now
 
 Create a simple **web server** with **Koa**:
 
-```javascript:server.js
+```javascript:server.js showLineNumbers
 let Koa = require('koa');
 let app = new Koa();
 
@@ -165,7 +165,7 @@ Create a directory called `certs/` in your app, then move `server.key` and `serv
 
 Load the certificate files and create **HTTPS** server with `https` module:
 
-```javascript:index.js
+```javascript:index.js showLineNumbers
 let app = require('./server')
 let https = require('https')
 let fs = require('fs')
@@ -234,11 +234,7 @@ Happy sharing <Twemoji emoji="clinking-beer-mugs" />
 ## References
 
 - [OpenSSL - TLS/SSL and crypto library](https://github.com/openssl/openssl)
-
 - [What is a Root SSL Certificate?](https://support.dnsimple.com/articles/what-is-ssl-root-certificate/)
-
 - [Apple's Requirements for trusted certificates](https://support.apple.com/en-us/HT210176)
-
 - [X509 v3 certificate](https://en.wikipedia.org/wiki/X.509)
-
 - [Port 443 is used to secure communication travels between the client and the server](https://www.clickssl.net/blog/port-443)

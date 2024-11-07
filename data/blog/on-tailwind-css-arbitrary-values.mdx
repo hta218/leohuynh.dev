@@ -28,7 +28,7 @@ We use the square brackets annotation `[]` to generate a class on the fly with a
 
 This will output the following CSS:
 
-```css
+```css showLineNumbers
 .bg-\[\#f00\] {
   --tw-bg-opacity: 1;
   background-color: rgb(255 0 0 / var(--tw-bg-opacity)) /* #ff0000 */;
@@ -45,7 +45,7 @@ We can use the `theme()` function to reference design tokens in `tailwind.config
 
 Output CSS:
 
-```css
+```css showLineNumbers
 .\[--song-color\:theme\(colors\.gray\.200\)\] {
   --song-color: #e5e7eb;
 }
@@ -67,7 +67,7 @@ You can get rid of the `var(...)` wrapper, just provide the variable name is eno
 
 This will output the following CSS:
 
-```css
+```css showLineNumbers
 .h-\[var\(--section-height\)\] {
   height: var(--section-height);
 }
@@ -81,7 +81,7 @@ But for variables with fallback values to another variable, we still need to use
 
 Output CSS:
 
-```css
+```css showLineNumbers
 .h-\[var\(--section-height\,var\(--fallback-height\)\)\] {
   height: var(--section-height, var(--fallback-height));
 }
@@ -132,14 +132,14 @@ To avoid collisions when using arbitrary values, we can prefix a [CSS data types
 
 This is super useful when using with variables, for example:
 
-```jsx
+```jsx showLineNumbers
 <div className="bg-[color:--variable]" />
 // or just `bg-[--variable]`
 ```
 
 will output CSS for background color:
 
-```css
+```css showLineNumbers
 .bg-\[--variable\] {
   background-color: var(--variable);
 }
@@ -153,7 +153,7 @@ And adding a `length:` prefix will output the css for `background-size`:
 
 Output:
 
-```css
+```css showLineNumbers
 .bg-\[length\:--variable\] {
   background-size: var(--variable);
 }

@@ -12,7 +12,7 @@ authors: ['default']
 
 Recently, I have been working on a pet project using **Node.js** on the backend to further my knowledge and prevent skill degradation during my free time. However, I encountered a frustrating issue with **paths** that many developers have likely experienced.
 
-```typescript
+```typescript showLineNumbers
 import { saveUser } from '../../../../../models/User'
 import homeController from '../../../../../controllers/home'
 ```
@@ -23,7 +23,7 @@ But what if we could define **aliases** (i.e., **shortcuts**) for frequently imp
 
 For example:
 
-```typescript
+```typescript showLineNumbers
 import { saveUser } from '@models/User'
 import homeController from '@controllers/home'
 ```
@@ -40,7 +40,7 @@ The solution is quite simple with [module-alias](https://www.npmjs.com/package/m
 
 Open the `tsconfig.json` file and add the following configuration to the `compilerOptions` object:
 
-```json
+```json:tsconfig.json showLineNumbers
 "compilerOptions": {
   // other configs...
   "baseUrl": "./src",
@@ -79,7 +79,7 @@ This package **resolves** path aliases in JS files after they are compiled.
 
 - Configure it in `package.json`:
 
-  ```json
+  ```json:package.json showLineNumbers
   "_moduleAliases": {
     "@models": "dist/models",
     "@controllers": "dist/controllers"

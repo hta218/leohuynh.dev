@@ -21,7 +21,7 @@ This post is written for developers who prefer working with `git` via `command-l
 ### Syntax
 
 ```bash
-$ git config --global alias.<shortcut> <original-command>
+git config --global alias.<shortcut> <original-command>
 ```
 
 <Twemoji emoji="warning" /> Use `--global` flag to tell **git** that the alias will be used in all
@@ -36,12 +36,12 @@ For me, I create aliases for almost all commands that I work with daily.
 Check the changes before committing:
 
 ```bash
-$ git config --global alias.st status
+git config --global alias.st status
 ```
 
-```bash
+```bash showLineNumbers
 # Now instead of `git status`, use `git st`
-$ git st
+git st
 On branch v2
 Changes not staged for commit:
   (use "git add <file>..." to update what will be committed)
@@ -56,12 +56,12 @@ no changes added to commit (use "git add" and/or "git commit -a")
 > Tip: Use `git st` with `--short` flag or `-s` to see the short-format of the changes, and... you know it - create an alias for this command too
 
 ```bash
-$ git config --global alias.s 'status --short'
+git config --global alias.s 'status --short'
 ```
 
-```bash
+```bash showLineNumbers
 # Now instead of `git st`, use `git s`
-$ git s
+git s
   M components/Image.js
   M data/blog/git-notes.mdx
   ?? public/static/images/force-with-lease.jpg
@@ -72,28 +72,29 @@ Much clearer results and much faster typing, right? <Twemoji emoji="beaming-face
 <Twemoji emoji="keycap-2" /> **Git commit**
 
 ```bash
-$ git config --global alias.cm 'commit -m'
+git config --global alias.cm 'commit -m'
 ```
 
 Commit changes (`add/stage` changes before):
 
 ```bash
-$ git cm "Initial commit"
+git cm "Initial commit"
 ```
 
-> Tip: If the changes are only for existing files (neither new file nor deleted file), use `--all` or `-a` flag so you don't have to add or stage changes before committing
+> [!TIP]
+> If the changes are only for existing files (neither new file nor deleted file), use `--all` or `-a` flag so you don't have to add or stage changes before committing
 
 ```bash
-$ git config --global alias.cam 'commit -am'
+git config --global alias.cam 'commit -am'
 ```
 
-```bash
+```bash showLineNumbers
 # Now instead of 2 git commands
-$ git add style.css # `style.css` is already existed, not new file!
-$ git cm "Update style"
+git add style.css # `style.css` is already existed, not new file!
+git cm "Update style"
 
 # Use only 1 command
-$ git cam "Update style"
+git cam "Update style"
 ```
 
 <Twemoji emoji="keycap-3" /> **Git stash**
@@ -104,25 +105,25 @@ Like the definition, use `git stash` when you need to **"stash"** the changes be
 
 ```bash
 # Too short to create an alias
-$ git stash
+git stash
 ```
 
 Applying the stashed changes after pulling:
 
 ```bash
-$ git stash pop
+git stash pop
 ```
 
 Create an alias for it:
 
-```bash
-$ git config --global alias.sp 'stash pop'
+```bash showLineNumbers
+git config --global alias.sp 'stash pop'
 
 # Now
-$ git sp
+git sp
 
 # Is equal
-$ git stash pop
+git stash pop
 ```
 
 <Twemoji emoji="keycap-4" /> **Git `pull/push`**
@@ -132,17 +133,17 @@ Always [`pull rebase`](https://www.atlassian.com/git/tutorials/merging-vs-rebasi
 - `pull rebase`
 
   ```bash
-  $ git config --global alias.prb 'pull origin --rebase'
+  git config --global alias.prb 'pull origin --rebase'
   ```
 
-  ```bash
+  ```bash showLineNumbers
   # Now
-  $ git pull origin --rebase main
+  git pull origin --rebase main
 
   # Is equal
-  $ git prb main
+  git prb main
   # Or
-  $ git prb master
+  git prb master
   ```
 
 - What if a conflict occurs after rebasing?
@@ -150,29 +151,29 @@ Always [`pull rebase`](https://www.atlassian.com/git/tutorials/merging-vs-rebasi
   List all the conflicts with `git diff` and create an alias for this command:
 
   ```bash
-  $ git config --global alias.cf 'diff --name-only --diff-filter=U'
+  git config --global alias.cf 'diff --name-only --diff-filter=U'
   ```
 
-  ```bash
+  ```bash showLineNumbers
   # List all the conflicts
-  $ git cf
+  git cf
 
   # Reolve all conflict then stage changes
-  $ git add .
+  git add .
 
   # Finish rebasing
-  $ git rebase --continue
+  git rebase --continue
   ```
 
 - `force push`
 
   When you finish resolving the conflicts that occured after rebasing, we need to **force** push the changes to the remote repo:
 
-  ```bash
-  $ git config --global alias.pf 'push --force-with-lease'
+  ```bash showLineNumbers
+  git config --global alias.pf 'push --force-with-lease'
 
   # Now after rebasing
-  $ git pf
+  git pf
   ```
 
   [Why not `--force`?](https://git-scm.com/docs/git-push#Documentation/git-push.txt---force-with-leaseltrefnamegt)
@@ -185,53 +186,54 @@ Always [`pull rebase`](https://www.atlassian.com/git/tutorials/merging-vs-rebasi
 
 <Twemoji emoji="keycap-5" /> **Git checkout**
 
-```bash
-$ git config --global alias.co 'checkout'
+```bash showLineNumbers
+git config --global alias.co 'checkout'
 
 # Eg
-$ git co main
+git co main
 ```
 
 Create a new branch:
 
-```bash
-$ git config --global alias.cob 'checkout -b'
+```bash showLineNumbers
+git config --global alias.cob 'checkout -b'
 
 # Eg
-$ git cob feature-x
+git cob feature-x
 ```
 
-> Tip: use `git co -` to checkout to the previous branch.
+> [!TIP]
+> Use `git co -` to checkout to the previous branch.
 
 Example:
 
-```bash {3}
-$ git branch
+```bash {3} showLineNumbers
+git branch
 dev
 * feature-x-y-z__ISSUE_ID
 main
 # The current branch is `feature-x-y-z__ISSUE_ID`
 
 # Checkout to `dev`
-$ git co dev
+git co dev
 # Do something
 # Commit ...
 
 # Now to come back to `feature-x-y-z__ISSUE_ID` use
-$ git co -
+git co -
 # Instead of
-$ git checkout feature-x-y-z__ISSUE_ID
+git checkout feature-x-y-z__ISSUE_ID
 ```
 
 <Twemoji emoji="keycap-6" /> **Git diff**
 
 Check the changes before commit (Usually, I use this to make sure no `debug`, `hardcode` or `console.log` is left in my code).
 
-```bash
-$ git config --global alias.d 'diff'
+```bash showLineNumbers
+git config --global alias.d 'diff'
 
 # Eg
-$ git d style.css
+git d style.css
 ```
 
 ### Note
@@ -239,10 +241,10 @@ $ git d style.css
 All your aliases can be found in `~/.gitconfig` file (MacOS). You can open this file directly and edit any alias you want.
 
 ```bash
-$ vim ~/.gitconfig
+vim ~/.gitconfig
 ```
 
-```bash
+```bash:.gitconfig showLineNumbers
 # Find the alias part in the config file
 [alias]
   s = status --short
@@ -261,41 +263,41 @@ My daily workflow working with `git` (all aliases explained in the [above sectio
 
 ```bash {5,14,26,36} showLineNumbers
 # Stash changes
-$ git stash
+git stash
 
 # Update changes from upstream
-$ git prb main
+git prb main
 
 # Apply stash changes
-$ git sp
+git sp
 
 # Resolve conflict if existed
 # Work
 
 # Check working status
-$ git s
+git s
 
 # Check file changes (if needed)
-$ git d # or git d file.ext
+git d # or git d file.ext
 
 # Stage changes
-$ git add .
+git add .
 
 # Commit
-$ git cm "commit message"
+git cm "commit message"
 
 # Or skip stage changes if no new file created/deleted
-$ git cam "commit message"
+git cam "commit message"
 
 # Update changes again
-$ git prb main
+git prb main
 
 # If there're conflicts, resolve all then
-$ git add file.ext
-$ git rebase --continue
+git add file.ext
+git rebase --continue
 
 # Force push
-$ git pf
+git pf
 
 # Making pull request
 ```
@@ -310,7 +312,7 @@ Here is my entire workflow but only the highlighted commands are the most common
 
 Tip: ignore all files inside a directory but keep 1 specific file
 
-```bash {5}
+```bash {5} showLineNumbers
 # Ignore all file in a directory
 homework/*
 
@@ -337,7 +339,5 @@ Happy sharing <Twemoji emoji="clinking-beer-mugs" />
 ## References
 
 - [Git Alias Overview](https://www.atlassian.com/git/tutorials/git-alias)
-
 - [Merging vs. Rebasing](https://www.atlassian.com/git/tutorials/merging-vs-rebasing)
-
 - [Git docs: --force-with-lease](https://git-scm.com/docs/git-push#Documentation/git-push.txt---force-with-leaseltrefnamegt)

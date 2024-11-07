@@ -33,7 +33,7 @@ fetch('/?sections=header,footer')
 
 The result will look like this:
 
-```json
+```json showLineNumbers
 {
   "header": "<div id=\"shopify-section-header\" class=\"shopify-section\">\n<!-- section content -->\n</div>",
   "footer": "<div id=\"shopify-section-footer\" class=\"shopify-section\">\n<!-- section content -->\n</div>"
@@ -42,7 +42,7 @@ The result will look like this:
 
 You can combine this with the **AJAX Cart APIs** by adding the `sections` parameter to the request body:
 
-```javascript
+```javascript showLineNumbers
 items: [
   {
    id: 36110175633573,
@@ -69,7 +69,7 @@ Here, `sectionId` is the filename of the section.
 
 ## Tips
 
-<Twemoji emoji="keycap-1" /> Static vs Dynamic section
+#### <Twemoji emoji="keycap-1" /> Static vs dynamic section
 
 To request a **static** section (a section that has no settings schema, content will always be fixed unless we change the source code of that section), the `sectionId` that needs to be passed is the **filename** of that section.
 
@@ -79,7 +79,7 @@ To request the markup of these **dynamic** sections, we need to use dynamic `sec
 
 For example:
 
-```html:section-type.liquid
+```html:section-type.liquid showLineNumbers
 <div data-section-id="{{ section.id }}" data-section-type="section-type">
   <!-- section content -->
 </div>
@@ -89,7 +89,7 @@ The dynamic **generated** ID will look like this: `template--14908088647850__163
 
 To request dynamic section markup:
 
-```js
+```js showLineNumbers
 // Async context
 let section = document.querySelector('[data-section-type="section-type"]')
 let id = section.dataset.id
@@ -100,7 +100,7 @@ console.log(markup)
 // Example markup: '<div id=\"template--14908088647850__16322847419ca50f50\">\n<!-- section content -->\n</div>''
 ```
 
-<Twemoji emoji="keycap-2" /> Including product/collection context:
+#### <Twemoji emoji="keycap-2" /> Including product context
 
 With the URL above, we can only query the markup of sections on the homepage corresponding to the respective settings. But what if we want to query the section of a **product** page or **collection** page (markup will not include information about that product or collection)?
 
@@ -110,7 +110,7 @@ To add product/collection context, simply add to the query URL: `/products/produ
 
 Example:
 
-```javascript
+```javascript showLineNumbers
 // Async context
 
 let collectionMarkup = await await fetch(
@@ -137,17 +137,5 @@ However, this method has a disadvantage of having to create multiple templates c
 With the **Section rendering API**, customers will not need to care about those sections, the sections will be rendered with **product/collection** context or corresponding **settings** (just need to pass the correct `sectionId`).
 
 The above is the entire way to use **Section Rendering APIs** and tips that I have learned, hope it will be useful to you.
-
-## Bonus
-
-Looking to hire top-notch talent for your e-commerce needs? <Twemoji emoji="man-technologist" />
-
-Check out [Toptal's Shopify API Developer talent page](https://www.toptal.com/shopify-api).
-**Toptal** is a marketplace for **Shopify experts**, including developers, engineers, programmers, coders, architects, and consultants.
-Their platform connects you with experienced **Shopify API Developers** who excel in customizing stores, integrating apps, and optimizing e-commerce workflows.
-
-![toptal](/static/images/toptal.png)
-
-Go check it out to find a diverse range of experts ready to tackle your e-commerce challenges and deliver exceptional results!
 
 Happy sharing <Twemoji emoji="clinking-beer-mugs" />

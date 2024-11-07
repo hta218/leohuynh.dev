@@ -12,7 +12,7 @@ authors: ['default']
 
 Let's say you have a list of async tasks (each return a **Promise**).
 
-```javascript
+```javascript showLineNumbers
 let promise1 = async function () {
   /* ... */
 }
@@ -28,7 +28,7 @@ What would you choose to run them?
 
 Awaiting each promise one by one:
 
-```javascript
+```javascript showLineNumbers
 await promise1()
 await promise2()
 await promise3()
@@ -37,7 +37,7 @@ await promise3()
 
 Or run them all at once:
 
-```javascript
+```javascript showLineNumbers
 await Promise.all([promise1(), promise2(), promise3()])
 // do other stuff
 ```
@@ -46,7 +46,7 @@ The first approach is running them **sequentially**, one after another. It means
 
 Like this:
 
-```javascript
+```javascript showLineNumbers
 promise1().then(() => {
   promise2().then(() => {
     promise3().then(() => {
@@ -91,7 +91,7 @@ The answer for the question in the title is: `Promise.all()` runs concurrently, 
 
 If you have a list promises that don't depend on each other, you can run them concurrently (or parallel-like):
 
-```javascript
+```javascript showLineNumbers
 await Promise.all([promise1(), promise2(), promise3()])
 // or
 await Promise.all(
@@ -103,7 +103,7 @@ await Promise.all(
 
 Or sequentially:
 
-```javascript
+```javascript showLineNumbers
 for (let item of items) {
   await doSomething(item)
 }

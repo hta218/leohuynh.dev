@@ -52,7 +52,7 @@ Below are some interesting key-notes I've learned about the APIs.
 
   - use `e.dataTransfer.setData()` method to set any drag's data, this will stay during the **drag operation**
 
-  ```js
+  ```js showLineNumbers
   // The `dragstart` event fires on the `draggable` element
   dragElem.addEventListener('dragstart', function (e) {
     // We can set data using `e.dataTransfer.setData` method
@@ -68,7 +68,7 @@ Below are some interesting key-notes I've learned about the APIs.
 
   - The **dropEffect** property is used to control the feedback the user is given during a drag-and-drop operation
 
-  ```js
+  ```js showLineNumbers
   dragElem.addEventListener('dragstart', function (e) {
     e.dataTransfer.setData('text/plain', e.target.id)
     // The `move` value works on window, not on macOS - It might be the problem of browser along with OS
@@ -88,7 +88,7 @@ Below are some interesting key-notes I've learned about the APIs.
 
   - Remember to call **e.preventDefault()** in `dragover` handler or the browser won't let you drop anything inside
 
-  ```js
+  ```js showLineNumbers
   dropzone.addEventListener('dragover', function handleDragOver(e) {
     // The `dropzone` element must have both `dragover` and `drop` event
     // Remember to preventDefault the behavior or the browser or it will not let you drop anything inside
@@ -111,7 +111,7 @@ Below are some interesting key-notes I've learned about the APIs.
 
   - The **dragend** event fires after a drag operation finished regardless of whether the drag completed or was canceled
 
-  ```js
+  ```js showLineNumbers
   // The `dragend` event fired on the `draggable` element (not the dropzone element)
   dragElem.addEventListener('dragend', function handleDragEnd(e) {
     // We can check if the drag was successful or not by checking the ʻe.dataTransfer.dropEffect` value
@@ -125,9 +125,6 @@ Below are some interesting key-notes I've learned about the APIs.
 ## Refs
 
 - [DigitalOcean](https://www.digitalocean.com/community/tutorials/)
-
 - [MDN Documentations](https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API)
-
 - [https://web.dev/drag-and-drop/](https://web.dev/drag-and-drop/)
-
 - [https://html.spec.whatwg.org/multipage/dnd.html#dnd](https://html.spec.whatwg.org/multipage/dnd.html#dnd)

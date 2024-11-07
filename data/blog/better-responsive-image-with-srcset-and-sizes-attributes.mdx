@@ -34,7 +34,7 @@ but it's unnecessarily large and will take a long time to download.
 That's where the `srcset` and `sizes` attributes come in.
 We will use them to provide different image sources/sizes for different devices and let the browser decide which image to download and display.
 
-```html
+```html showLineNumbers
 <img
   src="image.jpg"
   srcset="image-320.jpg 320w, image-640.jpg 640w, image-1280.jpg 1280w"
@@ -111,7 +111,7 @@ Take a look at the example above, let's say we are on a mobile phone with a scre
 
 At the end, the `img` element should look like this:
 
-```html
+```html showLineNumbers
 <img
   src="image.jpg"
   srcset="image-320.jpg 320w, image-640.jpg 640w, image-1280.jpg 1280w"
