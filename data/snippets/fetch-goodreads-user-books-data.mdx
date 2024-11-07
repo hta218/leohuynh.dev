@@ -1,0 +1,129 @@
+---
+date: '2024-11-07'
+heading: 'Fetch Goodreads user books data'
+title: 'Scraping and parsing Goodreads user books data in Node.js'
+draft: false
+icon: 'Goodreads'
+summary: "Scraping Goodreads books data from user's RSS feed and parse to JSON in Node.js"
+tags: ['goodreads', 'scraping', 'rss', 'rss-parser']
+---
+
+Since Goodreads no longer supports fetching user's books data via their [API](https://www.goodreads.com/api),
+I've decided to scrape user's book data using the RSS feed and parse it in Node.js.
+
+![Goodreads API](/static/images/goodreads-api.png)
+
+The idea here is to use the [`rss-parser`](https://www.npmjs.com/package/rss-parser) package to parse the RSS feed and extract the book data.
+
+```ts:goodreads.ts showLineNumbers
+import Parser from 'rss-parser'
+import type { GoodreadsBook } from '~/types'
+
+let parser = new Parser<{ [key: string]: any }, GoodreadsBook>({
+  customFields: {
+    // Define all the custom fields you want to extract from the RSS feed
+    // Here I'm listing all the available fields from the Goodreads RSS feed
+    item: [
+      'guid',
+      'pubDate',
+      'title',
+      'link',
+      'book_id',
+      'book_image_url',
+      'book_small_image_url',
+      'book_medium_image_url',
+      'book_large_image_url',
+      'book_description',
+      'author_name',
+      'isbn',
+      'user_name',
+      'user_rating',
+      'user_read_at',
+      'user_date_added',
+      'user_date_created',
+      'user_shelves',
+      'user_review',
+      'average_rating',
+      'book_published',
+    ],
+  },
+})
+```
+
+Then you can fetch the data from the RSS feed using the `parser` object, and process it as needed.
+
+```ts:goodreads.ts showLineNumbers
+const GOODREADS_RSS_FEED_URL = '<YOUR_GOODREADS_RSS_FEED_URL>'
+
+export async function fetchGoodreadsBooks() {
+  if (GOODREADS_RSS_FEED_URL) {
+    try {
+      let data = await parser.parseURL(GOODREADS_RSS_FEED_URL)
+      // All the books data will be stored in the `data.items` array
+      // Use the parsed data as needed, for example, you can write it to a JSON file:
+      writeFileSync(`./json/books.json`, JSON.stringify(data.items))
+    } catch (error) {
+      console.error(`Error fetching the Goodreads RSS feed: ${error.message}`)
+    }
+  } else {
+    console.log('📚 No Goodreads RSS feed found.')
+  }
+}
+```
+
+> [!NOTE]
+> You can get a Goodreads user's RSS feed URL by going to their profile and navigating to the bookshelf page and copy the RSS feed URL.
+> This is my bookshelf page for example: https://www.goodreads.com/review/list/179720035
+
+Now that you have the data you might need to prettify them before storing or using in your application
+since the data is stored in a raw format.
+
+```ts:types.ts showLineNumbers
+let data = await parser.parseURL(/* GOODREADS_RSS_FEED_URL */)
+// Loop through the `data.items` array to prettify the data
+for (let book of data.items) {
+  book.content = book.content.replace(/\n/g, '').replace(/\s\s+/g, ' ') // Remove line breaks
+  book.book_description = book.book_description
+    .replace(/<[^>]*(>|$)/g, '') // Remove HTML tags
+    .replace(/\s\s+/g, ' ') // Replace multiple spaces with a single space
+    .replace(/^["|“]|["|“]$/g, '') // Remove leading and trailing quotation marks
+    .replace(/\.([a-zA-Z0-9])/g, '. $1') // Add a space after a period
+}
+// Use the parsed and prettified data as needed...
+```
+
+The `GoodreadsBook` type is defined here:
+
+```ts:types.ts showLineNumbers
+export type GoodreadsBook = {
+  guid: string
+  pubDate: string
+  title: string
+  link: string
+  book_id: string
+  book_image_url: string
+  book_small_image_url: string
+  book_medium_image_url: string
+  book_large_image_url: string
+  book_description: string
+  author_name: string
+  isbn: string
+  user_name: string
+  user_rating: string
+  user_read_at: string
+  user_date_added: string
+  user_date_created: string
+  user_shelves: string
+  user_review: string
+  average_rating: number
+  book_published: string
+  content: string
+}
+```
+
+### Caveat
+
+The Goodreads RSS feed is not updated instantly if you update your books on Goodreads.
+You might need to wait for a few hours before you can fetch the latest data.
+
+Happy scraping! <Twemoji emoji="clinking-beer-mugs" />
