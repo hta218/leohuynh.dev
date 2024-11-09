@@ -1,7 +1,8 @@
 import { allBlogs } from 'contentlayer/generated'
-import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer'
 import { ListLayout } from '~/layouts/list-layout'
 import { POSTS_PER_PAGE } from '~/utils/const'
+import { allCoreContent } from '~/utils/contentlayer'
+import { sortPosts } from '~/utils/misc'
 
 export let generateStaticParams = async () => {
   let totalPages = Math.ceil(allBlogs.length / POSTS_PER_PAGE)

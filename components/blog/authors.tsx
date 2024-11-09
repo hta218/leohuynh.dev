@@ -1,7 +1,7 @@
-import type { CoreContent } from 'pliny/utils/contentlayer'
 import type { Author } from '~/.contentlayer/generated'
 import { Image } from '~/components/ui/image'
 import { Link } from '~/components/ui/link'
+import type { CoreContent } from '~/types/data'
 
 interface AuthorsProps {
   authors: CoreContent<Author>[]

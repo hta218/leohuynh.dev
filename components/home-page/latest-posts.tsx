@@ -1,13 +1,13 @@
 'use client'
 
 import { clsx } from 'clsx'
-import type { CoreContent } from 'pliny/utils/contentlayer'
 import { useState } from 'react'
 import type { Blog, Snippet } from '~/.contentlayer/generated'
 import { PostCardListView } from '~/components/blog/post-card-list-view'
 import { SnippetCard } from '~/components/cards/snippet'
 import { GrowingUnderline } from '~/components/ui/growing-underline'
 import { Link } from '~/components/ui/link'
+import type { CoreContent } from '~/types/data'
 
 export function LatestPosts({
   posts,

@@ -1,6 +1,5 @@
 import { clsx } from 'clsx'
 import type { Blog } from 'contentlayer/generated'
-import type { CoreContent } from 'pliny/utils/contentlayer'
 import type { ReactNode } from 'react'
 import { Banner } from '~/components/blog/banner'
 import { BlogMeta } from '~/components/blog/blog-meta'
@@ -14,6 +13,7 @@ import { TagsList } from '~/components/blog/tags'
 import { Container } from '~/components/ui/container'
 import { SITE_METADATA } from '~/data/site-metadata'
 import type { StatsType } from '~/db/schema'
+import type { CoreContent } from '~/types/data'
 
 interface LayoutProps {
   content: CoreContent<Blog>
@@ -62,7 +62,7 @@ export function PostBanner({ content, children }: LayoutProps) {
             </div>
             <SocialShare postUrl={postUrl} title={title} />
           </div>
-          <Comments slug={slug} />
+          <Comments />
         </div>
       </article>
     </Container>

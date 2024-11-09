@@ -1,8 +1,9 @@
 import { genPageMetadata } from 'app/seo'
 import { allBlogs } from 'contentlayer/generated'
-import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer'
 import { ListLayout } from '~/layouts/list-layout'
 import { POSTS_PER_PAGE } from '~/utils/const'
+import { allCoreContent } from '~/utils/contentlayer'
+import { sortPosts } from '~/utils/misc'
 
 export let metadata = genPageMetadata({ title: 'Blog' })
 

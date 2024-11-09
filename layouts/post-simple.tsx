@@ -1,5 +1,4 @@
 import type { Blog, Snippet } from 'contentlayer/generated'
-import type { CoreContent } from 'pliny/utils/contentlayer'
 import type { ReactNode } from 'react'
 import { BlogMeta } from '~/components/blog/blog-meta'
 import { Comments } from '~/components/blog/comments'
@@ -13,6 +12,7 @@ import { Container } from '~/components/ui/container'
 import { GradientDivider } from '~/components/ui/gradient-divider'
 import { SITE_METADATA } from '~/data/site-metadata'
 import type { StatsType } from '~/db/schema'
+import type { CoreContent } from '~/types/data'
 
 interface PostSimpleProps {
   content: CoreContent<Blog | Snippet>
@@ -57,7 +57,7 @@ export function PostSimple({ content, children }: PostSimpleProps) {
             </div>
             <SocialShare postUrl={postUrl} title={title} />
           </div>
-          <Comments slug={slug} />
+          <Comments />
         </div>
       </article>
     </Container>

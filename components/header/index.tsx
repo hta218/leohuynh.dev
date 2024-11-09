@@ -3,6 +3,7 @@
 import clsx from 'clsx'
 import { usePathname } from 'next/navigation'
 import { useEffect } from 'react'
+import { KbarSearchTrigger } from '~/components/search/kbar-trigger'
 import { Container } from '~/components/ui/container'
 import { GrowingUnderline } from '~/components/ui/growing-underline'
 import { Link } from '~/components/ui/link'
@@ -11,7 +12,6 @@ import { SITE_METADATA } from '~/data/site-metadata'
 import { Logo } from './logo'
 import { MobileNav } from './mobile-nav'
 import { MoreLinks } from './more-links'
-import { SearchButton } from './search'
 import { ThemeSwitcher } from './theme-switcher'
 
 let logged = false
@@ -64,7 +64,7 @@ export function Header() {
           />
           <div className="flex items-center gap-2">
             <ThemeSwitcher />
-            <SearchButton />
+            <KbarSearchTrigger />
             <MobileNav />
           </div>
         </div>

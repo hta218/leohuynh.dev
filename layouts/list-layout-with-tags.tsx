@@ -1,16 +1,15 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 'use client'
 
 import { clsx } from 'clsx'
 import type { Blog, Snippet } from 'contentlayer/generated'
-import type { CoreContent } from 'pliny/utils/contentlayer'
 import { useState } from 'react'
-import { Tag } from '~/components/blog/tags'
 import { PostCardGridView } from '~/components/blog/post-card-grid-view'
+import { Tag } from '~/components/blog/tags'
 import { SnippetCard } from '~/components/cards/snippet'
 import { Container } from '~/components/ui/container'
 import { PageHeader } from '~/components/ui/page-header'
 import tagData from '~/json/tag-data.json'
+import type { CoreContent } from '~/types/data'
 
 interface ListLayoutProps {
   title: string

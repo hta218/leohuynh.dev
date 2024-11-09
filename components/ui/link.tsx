@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-has-content */
 import type { LinkProps } from 'next/link'
 import NextLink from 'next/link'
 import type { AnchorHTMLAttributes } from 'react'

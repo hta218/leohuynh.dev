@@ -3,14 +3,14 @@
 import type { Blog } from 'contentlayer/generated'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { usePathname } from 'next/navigation'
-import type { CoreContent } from 'pliny/utils/contentlayer'
 import { useState } from 'react'
 import { PostCardGridView } from '~/components/blog/post-card-grid-view'
 import { SearchArticles } from '~/components/blog/search-articles'
-import { Link } from '~/components/ui/link'
 import { Container } from '~/components/ui/container'
 import { GrowingUnderline } from '~/components/ui/growing-underline'
+import { Link } from '~/components/ui/link'
 import { PageHeader } from '~/components/ui/page-header'
+import type { CoreContent } from '~/types/data'
 
 interface PaginationProps {
   totalPages: number

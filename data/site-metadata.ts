@@ -35,7 +35,7 @@ export const SITE_METADATA = {
     provider: 'buttondown',
   },
   comments: {
-    giscusConfig: {
+    giscusConfigs: {
       repo: process.env.NEXT_PUBLIC_GISCUS_REPO!,
       repositoryId: process.env.NEXT_PUBLIC_GISCUS_REPOSITORY_ID!,
       category: process.env.NEXT_PUBLIC_GISCUS_CATEGORY!,
@@ -50,8 +50,7 @@ export const SITE_METADATA = {
     },
   },
   search: {
-    provider: 'kbar',
-    kbarConfig: {
+    kbarConfigs: {
       // path to load documents to search
       searchDocumentsPath: `${process.env.BASE_PATH || ''}/search.json`,
     },

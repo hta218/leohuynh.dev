@@ -1,6 +1,7 @@
 import { allBlogs, allSnippets } from 'contentlayer/generated'
-import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer'
 import { Home } from '~/components/home-page'
+import { allCoreContent } from '~/utils/contentlayer'
+import { sortPosts } from '~/utils/misc'
 
 const MAX_POSTS_DISPLAY = 5
 const MAX_SNIPPETS_DISPLAY = 6

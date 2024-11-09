@@ -27,11 +27,9 @@ Next, add the component to `MDXComponents.tsx`:
 
 export const components: MDXComponents = {
   Image,
-  TOCInline,
   a: CustomLink,
   pre: Pre,
 +  DonutChart,
-  BlogNewsletterForm,
 }
 ```
 

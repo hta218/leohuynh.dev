@@ -5,7 +5,7 @@ import GiscusComponent from '@giscus/react'
 import { useTheme } from 'next-themes'
 import { SITE_METADATA } from '~/data/site-metadata'
 
-interface GiscusConfig {
+interface GiscusConfigs {
   themeURL: string
   theme: string
   darkTheme: string
@@ -21,12 +21,12 @@ interface GiscusConfig {
 }
 
 interface CommentsProps {
-  configs?: Partial<GiscusConfig>
+  configs?: Partial<GiscusConfigs>
   className?: string
 }
 
 export function Comments({ configs, className }: CommentsProps) {
-  let defaultConfigs = SITE_METADATA.comments.giscusConfig as GiscusConfig
+  let defaultConfigs = SITE_METADATA.comments.giscusConfigs as GiscusConfigs
   let {
     themeURL,
     theme,

@@ -1,5 +1,5 @@
 import type { NextRequest } from 'next/server'
-import { fetchRepoData } from '~/server/github.server'
+import { fetchRepoData } from '~/utils/github'
 
 export async function GET(request: NextRequest) {
   let { searchParams: params } = new URL(request.url)

@@ -3,7 +3,7 @@ import { ProjectCard } from '~/components/cards/project'
 import { Container } from '~/components/ui/container'
 import { PageHeader } from '~/components/ui/page-header'
 import { PROJECTS } from '~/data/projects'
-import { fetchRepoData } from '~/server/github.server'
+import { fetchRepoData } from '~/utils/github'
 
 export let metadata = genPageMetadata({ title: 'Projects' })
 

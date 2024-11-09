@@ -3,10 +3,11 @@ import { allBlogs, allSnippets } from 'contentlayer/generated'
 import { slug } from 'github-slugger'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer'
 import { SITE_METADATA } from '~/data/site-metadata'
 import tagData from '~/json/tag-data.json'
 import { ListLayoutWithTags } from '~/layouts/list-layout-with-tags'
+import { allCoreContent } from '~/utils/contentlayer'
+import { sortPosts } from '~/utils/misc'
 
 export async function generateMetadata({ params }: { params: { tag: string } }): Promise<Metadata> {
   let tag = decodeURI(params.tag)

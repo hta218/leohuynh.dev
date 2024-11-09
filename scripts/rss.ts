@@ -2,11 +2,11 @@ import type { Blog, Snippet } from 'contentlayer/generated'
 import { mkdirSync, writeFileSync } from 'fs'
 import { slug } from 'github-slugger'
 import path from 'path'
-import { sortPosts } from 'pliny/utils/contentlayer'
-import { escape } from 'pliny/utils/htmlEscaper'
 import { allBlogs, allSnippets } from '~/.contentlayer/generated/index.mjs'
 import { SITE_METADATA } from '~/data/site-metadata'
 import tagData from '~/json/tag-data.json' assert { type: 'json' }
+import { escape } from '~/utils/html-escaper'
+import { sortPosts } from '~/utils/misc'
 
 const blogs = allBlogs as unknown as Blog[]
 const snippets = allSnippets as unknown as Snippet[]

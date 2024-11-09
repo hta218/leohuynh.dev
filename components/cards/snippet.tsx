@@ -1,12 +1,12 @@
 import { clsx } from 'clsx'
 import { type Snippet } from 'contentlayer/generated'
-import { type CoreContent } from 'pliny/utils/contentlayer'
-import { Link } from '~/components/ui/link'
 import type { BrandsMap } from '~/components/ui/brand'
 import { Brand } from '~/components/ui/brand'
 import { GradientBorder } from '~/components/ui/gradient-border'
 import { GrowingUnderline } from '~/components/ui/growing-underline'
+import { Link } from '~/components/ui/link'
 import { TiltedGridBackground } from '~/components/ui/tilted-grid-background'
+import type { CoreContent } from '~/types/data'
 
 export function SnippetCard({ snippet }: { snippet: CoreContent<Snippet> }) {
   let { icon, heading, summary, title, path } = snippet
