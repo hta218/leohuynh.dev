@@ -16,6 +16,7 @@
     "typecheck": "npx tsc -b"
   },
   "dependencies": {
+    "@giscus/react": "^3.0.0",
     "@headlessui/react": "2.1.10",
     "@next/bundle-analyzer": "14.2.15",
     "@octokit/graphql": "^8.1.1",
