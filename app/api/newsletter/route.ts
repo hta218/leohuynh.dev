@@ -48,12 +48,16 @@ async function NewsletterRouteHandler(req: NextRequest) {
   }
 }
 
-async function handler(req: NextApiRequest | NextRequest, res: NextApiResponse) {
-  // For route handlers, 2nd argument contains the 'params' property instead of a response object
-  if ('params' in res) {
-    return await NewsletterRouteHandler(req as NextRequest)
-  }
-  return await NewsletterAPIHandler(req as NextApiRequest, res)
-}
+// async function handler(req: NextApiRequest | NextRequest, res: NextApiResponse) {
+//   // For route handlers, 2nd argument contains the 'params' property instead of a response object
+//   if ('params' in res) {
+//     return await NewsletterRouteHandler(req as NextRequest)
+//   }
+//   return await NewsletterAPIHandler(req as NextApiRequest, res)
+// }
 
-export { handler as GET, handler as POST }
+// export { handler as POST }
+
+export async function POST(req: NextApiRequest, res: NextApiResponse) {
+  return await NewsletterAPIHandler(req, res)
+}
