@@ -60,3 +60,6 @@ supabase/
 
 # ts build
 tsconfig.tsbuildinfo
+
+# webstorm
+.idea/
