@@ -1,8 +1,8 @@
 'use client'
 
-import { useTheme } from 'next-themes'
+import type { BooleanString, InputPosition, Mapping } from '@giscus/react'
 import GiscusComponent from '@giscus/react'
-import type { Mapping, BooleanString, InputPosition } from '@giscus/react'
+import { useTheme } from 'next-themes'
 import { SITE_METADATA } from '~/data/site-metadata'
 
 interface GiscusConfig {
