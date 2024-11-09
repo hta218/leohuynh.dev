@@ -4,11 +4,6 @@ import { writeFileSync } from 'fs'
 import { slug } from 'github-slugger'
 import { fromHtmlIsomorphic } from 'hast-util-from-html-isomorphic'
 import path from 'path'
-import {
-  remarkCodeTitles,
-  remarkExtractFrontmatter,
-  remarkImgToJsx,
-} from 'pliny/mdx-plugins/index.js'
 import readingTime from 'reading-time'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeCitation from 'rehype-citation'
@@ -21,6 +16,9 @@ import remarkMath from 'remark-math'
 import { SITE_METADATA } from './data/site-metadata'
 import { allCoreContent } from './utils/contentlayer'
 import { sortPosts } from './utils/misc'
+import { remarkCodeTitles } from './utils/remark-code-titles'
+import { remarkExtractFrontmatter } from './utils/remark-extract-frontmatter'
+import { remarkImgToJsx } from './utils/remark-img-to-jsx'
 import { extractTocHeadings } from './utils/remark-toc-headings'
 
 let root = process.cwd()
