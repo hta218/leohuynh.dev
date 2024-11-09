@@ -4,26 +4,24 @@ import { writeFileSync } from 'fs'
 import { slug } from 'github-slugger'
 import { fromHtmlIsomorphic } from 'hast-util-from-html-isomorphic'
 import path from 'path'
-import readingTime from 'reading-time'
-// Remark packages
 import {
   remarkCodeTitles,
   remarkExtractFrontmatter,
   remarkImgToJsx,
 } from 'pliny/mdx-plugins/index.js'
-import remarkGfm from 'remark-gfm'
-import { remarkAlert } from 'remark-github-blockquote-alert'
-import remarkMath from 'remark-math'
-// Rehype packages
+import readingTime from 'reading-time'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
-import rehypeSlug from 'rehype-slug'
-// import rehypeKatex from 'rehype-katex'
-import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer.js'
 import rehypeCitation from 'rehype-citation'
 import rehypePresetMinify from 'rehype-preset-minify'
 import rehypePrismPlus from 'rehype-prism-plus'
+import rehypeSlug from 'rehype-slug'
+import remarkGfm from 'remark-gfm'
+import { remarkAlert } from 'remark-github-blockquote-alert'
+import remarkMath from 'remark-math'
 import { SITE_METADATA } from './data/site-metadata'
-import { extractTocHeadings } from './server/remark-toc-headings.server'
+import { allCoreContent } from './utils/contentlayer'
+import { sortPosts } from './utils/misc'
+import { extractTocHeadings } from './utils/remark-toc-headings'
 
 let root = process.cwd()
 let isProduction = process.env.NODE_ENV === 'production'
@@ -76,18 +74,17 @@ function createTagCount(documents) {
     }
   })
   writeFileSync('./json/tag-data.json', JSON.stringify(tagCount))
+  console.log('🏷️. Tag list generated.')
 }
 
 function createSearchIndex(allBlogs) {
-  if (
-    SITE_METADATA?.search?.provider === 'kbar' &&
-    SITE_METADATA.search.kbarConfig.searchDocumentsPath
-  ) {
+  let searchDocsPath = SITE_METADATA.search.kbarConfigs.searchDocumentsPath
+  if (searchDocsPath) {
     writeFileSync(
-      `public/${path.basename(SITE_METADATA.search.kbarConfig.searchDocumentsPath)}`,
+      `public/${path.basename(searchDocsPath)}`,
       JSON.stringify(allCoreContent(sortPosts(allBlogs)))
     )
-    console.log('Local search index generated...')
+    console.log('🔍 Local search index generated.')
   }
 }
 
@@ -214,7 +211,9 @@ export default makeSource({
   },
   onSuccess: async (importData) => {
     let { allBlogs, allSnippets } = await importData()
-    createTagCount([...allBlogs, ...allSnippets])
-    createSearchIndex(allBlogs)
+    let allPosts = [...allBlogs, ...allSnippets]
+    createTagCount(allPosts)
+    createSearchIndex(allPosts)
+    console.log('✨ Content source generated successfully!')
   },
 })
