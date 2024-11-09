@@ -3,7 +3,6 @@
 import { clsx } from 'clsx'
 import { ChevronsUp, MessageSquareText } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { SITE_METADATA } from '~/data/site-metadata'
 
 export function ScrollButtons() {
   let [show, setShow] = useState(false)
@@ -23,13 +22,11 @@ export function ScrollButtons() {
         show ? 'md:flex' : 'md:hidden'
       )}
     >
-      {SITE_METADATA.comments?.provider && (
-        <ScrollButton
-          ariaLabel="Scroll To Comment"
-          onClick={() => document.getElementById('comment')?.scrollIntoView()}
-          icon={MessageSquareText}
-        />
-      )}
+      <ScrollButton
+        ariaLabel="Scroll To Comment"
+        onClick={() => document.getElementById('comment')?.scrollIntoView()}
+        icon={MessageSquareText}
+      />
       <ScrollButton
         ariaLabel="Scroll To Top"
         onClick={() => window.scrollTo({ top: 0 })}
