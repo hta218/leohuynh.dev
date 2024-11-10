@@ -30,8 +30,9 @@ const FONT_NUNITO = Nunito({
 })
 
 const FONT_JETBRAINS_MONO = JetBrains_Mono({
-  weight: ['400', '500'],
+  weight: ['400', '500', '700'],
   subsets: ['latin'],
+  style: ['normal', 'italic'],
   display: 'swap',
   variable: '--font-jetbrains-mono',
 })
@@ -118,7 +119,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           'antialiased',
           'relative min-h-screen pl-[calc(100vw-100%)]',
           'flex flex-col',
-          'bg-white text-gray-900',
+          'bg-white text-neutral-900',
           'dark:bg-dark dark:text-gray-100',
         ])}
       >
