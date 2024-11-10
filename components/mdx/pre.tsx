@@ -16,7 +16,7 @@ export function Pre({ children }: { children: ReactNode }) {
     >
       <button
         aria-label="Copy code"
-        className="absolute right-2 top-3 h-8 w-8 p-1"
+        className="absolute right-3 top-3 hidden p-1 lg:inline-block"
         onClick={() => {
           if (textInput.current) {
             navigator.clipboard.writeText(textInput.current.textContent!)
