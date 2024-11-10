@@ -8,7 +8,8 @@ import readingTime from 'reading-time'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeCitation from 'rehype-citation'
 import rehypePresetMinify from 'rehype-preset-minify'
-import rehypePrismPlus from 'rehype-prism-plus'
+// import rehypePrismPlus from 'rehype-prism-plus'
+import rehypePrettyCode from 'rehype-pretty-code'
 import rehypeSlug from 'rehype-slug'
 import remarkGfm from 'remark-gfm'
 import { remarkAlert } from 'remark-github-blockquote-alert'
@@ -203,7 +204,16 @@ export default makeSource({
       ],
       // rehypeKatex,
       [rehypeCitation, { path: path.join(root, 'data') }],
-      [rehypePrismPlus, { defaultLanguage: 'js', ignoreMissing: true }],
+      // [rehypePrismPlus, { defaultLanguage: 'js', ignoreMissing: true }],
+      [
+        rehypePrettyCode,
+        {
+          theme: {
+            dark: 'github-dark-dimmed',
+            light: 'solarized-light',
+          },
+        },
+      ],
       rehypePresetMinify,
     ],
   },
