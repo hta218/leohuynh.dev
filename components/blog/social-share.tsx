@@ -20,7 +20,7 @@ export function SocialShare({ postUrl, title, className }: SocialButtonsProps) {
         url={postUrl}
         title={title}
         via={SITE_METADATA.x}
-        className="flex items-center overflow-hidden rounded-full !bg-x !px-2 !py-2 text-white hover:opacity-90"
+        className="flex items-center overflow-hidden rounded-full !bg-twitter !px-2 !py-2 text-white hover:opacity-90"
       >
         <XIcon className="h-3.5 w-3.5" fill="#fff" viewBox="0 0 1200 1227" />
       </TwitterShareButton>
