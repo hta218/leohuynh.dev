@@ -19,6 +19,15 @@ export async function updateBlogStats(
   slug: string,
   updates: { [key: string]: any }
 ) {
+  let currentStats = await getBlogStats(type, slug)
+
+  // Safeguard against negative updates
+  for (let key in updates) {
+    if (typeof updates[key] === 'number' && updates[key] < currentStats[key]) {
+      updates[key] = currentStats[key]
+    }
+  }
+
   let updatedStats = await db
     .update(statsTable)
     .set(updates)
