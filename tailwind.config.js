@@ -81,7 +81,7 @@ module.exports = {
         spotify: '#1DB954',
         goodreads: '#372213',
         facebook: '#1877f2',
-        x: '#0f1419',
+        twitter: '#0f1419',
         linkedin: '#0077B5',
       },
       width: {
@@ -121,9 +121,65 @@ module.exports = {
             h3: {
               fontWeight: '600',
             },
+            '.remark-code-title': {
+              borderTopLeftRadius: '.5rem',
+              borderTopRightRadius: '.5rem',
+              backgroundColor: theme('colors.gray.100'),
+              borderTop: '1px solid transparent',
+              borderLeft: '1px solid transparent',
+              borderRight: '1px solid transparent',
+              padding: '.75rem 1.5rem',
+              fontFamily: 'var(--font-jetbrains-mono), monospace',
+              fontSize: '.875rem',
+              lineHeight: '1.25rem',
+              fontWeight: '600',
+              color: theme('colors.gray.600'),
+              '+ figure > div': {
+                borderTop: 0,
+                borderTopLeftRadius: 0,
+                borderTopRightRadius: 0,
+              },
+            },
+            figure: {
+              marginTop: 0,
+            },
             pre: {
+              margin: 0,
               code: {
                 fontWeight: '500',
+                span: {
+                  color: 'var(--shiki-light, inherit)',
+                  fontStyle: 'var(--shiki-light-font-style, inherit)',
+                  fontWeight: 'var(--shiki-light-font-weight, inherit)',
+                  textDecoration: 'var(--shiki-light-text-decoration, inherit)',
+                },
+                '&[data-line-numbers]': {
+                  counterReset: 'line',
+                  '[data-line]::before': {
+                    counterIncrement: 'line',
+                    content: 'counter(line)',
+                    display: 'inline-block',
+                    width: '0.75rem',
+                    marginRight: '2rem',
+                    textAlign: 'right',
+                    color: '#657B83',
+                  },
+                },
+                '&[data-line-numbers-max-digits="2"]': {
+                  '[data-line]::before': {
+                    width: '1.25rem',
+                  },
+                },
+                '&[data-line-numbers-max-digits="3"]': {
+                  '[data-line]::before': {
+                    width: '1.75rem',
+                  },
+                },
+                '&[data-line-numbers-max-digits="4"]': {
+                  '[data-line]::before': {
+                    width: '2.25rem',
+                  },
+                },
               },
             },
             code: {
@@ -154,6 +210,24 @@ module.exports = {
             },
           },
         },
+        lg: {
+          css: {
+            'remark-code-title': {
+              fontSize: '.875rem',
+              lineHeight: '1.25rem',
+            },
+            figure: {
+              marginTop: 0,
+              pre: {
+                margin: 0,
+                borderRadius: 0,
+                code: {
+                  fontSize: '0.95em',
+                },
+              },
+            },
+          },
+        },
         invert: {
           css: {
             a: {
@@ -162,6 +236,20 @@ module.exports = {
                 color: `${theme('colors.primary.400')}`,
               },
               code: { color: theme('colors.primary.400') },
+            },
+            '.remark-code-title': {
+              backgroundColor: theme('colors.gray.700'),
+              color: theme('colors.gray.300'),
+            },
+            pre: {
+              code: {
+                span: {
+                  color: 'var(--shiki-dark, inherit)',
+                  fontStyle: 'var(--shiki-dark-font-style, inherit)',
+                  fontWeight: 'var(--shiki-dark-font-weight, inherit)',
+                  textDecoration: 'var(--shiki-dark-text-decoration, inherit)',
+                },
+              },
             },
             code: {
               color: theme('colors.primary.400'),
