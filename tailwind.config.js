@@ -153,34 +153,53 @@ module.exports = {
                   fontWeight: 'var(--shiki-light-font-weight, inherit)',
                   textDecoration: 'var(--shiki-light-text-decoration, inherit)',
                 },
-                '&[data-line-numbers]': {
-                  counterReset: 'line',
-                  '[data-line]::before': {
-                    counterIncrement: 'line',
-                    content: 'counter(line)',
-                    display: 'inline-block',
-                    width: '0.75rem',
-                    marginRight: '2rem',
-                    textAlign: 'right',
-                    color: '#657B83',
-                  },
-                },
-                '&[data-line-numbers-max-digits="2"]': {
-                  '[data-line]::before': {
-                    width: '1.25rem',
-                  },
-                },
-                '&[data-line-numbers-max-digits="3"]': {
-                  '[data-line]::before': {
-                    width: '1.75rem',
-                  },
-                },
-                '&[data-line-numbers-max-digits="4"]': {
-                  '[data-line]::before': {
-                    width: '2.25rem',
-                  },
-                },
               },
+            },
+            '[data-line]': {
+              marginLeft: '-1rem',
+              paddingLeft: '1rem',
+            },
+            '[data-line-numbers]': {
+              counterReset: 'line',
+              '[data-line]::before': {
+                counterIncrement: 'line',
+                content: 'counter(line)',
+                display: 'inline-block',
+                width: '0.75rem',
+                marginRight: '2rem',
+                textAlign: 'right',
+                color: '#657B83',
+              },
+            },
+            '[data-line-numbers-max-digits="2"]': {
+              '[data-line]::before': {
+                width: '1.25rem',
+              },
+            },
+            '[data-line-numbers-max-digits="3"]': {
+              '[data-line]::before': {
+                width: '1.75rem',
+              },
+            },
+            '[data-line-numbers-max-digits="4"]': {
+              '[data-line]::before': {
+                width: '2.25rem',
+              },
+            },
+            '[data-highlighted-line]': {
+              backgroundColor: 'rgb(196 196 196 / 15%)',
+              borderLeft: '4px solid theme(colors.indigo.500)',
+              paddingLeft: '.75rem',
+            },
+            '[data-highlighted-chars]': {
+              boxShadow: '0 0 0 4px rgb(82 82 91 / 0.5)',
+              borderRadius: '0.25rem',
+              backgroundColor: 'theme(colors.zinc.600)',
+            },
+            '[data-chars-id]': {
+              boxShadow: 'none',
+              padding: '.25rem',
+              borderBottom: '2px solid theme(colors.gray.800)',
             },
             code: {
               color: theme('colors.indigo.500'),

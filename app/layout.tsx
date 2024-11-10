@@ -30,7 +30,7 @@ const FONT_NUNITO = Nunito({
 })
 
 const FONT_JETBRAINS_MONO = JetBrains_Mono({
-  weight: ['400', '500', '700'],
+  weight: ['400', '500', '600'],
   subsets: ['latin'],
   style: ['normal', 'italic'],
   display: 'swap',
