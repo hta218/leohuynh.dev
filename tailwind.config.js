@@ -83,6 +83,7 @@ module.exports = {
         facebook: '#1877f2',
         twitter: '#0f1419',
         linkedin: '#0077B5',
+        'solarized-light': '#fdf6e3',
       },
       width: {
         4.5: '1.125rem',

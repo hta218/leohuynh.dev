@@ -16,7 +16,7 @@ export function Pre({ children }: { children: ReactNode }) {
     >
       <button
         aria-label="Copy code"
-        className="absolute right-3 top-3 hidden p-1 lg:inline-block"
+        className="absolute right-3 top-3 hidden bg-solarized-light p-2 lg:inline-block"
         onClick={() => {
           if (textInput.current) {
             navigator.clipboard.writeText(textInput.current.textContent!)
@@ -28,7 +28,7 @@ export function Pre({ children }: { children: ReactNode }) {
       >
         {copied ? <Check className="h-4.5 w-4.5" /> : <Copy className="h-4.5 w-4.5" />}
       </button>
-      <pre className="bg-[#FDF6E3]/75 text-[#657B83] dark:bg-[#22272e]">{children}</pre>
+      <pre className="bg-solarized-light text-[#657B83] dark:bg-[#22272e]">{children}</pre>
     </div>
   )
 }
