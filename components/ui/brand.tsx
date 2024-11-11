@@ -44,7 +44,13 @@ import Env from '~/icons/env.svg'
 import Html from '~/icons/html5.svg'
 import Postcss from '~/icons/postcss.svg'
 
-export let BrandsMap = {
+export let BrandsMap: Record<
+  string,
+  {
+    Icon: React.FC<React.SVGProps<SVGSVGElement>>
+    url?: string
+  }
+> = {
   Html: {
     Icon: Html,
   },
@@ -237,9 +243,9 @@ export function Brand(props: {
   let { name, as = 'link', className, iconClassName } = props
   let { Icon, url } = BrandsMap[name] || {}
 
-  if (!Icon) return <span>Missing brand icon for {name}</span>
+  if (!Icon) return <span className="hidden">Missing brand icon for {name}</span>
 
-  if (as === 'icon') {
+  if (as === 'icon' || !url) {
     return <Icon className={className} fill="currentColor" />
   }
 
