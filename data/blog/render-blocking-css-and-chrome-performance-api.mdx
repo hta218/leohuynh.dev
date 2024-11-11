@@ -97,7 +97,7 @@ In the example, I loaded two CSS files and compared the **page rendering time** 
 
 To use the **Performance API**, it is important to check **browser compatibility**.
 
-```javascript showLineNumbers
+```js showLineNumbers
 if ('PerformanceObserver' in window) {
   try {
     // Create PerformanceObserver instance
@@ -142,7 +142,7 @@ The results measured with **Performance API** are summarized below.
 
 Alternatively, you can use the [PerformancePaintTiming API](https://developer.mozilla.org/en-US/docs/Web/API/PerformancePaintTiming) directly.
 
-```javascript showLineNumbers
+```js showLineNumbers
 if (window.performance) {
 	let performance = window.performance;
 	let perfEntries = performance.getEntriesByType('paint');

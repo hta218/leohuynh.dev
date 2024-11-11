@@ -12,7 +12,7 @@ authors: ['default']
 
 Recently, I have been working on a pet project using **Node.js** on the backend to further my knowledge and prevent skill degradation during my free time. However, I encountered a frustrating issue with **paths** that many developers have likely experienced.
 
-```typescript showLineNumbers
+```ts showLineNumbers
 import { saveUser } from '../../../../../models/User'
 import homeController from '../../../../../controllers/home'
 ```
@@ -23,7 +23,7 @@ But what if we could define **aliases** (i.e., **shortcuts**) for frequently imp
 
 For example:
 
-```typescript showLineNumbers
+```ts showLineNumbers
 import { saveUser } from '@models/User'
 import homeController from '@controllers/home'
 ```
@@ -90,7 +90,7 @@ Note that `dist/` is the **folder** that contains your code after it has been bu
 
 - Finally, register the module in your app:
 
-  ```typescript
+  ```ts
   import 'module-alias/register'
   ```
 

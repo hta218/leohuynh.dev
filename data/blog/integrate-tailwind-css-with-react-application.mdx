@@ -50,7 +50,7 @@ touch postcss.config.js
 
 Add the following config:
 
-```javascript:postcss.config.js showLineNumbers
+```js:postcss.config.js showLineNumbers
 module.exports = {
   plugins: [require('tailwindcss'), require('autoprefixer')],
 }
@@ -122,13 +122,13 @@ Now to build the CSS and start the project, you just need to run `yarn start`.
 
 Import the built CSS into the start file of your project (mine is `index.js`):
 
-```javascript
+```js
 import './styles/main.css'
 ```
 
 Create a basic component:
 
-```js:app.jsx showLineNumbers
+```jsx:app.jsx showLineNumbers
 import React from 'react'
 
 function App() {

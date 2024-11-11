@@ -27,7 +27,7 @@ Here, `sectionIds` are the **filenames** of the sections in your **theme**, sepa
 
 For example:
 
-```javascript
+```js
 fetch('/?sections=header,footer')
 ```
 
@@ -42,7 +42,7 @@ The result will look like this:
 
 You can combine this with the **AJAX Cart APIs** by adding the `sections` parameter to the request body:
 
-```javascript showLineNumbers
+```js showLineNumbers
 items: [
   {
    id: 36110175633573,
@@ -110,7 +110,7 @@ To add product/collection context, simply add to the query URL: `/products/produ
 
 Example:
 
-```javascript showLineNumbers
+```js showLineNumbers
 // Async context
 
 let collectionMarkup = await await fetch(

@@ -150,7 +150,7 @@ The most important work of generating `server.key` and `server.crt` is done, now
 
 Create a simple **web server** with **Koa**:
 
-```javascript:server.js showLineNumbers
+```js:server.js showLineNumbers
 let Koa = require('koa');
 let app = new Koa();
 
@@ -165,7 +165,7 @@ Create a directory called `certs/` in your app, then move `server.key` and `serv
 
 Load the certificate files and create **HTTPS** server with `https` module:
 
-```javascript:index.js showLineNumbers
+```js:index.js showLineNumbers
 let app = require('./server')
 let https = require('https')
 let fs = require('fs')
