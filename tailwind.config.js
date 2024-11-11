@@ -259,6 +259,11 @@ module.exports = {
                 },
               },
             },
+            '[data-highlighted-line]': {
+              backgroundColor: '#37415180',
+              borderLeft: '4px solid theme(colors.gray.500)',
+              paddingLeft: '.75rem',
+            },
             code: {
               color: theme('colors.primary.400'),
             },
