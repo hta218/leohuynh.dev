@@ -40,8 +40,20 @@ import Webpack from '~/icons/webpack.svg'
 import VSCode from '~/icons/vscode.svg'
 import Drizzle from '~/icons/drizzle.svg'
 import Pnpm from '~/icons/pnpm.svg'
+import Env from '~/icons/env.svg'
+import Html from '~/icons/html5.svg'
+import Postcss from '~/icons/postcss.svg'
 
 export let BrandsMap = {
+  Html: {
+    Icon: Html,
+  },
+  Postcss: {
+    Icon: Postcss,
+  },
+  Env: {
+    Icon: Env,
+  },
   React: {
     Icon: React,
     url: 'https://reactjs.org',
