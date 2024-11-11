@@ -46,9 +46,9 @@ export function PostSimple({ content, children }: PostSimpleProps) {
           </dl>
         </div>
         <GradientDivider />
-        <div className="prose prose-lg max-w-none pt-4 dark:prose-invert">{children}</div>
+        <div className="prose prose-lg max-w-none dark:prose-invert">{children}</div>
         <GradientDivider className="mb-2 mt-1" />
-        <div className="space-y-8 pt-6">
+        <div className="space-y-8">
           <div className="flex justify-between gap-4">
             <div className="flex items-center gap-2">
               <DiscussOnX postUrl={postUrl} />
