@@ -29,14 +29,17 @@ export function CodeTitle({ lang, title }: { lang: string; title: string }) {
     <div
       className={clsx([
         'remark-code-title',
-        'flex items-center gap-2.5 px-4 py-3',
+        'flex items-center gap-2.5 px-4 py-1 lg:py-2',
         'bg-gray-100 text-gray-600 dark:bg-slate-700 dark:text-gray-300',
         'rounded-t-lg border border-gray-100 dark:border-gray-700',
       ])}
     >
       <Brand name={FILE_NAME_MAP[title] || LANGS_MAP[lang]} as="icon" className="h-5 w-5 rounded" />
       <span className="font-mono text-sm font-medium">{title}</span>
-      <CopyCodeButton parent="code-title" className="ml-auto bg-transparent dark:bg-transparent" />
+      <CopyCodeButton
+        parent="code-title"
+        className="-mr-2 ml-auto bg-transparent dark:bg-transparent"
+      />
     </div>
   )
 }
