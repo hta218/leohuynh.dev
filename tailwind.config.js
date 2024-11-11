@@ -74,6 +74,7 @@ module.exports = {
       fontFamily: {
         sans: ['var(--font-nunito)', ...fontFamily.sans],
         greeting: ['var(--font-playpen-sans)'],
+        mono: ['var(--font-jetbrains-mono)', ...fontFamily.mono],
       },
       colors: {
         primary: colors.indigo,
@@ -83,7 +84,9 @@ module.exports = {
         facebook: '#1877f2',
         twitter: '#0f1419',
         linkedin: '#0077B5',
-        'solarized-light': '#fdf6e3',
+        'solarized-light': '#fdfaf6',
+        'github-dark-dimmed': '#22272e',
+        'code-block': '#36313d',
       },
       width: {
         4.5: '1.125rem',
@@ -123,22 +126,15 @@ module.exports = {
               fontWeight: '600',
             },
             '.remark-code-title': {
-              borderTopLeftRadius: '.5rem',
-              borderTopRightRadius: '.5rem',
-              backgroundColor: theme('colors.gray.100'),
-              borderTop: '1px solid transparent',
-              borderLeft: '1px solid transparent',
-              borderRight: '1px solid transparent',
-              padding: '.75rem 1.5rem',
-              fontFamily: 'var(--font-jetbrains-mono), monospace',
-              fontSize: '.875rem',
-              lineHeight: '1.25rem',
-              fontWeight: '600',
-              color: theme('colors.gray.600'),
-              '+ figure > div': {
-                borderTop: 0,
-                borderTopLeftRadius: 0,
-                borderTopRightRadius: 0,
+              '+ figure': {
+                '> div': {
+                  borderTop: 0,
+                  borderTopLeftRadius: 0,
+                  borderTopRightRadius: 0,
+                },
+                '.copy-code': {
+                  display: 'none',
+                },
               },
             },
             figure: {
@@ -157,7 +153,7 @@ module.exports = {
               },
             },
             '[data-line]': {
-              marginLeft: '-1rem',
+              marginLeft: '-1.5rem',
               paddingLeft: '1rem',
             },
             '[data-line-numbers]': {
@@ -188,8 +184,8 @@ module.exports = {
               },
             },
             '[data-highlighted-line]': {
-              backgroundColor: 'rgb(196 196 196 / 15%)',
-              borderLeft: '4px solid theme(colors.indigo.500)',
+              backgroundColor: '#fbf0ea',
+              borderLeft: '4px solid theme(colors.gray.400)',
               paddingLeft: '.75rem',
             },
             '[data-highlighted-chars]': {
@@ -232,10 +228,6 @@ module.exports = {
         },
         lg: {
           css: {
-            'remark-code-title': {
-              fontSize: '.875rem',
-              lineHeight: '1.25rem',
-            },
             figure: {
               marginTop: 0,
               pre: {
@@ -256,10 +248,6 @@ module.exports = {
                 color: `${theme('colors.primary.400')}`,
               },
               code: { color: theme('colors.primary.400') },
-            },
-            '.remark-code-title': {
-              backgroundColor: theme('colors.gray.700'),
-              color: theme('colors.gray.300'),
             },
             pre: {
               code: {
