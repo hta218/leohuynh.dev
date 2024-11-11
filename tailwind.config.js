@@ -230,12 +230,12 @@ module.exports = {
           css: {
             figure: {
               marginTop: 0,
-              pre: {
-                margin: 0,
-                borderRadius: 0,
-                code: {
-                  fontSize: '0.95em',
-                },
+            },
+            pre: {
+              margin: 0,
+              borderRadius: 0,
+              code: {
+                fontSize: '0.95em',
               },
             },
           },
