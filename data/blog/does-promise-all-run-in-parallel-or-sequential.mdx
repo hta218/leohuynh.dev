@@ -1,6 +1,7 @@
 ---
 title: 'Does JavaScript Promise.all() run in parallel or sequential?'
 date: '2023-09-04'
+lastmod: '2024-11-11'
 tags: ['javascript', 'promise', 'parallel', 'sequential', 'concurrently']
 summary: "JavaScript is a single-threaded programming language, so it can't run multiple things at the same time, Promise.all() actually runs promises concurrently, not in parallel!. Let's dive in to see how it works."
 images:
@@ -12,7 +13,7 @@ authors: ['default']
 
 Let's say you have a list of async tasks (each return a **Promise**).
 
-```js showLineNumbers
+```js:promises.js showLineNumbers
 let promise1 = async function () {
   /* ... */
 }
@@ -46,7 +47,7 @@ The first approach is running them **sequentially**, one after another. It means
 
 Like this:
 
-```js showLineNumbers
+```js:promise-hell.js showLineNumbers
 promise1().then(() => {
   promise2().then(() => {
     promise3().then(() => {
@@ -91,7 +92,7 @@ The answer for the question in the title is: `Promise.all()` runs concurrently, 
 
 If you have a list promises that don't depend on each other, you can run them concurrently (or parallel-like):
 
-```js showLineNumbers
+```js:concurrently.js showLineNumbers
 await Promise.all([promise1(), promise2(), promise3()])
 // or
 await Promise.all(
@@ -103,7 +104,7 @@ await Promise.all(
 
 Or sequentially:
 
-```js showLineNumbers
+```js:sequentially.js showLineNumbers
 for (let item of items) {
   await doSomething(item)
 }
