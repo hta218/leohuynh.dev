@@ -22,9 +22,11 @@ export function remarkCodeTitles() {
       parent.children.splice(index, 0, {
         type: 'mdxJsxFlowElement',
         // @ts-ignore
-        name: 'div',
-        attributes: [{ type: 'mdxJsxAttribute', name: 'className', value: 'remark-code-title' }],
-        children: [{ type: 'text', value: title }],
+        name: 'CodeTitle',
+        attributes: [
+          { type: 'mdxJsxAttribute', name: 'lang', value: language },
+          { type: 'mdxJsxAttribute', name: 'title', value: title },
+        ],
         data: { _xdmExplicitJsx: true },
       })
       node.lang = language
