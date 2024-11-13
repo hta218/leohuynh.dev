@@ -60,7 +60,7 @@ export function PostBanner({ content, children }: LayoutProps) {
               <span className="text-gray-500">/</span>
               <EditOnGithub filePath={filePath} />
             </div>
-            <SocialShare postUrl={postUrl} title={title} />
+            {/* <SocialShare postUrl={postUrl} title={title} /> */}
           </div>
           <Comments />
         </div>
