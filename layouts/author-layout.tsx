@@ -34,22 +34,20 @@ export function AuthorLayout({ children }: Props) {
                 Hi there <Twemoji emoji="waving-hand" />
               </h2>
               <p>
-                I'm <strong>Tuan Anh Huynh</strong> (alias Leo at work), a software engineer from{' '}
-                <strong>Vietnam</strong>. I have a passion for all things{' '}
+                I'm <strong>Tuan Anh Huynh</strong> (alias <strong>Leo</strong> at work), a software
+                engineer from <strong>Vietnam</strong>. I have a passion for all things{' '}
                 <strong>Javascript</strong>. I enjoy building eCommerce software and stuff related
                 to web dev. I work mainly with <strong>Typescript</strong>, <strong>React</strong>,{' '}
                 <strong>NodeJS</strong>, <strong>Remix</strong>, and <strong>TailwindCSS</strong>.
               </p>
               <p>
-                I started this blog as a way to document and share stuff I have learned and found
-                useful as a software engineer. Building and writing things down is a great way for
-                me to solidify my understanding of new concepts and ideas. I hope my blog could be a
-                helpful resource for fellow devs who interested in web dev, eCommerce, and related
-                technologies.
+                This blog serves as a journal for documenting and sharing the insights and knowledge
+                I've gained as a software engineer. Building, writing, and sharing things is a great
+                way for me to solidify my understanding of new concepts and ideas.
               </p>
               <p>
-                I would be highly appreciated if you could leave your comments and thoughts on what
-                I have written <Twemoji emoji="clinking-beer-mugs" />.
+                I would greatly appreciate any comments and thoughts on my posts{' '}
+                <Twemoji emoji="clinking-beer-mugs" />.
               </p>
             </div>
             <div>
@@ -190,7 +188,7 @@ export function AuthorLayout({ children }: Props) {
             </div>
             <div>
               <h2>Support</h2>
-              <p>If you like my work, consider supporting me:</p>
+              <p>If you appreciate my work, consider supporting me:</p>
               <div className="flex flex-col gap-4">
                 <a
                   href={SITE_METADATA.support.buyMeACoffee}
