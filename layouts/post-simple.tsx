@@ -49,14 +49,14 @@ export function PostSimple({ content, children }: PostSimpleProps) {
         <div className="prose prose-lg max-w-none dark:prose-invert">{children}</div>
         <GradientDivider className="mb-2 mt-1" />
         <div className="space-y-8">
-          <div className="flex justify-between gap-4">
+          {/* <div className="flex justify-between gap-4">
             <div className="flex items-center gap-2">
               <DiscussOnX postUrl={postUrl} />
               <span className="text-gray-500">/</span>
               <EditOnGithub filePath={filePath} />
             </div>
-            <SocialShare postUrl={postUrl} title={title} />
-          </div>
+            <SocialShare postUrl={postUrl} filePath={filePath} title={title} />
+          </div> */}
           <Comments />
         </div>
       </article>

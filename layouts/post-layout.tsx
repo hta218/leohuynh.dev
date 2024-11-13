@@ -26,7 +26,7 @@ interface LayoutProps {
 }
 
 export function PostLayout({ content, next, prev, children }: LayoutProps) {
-  let { slug, images, lastmod, readingTime, date, title, tags, toc, type } = content
+  let { slug, images, lastmod, readingTime, date, filePath, title, tags, toc, type } = content
   let postUrl = `${SITE_METADATA.siteUrl}/${type.toLowerCase()}/${slug}`
 
   return (
@@ -47,7 +47,12 @@ export function PostLayout({ content, next, prev, children }: LayoutProps) {
               slug={slug}
               readingTime={readingTime}
             />
-            <SocialShare postUrl={postUrl} title={title} className="hidden md:flex" />
+            <SocialShare
+              postUrl={postUrl}
+              filePath={filePath}
+              title={title}
+              className="hidden md:flex"
+            />
           </div>
         </div>
         <GradientDivider className="mb-2 mt-1" />
@@ -57,14 +62,8 @@ export function PostLayout({ content, next, prev, children }: LayoutProps) {
           </div>
           <div className="hidden lg:col-span-4 lg:block xl:col-span-3">
             <div className="space-y-4 divide-y divide-gray-200 dark:divide-gray-700 lg:sticky lg:top-24">
-              <BackToPosts
-                label="Back to posts"
-                className="opacity-25 transition-opacity hover:opacity-100"
-              />
-              <TableOfContents
-                toc={toc}
-                className="pt-4 opacity-25 transition-opacity hover:opacity-100"
-              />
+              {/* <BackToPosts label="Back to posts" /> */}
+              <TableOfContents toc={toc} />
               <Reactions className="pt-6" type={type.toLowerCase() as StatsType} slug={slug} />
               <div className="hidden">
                 {/* <script src="//servedby.eleavers.com/ads/ads.php?t=MzA5NzQ7MjEwNjA7c3F1YXJlLnNxdWFyZV9ib3g=&index=1"></script> */}
