@@ -49,7 +49,11 @@ export function FooterMeta() {
         </Link>
         <span>-</span>
         {repo?.lastCommit && (
-          <Link href={repo.lastCommit.url} className="text-indigo-700 dark:text-indigo-500">
+          <Link
+            href={repo.lastCommit.url}
+            className="text-indigo-700 dark:text-indigo-400"
+            title={repo.lastCommit.message}
+          >
             <GrowingUnderline data-umami-event="repo-last-commit">
               {repo.lastCommit.abbreviatedOid}
             </GrowingUnderline>
