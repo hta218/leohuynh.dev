@@ -11,7 +11,7 @@ export function FooterNav() {
         <div className="flex h-11 items-center font-semibold md:justify-end">
           <span>Sitemap</span>
         </div>
-        <ul className="flex gap-4 md:flex-col md:gap-3">
+        <ul className="flex flex-wrap gap-4 md:flex-col md:gap-3">
           {FOOTER_NAV_LINKS.map((link, idx) => (
             <Fragment key={link.title}>
               <li>
@@ -28,7 +28,7 @@ export function FooterNav() {
         <div className="flex h-11 items-center font-semibold">
           <span>Personal stuff</span>
         </div>
-        <ul className="flex gap-4 md:flex-col md:gap-3">
+        <ul className="flex flex-wrap gap-4 md:flex-col md:gap-3">
           {FOOTER_PERSONAL_STUFF.map((link, idx) => (
             <Fragment key={link.title}>
               <li>
