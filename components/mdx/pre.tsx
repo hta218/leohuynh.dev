@@ -5,7 +5,7 @@ import { CopyCodeButton } from './copy-code-button'
 
 export function Pre({ children }: { children: ReactNode }) {
   return (
-    <div className="relative overflow-hidden rounded-lg border border-gray-100 dark:border-gray-700">
+    <div className="relative overflow-hidden rounded-lg border border-gray-50 dark:border-gray-800">
       <CopyCodeButton
         parent="code-block"
         className="absolute right-3 top-3 hidden lg:inline-block"
