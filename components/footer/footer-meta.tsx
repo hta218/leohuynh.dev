@@ -1,9 +1,13 @@
 'use client'
 
-import { Clock, Map } from 'lucide-react'
+import { Clock, Github, Map } from 'lucide-react'
+import useSWR from 'swr'
 import { GrowingUnderline } from '~/components/ui/growing-underline'
 import { Link } from '~/components/ui/link'
 import { Twemoji } from '~/components/ui/twemoji'
+import { SITE_METADATA } from '~/data/site-metadata'
+import type { GithubRepository } from '~/types/data'
+import { fetcher, getTimeAgo } from '~/utils/misc'
 
 const TIME_IS = 'https://time.is/Hanoi'
 const MY_TIMEZONE = 'Asia/Ho_Chi_Minh'
@@ -30,10 +34,28 @@ function getTime() {
   return { time, diff }
 }
 
-export function AddressAndTime() {
+export function FooterMeta() {
   let { time, diff } = getTime()
+  let siteRepo = SITE_METADATA.siteRepo.replace('https://github.com/', '')
+  let repoName = siteRepo.split('/')[1]
+  let { data: repo } = useSWR<GithubRepository>(`/api/github?repo=${siteRepo}`, fetcher)
+
   return (
     <div className="space-y-2 py-1.5 text-gray-800 dark:text-gray-200">
+      <div className="flex items-center gap-1 font-medium">
+        <Github className="h-5 w-5" />
+        <Link href={SITE_METADATA.siteRepo} className="ml-1">
+          <GrowingUnderline data-umami-event="view-repo">{repoName}</GrowingUnderline>
+        </Link>
+        <span>-</span>
+        {repo?.lastCommit && (
+          <Link href={repo.lastCommit.url} className="text-indigo-700 dark:text-indigo-500">
+            <GrowingUnderline data-umami-event="repo-last-commit">
+              {repo.lastCommit.abbreviatedOid}
+            </GrowingUnderline>
+          </Link>
+        )}
+      </div>
       <div className="flex items-center gap-2">
         <Map className="h-5 w-5" />
         <span className="font-medium">
@@ -44,7 +66,7 @@ export function AddressAndTime() {
         <Clock className="h-5 w-5" />
         <Link href={TIME_IS}>
           <GrowingUnderline className="font-medium" data-umami-event="footer-time">
-            {time} <span className="text-gray-500 dark:text-gray-400">({diff})</span>
+            {time} <span className="text-gray-500 dark:text-gray-400">- {diff}</span>
           </GrowingUnderline>
         </Link>
       </div>

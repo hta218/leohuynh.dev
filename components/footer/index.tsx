@@ -1,7 +1,7 @@
 import { clsx } from 'clsx'
 import { Container } from '~/components/ui/container'
 import { SITE_METADATA } from '~/data/site-metadata'
-import { AddressAndTime } from './address-and-time'
+import { FooterMeta } from './footer-meta'
 import { FooterBottom } from './footer-bottom'
 import { FooterNav } from './footer-nav'
 import { LogoAndRepo } from './logo-and-repo'
@@ -20,9 +20,11 @@ export function Footer() {
           <LogoAndRepo />
           <div className="italic text-gray-500 dark:text-gray-400">{SITE_METADATA.description}</div>
           <div className="pt-4">
-            <div className="flex gap-8 md:gap-20">
-              <Signature className="h-20 w-32 md:w-40" />
-              <AddressAndTime />
+            <div className="flex gap-8 py-1.5 md:gap-20">
+              <div className="flex items-center">
+                <Signature className="h-20 w-32 md:w-40" />
+              </div>
+              <FooterMeta />
             </div>
           </div>
         </div>
