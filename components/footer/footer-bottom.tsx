@@ -25,7 +25,7 @@ export function FooterBottom() {
             <MadeInVietNam />
           </span>
         </Link>
-        <span className="mx-2.5 text-gray-400">|</span>
+        {/* <span className="mx-2.5 text-gray-400">|</span>
         <Link href="/feed.xml" aria-label="RSS Feed" data-umami-event="rss-feed" prefetch={false}>
           <Rss strokeWidth={1.5} size={20} />
         </Link>
@@ -36,7 +36,7 @@ export function FooterBottom() {
           className="ml-2"
         >
           <AreaChart strokeWidth={1.5} size={22} />
-        </Link>
+        </Link> */}
       </div>
     </div>
   )

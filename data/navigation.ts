@@ -1,3 +1,5 @@
+import { SITE_METADATA } from './site-metadata'
+
 export const HEADER_NAV_LINKS = [
   { href: '/blog', title: 'Blog', emoji: 'writing-hand' },
   { href: '/snippets', title: 'Snippets', emoji: 'dna' },
@@ -16,6 +18,7 @@ export const FOOTER_NAV_LINKS = [
   { href: '/snippets', title: 'Snippets' },
   { href: '/projects', title: 'Projects' },
   { href: '/tags', title: 'Tags' },
+  { href: '/feed.xml', title: 'RSS Feed' },
 ]
 
 export const FOOTER_PERSONAL_STUFF = [
@@ -23,4 +26,5 @@ export const FOOTER_PERSONAL_STUFF = [
   { href: '/static/resume.pdf', title: 'Resume' },
   { href: '/books', title: 'Books' },
   { href: '/movies', title: 'Movies' },
+  { href: SITE_METADATA.analytics.umamiAnalytics.shareUrl, title: 'Analytics' },
 ]
