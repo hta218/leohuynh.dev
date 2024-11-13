@@ -1,7 +1,38 @@
 import { graphql, type GraphQlQueryResponseData } from '@octokit/graphql'
 import type { GithubRepository } from '~/types/data'
 
-export async function fetchRepoData(repo: string): Promise<GithubRepository | null> {
+const HISTORY_QUERY = `
+  defaultBranchRef {
+    target {
+      ... on Commit {
+        history(first: 1) {
+          edges {
+            node {
+              ... on Commit {
+                id
+                abbreviatedOid
+                committedDate
+                message
+                url
+                status {
+                  state
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`
+
+export async function fetchRepoData({
+  repo,
+  includeLastCommit = false,
+}: {
+  repo: string
+  includeLastCommit?: boolean
+}): Promise<GithubRepository | null> {
   if (!process.env.GITHUB_API_TOKEN) {
     console.error('Missing `GITHUB_API_TOKEN`')
     return null
@@ -14,6 +45,7 @@ export async function fetchRepoData(repo: string): Promise<GithubRepository | nu
             stargazerCount
             description
             homepageUrl
+            ${includeLastCommit ? HISTORY_QUERY : ''}
             languages(first: 10, orderBy: { field: SIZE, direction: DESC }) {
               edges {
                 node {
@@ -46,6 +78,10 @@ export async function fetchRepoData(repo: string): Promise<GithubRepository | nu
         },
       }
     )
+    if (includeLastCommit) {
+      repository.lastCommit = repository.defaultBranchRef.target.history.edges[0].node
+      delete repository.defaultBranchRef
+    }
     repository.languages = repository.languages.edges.map((edge) => {
       return {
         color: edge.node.color,

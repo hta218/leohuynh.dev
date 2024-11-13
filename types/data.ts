@@ -119,6 +119,18 @@ export type GithubRepository = {
   url: string
   forkCount: number
   repositoryTopics: string[]
+  lastCommit?: GithubRepositoryCommit
+}
+
+export type GithubRepositoryCommit = {
+  id: string
+  abbreviatedOid: string
+  committedDate: string
+  message: string
+  url: string
+  status: {
+    state: string
+  }
 }
 
 export type MDXDocument = Document & { body: MDX }
