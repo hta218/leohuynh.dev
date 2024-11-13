@@ -90,7 +90,7 @@ const EXPERIENCES = [
               Coc Coc's newsfeed
             </a>
           </li>
-          <li>Maintained and optimized Newtab's widgets and performance</li>
+          <li>Maintained and optimized new tab's widgets and performance</li>
         </ul>
       )
     },
