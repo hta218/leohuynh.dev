@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 import { Github } from 'lucide-react'
+import { Fragment } from 'react'
 import type { BrandsMap } from '~/components/ui/brand'
 import { Brand } from '~/components/ui/brand'
 import { GradientBorder } from '~/components/ui/gradient-border'
@@ -19,7 +20,7 @@ export function ProjectCard({ project }: { project: (typeof PROJECTS)[0] }) {
   return (
     <GradientBorder
       offset={28}
-      className="flex flex-col rounded-[40px] p-8 [box-shadow:0_8px_32px_rgba(194,194,218,.3)] dark:bg-white/5 dark:shadow-none"
+      className="flex flex-col rounded-[40px] p-6 [box-shadow:0_8px_32px_rgba(194,194,218,.3)] dark:bg-white/5 dark:shadow-none md:p-8"
     >
       <TiltedGridBackground className="inset-0 z-[-1] rounded-[40px]" />
       <div className="mb-6 flex items-center gap-4">
@@ -37,7 +38,12 @@ export function ProjectCard({ project }: { project: (typeof PROJECTS)[0] }) {
         </div>
       </div>
       <p className="mb-16 line-clamp-3 grow text-lg">{repository?.description || description}</p>
-      <div className={clsx('mt-auto grid', repository ? 'grid-cols-3' : 'grid-cols-2')}>
+      <div
+        className={clsx(
+          'mt-auto flex gap-9 md:grid md:gap-0',
+          repository ? 'grid-cols-3' : 'grid-cols-2'
+        )}
+      >
         {repository ? (
           <div className="space-y-1.5">
             <div className="text-xs text-gray-600 dark:text-gray-400">Github stars</div>
@@ -53,8 +59,8 @@ export function ProjectCard({ project }: { project: (typeof PROJECTS)[0] }) {
             <div className="text-xs text-gray-600 dark:text-gray-400">Links</div>
             <div className="flex items-center gap-1.5">
               {links?.map(({ title, url }, idx) => (
-                <>
-                  <Link key={url} href={url} className="flex items-center gap-1.5">
+                <Fragment key={url}>
+                  <Link href={url} className="flex items-center gap-1.5">
                     <GrowingUnderline className="font-medium" data-umami-event="project-link">
                       {title}
                     </GrowingUnderline>
@@ -62,7 +68,7 @@ export function ProjectCard({ project }: { project: (typeof PROJECTS)[0] }) {
                   {idx !== links.length - 1 && (
                     <span className="text-gray-400 dark:text-gray-500">|</span>
                   )}
-                </>
+                </Fragment>
               ))}
             </div>
           </div>
