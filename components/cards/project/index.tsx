@@ -23,14 +23,7 @@ export function ProjectCard({ project }: { project: (typeof PROJECTS)[0] }) {
     >
       <TiltedGridBackground className="inset-0 z-[-1] rounded-[40px]" />
       <div className="mb-6 flex items-center gap-4">
-        <Image
-          src={imgSrc}
-          alt={title}
-          width={858}
-          height={504}
-          style={{ objectFit: 'contain' }}
-          className="h-auto w-15 shrink-0"
-        />
+        <Image src={imgSrc} alt={title} width={100} height={100} className="h-15 w-15 shrink-0" />
         <div className="flex flex-col items-start gap-1 pt-1">
           <h2 className="text-[22px] font-bold leading-[30px]">
             {href ? (
