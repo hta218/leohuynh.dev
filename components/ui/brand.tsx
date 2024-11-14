@@ -43,6 +43,7 @@ import Pnpm from '~/icons/pnpm.svg'
 import Env from '~/icons/env.svg'
 import Html from '~/icons/html5.svg'
 import Postcss from '~/icons/postcss.svg'
+import Commitlint from '~/icons/commitlint.svg'
 
 export let BrandsMap: Record<
   string,
@@ -51,7 +52,13 @@ export let BrandsMap: Record<
     url?: string
   }
 > = {
+  Commitlint: {
+    Icon: Commitlint,
+  },
   Html: {
+    Icon: Html,
+  },
+  HTML: {
     Icon: Html,
   },
   Postcss: {
@@ -88,7 +95,15 @@ export let BrandsMap: Record<
     Icon: Javascript,
     url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript',
   },
+  JavaScript: {
+    Icon: Javascript,
+    url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript',
+  },
   Typescript: {
+    Icon: Typescript,
+    url: 'https://www.typescriptlang.org',
+  },
+  TypeScript: {
     Icon: Typescript,
     url: 'https://www.typescriptlang.org',
   },
