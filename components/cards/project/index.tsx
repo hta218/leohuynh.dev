@@ -1,47 +1,38 @@
 import clsx from 'clsx'
+import { Github } from 'lucide-react'
 import type { BrandsMap } from '~/components/ui/brand'
 import { Brand } from '~/components/ui/brand'
 import { GradientBorder } from '~/components/ui/gradient-border'
 import { GrowingUnderline } from '~/components/ui/growing-underline'
+import { Image } from '~/components/ui/image'
 import { Link } from '~/components/ui/link'
-import { RadiantCard } from '~/components/ui/radiant-card'
+import { TiltedGridBackground } from '~/components/ui/tilted-grid-background'
 import type { PROJECTS } from '~/data/projects'
 import type { GithubRepository } from '~/types/data'
-import { RepoMeta } from './repo-meta'
-import { Image } from '~/components/ui/image'
 
-export function ProjectCard({
-  project,
-  reversed,
-}: {
-  project: (typeof PROJECTS)[0]
-  reversed?: boolean
-}) {
-  let { title, description, imgSrc, url, repo, builtWith } = project
+export function ProjectCard({ project }: { project: (typeof PROJECTS)[0] }) {
+  let { title, description, imgSrc, url, repo, builtWith, links } = project
   let repository = repo as GithubRepository
   let href = repository?.url || url
+  let lang = repository?.languages?.[0]
 
   return (
-    <RadiantCard
-      className={clsx([
-        'flex flex-col gap-6 p-4 md:h-80 md:flex-row md:gap-12 md:p-8',
-        reversed && 'md:flex-row-reverse',
-      ])}
+    <GradientBorder
+      offset={28}
+      className="flex flex-col rounded-[40px] p-8 [box-shadow:0_8px_32px_rgba(194,194,218,.3)] dark:bg-white/5 dark:shadow-none"
     >
-      <div className="flex h-56 items-end sm:h-80 md:h-auto md:w-1/2">
-        <GradientBorder className="rounded-2xl">
-          <Image
-            src={imgSrc}
-            alt={title}
-            width={858}
-            height={504}
-            className="h-full w-full rounded-2xl shadow-lg"
-          />
-        </GradientBorder>
-      </div>
-      <div className="flex grow flex-col justify-between space-y-6 pb-1 md:w-1/2 md:pb-0">
-        <div className="space-y-4">
-          <h2 className="text-[1.75rem] font-semibold leading-8">
+      <TiltedGridBackground className="inset-0 z-[-1] rounded-[40px]" />
+      <div className="mb-6 flex items-center gap-4">
+        <Image
+          src={imgSrc}
+          alt={title}
+          width={858}
+          height={504}
+          style={{ objectFit: 'contain' }}
+          className="h-auto w-15 shrink-0"
+        />
+        <div className="flex flex-col items-start gap-1 pt-1">
+          <h2 className="text-[22px] font-bold leading-[30px]">
             {href ? (
               <Link href={href} aria-label={`Link to ${title}`}>
                 <GrowingUnderline data-umami-event="project-title-link">{title}</GrowingUnderline>
@@ -50,39 +41,63 @@ export function ProjectCard({
               title
             )}
           </h2>
-          <div className="max-w-none space-y-4">
-            <div className="flex flex-wrap items-center gap-2">
-              {builtWith?.map((tool) => {
-                return (
-                  <Brand
-                    key={tool}
-                    name={tool as keyof typeof BrandsMap}
-                    iconClassName={clsx(
-                      tool === 'Pygame' ? 'h-5 md:h-5.5' : 'h-5 w-5 md:h-5.5 md:w-5.5'
-                    )}
-                  />
-                )
-              })}
+        </div>
+      </div>
+      <p className="mb-16 line-clamp-3 grow text-lg">{repository?.description || description}</p>
+      <div className={clsx('mt-auto grid', repository ? 'grid-cols-3' : 'grid-cols-2')}>
+        {repository ? (
+          <div className="space-y-1.5">
+            <div className="text-xs text-gray-600 dark:text-gray-400">Github stars</div>
+            <div className="flex items-center gap-2">
+              <div className="flex items-center space-x-1.5">
+                <Github size={16} strokeWidth={1.5} />
+                <span className="font-medium">{repository?.stargazerCount}</span>
+              </div>
             </div>
-            <p className="line-clamp-3 text-gray-600 dark:text-gray-400">
-              {repository?.description || description}
-            </p>
+          </div>
+        ) : (
+          <div className="space-y-1.5">
+            <div className="text-xs text-gray-600 dark:text-gray-400">Links</div>
+            <div className="flex items-center gap-1.5">
+              {links?.map(({ title, url }, idx) => (
+                <>
+                  <Link key={url} href={url} className="flex items-center gap-1.5">
+                    <GrowingUnderline className="font-medium" data-umami-event="project-link">
+                      {title}
+                    </GrowingUnderline>
+                  </Link>
+                  {idx !== links.length - 1 && (
+                    <span className="text-gray-400 dark:text-gray-500">|</span>
+                  )}
+                </>
+              ))}
+            </div>
+          </div>
+        )}
+        <div className="space-y-1.5">
+          <div className="text-xs text-gray-600 dark:text-gray-400">Stack</div>
+          <div className="flex h-6 flex-wrap items-center gap-1.5">
+            {builtWith?.map((tool) => {
+              return (
+                <Brand
+                  key={tool}
+                  name={tool as keyof typeof BrandsMap}
+                  iconClassName={clsx(tool === 'Pygame' ? 'h-4' : 'h-4 w-4')}
+                />
+              )
+            })}
           </div>
         </div>
-        {repository ? (
-          <RepoMeta repo={repository} />
-        ) : (
-          <Link
-            href={url!}
-            className="text-base font-medium leading-6"
-            aria-label={`Link to ${title}`}
-          >
-            <GrowingUnderline data-umami-event="project-learn-more">
-              Learn more &rarr;
-            </GrowingUnderline>
-          </Link>
+        {lang && (
+          <div className="space-y-1.5">
+            <div className="text-xs text-gray-600 dark:text-gray-400">Language</div>
+            <div className="flex items-center gap-1.5">
+              <Brand name={lang.name as keyof typeof BrandsMap} as="icon" className="h-4 w-4" />
+              <span className="font-medium">{lang.name}</span>
+            </div>
+          </div>
         )}
       </div>
-    </RadiantCard>
+    </GradientBorder>
   )
 }
