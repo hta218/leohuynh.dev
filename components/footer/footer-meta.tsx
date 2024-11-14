@@ -1,13 +1,13 @@
 'use client'
 
-import { Clock, Github, Map } from 'lucide-react'
+import { Clock, Github, Map, Star } from 'lucide-react'
 import useSWR from 'swr'
 import { GrowingUnderline } from '~/components/ui/growing-underline'
 import { Link } from '~/components/ui/link'
 import { Twemoji } from '~/components/ui/twemoji'
 import { SITE_METADATA } from '~/data/site-metadata'
 import type { GithubRepository } from '~/types/data'
-import { fetcher, getTimeAgo } from '~/utils/misc'
+import { fetcher } from '~/utils/misc'
 
 const TIME_IS = 'https://time.is/Hanoi'
 const MY_TIMEZONE = 'Asia/Ho_Chi_Minh'
@@ -48,17 +48,10 @@ export function FooterMeta() {
           <GrowingUnderline data-umami-event="view-repo">{repoName}</GrowingUnderline>
         </Link>
         <span>-</span>
-        {repo?.lastCommit && (
-          <Link
-            href={repo.lastCommit.url}
-            className="text-indigo-700 dark:text-indigo-400"
-            title={repo.lastCommit.message}
-          >
-            <GrowingUnderline data-umami-event="repo-last-commit">
-              {repo.lastCommit.abbreviatedOid}
-            </GrowingUnderline>
-          </Link>
-        )}
+        <span className="inline-flex items-center text-gray-500 dark:text-gray-400">
+          <Star className="mr-1 h-4 w-4" />
+          {repo ? <span>{repo.stargazerCount}</span> : '---'}
+        </span>
       </div>
       <div className="flex items-center gap-2">
         <Map className="h-5 w-5" />
