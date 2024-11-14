@@ -1,13 +1,13 @@
 'use client'
 
-import { Star } from 'lucide-react'
+import { CheckCheck, Circle, X } from 'lucide-react'
 import useSWR from 'swr'
 import { Logo } from '~/components/header/logo'
 import { GrowingUnderline } from '~/components/ui/growing-underline'
 import { Link } from '~/components/ui/link'
 import { SITE_METADATA } from '~/data/site-metadata'
-import type { GithubRepository, GithubRepositoryCommit } from '~/types/data'
-import { fetcher, getTimeAgo } from '~/utils/misc'
+import type { GithubRepository } from '~/types/data'
+import { fetcher } from '~/utils/misc'
 
 export function LogoAndRepo() {
   let siteRepo = SITE_METADATA.siteRepo.replace('https://github.com/', '')
@@ -29,15 +29,31 @@ export function LogoAndRepo() {
           <span className="mx-2">-</span>
           <Link
             href={repo.lastCommit.url}
-            className="text-indigo-700 dark:text-indigo-400"
+            className="mr-1.5 text-indigo-700 dark:text-indigo-400"
             title={repo.lastCommit.message}
           >
             <GrowingUnderline data-umami-event="repo-last-commit">
               #{repo.lastCommit.abbreviatedOid}
             </GrowingUnderline>
           </Link>
+          <CommitStatus status={repo.lastCommit.status.state} />
         </>
       )}
     </div>
   )
+}
+
+function CommitStatus({ status }: { status: string }) {
+  switch (status) {
+    case 'SUCCESS':
+      return <CheckCheck size={16} strokeWidth={2} className="text-green-700" />
+    case 'PENDING':
+      return (
+        <Circle size={12} strokeWidth={1.5} fill="green" className="animate-pulse text-[green]" />
+      )
+    case 'FAILURE':
+      return <X size={16} strokeWidth={2} className="text-red-700" />
+    default:
+      return null
+  }
 }
