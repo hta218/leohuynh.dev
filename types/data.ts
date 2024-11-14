@@ -17,6 +17,7 @@ export type Project = {
   url?: string
   repo?: string | GithubRepository | null
   builtWith: string[]
+  links?: { title: string; url: string }[]
 }
 
 export type GoodreadsBook = {
