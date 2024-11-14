@@ -22,6 +22,8 @@ const FILE_NAME_MAP: Record<string, keyof typeof BrandsMap> = {
   'tailwind.config.js': 'TailwindCSS',
   'postcss.config.js': 'Postcss',
   'package.json': 'Npm',
+  '.gitignore': 'Git',
+  'commitlint.config.js': 'Commitlint',
 }
 
 export function CodeTitle({ lang, title }: { lang: string; title: string }) {
