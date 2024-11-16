@@ -123,6 +123,9 @@ export type GithubRepository = {
   lastCommit?: GithubRepositoryCommit
 }
 
+// https://docs.github.com/en/graphql/reference/enums#statusstate
+export type CommitState = 'SUCCESS' | 'PENDING' | 'FAILURE' | 'ERROR' | 'EXPECTED'
+
 export type GithubRepositoryCommit = {
   id: string
   abbreviatedOid: string
@@ -130,7 +133,7 @@ export type GithubRepositoryCommit = {
   message: string
   url: string
   status: {
-    state: string
+    state: CommitState
   }
 }
 

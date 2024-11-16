@@ -6,7 +6,7 @@ import { Logo } from '~/components/header/logo'
 import { GrowingUnderline } from '~/components/ui/growing-underline'
 import { Link } from '~/components/ui/link'
 import { SITE_METADATA } from '~/data/site-metadata'
-import type { GithubRepository } from '~/types/data'
+import type { CommitState, GithubRepository } from '~/types/data'
 import { fetcher } from '~/utils/misc'
 
 export function LogoAndRepo() {
@@ -29,11 +29,11 @@ export function LogoAndRepo() {
           <span className="mx-2">-</span>
           <Link
             href={repo.lastCommit.url}
-            className="mr-1.5 text-indigo-700 dark:text-indigo-400"
+            className="mr-1 text-indigo-700 dark:text-indigo-400"
             title={repo.lastCommit.message}
           >
-            <GrowingUnderline data-umami-event="repo-last-commit">
-              #{repo.lastCommit.abbreviatedOid}
+            <GrowingUnderline data-umami-event="repo-last-commit" className="flex items-center">
+              {repo.lastCommit.abbreviatedOid}
             </GrowingUnderline>
           </Link>
           <CommitStatus status={repo.lastCommit.status.state} />
@@ -43,14 +43,16 @@ export function LogoAndRepo() {
   )
 }
 
-function CommitStatus({ status }: { status: string }) {
+function CommitStatus({ status }: { status: CommitState }) {
   switch (status) {
+    case 'EXPECTED':
     case 'SUCCESS':
       return <CheckCheck size={16} strokeWidth={2} className="text-green-700" />
     case 'PENDING':
       return (
         <Circle size={12} strokeWidth={1.5} fill="green" className="animate-pulse text-[green]" />
       )
+    case 'ERROR':
     case 'FAILURE':
       return <X size={16} strokeWidth={2} className="text-red-700" />
     default:
