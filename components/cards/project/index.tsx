@@ -40,13 +40,16 @@ export function ProjectCard({ project }: { project: (typeof PROJECTS)[0] }) {
       <p className="mb-16 line-clamp-3 grow text-lg">{repository?.description || description}</p>
       <div
         className={clsx(
-          'mt-auto flex gap-9 md:grid md:gap-0',
+          'mt-auto flex gap-6 sm:gap-9 md:grid md:gap-0',
           repository ? 'grid-cols-3' : 'grid-cols-2'
         )}
       >
         {repository ? (
           <div className="space-y-1.5">
-            <div className="text-xs text-gray-600 dark:text-gray-400">Github stars</div>
+            <div className="text-xs text-gray-600 dark:text-gray-400">
+              <span className="hidden sm:inline">Github stars</span>
+              <span className="sm:hidden">Stars</span>
+            </div>
             <div className="flex items-center gap-2">
               <div className="flex items-center space-x-1.5">
                 <Github size={16} strokeWidth={1.5} />
@@ -57,7 +60,7 @@ export function ProjectCard({ project }: { project: (typeof PROJECTS)[0] }) {
         ) : (
           <div className="space-y-1.5">
             <div className="text-xs text-gray-600 dark:text-gray-400">Links</div>
-            <div className="flex items-center gap-1.5">
+            <div className="flex flex-col items-start gap-0.5 sm:flex-row sm:items-center sm:gap-1.5">
               {links?.map(({ title, url }, idx) => (
                 <Fragment key={url}>
                   <Link href={url} className="flex items-center gap-1.5">
@@ -66,7 +69,7 @@ export function ProjectCard({ project }: { project: (typeof PROJECTS)[0] }) {
                     </GrowingUnderline>
                   </Link>
                   {idx !== links.length - 1 && (
-                    <span className="text-gray-400 dark:text-gray-500">|</span>
+                    <span className="hidden text-gray-400 dark:text-gray-500 md:inline">|</span>
                   )}
                 </Fragment>
               ))}
