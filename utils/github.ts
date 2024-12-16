@@ -33,8 +33,8 @@ export async function fetchRepoData({
   repo: string
   includeLastCommit?: boolean
 }): Promise<GithubRepository | null> {
-  if (!process.env.GITHUB_API_TOKEN) {
-    console.error('Missing `GITHUB_API_TOKEN`')
+  if (!process.env.GITHUB_API_TOKEN || !repo) {
+    console.error('Missing `GITHUB_API_TOKEN` or `repo`')
     return null
   }
   try {
