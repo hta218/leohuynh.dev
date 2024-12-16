@@ -7,6 +7,8 @@ import { fetchRepoData } from '~/utils/github'
 
 export let metadata = genPageMetadata({ title: 'Projects' })
 
+export const dynamic = 'force-dynamic'
+
 export default async function Projects() {
   await Promise.all(
     PROJECTS.map(async (p) => {
