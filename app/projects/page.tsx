@@ -3,20 +3,10 @@ import { ProjectCard } from '~/components/cards/project'
 import { Container } from '~/components/ui/container'
 import { PageHeader } from '~/components/ui/page-header'
 import { PROJECTS } from '~/data/projects'
-import { fetchRepoData } from '~/utils/github'
 
 export let metadata = genPageMetadata({ title: 'Projects' })
 
-export const dynamic = 'force-dynamic'
-
 export default async function Projects() {
-  await Promise.all(
-    PROJECTS.map(async (p) => {
-      if (p.repo) {
-        p.repo = await fetchRepoData({ repo: p.repo as string })
-      }
-    })
-  )
   let workProjects = PROJECTS.filter(({ type }) => type === 'work')
   let sideProjects = PROJECTS.filter(({ type }) => type === 'self')
 
