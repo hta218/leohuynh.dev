@@ -12,6 +12,9 @@ export async function GET(request: NextRequest) {
       }
     )
   }
+  if (repo === 'undefined' || repo === 'null') {
+    return Response.json(null)
+  }
   let data = await fetchRepoData({ repo, includeLastCommit: true })
   return Response.json(data)
 }
