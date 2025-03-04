@@ -15,7 +15,7 @@ export type Project = {
   description?: string
   imgSrc: string
   url?: string
-  repo?: string | GithubRepository | null
+  repo?: string
   builtWith: string[]
   links?: { title: string; url: string }[]
 }

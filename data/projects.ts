@@ -26,7 +26,7 @@ export const PROJECTS: Project[] = [
     type: 'work',
     title: 'Pilot - Shopify Hydrogen theme',
     description:
-      'The first Hydrogen-driven theme for Shopify. Pilot is a Shopify theme that allows you to build a lightning-fast storefront with all the benefits of Hydrogen.',
+      'A fully-featured Shopify Hydrogen theme crafted to help you launch modern, high-performing headless storefronts in minutes.',
     imgSrc: '/static/images/theme-100.png',
     repo: 'weaverse/pilot',
     url: 'https://pilot.weaverse.io/',

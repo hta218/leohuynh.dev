@@ -27,7 +27,7 @@ const HISTORY_QUERY = `
 `
 
 export async function fetchRepoData({
-  repo,
+  repo = '',
   includeLastCommit = false,
 }: {
   repo: string
