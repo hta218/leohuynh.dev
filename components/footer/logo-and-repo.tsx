@@ -29,7 +29,7 @@ export function LogoAndRepo() {
           <span className="mx-2">-</span>
           <Link
             href={repo.lastCommit.url}
-            className="mr-1 text-indigo-700 dark:text-indigo-400"
+            className="mr-2 text-indigo-700 dark:text-indigo-400"
             title={repo.lastCommit.message}
           >
             <GrowingUnderline data-umami-event="repo-last-commit" className="flex items-center">
