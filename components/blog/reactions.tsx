@@ -63,7 +63,8 @@ export function Reactions({
       {REACTIONS.map(({ key, emoji }) => (
         <Reaction
           key={key}
-          emoji={emoji}
+          path={`${type}/${slug}`}
+          react={{ emoji, key }}
           value={isLoading ? '--' : stats[key] + reactions[key] - initialReactions[key]}
           reactions={reactions[key]}
           onReact={(v) => setReactions((r) => ({ ...r, [key]: v }))}
@@ -75,18 +76,21 @@ export function Reactions({
 }
 
 function Reaction({
-  emoji,
+  path,
+  react,
   value,
   reactions,
   onReact,
   onSave,
 }: {
-  emoji: string
+  path: string
+  react: (typeof REACTIONS)[number]
   value: string | number
   reactions: number
   onReact: (v: number) => void
   onSave: () => void
 }) {
+  let { emoji, key } = react
   let [reacting, setReacting] = useState(false)
   let countRef = useRef<HTMLSpanElement>(null)
   let reactingTimeoutId: ReturnType<typeof setTimeout> | undefined
@@ -129,12 +133,10 @@ function Reaction({
       onMouseLeave={handleMouseLeave}
       className="relative flex flex-col items-center justify-center gap-1.5"
       data-umami-event="post-reaction"
+      data-umami-event-post={path}
+      data-umami-event-react={key}
     >
-      <Twemoji
-        emoji={emoji}
-        size="2x"
-        // className="grayscale transition-[filter] hover:grayscale-0"
-      />
+      <Twemoji emoji={emoji} size="2x" />
       <span className="relative h-6 w-8 overflow-hidden">
         <span
           className={clsx(
