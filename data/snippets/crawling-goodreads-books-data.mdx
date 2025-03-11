@@ -1,15 +1,16 @@
 ---
 date: '2024-11-07'
-heading: 'Fetch Goodreads user books data'
-title: 'Scraping and parsing Goodreads user books data in Node.js'
+lastmod: '2025-03-11'
+heading: 'Crawling Goodreads books data'
+title: 'Crawling Goodreads books data in Node.js'
 draft: false
 icon: 'Goodreads'
-summary: "Scraping Goodreads books data from user's RSS feed and parse to JSON in Node.js"
-tags: ['goodreads', 'scraping', 'rss', 'rss-parser']
+summary: "Crawling Goodreads books data from user's RSS feed and parse to JSON in Node.js"
+tags: ['goodreads', 'crawling', 'rss', 'rss-parser']
 ---
 
 Since Goodreads no longer supports fetching user's books data via their [API](https://www.goodreads.com/api),
-I've decided to scrape user's book data using the RSS feed and parse it in Node.js.
+I've decided to crawl / scrape user's book data using the RSS feed and parse it in Node.js.
 
 ![Goodreads API](/static/images/goodreads-api.png)
 
@@ -78,7 +79,7 @@ export async function fetchGoodreadsBooks() {
 Now that you have the data you might need to prettify them before storing or using in your application
 since the data is stored in a raw format.
 
-```ts:types.ts showLineNumbers
+```ts:goodreads.ts showLineNumbers
 let data = await parser.parseURL(/* GOODREADS_RSS_FEED_URL */)
 // Loop through the `data.items` array to prettify the data
 for (let book of data.items) {
@@ -126,4 +127,4 @@ export type GoodreadsBook = {
 The Goodreads RSS feed is not updated instantly if you update your books on Goodreads.
 You might need to wait for a few hours before you can fetch the latest data.
 
-Happy scraping! <Twemoji emoji="clinking-beer-mugs" />
+Happy crawling! <Twemoji emoji="clinking-beer-mugs" />
