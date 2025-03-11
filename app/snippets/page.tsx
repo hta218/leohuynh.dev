@@ -15,7 +15,18 @@ export default function Snippets() {
     <Container className="pt-4 lg:pt-12">
       <PageHeader
         title="Snippets"
-        description="My personal stash of code snippets that make my life easier. They’re simple and reusable. Feel free to copy, tweak, and use them as you like."
+        description={
+          <>
+            <p>
+              My personal stash of code snippets that make my life easier. They’re simple and
+              reusable. Feel free to copy, tweak, and use them as you like.
+            </p>
+            <p className="mt-3 italic">
+              *Some snippets written by me, some are from the internet (Thanks to the open source
+              community).
+            </p>
+          </>
+        }
         className="border-b border-gray-200 dark:border-gray-700"
       />
       <div className="py-10">
