@@ -10,10 +10,10 @@ const ContentSecurityPolicy = `
   script-src 'self' 'unsafe-eval' 'unsafe-inline' giscus.app analytics.umami.is *.eleavers.com;
   style-src 'self' 'unsafe-inline';
   img-src * blob: data:;
-  media-src *.s3.amazonaws.com monosnap.com;
+  media-src *.s3.amazonaws.com;
   connect-src *;
   font-src 'self';
-  frame-src giscus.app *.github.io;
+  frame-src giscus.app *.github.io *.youtube.com;
 `
 
 const securityHeaders = [
