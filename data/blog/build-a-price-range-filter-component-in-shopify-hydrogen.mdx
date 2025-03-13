@@ -384,54 +384,55 @@ export function PriceRangeFilter({
         // Slider component
       </Slider.Root>
       <div className="flex items-center gap-4">
-      <div className="flex items-center gap-1 px-4 border border-line-subtle bg-gray-50 shrink">
-        <VisuallyHidden.Root asChild>
-          <label htmlFor="minPrice" aria-label="Min price">
-            Min price
-          </label>
-        </VisuallyHidden.Root>
-        <span>$</span>
-        <input
-          name="minPrice"
-          type="number"
-          value={minPrice ?? ""}
-          min={minVariantPrice}
-          placeholder={minVariantPrice.toString()}
-          onChange={(e) => {
-            let { value } = e.target;
-            let newMinPrice = Number.isNaN(Number.parseFloat(value))
-              ? undefined
-              : Number.parseFloat(value);
-            setMinPrice(newMinPrice);
-          }}
-          onBlur={handleFilter}
-          className="text-right focus-visible:outline-none py-3 bg-transparent w-full"
-        />
-      </div>
-      <span>To</span>
-      <div className="flex items-center gap-1 px-4 border border-line-subtle bg-gray-50">
-        <VisuallyHidden.Root asChild>
-          <label htmlFor="maxPrice" aria-label="Max price">
-            Max price
-          </label>
-        </VisuallyHidden.Root>
-        <span>$</span>
-        <input
-          name="maxPrice"
-          type="number"
-          value={maxPrice ?? ""}
-          max={maxVariantPrice}
-          placeholder={maxVariantPrice.toString()}
-          onChange={(e) => {
-            let { value } = e.target;
-            let newMaxPrice = Number.isNaN(Number.parseFloat(value))
-              ? undefined
-              : Number.parseFloat(value);
-            setMaxPrice(newMaxPrice);
-          }}
-          onBlur={handleFilter}
-          className="text-right focus-visible:outline-none py-3 bg-transparent w-full"
-        />
+        <div className="flex items-center gap-1 px-4 border border-line-subtle bg-gray-50 shrink">
+          <VisuallyHidden.Root asChild>
+            <label htmlFor="minPrice" aria-label="Min price">
+              Min price
+            </label>
+          </VisuallyHidden.Root>
+          <span>$</span>
+          <input
+            name="minPrice"
+            type="number"
+            value={minPrice ?? ""}
+            min={minVariantPrice}
+            placeholder={minVariantPrice.toString()}
+            onChange={(e) => {
+              let { value } = e.target;
+              let newMinPrice = Number.isNaN(Number.parseFloat(value))
+                ? undefined
+                : Number.parseFloat(value);
+              setMinPrice(newMinPrice);
+            }}
+            onBlur={handleFilter}
+            className="text-right focus-visible:outline-none py-3 bg-transparent w-full"
+          />
+        </div>
+        <span>To</span>
+        <div className="flex items-center gap-1 px-4 border border-line-subtle bg-gray-50">
+          <VisuallyHidden.Root asChild>
+            <label htmlFor="maxPrice" aria-label="Max price">
+              Max price
+            </label>
+          </VisuallyHidden.Root>
+          <span>$</span>
+          <input
+            name="maxPrice"
+            type="number"
+            value={maxPrice ?? ""}
+            max={maxVariantPrice}
+            placeholder={maxVariantPrice.toString()}
+            onChange={(e) => {
+              let { value } = e.target;
+              let newMaxPrice = Number.isNaN(Number.parseFloat(value))
+                ? undefined
+                : Number.parseFloat(value);
+              setMaxPrice(newMaxPrice);
+            }}
+            onBlur={handleFilter}
+            className="text-right focus-visible:outline-none py-3 bg-transparent w-full"
+          />
+        </div>
       </div>
     </div>
   )
@@ -439,6 +440,8 @@ export function PriceRangeFilter({
 ```
 
 That's how we build a fully functional price range filter component for collection pages in Shopify Hydrogen.
+
+Check out the demo video below:
 
 <iframe
   class="aspect-video w-full max-w-full"
@@ -465,3 +468,5 @@ If you are interested in building your own Shopify Hydrogen online store, checko
 - [Weaverse](https://weaverse.io)
 - [Weaverse Hydrogen Themes](https://weaverse.io/themes)
 - [Weaverse Github Org](https://github.com/Weaverse)
+
+Happy filtering <Twemoji emoji="clinking-beer-mugs" />.
