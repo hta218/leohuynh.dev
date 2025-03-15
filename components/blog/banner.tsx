@@ -1,14 +1,24 @@
 import { clsx } from 'clsx'
 import { GritBackground } from '~/components/ui/grit-background'
+import { GrowingUnderline } from '~/components/ui/growing-underline'
 import { Image, Zoom } from '~/components/ui/image'
 import { Link } from '~/components/ui/link'
 import { capitalize, kebabCaseToPlainText } from '~/utils/misc'
 
 export function Banner({ banner, className }: { banner: string; className?: string }) {
-  let [path, author, id] = banner.split('__')
+  let [path, author, filename] = banner.split('__')
   let handle = path.split('/').pop() || ''
   return (
     <div className={clsx('relative', className)}>
+      <Credit
+        author={author}
+        id={filename.split('.')[0]}
+        className={clsx([
+          'absolute right-4 top-4 z-10',
+          'hidden rounded-xl px-3 py-0.5 lg:block',
+          'bg-gray-50 text-gray-700 dark:bg-gray-800 dark:text-gray-200',
+        ])}
+      />
       <Zoom>
         <Image
           src={banner}
@@ -32,20 +42,14 @@ interface CreditProps {
 function Credit({ author, id, className }: CreditProps) {
   if (author && id) {
     return (
-      <div className={clsx('italic', className)}>
+      <div className={clsx('text-sm italic', className)}>
         Photo by{' '}
-        <Link
-          className="underline-offset-4 hover:underline"
-          href={`https://unsplash.com/@${author}`}
-        >
-          <span data-umami-event="banner-author">@{author}</span>
+        <Link className="font-semibold" href={`https://unsplash.com/@${author}`}>
+          <GrowingUnderline data-umami-event="banner-author">@{author}</GrowingUnderline>
         </Link>{' '}
         on{' '}
-        <Link
-          className="underline-offset-4 hover:underline"
-          href={`https://unsplash.com/photos/${id}`}
-        >
-          <span data-umami-event="banner-unsplash">Unsplash</span>
+        <Link className="font-semibold" href={`https://unsplash.com/photos/${id}`}>
+          <GrowingUnderline data-umami-event="banner-unsplash">Unsplash</GrowingUnderline>
         </Link>
       </div>
     )
