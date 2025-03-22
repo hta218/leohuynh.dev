@@ -29,7 +29,7 @@
     "contentlayer2": "0.5.3",
     "dotenv": "^16.4.7",
     "drizzle-orm": "^0.38.2",
-    "esbuild": "0.24.2",
+    "esbuild": "0.25.0",
     "github-slugger": "^2.0.0",
     "gray-matter": "^4.0.2",
     "hast-util-from-html-isomorphic": "^2.0.0",
