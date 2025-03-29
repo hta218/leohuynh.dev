@@ -2,6 +2,7 @@
 heading: 'Event Emitter'
 title: 'Simple Event-Emitter/PubSub pattern'
 date: '2021-09-06'
+lastmod: '2025-03-29'
 icon: 'Javascript'
 draft: false
 summary: 'A lightweight pub/sub mechanism to handle custom events without adding a full-blown library.'
@@ -59,8 +60,8 @@ globalEvent.subscribe('FOO', handler2)
 globalEvent.emit('FOO', 'foo')
 
 // Expected:
-// handler1(): FOO event emiited with data: foo
-// handler2(): FOO event emiited with data: foo
+// handler1(): FOO event emitted with data: foo
+// handler2(): FOO event emitted with data: foo
 
 // Unsubscribe event
 globalEvent.unSubscribe('FOO', handler2)
@@ -69,5 +70,5 @@ globalEvent.unSubscribe('FOO', handler2)
 globalEvent.emit('FOO', 'bar')
 
 // Expected:
-// handler1(): FOO event emiited with data: bar
+// handler1(): FOO event emitted with data: bar
 ```
