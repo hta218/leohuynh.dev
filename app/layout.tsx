@@ -84,7 +84,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang={SITE_METADATA.language}
       className={clsx(
-        'scroll-smooth',
+        'w-full overflow-x-hidden scroll-smooth',
         FONT_NUNITO.variable,
         FONT_JETBRAINS_MONO.variable,
         FONT_PLAYPEN_SANS.variable
