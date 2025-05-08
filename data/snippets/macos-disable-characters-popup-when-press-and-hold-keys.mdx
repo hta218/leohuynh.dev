@@ -1,0 +1,33 @@
+---
+date: '2025-05-07'
+heading: 'Disable characters popup when holding keys'
+title: 'How to disable popup showing accented characters when press and hold a key on macOS'
+draft: false
+icon: 'Bash'
+summary: 'How to disable popup showing accented characters when press and hold a key on macOS'
+tags: [macos, bash]
+---
+
+In MacOS, have you ever encountered the issue when pressing down and holding a key on your keyboard,
+then a popup will show up with a list of accented characters like this?
+
+![Characters popup](/static/images/macos-accent-chars-popup.png)
+
+This is kind of annoying and might affect your typing speed.
+
+In order to disable this behavior, you can execute the following command in your terminal:
+
+```bash
+defaults write -g ApplePressAndHoldEnabled -bool false
+```
+
+Now you will need to logout and login again for the changes to take effect. For some apps,
+you might need to restart.
+
+If you want to enable this behavior again, you can use the following command:
+
+```bash
+defaults write -g ApplePressAndHoldEnabled -bool true
+```
+
+Happy coding! <Twemoji emoji="clinking-beer-mugs" />
