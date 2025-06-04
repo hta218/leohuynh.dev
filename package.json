@@ -9,6 +9,9 @@
     "serve": "next start",
     "analyze": "cross-env ANALYZE=true next build",
     "lint": "next lint --fix --dir pages --dir app --dir components --dir lib --dir layouts --dir scripts",
+    "biome:lint": "biome lint --write --unsafe",
+    "biome:format": "biome format --write",
+    "biome:fix": "biome check --write",
     "prepare": "husky",
     "db:init": "npx drizzle-kit generate && npx drizzle-kit push",
     "db:studio": "npx drizzle-kit studio --port 8088",
@@ -66,6 +69,7 @@
     "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "@commitlint/cli": "^19.6.1",
     "@commitlint/config-conventional": "^19.6.0",
     "@svgr/webpack": "^8.1.0",
