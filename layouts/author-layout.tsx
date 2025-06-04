@@ -64,22 +64,22 @@ export function AuthorLayout({ children }: Props) {
               <h2>Tech stack</h2>
               <p>
                 This blog is hosted on{' '}
-                <a href="https://vercel.com/" target="_blank">
+                <a href="https://vercel.com/" target="_blank" rel="noreferrer">
                   Vercel
                 </a>
                 , built with{' '}
-                <a href="https://nextjs.org/" target="_blank">
+                <a href="https://nextjs.org/" target="_blank" rel="noreferrer">
                   Next.js
                 </a>{' '}
                 and{' '}
-                <a href="https://tailwindcss.com/" target="_blank">
+                <a href="https://tailwindcss.com/" target="_blank" rel="noreferrer">
                   Tailwind CSS
                 </a>{' '}
                 using <strong>Tailwind Nextjs Starter Blog</strong>.
               </p>
               <p>
                 A huge thanks to{' '}
-                <a href="https://twitter.com/timlrxx" target="_blank">
+                <a href="https://twitter.com/timlrxx" target="_blank" rel="noreferrer">
                   Timothy Lin
                 </a>{' '}
                 for the minimal, lightweight, and super easy-to-customize blog starter.
@@ -94,13 +94,13 @@ export function AuthorLayout({ children }: Props) {
                 <li>
                   <Twemoji emoji="party-popper" /> Adopting <strong>Typescript</strong>, committing
                   with{' '}
-                  <a href="https://www.conventionalcommits.org/" target="_blank">
+                  <a href="https://www.conventionalcommits.org/" target="_blank" rel="noreferrer">
                     Conventional Commits
                   </a>
                 </li>
                 <li>
                   <Twemoji emoji="bar-chart" /> Monitoring site with{' '}
-                  <a href="https://umami.is/" target="_blank">
+                  <a href="https://umami.is/" target="_blank" rel="noreferrer">
                     Umami
                   </a>{' '}
                   website analytics
@@ -110,6 +110,7 @@ export function AuthorLayout({ children }: Props) {
                   <a
                     href="https://github.blog/changelog/2021-04-14-dark-and-dimmed-themes-are-now-generally-available/"
                     target="_blank"
+                    rel="noreferrer"
                   >
                     Github dark dimmed
                   </a>{' '}
@@ -129,7 +130,7 @@ export function AuthorLayout({ children }: Props) {
               </ul>
               <p>
                 See my{' '}
-                <a href="https://github.com/hta218/leohuynh.dev" target="_blank">
+                <a href="https://github.com/hta218/leohuynh.dev" target="_blank" rel="noreferrer">
                   Github repository
                 </a>{' '}
                 for this blog.
@@ -143,13 +144,14 @@ export function AuthorLayout({ children }: Props) {
                     <a
                       href="https://leohuynhdev-git-v1-leo-huynhs-projects.vercel.app/"
                       target="_blank"
+                      rel="noreferrer"
                     >
                       https://leohuynhdev-git-v1-leo-huynhs-projects.vercel.app/
                     </a>
                   </li>
                   <li>
                     <code>v0</code> built with <strong>Gatsby</strong>:{' '}
-                    <a href="https://leo-blog-legacy.vercel.app/" target="_blank">
+                    <a href="https://leo-blog-legacy.vercel.app/" target="_blank" rel="noreferrer">
                       https://leo-blog-legacy.vercel.app/
                     </a>
                   </li>
@@ -160,15 +162,15 @@ export function AuthorLayout({ children }: Props) {
               <h2>Assets</h2>
               <p>
                 Most of the images in my blog are from{' '}
-                <a href="https://unsplash.com/" target="_blank">
+                <a href="https://unsplash.com/" target="_blank" rel="noreferrer">
                   Unsplash
                 </a>
                 , gifs from{' '}
-                <a href="https://giphy.com/" target="_blank">
+                <a href="https://giphy.com/" target="_blank" rel="noreferrer">
                   GIPHY
                 </a>
                 , and illustrations are from{' '}
-                <a href="https://storyset.com/" target="_blank">
+                <a href="https://storyset.com/" target="_blank" rel="noreferrer">
                   Storyset
                 </a>
                 .
@@ -194,6 +196,7 @@ export function AuthorLayout({ children }: Props) {
                   href={SITE_METADATA.support.buyMeACoffee}
                   target="_blank"
                   className="[&_.image-container]:mx-0"
+                  rel="noreferrer"
                 >
                   <Image
                     src="/static/images/bmc-button.png"
@@ -207,6 +210,7 @@ export function AuthorLayout({ children }: Props) {
                   href={SITE_METADATA.support.paypal}
                   target="_blank"
                   className="flex h-15 w-[214px] items-center rounded-lg bg-[#009cde]/70 p-1"
+                  rel="noreferrer"
                 >
                   <Image
                     src="/static/images/paypal-logo.png"
@@ -220,6 +224,7 @@ export function AuthorLayout({ children }: Props) {
                   href={SITE_METADATA.support.kofi}
                   target="_blank"
                   className="[&_.image-container]:mx-0"
+                  rel="noreferrer"
                 >
                   <Image
                     src="/static/images/kofi.png"

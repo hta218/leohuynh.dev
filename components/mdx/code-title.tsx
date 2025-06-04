@@ -1,5 +1,5 @@
 import { clsx } from 'clsx'
-import { Brand, BrandsMap } from '~/components/ui/brand'
+import { Brand, type BrandsMap } from '~/components/ui/brand'
 import { CopyCodeButton } from './copy-code-button'
 
 const LANGS_MAP: Record<string, keyof typeof BrandsMap> = {

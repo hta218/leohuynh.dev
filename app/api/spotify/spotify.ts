@@ -1,6 +1,6 @@
-const SPOTIFY_TOKEN_API = `https://accounts.spotify.com/api/token`
-const SPOTIFY_NOW_PLAYING_API = `https://api.spotify.com/v1/me/player/currently-playing`
-const SPOTIFY_TOP_TRACKS_API = `https://api.spotify.com/v1/me/top/tracks`
+const SPOTIFY_TOKEN_API = 'https://accounts.spotify.com/api/token'
+const SPOTIFY_NOW_PLAYING_API = 'https://api.spotify.com/v1/me/player/currently-playing'
+const SPOTIFY_TOP_TRACKS_API = 'https://api.spotify.com/v1/me/top/tracks'
 
 let {
   SPOTIFY_CLIENT_ID: client_id,

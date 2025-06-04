@@ -95,7 +95,7 @@ export default async function Page(props: { params: Promise<{ slug: string[] }> 
   })
   let mainContent = coreContent(post)
   let jsonLd = post.structuredData
-  jsonLd['author'] = authorDetails.map((author) => {
+  jsonLd.author = authorDetails.map((author) => {
     return {
       '@type': 'Person',
       name: author.name,

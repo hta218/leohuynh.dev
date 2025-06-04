@@ -10,6 +10,7 @@ export function Signature(props: SVGProps<SVGSVGElement>) {
       viewBox="0 0 1242 676"
       {...props}
     >
+      <title>My personal signature</title>
       <g transform="translate(0,676) scale(0.1,-0.1)" fill="currentColor" stroke="none">
         <path
           d="M3607 6714 c-3 -4 -64 -6 -134 -5 -160 1 -400 -28 -573 -68 -25 -6

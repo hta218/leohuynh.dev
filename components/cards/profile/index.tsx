@@ -1,7 +1,8 @@
 'use client'
 
 import { clsx } from 'clsx'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import type React from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Image } from '~/components/ui/image'
 import { SpotifyNowPlaying } from '~/components/ui/now-playing'
 import { SITE_METADATA } from '~/data/site-metadata'

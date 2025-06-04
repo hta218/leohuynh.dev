@@ -1,4 +1,5 @@
-import React, { useRef, useState } from 'react'
+import type React from 'react'
+import { useRef, useState } from 'react'
 
 export interface NewsletterFormProps {
   title?: string
@@ -19,7 +20,7 @@ export function NewsletterForm({
 
     let res = await fetch(apiUrl, {
       body: JSON.stringify({
-        email: inputEl.current!.value,
+        email: inputEl.current?.value,
       }),
       headers: {
         'Content-Type': 'application/json',

@@ -4,7 +4,8 @@ export const PROJECTS: Project[] = [
   {
     type: 'work',
     title: 'Weaverse Hydrogen Customizer',
-    description: `The first Hydrogen-driven website builder powered by AI. Weaverse is a Shopify sales channel that allows you to create a website in minutes with no coding required.`,
+    description:
+      'The first Hydrogen-driven website builder powered by AI. Weaverse is a Shopify sales channel that allows you to create a website in minutes with no coding required.',
     imgSrc: '/static/images/weaverse-logo.png',
     url: 'https://www.weaverse.io?ref=leohuynh.dev',
     builtWith: ['Shopify', 'Remix', 'TailwindCSS', 'Prisma', 'OpenAI'],
@@ -35,7 +36,8 @@ export const PROJECTS: Project[] = [
   {
     type: 'work',
     title: 'Minimog - Next-gen Shopify theme',
-    description: `The Next Generation of highest-converting and extensible Shopify theme (Weekly bestseller & Top trending in Themeforest eCommerce category).`,
+    description:
+      'The Next Generation of highest-converting and extensible Shopify theme (Weekly bestseller & Top trending in Themeforest eCommerce category).',
     imgSrc: '/static/images/brush-96.png',
     url: 'https://themeforest.net/item/minimog-the-high-converting-shopify-theme/33380968?ref=leohuynh.dev',
     builtWith: ['ThemeKit', 'Liquid', 'Webpack', 'TailwindCSS'],
@@ -50,7 +52,7 @@ export const PROJECTS: Project[] = [
   {
     type: 'work',
     title: 'FoxKit AIO Upsell Cross‑sell',
-    description: `The upsells and boost conversion tools that is built to support Minimog theme.`,
+    description: 'The upsells and boost conversion tools that is built to support Minimog theme.',
     imgSrc: '/static/images/sale-price-tag-96.png',
     url: 'https://apps.shopify.com/foxkit?ref=leohuynh.dev',
     builtWith: ['KoaJS', 'JWT', 'MongoDB', 'Polaris'],

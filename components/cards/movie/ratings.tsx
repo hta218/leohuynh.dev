@@ -7,7 +7,7 @@ export function Ratings({ movie }: { movie: ImdbMovie }) {
   let { value: rotten_rating } = ratings.find(({ source }) => source === 'Rotten Tomatoes') || {
     value: 0,
   }
-  let rottenSearchUrl = new URL(`https://www.rottentomatoes.com/search`)
+  let rottenSearchUrl = new URL('https://www.rottentomatoes.com/search')
   rottenSearchUrl.searchParams.set('search', title)
 
   return (

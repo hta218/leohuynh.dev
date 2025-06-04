@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
     let response = await convertkitSubscribe(email)
     if (response.status >= 400) {
       return NextResponse.json(
-        { error: `There was an error subscribing to the list` },
+        { error: 'There was an error subscribing to the list' },
         { status: response.status }
       )
     }

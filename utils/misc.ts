@@ -74,7 +74,7 @@ export function getTimeAgo(time: string | number | Date, now = Date.now()): stri
 /**
  * Sorts a list of MDX documents by date in descending order
  */
-export function sortPosts<T extends MDXDocumentDate>(allBlogs: T[], dateKey: string = 'date'): T[] {
+export function sortPosts<T extends MDXDocumentDate>(allBlogs: T[], dateKey = 'date'): T[] {
   return allBlogs.sort((a, b) => dateSortDesc(a[dateKey], b[dateKey]))
 }
 

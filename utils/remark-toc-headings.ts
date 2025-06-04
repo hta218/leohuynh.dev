@@ -23,7 +23,7 @@ function remarkTocHeadings() {
       if (textContent) {
         toc.push({
           value: textContent,
-          url: '#' + slug(textContent),
+          url: `#${slug(textContent)}`,
           // @ts-ignore
           depth: node.depth,
         })

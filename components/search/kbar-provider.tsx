@@ -41,7 +41,7 @@ export function KBarSearchProvider({
           keywords: post?.summary || '',
           section: 'Content',
           subtitle: formatDate(post.date),
-          perform: () => router.push('/' + post.path),
+          perform: () => router.push(`/${post.path}`),
         })
       }
       return actions

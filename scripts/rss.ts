@@ -1,7 +1,7 @@
 import type { Blog, Snippet } from 'contentlayer/generated'
-import { mkdirSync, writeFileSync } from 'fs'
+import { mkdirSync, writeFileSync } from 'node:fs'
 import { slug } from 'github-slugger'
-import path from 'path'
+import path from 'node:path'
 import { allBlogs, allSnippets } from '~/.contentlayer/generated/index.mjs'
 import { SITE_METADATA } from '~/data/site-metadata'
 import tagData from '~/json/tag-data.json' assert { type: 'json' }
@@ -22,7 +22,7 @@ function generateRssItem(item: Blog | Snippet) {
 			${item.summary && `<description>${escape(item.summary)}</description>`}
 			<pubDate>${new Date(item.date).toUTCString()}</pubDate>
 			<author>${email} (${author})</author>
-			${item.tags && item.tags.map((t) => `<category>${t}</category>`).join('')}
+			${item.tags?.map((t) => `<category>${t}</category>`).join('')}
 		</item>
 	`
 }

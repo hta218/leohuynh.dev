@@ -44,6 +44,7 @@ function TabTrigger(props: { active: boolean; onClick: () => void; label: string
   let { active, onClick, label, emoji } = props
   return (
     <button
+      type="button"
       onClick={onClick}
       className={clsx(
         'inline-flex items-center gap-1 font-medium underline-offset-4',

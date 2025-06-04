@@ -16,11 +16,12 @@ export function ViewsCounter({
   let [stats, isLoading] = useBlogStats(type, slug)
   let updateView = useUpdateBlogStats()
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     if (!isLoading && stats) {
-      updateView({ type, slug, views: stats['views'] + 1 })
+      updateView({ type, slug, views: stats.views + 1 })
     }
   }, [stats, isLoading])
 
-  return <span className={className}>{isLoading ? '---' : (stats['views'] || 0) + ' views'}</span>
+  return <span className={className}>{isLoading ? '---' : `${stats.views || 0} views`}</span>
 }

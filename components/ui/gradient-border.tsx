@@ -16,7 +16,7 @@ export function GradientBorder({
         'border border-gray-200 dark:border-zinc-800',
         className,
       ])}
-      style={{ '--offset': offset + 'px' } as React.CSSProperties}
+      style={{ '--offset': `${offset}px` } as React.CSSProperties}
     >
       <span
         className={clsx([

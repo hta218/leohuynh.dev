@@ -13,7 +13,7 @@ export let generateStaticParams = async () => {
 export default async function Page(props: { params: Promise<{ page: string }> }) {
   let params = await props.params
   let posts = allCoreContent(sortPosts(allBlogs))
-  let pageNumber = parseInt(params.page as string)
+  let pageNumber = Number.parseInt(params.page as string)
   let initialDisplayPosts = posts.slice(
     POSTS_PER_PAGE * (pageNumber - 1),
     POSTS_PER_PAGE * pageNumber

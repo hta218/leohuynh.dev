@@ -80,7 +80,7 @@ export async function fetchRepoData({
     )
     if (includeLastCommit) {
       repository.lastCommit = repository.defaultBranchRef.target.history.edges[0].node
-      delete repository.defaultBranchRef
+      repository.defaultBranchRef = undefined
     }
     repository.languages = repository.languages.edges.map((edge) => {
       return {

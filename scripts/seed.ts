@@ -1,6 +1,6 @@
 import csv from 'csv-parser'
-import fs, { writeFileSync } from 'fs'
-import path from 'path'
+import fs, { writeFileSync } from 'node:fs'
+import path from 'node:path'
 import Parser from 'rss-parser'
 import { SITE_METADATA } from '~/data/site-metadata'
 import type { GoodreadsBook, ImdbMovie, OmdbMovie } from '~/types/data'
@@ -45,7 +45,7 @@ export async function fetchGoodreadsBooks() {
           .replace(/\.([a-zA-Z0-9])/g, '. $1')
         book.content = book.content.replace(/\n/g, '').replace(/\s\s+/g, ' ')
       }
-      writeFileSync(`./json/books.json`, JSON.stringify(data.items))
+      writeFileSync('./json/books.json', JSON.stringify(data.items))
       console.log('📚 Books seeded.')
     } catch (error) {
       console.error(`Error fetching the Goodreads RSS feed: ${error.message}`)
@@ -119,7 +119,7 @@ async function fetchImdbMovies() {
             })
           })
         )
-        writeFileSync(`./json/movies.json`, JSON.stringify(movies))
+        writeFileSync('./json/movies.json', JSON.stringify(movies))
         console.log('🎬 IMDB movies seeded.')
       })
   } catch (error) {

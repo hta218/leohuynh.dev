@@ -11,7 +11,7 @@ let loadedImages: string[] = []
 
 function useImageLoadedState(src: string) {
   let pathname = usePathname()
-  let uniqueImagePath = pathname + '__' + src
+  let uniqueImagePath = `${pathname}__${src}`
   let [loaded, setLoaded] = useState(() => loadedImages.includes(uniqueImagePath))
   return [
     loaded,
