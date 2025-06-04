@@ -129,6 +129,7 @@ function Reaction({
 
   return (
     <button
+      type="button"
       onClick={handleReact}
       onMouseLeave={handleMouseLeave}
       className="relative flex flex-col items-center justify-center gap-1.5"

@@ -6,6 +6,7 @@ export function KbarSearchTrigger() {
 
   return (
     <button
+      type="button"
       aria-label="Search"
       className="rounded p-1.5 hover:bg-gray-200 dark:hover:bg-gray-700"
       data-umami-event="search-the-site"

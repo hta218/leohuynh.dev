@@ -44,7 +44,7 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
             </GrowingUnderline>
           </Link>
         ) : (
-          <button className="cursor-auto disabled:opacity-50" disabled={!prevPage}>
+          <button type="button" className="cursor-auto disabled:opacity-50" disabled={!prevPage}>
             <GrowingUnderline className="inline-flex items-center gap-2">
               <ArrowLeft className="h-4 w-4" />
               <span>Previous</span>
@@ -62,7 +62,7 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
             </GrowingUnderline>
           </Link>
         ) : (
-          <button className="cursor-auto disabled:opacity-50" disabled={!nextPage}>
+          <button type="button" className="cursor-auto disabled:opacity-50" disabled={!nextPage}>
             <GrowingUnderline className="inline-flex items-center gap-2">
               <span>Next</span>
               <ArrowRight className="h-4 w-4" />

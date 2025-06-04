@@ -36,6 +36,7 @@ export function ListLayoutWithTags({ title, description, posts, snippets }: List
           <div className="mb-6 flex items-center gap-2 text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-gray-100 md:mb-10 md:justify-end md:text-3xl">
             {hasBlogs && (
               <button
+                type="button"
                 className={clsx(
                   'underline-offset-4',
                   view === 'blogs'
@@ -50,6 +51,7 @@ export function ListLayoutWithTags({ title, description, posts, snippets }: List
             {hasBlogs && hasSnippets ? <span>/</span> : null}
             {hasSnippets && (
               <button
+                type="button"
                 className={clsx(
                   'underline-offset-4',
                   view === 'snippets'

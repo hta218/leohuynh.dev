@@ -42,6 +42,7 @@ function ScrollButton({
 }) {
   return (
     <button
+      type="button"
       aria-label={ariaLabel}
       onClick={onClick}
       className={clsx([

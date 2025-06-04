@@ -34,6 +34,7 @@ export function CopyCodeButton({
 
   return (
     <button
+      type="button"
       aria-label="Copy code"
       className={clsx([
         'copy-code',

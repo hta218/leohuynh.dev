@@ -23,6 +23,7 @@ export function LatestPosts({
         <div className="flex text-2xl font-bold sm:text-2xl sm:leading-10 md:text-4xl">
           <span className="mr-2 md:mr-3">Latest</span>
           <button
+            type="button"
             className={clsx(
               'underline-offset-4 transition-colors',
               view === 'posts'
@@ -35,6 +36,7 @@ export function LatestPosts({
           </button>
           <span className="mx-1">/</span>
           <button
+            type="button"
             className={clsx(
               'underline-offset-4 transition-colors',
               view === 'snippets'
