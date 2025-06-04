@@ -25,10 +25,13 @@ export function CopyCodeButton({
       preTag = figure?.querySelector('pre') as HTMLPreElement
     }
     if (preTag) {
-      navigator.clipboard.writeText(preTag.textContent!)
-      setCopied(true)
-      clearTimeout(timeoutId)
-      timeoutId = setTimeout(() => setCopied(false), 2000)
+      let textContent = preTag.textContent
+      if (textContent) {
+        navigator.clipboard.writeText(textContent)
+        setCopied(true)
+        clearTimeout(timeoutId)
+        timeoutId = setTimeout(() => setCopied(false), 2000)
+      }
     }
   }
 

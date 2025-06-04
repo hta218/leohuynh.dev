@@ -35,7 +35,9 @@ export function NewsletterForm({
       return
     }
 
-    inputEl.current!.value = ''
+    if (inputEl.current) {
+      inputEl.current.value = ''
+    }
     setError(false)
     setSubscribed(true)
   }

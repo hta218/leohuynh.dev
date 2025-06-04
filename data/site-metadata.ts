@@ -36,10 +36,10 @@ export const SITE_METADATA = {
   },
   comments: {
     giscusConfigs: {
-      repo: process.env.NEXT_PUBLIC_GISCUS_REPO!,
-      repositoryId: process.env.NEXT_PUBLIC_GISCUS_REPOSITORY_ID!,
-      category: process.env.NEXT_PUBLIC_GISCUS_CATEGORY!,
-      categoryId: process.env.NEXT_PUBLIC_GISCUS_CATEGORY_ID!,
+      repo: process.env.NEXT_PUBLIC_GISCUS_REPO || '',
+      repositoryId: process.env.NEXT_PUBLIC_GISCUS_REPOSITORY_ID || '',
+      category: process.env.NEXT_PUBLIC_GISCUS_CATEGORY || '',
+      categoryId: process.env.NEXT_PUBLIC_GISCUS_CATEGORY_ID || '',
       mapping: 'title', // supported options: pathname, url, title
       reactions: '1', // Emoji reactions: 1 = enable / 0 = disable
       metadata: '0',
