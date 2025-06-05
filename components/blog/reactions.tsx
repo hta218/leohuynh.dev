@@ -41,6 +41,7 @@ export function Reactions({
   let [initialReactions, setInitialReactions] = useState({})
   let [reactions, setReactions] = useState({})
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     try {
       let data = JSON.parse(localStorage.getItem(`${type}/${slug}`) || '{}')

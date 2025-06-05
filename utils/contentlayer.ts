@@ -12,9 +12,9 @@ let isProduction = process.env.NODE_ENV === 'production'
  */
 function omit<Obj, Keys extends keyof Obj>(obj: Obj, keys: Keys[]): Omit<Obj, Keys> {
   const result = Object.assign({}, obj)
-  keys.forEach((key) => {
+  for (let key of keys) {
     delete result[key]
-  })
+  }
   return result
 }
 

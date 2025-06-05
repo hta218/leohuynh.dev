@@ -55,22 +55,22 @@ let computedFields: ComputedFields = {
 }
 
 /**
- * Count the occurrences of all tags across blog posts and write to json file
+ * Count the occurrences of all tags across blog posts and snippets and write to json file
  */
 function createTagCount(documents) {
   let tagCount: Record<string, number> = {}
-  documents.forEach((file) => {
+  for (let file of documents) {
     if (file.tags && (!isProduction || file.draft !== true)) {
-      file.tags.forEach((tag: string) => {
+      for (let tag of file.tags) {
         let formattedTag = slug(tag)
         if (formattedTag in tagCount) {
           tagCount[formattedTag] += 1
         } else {
           tagCount[formattedTag] = 1
         }
-      })
+      }
     }
-  })
+  }
   writeFileSync('./json/tag-data.json', JSON.stringify(tagCount))
   console.log('🏷️. Tag list generated.')
 }

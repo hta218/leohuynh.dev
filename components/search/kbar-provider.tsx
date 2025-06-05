@@ -11,7 +11,7 @@ import { KBarModal } from './kbar-modal'
 export interface KBarSearchProps {
   searchDocumentsPath: string | false
   defaultActions?: Action[]
-  onSearchDocumentsLoad?: (json: any) => Action[]
+  onSearchDocumentsLoad?: (json: unknown) => Action[]
 }
 
 export interface KBarConfig {
@@ -31,6 +31,7 @@ export function KBarSearchProvider({
   let [searchActions, setSearchActions] = useState<Action[]>([])
   let [dataLoaded, setDataLoaded] = useState(false)
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     function mapPosts(posts: CoreContent<MDXDocument>[]) {
       let actions: Action[] = []

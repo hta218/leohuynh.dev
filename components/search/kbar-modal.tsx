@@ -1,4 +1,5 @@
 import {
+  type Action,
   KBarAnimator,
   KBarPortal,
   KBarPositioner,
@@ -6,8 +7,8 @@ import {
   KBarSearch,
   useMatches,
   useRegisterActions,
-  type Action,
 } from 'kbar'
+import { Search } from 'lucide-react'
 
 export function KBarModal({ actions, isLoading }: { actions: Action[]; isLoading: boolean }) {
   useRegisterActions(actions, [actions])
@@ -19,20 +20,7 @@ export function KBarModal({ actions, isLoading }: { actions: Action[]; isLoading
           <div className="overflow-hidden rounded-2xl border border-gray-100 bg-gray-50 dark:border-gray-800 dark:bg-gray-900">
             <div className="flex items-center space-x-4 p-4">
               <span className="block w-5">
-                <svg
-                  className="text-gray-400 dark:text-gray-300"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
+                <Search strokeWidth={1.5} size={20} className="text-gray-400 dark:text-gray-300" />
               </span>
               <KBarSearch className="h-8 w-full bg-transparent text-gray-600 placeholder-gray-400 focus:outline-none dark:text-gray-200 dark:placeholder-gray-500" />
               <kbd className="inline-block whitespace-nowrap rounded border border-gray-400 px-1.5 align-middle text-xs font-medium leading-4 tracking-wide text-gray-400">

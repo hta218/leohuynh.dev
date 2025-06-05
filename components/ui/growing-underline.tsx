@@ -14,8 +14,7 @@ export function GrowingUnderline({
   active?: boolean
   className?: string
   duration?: number
-  [key: string]: any
-}) {
+} & React.ComponentProps<'span'>) {
   return (
     <Component
       className={clsx([

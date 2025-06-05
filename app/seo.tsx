@@ -5,7 +5,7 @@ interface PageSEOProps {
   title: string
   description?: string
   image?: string
-  [key: string]: any
+  [key: string]: unknown
 }
 
 export function genPageMetadata({ title, description, image, ...rest }: PageSEOProps): Metadata {

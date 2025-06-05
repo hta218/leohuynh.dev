@@ -9,8 +9,7 @@ export function Button({
   children: React.ReactNode
   as?: React.ElementType
   className?: string
-  [key: string]: any
-}) {
+} & React.ComponentProps<'button'>) {
   return (
     <Component
       className={clsx([

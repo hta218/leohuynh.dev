@@ -5,7 +5,7 @@ import Parser from 'rss-parser'
 import { SITE_METADATA } from '~/data/site-metadata'
 import type { GoodreadsBook, ImdbMovie, OmdbMovie } from '~/types/data'
 
-let parser = new Parser<{ [key: string]: any }, GoodreadsBook>({
+let parser = new Parser<{ [key: string]: unknown }, GoodreadsBook>({
   customFields: {
     item: [
       'guid',

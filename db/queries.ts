@@ -17,7 +17,7 @@ export async function getBlogStats(type: StatsType, slug: string) {
 export async function updateBlogStats(
   type: StatsType,
   slug: string,
-  updates: { [key: string]: any }
+  updates: { [key: string]: Partial<Record<keyof StatsType, number>> } = {}
 ) {
   let currentStats = await getBlogStats(type, slug)
 

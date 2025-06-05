@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 import * as _jsx_runtime from 'react/jsx-runtime'
 
 export interface MDXLayoutRenderer {
-  code: string
+  code?: string
   components?: MDXComponents
   [key: string]: unknown
 }
@@ -12,7 +12,7 @@ export interface MDXLayoutRenderer {
 function getMDXComponent(
   code: string,
   globals: Record<string, unknown> = {}
-): React.ComponentType<any> {
+): React.ComponentType<MDXLayoutRenderer> {
   let scope = { React, ReactDOM, _jsx_runtime, ...globals }
   let fn = new Function(...Object.keys(scope), code)
   return fn(...Object.values(scope)).default
@@ -22,9 +22,12 @@ function getMDXComponent(
 // Copying the function from contentlayer as a workaround
 // Copy of https://github.com/contentlayerdev/contentlayer/blob/main/packages/next-contentlayer/src/hooks/useMDXComponent.ts
 export function useMDXComponent(
-  code: string,
+  code?: string,
   globals: Record<string, unknown> = {}
-): React.ComponentType<any> {
+): React.ComponentType<MDXLayoutRenderer> {
+  if (!code) {
+    return () => <></>
+  }
   return React.useMemo(() => getMDXComponent(code, globals), [code, globals])
 }
 
