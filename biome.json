@@ -21,7 +21,8 @@
     "rules": {
       "recommended": true,
       "a11y": {
-        "useKeyWithClickEvents": "off"
+        "useKeyWithClickEvents": "off",
+        "useFocusableInteractive": "off"
       },
       "style": {
         "useConst": "off"
