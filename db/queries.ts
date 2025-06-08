@@ -1,6 +1,6 @@
 import { eq, and } from 'drizzle-orm'
 import { db } from './index'
-import { statsTable, type StatsType } from './schema'
+import { statsTable, type SelectStats, type StatsType } from './schema'
 
 export async function getBlogStats(type: StatsType, slug: string) {
   let stats = await db
@@ -17,7 +17,7 @@ export async function getBlogStats(type: StatsType, slug: string) {
 export async function updateBlogStats(
   type: StatsType,
   slug: string,
-  updates: { [key: string]: Partial<Record<keyof StatsType, number>> } = {}
+  updates: Omit<SelectStats, 'type' | 'slug'>
 ) {
   let currentStats = await getBlogStats(type, slug)
 
