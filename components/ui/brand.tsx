@@ -1,11 +1,16 @@
 import { Link } from '~/components/ui/link'
 import Bash from '~/icons/bash.svg'
+import Commitlint from '~/icons/commitlint.svg'
 import CSS from '~/icons/css.svg'
+import Drizzle from '~/icons/drizzle.svg'
+import Env from '~/icons/env.svg'
 import Exercism from '~/icons/exercism.svg'
 import Git from '~/icons/git.svg'
 import GitHub from '~/icons/github.svg'
+import GithubCopilot from '~/icons/githubcopilot.svg'
 import Goodreads from '~/icons/goodreads.svg'
 import HeadlessUI from '~/icons/headlessui.svg'
+import Html from '~/icons/html5.svg'
 import Hydrogen from '~/icons/hydrogen.svg'
 import IMBb from '~/icons/imdb.svg'
 import Java from '~/icons/java.svg'
@@ -21,6 +26,8 @@ import Node from '~/icons/nodejs.svg'
 import Npm from '~/icons/npm.svg'
 import OpenAI from '~/icons/openai.svg'
 import Picsum from '~/icons/picsum.svg'
+import Pnpm from '~/icons/pnpm.svg'
+import Postcss from '~/icons/postcss.svg'
 import Prisma from '~/icons/prisma.svg'
 import Pygame from '~/icons/pygame.svg'
 import Python from '~/icons/python.svg'
@@ -36,14 +43,8 @@ import Turborepo from '~/icons/turborepo.svg'
 import Typescript from '~/icons/typescript.svg'
 import Umami from '~/icons/umami.svg'
 import Vercel from '~/icons/vercel.svg'
-import Webpack from '~/icons/webpack.svg'
 import VSCode from '~/icons/vscode.svg'
-import Drizzle from '~/icons/drizzle.svg'
-import Pnpm from '~/icons/pnpm.svg'
-import Env from '~/icons/env.svg'
-import Html from '~/icons/html5.svg'
-import Postcss from '~/icons/postcss.svg'
-import Commitlint from '~/icons/commitlint.svg'
+import Webpack from '~/icons/webpack.svg'
 
 export let BrandsMap: Record<
   string,
@@ -90,6 +91,10 @@ export let BrandsMap: Record<
   GitHub: {
     Icon: GitHub,
     url: 'https://github.com',
+  },
+  GithubCopilot: {
+    Icon: GithubCopilot,
+    url: 'https://github.com/features/copilot',
   },
   Javascript: {
     Icon: Javascript,
