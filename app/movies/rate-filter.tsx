@@ -14,7 +14,12 @@ export const RATES: {
   value: RateType
   emoji: string
 }[] = [
-  { label: '10', description: 'must watch', value: '10', emoji: 'hundred-points' },
+  {
+    label: '10',
+    description: 'must watch',
+    value: '10',
+    emoji: 'hundred-points',
+  },
   {
     label: '9',
     description: 'recommended',

@@ -72,7 +72,9 @@ export async function generateMetadata(props: {
 }
 
 export let generateStaticParams = async () => {
-  return allBlogs.map((p) => ({ slug: p.slug.split('/').map((name) => decodeURI(name)) }))
+  return allBlogs.map((p) => ({
+    slug: p.slug.split('/').map((name) => decodeURI(name)),
+  }))
 }
 
 export default async function Page(props: { params: Promise<{ slug: string[] }> }) {

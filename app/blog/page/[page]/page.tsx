@@ -6,7 +6,9 @@ import { sortPosts } from '~/utils/misc'
 
 export let generateStaticParams = async () => {
   let totalPages = Math.ceil(allBlogs.length / POSTS_PER_PAGE)
-  let paths = Array.from({ length: totalPages }, (_, i) => ({ page: (i + 1).toString() }))
+  let paths = Array.from({ length: totalPages }, (_, i) => ({
+    page: (i + 1).toString(),
+  }))
   return paths
 }
 

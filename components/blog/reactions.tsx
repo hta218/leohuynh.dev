@@ -55,7 +55,11 @@ export function Reactions({
   }, [])
 
   function handleChange(key: string) {
-    updateReaction({ type, slug, [key]: stats[key] + reactions[key] - initialReactions[key] })
+    updateReaction({
+      type,
+      slug,
+      [key]: stats[key] + reactions[key] - initialReactions[key],
+    })
     localStorage.setItem(`${type}/${slug}`, JSON.stringify(reactions))
   }
 

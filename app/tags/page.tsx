@@ -3,7 +3,10 @@ import { Tag } from '~/components/blog/tags'
 import { Container } from '~/components/ui/container'
 import tagData from '~/json/tag-data.json'
 
-export let metadata = genPageMetadata({ title: 'Tags', description: 'Things I blog about' })
+export let metadata = genPageMetadata({
+  title: 'Tags',
+  description: 'Things I blog about',
+})
 
 export default async function Page() {
   let tagCounts = tagData as Record<string, number>

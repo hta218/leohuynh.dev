@@ -43,9 +43,10 @@
       "arrowParentheses": "always",
       "bracketSameLine": false,
       "bracketSpacing": true,
+      "quoteStyle": "single",
       "jsxQuoteStyle": "double",
       "quoteProperties": "asNeeded",
-      "semicolons": "always",
+      "semicolons": "asNeeded",
       "trailingCommas": "all"
     }
   },
