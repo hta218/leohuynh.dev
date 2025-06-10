@@ -50,4 +50,4 @@ Thanks for the free resources 🙏
 
 ---
 
-Copyright (c) 2024 - Leo's dev blog – stories, insights, and ideas.
+Copyright (c) 2019-present | Leo's dev blog – stories, insights, and ideas.
