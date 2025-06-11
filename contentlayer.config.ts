@@ -1,9 +1,10 @@
+import { execSync } from 'node:child_process'
+import { writeFileSync } from 'node:fs'
+import path from 'node:path'
 import type { ComputedFields } from 'contentlayer2/source-files'
 import { defineDocumentType, makeSource } from 'contentlayer2/source-files'
-import { writeFileSync } from 'node:fs'
 import { slug } from 'github-slugger'
 import { fromHtmlIsomorphic } from 'hast-util-from-html-isomorphic'
-import path from 'node:path'
 import readingTime from 'reading-time'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeCitation from 'rehype-citation'
@@ -72,6 +73,12 @@ function createTagCount(documents) {
     }
   }
   writeFileSync('./json/tag-data.json', JSON.stringify(tagCount))
+  // Run format on the generated file
+  if (!isProduction) {
+    execSync('pnpm biome format --write ./json/tag-data.json', {
+      stdio: 'ignore',
+    })
+  }
   console.log('🏷️. Tag list generated.')
 }
 
