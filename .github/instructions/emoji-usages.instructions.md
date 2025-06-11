@@ -2,7 +2,7 @@
 applyTo: '**'
 ---
 
-# Emoji Usages Instructions
+## Emoji Usages Instructions
 
 This project use Twitter's emoji set for consistency across the site. Here are the guidelines for using emojis:
 
