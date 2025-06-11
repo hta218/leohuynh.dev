@@ -1,0 +1,130 @@
+---
+title: 'Enhance Github Copilot code generation with custom instructions'
+date: '2025-06-11'
+draft: false
+summary: 'How I use GitHub Copilot in VS Code, along with my own custom instructions, to boost productivity, keep my code consistent, and make writing (and coding) more fun!'
+images:
+  [
+    '/static/images/banners/a-small-dog-is-sitting-in-the-sidecar-of-a-motorcycle__judy_beth_morris_idaho__Rlm7FxEtJWs.jpeg',
+  ]
+authors: ['default']
+tags: [github, copilot, instructions]
+---
+
+Since we developers write a lot prompts for AI tools these days,
+sometimes we might find ourselves writing manual instructions over and over again for AI agents
+to follow our coding style, preferences, and other guidelines.
+
+This is when I find the need to have a set of predefined instructions / rules / guidelines for the AI agents to
+follow in every tasks we give them.
+
+Here are my instructions for using **Github Copilot** inside [VS Code](https://code.visualstudio.com/) <Twemoji emoji="robot" />.
+
+## Prerequisites
+
+- Make sure you have [Github Copilot](https://github.com/features/copilot) enabled in your VS Code.
+- Enable instructions and prompt files [chat.promptFiles](vscode://settings/chat.promptFiles)
+- Enable [github.copilot.chat.codeGeneration.useInstructionFiles](vscode://settings/github.copilot.chat.codeGeneration.useInstructionFiles) to tell VS Code to apply instructions when generating code.
+- Read through the VS Code [documentation](https://code.visualstudio.com/docs/copilot/copilot-customization) for more details.
+
+## General Coding Styles
+
+These are the general instructions for most React / TypeScript projects I work on.
+
+```md:copilot-instructions.md
+---
+applyTo: '**'
+---
+
+# Copilot Instructions
+
+<A brief description of the project that you're working on, its purpose, tech stack, or any specific information.>
+
+## Coding Standards
+
+- Use camelCase for variable and function names.
+- Use PascalCase for component names.
+- Use ALL_CAPS for constants
+- Use double quotes for strings.
+- Use 2 spaces for indentation.
+- Use arrow functions for callbacks.
+- Prefix private class members with underscore (\_)
+- Use async/await for asynchronous code.
+- Use const for constants only (variable named with all camel-cased letters) and prefer let for others.
+- Use destructuring for objects and arrays.
+- Use template literals for strings that contain variables.
+- Use the latest JavaScript features (ES6+) where possible.
+
+## TypeScript Guidelines
+
+- Always define types for function parameters and return values, try to avoid using `any`
+- Use TypeScript for all new code
+- Follow functional programming principles where possible
+- Use interfaces for data structures and type definitions
+- Prefer immutable data (readonly)
+- Use optional chaining (?.) and nullish coalescing (??) operators for safe property access
+
+## React Guidelines
+
+- Use functional components with hooks
+- Follow the React hooks rules (no conditional hooks)
+- Use React.FC type for components with children
+- Keep components small and focused
+- Use CSS modules for component styling
+
+## Error Handling
+
+- Use try/catch blocks for async operations
+- Implement proper error boundaries in React components
+- Always log errors with contextual information
+```
+
+## Commit Messages
+
+When generating commit messages, I prefer concise and descriptive messages that follow the conventional commit format:
+
+```md:commit-messages.instructions.md
+## Commit Message Guidelines
+
+- Write a clear and concise description of the code, including its purpose and functionality.
+- Make sure to include any important details or context that would help someone understand the code.
+- Make the commit short and descriptive, summarizing the changes made in a few words.
+- Always use conventional commit message formats like "fix", "feat", or "chore".
+
+```
+
+## Writing
+
+I apply these instructions when asking copilot to write blog posts, documentations, or README files:
+
+```md:writing.instructions.md
+---
+applyTo: '**/*.mdx'
+---
+
+## Writing Instructions
+
+- ALWAYS KEEPING THINGS SIMPLE!
+- Use simple English, direct language, avoiding complex jargon.
+- Write in spoken language, as if explaining to a friend.
+- Use short sentences and paragraphs for clarity.
+- Write in a friendly and approachable tone.
+- Humor is welcome, but keep it appropriate (no offensive jokes or too much sarcasm).
+- Use emojis to add a friendly touch, but don't overdo it.
+- Titles and headings should be clear and descriptive, make theme short but enough to grab readers' curiosity.
+- Make the articles human-like writing, not AI-generated.
+- Ending an article with a friendly note or call to action, like "Happy coding!" or "Thanks for reading!".
+```
+
+## References
+
+- https://github.com/features/copilot
+- https://code.visualstudio.com/docs/copilot/copilot-customization
+- https://docs.github.com/en/copilot/using-github-copilot/ai-models/choosing-the-right-ai-model-for-your-task
+
+---
+
+Feel free to copy and modify these instructions to suit your own coding style and preferences.
+And share with me your own instructions if you have any, I would love to learn from them!
+
+Happy AI-training! <Twemoji emoji="clinking-beer-mugs" />
