@@ -1,0 +1,151 @@
+---
+date: '2025-06-13'
+heading: 'Parse functions from string'
+title: 'How (and why) to parse a function from a string in JavaScript/TypeScript'
+draft: false
+icon: 'Typescript'
+summary: 'Turn a string into a callable function, with real-world use cases and important safety notes.'
+tags: [typescript, parsing, function, deserialization]
+---
+
+So I faced a problem at work today: when trying to send a JSON response containing objects with functions as properties from the server to the client,
+the functions got lost, they became `undefined` in the client code.
+This is because JSON does not support functions, so they get stripped out during serialization (See the [JSON.stringify()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#description) description on MDN web docs for more details).
+
+![json stringify description](/static/images/json-stringify-description.png)
+
+So I found myself a solution is to serialize the functions as strings with [`Function.prototype.toString()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/toString),
+and then parse them back into callable functions on the client side.
+
+In the server side, you can simply process your object and convert the functions to strings with the `toString()` method.
+And on the client side, you need to parse those strings back into functions with a pretty handy utility.
+
+This snippet shows you how to safely parse different function formats from a string and get a callable function back:
+
+```ts:parse-function.ts
+function parseFunction(funcStr: string): (...args: any[]) => any {
+  if (!funcStr || typeof funcStr !== "string") {
+    throw new Error("Invalid function string: must be a non-empty string");
+  }
+
+  // Remove comments and normalize whitespace
+  let cleanStr = funcStr
+    .replace(/\/\*[\s\S]*?\*\//g, "") // Remove block comments
+    .replace(/\/\/.*$/gm, "") // Remove line comments
+    .trim();
+
+  if (!cleanStr) {
+    throw new Error("Invalid function string: empty after cleaning");
+  }
+
+  let match: RegExpMatchArray | null;
+
+  try {
+    // Regular function: function name(params) { body } or function(params) { body }
+    match = cleanStr.match(
+      /^(?:async\s+)?function\s*[^()]*\(([^)]*)\)\s*{([\s\S]*)}$/,
+    );
+    if (match) {
+      let params = match[1]
+        .split(",")
+        .map((p) => p.trim())
+        .filter(Boolean);
+      let body = match[2].trim();
+      return new Function(...params, body) as (...args: any[]) => any;
+    }
+
+    // Arrow function with braces: (params) => { body }
+    match = cleanStr.match(/^(?:async\s+)?\(([^)]*)\)\s*=>\s*{([\s\S]*)}$/);
+    if (match) {
+      let params = match[1]
+        .split(",")
+        .map((p) => p.trim())
+        .filter(Boolean);
+      let body = match[2].trim();
+      return new Function(...params, body) as (...args: any[]) => any;
+    }
+
+    // Arrow function with single parameter and braces: param => { body }
+    match = cleanStr.match(/^(?:async\s+)?([^=\s(]+)\s*=>\s*{([\s\S]*)}$/);
+    if (match) {
+      let param = match[1].trim();
+      let body = match[2].trim();
+      return new Function(param, body) as (...args: any[]) => any;
+    }
+
+    // Simple arrow function with parentheses: (params) => expression
+    match = cleanStr.match(/^(?:async\s+)?\(([^)]*)\)\s*=>\s*(.+)$/);
+    if (match) {
+      let params = match[1]
+        .split(",")
+        .map((p) => p.trim())
+        .filter(Boolean);
+      let expression = match[2].trim();
+      return new Function(...params, `return (${expression})`) as (
+        ...args: any[]
+      ) => any;
+    }
+
+    // Single parameter arrow function: param => expression
+    match = cleanStr.match(/^(?:async\s+)?([^=\s(]+)\s*=>\s*(.+)$/);
+    if (match) {
+      let param = match[1].trim();
+      let expression = match[2].trim();
+      return new Function(param, `return (${expression})`) as (
+        ...args: any[]
+      ) => any;
+    }
+
+    // If no patterns match, throw an error
+    throw new Error(`Unsupported function format: ${cleanStr}`);
+  } catch (error) {
+    if (error instanceof SyntaxError) {
+      throw new Error(`Invalid function syntax: ${error.message}`);
+    }
+    throw new Error(`Failed to create function: ${error.message}`);
+  }
+}
+```
+
+**What is does:**
+
+- Handles regular, arrow, and single-param functions.
+- Cleans up comments and whitespace.
+- Throws helpful errors if the string is invalid.
+
+Better handle the parsing process within a try-catch block to catch any potential errors.
+
+**Example:**
+
+```ts
+try {
+  let fn1 = parseFunction('(a, b) => a + b')
+  let fn2 = parseFunction('function add(a, b) { return a + b; }')
+  let fn3 = parseFunction('x => x * 2')
+  let fn4 = parseFunction('async (x, y) => { return x + y; }')
+  let fn5 = parseFunction('async function multiply(a, b) { return a * b; }')
+  console.log(fn1(2, 3)) // 5
+  console.log(fn2(2, 3)) // 5
+  console.log(fn3(4)) // 8
+  console.log(fn4(2, 3)) // 5
+  console.log(fn5(2, 3)) // 6
+} catch (error) {
+  console.error('Failed to parse function:', error)
+}
+```
+
+> [!WARNING]  
+> Executing a function from a string can be risky! Only use this if you trust the source of the string, as it can execute arbitrary code.
+
+## More use cases (Copilot suggested <Twemoji emoji="robot" />)
+
+- **Serialization:** Store and reload functions as strings (for configs, migrations, or state machines).
+- **Dynamic scripting:** Let users write custom formulas or logic in a web app (think spreadsheet formulas, calculators, or workflow builders).
+- **Code editors and sandboxes:** Run code snippets entered by users for live previews or interactive docs.
+- **Plugins and automation:** Allow plugins or extensions to define their own logic as strings.
+- **Server-to-client logic:** Send a function definition from the server to the client for dynamic execution (for example, custom validation or transformation logic that changes over time).
+
+> [!NOTE]
+> If your site has configs Content Security Policy (CSP), make sure the `script-src` includes the `unsafe-eval` directive, otherwise this won't work.
+
+Happy parsing! <Twemoji emoji="clinking-beer-mugs" />
