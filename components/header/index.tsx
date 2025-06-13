@@ -33,8 +33,8 @@ export function Header() {
     <Container
       as="header"
       className={clsx(
-        'bg-white/75 py-2 backdrop-blur dark:bg-dark/75',
-        'shadow-sm saturate-100 md:rounded-2xl',
+        'dark:bg-dark/75 bg-white/75 py-2 backdrop-blur-sm',
+        'shadow-xs saturate-100 md:rounded-2xl',
         SITE_METADATA.stickyNav && 'sticky top-2 z-50 lg:top-3'
       )}
     >
@@ -47,7 +47,7 @@ export function Header() {
               return (
                 <Link key={title} href={href} className="px-3 py-1 font-medium">
                   <GrowingUnderline
-                    className={clsx(isActive && 'bg-[length:100%_50%]')}
+                    className={clsx(isActive && 'bg-size-[100%_50%]')}
                     data-umami-event={`nav-${href.replace('/', '')}`}
                   >
                     {title}
@@ -60,7 +60,7 @@ export function Header() {
           <div
             data-orientation="vertical"
             role="separator"
-            className="hidden h-4 w-px shrink-0 bg-gray-200 dark:bg-gray-600 md:block"
+            className="hidden h-4 w-px shrink-0 bg-gray-200 md:block dark:bg-gray-600"
           />
           <div className="flex items-center gap-2">
             <ThemeSwitcher />

@@ -15,15 +15,15 @@ export function KBarModal({ actions, isLoading }: { actions: Action[]; isLoading
 
   return (
     <KBarPortal>
-      <KBarPositioner className="z-50 bg-gray-300/50 p-4 backdrop-blur backdrop-filter dark:bg-black/50">
+      <KBarPositioner className="z-50 bg-gray-300/50 p-4 backdrop-blur-sm backdrop-filter dark:bg-black/50">
         <KBarAnimator className="w-full max-w-xl">
           <div className="overflow-hidden rounded-2xl border border-gray-100 bg-gray-50 dark:border-gray-800 dark:bg-gray-900">
             <div className="flex items-center space-x-4 p-4">
               <span className="block w-5">
                 <Search strokeWidth={1.5} size={20} className="text-gray-400 dark:text-gray-300" />
               </span>
-              <KBarSearch className="h-8 w-full bg-transparent text-gray-600 placeholder-gray-400 focus:outline-none dark:text-gray-200 dark:placeholder-gray-500" />
-              <kbd className="inline-block whitespace-nowrap rounded border border-gray-400 px-1.5 align-middle text-xs font-medium leading-4 tracking-wide text-gray-400">
+              <KBarSearch className="h-8 w-full bg-transparent text-gray-600 placeholder-gray-400 focus:outline-hidden dark:text-gray-200 dark:placeholder-gray-500" />
+              <kbd className="inline-block rounded-sm border border-gray-400 px-1.5 align-middle text-xs leading-4 font-medium tracking-wide whitespace-nowrap text-gray-400">
                 ESC
               </kbd>
             </div>
@@ -51,7 +51,7 @@ function RenderResults() {
           <div>
             {typeof item === 'string' ? (
               <div className="pt-3">
-                <div className="block border-t border-gray-100 px-4 pb-2 pt-6 text-xs font-semibold uppercase text-primary-600 dark:border-gray-800">
+                <div className="text-primary-600 block border-t border-gray-100 px-4 pt-6 pb-2 text-xs font-semibold uppercase dark:border-gray-800">
                   {item}
                 </div>
               </div>
@@ -79,7 +79,7 @@ function RenderResults() {
                     {item.shortcut.map((sc) => (
                       <kbd
                         key={sc}
-                        className={`flex h-7 w-6 items-center justify-center rounded border text-xs font-medium ${active ? 'border-gray-200 text-gray-200' : 'border-gray-400 text-gray-400'}`}
+                        className={`flex h-7 w-6 items-center justify-center rounded-sm border text-xs font-medium ${active ? 'border-gray-200 text-gray-200' : 'border-gray-400 text-gray-400'}`}
                       >
                         {sc}
                       </kbd>

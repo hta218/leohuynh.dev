@@ -15,7 +15,7 @@ export function FooterBottom() {
       ])}
     >
       <SpotifyNowPlaying
-        className="w-full justify-center truncate [--artist-color:theme(colors.gray.500)] md:max-w-[50%] md:justify-start"
+        className="w-full justify-center truncate [--artist-color:var(--color-gray-500)] md:max-w-[50%] md:justify-start"
         songEffect="underline"
         showCover
       />

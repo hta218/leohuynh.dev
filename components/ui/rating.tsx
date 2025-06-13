@@ -10,8 +10,8 @@ export function Rating({ rating, className }: { rating: string; className?: stri
           'shrink-0 items-center gap-1',
           'rounded-full px-3 py-0.5',
           'font-medium text-gray-700 dark:text-gray-900',
-          'bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-yellow-200 via-emerald-200 to-yellow-200',
-          'dark:bg-gradient-to-l dark:from-emerald-500 dark:to-lime-600',
+          'bg-[conic-gradient(at_top,var(--tw-gradient-stops))] from-yellow-200 via-emerald-200 to-yellow-200',
+          'dark:bg-linear-to-l dark:from-emerald-500 dark:to-lime-600',
           className,
         ])}
       >

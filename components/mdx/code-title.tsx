@@ -39,7 +39,7 @@ export function CodeTitle({ lang, title }: { lang: string; title: string }) {
       <Brand
         name={FILE_NAME_MAP[title] || LANGS_MAP[lang]}
         as="icon"
-        className="h-5 w-5 shrink-0 rounded"
+        className="h-5 w-5 shrink-0 rounded-sm"
       />
       <span className="truncate font-mono text-sm font-medium">{title}</span>
       <CopyCodeButton

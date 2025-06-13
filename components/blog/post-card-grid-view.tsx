@@ -17,9 +17,9 @@ export function PostCardGridView({ post }: { post: CoreContent<Blog> }) {
           href={`/${path}`}
           className={clsx([
             'relative block shrink-0',
-            'h-auto w-full md:aspect-[3/2]',
-            'pb-3 pl-0 pr-3 pt-0',
-            'transition-all ease-in-out hover:pb-2 hover:pl-1 hover:pr-2 hover:pt-1',
+            'h-auto w-full md:aspect-3/2',
+            'pt-0 pr-3 pb-3 pl-0',
+            'transition-all ease-in-out hover:pt-1 hover:pr-2 hover:pb-2 hover:pl-1',
           ])}
         >
           <Image
@@ -31,7 +31,7 @@ export function PostCardGridView({ post }: { post: CoreContent<Blog> }) {
           />
           <GritBackground
             className={clsx([
-              'bottom-0 left-3 right-0 top-3',
+              'top-3 right-0 bottom-0 left-3',
               'rounded-xl border-2 border-gray-800 dark:border-gray-400',
             ])}
           />
@@ -43,7 +43,7 @@ export function PostCardGridView({ post }: { post: CoreContent<Blog> }) {
             <span>{Math.ceil(readingTime.minutes)} mins read</span>
           </div>
           <div className="group relative">
-            <h3 className="text-xl font-semibold leading-6">
+            <h3 className="text-xl leading-6 font-semibold">
               <Link href={`/${path}`}>
                 <GrowingUnderline>{title}</GrowingUnderline>
               </Link>

@@ -33,7 +33,7 @@ export function ListLayoutWithTags({ title, description, posts, snippets }: List
       <div className="flex gap-x-12">
         <TagsList />
         <div className="py-5 md:py-10">
-          <div className="mb-6 flex items-center gap-2 text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-gray-100 md:mb-10 md:justify-end md:text-3xl">
+          <div className="mb-6 flex items-center gap-2 text-2xl leading-9 font-bold tracking-tight text-gray-900 md:mb-10 md:justify-end md:text-3xl dark:text-gray-100">
             {hasBlogs && (
               <button
                 type="button"
@@ -92,7 +92,7 @@ function TagsList() {
 
   return (
     <div className="hidden max-h-screen w-[300px] shrink-0 py-5 md:flex md:py-10">
-      <div className="h-full overflow-auto rounded bg-gray-50 dark:bg-gray-900/70 dark:shadow-gray-800/40">
+      <div className="h-full overflow-auto rounded-sm bg-gray-50 dark:bg-gray-900/70 dark:shadow-gray-800/40">
         <ul className="flex flex-wrap items-center gap-x-5 gap-y-2 px-6 py-4">
           {sortedTags.map((t) => {
             return (

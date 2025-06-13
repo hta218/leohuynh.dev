@@ -67,7 +67,7 @@ export function RateFilter({ rate, type }: { rate: RateType; type: TitleType }) 
               'absolute right-0 z-50',
               'mt-2 origin-top-right rounded-md text-right shadow-lg',
               'bg-white dark:bg-black',
-              'ring-1 ring-black ring-opacity-5 focus:outline-none',
+              'ring-opacity-5 ring-1 ring-black focus:outline-hidden',
             ])}
           >
             <div className="space-y-1 p-1">

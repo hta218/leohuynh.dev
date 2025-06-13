@@ -6,8 +6,8 @@ export function GritBackground({ className }: { className?: string }) {
       className={clsx([
         'absolute z-[-1]',
         'bg-cover bg-center',
-        '[background-image:url("/static/images/black-grit.png")]',
-        'dark:[background-image:url("/static/images/white-grit.png")]',
+        'bg-[url("/static/images/black-grit.png")]',
+        'dark:bg-[url("/static/images/white-grit.png")]',
         className,
       ])}
     />
