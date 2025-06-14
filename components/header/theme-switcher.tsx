@@ -66,7 +66,7 @@ export function ThemeSwitcher() {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <MenuItems className="ring-opacity-5 absolute right-0 z-50 mt-2 w-32 origin-top-right translate-x-[calc(50%-17px)] rounded-md bg-white shadow-lg ring-1 ring-black focus:outline-hidden dark:bg-black">
+          <MenuItems className="absolute right-0 z-50 mt-2 w-32 origin-top-right translate-x-[calc(50%-17px)] rounded-lg bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden dark:bg-black">
             <RadioGroup value={theme} onChange={setTheme}>
               <div className="space-y-1 p-1">
                 {THEMES.map(({ label, value, icon: Icon }) => (

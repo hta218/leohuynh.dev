@@ -58,9 +58,9 @@ export function TitleTypeFilter({ type, rate }: { type: TitleType; rate: RateTyp
           <MenuItems
             className={clsx([
               'absolute left-0 z-50 md:right-0 md:left-auto',
-              'mt-2 w-36 origin-top-right rounded-md text-right shadow-lg',
+              'mt-2 w-36 origin-top-right rounded-lg text-right shadow-lg',
               'bg-white dark:bg-black',
-              'ring-opacity-5 ring-1 ring-black focus:outline-hidden',
+              'ring-1 ring-black/5 focus:outline-hidden',
             ])}
           >
             <div className="space-y-1 p-1">
