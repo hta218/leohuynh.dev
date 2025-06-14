@@ -14,7 +14,7 @@
     "formatWithErrors": false,
     "ignore": [],
     "attributePosition": "auto",
-    "indentStyle": "tab",
+    "indentStyle": "space",
     "indentWidth": 2,
     "lineWidth": 80,
     "lineEnding": "lf"
