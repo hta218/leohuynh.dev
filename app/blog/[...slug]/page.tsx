@@ -1,6 +1,5 @@
 import type { Author, Blog } from 'contentlayer/generated'
 import { allAuthors, allBlogs } from 'contentlayer/generated'
-// import 'css/prism.css'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { MDX_COMPONENTS } from '~/components/mdx'
