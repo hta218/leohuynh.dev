@@ -6,47 +6,63 @@
 
 </div>
 
-![leohuynh.dev @ #250a4c5 on Oct.13](https://cdn.shopify.com/s/files/1/0669/0262/2504/files/pawelzmarlak-2024-10-12T14_51_02.315Z.png?v=1728744886)
+<p align="center">
+  <i>"My personal space on the cloud where I document my programming journey, sharing lessons, insights, and resources for fellow developers."</i>
+</p>
+
+![leohuynh.dev screenshot](https://cdn.shopify.com/s/files/1/0669/0262/2504/files/pawelzmarlak-2024-10-12T14_51_02.315Z.png?v=1728744886)
 
 ## Motivation
 
 > Sharing is learning!
 
-I started this blog as a way to document and share stuff I have learned and found useful as a software engineer.
+I started this blog to document and share things I’ve learned and found useful as a software engineer. Writing things down helps me solidify my understanding and hopefully provides value to fellow devs interested in web development, programming, and tech in general.
 
-Building and writing things down is a great way for me to solidify my understanding of new concepts and ideas. I hope my blog could be a helpful resource for fellow devs who interested in web dev, eCommerce, and related technologies.
+## Features
 
-I would be highly appreciated if you could leave your comments and thoughts on what I have written 🍻
+- ⚛️ Built with **React 19** and **Next.js 15** (App Router)
+- 🎨 Modern, responsive design with [Tailwind CSS](https://tailwindcss.com/)
+- 💡 Written in **TypeScript** for better safety
+- 📖 MDX for rich content and code snippets
+- 📊 Website analytics with [Umami](https://umami.is/)
+- 🌗 Dark mode using [GitHub dark dimmed](https://github.blog/changelog/2021-04-14-dark-and-dimmed-themes-are-now-generally-available/) colors
+- 🧩 Custom components: `ProfileCard`, `CareerTimeline`, `/snippets`, `/books`, and more
+- 🛠️ Overhauled UI and homepage, easy-to-customize
 
-## Tech stack
+## Tech Stack
 
-This blog is hosted on [Vercel](https://vercel.com/), built with [Next.js](https://nextjs.org/) and [Tailwind CSS](https://tailwindcss.com/) using **Tailwind Nextjs Starter Blog**.
+[![Next.js](https://img.shields.io/badge/next.js-000?logo=next.js&logoColor=white)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/react-20232A?logo=react&logoColor=61DAFB)](https://react.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/tailwindcss-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![TypeScript](https://img.shields.io/badge/typescript-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![MDX](https://img.shields.io/badge/mdx-1a1a1a?logo=mdx&logoColor=white)](https://mdxjs.com/)
+[![Vercel](https://img.shields.io/badge/vercel-000?logo=vercel&logoColor=white)](https://vercel.com/)
+[![Umami](https://img.shields.io/badge/umami-262626?logo=umami&logoColor=white)](https://umami.is/)
+[![Supabase](https://img.shields.io/badge/supabase-3ECF8E?logo=supabase&logoColor=white)](https://supabase.com/)
+[![Drizzle ORM](https://img.shields.io/badge/drizzle%20orm-1a1a1a?logo=drizzle&logoColor=white)](https://orm.drizzle.team/)
+[![Shiki](https://img.shields.io/badge/shiki-ff4d6d?logo=shiki&logoColor=white)](https://shiki.matsu.io/)
 
-A huge thanks to [Timothy Lin](https://twitter.com/timlrxx) for the minimal, lightweight, and super easy-to-customize blog starter.
+## Assets & Credits
 
-A few major over-engineering-changes from the original repo:
-
-- ⚛️ **React 18+**, **NextJS 14+** (App Router)
-- 🎉 Adopting **Typescript**, committing with [Conventional Commits](https://www.conventionalcommits.org/)
-- 📊 Monitoring site with [Umami](https://umami.is/) website analytics
-- 👀 Theming in dark mode with [Github dark dimmed](https://github.blog/changelog/2021-04-14-dark-and-dimmed-themes-are-now-generally-available/) colors for better contrast
-- 👨‍💻 Making a lot of changes to the UI, new homepage design, adding `ProfileCard`, `CareerTimeline` components, adding `/snippets`, `/books` page, etc.
-
-## Assets
-
-The images in this blog are from [Unsplash](https://unsplash.com/), gifs from [GIPHY](https://giphy.com/), and illustrations are from [Storyset](https://storyset.com/).
-
-Thanks for the free resources 🙏
+- Images: [Unsplash](https://unsplash.com/)
+- GIFs: [GIPHY](https://giphy.com/)
+- Illustrations: [Storyset](https://storyset.com/)
 
 ## Star History
 
 <a href="https://star-history.com/#hta218/leohuynh.dev&Date">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=hta218/leohuynh.dev&type=Date&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=hta218/leohuynh.dev&type=Date" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=hta218/leohuynh.dev&type=Date" />
- </picture>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=hta218/leohuynh.dev&type=Date&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=hta218/leohuynh.dev&type=Date" />
+    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=hta218/leohuynh.dev&type=Date" />
+  </picture>
 </a>
+
+## Contributing
+
+Contributions, issues, and feature requests are super welcome 🍻!
+
+If you find something to improve, feel free to [open an issue](https://github.com/hta218/leohuynh.dev/issues) or [submit a pull request](https://github.com/hta218/leohuynh.dev/pulls).
 
 ---
 
