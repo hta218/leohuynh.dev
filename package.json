@@ -39,7 +39,7 @@
     "image-size": "2.0.2",
     "js-yaml": "^4.1.0",
     "kbar": "0.1.0-beta.45",
-    "lucide-react": "^0.514.0",
+    "lucide-react": "^0.515.0",
     "mdast-util-to-string": "^4.0.0",
     "next": "15.3.3",
     "next-contentlayer2": "0.5.8",
@@ -85,7 +85,7 @@
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.12",
     "rss-parser": "^3.13.0",
-    "tsx": "^4.20.2",
+    "tsx": "^4.20.3",
     "typescript": "^5.8.3"
   },
   "lint-staged": {
