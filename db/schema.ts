@@ -13,11 +13,7 @@ export let statsTable = pgTable(
     ideas: integer('ideas').notNull().default(0),
     bullseyes: integer('bullseyes').notNull().default(0),
   },
-  ({ type, slug }) => {
-    return {
-      pk: primaryKey({ columns: [type, slug] }),
-    }
-  }
+  ({ type, slug }) => [primaryKey({ columns: [type, slug] })]
 )
 
 export type StatsType = (typeof typeEnum.enumValues)[number]
