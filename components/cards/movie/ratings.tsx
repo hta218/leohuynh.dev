@@ -16,7 +16,7 @@ export function Ratings({ movie }: { movie: ImdbMovie }) {
         <Brand name="IMBb" className="h-5 w-5 md:h-6 md:w-6" as="icon" />
         <span>
           {imdb_rating}{' '}
-          <span className="hidden text-gray-500 dark:text-gray-400 md:inline">
+          <span className="hidden text-gray-500 md:inline dark:text-gray-400">
             ({shortenNumVotes(Number(num_votes))})
           </span>
         </span>

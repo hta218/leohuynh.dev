@@ -1,7 +1,7 @@
-import type { Blog, Snippet } from 'contentlayer/generated'
 import { mkdirSync, writeFileSync } from 'node:fs'
-import { slug } from 'github-slugger'
 import path from 'node:path'
+import type { Blog, Snippet } from 'contentlayer/generated'
+import { slug } from 'github-slugger'
 import { allBlogs, allSnippets } from '~/.contentlayer/generated/index.mjs'
 import { SITE_METADATA } from '~/data/site-metadata'
 import tagData from '~/json/tag-data.json' assert { type: 'json' }

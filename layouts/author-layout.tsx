@@ -51,7 +51,7 @@ export function AuthorLayout({ children }: Props) {
               </p>
             </div>
             <div>
-              <div className="mb-[1em] mt-[2em] flex items-center justify-between [&>h2]:my-0">
+              <div className="mt-[2em] mb-[1em] flex items-center justify-between [&>h2]:my-0">
                 <h2>My career</h2>
                 <Button as="a" href="/static/resume.pdf" target="_blank">
                   <span>Resume</span>

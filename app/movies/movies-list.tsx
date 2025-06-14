@@ -4,8 +4,8 @@ import { useSearchParams } from 'next/navigation'
 import { MovieCard } from '~/components/cards/movie'
 import { Twemoji } from '~/components/ui/twemoji'
 import type { ImdbMovie } from '~/types/data'
-import { RateFilter, RATES, type RateType } from './rate-filter'
-import { TitleTypeFilter, type TitleType } from './title-type-filter'
+import { RATES, RateFilter, type RateType } from './rate-filter'
+import { type TitleType, TitleTypeFilter } from './title-type-filter'
 
 const MOVIES_TITLE_TYPES: Record<TitleType, string> = {
   all: 'All',

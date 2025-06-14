@@ -13,7 +13,7 @@ export function Authors({ authors, className }: AuthorsProps) {
     <dl className={className}>
       <dt className="sr-only">Authors</dt>
       <dd>
-        <ul className="flex flex-wrap justify-center gap-4 sm:space-x-12 xl:block xl:space-x-0 xl:space-y-8">
+        <ul className="flex flex-wrap justify-center gap-4 sm:space-x-12 xl:block xl:space-y-8 xl:space-x-0">
           {authors.map(({ name, avatar, twitter: x }) => (
             <li key={name} className="flex items-center space-x-2">
               {avatar && (
@@ -25,7 +25,7 @@ export function Authors({ authors, className }: AuthorsProps) {
                   className="h-10 w-10 rounded-full"
                 />
               )}
-              <dl className="whitespace-nowrap text-sm font-medium leading-5">
+              <dl className="text-sm leading-5 font-medium whitespace-nowrap">
                 <dt className="sr-only">Name</dt>
                 <dd className="text-gray-900 dark:text-gray-100">{name}</dd>
                 <dt className="sr-only">Twitter</dt>

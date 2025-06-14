@@ -24,13 +24,13 @@ export function ProjectCard({ project }: { project: (typeof PROJECTS)[0] }) {
   return (
     <GradientBorder
       offset={28}
-      className="flex flex-col rounded-[40px] p-6 [box-shadow:0_8px_32px_rgba(194,194,218,.3)] dark:bg-white/5 dark:shadow-none md:p-8"
+      className="flex flex-col rounded-[40px] p-6 [box-shadow:0_8px_32px_rgba(194,194,218,.3)] md:p-8 dark:bg-white/5 dark:shadow-none"
     >
       <TiltedGridBackground className="inset-0 z-[-1] rounded-[40px]" />
       <div className="mb-6 flex items-center gap-4">
         <Image src={imgSrc} alt={title} width={100} height={100} className="h-15 w-15 shrink-0" />
         <div className="flex flex-col items-start gap-1 pt-1">
-          <h2 className="text-[22px] font-bold leading-[30px]">
+          <h2 className="text-[22px] leading-[30px] font-bold">
             {href ? (
               <Link href={href} aria-label={`Link to ${title}`}>
                 <GrowingUnderline data-umami-event="project-title-link">{title}</GrowingUnderline>
@@ -73,7 +73,7 @@ export function ProjectCard({ project }: { project: (typeof PROJECTS)[0] }) {
                     </GrowingUnderline>
                   </Link>
                   {idx !== links.length - 1 && (
-                    <span className="hidden text-gray-400 dark:text-gray-500 md:inline">|</span>
+                    <span className="hidden text-gray-400 md:inline dark:text-gray-500">|</span>
                   )}
                 </Fragment>
               ))}

@@ -1,4 +1,4 @@
-import { NextResponse, type NextRequest } from 'next/server'
+import { type NextRequest, NextResponse } from 'next/server'
 
 async function convertkitSubscribe(email: string) {
   let { CONVERTKIT_FORM_ID, CONVERTKIT_API_KEY } = process.env

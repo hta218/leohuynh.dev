@@ -21,10 +21,10 @@ export function Home({
       <div className="py-6 md:pb-8 xl:grid xl:grid-cols-3">
         <div className="space-y-4 md:space-y-6 md:pr-8 xl:col-span-2">
           <Greeting />
-          <div className="text-base leading-7 text-gray-600 dark:text-gray-400 md:text-lg md:leading-8">
+          <div className="text-base leading-7 text-gray-600 md:text-lg md:leading-8 dark:text-gray-400">
             <Intro />
             <TypedBios />
-            <div className="mb-6 mt-4 md:mb-8">
+            <div className="mt-4 mb-6 md:mb-8">
               <p>I started learning to code in 2016 and have been hooked ever since.</p>
               <p>I landed my first job as a Python coding mentor in 2017.</p>
               <p>I have a passion for JS/TS, web dev, and eCommerce.</p>
@@ -37,7 +37,7 @@ export function Home({
             </p>
           </div>
         </div>
-        <div className="hidden pl-4 pt-8 xl:block">
+        <div className="hidden pt-8 pl-4 xl:block">
           <ProfileCard />
         </div>
       </div>

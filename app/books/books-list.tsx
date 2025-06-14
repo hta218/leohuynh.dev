@@ -3,7 +3,7 @@
 import { useSearchParams } from 'next/navigation'
 import { BookCard } from '~/components/cards/book'
 import type { GoodreadsBook } from '~/types/data'
-import { SHELVES, ShelveSelect, type ShelfType } from './shelve-select'
+import { SHELVES, type ShelfType, ShelveSelect } from './shelve-select'
 
 interface BooksListProps {
   books: GoodreadsBook[]
@@ -26,7 +26,7 @@ export function BooksList({ books }: BooksListProps) {
   return (
     <div className="py-5 md:py-10">
       <div className="mb-6 flex items-center justify-between gap-4">
-        <span className="text-xl font-bold leading-9 tracking-tight md:text-2xl">
+        <span className="text-xl leading-9 font-bold tracking-tight md:text-2xl">
           <span className="mr-1 capitalize">{label}</span>
           <span className="font-normal">({displayBooks.length})</span>
         </span>

@@ -11,7 +11,7 @@ import { BookDetails } from './book-details'
 
 export function BookCard({ book }: { book: GoodreadsBook }) {
   return (
-    <GradientBorder className="flex flex-col gap-8 rounded-2xl px-3 py-6 dark:bg-white/5 md:flex-row md:px-6">
+    <GradientBorder className="flex flex-col gap-8 rounded-2xl px-3 py-6 md:flex-row md:px-6 dark:bg-white/5">
       <TiltedGridBackground className="inset-0 z-[-1]" />
       <div className="mx-auto flex w-60 shrink-0 items-center justify-center">
         <BookCover image={book.book_large_image_url} alt={book.title} />
@@ -59,7 +59,7 @@ function GoodreadsLink({ url, className }: { url?: string | null; className?: st
   if (url) {
     return (
       <Link href={url} className={className}>
-        <GoodreadsLogo className="h-5 text-goodreads dark:text-gray-100" />
+        <GoodreadsLogo className="text-goodreads h-5 dark:text-gray-100" />
       </Link>
     )
   }

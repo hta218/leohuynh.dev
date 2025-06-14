@@ -15,7 +15,7 @@ export function BlogMeta({ date, lastmod, type, slug, readingTime }: BlogMetaPro
   return (
     <dl>
       <dt className="sr-only">Published on</dt>
-      <dd className="flex flex-wrap items-center gap-2 text-sm font-medium leading-6 text-gray-500 dark:text-gray-400 md:text-base">
+      <dd className="flex flex-wrap items-center gap-2 text-sm leading-6 font-medium text-gray-500 md:text-base dark:text-gray-400">
         <time dateTime={date} className="flex items-center justify-center">
           <span>{formatDate(date)}</span>
           {lastmod && (

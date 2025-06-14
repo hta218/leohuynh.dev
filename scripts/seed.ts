@@ -1,6 +1,6 @@
-import csv from 'csv-parser'
 import fs, { writeFileSync } from 'node:fs'
 import path from 'node:path'
+import csv from 'csv-parser'
 import Parser from 'rss-parser'
 import { SITE_METADATA } from '~/data/site-metadata'
 import type { GoodreadsBook, ImdbMovie, OmdbMovie } from '~/types/data'

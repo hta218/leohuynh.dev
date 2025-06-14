@@ -46,8 +46,8 @@ export function PostSimple({ content, children }: PostSimpleProps) {
           </dl>
         </div>
         <GradientDivider />
-        <div className="prose prose-lg max-w-none dark:prose-invert">{children}</div>
-        <GradientDivider className="mb-2 mt-1" />
+        <div className="prose prose-lg dark:prose-invert max-w-none">{children}</div>
+        <GradientDivider className="mt-1 mb-2" />
         <div className="space-y-8">
           {/* <div className="flex justify-between gap-4">
             <div className="flex items-center gap-2">

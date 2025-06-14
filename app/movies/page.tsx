@@ -6,8 +6,8 @@ import { Link } from '~/components/ui/link'
 import { PageHeader } from '~/components/ui/page-header'
 import { SITE_METADATA } from '~/data/site-metadata'
 import movies from '~/json/movies.json' assert { type: 'json' }
-import { MoviesList } from './movies-list'
 import type { ImdbMovie } from '~/types/data'
+import { MoviesList } from './movies-list'
 
 export let metadata = genPageMetadata({ title: 'My movies list' })
 

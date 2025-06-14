@@ -52,7 +52,7 @@ export function PostBanner({ content, children }: LayoutProps) {
             />
           </div>
         </div>
-        <div className="prose prose-lg max-w-none dark:prose-invert">{children}</div>
+        <div className="prose prose-lg dark:prose-invert max-w-none">{children}</div>
         <div className="space-y-8 border-t border-gray-200 pt-4 dark:border-gray-700">
           <div className="flex justify-between gap-4">
             <div className="flex items-center gap-2">
@@ -76,7 +76,7 @@ function Credit({ image, className }: { image: string; className?: string }) {
       <div className={clsx('text-right text-sm italic', className)}>
         Photo by{' '}
         <a
-          className="text-primary-500 underline-offset-4 hover:underline dark:text-primary-400"
+          className="text-primary-500 dark:text-primary-400 underline-offset-4 hover:underline"
           href={`https://unsplash.com/@${author}`}
           target="_blank"
           rel="noreferrer"
@@ -85,7 +85,7 @@ function Credit({ image, className }: { image: string; className?: string }) {
         </a>{' '}
         on{' '}
         <a
-          className="text-primary-500 underline-offset-4 hover:underline dark:text-primary-400"
+          className="text-primary-500 dark:text-primary-400 underline-offset-4 hover:underline"
           href={`https://unsplash.com/photos/${id}`}
           target="_blank"
           rel="noreferrer"

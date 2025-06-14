@@ -1,4 +1,4 @@
-import { graphql, type GraphQlQueryResponseData } from '@octokit/graphql'
+import { type GraphQlQueryResponseData, graphql } from '@octokit/graphql'
 import type { GithubRepository } from '~/types/data'
 
 const HISTORY_QUERY = `

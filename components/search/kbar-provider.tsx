@@ -3,7 +3,7 @@
 import type { Action } from 'kbar'
 import { KBarProvider } from 'kbar'
 import { useRouter } from 'next/navigation.js'
-import { useEffect, useState, type ReactNode } from 'react'
+import { type ReactNode, useEffect, useState } from 'react'
 import type { CoreContent, MDXDocument } from '~/types/data'
 import { formatDate } from '~/utils/misc'
 import { KBarModal } from './kbar-modal'

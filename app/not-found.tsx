@@ -11,7 +11,7 @@ export default function NotFound() {
         <FourOhFour className="mx-auto aspect-square w-[300px] max-w-[80vw] md:w-[500px]" />
         <div className="space-x-2 pt-8 md:space-y-5 md:pt-12 xl:pt-16">
           <div className="max-w-md text-center">
-            <p className="mb-4 text-xl font-bold leading-normal md:text-2xl">
+            <p className="mb-4 text-xl leading-normal font-bold md:text-2xl">
               Hmm... it looks like you're lost.
               <Twemoji emoji={'face-with-monocle'} />
             </p>

@@ -1,6 +1,6 @@
-import { eq, and } from 'drizzle-orm'
+import { and, eq } from 'drizzle-orm'
 import { db } from './index'
-import { statsTable, type SelectStats, type StatsType } from './schema'
+import { type SelectStats, type StatsType, statsTable } from './schema'
 
 export async function getBlogStats(type: StatsType, slug: string) {
   let stats = await db

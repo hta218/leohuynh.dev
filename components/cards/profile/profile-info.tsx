@@ -1,8 +1,8 @@
-import { SITE_METADATA } from '~/data/site-metadata'
 import { BriefcaseBusiness, Github, Linkedin, Mail, MapPin } from 'lucide-react'
 import { Fragment } from 'react'
-import XIcon from '~/icons/x.svg'
 import { Twemoji } from '~/components/ui/twemoji'
+import { SITE_METADATA } from '~/data/site-metadata'
+import XIcon from '~/icons/x.svg'
 
 function getAccountHandle(url = '') {
   let lastPart = url.split('/').pop()
@@ -41,7 +41,7 @@ export function ProfileCardInfo() {
     <div className="hidden py-4 md:block md:px-5">
       <h3 className="text-xl font-semibold text-gray-800 dark:text-white">Tuan Anh (Leo) Huynh</h3>
       <h5 className="py-2 text-gray-500 dark:text-gray-400">Learner | Builder</h5>
-      <div className="mb-2 mt-4 space-y-4">
+      <div className="mt-4 mb-2 space-y-4">
         <div className="flex items-center text-gray-700 dark:text-gray-200">
           <BriefcaseBusiness strokeWidth={1.5} size={20} />
           <p className="flex items-center px-2">

@@ -1,7 +1,7 @@
-import type { Parent, Node, Literal } from 'unist'
-import { visit } from 'unist-util-visit'
-import { sync as sizeOf } from 'probe-image-size'
 import fs from 'node:fs'
+import { sync as sizeOf } from 'probe-image-size'
+import type { Literal, Node, Parent } from 'unist'
+import { visit } from 'unist-util-visit'
 
 export type ImageNode = Parent & {
   url: string

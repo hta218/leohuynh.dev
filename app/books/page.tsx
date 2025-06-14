@@ -48,8 +48,8 @@ export default async function BooksPage() {
           }
         />
       </Suspense>
-      <div className="mt-6 border-t border-gray-200 py-5 dark:border-gray-700 md:mt-10 md:py-10">
-        <h3 className="mb-6 text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-gray-100 md:text-3xl">
+      <div className="mt-6 border-t border-gray-200 py-5 md:mt-10 md:py-10 dark:border-gray-700">
+        <h3 className="mb-6 text-2xl leading-9 font-bold tracking-tight text-gray-900 md:text-3xl dark:text-gray-100">
           FYI
         </h3>
         <div className="space-y-4">

@@ -1,9 +1,9 @@
 import clsx from 'clsx'
 import { Minus, Plus } from 'lucide-react'
+import { GrowingUnderline } from '~/components/ui/growing-underline'
 import { Image } from '~/components/ui/image'
 import { Link } from '~/components/ui/link'
 import { Twemoji } from '~/components/ui/twemoji'
-import { GrowingUnderline } from '~/components/ui/growing-underline'
 
 const EXPERIENCES = [
   {

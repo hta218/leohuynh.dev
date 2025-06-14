@@ -1,7 +1,7 @@
 'use client'
 
 import clsx from 'clsx'
-import { PenTool, Quote, type LucideProps } from 'lucide-react'
+import { type LucideProps, PenTool, Quote } from 'lucide-react'
 import { useState } from 'react'
 import { Twemoji } from '~/components/ui/twemoji'
 import type { GoodreadsBook } from '~/types/data'
@@ -64,9 +64,9 @@ function TabContent(props: { icon: React.FC<LucideProps>; content: string }) {
       <Icon
         size={20}
         strokeWidth={1.5}
-        className="absolute -top-4 right-0 z-[-1] h-10 w-10 text-gray-200 dark:text-gray-700 md:-top-2"
+        className="absolute -top-4 right-0 z-[-1] h-10 w-10 text-gray-200 md:-top-2 dark:text-gray-700"
       />
-      <p className="line-clamp-5 italic text-gray-700 dark:text-gray-400">"{content}"</p>
+      <p className="line-clamp-5 text-gray-700 italic dark:text-gray-400">"{content}"</p>
     </>
   )
 }

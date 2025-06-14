@@ -1,5 +1,5 @@
-import { getNowPlaying } from './spotify'
 import type { SpotifyNowPlayingData } from '~/types/data'
+import { getNowPlaying } from './spotify'
 
 export async function GET() {
   let response = await getNowPlaying()

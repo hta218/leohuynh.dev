@@ -18,7 +18,7 @@ export default async function Projects() {
         className="border-b border-gray-200 dark:border-gray-700"
       />
       <div className="py-5 md:py-10">
-        <h3 className="mb-6 text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-gray-100 md:text-3xl">
+        <h3 className="mb-6 text-2xl leading-9 font-bold tracking-tight text-gray-900 md:text-3xl dark:text-gray-100">
           Work
         </h3>
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
@@ -27,8 +27,8 @@ export default async function Projects() {
           ))}
         </div>
       </div>
-      <div className="mt-6 border-t border-gray-200 py-5 dark:border-gray-700 md:mt-10 md:py-10">
-        <h3 className="mb-6 text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-gray-100 md:mb-8 md:text-3xl">
+      <div className="mt-6 border-t border-gray-200 py-5 md:mt-10 md:py-10 dark:border-gray-700">
+        <h3 className="mb-6 text-2xl leading-9 font-bold tracking-tight text-gray-900 md:mb-8 md:text-3xl dark:text-gray-100">
           Side projects
         </h3>
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">

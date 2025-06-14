@@ -25,8 +25,8 @@ export function PostCardListView({
           className={clsx([
             'relative block shrink-0',
             'h-auto w-full md:h-80 md:w-72',
-            'pb-3 pl-0 pr-3 pt-0',
-            'transition-all ease-in-out hover:pb-2 hover:pl-1 hover:pr-2 hover:pt-1',
+            'pt-0 pr-3 pb-3 pl-0',
+            'transition-all ease-in-out hover:pt-1 hover:pr-2 hover:pb-2 hover:pl-1',
           ])}
         >
           <Image
@@ -39,7 +39,7 @@ export function PostCardListView({
           />
           <GritBackground
             className={clsx([
-              'bottom-0 left-3 right-0 top-3',
+              'top-3 right-0 bottom-0 left-3',
               'rounded-xl border-2 border-gray-800 dark:border-gray-400',
             ])}
           />
@@ -49,7 +49,7 @@ export function PostCardListView({
             <div className="space-y-3">
               <dl className="text-sm">
                 <dt className="sr-only">Published on</dt>
-                <dd className="font-medium leading-6 text-gray-500 dark:text-gray-400">
+                <dd className="leading-6 font-medium text-gray-500 dark:text-gray-400">
                   <time dateTime={date}>{formatDate(date)}</time>
                   <span className="mx-2 text-gray-400">/</span>
                   <span>{Math.ceil(readingTime.minutes)} mins read</span>
@@ -64,11 +64,11 @@ export function PostCardListView({
               </h2>
               <TagsList tags={tags} />
             </div>
-            <div className="line-clamp-2 text-gray-500 dark:text-gray-400 md:line-clamp-3">
+            <div className="line-clamp-2 text-gray-500 md:line-clamp-3 dark:text-gray-400">
               {summary}
             </div>
           </div>
-          <div className="text-base font-medium leading-6">
+          <div className="text-base leading-6 font-medium">
             <Link
               href={`/blog/${slug}`}
               className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-300"
