@@ -1,0 +1,155 @@
+.prose {
+  a {
+    @apply text-primary-500 hover:text-primary-600 underline-offset-4;
+    code {
+      @apply text-primary-400;
+    }
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply scroll-mt-24;
+  }
+
+  h1,
+  h2 {
+    @apply font-bold tracking-tight;
+  }
+
+  h3 {
+    @apply font-semibold;
+  }
+
+  .remark-code-title + figure > div {
+    @apply rounded-t-none border-t-0;
+  }
+
+  .remark-code-title + figure .copy-code {
+    @apply hidden;
+  }
+
+  figure {
+    @apply mt-0;
+  }
+
+  pre {
+    @apply m-0;
+    code {
+      @apply font-medium;
+      span {
+        color: var(--shiki-light, inherit);
+        font-style: var(--shiki-light-font-style, inherit);
+        font-weight: var(--shiki-light-font-weight, inherit);
+        text-decoration: var(--shiki-light-text-decoration, inherit);
+      }
+    }
+  }
+
+  [data-line] {
+    @apply -ml-6 pl-4;
+  }
+
+  [data-line-numbers] {
+    counter-reset: line;
+    [data-line]::before {
+      counter-increment: line;
+      content: counter(line);
+      @apply mr-8 inline-block w-3 text-right text-[#657b83];
+    }
+  }
+
+  [data-line-numbers-max-digits='2'] [data-line]::before {
+    @apply w-5;
+  }
+
+  [data-line-numbers-max-digits='3'] [data-line]::before {
+    @apply w-7;
+  }
+
+  [data-line-numbers-max-digits='4'] [data-line]::before {
+    @apply w-9;
+  }
+
+  [data-highlighted-line] {
+    @apply border-l-4 border-l-gray-400 bg-orange-50 pl-3;
+  }
+
+  [data-highlighted-chars] {
+    @apply rounded bg-zinc-600 shadow-[0_0_0_4px_rgb(82_82_91_/_0.5)];
+  }
+
+  [data-chars-id] {
+    @apply border-b-2 border-b-gray-800 p-1 shadow-none;
+  }
+
+  code {
+    @apply font-medium text-indigo-500;
+  }
+
+  .image-container {
+    @apply mx-auto w-fit rounded-lg;
+
+    img {
+      @apply mt-0 mb-0;
+    }
+  }
+
+  .markdown-alert p.markdown-alert-title {
+    @apply mt-2 mb-0 text-lg font-bold;
+
+    svg {
+      @apply h-5 w-5;
+    }
+  }
+}
+
+.prose.dark,
+.dark .prose {
+  a {
+    @apply text-primary-400 hover:text-primary-400;
+
+    code {
+      @apply text-primary-400;
+    }
+  }
+
+  pre code span {
+    color: var(--shiki-dark, inherit);
+    font-style: var(--shiki-dark-font-style, inherit);
+    font-weight: var(--shiki-dark-font-weight, inherit);
+    text-decoration: var(--shiki-dark-text-decoration, inherit);
+  }
+
+  [data-highlighted-line] {
+    @apply border-l-4 border-l-gray-500 bg-[#37415180] pl-3;
+  }
+
+  code {
+    @apply text-primary-400;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply text-gray-100;
+  }
+}
+
+.prose-lg {
+  figure {
+    @apply mt-0;
+  }
+  pre {
+    @apply m-0 rounded-none;
+    code {
+      @apply text-[0.95em];
+    }
+  }
+}
