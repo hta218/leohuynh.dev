@@ -208,9 +208,7 @@ export default makeSource({
           content: icon,
         },
       ],
-      // rehypeKatex,
       [rehypeCitation, { path: path.join(root, 'data') }],
-      // [rehypePrismPlus, { defaultLanguage: 'js', ignoreMissing: true }],
       [
         rehypePrettyCode,
         {
