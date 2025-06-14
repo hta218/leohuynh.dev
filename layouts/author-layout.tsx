@@ -191,7 +191,7 @@ export function AuthorLayout({ children }: Props) {
             <div>
               <h2>Support</h2>
               <p>If you appreciate my work, consider supporting me:</p>
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col items-start gap-4">
                 <a
                   href={SITE_METADATA.support.buyMeACoffee}
                   target="_blank"
