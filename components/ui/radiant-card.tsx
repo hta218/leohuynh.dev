@@ -18,7 +18,7 @@ export function RadiantCard({
       <div
         className={clsx([
           'dark:hidden',
-          'absolute z-[0] shadow-sm',
+          'absolute z-0 shadow-xs',
           '-inset-1.5 md:-inset-2',
           'rounded-[calc(var(--radius)+8px)]',
           'ring-1 ring-black/5',
@@ -26,10 +26,10 @@ export function RadiantCard({
       />
       <div
         className={clsx([
-          'relative z-[1]',
-          'rounded-[--radius] shadow-2xl',
-          '[background:conic-gradient(at_0%_0%,_snow,_white)]',
-          'dark:[background:rgb(255_255_255_/_0.05)]',
+          'relative z-1',
+          'rounded-(--radius) shadow-2xl',
+          '[background:conic-gradient(at_0%_0%,snow,white)]',
+          'dark:[background:rgb(255_255_255/0.05)]',
           'border border-transparent dark:border-zinc-800',
           className,
         ])}
@@ -40,14 +40,14 @@ export function RadiantCard({
           className={clsx([
             'absolute hidden dark:inline-block',
             '-top-px right-4 h-px w-[40%]',
-            'bg-gradient-to-r dark:from-indigo-400/0 dark:via-indigo-400/40 dark:to-indigo-400/0',
+            'bg-linear-to-r dark:from-indigo-400/0 dark:via-indigo-400/40 dark:to-indigo-400/0',
           ])}
         />
         <span
           className={clsx([
             'absolute hidden dark:inline-block',
-            '-left-px top-4 h-[40%] w-px',
-            'bg-gradient-to-b dark:from-indigo-400/0 dark:via-indigo-400/40 dark:to-indigo-400/0',
+            'top-4 -left-px h-[40%] w-px',
+            'bg-linear-to-b dark:from-indigo-400/0 dark:via-indigo-400/40 dark:to-indigo-400/0',
           ])}
         />
       </div>

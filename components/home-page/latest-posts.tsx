@@ -18,8 +18,8 @@ export function LatestPosts({
 }) {
   let [view, setView] = useState<'posts' | 'snippets'>('posts')
   return (
-    <div className="space-y-4 divide-y divide-gray-200 dark:divide-gray-700 md:mt-8 md:space-y-8">
-      <div className="flex items-center justify-between">
+    <div className="divide-y divide-gray-200 md:mt-8 dark:divide-gray-700">
+      <div className="flex items-center justify-between pb-4 md:pb-8">
         <div className="flex text-2xl font-bold sm:text-2xl sm:leading-10 md:text-4xl">
           <span className="mr-2 md:mr-3">Latest</span>
           <button
@@ -48,7 +48,7 @@ export function LatestPosts({
             <GrowingUnderline data-umami-event="latest-snippets">snippets</GrowingUnderline>
           </button>
         </div>
-        <div className="flex items-center justify-end text-base font-medium leading-6">
+        <div className="flex items-center justify-end text-base leading-6 font-medium">
           <Link href={view === 'posts' ? '/blog' : '/snippets'} className="" aria-label="All posts">
             <GrowingUnderline data-umami-event="all-posts">
               <span className="hidden md:inline-block">View all {view}</span>
@@ -58,7 +58,7 @@ export function LatestPosts({
         </div>
       </div>
       {view === 'posts' ? (
-        <ul className="space-y-12 divide-gray-200 pt-6 dark:divide-gray-700 md:space-y-20 md:pt-10">
+        <ul className="space-y-12 divide-gray-200 pt-6 md:space-y-20 md:pt-10 dark:divide-gray-700">
           {!posts.length && 'No posts found.'}
           {posts.map((post, idx) => (
             <li key={post.slug}>
@@ -68,7 +68,7 @@ export function LatestPosts({
         </ul>
       ) : (
         <div className="py-10">
-          <div className="grid-cols-2 gap-x-6 gap-y-10 space-y-10 md:grid md:space-y-0">
+          <div className="grid-cols-2 space-y-10 gap-x-6 gap-y-10 md:grid md:space-y-0">
             {!snippets.length && 'No snippets found.'}
             {snippets.map((snippet) => (
               <SnippetCard snippet={snippet} key={snippet.path} />

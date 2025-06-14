@@ -55,7 +55,7 @@ export function MoviesList({ movies }: { movies: ImdbMovie[] }) {
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-1 gap-4 gap-x-6 gap-y-[4.5rem] pt-16 md:grid-cols-2 md:gap-y-20">
+      <div className="grid grid-cols-1 gap-4 gap-x-6 gap-y-18 pt-16 md:grid-cols-2 md:gap-y-20">
         {displayMovies.length ? (
           displayMovies.map((movie) => {
             return <MovieCard movie={movie} key={movie.const} />

@@ -1,68 +1,156 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@import './typography.css';
+@plugin "@tailwindcss/typography";
+@custom-variant dark (&:where(.dark, .dark *));
 
-.task-list-item::before {
-  @apply hidden;
+@theme inline {
+  --font-sans:
+    var(--font-nunito), ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-greeting: var(--font-playpen-sans);
+  --font-mono:
+    var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, 'SF Mono', Consolas,
+    'Liberation Mono', Menlo, monospace;
 }
 
-.task-list-item {
-  @apply list-none;
+@theme {
+  --animate-wiggle: wiggle 7s linear infinite;
+  --animate-music-bar-1: music-bar-1 0.8s linear infinite;
+  --animate-music-bar-2: music-bar-2 0.8s linear infinite;
+  --animate-music-bar-3: music-bar-3 0.8s linear infinite;
+  --animate-music-bar-4: music-bar-4 0.8s linear infinite;
+  --animate-scale-up: scale-up 150ms ease-in-out forwards;
+
+  @keyframes wiggle {
+    0% {
+      transform: rotate(0deg);
+    }
+    50% {
+      transform: rotate(180deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes music-bar-1 {
+    0%,
+    100% {
+      height: 0%;
+    }
+    50% {
+      height: 70%;
+    }
+  }
+
+  @keyframes music-bar-2 {
+    0%,
+    100% {
+      height: 50%;
+    }
+    25% {
+      height: 0%;
+    }
+    75% {
+      height: 100%;
+    }
+  }
+
+  @keyframes music-bar-3 {
+    0%,
+    100% {
+      height: 70%;
+    }
+    15% {
+      height: 100%;
+    }
+    65% {
+      height: 0%;
+    }
+  }
+
+  @keyframes music-bar-4 {
+    0%,
+    100% {
+      height: 50%;
+    }
+    35.7% {
+      height: 0%;
+    }
+    85.7% {
+      height: 70%;
+    }
+  }
+
+  @keyframes scale-up {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.18);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  --shadow-demure: rgba(0, 0, 0, 0.3) 0 35px 60px -15px;
+  --shadow-book-pages:
+    10px 40px 40px -10px #00000030, inset -2px 0 0 gray, inset -3px 0 0 #dbdbdb,
+    inset -4px 0 0 white, inset -5px 0 0 #dbdbdb, inset -6px 0 0 white, inset -7px 0 0 #dbdbdb,
+    inset -8px 0 0 white, inset -9px 0 0 #dbdbdb;
+  --shadow-mondegreen:
+    5px 5px rgba(0, 98, 90, 0.4), 10px 10px rgba(0, 98, 90, 0.3), 15px 15px rgba(0, 98, 90, 0.2),
+    20px 20px rgba(0, 98, 90, 0.1), 25px 25px rgba(0, 98, 90, 0.05);
+
+  --color-primary-50: #eef2ff;
+  --color-primary-100: #e0e7ff;
+  --color-primary-200: #c7d2fe;
+  --color-primary-300: #a5b4fc;
+  --color-primary-400: #818cf8;
+  --color-primary-500: #6366f1;
+  --color-primary-600: #4f46e5;
+  --color-primary-700: #4338ca;
+  --color-primary-800: #3730a3;
+  --color-primary-900: #312e81;
+  --color-primary-950: #1e1b4b;
+
+  --color-dark: #1f1f1f;
+  --color-spotify: #1db954;
+  --color-goodreads: #372213;
+  --color-facebook: #1877f2;
+  --color-twitter: #0f1419;
+  --color-linkedin: #0077b5;
+  --color-solarized-light: #fdfaf6;
+  --color-github-dark-dimmed: #22272e;
+  --color-code-block: #36313d;
 }
 
-.footnotes {
-  @apply mt-12 border-t border-gray-200 pt-8 dark:border-gray-700;
-}
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
 
-.data-footnote-backref {
-  @apply no-underline;
-}
-
-.csl-entry {
-  @apply my-5;
-}
-
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
-.no-scrollbar {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
-
-/* https://stackoverflow.com/questions/61083813/how-to-avoid-internal-autofill-selected-style-to-be-applied */
-input:-webkit-autofill,
-input:-webkit-autofill:focus {
-  transition:
-    background-color 600000s 0s,
-    color 600000s 0s;
-}
-
-.katex-display {
-  overflow: auto hidden;
-}
-
-.content-header-link {
-  opacity: 0;
-  margin-left: -24px;
-  padding-right: 4px;
-}
-
-.content-header:hover .content-header-link,
-.content-header-link:hover {
-  opacity: 1;
-}
-
-.linkicon {
-  display: inline-block;
-  vertical-align: middle;
-}
-
-code,
-kbd,
-pre,
-samp {
-  font-family: var(--font-jetbrains-mono), monospace;
-  font-weight: 500;
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    @apply cursor-pointer;
+  }
+  code,
+  kbd,
+  pre,
+  samp {
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-weight: 500;
+  }
 }

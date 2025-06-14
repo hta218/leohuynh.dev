@@ -54,9 +54,9 @@ export function ShelveSelect({ shelf }: { shelf: ShelfType }) {
           <MenuItems
             className={clsx([
               'absolute right-0 z-50',
-              'mt-2 w-32 origin-top-right rounded-md text-right shadow-lg',
+              'mt-2 w-32 origin-top-right rounded-lg text-right shadow-lg',
               'bg-white dark:bg-black',
-              'ring-1 ring-black ring-opacity-5 focus:outline-none',
+              'ring-1 ring-black/5 focus:outline-hidden',
             ])}
           >
             <div className="space-y-1 p-1">

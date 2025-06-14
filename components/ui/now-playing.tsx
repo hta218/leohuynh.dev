@@ -38,7 +38,7 @@ export function SpotifyNowPlaying({
             <MusicWaves className="mr-2" />
             <Link
               href={songUrl}
-              className="font-medium text-[--song-color]"
+              className="font-medium text-(--song-color)"
               title={`${title} - ${artist || 'Spotify'}`}
             >
               {songEffect === 'underline' ? (
@@ -51,10 +51,10 @@ export function SpotifyNowPlaying({
             </Link>
           </>
         ) : (
-          <p className="font-medium text-[--song-color]">Not Playing</p>
+          <p className="font-medium text-(--song-color)">Not Playing</p>
         )}
-        <span className="mx-2 text-[--artist-color]">{' – '}</span>
-        <p className="spotify-artist max-w-max truncate text-[--artist-color]">
+        <span className="mx-2 text-(--artist-color)">{' – '}</span>
+        <p className="spotify-artist max-w-max truncate text-(--artist-color)">
           {artist || 'Spotify'}
         </p>
       </div>

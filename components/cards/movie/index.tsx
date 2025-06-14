@@ -25,7 +25,7 @@ export function MovieCard({ movie }: { movie: ImdbMovie }) {
   }
 
   return (
-    <GradientBorder className="space-y-2 rounded-xl shadow-sm dark:bg-white/5">
+    <GradientBorder className="space-y-2 rounded-xl shadow-xs dark:bg-white/5">
       <TiltedGridBackground className="inset-0 z-[-1]" />
       <div className="flex gap-5 md:gap-5">
         <div
@@ -41,11 +41,11 @@ export function MovieCard({ movie }: { movie: ImdbMovie }) {
               alt={title}
               width={300}
               height={450}
-              className="h-auto w-full rounded-lg shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px]"
+              className="h-auto w-full rounded-lg shadow-[rgba(13,38,76,0.19)_0px_9px_20px]"
             />
           </Zoom>
         </div>
-        <div className="relative flex grow flex-col gap-1 overflow-hidden pb-4 pr-2 pt-2 md:pr-4">
+        <div className="relative flex grow flex-col gap-1 overflow-hidden pt-2 pr-2 pb-4 md:pr-4">
           <div className="flex items-start justify-between gap-3 text-xl font-semibold md:text-2xl">
             <Link href={url}>
               <GrowingUnderline>{title}</GrowingUnderline>

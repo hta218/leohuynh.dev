@@ -40,7 +40,7 @@ This will output the following CSS:
 We can use the `theme()` function to reference design tokens in `tailwind.config.js`:
 
 ```jsx
-<div className="[--song-color:theme(colors.gray.200)]" />
+<div className="[--song-color:var(--color-gray-200)]" />
 ```
 
 Output CSS:
@@ -56,13 +56,13 @@ Output CSS:
 We can also use CSS variables to generate arbitrary values:
 
 ```jsx
-<div className="h-[var(--section-height)]" />
+<div className="h-(--section-height)" />
 ```
 
 You can get rid of the `var(...)` wrapper, just provide the variable name is enough:
 
 ```jsx
-<div className="h-[--section-height]" />
+<div className="h-(--section-height)" />
 ```
 
 This will output the following CSS:
@@ -76,7 +76,7 @@ This will output the following CSS:
 But for variables with fallback values to another variable, we still need to use the `var(...)` wrapper:
 
 ```jsx
-<div className="h-[var(--section-height,var(--fallback-height))]" />
+<div className="h-(--section-height,var(--fallback-height))" />
 ```
 
 Output CSS:
@@ -108,7 +108,7 @@ Which will output the same CSS variables declaration as above.
 For properties that are not supported by default in Tailwind CSS, we can also use the square bracket notation to write completely arbitrary CSS:
 
 ```jsx
-<div className='[background-image:url("/static/images/black-grit.png")]' />
+<div className='bg-[url("/static/images/black-grit.png")]' />
 ```
 
 ## Handling whitespaces
@@ -116,7 +116,7 @@ For properties that are not supported by default in Tailwind CSS, we can also us
 We **must** remove whitespaces from the arbitrary classes to make them work or use the underscore notation `_` for better readability:
 
 ```jsx
-<div className="shadow-[6px_6px_12px_-1px_rgba(0,_0,_0,_0.1)]" />
+<div className="shadow-[6px_6px_12px_-1px_rgba(0,0,0,0.1)]" />
 ```
 
 ## Resolving namespace collisions
@@ -127,14 +127,14 @@ To avoid collisions when using arbitrary values, we can prefix a [CSS data types
 (`color:`, `length:`, etc.) to the property value:
 
 ```jsx
-<div className="bg-[length:100%_50%]" />
+<div className="bg-size-[100%_50%]" />
 ```
 
 This is super useful when using with variables, for example:
 
 ```jsx showLineNumbers
-<div className="bg-[color:--variable]" />
-// or just `bg-[--variable]`
+<div className="bg-(--variable)" />
+// or just `bg-(--variable)`
 ```
 
 will output CSS for background color:
@@ -148,7 +148,7 @@ will output CSS for background color:
 And adding a `length:` prefix will output the css for `background-size`:
 
 ```jsx
-<div className="bg-[length:--variable]" />
+<div className="bg-size-(--variable)" />
 ```
 
 Output:

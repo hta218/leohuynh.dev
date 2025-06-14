@@ -55,7 +55,7 @@ export function SocialShare({ postUrl, filePath, title, className }: SocialButto
             'mt-2 w-56',
             'absolute right-0 z-50 rounded-md',
             'origin-top-right translate-x-[calc(50%-42px)]',
-            'ring-1 ring-black ring-opacity-5 focus:outline-none dark:ring-gray-700',
+            'ring-1 ring-black/5 focus:outline-hidden dark:ring-gray-700',
             'bg-white shadow-lg dark:bg-stone-950',
             'divide-y divide-gray-200 dark:divide-gray-700',
           ])}
@@ -75,7 +75,7 @@ export function SocialShare({ postUrl, filePath, title, className }: SocialButto
               url={postUrl}
               title={title}
               via={SITE_METADATA.x}
-              className="flex items-center gap-2.5 !text-gray-600 hover:!text-gray-900 dark:!text-gray-400 dark:hover:!text-gray-100"
+              className="flex items-center gap-2.5 text-gray-600! hover:text-gray-900! dark:text-gray-400! dark:hover:text-gray-100!"
             >
               <XIcon className="h-4 w-4" fill="#fff" viewBox="0 0 1200 1227" />
               <span className="">Share on X (Twitter)</span>
@@ -83,14 +83,14 @@ export function SocialShare({ postUrl, filePath, title, className }: SocialButto
             <LinkedinShareButton
               url={postUrl}
               title={title}
-              className="flex items-center gap-2.5 !text-gray-600 hover:!text-gray-900 dark:!text-gray-400 dark:hover:!text-gray-100"
+              className="flex items-center gap-2.5 text-gray-600! hover:text-gray-900! dark:text-gray-400! dark:hover:text-gray-100!"
             >
               <Linkedin strokeWidth={1.5} size={18} />
               <span className="">Share on LinkedIn</span>
             </LinkedinShareButton>
             <FacebookShareButton
               url={postUrl}
-              className="flex items-center gap-2.5 !text-gray-600 hover:!text-gray-900 dark:!text-gray-400 dark:hover:!text-gray-100"
+              className="flex items-center gap-2.5 text-gray-600! hover:text-gray-900! dark:text-gray-400! dark:hover:text-gray-100!"
             >
               <Facebook strokeWidth={1.5} size={18} />
               <span className="">Share on Facebook</span>

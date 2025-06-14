@@ -59,8 +59,8 @@ export function ProfileCard() {
         style={style}
         className={clsx(
           'flex flex-col overflow-hidden transition-all duration-200 ease-out md:rounded-lg',
-          'bg-white shadow-demure dark:bg-dark dark:shadow-mondegreen',
-          'outline outline-1 outline-gray-100 dark:outline-gray-600'
+          'shadow-demure dark:bg-dark dark:shadow-mondegreen bg-white',
+          'outline-1 outline-gray-100 outline-solid dark:outline-gray-600'
         )}
       >
         <Image
@@ -77,12 +77,12 @@ export function ProfileCard() {
         <SpotifyNowPlaying
           className={clsx([
             'bg-gray-900 px-3 py-1.5 xl:px-5',
-            '[--song-color:theme(colors.gray.200)]',
-            '[--artist-color:theme(colors.gray.400)]',
+            '[--song-color:var(--color-gray-200)]',
+            '[--artist-color:var(--color-gray-400)]',
           ])}
         />
         <ProfileCardInfo />
-        <span className="h-1.5 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600" />
+        <span className="h-1.5 bg-linear-to-r from-green-300 via-blue-500 to-purple-600" />
       </div>
     </div>
   )

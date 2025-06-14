@@ -27,7 +27,7 @@ export function MoreLinks() {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <MenuItems className="absolute right-0 z-50 mt-2 w-36 origin-top-right translate-x-[calc(50%-42px)] rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-black">
+          <MenuItems className="absolute right-0 z-50 mt-2 w-36 origin-top-right translate-x-[calc(50%-42px)] rounded-lg bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden dark:bg-black">
             <div className="space-y-1 p-1">
               {MORE_NAV_LINKS.map(({ href, title, emoji }) => (
                 <MenuItem key={href} as="div">
