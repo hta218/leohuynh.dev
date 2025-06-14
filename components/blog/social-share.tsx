@@ -55,7 +55,7 @@ export function SocialShare({ postUrl, filePath, title, className }: SocialButto
             'mt-2 w-56',
             'absolute right-0 z-50 rounded-md',
             'origin-top-right translate-x-[calc(50%-42px)]',
-            'ring-opacity-5 ring-1 ring-black focus:outline-hidden dark:ring-gray-700',
+            'ring-1 ring-black/5 focus:outline-hidden dark:ring-gray-700',
             'bg-white shadow-lg dark:bg-stone-950',
             'divide-y divide-gray-200 dark:divide-gray-700',
           ])}

@@ -55,36 +55,20 @@ export function PostLayout({ content, next, prev, children }: LayoutProps) {
             />
           </div>
         </div>
-        <GradientDivider className="mb-2 mt-1" />
-        <div className="grid grid-cols-1 gap-12 pb-10 pt-8 lg:grid-cols-12 lg:pt-10">
-          <div className="divide-y divide-gray-200 dark:divide-gray-700 lg:col-span-8 xl:col-span-9">
-            <div className="prose max-w-none dark:prose-invert lg:prose-lg lg:pb-8">{children}</div>
+        <GradientDivider className="mt-1 mb-2" />
+        <div className="grid grid-cols-1 gap-12 pt-8 pb-10 lg:grid-cols-12 lg:pt-10">
+          <div className="lg:col-span-8 xl:col-span-9">
+            <div className="prose dark:prose-invert lg:prose-lg max-w-none lg:pb-8">{children}</div>
           </div>
           <div className="hidden lg:col-span-4 lg:block xl:col-span-3">
-            <div className="space-y-4 divide-y divide-gray-200 dark:divide-gray-700 lg:sticky lg:top-24">
+            <div className="space-y-4 lg:sticky lg:top-24">
               {/* <BackToPosts label="Back to posts" /> */}
               <TableOfContents toc={toc} />
-              <Reactions className="pt-6" type={type.toLowerCase() as StatsType} slug={slug} />
-              <div className="hidden">
-                {/* <script src="//servedby.eleavers.com/ads/ads.php?t=MzA5NzQ7MjEwNjA7c3F1YXJlLnNxdWFyZV9ib3g=&index=1"></script> */}
-                {/* <script
-                  type="text/javascript"
-                  dangerouslySetInnerHTML={{
-                    __html: `
-                        atOptions = {
-                          'key' : '1a0dbe126a158e715cd3377a597850d8',
-                          'format' : 'iframe',
-                          'height' : 300,
-                          'width' : 160,
-                          'params' : {}
-                        };`,
-                  }}
-                />
-                <script
-                  type="text/javascript"
-                  src="//www.topcpmcreativeformat.com/1a0dbe126a158e715cd3377a597850d8/invoke.js"
-                /> */}
-              </div>
+              <Reactions
+                className="border-t border-gray-200 pt-6 dark:border-gray-700"
+                type={type.toLowerCase() as StatsType}
+                slug={slug}
+              />
             </div>
           </div>
         </div>
