@@ -225,7 +225,7 @@ function TimelineItem({ exp, last }: { exp: (typeof EXPERIENCES)[0]; last?: bool
       <Image
         src={logo}
         alt={org}
-        className="h-12 w-12 shrink-0 rounded-md"
+        className="h-12 w-12! shrink-0 rounded-md"
         style={{ objectFit: 'contain' }}
         width={200}
         height={200}
@@ -259,7 +259,7 @@ function TimelineItem({ exp, last }: { exp: (typeof EXPERIENCES)[0]; last?: bool
             </div>
             <Link
               href={url}
-              className="line-clamp-1 w-fit font-semibold text-gray-900 no-underline hover:text-gray-900 dark:text-white dark:hover:text-white"
+              className="line-clamp-1 w-fit font-semibold text-gray-900! no-underline hover:text-gray-900 dark:text-white! dark:hover:text-white"
             >
               <GrowingUnderline data-umami-event={event}>{org}</GrowingUnderline>
             </Link>
