@@ -1,5 +1,5 @@
 ---
-applyTo: '**'
+applyTo: '**/*.mdx'
 ---
 
 ## Emoji Usages Instructions
