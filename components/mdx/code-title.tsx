@@ -32,7 +32,7 @@ export function CodeTitle({ lang, title }: { lang: string; title: string }) {
       className={clsx([
         'remark-code-title',
         'flex items-center gap-2.5 truncate px-4 py-1 lg:py-2',
-        'bg-gray-200 text-gray-600 dark:bg-slate-700 dark:text-gray-300',
+        'bg-neutral-200 text-gray-600 dark:bg-slate-700 dark:text-gray-300',
         'rounded-t-lg border border-gray-100 dark:border-gray-700',
       ])}
     >

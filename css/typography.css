@@ -75,7 +75,7 @@
   }
 
   [data-highlighted-line] {
-    @apply border-l-4 border-l-gray-400 bg-orange-50 pl-3;
+    @apply border-l-4 border-l-gray-300 bg-orange-100 pl-3;
   }
 
   [data-highlighted-chars] {
