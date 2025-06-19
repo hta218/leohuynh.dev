@@ -5,13 +5,14 @@ import { GrowingUnderline } from '~/components/ui/growing-underline'
 import { Link } from '~/components/ui/link'
 import { PageHeader } from '~/components/ui/page-header'
 import { SITE_METADATA } from '~/data/site-metadata'
-import movies from '~/json/movies.json' assert { type: 'json' }
-import type { ImdbMovie } from '~/types/data'
+import { getAllMovies } from '~/db/queries'
 import { MoviesList } from './movies-list'
 
 export let metadata = genPageMetadata({ title: 'My movies list' })
 
 export default async function MoviesPage() {
+  let movies = await getAllMovies()
+
   return (
     <Container className="pt-4 lg:pt-12">
       <PageHeader
@@ -47,7 +48,7 @@ export default async function MoviesPage() {
       />
       <div className="py-5 md:py-10">
         <Suspense>
-          <MoviesList movies={movies as unknown as ImdbMovie[]} />
+          <MoviesList movies={movies} />
         </Suspense>
       </div>
     </Container>

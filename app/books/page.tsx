@@ -6,13 +6,14 @@ import { Image, Zoom } from '~/components/ui/image'
 import { Link } from '~/components/ui/link'
 import { PageHeader } from '~/components/ui/page-header'
 import { SITE_METADATA } from '~/data/site-metadata'
-import books from '~/json/books.json' assert { type: 'json' }
-import type { GoodreadsBook } from '~/types/data'
+import { getAllBooks } from '~/db/queries'
 import { BooksList } from './books-list'
 
 export let metadata = genPageMetadata({ title: 'My bookshelf' })
 
 export default async function BooksPage() {
+  let books = await getAllBooks()
+
   return (
     <Container className="pt-4 lg:pt-12">
       <PageHeader
@@ -40,13 +41,7 @@ export default async function BooksPage() {
         className="border-b border-gray-200 dark:border-gray-700"
       />
       <Suspense>
-        <BooksList
-          books={
-            books.sort(
-              (a, b) => Number(b.user_rating) - Number(a.user_rating)
-            ) as unknown as GoodreadsBook[]
-          }
-        />
+        <BooksList books={books.sort((a, b) => Number(b.userRating) - Number(a.userRating))} />
       </Suspense>
       <div className="mt-6 border-t border-gray-200 py-5 md:mt-10 md:py-10 dark:border-gray-700">
         <h3 className="mb-6 text-2xl leading-9 font-bold tracking-tight text-gray-900 md:text-3xl dark:text-gray-100">
