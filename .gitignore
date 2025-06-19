@@ -53,7 +53,7 @@ yarn-error.log*
 # eslint cache file
 .eslintcache
 
-scripts/imdb-movies.csv
+/scripts/*.csv
 
 # supabase
 supabase/
