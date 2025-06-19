@@ -3,8 +3,8 @@ import { Home } from '~/components/home-page'
 import { allCoreContent } from '~/utils/contentlayer'
 import { sortPosts } from '~/utils/misc'
 
-const MAX_POSTS_DISPLAY = 5
-const MAX_SNIPPETS_DISPLAY = 6
+const MAX_POSTS_DISPLAY = 3
+const MAX_SNIPPETS_DISPLAY = 4
 
 export default async function HomePage() {
   return (
