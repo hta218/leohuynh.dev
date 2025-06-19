@@ -33,6 +33,7 @@
     "contentlayer2": "0.5.8",
     "dotenv": "^16.5.0",
     "drizzle-orm": "^0.44.2",
+    "drizzle-zod": "^0.8.2",
     "esbuild": "0.25.5",
     "github-slugger": "^2.0.0",
     "gray-matter": "^4.0.2",
