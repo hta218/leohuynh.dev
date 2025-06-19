@@ -25,40 +25,40 @@ export type GoodreadsBook = {
   pubDate: string
   title: string
   link: string
-  book_id: string
-  book_image_url: string
-  book_small_image_url: string
-  book_medium_image_url: string
-  book_large_image_url: string
-  book_description: string
-  author_name: string
+  id: string
+  bookImageUrl: string
+  bookSmallImageUrl: string
+  bookMediumImageUrl: string
+  bookLargeImageUrl: string
+  bookDescription: string
+  authorName: string
   isbn: string
-  user_name: string
-  user_rating: string
-  user_read_at: string
-  user_date_added: string
-  user_date_created: string
-  user_shelves: string
-  user_review: string
-  average_rating: number
-  book_published: string
+  userName: string
+  userRating: string
+  userReadAt: string
+  userDateAdded: string
+  userDateCreated: string
+  userShelves: string
+  userReview: string
+  averageRating: string
+  bookPublished: string
   content: string
 }
 
 export type ImdbMovie = {
-  const: string
-  your_rating: string
-  date_rated: string
+  id: string
+  yourRating: string
+  dateRated: string
   title: string
-  original_title: string
+  originalTitle: string
   url: string
-  title_type: string
-  imdb_rating: string
+  titleType: string
+  imdbRating: string
   runtime: string
   year: string
   genres: string
-  num_votes: string
-  release_date: string
+  numVotes: string
+  releaseDate: string
   directors: string
   // Additional fields from the OMDB API
   actors: string
@@ -67,8 +67,8 @@ export type ImdbMovie = {
   language: string
   country: string
   awards: string
-  box_office: string
-  total_seasons: string
+  boxOffice: string
+  totalSeasons: string
   ratings: Array<{ source: string; value: string }>
 }
 
