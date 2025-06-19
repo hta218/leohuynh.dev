@@ -2,14 +2,10 @@
 
 import { useSearchParams } from 'next/navigation'
 import { BookCard } from '~/components/cards/book'
-import type { GoodreadsBook } from '~/types/data'
+import type { SelectBook } from '~/db/schema'
 import { SHELVES, type ShelfType, ShelveSelect } from './shelve-select'
 
-interface BooksListProps {
-  books: GoodreadsBook[]
-}
-
-export function BooksList({ books }: BooksListProps) {
+export function BooksList({ books }: { books: SelectBook[] }) {
   let searchParams = useSearchParams()
   let shelf = (searchParams.get('shelf') as ShelfType) || 'all'
   let displayBooks =
@@ -17,9 +13,9 @@ export function BooksList({ books }: BooksListProps) {
       ? books
       : books.filter((book) => {
           if (shelf === 'read') {
-            return book.user_shelves === ''
+            return book.userShelves === ''
           }
-          return book.user_shelves.includes(shelf)
+          return book.userShelves?.includes(shelf)
         })
   let { label } = SHELVES.find(({ value }) => value === shelf) || SHELVES[0]
 

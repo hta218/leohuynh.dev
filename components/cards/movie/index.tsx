@@ -3,15 +3,15 @@ import { GrowingUnderline } from '~/components/ui/growing-underline'
 import { Image, Zoom } from '~/components/ui/image'
 import { Link } from '~/components/ui/link'
 import { TiltedGridBackground } from '~/components/ui/tilted-grid-background'
-import type { ImdbMovie } from '~/types/data'
+import type { SelectMovie } from '~/db/schema'
 import { Ratings } from './ratings'
 
 function getLargePoster(poster: string, size = 1000) {
   return poster.replace('._V1_SX300', `._V1_SX${size}`)
 }
 
-export function MovieCard({ movie }: { movie: ImdbMovie }) {
-  let { url, title, title_type, poster, year, runtime, total_seasons } = movie
+export function MovieCard({ movie }: { movie: SelectMovie }) {
+  let { url, title, titleType, poster, year, runtime, totalSeasons } = movie
 
   function handleZoom(e: React.MouseEvent<HTMLDivElement>) {
     let rmiz = e.currentTarget.querySelector('[data-rmiz]')
@@ -55,12 +55,10 @@ export function MovieCard({ movie }: { movie: ImdbMovie }) {
             <div className="flex flex-wrap items-center gap-1 text-gray-500 dark:text-gray-400">
               <span>
                 {year}
-                {title_type === 'Movie' && ` - ${formatRuntime(runtime)}`}
+                {titleType === 'Movie' && ` - ${formatRuntime(runtime)}`}
               </span>
               <span className="hidden md:inline">
-                {title_type === 'TV Series' && (
-                  <span> - (TV series / {total_seasons} seasons)</span>
-                )}
+                {titleType === 'TV Series' && <span> - (TV series / {totalSeasons} seasons)</span>}
               </span>
             </div>
           </div>

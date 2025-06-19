@@ -1,12 +1,10 @@
 import { Brand } from '~/components/ui/brand'
 import { Link } from '~/components/ui/link'
-import type { ImdbMovie } from '~/types/data'
+import type { SelectMovie } from '~/db/schema'
 
-export function Ratings({ movie }: { movie: ImdbMovie }) {
-  let { imdb_rating, ratings, url, title, num_votes } = movie
-  let { value: rotten_rating } = ratings.find(({ source }) => source === 'Rotten Tomatoes') || {
-    value: 0,
-  }
+export function Ratings({ movie }: { movie: SelectMovie }) {
+  let { imdbRating, ratings, url, title, numVotes } = movie
+  let rottenTomatoRating = ratings.find(({ source }) => source === 'Rotten Tomatoes')
   let rottenSearchUrl = new URL('https://www.rottentomatoes.com/search')
   rottenSearchUrl.searchParams.set('search', title)
 
@@ -15,15 +13,15 @@ export function Ratings({ movie }: { movie: ImdbMovie }) {
       <Link href={url} className="flex items-center gap-1.5 md:gap-2">
         <Brand name="IMBb" className="h-5 w-5 md:h-6 md:w-6" as="icon" />
         <span>
-          {imdb_rating}{' '}
+          {imdbRating}{' '}
           <span className="hidden text-gray-500 md:inline dark:text-gray-400">
-            ({shortenNumVotes(Number(num_votes))})
+            ({shortenNumVotes(Number(numVotes))})
           </span>
         </span>
       </Link>
       <Link href={rottenSearchUrl.toString()} className="flex items-center gap-1.5 md:gap-2">
         <Brand name="RottenTomatoes" as="icon" className="h-5 w-5 md:h-6 md:w-6" />
-        <span>{rotten_rating || 'N/A'}</span>
+        <span>{rottenTomatoRating?.value || 'N/A'}</span>
       </Link>
     </div>
   )

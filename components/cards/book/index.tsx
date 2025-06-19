@@ -4,17 +4,17 @@ import { Link } from '~/components/ui/link'
 import { Rating } from '~/components/ui/rating'
 import { TiltedGridBackground } from '~/components/ui/tilted-grid-background'
 import { Twemoji } from '~/components/ui/twemoji'
+import type { SelectBook } from '~/db/schema'
 import GoodreadsLogo from '~/icons/goodreads-big.svg'
-import type { GoodreadsBook } from '~/types/data'
 import { BookCover } from './book-cover'
 import { BookDetails } from './book-details'
 
-export function BookCard({ book }: { book: GoodreadsBook }) {
+export function BookCard({ book }: { book: SelectBook }) {
   return (
     <GradientBorder className="flex flex-col gap-8 rounded-2xl px-3 py-6 md:flex-row md:px-6 dark:bg-white/5">
       <TiltedGridBackground className="inset-0 z-[-1]" />
       <div className="mx-auto flex w-60 shrink-0 items-center justify-center">
-        <BookCover image={book.book_large_image_url} alt={book.title} />
+        <BookCover image={book.bookLargeImageUrl} alt={book.title} />
       </div>
       <div className="flex grow flex-col justify-between gap-8">
         <div className="space-y-4">
@@ -27,7 +27,7 @@ export function BookCard({ book }: { book: GoodreadsBook }) {
               ) : (
                 <h3>{book.title}</h3>
               )}
-              <Rating rating={book.user_rating} className="hidden md:inline-flex" />
+              <Rating rating={book.userRating} className="hidden md:inline-flex" />
             </div>
           </div>
           <BookDetails book={book} />
@@ -41,15 +41,14 @@ export function BookCard({ book }: { book: GoodreadsBook }) {
   )
 }
 
-function BookMeta({ book }: { book: GoodreadsBook }) {
+function BookMeta({ book }: { book: SelectBook }) {
   return (
     <div className="flex items-center gap-1 text-gray-600 dark:text-gray-400">
       <div className="flex items-center gap-1">
-        <Twemoji emoji="writing-hand" /> by{' '}
-        <span className="font-semibold">{book.author_name}</span>
+        <Twemoji emoji="writing-hand" /> by <span className="font-semibold">{book.authorName}</span>
       </div>
       <div className="hidden items-center gap-1 md:flex">
-        <span>(avg. {book.average_rating}/5)</span>
+        <span>(avg. {book.averageRating}/5)</span>
       </div>
     </div>
   )
