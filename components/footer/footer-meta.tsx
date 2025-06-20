@@ -1,6 +1,6 @@
 'use client'
 
-import { Clock, Github, Map, Star } from 'lucide-react'
+import { Clock, Github, MapPin, Star } from 'lucide-react'
 import useSWR from 'swr'
 import { GrowingUnderline } from '~/components/ui/growing-underline'
 import { Link } from '~/components/ui/link'
@@ -54,7 +54,7 @@ export function FooterMeta() {
         </span>
       </div>
       <div className="flex items-center gap-2">
-        <Map className="h-5 w-5" />
+        <MapPin className="h-5 w-5" />
         <span className="font-medium">
           [::1]:443 - Ha Noi, <Twemoji emoji="flag-vietnam" className="h-4.5!" />
         </span>
