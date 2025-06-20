@@ -6,12 +6,13 @@ import { Link } from '~/components/ui/link'
 import { PageHeader } from '~/components/ui/page-header'
 import { SITE_METADATA } from '~/data/site-metadata'
 import { getAllMovies } from '~/db/queries'
+import type { SelectMovie } from '~/db/schema'
 import { MoviesList } from './movies-list'
 
 export let metadata = genPageMetadata({ title: 'My movies list' })
 
 export default async function MoviesPage() {
-  let movies = await getAllMovies()
+  let movies = await getAllMovies().catch(() => [] as SelectMovie[])
 
   return (
     <Container className="pt-4 lg:pt-12">
