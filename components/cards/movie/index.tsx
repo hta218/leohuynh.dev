@@ -41,11 +41,11 @@ export function MovieCard({ movie }: { movie: SelectMovie }) {
               alt={title}
               width={300}
               height={450}
-              className="h-auto w-full rounded-lg shadow-[rgba(13,38,76,0.19)_0px_9px_20px]"
+              className="h-auto w-full rounded-lg shadow-lg"
             />
           </Zoom>
         </div>
-        <div className="relative flex grow flex-col gap-1 overflow-hidden pt-2 pr-2 pb-4 md:pr-4">
+        <div className="relative flex grow flex-col gap-1 overflow-hidden py-4 pr-2 md:pr-4">
           <div className="flex items-start justify-between gap-3 text-xl font-semibold md:text-2xl">
             <Link href={url}>
               <GrowingUnderline>{title}</GrowingUnderline>
