@@ -1,6 +1,7 @@
+import type { RecentlyPlayedData } from '~/types/data'
+
 const TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token'
 const CURRENTLY_PLAYING = 'https://api.spotify.com/v1/me/player/currently-playing'
-const TOP_TRACKS = 'https://api.spotify.com/v1/me/top/tracks'
 const RECENTLY_PLAYED = 'https://api.spotify.com/v1/me/player/recently-played'
 
 let {
@@ -28,7 +29,7 @@ async function getAccessToken() {
   return response.json()
 }
 
-export async function getCurrentlyPlaying() {
+export async function getNowPlaying() {
   let { access_token } = await getAccessToken()
   let url = new URL(CURRENTLY_PLAYING)
   url.searchParams.append('additional_types', 'track,episode')
@@ -41,22 +42,36 @@ export async function getCurrentlyPlaying() {
   })
 }
 
-export async function getRecentlyPlayed() {
-  let { access_token } = await getAccessToken()
+export async function getRecentlyPlayed(): Promise<RecentlyPlayedData> {
+  try {
+    let { access_token } = await getAccessToken()
+    let res = await fetch(RECENTLY_PLAYED, {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    })
+    if (res.status === 204 || res.status > 400) {
+      return { ok: false, error: 'Bad request or No content available.' }
+    }
 
-  return fetch(RECENTLY_PLAYED, {
-    headers: {
-      Authorization: `Bearer ${access_token}`,
-    },
-  })
-}
-
-export async function getTopTracks() {
-  let { access_token } = await getAccessToken()
-
-  return fetch(TOP_TRACKS, {
-    headers: {
-      Authorization: `Bearer ${access_token}`,
-    },
-  })
+    let data = await res.json()
+    if (Array.isArray(data.items) && data.items.length > 0) {
+      let lastPlayed = data.items[0]
+      return {
+        ok: true,
+        song: {
+          playedAt: lastPlayed.played_at,
+          title: lastPlayed.track.name,
+          artist: lastPlayed.track.artists.map((art: { name: string }) => art.name).join(', '),
+          album: lastPlayed.track.album.name,
+          albumImageUrl: lastPlayed.track.album.images[0]?.url,
+          songUrl: lastPlayed.track.external_urls.spotify,
+        },
+      }
+    }
+    return { ok: false, error: 'No recently played tracks found.' }
+  } catch (error) {
+    console.error('Error fetching recently played tracks:', error)
+    return { ok: false, error: error?.message || error?.toString() || 'Unknown error' }
+  }
 }
