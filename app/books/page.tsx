@@ -7,12 +7,13 @@ import { Link } from '~/components/ui/link'
 import { PageHeader } from '~/components/ui/page-header'
 import { SITE_METADATA } from '~/data/site-metadata'
 import { getAllBooks } from '~/db/queries'
+import type { SelectBook } from '~/db/schema'
 import { BooksList } from './books-list'
 
 export let metadata = genPageMetadata({ title: 'My bookshelf' })
 
 export default async function BooksPage() {
-  let books = await getAllBooks()
+  let books = await getAllBooks().catch(() => [] as SelectBook[])
 
   return (
     <Container className="pt-4 lg:pt-12">

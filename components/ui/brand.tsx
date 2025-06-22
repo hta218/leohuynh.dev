@@ -46,13 +46,7 @@ import Vercel from '~/icons/vercel.svg'
 import VSCode from '~/icons/vscode.svg'
 import Webpack from '~/icons/webpack.svg'
 
-export let BrandsMap: Record<
-  string,
-  {
-    Icon: React.FC<React.SVGProps<SVGSVGElement>>
-    url?: string
-  }
-> = {
+export const BrandsMap = {
   Commitlint: {
     Icon: Commitlint,
   },
@@ -252,7 +246,7 @@ export let BrandsMap: Record<
     Icon: Pnpm,
     url: 'https://pnpm.io/',
   },
-}
+} as const
 
 export function Brand(props: {
   name: keyof typeof BrandsMap
@@ -261,7 +255,13 @@ export function Brand(props: {
   iconClassName?: string
 }) {
   let { name, as = 'link', className, iconClassName } = props
-  let { Icon, url } = BrandsMap[name] || {}
+  let {
+    Icon,
+    url,
+  }: {
+    Icon: React.FC<React.SVGProps<SVGSVGElement>>
+    url?: string
+  } = BrandsMap[name] || {}
 
   if (!Icon) return <span className="hidden">Missing brand icon for {name}</span>
 

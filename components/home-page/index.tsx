@@ -1,8 +1,11 @@
 import type { Blog, Snippet } from '~/.contentlayer/generated'
+import type { getRecentlyPlayed } from '~/app/api/spotify/spotify'
 import { ProfileCard } from '~/components/cards/profile'
 import { Container } from '~/components/ui/container'
 import { Twemoji } from '~/components/ui/twemoji'
-import type { CoreContent } from '~/types/data'
+import type { SelectBook, SelectMovie } from '~/db/schema'
+import type { CoreContent, GithubUserActivity, RecentlyPlayedData } from '~/types/data'
+import { Activities } from './activities'
 import { Greeting } from './greeting'
 import { Intro } from './intro'
 import { LatestPosts } from './latest-posts'
@@ -12,13 +15,21 @@ import { TypedBios } from './typed-bios'
 export function Home({
   posts,
   snippets,
+  currentlyReading,
+  lastWatchedMovie,
+  recentlyPlayed,
+  githubActivities,
 }: {
   posts: CoreContent<Blog>[]
   snippets: CoreContent<Snippet>[]
+  currentlyReading: SelectBook | null
+  lastWatchedMovie: SelectMovie | null
+  recentlyPlayed: RecentlyPlayedData
+  githubActivities: GithubUserActivity[]
 }) {
   return (
-    <Container as="div" className="pt-4 lg:pt-12">
-      <div className="py-6 md:pb-8 xl:grid xl:grid-cols-3">
+    <Container as="div" className="space-y-6 pt-4 md:space-y-24 lg:pt-12">
+      <div className="pt-6 xl:grid xl:grid-cols-3">
         <div className="space-y-4 md:space-y-6 md:pr-8 xl:col-span-2">
           <Greeting />
           <div className="text-base leading-7 text-gray-600 md:text-lg md:leading-8 dark:text-gray-400">
@@ -42,6 +53,12 @@ export function Home({
         </div>
       </div>
       <LatestPosts posts={posts} snippets={snippets} />
+      <Activities
+        recentlyPlayed={recentlyPlayed}
+        currentlyReading={currentlyReading}
+        lastWatchedMovie={lastWatchedMovie}
+        githubActivities={githubActivities}
+      />
       {/* {SITE_METADATA.newsletter?.provider && (
         <div className="flex items-center justify-center py-4 lg:py-10">
           <NewsletterForm />

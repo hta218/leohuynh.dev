@@ -1,4 +1,4 @@
-import { and, eq } from 'drizzle-orm'
+import { and, desc, eq } from 'drizzle-orm'
 import { db } from './index'
 import {
   type InsertBook,
@@ -96,4 +96,14 @@ export async function getAllBooks(): Promise<SelectBook[]> {
 
 export async function getAllMovies(): Promise<SelectMovie[]> {
   return await db.select().from(moviesTable).orderBy(moviesTable.dateRated)
+}
+
+export async function getCurrentlyReading(): Promise<SelectBook> {
+  let books = await db.select().from(booksTable).orderBy(desc(booksTable.pubDate)).limit(1)
+  return books[0] || null
+}
+
+export async function getLastWatchedMovie(): Promise<SelectMovie> {
+  let movies = await db.select().from(moviesTable).orderBy(desc(moviesTable.dateRated)).limit(1)
+  return movies[0] || null
 }
