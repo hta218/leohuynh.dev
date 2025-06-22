@@ -1,13 +1,26 @@
 import type { Document, MDX } from 'contentlayer2/core'
 
+export type SpotifySong = {
+  songUrl: string
+  title: string
+  artist: string
+  album: string
+  albumImageUrl: string
+}
+
 export type SpotifyNowPlayingData = {
   isPlaying: boolean
-  songUrl?: string
-  title?: string
-  artist?: string
-  album?: string
-  albumImageUrl?: string
-}
+} & SpotifySong
+
+export type RecentlyPlayedData =
+  | {
+      ok: true
+      song: SpotifySong & { playedAt: string }
+    }
+  | {
+      ok: false
+      error: string
+    }
 
 export type Project = {
   type: 'work' | 'self'
@@ -121,6 +134,11 @@ export type GithubRepository = {
   forkCount: number
   repositoryTopics: string[]
   lastCommit?: GithubRepositoryCommit
+  owner: {
+    avatarUrl: string
+    login: string
+    url: string
+  }
 }
 
 // https://docs.github.com/en/graphql/reference/enums#statusstate
@@ -136,6 +154,46 @@ export type GithubRepositoryCommit = {
     state: CommitState
   }
 }
+
+export type GithubActivity = {
+  type: 'commit' | 'pullRequest' | 'issue'
+  createdAt: string
+  url: string
+  title: string
+  repository: {
+    name: string
+    nameWithOwner: string
+    url: string
+    owner: {
+      avatarUrl: string
+      login: string
+      url: string
+    }
+  }
+}
+
+export type GithubCommitActivity = GithubActivity & {
+  type: 'commit'
+  message: string
+  abbreviatedOid: string
+}
+
+export type GithubPullRequestActivity = GithubActivity & {
+  type: 'pullRequest'
+  state: 'OPEN' | 'CLOSED' | 'MERGED'
+  number: number
+}
+
+export type GithubIssueActivity = GithubActivity & {
+  type: 'issue'
+  state: 'OPEN' | 'CLOSED'
+  number: number
+}
+
+export type GithubUserActivity =
+  | GithubCommitActivity
+  | GithubPullRequestActivity
+  | GithubIssueActivity
 
 export type MDXDocument = Document & { body: MDX }
 export type MDXDocumentDate = MDXDocument & {
