@@ -20,7 +20,7 @@ export function SpotifyNowPlaying({
   let { songUrl, title, artist, albumImageUrl } = useNowPlaying()
 
   return (
-    <div className={clsx(['flex items-center', className])}>
+    <div className={clsx('flex items-center', className)}>
       {showCover && albumImageUrl ? (
         <Image
           src={albumImageUrl}
