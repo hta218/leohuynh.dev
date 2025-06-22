@@ -82,6 +82,10 @@ module.exports = () => {
           protocol: 'https',
           hostname: 'm.media-amazon.com', // IMDB movie posters
         },
+        {
+          protocol: 'https',
+          hostname: 'avatars.githubusercontent.com',
+        },
       ],
       unoptimized,
     },
