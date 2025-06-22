@@ -1,6 +1,5 @@
 import { allBlogs, allSnippets } from 'contentlayer/generated'
 import { Home } from '~/components/home-page'
-import { SITE_METADATA } from '~/data/site-metadata'
 import { getCurrentlyReading, getLastWatchedMovie } from '~/db/queries'
 import { allCoreContent } from '~/utils/contentlayer'
 import { getGithubUserActivities } from '~/utils/github'
