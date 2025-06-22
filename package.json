@@ -84,15 +84,11 @@
     "drizzle-kit": "^0.31.1",
     "husky": "^9.1.7",
     "lint-staged": "^16.1.0",
-    "prettier": "^3.5.3",
-    "prettier-plugin-tailwindcss": "^0.6.12",
     "rss-parser": "^3.13.0",
     "tsx": "^4.20.3",
     "typescript": "^5.8.3"
   },
   "lint-staged": {
-    "*.+(js|jsx|ts|tsx|json|css|md|mdx)": [
-      "prettier --write"
-    ]
+    "*.+(js|jsx|ts|tsx|json|css|md|mdx)": ["biome check --write"]
   }
 }
