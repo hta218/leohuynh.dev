@@ -50,7 +50,7 @@ export async function getRecentlyPlayed(): Promise<RecentlyPlayedData> {
         Authorization: `Bearer ${access_token}`,
       },
     })
-    if (res.status === 204 || res.status > 400) {
+    if (res.status === 204 || res.status >= 400) {
       return { ok: false, error: 'Bad request or No content available.' }
     }
 
