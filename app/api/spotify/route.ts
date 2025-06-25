@@ -1,28 +1,20 @@
-import type { SpotifyNowPlayingData } from '~/types/data'
 import { getNowPlaying } from './spotify'
 
 export async function GET() {
-  let response = await getNowPlaying()
-  if (response.status === 204 || response.status > 400) {
-    return Response.json({ isPlaying: false })
+  let result = await getNowPlaying()
+
+  if (!result.ok) {
+    return Response.json({ isPlaying: false, error: result.error })
   }
 
-  let data = await response.json()
-  if (data?.currently_playing_type === 'episode') {
-    return Response.json({
-      isPlaying: true,
-      title: data.item.name,
-      songUrl: data.item.external_urls.spotify,
-    })
-  }
-  let songData: SpotifyNowPlayingData = {
-    isPlaying: data.is_playing,
-    title: data.item.name,
-    artist: data.item.artists.map((art: { name: string }) => art.name).join(', '),
-    album: data.item.album.name,
-    albumImageUrl: data.item.album.images[0]?.url,
-    songUrl: data.item.external_urls.spotify,
-  }
-
-  return Response.json(songData)
+  return Response.json({
+    isPlaying: true,
+    song: {
+      title: result.song.title,
+      artist: result.song.artist,
+      album: result.song.album,
+      albumImageUrl: result.song.albumImageUrl,
+      songUrl: result.song.songUrl,
+    },
+  })
 }

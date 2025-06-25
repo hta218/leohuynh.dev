@@ -30,7 +30,11 @@ export function PostCardListView({
           ])}
         >
           <Image
-            src={images && images.length > 0 ? images[0] : SITE_METADATA.socialBanner}
+            src={
+              images && images.length > 0
+                ? images[0]
+                : SITE_METADATA.socialBanner
+            }
             alt={title}
             width={500}
             height={500}
@@ -56,8 +60,14 @@ export function PostCardListView({
                 </dd>
               </dl>
               <h2 className="pb-1 text-xl font-bold tracking-tight md:text-2xl">
-                <Link href={`/blog/${slug}`} className="text-gray-900 dark:text-gray-100">
-                  <GrowingUnderline data-umami-event="latest-post-title" duration={500}>
+                <Link
+                  href={`/blog/${slug}`}
+                  className="text-gray-900 dark:text-gray-100"
+                >
+                  <GrowingUnderline
+                    data-umami-event="latest-post-title"
+                    duration={500}
+                  >
                     {title}
                   </GrowingUnderline>
                 </Link>
