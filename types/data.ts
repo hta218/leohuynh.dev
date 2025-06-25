@@ -8,19 +8,17 @@ export type SpotifySong = {
   albumImageUrl: string
 }
 
-export type SpotifyNowPlayingData = {
-  isPlaying: boolean
-} & SpotifySong
+export type SpotifyNowPlayingData =
+  | { isPlaying: false }
+  | { isPlaying: true; song: SpotifySong }
+
+export type NowPlayingData =
+  | { ok: true; song: SpotifySong }
+  | { ok: false; error: string }
 
 export type RecentlyPlayedData =
-  | {
-      ok: true
-      song: SpotifySong & { playedAt: string }
-    }
-  | {
-      ok: false
-      error: string
-    }
+  | { ok: true; song: SpotifySong & { playedAt: string } }
+  | { ok: false; error: string }
 
 export type Project = {
   type: 'work' | 'self'
@@ -142,7 +140,12 @@ export type GithubRepository = {
 }
 
 // https://docs.github.com/en/graphql/reference/enums#statusstate
-export type CommitState = 'SUCCESS' | 'PENDING' | 'FAILURE' | 'ERROR' | 'EXPECTED'
+export type CommitState =
+  | 'SUCCESS'
+  | 'PENDING'
+  | 'FAILURE'
+  | 'ERROR'
+  | 'EXPECTED'
 
 export type GithubRepositoryCommit = {
   id: string
