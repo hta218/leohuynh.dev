@@ -81,10 +81,11 @@ export async function fetchRepoData({
         headers: {
           authorization: `token ${process.env.GITHUB_API_TOKEN}`,
         },
-      }
+      },
     )
     if (includeLastCommit) {
-      repository.lastCommit = repository.defaultBranchRef.target.history.edges[0].node
+      repository.lastCommit =
+        repository.defaultBranchRef.target.history.edges[0].node
       repository.defaultBranchRef = undefined
     }
     repository.languages = repository.languages.edges.map((edge) => {
@@ -94,7 +95,7 @@ export async function fetchRepoData({
       }
     })
     repository.repositoryTopics = repository.repositoryTopics.edges.map(
-      (edge) => edge.node.topic.name
+      (edge) => edge.node.topic.name,
     )
     return repository
   } catch (err) {
@@ -117,7 +118,7 @@ export async function fetchUserActivity({
   }
 
   try {
-    const { user }: GraphQlQueryResponseData = await graphql(
+    let { user }: GraphQlQueryResponseData = await graphql(
       `
         query userActivity($username: String!) {
           user(login: $username) {
@@ -150,14 +151,14 @@ export async function fetchUserActivity({
         headers: {
           authorization: `token ${process.env.GITHUB_API_TOKEN}`,
         },
-      }
+      },
     )
 
-    const activities: GithubUserActivity[] = []
+    let activities: GithubUserActivity[] = []
 
     // Add the latest pull request
     if (user.pullRequests?.edges && user.pullRequests.edges.length > 0) {
-      const pr = user.pullRequests.edges[0].node
+      let pr = user.pullRequests.edges[0].node
       activities.push({
         type: 'pullRequest',
         createdAt: pr.createdAt,
@@ -199,7 +200,7 @@ export async function fetchUserCommits({
   }
 
   try {
-    const { search }: GraphQlQueryResponseData = await graphql(
+    let { search }: GraphQlQueryResponseData = await graphql(
       `
         query userCommits($searchQuery: String!) {
           search(query: $searchQuery, type: REPOSITORY, first: 20) {
@@ -249,17 +250,17 @@ export async function fetchUserCommits({
         headers: {
           authorization: `token ${process.env.GITHUB_API_TOKEN}`,
         },
-      }
+      },
     )
 
-    const commits: GithubUserActivity[] = []
+    let commits: GithubUserActivity[] = []
 
     if (search?.edges) {
-      for (const repoEdge of search.edges) {
-        const repo = repoEdge.node
+      for (let repoEdge of search.edges) {
+        let repo = repoEdge.node
         if (repo.defaultBranchRef?.target?.history?.edges) {
-          for (const commitEdge of repo.defaultBranchRef.target.history.edges) {
-            const commit = commitEdge.node
+          for (let commitEdge of repo.defaultBranchRef.target.history.edges) {
+            let commit = commitEdge.node
             // Only include commits by the specified user
             if (commit.author?.user?.login === username) {
               commits.push({
@@ -288,7 +289,10 @@ export async function fetchUserCommits({
 
     // Sort commits by date (most recent first) and return only the latest one
     return commits
-      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+      .sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+      )
       .slice(0, 1)
   } catch (err) {
     console.error('Error fetching user commits:', err)
@@ -302,18 +306,23 @@ export async function fetchUserCommits({
 export async function getGithubUserActivities({
   username,
 }: {
-  username: string
+  username?: string
 }): Promise<GithubUserActivity[]> {
+  if (!username) {
+    console.error('Username is required to fetch user activities')
+    return []
+  }
   try {
-    const [generalActivity, commits] = await Promise.all([
+    let [generalActivity, commits] = await Promise.all([
       fetchUserActivity({ username }),
       fetchUserCommits({ username }),
     ])
 
     // Combine and sort all activities (should be max 2 items: 1 PR + 1 commit)
-    const allActivities = [...generalActivity, ...commits]
+    let allActivities = [...generalActivity, ...commits]
     return allActivities.sort(
-      (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
     )
   } catch (err) {
     console.error('Error fetching comprehensive user activity:', err)
