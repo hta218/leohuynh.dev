@@ -5,6 +5,8 @@ export const SITE_METADATA = {
   description:
     'A personal space on the cloud where I document my programming journey, sharing lessons, insights, and resources for fellow developers.',
   language: 'en-us',
+  locale: 'en-US',
+  stickyNav: true,
   theme: 'system', // system, dark or light
   siteUrl: 'https://www.leohuynh.dev',
   siteRepo: 'https://github.com/hta218/leohuynh.dev',
@@ -18,15 +20,15 @@ export const SITE_METADATA = {
   linkedin: 'https://www.linkedin.com/in/hta218',
   threads: 'https://www.threads.net/hta218_',
   instagram: 'https://www.instagram.com/hta218_',
-  locale: 'en-US',
-  stickyNav: true,
-  goodreadsBookshelfUrl: 'https://www.goodreads.com/review/list/179720035-leo-huynh',
+  goodreadsBookshelfUrl:
+    'https://www.goodreads.com/review/list/179720035-leo-huynh',
   goodreadsFeedUrl: 'https://www.goodreads.com/review/list_rss/179720035',
   imdbRatingsList: 'https://www.imdb.com/user/ur154483197/ratings/?view=grid',
   analytics: {
     umamiAnalytics: {
       websiteId: process.env.NEXT_UMAMI_ID,
-      shareUrl: 'https://analytics.leohuynh.dev/share/c9ErglxqzY5CQJ8g/leohuynh.dev',
+      shareUrl:
+        'https://analytics.leohuynh.dev/share/c9ErglxqzY5CQJ8g/leohuynh.dev',
     },
   },
   newsletter: {
