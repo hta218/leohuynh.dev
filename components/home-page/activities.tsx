@@ -40,7 +40,9 @@ export function Activities({
   recentlyPlayed,
   githubActivities,
 }: LatestActivitiesProps) {
-  let pullRequest = githubActivities.find((activity) => activity.type === 'pullRequest')
+  let pullRequest = githubActivities.find(
+    (activity) => activity.type === 'pullRequest',
+  )
   let commit = githubActivities.find((activity) => activity.type === 'commit')
   const activities = [
     // Spotify activity
@@ -54,7 +56,8 @@ export function Activities({
             subtitle: recentlyPlayed.song.artist,
             timestamp: getTimeAgo(recentlyPlayed.song.playedAt),
             link: recentlyPlayed.song.songUrl,
-            detailsPage: 'https://open.spotify.com/user/31uxi2mgkrjhj4agxmudr5cmfj7a',
+            detailsPage:
+              'https://open.spotify.com/user/31uxi2mgkrjhj4agxmudr5cmfj7a',
             sortDate: new Date(recentlyPlayed.song.playedAt),
             Icon: <Music className="h-4 w-4 text-green-600" />,
           },
@@ -154,13 +157,13 @@ export function Activities({
   ]
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 pt-8">
       <div className="space-y-2">
-        <h3 className="text-2xl font-bold sm:text-2xl sm:leading-10 md:text-4xl">Activities</h3>
-        <p className="mt-2 text-gray-500 dark:text-gray-400">
-          My recent activities across platforms.
-        </p>
+        <h3 className="text-2xl font-bold sm:text-2xl sm:leading-10 md:text-4xl">
+          Side quests and activities
+        </h3>
       </div>
+      <div className="border-t border-gray-200 dark:border-gray-700" />
       <div className="space-y-6">
         {activities.map((activity) => (
           <ActivityItem key={activity.id} activity={activity} />
@@ -171,7 +174,8 @@ export function Activities({
 }
 
 function ActivityItem({ activity }: { activity: Activity }) {
-  let { action, title, link, image, detailsPage, subtitle, timestamp, Icon } = activity
+  let { action, title, link, image, detailsPage, subtitle, timestamp, Icon } =
+    activity
   return (
     <div className="flex items-center gap-4">
       <div className="relative shrink-0">
@@ -191,7 +195,9 @@ function ActivityItem({ activity }: { activity: Activity }) {
         <div className="flex items-start justify-between">
           <div className="min-w-0 flex-1">
             <p className="mb-1 font-medium">
-              <span className="font-medium text-[#71717a] dark:text-gray-400">{action}</span>{' '}
+              <span className="font-medium text-[#71717a] dark:text-gray-400">
+                {action}
+              </span>{' '}
               <Link href={link} className="font-semibold">
                 <GrowingUnderline>{title}</GrowingUnderline>
               </Link>
