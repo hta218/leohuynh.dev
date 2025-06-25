@@ -187,16 +187,9 @@ export type GithubPullRequestActivity = GithubActivity & {
   number: number
 }
 
-export type GithubIssueActivity = GithubActivity & {
-  type: 'issue'
-  state: 'OPEN' | 'CLOSED'
-  number: number
-}
-
 export type GithubUserActivity =
   | GithubCommitActivity
   | GithubPullRequestActivity
-  | GithubIssueActivity
 
 export type MDXDocument = Document & { body: MDX }
 export type MDXDocumentDate = MDXDocument & {

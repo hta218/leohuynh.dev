@@ -107,7 +107,7 @@ export async function fetchRepoData({
 /**
  * Fetches the latest GitHub user activity including pull requests only
  */
-export async function fetchUserActivity({
+export async function fetchUserPullRequests({
   username,
 }: {
   username: string
@@ -122,7 +122,7 @@ export async function fetchUserActivity({
       `
         query userActivity($username: String!) {
           user(login: $username) {
-            pullRequests(first: 1, orderBy: { field: CREATED_AT, direction: DESC }) {
+            pullRequests(first: 10, orderBy: { field: CREATED_AT, direction: DESC }) {
               edges {
                 node {
                   title
@@ -156,27 +156,33 @@ export async function fetchUserActivity({
 
     let activities: GithubUserActivity[] = []
 
-    // Add the latest pull request
+    // Add the latest pull request (only PRs to repositories owned by others)
     if (user.pullRequests?.edges && user.pullRequests.edges.length > 0) {
-      let pr = user.pullRequests.edges[0].node
-      activities.push({
-        type: 'pullRequest',
-        createdAt: pr.createdAt,
-        url: pr.url,
-        title: pr.title,
-        state: pr.state,
-        number: pr.number,
-        repository: {
-          name: pr.repository.name,
-          nameWithOwner: pr.repository.nameWithOwner,
-          url: pr.repository.url,
-          owner: {
-            avatarUrl: pr.repository.owner.avatarUrl,
-            login: pr.repository.owner.login,
-            url: pr.repository.owner.url,
-          },
-        },
-      })
+      for (let prEdge of user.pullRequests.edges) {
+        let pr = prEdge.node
+        // Only include PRs that are opened to repositories NOT owned by the user
+        if (pr.repository.owner.login !== username) {
+          activities.push({
+            type: 'pullRequest',
+            createdAt: pr.createdAt,
+            url: pr.url,
+            title: pr.title,
+            state: pr.state,
+            number: pr.number,
+            repository: {
+              name: pr.repository.name,
+              nameWithOwner: pr.repository.nameWithOwner,
+              url: pr.repository.url,
+              owner: {
+                avatarUrl: pr.repository.owner.avatarUrl,
+                login: pr.repository.owner.login,
+                url: pr.repository.owner.url,
+              },
+            },
+          })
+          break // Only take the first (latest) PR to external repositories
+        }
+      }
     }
 
     return activities
@@ -261,8 +267,11 @@ export async function fetchUserCommits({
         if (repo.defaultBranchRef?.target?.history?.edges) {
           for (let commitEdge of repo.defaultBranchRef.target.history.edges) {
             let commit = commitEdge.node
-            // Only include commits by the specified user
-            if (commit.author?.user?.login === username) {
+            // Only include commits by the specified user and filter out merge commits
+            if (
+              commit.author?.user?.login === username &&
+              !/^Merge pull request/i.test(commit.message.split('\n')[0])
+            ) {
               commits.push({
                 type: 'commit',
                 createdAt: commit.committedDate,
@@ -314,7 +323,7 @@ export async function getGithubUserActivities({
   }
   try {
     let [generalActivity, commits] = await Promise.all([
-      fetchUserActivity({ username }),
+      fetchUserPullRequests({ username }),
       fetchUserCommits({ username }),
     ])
 
