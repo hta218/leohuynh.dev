@@ -84,7 +84,6 @@
     "drizzle-kit": "^0.31.1",
     "husky": "^9.1.7",
     "lint-staged": "^16.1.0",
-    "rss-parser": "^3.13.0",
     "tsx": "^4.20.3",
     "typescript": "^5.8.3"
   },
