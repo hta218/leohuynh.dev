@@ -56,6 +56,26 @@ export type GoodreadsBook = {
   content: string
 }
 
+export type GoodreadsCsvBook = {
+  id: string
+  title: string
+  authorName: string
+  isbn?: string
+  userRating: string
+  averageRating: string
+  publisher?: string
+  numberOfPages?: string
+  yearPublished?: string
+  bookPublished?: string
+  userReadAt?: string
+  userDateAdded: string
+  userShelves?: string
+  exclusiveShelves?: string
+  userReview?: string
+  binding?: string
+  [key: string]: string | undefined // For other CSV columns we don't explicitly handle
+}
+
 export type ImdbMovie = {
   id: string
   yourRating: string
