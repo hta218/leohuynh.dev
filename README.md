@@ -20,15 +20,15 @@ I started this blog to document and share things I’ve learned and found useful
 
 ## Features
 
-- ⚛️ Built with **React 19** and **Next.js 15** (App Router)
-- 🎨 Modern, responsive design with [Tailwind CSS](https://tailwindcss.com/)
-- 💡 Written in **TypeScript** for better safety
-- 📖 MDX for rich content and code snippets
+- ⚛️ **Next.js 15** (App Router) and **React 19**
+- 🎨 **Tailwind CSS** for styling
+- 💡 **TypeScript** for better type safety
+- 📖 [Contentlayer](https://contentlayer.dev/) & MDX for rich content and code snippets
 - 📊 Website analytics with [Umami](https://umami.is/)
 - 🗃️ Database hosting with [Supabase](https://supabase.com/)
 - 🏗️ Type-safe database operations with [Drizzle ORM](https://orm.drizzle.team/)
 - 🔧 Code linting and formatting with [Biome](https://biomejs.dev/)
-- 🌗 Dark mode using [GitHub dark dimmed](https://github.blog/changelog/2021-04-14-dark-and-dimmed-themes-are-now-generally-available/) colors
+- 🌗 Dark mode theme using [GitHub dark dimmed](https://github.blog/changelog/2021-04-14-dark-and-dimmed-themes-are-now-generally-available/) colors
 
 ## Tech Stack
 
