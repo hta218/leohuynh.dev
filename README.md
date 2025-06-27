@@ -29,8 +29,6 @@ I started this blog to document and share things I’ve learned and found useful
 - 🏗️ Type-safe database operations with [Drizzle ORM](https://orm.drizzle.team/)
 - 🔧 Code linting and formatting with [Biome](https://biomejs.dev/)
 - 🌗 Dark mode using [GitHub dark dimmed](https://github.blog/changelog/2021-04-14-dark-and-dimmed-themes-are-now-generally-available/) colors
-- 🧩 Custom components: `ProfileCard`, `CareerTimeline`, `/snippets`, `/books`, and more
-- 🛠️ Overhauled UI and homepage, easy-to-customize
 
 ## Tech Stack
 
