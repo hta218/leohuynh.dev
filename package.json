@@ -89,6 +89,8 @@
     "typescript": "^5.8.3"
   },
   "lint-staged": {
-    "*.+(js|jsx|ts|tsx|json|css|md|mdx)": ["biome check --write"]
+    "*.+(js|jsx|ts|tsx|json|css|md|mdx)": [
+      "biome check --write --files-ignore-unknown=true --no-errors-on-unmatched"
+    ]
   }
 }
