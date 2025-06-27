@@ -60,7 +60,6 @@ export async function upsertBooks(
     .onConflictDoUpdate({
       target: booksTable.id,
       set: {
-        ...booksTable,
         updatedAt: new Date(),
       },
     })
@@ -85,7 +84,6 @@ export async function upsertManyMovies(
     .onConflictDoUpdate({
       target: moviesTable.id,
       set: {
-        ...moviesTable,
         updatedAt: new Date(),
       },
     })
