@@ -25,6 +25,9 @@ I started this blog to document and share things I’ve learned and found useful
 - 💡 Written in **TypeScript** for better safety
 - 📖 MDX for rich content and code snippets
 - 📊 Website analytics with [Umami](https://umami.is/)
+- 🗃️ Database hosting with [Supabase](https://supabase.com/)
+- 🏗️ Type-safe database operations with [Drizzle ORM](https://orm.drizzle.team/)
+- 🔧 Code linting and formatting with [Biome](https://biomejs.dev/)
 - 🌗 Dark mode using [GitHub dark dimmed](https://github.blog/changelog/2021-04-14-dark-and-dimmed-themes-are-now-generally-available/) colors
 - 🧩 Custom components: `ProfileCard`, `CareerTimeline`, `/snippets`, `/books`, and more
 - 🛠️ Overhauled UI and homepage, easy-to-customize
@@ -32,15 +35,12 @@ I started this blog to document and share things I’ve learned and found useful
 ## Tech Stack
 
 [![Next.js](https://img.shields.io/badge/next.js-000?logo=next.js&logoColor=white)](https://nextjs.org/)
-[![React](https://img.shields.io/badge/react-20232A?logo=react&logoColor=61DAFB)](https://react.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/tailwindcss-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![TypeScript](https://img.shields.io/badge/typescript-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![MDX](https://img.shields.io/badge/mdx-1a1a1a?logo=mdx&logoColor=white)](https://mdxjs.com/)
-[![Vercel](https://img.shields.io/badge/vercel-000?logo=vercel&logoColor=white)](https://vercel.com/)
 [![Umami](https://img.shields.io/badge/umami-262626?logo=umami&logoColor=white)](https://umami.is/)
 [![Supabase](https://img.shields.io/badge/supabase-3ECF8E?logo=supabase&logoColor=white)](https://supabase.com/)
 [![Drizzle ORM](https://img.shields.io/badge/drizzle%20orm-1a1a1a?logo=drizzle&logoColor=white)](https://orm.drizzle.team/)
-[![Shiki](https://img.shields.io/badge/shiki-ff4d6d?logo=shiki&logoColor=white)](https://shiki.matsu.io/)
+[![Biome](https://img.shields.io/badge/biome-1a1a1a?logo=biome&logoColor=white)](https://orm.drizzle.team/)
 
 ## Assets & Credits
 
