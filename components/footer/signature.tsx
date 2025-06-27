@@ -11,7 +11,11 @@ export function Signature(props: SVGProps<SVGSVGElement>) {
       {...props}
     >
       <title>My personal signature</title>
-      <g transform="translate(0,676) scale(0.1,-0.1)" fill="currentColor" stroke="none">
+      <g
+        transform="translate(0,676) scale(0.1,-0.1)"
+        fill="currentColor"
+        stroke="none"
+      >
         <path
           d="M3607 6714 c-3 -4 -64 -6 -134 -5 -160 1 -400 -28 -573 -68 -25 -6
 -83 -18 -130 -26 -47 -8 -101 -19 -120 -25 -19 -5 -47 -10 -61 -10 -15 0 -52

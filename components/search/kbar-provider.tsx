@@ -50,12 +50,15 @@ export function KBarSearchProvider({
     async function fetchData() {
       if (searchDocumentsPath) {
         let url =
-          searchDocumentsPath.indexOf('://') > 0 || searchDocumentsPath.indexOf('//') === 0
+          searchDocumentsPath.indexOf('://') > 0 ||
+          searchDocumentsPath.indexOf('//') === 0
             ? searchDocumentsPath
             : new URL(searchDocumentsPath, window.location.origin)
         let res = await fetch(url)
         let json = await res.json()
-        let actions = onSearchDocumentsLoad ? onSearchDocumentsLoad(json) : mapPosts(json)
+        let actions = onSearchDocumentsLoad
+          ? onSearchDocumentsLoad(json)
+          : mapPosts(json)
         setSearchActions(actions)
         setDataLoaded(true)
       }
@@ -65,7 +68,13 @@ export function KBarSearchProvider({
     } else {
       setDataLoaded(true)
     }
-  }, [defaultActions, dataLoaded, router, searchDocumentsPath, onSearchDocumentsLoad])
+  }, [
+    defaultActions,
+    dataLoaded,
+    router,
+    searchDocumentsPath,
+    onSearchDocumentsLoad,
+  ])
 
   return (
     <KBarProvider actions={defaultActions}>

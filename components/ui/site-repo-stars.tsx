@@ -10,7 +10,10 @@ import { fetcher } from '~/utils/misc'
 
 export function SiteRepoStars() {
   let siteRepo = SITE_METADATA.siteRepo.replace('https://github.com/', '')
-  let { data: repo } = useSWR<GithubRepository>(`/api/github?repo=${siteRepo}`, fetcher)
+  let { data: repo } = useSWR<GithubRepository>(
+    `/api/github?repo=${siteRepo}`,
+    fetcher,
+  )
 
   return (
     <Link
@@ -33,7 +36,9 @@ export function SiteRepoStars() {
         ])}
       >
         <Star className="h-4 w-4" />
-        <span className="font-medium">{repo ? repo.stargazerCount : '---'}</span>
+        <span className="font-medium">
+          {repo ? repo.stargazerCount : '---'}
+        </span>
       </div>
       {/* <div className="flex h-8 items-center bg-white px-3 dark:bg-dark">
         {repo ? repo.stargazerCount : '---'}

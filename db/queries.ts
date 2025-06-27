@@ -27,7 +27,7 @@ export async function getBlogStats(type: StatsType, slug: string) {
 export async function updateBlogStats(
   type: StatsType,
   slug: string,
-  updates: Omit<SelectStats, 'type' | 'slug'>
+  updates: Omit<SelectStats, 'type' | 'slug'>,
 ) {
   let currentStats = await getBlogStats(type, slug)
   // Safeguard against negative updates
@@ -44,7 +44,9 @@ export async function updateBlogStats(
   return updatedStats[0]
 }
 
-export async function upsertBooks(booksData: InsertBook[]): Promise<SelectBook[]> {
+export async function upsertBooks(
+  booksData: InsertBook[],
+): Promise<SelectBook[]> {
   if (booksData.length === 0) return []
 
   let books: InsertBook[] = booksData.map((bookData) => ({
@@ -67,7 +69,9 @@ export async function upsertBooks(booksData: InsertBook[]): Promise<SelectBook[]
   return result
 }
 
-export async function upsertManyMovies(moviesData: InsertMovie[]): Promise<SelectMovie[]> {
+export async function upsertManyMovies(
+  moviesData: InsertMovie[],
+): Promise<SelectMovie[]> {
   if (moviesData.length === 0) return []
 
   let movies: InsertMovie[] = moviesData.map((movieData) => ({
@@ -99,11 +103,19 @@ export async function getAllMovies(): Promise<SelectMovie[]> {
 }
 
 export async function getCurrentlyReading(): Promise<SelectBook> {
-  let books = await db.select().from(booksTable).orderBy(desc(booksTable.pubDate)).limit(1)
+  let books = await db
+    .select()
+    .from(booksTable)
+    .orderBy(desc(booksTable.pubDate))
+    .limit(1)
   return books[0] || null
 }
 
 export async function getLastWatchedMovie(): Promise<SelectMovie> {
-  let movies = await db.select().from(moviesTable).orderBy(desc(moviesTable.dateRated)).limit(1)
+  let movies = await db
+    .select()
+    .from(moviesTable)
+    .orderBy(desc(moviesTable.dateRated))
+    .limit(1)
   return movies[0] || null
 }

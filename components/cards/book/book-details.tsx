@@ -40,7 +40,12 @@ export function BookDetails({ book }: { book: SelectBook }) {
   )
 }
 
-function TabTrigger(props: { active: boolean; onClick: () => void; label: string; emoji: string }) {
+function TabTrigger(props: {
+  active: boolean
+  onClick: () => void
+  label: string
+  emoji: string
+}) {
   let { active, onClick, label, emoji } = props
   return (
     <button
@@ -48,7 +53,9 @@ function TabTrigger(props: { active: boolean; onClick: () => void; label: string
       onClick={onClick}
       className={clsx(
         'inline-flex items-center gap-1 font-medium underline-offset-4',
-        active ? 'underline' : 'text-gray-500 hover:text-gray-900 dark:hover:text-gray-100'
+        active
+          ? 'underline'
+          : 'text-gray-500 hover:text-gray-900 dark:hover:text-gray-100',
       )}
     >
       <Twemoji emoji={emoji} />
@@ -57,7 +64,10 @@ function TabTrigger(props: { active: boolean; onClick: () => void; label: string
   )
 }
 
-function TabContent(props: { icon: React.FC<LucideProps>; content: string | null }) {
+function TabContent(props: {
+  icon: React.FC<LucideProps>
+  content: string | null
+}) {
   let { icon: Icon, content } = props
   return (
     <>
@@ -66,7 +76,9 @@ function TabContent(props: { icon: React.FC<LucideProps>; content: string | null
         strokeWidth={1.5}
         className="absolute -top-4 right-0 z-[-1] h-10 w-10 text-gray-200 md:-top-2 dark:text-gray-700"
       />
-      <p className="line-clamp-5 text-gray-700 italic dark:text-gray-400">"{content || 'N/A'}"</p>
+      <p className="line-clamp-5 text-gray-700 italic dark:text-gray-400">
+        "{content || 'N/A'}"
+      </p>
     </>
   )
 }

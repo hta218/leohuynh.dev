@@ -22,15 +22,20 @@ export default async function BooksPage() {
         description={
           <>
             <p>
-              Reading has been my hobby since childhood, starting with comics, magazines, and
-              textbooks. Today, I strive to keep reading daily, exploring topics such as science,
-              technology, nonfiction, business, education, productivity, and history.
+              Reading has been my hobby since childhood, starting with comics,
+              magazines, and textbooks. Today, I strive to keep reading daily,
+              exploring topics such as science, technology, nonfiction,
+              business, education, productivity, and history.
               <br />
-              This is where I keep track of what I’ve read and what’s on my reading list.
+              This is where I keep track of what I’ve read and what’s on my
+              reading list.
             </p>
             <p className="mt-3 italic">
               *Data pulled from my{' '}
-              <Link href={SITE_METADATA.goodreadsBookshelfUrl} className="font-medium">
+              <Link
+                href={SITE_METADATA.goodreadsBookshelfUrl}
+                className="font-medium"
+              >
                 <GrowingUnderline data-umami-event="goodreads-feed" active>
                   Goodreads bookshelf
                 </GrowingUnderline>
@@ -42,7 +47,11 @@ export default async function BooksPage() {
         className="border-b border-gray-200 dark:border-gray-700"
       />
       <Suspense>
-        <BooksList books={books.sort((a, b) => Number(b.userRating) - Number(a.userRating))} />
+        <BooksList
+          books={books.sort(
+            (a, b) => Number(b.userRating) - Number(a.userRating),
+          )}
+        />
       </Suspense>
       <div className="mt-6 border-t border-gray-200 py-5 md:mt-10 md:py-10 dark:border-gray-700">
         <h3 className="mb-6 text-2xl leading-9 font-bold tracking-tight text-gray-900 md:text-3xl dark:text-gray-100">

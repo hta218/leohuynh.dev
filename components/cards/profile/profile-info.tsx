@@ -31,7 +31,9 @@ const SOCIALS = [
     platform: 'x',
     handle: getAccountHandle(SITE_METADATA.x),
     href: SITE_METADATA.x,
-    Icon: () => <XIcon className="h-4 w-4" fill="#fff" viewBox="0 0 1200 1227" />,
+    Icon: () => (
+      <XIcon className="h-4 w-4" fill="#fff" viewBox="0 0 1200 1227" />
+    ),
     umamiEvent: 'profile-card-x',
   },
 ]
@@ -39,8 +41,12 @@ const SOCIALS = [
 export function ProfileCardInfo() {
   return (
     <div className="hidden py-4 md:block md:px-5">
-      <h3 className="text-xl font-semibold text-gray-800 dark:text-white">Tuan Anh (Leo) Huynh</h3>
-      <h5 className="py-2 text-gray-500 dark:text-gray-400">Learner | Builder</h5>
+      <h3 className="text-xl font-semibold text-gray-800 dark:text-white">
+        Tuan Anh (Leo) Huynh
+      </h3>
+      <h5 className="py-2 text-gray-500 dark:text-gray-400">
+        Learner | Builder
+      </h5>
       <div className="mt-4 mb-2 space-y-4">
         <div className="flex items-center text-gray-700 dark:text-gray-200">
           <BriefcaseBusiness strokeWidth={1.5} size={20} />

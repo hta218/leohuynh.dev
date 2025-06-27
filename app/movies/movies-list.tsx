@@ -33,7 +33,8 @@ export function MoviesList({ movies }: { movies: SelectMovie[] }) {
       }
       return Number(m2.yourRating) - Number(m1.yourRating)
     })
-  let { description, emoji } = RATES.find(({ value }) => value === rate) || RATES[0]
+  let { description, emoji } =
+    RATES.find(({ value }) => value === rate) || RATES[0]
 
   return (
     <div className="space-y-4 pt-2 md:space-y-6 md:pt-0">

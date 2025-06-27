@@ -23,7 +23,17 @@ interface LayoutProps {
 }
 
 export function PostBanner({ content, children }: LayoutProps) {
-  let { slug, type, title, images, date, lastmod, readingTime, tags, filePath } = content
+  let {
+    slug,
+    type,
+    title,
+    images,
+    date,
+    lastmod,
+    readingTime,
+    tags,
+    filePath,
+  } = content
   let postUrl = `${SITE_METADATA.siteUrl}/${type.toLowerCase()}/${slug}`
 
   return (
@@ -52,7 +62,9 @@ export function PostBanner({ content, children }: LayoutProps) {
             />
           </div>
         </div>
-        <div className="prose prose-lg dark:prose-invert max-w-none">{children}</div>
+        <div className="prose prose-lg dark:prose-invert max-w-none">
+          {children}
+        </div>
         <div className="space-y-8 border-t border-gray-200 pt-4 dark:border-gray-700">
           <div className="flex justify-between gap-4">
             <div className="flex items-center gap-2">

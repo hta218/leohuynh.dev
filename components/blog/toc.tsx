@@ -8,9 +8,15 @@ type TocItem = {
   depth: number
 }
 
-export function TableOfContents({ toc, className }: { toc: TocItem[]; className?: string }) {
+export function TableOfContents({
+  toc,
+  className,
+}: { toc: TocItem[]; className?: string }) {
   return (
-    <details className={clsx('space-y-4 open:[&_.chevron-right]:rotate-90', className)} open>
+    <details
+      className={clsx('space-y-4 open:[&_.chevron-right]:rotate-90', className)}
+      open
+    >
       <summary className="flex cursor-pointer items-center gap-1 marker:content-none">
         <ChevronRight
           strokeWidth={1.5}

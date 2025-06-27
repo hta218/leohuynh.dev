@@ -23,7 +23,13 @@ export function BookCover({ image, alt }: { image: string; alt: string }) {
             'hover:[box-shadow:6px_6px_12px_-1px_rgba(0,0,0,0.1),20px_14px_16px_-6px_rgba(0,0,0,0.1)]',
           ])}
         >
-          <Image src={image} alt={alt} width={1000} height={1500} className="w-full rounded-r-md" />
+          <Image
+            src={image}
+            alt={alt}
+            width={1000}
+            height={1500}
+            className="w-full rounded-r-md"
+          />
           <div
             className={clsx([
               'ml-4 h-full w-5',

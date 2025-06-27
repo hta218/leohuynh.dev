@@ -10,7 +10,10 @@ import {
 } from 'kbar'
 import { Search } from 'lucide-react'
 
-export function KBarModal({ actions, isLoading }: { actions: Action[]; isLoading: boolean }) {
+export function KBarModal({
+  actions,
+  isLoading,
+}: { actions: Action[]; isLoading: boolean }) {
   useRegisterActions(actions, [actions])
 
   return (
@@ -20,7 +23,11 @@ export function KBarModal({ actions, isLoading }: { actions: Action[]; isLoading
           <div className="overflow-hidden rounded-2xl border border-gray-100 bg-gray-50 dark:border-gray-800 dark:bg-gray-900">
             <div className="flex items-center space-x-4 p-4">
               <span className="block w-5">
-                <Search strokeWidth={1.5} size={20} className="text-gray-400 dark:text-gray-300" />
+                <Search
+                  strokeWidth={1.5}
+                  size={20}
+                  className="text-gray-400 dark:text-gray-300"
+                />
               </span>
               <KBarSearch className="h-8 w-full bg-transparent text-gray-600 placeholder-gray-400 focus:outline-hidden dark:text-gray-200 dark:placeholder-gray-500" />
               <kbd className="inline-block rounded-sm border border-gray-400 px-1.5 align-middle text-xs leading-4 font-medium tracking-wide whitespace-nowrap text-gray-400">
@@ -64,10 +71,14 @@ function RenderResults() {
                 }`}
               >
                 <div className={'flex space-x-2'}>
-                  {item.icon && <div className={'self-center'}>{item.icon}</div>}
+                  {item.icon && (
+                    <div className={'self-center'}>{item.icon}</div>
+                  )}
                   <div className="block">
                     {item.subtitle && (
-                      <div className={`${active ? 'text-gray-200' : 'text-gray-400'} text-xs`}>
+                      <div
+                        className={`${active ? 'text-gray-200' : 'text-gray-400'} text-xs`}
+                      >
                         {item.subtitle}
                       </div>
                     )}
@@ -75,7 +86,10 @@ function RenderResults() {
                   </div>
                 </div>
                 {item.shortcut?.length ? (
-                  <div aria-hidden className="flex flex-row items-center justify-center gap-x-2">
+                  <div
+                    aria-hidden
+                    className="flex flex-row items-center justify-center gap-x-2"
+                  >
                     {item.shortcut.map((sc) => (
                       <kbd
                         key={sc}

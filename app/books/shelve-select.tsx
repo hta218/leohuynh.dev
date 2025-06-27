@@ -1,4 +1,10 @@
-import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react'
+import {
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems,
+  Transition,
+} from '@headlessui/react'
 import clsx from 'clsx'
 import { ChevronDown } from 'lucide-react'
 import { Fragment } from 'react'
@@ -29,7 +35,8 @@ export const SHELVES: {
 export type ShelfType = 'all' | 'currently-reading' | 'read' | 'abandoned'
 
 export function ShelveSelect({ shelf }: { shelf: ShelfType }) {
-  let { label, value: selectedValue } = SHELVES.find(({ value }) => value === shelf) || SHELVES[0]
+  let { label, value: selectedValue } =
+    SHELVES.find(({ value }) => value === shelf) || SHELVES[0]
 
   return (
     <div className="flex items-center">

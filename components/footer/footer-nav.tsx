@@ -55,7 +55,9 @@ function FooterLink({ link }: { link: (typeof FOOTER_NAV_LINKS)[0] }) {
         className="inline-flex items-center"
       >
         {title}
-        {isExternal && <ExternalLink className="-mt-1 ml-1.5" size={18} strokeWidth={1.5} />}
+        {isExternal && (
+          <ExternalLink className="-mt-1 ml-1.5" size={18} strokeWidth={1.5} />
+        )}
       </GrowingUnderline>
     </Link>
   )

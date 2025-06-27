@@ -35,16 +35,24 @@ export let generateStaticParams = async () => {
   return paths
 }
 
-export default async function TagPage(props: { params: Promise<{ tag: string }> }) {
+export default async function TagPage(props: {
+  params: Promise<{ tag: string }>
+}) {
   let params = await props.params
   let tag = decodeURI(params.tag)
   // Capitalize first letter and convert space to dash
   let title = `#${tag[0]}${tag.split(' ').join('-').slice(1)}`
   let filteredPosts = allCoreContent(
-    sortPosts(allBlogs.filter((post) => post.tags?.map((t) => slug(t)).includes(tag)))
+    sortPosts(
+      allBlogs.filter((post) => post.tags?.map((t) => slug(t)).includes(tag)),
+    ),
   )
   let filteredSnippets = allCoreContent(
-    sortPosts(allSnippets.filter((post) => post.tags?.map((t) => slug(t)).includes(tag)))
+    sortPosts(
+      allSnippets.filter((post) =>
+        post.tags?.map((t) => slug(t)).includes(tag),
+      ),
+    ),
   )
   if (filteredPosts.length === 0 && filteredSnippets.length === 0) {
     return notFound()
@@ -54,7 +62,8 @@ export default async function TagPage(props: { params: Promise<{ tag: string }> 
       title={title}
       description={
         <>
-          Things I've written about <span className="ml-1 font-semibold">#{tag}</span>
+          Things I've written about{' '}
+          <span className="ml-1 font-semibold">#{tag}</span>
         </>
       }
       posts={filteredPosts}

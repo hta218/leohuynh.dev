@@ -4,7 +4,11 @@ import { Menu, MenuButton, MenuItems, Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { Facebook, Link, Linkedin, Share2 } from 'lucide-react'
 import { Fragment, useState } from 'react'
-import { FacebookShareButton, LinkedinShareButton, TwitterShareButton } from 'react-share'
+import {
+  FacebookShareButton,
+  LinkedinShareButton,
+  TwitterShareButton,
+} from 'react-share'
 import { SITE_METADATA } from '~/data/site-metadata'
 import XIcon from '~/icons/x.svg'
 import { DiscussOnX } from './discuss-on-x'
@@ -17,7 +21,12 @@ type SocialButtonsProps = {
   className?: string
 }
 
-export function SocialShare({ postUrl, filePath, title, className }: SocialButtonsProps) {
+export function SocialShare({
+  postUrl,
+  filePath,
+  title,
+  className,
+}: SocialButtonsProps) {
   let [copied, setCopied] = useState(false)
 
   function handleCopyLink() {
@@ -34,7 +43,7 @@ export function SocialShare({ postUrl, filePath, title, className }: SocialButto
         aria-label="More links"
         className={clsx(
           'flex items-center gap-1 px-3 py-1 font-medium text-gray-500 dark:text-gray-400',
-          className
+          className,
         )}
         data-umami-event="social-share"
       >

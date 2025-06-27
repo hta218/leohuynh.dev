@@ -5,14 +5,18 @@ import type { ImageProps as NextImageProps } from 'next/image'
 import NextImage from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
-import ReactMediumImageZoom, { type UncontrolledProps } from 'react-medium-image-zoom'
+import ReactMediumImageZoom, {
+  type UncontrolledProps,
+} from 'react-medium-image-zoom'
 
 let loadedImages: string[] = []
 
 function useImageLoadedState(src: string) {
   let pathname = usePathname()
   let uniqueImagePath = `${pathname}__${src}`
-  let [loaded, setLoaded] = useState(() => loadedImages.includes(uniqueImagePath))
+  let [loaded, setLoaded] = useState(() =>
+    loadedImages.includes(uniqueImagePath),
+  )
   return [
     loaded,
     () => {
@@ -36,14 +40,14 @@ export function Image(props: ImageProps) {
       className={clsx(
         'image-container relative overflow-hidden',
         !loaded && 'animate-pulse [animation-duration:4s]',
-        className
+        className,
       )}
     >
       <NextImage
         className={clsx(
           'transition-all duration-500 [transition-timing-function:cubic-bezier(.4,0,.2,1)]',
           'h-full max-h-full w-full object-center',
-          loaded ? 'blur-0' : 'blur-xl'
+          loaded ? 'blur-0' : 'blur-xl',
         )}
         src={src}
         alt={alt}

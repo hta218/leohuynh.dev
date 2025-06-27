@@ -4,11 +4,15 @@ import type { SelectStats, StatsType } from '~/db/schema'
 import { fetcher } from '~/utils/misc'
 
 export function useBlogStats(type: StatsType, slug: string) {
-  let { data, isLoading } = useSWR<SelectStats>(`/api/stats?slug=${slug}&type=${type}`, fetcher, {
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-  })
+  let { data, isLoading } = useSWR<SelectStats>(
+    `/api/stats?slug=${slug}&type=${type}`,
+    fetcher,
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    },
+  )
   let { views, loves, applauses, ideas, bullseyes } = data || {}
   let stats: SelectStats = {
     type,
@@ -30,7 +34,7 @@ export function useUpdateBlogStats() {
         method: 'POST',
         body: JSON.stringify(arg),
       }).catch(console.error)
-    }
+    },
   )
   return trigger
 }

@@ -4,7 +4,12 @@ import csv from 'csv-parser'
 import Parser from 'rss-parser'
 import { SITE_METADATA } from '~/data/site-metadata'
 import { upsertBooks, upsertManyMovies } from '~/db/queries'
-import { type InsertBook, type InsertMovie, insertBookSchema, insertMovieSchema } from '~/db/schema'
+import {
+  type InsertBook,
+  type InsertMovie,
+  insertBookSchema,
+  insertMovieSchema,
+} from '~/db/schema'
 import type { GoodreadsBook, ImdbMovie, OmdbMovie } from '~/types/data'
 
 let parser = new Parser<{ [key: string]: unknown }, GoodreadsBook>({
@@ -61,14 +66,19 @@ export async function seedBooks() {
           })
           validBooks.push(validatedBook)
         } catch (error: unknown) {
-          console.log(`❌ Invalid book data for "${book.title}":`, error?.[0]?.message)
+          console.log(
+            `❌ Invalid book data for "${book.title}":`,
+            error?.[0]?.message,
+          )
         }
       }
 
       if (validBooks.length > 0) {
         try {
           let savedBooks = await upsertBooks(validBooks)
-          console.log(`📚 ${savedBooks.length}/${data.items.length} books saved to database.`)
+          console.log(
+            `📚 ${savedBooks.length}/${data.items.length} books saved to database.`,
+          )
         } catch (error) {
           console.error(`❌ Error saving books to database: ${error.message}`)
         }
@@ -83,7 +93,11 @@ export async function seedBooks() {
   }
 }
 
-const IMDB_CSV_FILE_PATH = path.join(process.cwd(), 'scripts', 'imdb-movies.csv')
+const IMDB_CSV_FILE_PATH = path.join(
+  process.cwd(),
+  'scripts',
+  'imdb-movies.csv',
+)
 async function seedMovies() {
   console.log('Processing IMDB movies...')
   if (!fs.existsSync(IMDB_CSV_FILE_PATH)) {
@@ -111,11 +125,13 @@ async function seedMovies() {
                   .replace(/(\(.*\))/g, '')
                   .trim()
                   .toLowerCase()
-                  .replace(/(\s)([a-z])/g, (_match, _$1, $2) => $2.toUpperCase())
+                  .replace(/(\s)([a-z])/g, (_match, _$1, $2) =>
+                    $2.toUpperCase(),
+                  )
               }
               return newHeaderName
             },
-          })
+          }),
         )
         .on('data', async (mv: ImdbMovie) => {
           imdbMovies.push(mv)
@@ -136,7 +152,7 @@ async function seedMovies() {
                     headers: {
                       'Content-Type': 'application/json',
                     },
-                  }
+                  },
                 )
                 let omdbMovie: OmdbMovie = await res.json()
                 movies.push({
@@ -157,7 +173,7 @@ async function seedMovies() {
                       value: r.Value,
                     })) || [],
                 })
-              })
+              }),
             )
 
             // Validate movies data using Zod schema
@@ -171,17 +187,25 @@ async function seedMovies() {
                 })
                 validMovies.push(validatedMovie)
               } catch (error: unknown) {
-                console.log(`❌ Invalid movie data for "${movie.title}":`, error)
+                console.log(
+                  `❌ Invalid movie data for "${movie.title}":`,
+                  error,
+                )
               }
             }
 
             if (validMovies.length > 0) {
               try {
                 let savedMovies = await upsertManyMovies(validMovies)
-                console.log(`🎬 ${savedMovies.length}/${movies.length} movies saved to database.`)
+                console.log(
+                  `🎬 ${savedMovies.length}/${movies.length} movies saved to database.`,
+                )
               } catch (error: unknown) {
-                let errorMessage = error instanceof Error ? error.message : String(error)
-                console.error(`❌ Error saving movies to database: ${errorMessage}`)
+                let errorMessage =
+                  error instanceof Error ? error.message : String(error)
+                console.error(
+                  `❌ Error saving movies to database: ${errorMessage}`,
+                )
               }
             } else {
               console.log('🎬 No valid movies to save.')

@@ -1,6 +1,12 @@
 'use client'
 
-import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react'
+import {
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems,
+  Transition,
+} from '@headlessui/react'
 import clsx from 'clsx'
 import { ChevronDown } from 'lucide-react'
 import { Fragment } from 'react'
@@ -38,8 +44,12 @@ export const RATES: {
 
 export type RateType = '10' | '9' | '8' | '7' | '<=6'
 
-export function RateFilter({ rate, type }: { rate: RateType; type: TitleType }) {
-  let { label, value: selectedValue } = RATES.find(({ value }) => value === rate) || RATES[0]
+export function RateFilter({
+  rate,
+  type,
+}: { rate: RateType; type: TitleType }) {
+  let { label, value: selectedValue } =
+    RATES.find(({ value }) => value === rate) || RATES[0]
   return (
     <div className="flex items-center">
       <Menu as="div" className="relative inline-block text-left">

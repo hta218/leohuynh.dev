@@ -46,7 +46,11 @@ export function CopyCodeButton({
       ])}
       onClick={handleCopy}
     >
-      {copied ? <Check className="h-4.5 w-4.5" /> : <Copy className="h-4.5 w-4.5" />}
+      {copied ? (
+        <Check className="h-4.5 w-4.5" />
+      ) : (
+        <Copy className="h-4.5 w-4.5" />
+      )}
     </button>
   )
 }

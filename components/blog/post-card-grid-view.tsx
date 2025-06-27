@@ -23,7 +23,11 @@ export function PostCardGridView({ post }: { post: CoreContent<Blog> }) {
           ])}
         >
           <Image
-            src={images && images.length > 0 ? images[0] : SITE_METADATA.socialBanner}
+            src={
+              images && images.length > 0
+                ? images[0]
+                : SITE_METADATA.socialBanner
+            }
             alt={title}
             width={600}
             height={400}

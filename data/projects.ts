@@ -52,7 +52,8 @@ export const PROJECTS: Project[] = [
   {
     type: 'work',
     title: 'FoxKit AIO Upsell Cross‑sell',
-    description: 'The upsells and boost conversion tools that is built to support Minimog theme.',
+    description:
+      'The upsells and boost conversion tools that is built to support Minimog theme.',
     imgSrc: '/static/images/sale-price-tag-96.png',
     url: 'https://apps.shopify.com/foxkit?ref=leohuynh.dev',
     builtWith: ['KoaJS', 'JWT', 'MongoDB', 'Polaris'],

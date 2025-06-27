@@ -58,9 +58,16 @@ export async function generateRssFeed() {
   if (publishPosts.length > 0 || publishSnippets.length > 0) {
     // RSS for tags
     for (let tag of Object.keys(tagData)) {
-      let filteredPosts = blogs.filter((p) => p.tags.map((t) => slug(t)).includes(tag))
-      let filteredSnippets = snippets.filter((s) => s.tags.map((t) => slug(t)).includes(tag))
-      let rss = generateRss([...filteredPosts, ...filteredSnippets], `tags/${tag}/feed.xml`)
+      let filteredPosts = blogs.filter((p) =>
+        p.tags.map((t) => slug(t)).includes(tag),
+      )
+      let filteredSnippets = snippets.filter((s) =>
+        s.tags.map((t) => slug(t)).includes(tag),
+      )
+      let rss = generateRss(
+        [...filteredPosts, ...filteredSnippets],
+        `tags/${tag}/feed.xml`,
+      )
       let rssPath = path.join('public', 'tags', tag)
       mkdirSync(rssPath, { recursive: true })
       writeFileSync(path.join(rssPath, RSS_PAGE), rss)

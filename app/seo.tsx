@@ -8,7 +8,12 @@ interface PageSEOProps {
   [key: string]: unknown
 }
 
-export function genPageMetadata({ title, description, image, ...rest }: PageSEOProps): Metadata {
+export function genPageMetadata({
+  title,
+  description,
+  image,
+  ...rest
+}: PageSEOProps): Metadata {
   return {
     title,
     description: description || SITE_METADATA.description,

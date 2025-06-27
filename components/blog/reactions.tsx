@@ -70,7 +70,11 @@ export function Reactions({
           key={key}
           path={`${type}/${slug}`}
           react={{ emoji, key }}
-          value={isLoading ? '--' : stats[key] + reactions[key] - initialReactions[key]}
+          value={
+            isLoading
+              ? '--'
+              : stats[key] + reactions[key] - initialReactions[key]
+          }
           reactions={reactions[key]}
           onReact={(v) => setReactions((r) => ({ ...r, [key]: v }))}
           onSave={() => handleChange(key)}
@@ -106,7 +110,8 @@ function Reaction({
         clearTimeout(reactingTimeoutId)
       }
       setReacting(true)
-      let newReactions = reactions >= MAX_REACTIONS ? MAX_REACTIONS : reactions + 1
+      let newReactions =
+        reactions >= MAX_REACTIONS ? MAX_REACTIONS : reactions + 1
       onReact(newReactions)
       if (countRef.current) {
         if (reactions >= MAX_REACTIONS) {
@@ -149,7 +154,7 @@ function Reaction({
             'absolute inset-0',
             'font-semibold text-gray-600 dark:text-gray-300',
             'transition-all',
-            reacting ? '-translate-y-6 opacity-0' : 'translate-y-0 opacity-100'
+            reacting ? '-translate-y-6 opacity-0' : 'translate-y-0 opacity-100',
           )}
         >
           {typeof value === 'string' ? '--' : value}
@@ -160,7 +165,7 @@ function Reaction({
             'absolute inset-0',
             'text-gray-500 dark:text-gray-400',
             'transition-all',
-            reacting ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
+            reacting ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0',
           )}
         >
           +{reactions}

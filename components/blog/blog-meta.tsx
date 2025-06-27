@@ -11,7 +11,13 @@ type BlogMetaProps = {
   readingTime: ReturnType<typeof readingTime>
 }
 
-export function BlogMeta({ date, lastmod, type, slug, readingTime }: BlogMetaProps) {
+export function BlogMeta({
+  date,
+  lastmod,
+  type,
+  slug,
+  readingTime,
+}: BlogMetaProps) {
   return (
     <dl>
       <dt className="sr-only">Published on</dt>

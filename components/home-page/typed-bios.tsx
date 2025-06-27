@@ -74,7 +74,8 @@ export function TypedBios() {
           I love playing chess. <Twemoji emoji="chess-pawn" />
         </li>
         <li>
-          I love playing video games, PES is my favorite one. <Twemoji emoji="video-game" />.
+          I love playing video games, PES is my favorite one.{' '}
+          <Twemoji emoji="video-game" />.
         </li>
       </ul>
       <span ref={el} className="text-neutral-900 dark:text-neutral-200" />

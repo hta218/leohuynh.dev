@@ -9,7 +9,7 @@ export function Greeting() {
         'text-[40px] leading-[60px] md:text-[68px] md:leading-[100px]',
         'bg-clip-text text-transparent',
         'bg-linear-to-l from-yellow-500 to-green-600',
-        'dark:bg-linear-to-l dark:from-emerald-500 dark:to-lime-600'
+        'dark:bg-linear-to-l dark:from-emerald-500 dark:to-lime-600',
       )}
     >
       Howdy, fellow! <Twemoji emoji="waving-hand" size="base" />

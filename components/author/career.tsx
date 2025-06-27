@@ -20,11 +20,15 @@ const EXPERIENCES = [
         <ul className="[&>li]:my-2 [&>li]:pl-0">
           <li>
             Building a smart{' '}
-            <a target="_blank" rel="noopener noreferrer" href="https://weaverse.io/demo">
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://weaverse.io/demo"
+            >
               Shopify Hydrogen Theme Customizer
             </a>{' '}
-            to help creators build their own high quality and high performance headless storefronts
-            easily.
+            to help creators build their own high quality and high performance
+            headless storefronts easily.
           </li>
         </ul>
       )
@@ -51,7 +55,8 @@ const EXPERIENCES = [
             >
               Minimog
             </a>{' '}
-            - a multipurpose Shopify Theme (top best selling templates on Envato Market)
+            - a multipurpose Shopify Theme (top best selling templates on Envato
+            Market)
           </li>
           <li>
             Built{' '}
@@ -62,7 +67,8 @@ const EXPERIENCES = [
             >
               Fox Kit Shopify App
             </a>{' '}
-            - The upsells and boost conversion tool built to support Minimog theme
+            - The upsells and boost conversion tool built to support Minimog
+            theme
           </li>
         </ul>
       )
@@ -86,7 +92,11 @@ const EXPERIENCES = [
           </li>
           <li>
             Built{' '}
-            <a target="_blank" rel="noopener noreferrer" href="https://coccoc.com/webhp">
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://coccoc.com/webhp"
+            >
               Coc Coc's newsfeed
             </a>
           </li>
@@ -164,7 +174,9 @@ const EXPERIENCES = [
             </a>{' '}
             - a picture puzzle game made by pygame (Python)
           </li>
-          <li>Mentored Python fundamentals and Python web development for newbies</li>
+          <li>
+            Mentored Python fundamentals and Python web development for newbies
+          </li>
         </ul>
       )
     },
@@ -182,12 +194,14 @@ const EXPERIENCES = [
       return (
         <ul className="[&>li]:my-2 [&>li]:pl-0">
           <li>
-            Get a good degree at <strong>School of Electrical & Electronic Engineering</strong>
+            Get a good degree at{' '}
+            <strong>School of Electrical & Electronic Engineering</strong>
           </li>
           <li>
-            And yeah! My major subject was <strong>Electronics and Telecommunications</strong>, but
-            I couldn't find interest in that field. So I learned Software Engineering instead, and
-            became what I am today.
+            And yeah! My major subject was{' '}
+            <strong>Electronics and Telecommunications</strong>, but I couldn't
+            find interest in that field. So I learned Software Engineering
+            instead, and became what I am today.
           </li>
         </ul>
       )
@@ -207,7 +221,10 @@ export function CareerTimeline() {
   )
 }
 
-function TimelineItem({ exp, last }: { exp: (typeof EXPERIENCES)[0]; last?: boolean }) {
+function TimelineItem({
+  exp,
+  last,
+}: { exp: (typeof EXPERIENCES)[0]; last?: boolean }) {
   let { org, title, icon, url, logo, start, end, event, details: Details } = exp
   return (
     <div
@@ -219,7 +236,7 @@ function TimelineItem({ exp, last }: { exp: (typeof EXPERIENCES)[0]; last?: bool
           'before:absolute before:top-15 before:left-9',
           'before:h-full before:w-px',
           'before:bg-gray-300 dark:before:bg-gray-500',
-        ]
+        ],
       )}
     >
       <Image
@@ -261,7 +278,9 @@ function TimelineItem({ exp, last }: { exp: (typeof EXPERIENCES)[0]; last?: bool
               href={url}
               className="line-clamp-1 w-fit font-semibold text-gray-900! no-underline hover:text-gray-900 dark:text-white! dark:hover:text-white"
             >
-              <GrowingUnderline data-umami-event={event}>{org}</GrowingUnderline>
+              <GrowingUnderline data-umami-event={event}>
+                {org}
+              </GrowingUnderline>
             </Link>
             <div className="flex items-center gap-1 pt-1 text-sm text-gray-700 dark:text-gray-200">
               <Twemoji emoji={icon} className="-mt-1!" />

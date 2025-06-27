@@ -10,7 +10,10 @@ let isProduction = process.env.NODE_ENV === 'production'
  * @param {Keys[]} keys
  * @return {*}  {Omit<Obj, Keys>}
  */
-function omit<Obj, Keys extends keyof Obj>(obj: Obj, keys: Keys[]): Omit<Obj, Keys> {
+function omit<Obj, Keys extends keyof Obj>(
+  obj: Obj,
+  keys: Keys[],
+): Omit<Obj, Keys> {
   const result = Object.assign({}, obj)
   for (let key of keys) {
     delete result[key]
@@ -35,8 +38,12 @@ export function coreContent<T extends MDXDocument>(content: T): CoreContent<T> {
  * @param {T[]} contents
  * @return {*}  {CoreContent<T>[]}
  */
-export function allCoreContent<T extends MDXDocument>(contents: T[]): CoreContent<T>[] {
+export function allCoreContent<T extends MDXDocument>(
+  contents: T[],
+): CoreContent<T>[] {
   if (isProduction)
-    return contents.map((c) => coreContent(c)).filter((c) => !('draft' in c && c.draft === true))
+    return contents
+      .map((c) => coreContent(c))
+      .filter((c) => !('draft' in c && c.draft === true))
   return contents.map((c) => coreContent(c))
 }

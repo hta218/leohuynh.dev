@@ -34,16 +34,19 @@ export function AuthorLayout({ children }: Props) {
                 Hi there <Twemoji emoji="waving-hand" />
               </h2>
               <p>
-                I'm <strong>Tuan Anh Huynh</strong> (alias <strong>Leo</strong> at work), a software
-                engineer from <strong>Vietnam</strong>. I have a passion for all things{' '}
-                <strong>Javascript</strong>. I enjoy building eCommerce software and stuff related
-                to web dev. I work mainly with <strong>Typescript</strong>, <strong>React</strong>,{' '}
-                <strong>NodeJS</strong>, <strong>Remix</strong>, and <strong>TailwindCSS</strong>.
+                I'm <strong>Tuan Anh Huynh</strong> (alias <strong>Leo</strong>{' '}
+                at work), a software engineer from <strong>Vietnam</strong>. I
+                have a passion for all things <strong>Javascript</strong>. I
+                enjoy building eCommerce software and stuff related to web dev.
+                I work mainly with <strong>Typescript</strong>,{' '}
+                <strong>React</strong>, <strong>NodeJS</strong>,{' '}
+                <strong>Remix</strong>, and <strong>TailwindCSS</strong>.
               </p>
               <p>
-                This blog serves as a journal for documenting and sharing the insights and knowledge
-                I've gained as a software engineer. Building, writing, and sharing things is a great
-                way for me to solidify my understanding of new concepts and ideas.
+                This blog serves as a journal for documenting and sharing the
+                insights and knowledge I've gained as a software engineer.
+                Building, writing, and sharing things is a great way for me to
+                solidify my understanding of new concepts and ideas.
               </p>
               <p>
                 I would greatly appreciate any comments and thoughts on my posts{' '}
@@ -72,29 +75,44 @@ export function AuthorLayout({ children }: Props) {
                   Next.js
                 </a>{' '}
                 and{' '}
-                <a href="https://tailwindcss.com/" target="_blank" rel="noreferrer">
+                <a
+                  href="https://tailwindcss.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   Tailwind CSS
                 </a>{' '}
                 using <strong>Tailwind Nextjs Starter Blog</strong>.
               </p>
               <p>
                 A huge thanks to{' '}
-                <a href="https://twitter.com/timlrxx" target="_blank" rel="noreferrer">
+                <a
+                  href="https://twitter.com/timlrxx"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   Timothy Lin
                 </a>{' '}
-                for the minimal, lightweight, and super easy-to-customize blog starter.
+                for the minimal, lightweight, and super easy-to-customize blog
+                starter.
               </p>
-              <p>A few major over-engineering-changes from the original repo:</p>
+              <p>
+                A few major over-engineering-changes from the original repo:
+              </p>
               <ul>
                 <li>
-                  <Twemoji emoji="atom-symbol" /> Upgrading to <strong>React v18</strong>,{' '}
-                  <strong>Next v14</strong>
+                  <Twemoji emoji="atom-symbol" /> Upgrading to{' '}
+                  <strong>React v18</strong>, <strong>Next v14</strong>
                   (Using App router)
                 </li>
                 <li>
-                  <Twemoji emoji="party-popper" /> Adopting <strong>Typescript</strong>, committing
-                  with{' '}
-                  <a href="https://www.conventionalcommits.org/" target="_blank" rel="noreferrer">
+                  <Twemoji emoji="party-popper" /> Adopting{' '}
+                  <strong>Typescript</strong>, committing with{' '}
+                  <a
+                    href="https://www.conventionalcommits.org/"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     Conventional Commits
                   </a>
                 </li>
@@ -117,10 +135,11 @@ export function AuthorLayout({ children }: Props) {
                   colors for better contrast
                 </li>
                 <li>
-                  <Twemoji emoji="man-technologist" /> Making a lot of changes to the UI, new
-                  homepage design, adding <code>ProfileCard</code>, <code>CareerTimeline</code>{' '}
-                  components, adding <code>/snippets</code>, <code>/books</code>,{' '}
-                  <code>/movies</code> page, etc.
+                  <Twemoji emoji="man-technologist" /> Making a lot of changes
+                  to the UI, new homepage design, adding{' '}
+                  <code>ProfileCard</code>, <code>CareerTimeline</code>{' '}
+                  components, adding <code>/snippets</code>, <code>/books</code>
+                  , <code>/movies</code> page, etc.
                 </li>
                 {/* <li>
                   <Twemoji emoji="inbox-tray" /> Bumping up <code>mdx-bundler</code>,{' '}
@@ -130,17 +149,25 @@ export function AuthorLayout({ children }: Props) {
               </ul>
               <p>
                 See my{' '}
-                <a href="https://github.com/hta218/leohuynh.dev" target="_blank" rel="noreferrer">
+                <a
+                  href="https://github.com/hta218/leohuynh.dev"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   Github repository
                 </a>{' '}
                 for this blog.
               </p>
               <div>
                 <h3>Legacy versions</h3>
-                <p>I started this blog since 2019 and up until now it has 2 legacy versions:</p>
+                <p>
+                  I started this blog since 2019 and up until now it has 2
+                  legacy versions:
+                </p>
                 <ul>
                   <li>
-                    <code>v1</code> built with <strong>NextJS v13</strong> using Page router:{' '}
+                    <code>v1</code> built with <strong>NextJS v13</strong> using
+                    Page router:{' '}
                     <a
                       href="https://leohuynhdev-git-v1-leo-huynhs-projects.vercel.app/"
                       target="_blank"
@@ -151,7 +178,11 @@ export function AuthorLayout({ children }: Props) {
                   </li>
                   <li>
                     <code>v0</code> built with <strong>Gatsby</strong>:{' '}
-                    <a href="https://leo-blog-legacy.vercel.app/" target="_blank" rel="noreferrer">
+                    <a
+                      href="https://leo-blog-legacy.vercel.app/"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
                       https://leo-blog-legacy.vercel.app/
                     </a>
                   </li>
@@ -162,7 +193,11 @@ export function AuthorLayout({ children }: Props) {
               <h2>Assets</h2>
               <p>
                 Most of the images in my blog are from{' '}
-                <a href="https://unsplash.com/" target="_blank" rel="noreferrer">
+                <a
+                  href="https://unsplash.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   Unsplash
                 </a>
                 , gifs from{' '}
@@ -170,7 +205,11 @@ export function AuthorLayout({ children }: Props) {
                   GIPHY
                 </a>
                 , and illustrations are from{' '}
-                <a href="https://storyset.com/" target="_blank" rel="noreferrer">
+                <a
+                  href="https://storyset.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   Storyset
                 </a>
                 .
@@ -183,8 +222,10 @@ export function AuthorLayout({ children }: Props) {
               <h2>Contact</h2>
               <p>
                 Reach out to me at{' '}
-                <a href={`mailto:${SITE_METADATA.email}`}>{SITE_METADATA.email}</a> or find me on
-                social media:
+                <a href={`mailto:${SITE_METADATA.email}`}>
+                  {SITE_METADATA.email}
+                </a>{' '}
+                or find me on social media:
               </p>
               <SocialAccounts />
             </div>

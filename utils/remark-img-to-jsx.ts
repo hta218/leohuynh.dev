@@ -20,14 +20,17 @@ export function remarkImgToJsx() {
       tree,
       // only visit p tags that contain an img element
       (node: Parent): node is Parent =>
-        node.type === 'paragraph' && node.children.some((n) => n.type === 'image'),
+        node.type === 'paragraph' &&
+        node.children.some((n) => n.type === 'image'),
       (node: Parent) => {
         let imageNodeIndex = node.children.findIndex((n) => n.type === 'image')
         let imageNode = node.children[imageNodeIndex] as ImageNode
 
         // only local files
         if (fs.existsSync(`${process.cwd()}/public${imageNode.url}`)) {
-          let dimensions = sizeOf(fs.readFileSync(`${process.cwd()}/public${imageNode.url}`))
+          let dimensions = sizeOf(
+            fs.readFileSync(`${process.cwd()}/public${imageNode.url}`),
+          )
 
           // Convert original node to next/image
           imageNode.type = 'mdxJsxFlowElement'
@@ -47,7 +50,7 @@ export function remarkImgToJsx() {
           node.type = 'div'
           node.children[imageNodeIndex] = imageNode
         }
-      }
+      },
     )
   }
 }

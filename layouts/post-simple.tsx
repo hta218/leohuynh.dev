@@ -22,7 +22,8 @@ interface PostSimpleProps {
 }
 
 export function PostSimple({ content, children }: PostSimpleProps) {
-  let { slug, date, lastmod, title, type, tags, readingTime, filePath } = content
+  let { slug, date, lastmod, title, type, tags, readingTime, filePath } =
+    content
   let postUrl = `${SITE_METADATA.siteUrl}/${type.toLowerCase()}/${slug}`
 
   return (
@@ -46,7 +47,9 @@ export function PostSimple({ content, children }: PostSimpleProps) {
           </dl>
         </div>
         <GradientDivider />
-        <div className="prose prose-lg dark:prose-invert max-w-none">{children}</div>
+        <div className="prose prose-lg dark:prose-invert max-w-none">
+          {children}
+        </div>
         <GradientDivider className="mt-1 mb-2" />
         <div className="space-y-8">
           {/* <div className="flex justify-between gap-4">

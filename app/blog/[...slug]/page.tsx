@@ -76,7 +76,9 @@ export let generateStaticParams = async () => {
   }))
 }
 
-export default async function Page(props: { params: Promise<{ slug: string[] }> }) {
+export default async function Page(props: {
+  params: Promise<{ slug: string[] }>
+}) {
   const params = await props.params
   let slug = decodeURI(params.slug.join('/'))
   // Filter out drafts in production
@@ -111,8 +113,17 @@ export default async function Page(props: { params: Promise<{ slug: string[] }> 
         // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Layout content={mainContent} authorDetails={authorDetails} next={next} prev={prev}>
-        <MDXLayoutRenderer code={post.body.code} components={MDX_COMPONENTS} toc={post.toc} />
+      <Layout
+        content={mainContent}
+        authorDetails={authorDetails}
+        next={next}
+        prev={prev}
+      >
+        <MDXLayoutRenderer
+          code={post.body.code}
+          components={MDX_COMPONENTS}
+          toc={post.toc}
+        />
       </Layout>
     </>
   )

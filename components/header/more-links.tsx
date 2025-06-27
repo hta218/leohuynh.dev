@@ -1,6 +1,12 @@
 'use client'
 
-import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react'
+import {
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems,
+  Transition,
+} from '@headlessui/react'
 import { ChevronDown } from 'lucide-react'
 import { Fragment } from 'react'
 import { GrowingUnderline } from '~/components/ui/growing-underline'
@@ -13,7 +19,10 @@ export function MoreLinks() {
     <div className="flex items-center">
       <Menu as="div" className="relative inline-block text-left">
         <MenuButton aria-label="More links" className="px-3 py-1 font-medium">
-          <GrowingUnderline data-umami-event="nav-more-links" className="flex items-center gap-1">
+          <GrowingUnderline
+            data-umami-event="nav-more-links"
+            className="flex items-center gap-1"
+          >
             <span>More</span>
             <ChevronDown strokeWidth={1.5} size={20} />
           </GrowingUnderline>
@@ -38,7 +47,9 @@ export function MoreLinks() {
                       onClick={close}
                     >
                       <Twemoji emoji={emoji} />
-                      <span data-umami-event={`nav-${href.replace('/', '')}`}>{title}</span>
+                      <span data-umami-event={`nav-${href.replace('/', '')}`}>
+                        {title}
+                      </span>
                     </Link>
                   )}
                 </MenuItem>

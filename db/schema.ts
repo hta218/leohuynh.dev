@@ -24,7 +24,7 @@ export let statsTable = pgTable(
     ideas: integer().notNull().default(0),
     bullseyes: integer().notNull().default(0),
   },
-  ({ type, slug }) => [primaryKey({ columns: [type, slug] })]
+  ({ type, slug }) => [primaryKey({ columns: [type, slug] })],
 )
 
 export let booksTable = pgTable('books', {

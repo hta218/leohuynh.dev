@@ -1,16 +1,14 @@
-@import 'tailwindcss';
-@import './typography.css';
+@import "tailwindcss";
+@import "./typography.css";
 @plugin "@tailwindcss/typography";
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme inline {
-  --font-sans:
-    var(--font-nunito), ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-    'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-sans: var(--font-nunito), ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-greeting: var(--font-playpen-sans);
-  --font-mono:
-    var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, 'SF Mono', Consolas,
-    'Liberation Mono', Menlo, monospace;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular,
+    "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
 }
 
 @theme {
@@ -100,7 +98,12 @@
     inset -4px 0 0 white, inset -5px 0 0 #dbdbdb, inset -6px 0 0 white, inset -7px 0 0 #dbdbdb,
     inset -8px 0 0 white, inset -9px 0 0 #dbdbdb;
   --shadow-mondegreen:
-    5px 5px rgba(0, 98, 90, 0.4), 10px 10px rgba(0, 98, 90, 0.3), 15px 15px rgba(0, 98, 90, 0.2),
+    5px 5px rgba(0, 98, 90, 0.4), 10px 10px rgba(0, 98, 90, 0.3), 15px 15px rgba(
+      0,
+      98,
+      90,
+      0.2
+    ),
     20px 20px rgba(0, 98, 90, 0.1), 25px 25px rgba(0, 98, 90, 0.05);
 
   --color-primary-50: #eef2ff;
@@ -143,7 +146,7 @@
     border-color: var(--color-gray-200, currentcolor);
   }
   button:not(:disabled),
-  [role='button']:not(:disabled) {
+  [role="button"]:not(:disabled) {
     @apply cursor-pointer;
   }
   code,

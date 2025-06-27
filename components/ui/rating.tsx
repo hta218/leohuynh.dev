@@ -1,7 +1,10 @@
 import { clsx } from 'clsx'
 import { Star } from 'lucide-react'
 
-export function Rating({ rating, className }: { rating: string; className?: string }) {
+export function Rating({
+  rating,
+  className,
+}: { rating: string; className?: string }) {
   if (rating !== '0') {
     return (
       <span

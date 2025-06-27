@@ -5,7 +5,10 @@ import { Image, Zoom } from '~/components/ui/image'
 import { Link } from '~/components/ui/link'
 import { capitalize, kebabCaseToPlainText } from '~/utils/misc'
 
-export function Banner({ banner, className }: { banner: string; className?: string }) {
+export function Banner({
+  banner,
+  className,
+}: { banner: string; className?: string }) {
   let [path, author, filename] = banner.split('__')
   let handle = path.split('/').pop() || ''
   return (
@@ -22,7 +25,9 @@ export function Banner({ banner, className }: { banner: string; className?: stri
       <Zoom>
         <Image
           src={banner}
-          alt={capitalize(kebabCaseToPlainText(handle)) || 'Article banner photo'}
+          alt={
+            capitalize(kebabCaseToPlainText(handle)) || 'Article banner photo'
+          }
           width={1600}
           height={900}
           className="h-auto w-full rounded-lg"
@@ -44,12 +49,22 @@ function Credit({ author, id, className }: CreditProps) {
     return (
       <div className={clsx('text-sm italic', className)}>
         Photo by{' '}
-        <Link className="font-semibold" href={`https://unsplash.com/@${author}`}>
-          <GrowingUnderline data-umami-event="banner-author">@{author}</GrowingUnderline>
+        <Link
+          className="font-semibold"
+          href={`https://unsplash.com/@${author}`}
+        >
+          <GrowingUnderline data-umami-event="banner-author">
+            @{author}
+          </GrowingUnderline>
         </Link>{' '}
         on{' '}
-        <Link className="font-semibold" href={`https://unsplash.com/photos/${id}`}>
-          <GrowingUnderline data-umami-event="banner-unsplash">Unsplash</GrowingUnderline>
+        <Link
+          className="font-semibold"
+          href={`https://unsplash.com/photos/${id}`}
+        >
+          <GrowingUnderline data-umami-event="banner-unsplash">
+            Unsplash
+          </GrowingUnderline>
         </Link>
       </div>
     )

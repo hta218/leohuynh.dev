@@ -27,7 +27,10 @@ export function BookCard({ book }: { book: SelectBook }) {
               ) : (
                 <h3>{book.title}</h3>
               )}
-              <Rating rating={book.userRating} className="hidden md:inline-flex" />
+              <Rating
+                rating={book.userRating}
+                className="hidden md:inline-flex"
+              />
             </div>
           </div>
           <BookDetails book={book} />
@@ -45,7 +48,8 @@ function BookMeta({ book }: { book: SelectBook }) {
   return (
     <div className="flex items-center gap-1 text-gray-600 dark:text-gray-400">
       <div className="flex items-center gap-1">
-        <Twemoji emoji="writing-hand" /> by <span className="font-semibold">{book.authorName}</span>
+        <Twemoji emoji="writing-hand" /> by{' '}
+        <span className="font-semibold">{book.authorName}</span>
       </div>
       <div className="hidden items-center gap-1 md:flex">
         <span>(avg. {book.averageRating}/5)</span>
@@ -54,7 +58,10 @@ function BookMeta({ book }: { book: SelectBook }) {
   )
 }
 
-function GoodreadsLink({ url, className }: { url?: string | null; className?: string }) {
+function GoodreadsLink({
+  url,
+  className,
+}: { url?: string | null; className?: string }) {
   if (url) {
     return (
       <Link href={url} className={className}>

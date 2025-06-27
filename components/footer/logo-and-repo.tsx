@@ -11,7 +11,10 @@ import { fetcher } from '~/utils/misc'
 
 export function LogoAndRepo() {
   let siteRepo = SITE_METADATA.siteRepo.replace('https://github.com/', '')
-  let { data: repo } = useSWR<GithubRepository>(`/api/github?repo=${siteRepo}`, fetcher)
+  let { data: repo } = useSWR<GithubRepository>(
+    `/api/github?repo=${siteRepo}`,
+    fetcher,
+  )
 
   return (
     <div className="flex items-center">
@@ -32,7 +35,10 @@ export function LogoAndRepo() {
             className="mr-2 text-indigo-700 dark:text-indigo-400"
             title={repo.lastCommit.message}
           >
-            <GrowingUnderline data-umami-event="repo-last-commit" className="flex items-center">
+            <GrowingUnderline
+              data-umami-event="repo-last-commit"
+              className="flex items-center"
+            >
               {repo.lastCommit.abbreviatedOid}
             </GrowingUnderline>
           </Link>
@@ -50,7 +56,12 @@ function CommitStatus({ status }: { status: CommitState }) {
       return <CheckCheck size={16} strokeWidth={2} className="text-green-700" />
     case 'PENDING':
       return (
-        <Circle size={12} strokeWidth={1.5} fill="green" className="animate-pulse text-[green]" />
+        <Circle
+          size={12}
+          strokeWidth={1.5}
+          fill="green"
+          className="animate-pulse text-[green]"
+        />
       )
     case 'ERROR':
     case 'FAILURE':

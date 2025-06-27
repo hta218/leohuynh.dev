@@ -21,16 +21,20 @@ export default async function MoviesPage() {
         description={
           <>
             <p>
-              This is where I log all the movies and TV series I’ve watched. I’m a huge fan of{' '}
-              <span className="font-medium">Tom Hanks</span> and{' '}
-              <span className="font-medium">Christopher Nolan</span>, so expect to see a lot of them
-              in the top spots! Anything I’ve rated 10 stars is something I absolutely love and have
-              probably rewatched many times (highly recommended). Take a look and maybe find your
+              This is where I log all the movies and TV series I’ve watched. I’m
+              a huge fan of <span className="font-medium">Tom Hanks</span> and{' '}
+              <span className="font-medium">Christopher Nolan</span>, so expect
+              to see a lot of them in the top spots! Anything I’ve rated 10
+              stars is something I absolutely love and have probably rewatched
+              many times (highly recommended). Take a look and maybe find your
               next favorite film!
             </p>
             <p className="mt-3 italic">
               *Data is exported from my{' '}
-              <Link href={SITE_METADATA.imdbRatingsList} className="font-medium">
+              <Link
+                href={SITE_METADATA.imdbRatingsList}
+                className="font-medium"
+              >
                 <GrowingUnderline data-umami-event="goodreads-feed" active>
                   IMDB ratings list
                 </GrowingUnderline>

@@ -18,7 +18,9 @@ export function Footer() {
       >
         <div className="col-span-1 space-y-4 xl:col-span-2">
           <LogoAndRepo />
-          <div className="text-gray-500 italic dark:text-gray-400">{SITE_METADATA.description}</div>
+          <div className="text-gray-500 italic dark:text-gray-400">
+            {SITE_METADATA.description}
+          </div>
           <div className="pt-4">
             <div className="flex gap-8 py-1.5 md:gap-20">
               <div className="flex items-center">

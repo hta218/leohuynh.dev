@@ -18,10 +18,17 @@ interface ListLayoutProps {
   snippets: CoreContent<Snippet>[]
 }
 
-export function ListLayoutWithTags({ title, description, posts, snippets }: ListLayoutProps) {
+export function ListLayoutWithTags({
+  title,
+  description,
+  posts,
+  snippets,
+}: ListLayoutProps) {
   let hasBlogs = posts.length > 0
   let hasSnippets = snippets.length > 0
-  let [view, setView] = useState<'blogs' | 'snippets'>(hasBlogs ? 'blogs' : 'snippets')
+  let [view, setView] = useState<'blogs' | 'snippets'>(
+    hasBlogs ? 'blogs' : 'snippets',
+  )
 
   return (
     <Container className="pt-4 lg:pt-12">
@@ -41,7 +48,7 @@ export function ListLayoutWithTags({ title, description, posts, snippets }: List
                   'underline-offset-4',
                   view === 'blogs'
                     ? 'underline'
-                    : 'text-gray-400 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100'
+                    : 'text-gray-400 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100',
                 )}
                 onClick={() => setView('blogs')}
               >
@@ -56,7 +63,7 @@ export function ListLayoutWithTags({ title, description, posts, snippets }: List
                   'underline-offset-4',
                   view === 'snippets'
                     ? 'underline'
-                    : 'text-gray-400 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100'
+                    : 'text-gray-400 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100',
                 )}
                 onClick={() => setView('snippets')}
               >
@@ -98,7 +105,9 @@ function TagsList() {
             return (
               <li key={t} className="flex items-center gap-0.5">
                 <Tag text={t} size="md" />
-                <span className="text-gray-600 dark:text-gray-300">({tagCounts[t]})</span>
+                <span className="text-gray-600 dark:text-gray-300">
+                  ({tagCounts[t]})
+                </span>
               </li>
             )
           })}

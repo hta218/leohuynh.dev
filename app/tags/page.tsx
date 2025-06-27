@@ -26,7 +26,9 @@ export default async function Page() {
             return (
               <div key={t} className="flex items-center gap-0.5">
                 <Tag text={t} size="md" />
-                <span className="text-gray-600 dark:text-gray-300">({tagCounts[t]})</span>
+                <span className="text-gray-600 dark:text-gray-300">
+                  ({tagCounts[t]})
+                </span>
               </div>
             )
           })}

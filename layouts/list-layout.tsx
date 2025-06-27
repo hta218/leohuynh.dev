@@ -35,7 +35,11 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
         {prevPage ? (
           <Link
             className="cursor-pointer"
-            href={currentPage - 1 === 1 ? `/${basePath}/` : `/${basePath}/page/${currentPage - 1}`}
+            href={
+              currentPage - 1 === 1
+                ? `/${basePath}/`
+                : `/${basePath}/page/${currentPage - 1}`
+            }
             rel="prev"
           >
             <GrowingUnderline className="inline-flex items-center gap-2">
@@ -44,7 +48,11 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
             </GrowingUnderline>
           </Link>
         ) : (
-          <button type="button" className="cursor-auto disabled:opacity-50" disabled={!prevPage}>
+          <button
+            type="button"
+            className="cursor-auto disabled:opacity-50"
+            disabled={!prevPage}
+          >
             <GrowingUnderline className="inline-flex items-center gap-2">
               <ArrowLeft className="h-4 w-4" />
               <span>Previous</span>
@@ -55,14 +63,22 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
           {currentPage} / {totalPages}
         </span>
         {nextPage ? (
-          <Link className="cursor-pointer" href={`/${basePath}/page/${currentPage + 1}`} rel="next">
+          <Link
+            className="cursor-pointer"
+            href={`/${basePath}/page/${currentPage + 1}`}
+            rel="next"
+          >
             <GrowingUnderline className="inline-flex items-center gap-2">
               <span>Next</span>
               <ArrowRight className="h-4 w-4" />
             </GrowingUnderline>
           </Link>
         ) : (
-          <button type="button" className="cursor-auto disabled:opacity-50" disabled={!nextPage}>
+          <button
+            type="button"
+            className="cursor-auto disabled:opacity-50"
+            disabled={!nextPage}
+          >
             <GrowingUnderline className="inline-flex items-center gap-2">
               <span>Next</span>
               <ArrowRight className="h-4 w-4" />
@@ -88,7 +104,9 @@ export function ListLayout({
 
   // If initialDisplayPosts exist, display it if no searchValue is specified
   let displayPosts =
-    initialDisplayPosts.length > 0 && !searchValue ? initialDisplayPosts : filteredBlogPosts
+    initialDisplayPosts.length > 0 && !searchValue
+      ? initialDisplayPosts
+      : filteredBlogPosts
 
   return (
     <Container className="pt-4 lg:pt-12">
@@ -97,7 +115,10 @@ export function ListLayout({
         description="I like to write about stuff I'm into. You'll find a mix of web dev articles, tech news, and random thoughts from my life. Use the search below to filter by title."
         className="border-b border-gray-200 dark:border-gray-700"
       >
-        <SearchArticles label="Search articles" onChange={(e) => setSearchValue(e.target.value)} />
+        <SearchArticles
+          label="Search articles"
+          onChange={(e) => setSearchValue(e.target.value)}
+        />
       </PageHeader>
       {!filteredBlogPosts.length ? (
         <div className="py-10">No posts found.</div>
@@ -109,7 +130,10 @@ export function ListLayout({
         </div>
       )}
       {pagination && pagination.totalPages > 1 && !searchValue && (
-        <Pagination currentPage={pagination.currentPage} totalPages={pagination.totalPages} />
+        <Pagination
+          currentPage={pagination.currentPage}
+          totalPages={pagination.totalPages}
+        />
       )}
     </Container>
   )

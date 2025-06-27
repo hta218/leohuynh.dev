@@ -18,12 +18,13 @@ export default function Snippets() {
         description={
           <>
             <p>
-              My personal stash of code snippets that make my life easier. They’re simple and
-              reusable. Feel free to copy, tweak, and use them as you like.
+              My personal stash of code snippets that make my life easier.
+              They’re simple and reusable. Feel free to copy, tweak, and use
+              them as you like.
             </p>
             <p className="mt-3 italic">
-              *Some snippets written by me, some are from the internet (Thanks to the open source
-              community).
+              *Some snippets written by me, some are from the internet (Thanks
+              to the open source community).
             </p>
           </>
         }

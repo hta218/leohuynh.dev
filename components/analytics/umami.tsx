@@ -5,7 +5,10 @@ interface UmamiAnalyticsProps {
   src?: string
 }
 
-export function UmamiAnalytics({ websiteId, src = '/stats/script.js' }: UmamiAnalyticsProps) {
+export function UmamiAnalytics({
+  websiteId,
+  src = '/stats/script.js',
+}: UmamiAnalyticsProps) {
   if (websiteId) {
     return <Script async defer data-website-id={websiteId} src={src} />
   }

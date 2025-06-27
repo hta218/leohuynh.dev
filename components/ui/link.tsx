@@ -2,7 +2,10 @@ import type { LinkProps } from 'next/link'
 import NextLink from 'next/link'
 import type { AnchorHTMLAttributes } from 'react'
 
-export function Link({ href, ...rest }: LinkProps & AnchorHTMLAttributes<HTMLAnchorElement>) {
+export function Link({
+  href,
+  ...rest
+}: LinkProps & AnchorHTMLAttributes<HTMLAnchorElement>) {
   let isInternalLink = href?.startsWith('/')
   let isAnchorLink = href?.startsWith('#')
 
@@ -15,6 +18,12 @@ export function Link({ href, ...rest }: LinkProps & AnchorHTMLAttributes<HTMLAnc
   }
 
   return (
-    <a className="break-words" target="_blank" rel="noopener noreferrer" href={href} {...rest} />
+    <a
+      className="break-words"
+      target="_blank"
+      rel="noopener noreferrer"
+      href={href}
+      {...rest}
+    />
   )
 }

@@ -26,7 +26,18 @@ interface LayoutProps {
 }
 
 export function PostLayout({ content, next, prev, children }: LayoutProps) {
-  let { slug, images, lastmod, readingTime, date, filePath, title, tags, toc, type } = content
+  let {
+    slug,
+    images,
+    lastmod,
+    readingTime,
+    date,
+    filePath,
+    title,
+    tags,
+    toc,
+    type,
+  } = content
   let postUrl = `${SITE_METADATA.siteUrl}/${type.toLowerCase()}/${slug}`
 
   return (
@@ -58,7 +69,9 @@ export function PostLayout({ content, next, prev, children }: LayoutProps) {
         <GradientDivider className="mt-1 mb-2" />
         <div className="grid grid-cols-1 gap-12 pt-8 pb-10 lg:grid-cols-12 lg:pt-10">
           <div className="lg:col-span-8 xl:col-span-9">
-            <div className="prose dark:prose-invert lg:prose-lg max-w-none lg:pb-8">{children}</div>
+            <div className="prose dark:prose-invert lg:prose-lg max-w-none lg:pb-8">
+              {children}
+            </div>
           </div>
           <div className="hidden lg:col-span-4 lg:block xl:col-span-3">
             <div className="space-y-4 lg:sticky lg:top-24">
@@ -74,7 +87,12 @@ export function PostLayout({ content, next, prev, children }: LayoutProps) {
         </div>
         <GradientDivider />
         <div className="space-y-4">
-          <PostNav next={next} nextLabel="Next post" prev={prev} prevLabel="Previous post" />
+          <PostNav
+            next={next}
+            nextLabel="Next post"
+            prev={prev}
+            prevLabel="Previous post"
+          />
           <Comments configs={{ reactions: '0' }} />
         </div>
       </article>

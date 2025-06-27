@@ -11,7 +11,7 @@ export interface MDXLayoutRenderer {
 
 function getMDXComponent(
   code: string,
-  globals: Record<string, unknown> = {}
+  globals: Record<string, unknown> = {},
 ): React.ComponentType<MDXLayoutRenderer> {
   let scope = { React, ReactDOM, _jsx_runtime, ...globals }
   let fn = new Function(...Object.keys(scope), code)
@@ -23,7 +23,7 @@ function getMDXComponent(
 // Copy of https://github.com/contentlayerdev/contentlayer/blob/main/packages/next-contentlayer/src/hooks/useMDXComponent.ts
 export function useMDXComponent(
   code?: string,
-  globals: Record<string, unknown> = {}
+  globals: Record<string, unknown> = {},
 ): React.ComponentType<MDXLayoutRenderer> {
   if (!code) {
     return () => <></>
@@ -31,7 +31,11 @@ export function useMDXComponent(
   return React.useMemo(() => getMDXComponent(code, globals), [code, globals])
 }
 
-export function MDXLayoutRenderer({ code, components, ...rest }: MDXLayoutRenderer) {
+export function MDXLayoutRenderer({
+  code,
+  components,
+  ...rest
+}: MDXLayoutRenderer) {
   let Mdx = useMDXComponent(code)
   return <Mdx components={components} {...rest} />
 }

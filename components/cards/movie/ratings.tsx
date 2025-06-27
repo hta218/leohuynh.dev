@@ -4,7 +4,9 @@ import type { SelectMovie } from '~/db/schema'
 
 export function Ratings({ movie }: { movie: SelectMovie }) {
   let { imdbRating, ratings, url, title, numVotes } = movie
-  let rottenTomatoRating = ratings.find(({ source }) => source === 'Rotten Tomatoes')
+  let rottenTomatoRating = ratings.find(
+    ({ source }) => source === 'Rotten Tomatoes',
+  )
   let rottenSearchUrl = new URL('https://www.rottentomatoes.com/search')
   rottenSearchUrl.searchParams.set('search', title)
 
@@ -19,8 +21,15 @@ export function Ratings({ movie }: { movie: SelectMovie }) {
           </span>
         </span>
       </Link>
-      <Link href={rottenSearchUrl.toString()} className="flex items-center gap-1.5 md:gap-2">
-        <Brand name="RottenTomatoes" as="icon" className="h-5 w-5 md:h-6 md:w-6" />
+      <Link
+        href={rottenSearchUrl.toString()}
+        className="flex items-center gap-1.5 md:gap-2"
+      >
+        <Brand
+          name="RottenTomatoes"
+          as="icon"
+          className="h-5 w-5 md:h-6 md:w-6"
+        />
         <span>{rottenTomatoRating?.value || 'N/A'}</span>
       </Link>
     </div>

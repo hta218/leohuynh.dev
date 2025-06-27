@@ -1,6 +1,12 @@
 'use client'
 
-import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react'
+import {
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems,
+  Transition,
+} from '@headlessui/react'
 import clsx from 'clsx'
 import { ChevronDown } from 'lucide-react'
 import { Fragment } from 'react'
@@ -32,7 +38,10 @@ export const TITLE_TYPES: {
 
 export type TitleType = 'movie' | 'tv-series' | 'all'
 
-export function TitleTypeFilter({ type, rate }: { type: TitleType; rate: RateType }) {
+export function TitleTypeFilter({
+  type,
+  rate,
+}: { type: TitleType; rate: RateType }) {
   let { label, value: selectedValue } =
     TITLE_TYPES.find(({ value }) => value === type) || TITLE_TYPES[0]
   return (

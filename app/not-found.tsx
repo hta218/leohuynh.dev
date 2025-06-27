@@ -16,7 +16,8 @@ export default function NotFound() {
               <Twemoji emoji={'face-with-monocle'} />
             </p>
             <p className="mb-8">
-              But don't worry, you can find plenty of other things on my homepage.
+              But don't worry, you can find plenty of other things on my
+              homepage.
             </p>
             <Link href="/">
               <Button>Back to homepage</Button>

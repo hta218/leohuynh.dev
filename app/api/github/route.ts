@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
       { message: 'Missing repo parameter' },
       {
         status: 400,
-      }
+      },
     )
   }
   if (repo === 'undefined' || repo === 'null') {

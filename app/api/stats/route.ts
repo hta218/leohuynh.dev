@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
         { message: 'Missing `type` or `slug` parameter!' },
         {
           status: 400,
-        }
+        },
       )
     }
     let data = await getBlogStats(type, slug)
@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
       { message: 'Internal Server Error!' },
       {
         status: 500,
-      }
+      },
     )
   }
 }
@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
         { message: 'Missing `type` or `slug` parameter!' },
         {
           status: 400,
-        }
+        },
       )
     }
     let updatedStats = await updateBlogStats(type, slug, updates)

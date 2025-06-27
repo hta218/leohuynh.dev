@@ -12,7 +12,7 @@ export default function BlogPage() {
   let pageNumber = 1
   let initialDisplayPosts = posts.slice(
     POSTS_PER_PAGE * (pageNumber - 1),
-    POSTS_PER_PAGE * pageNumber
+    POSTS_PER_PAGE * pageNumber,
   )
   let pagination = {
     currentPage: pageNumber,

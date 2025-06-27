@@ -4,7 +4,11 @@ import { ProfileCard } from '~/components/cards/profile'
 import { Container } from '~/components/ui/container'
 import { Twemoji } from '~/components/ui/twemoji'
 import type { SelectBook, SelectMovie } from '~/db/schema'
-import type { CoreContent, GithubUserActivity, RecentlyPlayedData } from '~/types/data'
+import type {
+  CoreContent,
+  GithubUserActivity,
+  RecentlyPlayedData,
+} from '~/types/data'
 import { Activities } from './activities'
 import { Greeting } from './greeting'
 import { Intro } from './intro'
@@ -36,10 +40,16 @@ export function Home({
             <Intro />
             <TypedBios />
             <div className="mt-4 mb-6 md:mb-8">
-              <p>I started learning to code in 2016 and have been hooked ever since.</p>
+              <p>
+                I started learning to code in 2016 and have been hooked ever
+                since.
+              </p>
               <p>I landed my first job as a Python coding mentor in 2017.</p>
               <p>I have a passion for JS/TS, web dev, and eCommerce.</p>
-              <p>I started this blog to document and share my knowledge & experience.</p>
+              <p>
+                I started this blog to document and share my knowledge &
+                experience.
+              </p>
             </div>
             <BlogLinks />
             <p className="my-6 flex md:my-8">
