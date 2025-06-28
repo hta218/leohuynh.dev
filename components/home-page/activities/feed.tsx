@@ -33,14 +33,14 @@ export function ActivitiesFeed({
       <div className="border-t border-gray-200 dark:border-gray-700" />
       <div className="pt-2 md:pt-0 space-y-6">
         <LastPlayed recentlyPlayed={recentlyPlayed} />
+        {commit && <CommitHistory commit={commit} />}
+        {pullRequest && <PullRequest pullRequest={pullRequest} />}
         {currentlyReading && (
           <CurrentlyReading currentlyReading={currentlyReading} />
         )}
-        {pullRequest && <PullRequest pullRequest={pullRequest} />}
         {lastWatchedMovie && (
           <LastWatched lastWatchedMovie={lastWatchedMovie} />
         )}
-        {commit && <CommitHistory commit={commit} />}
       </div>
     </div>
   )
