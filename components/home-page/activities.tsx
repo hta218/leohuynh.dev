@@ -157,14 +157,14 @@ export function Activities({
   ]
 
   return (
-    <div className="space-y-8 pt-8">
+    <div className="space-y-4 md:space-y-8 pt-8">
       <div className="space-y-2">
         <h3 className="text-2xl font-bold sm:text-2xl sm:leading-10 md:text-4xl">
           Side quests and activities
         </h3>
       </div>
       <div className="border-t border-gray-200 dark:border-gray-700" />
-      <div className="space-y-6">
+      <div className="pt-2 md:pt-0 space-y-6">
         {activities.map((activity) => (
           <ActivityItem key={activity.id} activity={activity} />
         ))}
@@ -184,7 +184,7 @@ function ActivityItem({ activity }: { activity: Activity }) {
           loading="lazy"
           width="400"
           height="400"
-          className="h-auto w-20 rounded-lg object-cover"
+          className="h-auto w-16 md:w-20 rounded-lg object-cover"
           src={image}
         />
         <div className="absolute -right-1 -bottom-1 flex items-center justify-center rounded-full bg-white p-1.5 shadow-md">

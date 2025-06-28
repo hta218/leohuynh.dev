@@ -18,7 +18,7 @@ export function LatestPosts({
 }) {
   let [view, setView] = useState<'posts' | 'snippets'>('posts')
   return (
-    <div>
+    <div className="pt-8 md:pt-0">
       <div className="flex justify-between pb-4 md:pb-8">
         <div className="space-y-4">
           <h3 className="flex text-2xl font-bold sm:text-2xl sm:leading-10 md:text-4xl">
