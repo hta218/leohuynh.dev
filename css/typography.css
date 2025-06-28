@@ -6,6 +6,31 @@
     }
   }
 
+  h1 .heading-anchor {
+    @apply -ml-8 pr-1;
+    svg {
+      @apply w-7 h-7;
+    }
+  }
+  h2 .heading-anchor {
+    @apply -ml-6 pr-1;
+    svg {
+      @apply w-5 h-5;
+    }
+  }
+  h3 .heading-anchor {
+    @apply -ml-5 pr-1;
+    svg {
+      @apply w-4 h-4;
+    }
+  }
+  h4 .heading-anchor {
+    @apply -ml-4 pr-1;
+    svg {
+      @apply w-3 h-3;
+    }
+  }
+
   h1,
   h2,
   h3,
