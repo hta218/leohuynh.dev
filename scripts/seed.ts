@@ -15,6 +15,7 @@ import type {
   OmdbMovie,
 } from '~/types/data'
 
+// Export Goodreads CSV data: https://www.goodreads.com/review/import
 const GOODREADS_CSV_FILE_PATH = path.join(
   process.cwd(),
   'scripts',
