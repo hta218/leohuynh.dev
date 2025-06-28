@@ -45,7 +45,7 @@ let parser = new Parser<{ [key: string]: unknown }, GoodreadsBook>({
   },
 })
 
-export async function seedBooksUsingRss() {
+export async function seedBooksUsingRssFeed() {
   if (SITE_METADATA.goodreadsFeedUrl) {
     try {
       console.log('Parsing Goodreads RSS feed...')
@@ -59,6 +59,7 @@ export async function seedBooksUsingRss() {
           .replace(/^["|"]|["|"]$/g, '')
           .replace(/\.([a-zA-Z0-9])/g, '. $1')
         book.content = book.content.replace(/\n/g, '').replace(/\s\s+/g, ' ')
+        book.userShelves = book.userShelves || 'read'
       }
 
       // Validate books data using Zod schema
@@ -372,9 +373,9 @@ async function seedMovies() {
 }
 
 export async function seed() {
-  // await seedMovies()
+  await seedMovies()
+  await seedBooksUsingRssFeed()
   // await seedBooksByParsingCSV()
-  await seedBooksUsingRss()
 }
 
 seed()
