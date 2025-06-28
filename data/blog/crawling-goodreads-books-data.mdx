@@ -1,9 +1,9 @@
 ---
 title: 'Crawling Goodreads books data in Node.js'
-date: '2025-06-28'
+date: '2025-06-27'
 tags: ['goodreads', 'goodreads-api', 'crawling', 'rss', 'rss-parser', 'csv', 'csv-parser']
 draft: false
-summary: "Crawling Goodreads books data from user's RSS feed or CSV export and parse to JSON in Node.js"
+summary: "Learn how to extract, crawl, and convert your Goodreads books data using Node.js. This guide covers both the RSS feed and CSV export methods."
 images:
   [
     '/static/images/banners/brown-wooden-book-shelves-with-books__tama66__aT88kga0g_M.jpeg',
@@ -16,7 +16,7 @@ I've decided to crawl / scrape user's book data. There are two primary ways to d
 
 ![Goodreads API](/static/images/goodreads-api.png)
 
-Regardless of the method, the goal is to parse the data into a consistent format. Here is the target `GoodreadsBook` type definition:
+No matter which method you choose, we'll parse everything into a clean, consistent format. Here's what our final `GoodreadsBook` type looks like:
 
 ```ts:types.ts showLineNumbers
 export type GoodreadsBook = {
@@ -45,7 +45,7 @@ export type GoodreadsBook = {
 }
 ```
 
-### Method 1: Using the RSS Feed
+## Using the RSS Feed
 
 The first method is to use the [`rss-parser`](https://www.npmjs.com/package/rss-parser) package to parse the RSS feed and extract the book data.
 
@@ -126,7 +126,7 @@ for (let book of data.items) {
 // Use the parsed and prettified data as needed...
 ```
 
-### Method 2: Using a CSV Export
+## Using a CSV Export
 
 The second method involves exporting your Goodreads library as a CSV file and parsing it. This method gives you more data fields than the RSS feed.
 
@@ -224,7 +224,7 @@ let books: GoodreadsBook[] = csvBooks.map(book => {
 // Use the transformed data as needed, for example, write it to a JSON file or store in a database
 ```
 
-### RSS vs CSV
+## RSS vs CSV
 
 #### RSS Feed
 - **Pros:** Can be automated to fetch data periodically.
