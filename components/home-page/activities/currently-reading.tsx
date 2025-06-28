@@ -18,7 +18,7 @@ export function CurrentlyReading({
           loading="lazy"
           width="400"
           height="400"
-          className="h-auto w-16 md:w-20 rounded-lg object-cover"
+          className="h-auto w-16 md:w-20 rounded-r-lg object-cover"
           src={currentlyReading.bookLargeImageUrl}
         />
         <div className="absolute -right-1 -bottom-1 flex items-center justify-center rounded-full bg-white p-1.5 shadow-md">
