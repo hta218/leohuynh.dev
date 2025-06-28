@@ -2,10 +2,7 @@ import { ExternalLink, GitPullRequestArrow } from 'lucide-react'
 import { GrowingUnderline } from '~/components/ui/growing-underline'
 import { Image } from '~/components/ui/image'
 import { Link } from '~/components/ui/link'
-import type {
-  GithubPullRequestActivity,
-  GithubUserActivity,
-} from '~/types/data'
+import type { GithubPullRequestActivity } from '~/types/data'
 import { getTimeAgo } from '~/utils/misc'
 
 export function PullRequest({
@@ -13,8 +10,6 @@ export function PullRequest({
 }: {
   pullRequest: GithubPullRequestActivity
 }) {
-  if (!pullRequest) return null
-
   return (
     <div className="flex items-center gap-4">
       <div className="relative shrink-0">
@@ -51,7 +46,7 @@ export function PullRequest({
             {getTimeAgo(pullRequest.createdAt)}
           </span>
           <Link
-            href={pullRequest.repository.url}
+            href={pullRequest.url}
             className="rounded p-2 text-gray-700 transition-colors hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700"
           >
             <ExternalLink className="h-4 w-4" />

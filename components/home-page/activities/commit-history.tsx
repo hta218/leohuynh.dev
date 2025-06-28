@@ -48,7 +48,7 @@ export function CommitHistory({
             {getTimeAgo(commit.createdAt)}
           </span>
           <Link
-            href={commit.repository.url}
+            href={commit.url}
             className="rounded p-2 text-gray-700 transition-colors hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700"
           >
             <ExternalLink className="h-4 w-4" />
