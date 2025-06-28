@@ -7,6 +7,7 @@
     "build": "cross-env INIT_CWD=$PWD next build && npm run postbuild",
     "postbuild": "cross-env NODE_OPTIONS='--experimental-json-modules' tsx ./scripts/post-build.ts",
     "serve": "next start",
+    "clean": "rm -rf .next .contentlayer .cache node_modules pnpm-lock.yaml",
     "analyze": "cross-env ANALYZE=true next build",
     "lint": "next lint --fix --dir pages --dir app --dir components --dir lib --dir layouts --dir scripts",
     "biome:lint": "biome lint --write --unsafe",
