@@ -104,6 +104,7 @@ export async function getCurrentlyReading(): Promise<SelectBook> {
   let books = await db
     .select()
     .from(booksTable)
+    .where(eq(booksTable.userShelves, 'currently-reading'))
     .orderBy(desc(booksTable.pubDate))
     .limit(1)
   return books[0] || null
