@@ -23,8 +23,16 @@ export const SHELVES: {
     value: 'currently-reading',
   },
   {
+    label: 'English',
+    value: 'english',
+  },
+  {
     label: 'Read',
     value: 'read',
+  },
+  {
+    label: 'Paused',
+    value: 'paused',
   },
   {
     label: 'Abandoned',
@@ -32,7 +40,13 @@ export const SHELVES: {
   },
 ]
 
-export type ShelfType = 'all' | 'currently-reading' | 'read' | 'abandoned'
+export type ShelfType =
+  | 'all'
+  | 'currently-reading'
+  | 'english'
+  | 'read'
+  | 'paused'
+  | 'abandoned'
 
 export function ShelveSelect({ shelf }: { shelf: ShelfType }) {
   let { label, value: selectedValue } =
