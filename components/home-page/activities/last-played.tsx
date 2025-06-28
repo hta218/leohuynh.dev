@@ -28,7 +28,7 @@ export function LastPlayed({
             loading="lazy"
             width="400"
             height="400"
-            className="h-auto w-16 md:w-20 rounded-full object-cover"
+            className="h-auto w-16 md:w-20 rounded-full [animation-duration:8s] animate-spin object-cover border border-gray-300 dark:border-gray-700"
             src={song.albumImageUrl}
           />
           <div className="absolute -right-1 -bottom-1 flex items-center justify-center rounded-full bg-white p-1.5 shadow-md">
@@ -40,9 +40,6 @@ export function LastPlayed({
             <div className="min-w-0 flex-1">
               <div className="mb-1 font-medium flex gap-2">
                 <MusicWaves className="" />
-                {/* <span className="font-medium text-green-600 dark:text-green-400">
-                  Now playing:
-                </span> */}
                 <Link href={song.songUrl} className="font-semibold">
                   <GrowingUnderline>{song.title}</GrowingUnderline>
                 </Link>
