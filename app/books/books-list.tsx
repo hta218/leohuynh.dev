@@ -8,15 +8,23 @@ import { SHELVES, type ShelfType, ShelveSelect } from './shelve-select'
 export function BooksList({ books }: { books: SelectBook[] }) {
   let searchParams = useSearchParams()
   let shelf = (searchParams.get('shelf') as ShelfType) || 'all'
-  let displayBooks =
-    shelf === 'all'
-      ? books
-      : books.filter((book) => {
-          if (shelf === 'read') {
-            return book.userShelves === ''
-          }
-          return book.userShelves?.includes(shelf)
-        })
+  let displayBooks: SelectBook[] = []
+
+  switch (shelf) {
+    case 'currently-reading':
+    case 'read':
+      displayBooks = books.filter((book) => book.userShelves === shelf)
+      break
+    case 'english':
+    case 'paused':
+    case 'abandoned':
+      displayBooks = books.filter((book) => book.userShelves?.includes(shelf))
+      break
+    default:
+      displayBooks = books
+      break
+  }
+
   let { label } = SHELVES.find(({ value }) => value === shelf) || SHELVES[0]
 
   return (
