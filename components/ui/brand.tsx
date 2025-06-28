@@ -1,5 +1,6 @@
 import { Link } from '~/components/ui/link'
 import Bash from '~/icons/bash.svg'
+import Biome from '~/icons/biome.svg'
 import Commitlint from '~/icons/commitlint.svg'
 import CSS from '~/icons/css.svg'
 import Drizzle from '~/icons/drizzle.svg'
@@ -38,6 +39,7 @@ import RottenTomatoes from '~/icons/rottentomatoes.svg'
 import SemanticUI from '~/icons/semanticui.svg'
 import Shopify from '~/icons/shopify.svg'
 import Spotify from '~/icons/spotify.svg'
+import Supabase from '~/icons/supabase.svg'
 import TailwindCSS from '~/icons/tailwind.svg'
 import Turborepo from '~/icons/turborepo.svg'
 import Typescript from '~/icons/typescript.svg'
@@ -61,6 +63,14 @@ export const BrandsMap = {
   },
   Env: {
     Icon: Env,
+  },
+  Biome: {
+    Icon: Biome,
+    url: 'https://biomejs.dev',
+  },
+  Supabase: {
+    Icon: Supabase,
+    url: 'https://supabase.com',
   },
   React: {
     Icon: React,
