@@ -89,6 +89,15 @@ module.exports = () => {
       ],
       unoptimized,
     },
+    async redirects() {
+      return [
+        {
+          source: '/snippets/crawling-goodreads-books-data',
+          destination: '/blog/crawling-goodreads-books-data',
+          permanent: true,
+        },
+      ]
+    },
     async headers() {
       return [
         {
