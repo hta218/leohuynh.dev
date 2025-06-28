@@ -1,5 +1,4 @@
 import type { Blog, Snippet } from '~/.contentlayer/generated'
-import type { getRecentlyPlayed } from '~/app/api/spotify/spotify'
 import { ProfileCard } from '~/components/cards/profile'
 import { Container } from '~/components/ui/container'
 import { Twemoji } from '~/components/ui/twemoji'
@@ -9,7 +8,7 @@ import type {
   GithubUserActivity,
   RecentlyPlayedData,
 } from '~/types/data'
-import { Activities } from './activities'
+import { ActivitiesFeed } from './activities/feed'
 import { Greeting } from './greeting'
 import { Intro } from './intro'
 import { LatestPosts } from './latest-posts'
@@ -63,7 +62,7 @@ export function Home({
         </div>
       </div>
       <LatestPosts posts={posts} snippets={snippets} />
-      <Activities
+      <ActivitiesFeed
         recentlyPlayed={recentlyPlayed}
         currentlyReading={currentlyReading}
         lastWatchedMovie={lastWatchedMovie}
