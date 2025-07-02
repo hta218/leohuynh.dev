@@ -207,9 +207,10 @@ export type GithubPullRequestActivity = GithubActivity & {
   number: number
 }
 
-export type GithubUserActivity =
-  | GithubCommitActivity
-  | GithubPullRequestActivity
+export type GithubUserActivity = {
+  commit: GithubCommitActivity | null
+  pullRequest: GithubPullRequestActivity | null
+}
 
 export type MDXDocument = Document & { body: MDX }
 export type MDXDocumentDate = MDXDocument & {
