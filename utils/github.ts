@@ -1,5 +1,10 @@
 import { type GraphQlQueryResponseData, graphql } from '@octokit/graphql'
-import type { GithubRepository, GithubUserActivity } from '~/types/data'
+import type {
+  GithubCommitActivity,
+  GithubPullRequestActivity,
+  GithubRepository,
+  GithubUserActivity,
+} from '~/types/data'
 
 const HISTORY_QUERY = `
   defaultBranchRef {
@@ -105,24 +110,30 @@ export async function fetchRepoData({
 }
 
 /**
- * Fetches the latest GitHub user activity including pull requests only
+ * Fetches comprehensive user activity including the latest commit and pull request
  */
-export async function fetchUserPullRequests({
+export async function fetchGithubUserActivities({
   username,
 }: {
-  username: string
-}): Promise<GithubUserActivity[]> {
-  if (!process.env.GITHUB_API_TOKEN || !username) {
-    console.error('Missing `GITHUB_API_TOKEN` or `username`')
-    return []
+  username?: string
+}): Promise<GithubUserActivity | null> {
+  if (!username) {
+    console.error('Username is required to fetch user activities')
+    return null
+  }
+
+  if (!process.env.GITHUB_API_TOKEN) {
+    console.error('Missing `GITHUB_API_TOKEN`')
+    return null
   }
 
   try {
-    let { user }: GraphQlQueryResponseData = await graphql(
+    // Single combined query to get both user data and repository search in one request
+    let { user, search }: GraphQlQueryResponseData = await graphql(
       `
-        query userActivity($username: String!) {
+        query userActivityAndCommits($username: String!, $searchQuery: String!) {
           user(login: $username) {
-            pullRequests(first: 10, orderBy: { field: CREATED_AT, direction: DESC }) {
+            pullRequests(first: 2, orderBy: { field: CREATED_AT, direction: DESC }) {
               edges {
                 node {
                   title
@@ -144,72 +155,7 @@ export async function fetchUserPullRequests({
               }
             }
           }
-        }
-      `,
-      {
-        username,
-        headers: {
-          authorization: `token ${process.env.GITHUB_API_TOKEN}`,
-        },
-      },
-    )
-
-    let activities: GithubUserActivity[] = []
-
-    // Add the latest pull request (only PRs to repositories owned by others)
-    if (user.pullRequests?.edges && user.pullRequests.edges.length > 0) {
-      for (let prEdge of user.pullRequests.edges) {
-        let pr = prEdge.node
-        // Only include PRs that are opened to repositories NOT owned by the user
-        if (pr.repository.owner.login !== username) {
-          activities.push({
-            type: 'pullRequest',
-            createdAt: pr.createdAt,
-            url: pr.url,
-            title: pr.title,
-            state: pr.state,
-            number: pr.number,
-            repository: {
-              name: pr.repository.name,
-              nameWithOwner: pr.repository.nameWithOwner,
-              url: pr.repository.url,
-              owner: {
-                avatarUrl: pr.repository.owner.avatarUrl,
-                login: pr.repository.owner.login,
-                url: pr.repository.owner.url,
-              },
-            },
-          })
-          break // Only take the first (latest) PR to external repositories
-        }
-      }
-    }
-
-    return activities
-  } catch (err) {
-    console.error('Error fetching user activity:', err)
-    return []
-  }
-}
-
-/**
- * Fetches the latest commits for a specific user across their repositories
- */
-export async function fetchUserCommits({
-  username,
-}: {
-  username: string
-}): Promise<GithubUserActivity[]> {
-  if (!process.env.GITHUB_API_TOKEN || !username) {
-    console.error('Missing `GITHUB_API_TOKEN` or `username`')
-    return []
-  }
-
-  try {
-    let { search }: GraphQlQueryResponseData = await graphql(
-      `
-        query userCommits($searchQuery: String!) {
-          search(query: $searchQuery, type: REPOSITORY, first: 20) {
+          search(query: $searchQuery, type: REPOSITORY, first: 1) {
             edges {
               node {
                 ... on Repository {
@@ -224,7 +170,7 @@ export async function fetchUserCommits({
                   defaultBranchRef {
                     target {
                       ... on Commit {
-                        history(first: 5) {
+                        history(first: 2) {
                           edges {
                             node {
                               ... on Commit {
@@ -252,6 +198,7 @@ export async function fetchUserCommits({
         }
       `,
       {
+        username,
         searchQuery: `user:${username} sort:updated-desc`,
         headers: {
           authorization: `token ${process.env.GITHUB_API_TOKEN}`,
@@ -259,8 +206,39 @@ export async function fetchUserCommits({
       },
     )
 
-    let commits: GithubUserActivity[] = []
+    let pullRequest: GithubPullRequestActivity | null = null
 
+    // Process pull requests
+    if (user?.pullRequests?.edges && user.pullRequests.edges.length > 0) {
+      for (let prEdge of user.pullRequests.edges) {
+        let pr = prEdge.node
+        // Only include PRs that are opened to repositories NOT owned by the user
+        if (pr.repository.owner.login !== username) {
+          pullRequest = {
+            type: 'pullRequest',
+            createdAt: pr.createdAt,
+            url: pr.url,
+            title: pr.title,
+            state: pr.state,
+            number: pr.number,
+            repository: {
+              name: pr.repository.name,
+              nameWithOwner: pr.repository.nameWithOwner,
+              url: pr.repository.url,
+              owner: {
+                avatarUrl: pr.repository.owner.avatarUrl,
+                login: pr.repository.owner.login,
+                url: pr.repository.owner.url,
+              },
+            },
+          }
+          break // Only take the first (latest) PR to external repositories
+        }
+      }
+    }
+
+    // Process commits
+    let commits: GithubCommitActivity[] = []
     if (search?.edges) {
       for (let repoEdge of search.edges) {
         let repo = repoEdge.node
@@ -270,7 +248,8 @@ export async function fetchUserCommits({
             // Only include commits by the specified user and filter out merge commits
             if (
               commit.author?.user?.login === username &&
-              !/^Merge pull request/i.test(commit.message.split('\n')[0])
+              !/^Merge pull request/i.test(commit.message.split('\n')[0]) &&
+              !/^Merge branch/i.test(commit.message.split('\n')[0])
             ) {
               commits.push({
                 type: 'commit',
@@ -296,45 +275,15 @@ export async function fetchUserCommits({
       }
     }
 
-    // Sort commits by date (most recent first) and return only the latest one
-    return commits
-      .sort(
+    return {
+      commit: commits.sort(
         (a, b) =>
           new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-      )
-      .slice(0, 1)
-  } catch (err) {
-    console.error('Error fetching user commits:', err)
-    return []
-  }
-}
-
-/**
- * Fetches comprehensive user activity including the latest commit and pull request
- */
-export async function getGithubUserActivities({
-  username,
-}: {
-  username?: string
-}): Promise<GithubUserActivity[]> {
-  if (!username) {
-    console.error('Username is required to fetch user activities')
-    return []
-  }
-  try {
-    let [generalActivity, commits] = await Promise.all([
-      fetchUserPullRequests({ username }),
-      fetchUserCommits({ username }),
-    ])
-
-    // Combine and sort all activities (should be max 2 items: 1 PR + 1 commit)
-    let allActivities = [...generalActivity, ...commits]
-    return allActivities.sort(
-      (a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-    )
+      )[0],
+      pullRequest,
+    }
   } catch (err) {
     console.error('Error fetching comprehensive user activity:', err)
-    return []
+    return null
   }
 }
