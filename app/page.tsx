@@ -3,7 +3,7 @@ import { Home } from '~/components/home-page'
 import { SITE_METADATA } from '~/data/site-metadata'
 import { getCurrentlyReading, getLastWatchedMovie } from '~/db/queries'
 import { allCoreContent } from '~/utils/contentlayer'
-import { getGithubUserActivities } from '~/utils/github'
+import { fetchGithubUserActivities } from '~/utils/github'
 import { sortPosts } from '~/utils/misc'
 import { getRecentlyPlayed } from './api/spotify/spotify'
 
@@ -16,7 +16,7 @@ export default async function HomePage() {
     getCurrentlyReading(),
     getLastWatchedMovie(),
     getRecentlyPlayed(),
-    getGithubUserActivities({ username: GITHUB_USER }),
+    fetchGithubUserActivities({ username: GITHUB_USER }),
   ])
   let [
     currentlyReadingBook,
@@ -46,7 +46,7 @@ export default async function HomePage() {
           : { ok: false, error: 'Failed to fetch recently played data.' }
       }
       githubActivities={
-        githubActivities.status === 'fulfilled' ? githubActivities.value : []
+        githubActivities.status === 'fulfilled' ? githubActivities.value : null
       }
     />
   )

@@ -10,7 +10,7 @@ interface LatestActivitiesProps {
   currentlyReading: SelectBook | null
   lastWatchedMovie: SelectMovie | null
   recentlyPlayed: RecentlyPlayedData
-  githubActivities: GithubUserActivity[]
+  githubActivities: GithubUserActivity | null
 }
 
 export function ActivitiesFeed({
@@ -19,10 +19,7 @@ export function ActivitiesFeed({
   recentlyPlayed,
   githubActivities,
 }: LatestActivitiesProps) {
-  let pullRequest = githubActivities.find(
-    (activity) => activity.type === 'pullRequest',
-  )
-  let commit = githubActivities.find((activity) => activity.type === 'commit')
+  let { commit, pullRequest } = githubActivities || {}
   return (
     <div className="space-y-4 md:space-y-8 pt-8">
       <div className="space-y-2">

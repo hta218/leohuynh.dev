@@ -28,7 +28,7 @@ export function Home({
   currentlyReading: SelectBook | null
   lastWatchedMovie: SelectMovie | null
   recentlyPlayed: RecentlyPlayedData
-  githubActivities: GithubUserActivity[]
+  githubActivities: GithubUserActivity | null
 }) {
   return (
     <Container as="div" className="space-y-6 pt-4 md:space-y-24 lg:pt-12">
