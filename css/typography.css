@@ -62,9 +62,9 @@
   }
 
   pre {
-    @apply m-0;
+    @apply m-0 rounded-none;
     code {
-      @apply font-medium;
+      @apply font-medium text-base;
       span {
         color: var(--shiki-light, inherit);
         font-style: var(--shiki-light-font-style, inherit);
@@ -164,17 +164,5 @@
   h5,
   h6 {
     @apply text-gray-100;
-  }
-}
-
-.prose-lg {
-  figure {
-    @apply mt-0;
-  }
-  pre {
-    @apply m-0 rounded-none;
-    code {
-      @apply text-[0.95em];
-    }
   }
 }
