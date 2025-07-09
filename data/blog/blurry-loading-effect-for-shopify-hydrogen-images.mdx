@@ -1,0 +1,231 @@
+---
+title: 'Building a Smooth Blurry Loading Effect for Images in Shopify Hydrogen'
+date: '2025-07-09'
+lastmod: '2025-07-09'
+tags: ['shopify', 'hydrogen', 'react', 'typescript', 'image-optimization', 'ui-ux']
+draft: false
+summary: 'Learn how to create a beautiful blurry loading effect for images in Shopify Hydrogen that enhances user experience while images load.'
+images:
+  [
+    '/static/images/banners/paradise-book-chapter__reddfrancisco__eY7ETwocMyU.jpeg',
+  ]
+authors: ['default']
+---
+
+Let's build a smooth blurry loading effect for images in Shopify Hydrogen! This creates a nice blur-to-sharp transition while images load, making your store feel more polished.
+
+You can see this effect in action in all pages at [pilot.weaverse.dev](https://pilot.weaverse.dev).
+
+## Setting Up the Base Component
+
+We'll extend Shopify Hydrogen's built-in Image component to leverage the types.
+Here's the basic structure:
+
+```ts:image.tsx showLineNumbers
+import { Image as HydrogenImage } from "@shopify/hydrogen";
+import type { Image as ImageType } from "@shopify/hydrogen/storefront-api-types";
+import type React from "react";
+import { forwardRef, useEffect, useRef, useState } from "react";
+import { cn } from "~/utils/cn";
+
+type Crop = "center" | "top" | "bottom" | "left" | "right";
+
+export interface ImageProps extends React.ComponentPropsWithRef<"img"> {
+  aspectRatio?: string;
+  crop?: "center" | "top" | "bottom" | "left" | "right";
+  data?: Partial<
+    ImageType & {
+      recurseIntoArrays: true;
+    }
+  >;
+  loader?: (params: {
+    src?: ImageType["url"];
+    width?: number;
+    height?: number;
+    crop?: Crop;
+  }) => string;
+  srcSetOptions?: {
+    intervals: number;
+    startingWidth: number;
+    incrementSize: number;
+    placeholderWidth: number;
+  };
+}
+```
+
+This interface extends the standard img props while adding Shopify-specific options. The `crop` prop lets you control how images are cropped, and `srcSetOptions` helps with responsive images.
+
+## Managing Loading State
+
+The key is tracking when the image finishes loading:
+
+```ts:image.tsx showLineNumbers
+export let Image = forwardRef<HTMLDivElement, ImageProps>(
+  ({ className, onLoad, ...rest }, ref) => {
+    let hydrogenImageRef = useRef<HTMLImageElement>(null);
+    let [loaded, setLoaded] = useState(false);
+
+    useEffect(() => {
+      if (hydrogenImageRef.current?.complete) {
+        setLoaded(true);
+        onLoad?.();
+      }
+    }, [onLoad]);
+    
+    return (
+      <HydrogenImage
+        // other props
+        onLoad={(e) => {
+          setLoaded(true);
+          onLoad?.(e);
+        }}
+    />
+    )
+  },
+);
+```
+
+In details:
+
+- **`hydrogenImageRef`** - Direct access to the actual img element inside Hydrogen's Image component
+- **`loaded` state** - Tracks whether our image has finished loading
+- **`useEffect`** - Handles cases where the image is already cached and loads instantly
+- **`onLoad` handler** - Updates the state and calls any parent `onLoad` handler
+
+> [!NOTE]
+> The `onLoad` called in the `useEffect` has no parameters, so if you gonna provide a custom `onLoad`
+> better check the `event` props before handling your logic.
+
+
+## Creating the Visual Effect
+
+Here I'm leveraging Tailwind CSS's [`blur`](https://tailwindcss.com/docs/filter-blur) filer utility to create the loading effect,
+and the [`transition`](https://tailwindcss.com/docs/transition-property) for smooth transitions.
+
+```ts:image.tsx showLineNumbers
+return (
+  <div
+    ref={ref}
+    className={cn(
+      "h-full w-full overflow-hidden",
+      !loaded && "animate-pulse [animation-duration:4s]",
+      className,
+    )}
+  >
+    <HydrogenImage
+      ref={hydrogenImageRef}
+      className={cn(
+        "[transition:filter_500ms_cubic-bezier(.4,0,.2,1)]",
+        "h-full max-h-full w-full object-cover object-center",
+        loaded ? "blur-0" : "blur-xl",
+      )}
+      // ... other props
+    />
+  </div>
+);
+```
+
+## Using Your New Component
+
+Here's how you'd use this in your Hydrogen store:
+
+```ts:product-card.tsx showLineNumbers
+import { Image } from "~/components/Image";
+
+function ProductCard({ product }) {
+  return (
+    <div className="product-card">
+      <Image
+        data={product.featuredImage}
+        aspectRatio="1/1"
+        className="rounded-lg"
+        sizes="(max-width: 768px) 100vw, 50vw"
+      />
+      <h3>{product.title}</h3>
+    </div>
+  );
+}
+```
+
+The image data should come from your storefront API, typically it should include `width`, `height`, `altText` and `url` properties.
+
+## Wrapping Up
+
+And that's it! <Twemoji emoji="party-popper" /> You now have a smooth, professional image loading experience that will make your Shopify Hydrogen store feel more polished.
+
+Here's the complete component code for reference:
+
+```ts:image.tsx showLineNumbers
+import { Image as HydrogenImage } from "@shopify/hydrogen";
+import type { Image as ImageType } from "@shopify/hydrogen/storefront-api-types";
+import type React from "react";
+import { forwardRef, useEffect, useRef, useState } from "react";
+import { cn } from "~/utils/cn";
+
+type Crop = "center" | "top" | "bottom" | "left" | "right";
+
+export interface ImageProps extends React.ComponentPropsWithRef<"img"> {
+  aspectRatio?: string;
+  crop?: "center" | "top" | "bottom" | "left" | "right";
+  data?: Partial<
+    ImageType & {
+      recurseIntoArrays: true;
+    }
+  >;
+  loader?: (params: {
+    src?: ImageType["url"];
+    width?: number;
+    height?: number;
+    crop?: Crop;
+  }) => string;
+  srcSetOptions?: {
+    intervals: number;
+    startingWidth: number;
+    incrementSize: number;
+    placeholderWidth: number;
+  };
+}
+
+export let Image = forwardRef<HTMLDivElement, ImageProps>(
+  ({ className, onLoad, ...rest }, ref) => {
+    let hydrogenImageRef = useRef<HTMLImageElement>(null);
+    let [loaded, setLoaded] = useState(false);
+
+    useEffect(() => {
+      if (hydrogenImageRef.current?.complete) {
+        setLoaded(true);
+        onLoad?.();
+      }
+    }, [onLoad]);
+
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          "h-full w-full overflow-hidden",
+          !loaded && "animate-pulse [animation-duration:4s]",
+          className,
+        )}
+      >
+        <HydrogenImage
+          ref={hydrogenImageRef}
+          className={cn(
+            "[transition:filter_500ms_cubic-bezier(.4,0,.2,1)]",
+            "h-full max-h-full w-full object-cover object-center",
+            loaded ? "blur-0" : "blur-xl",
+          )}
+          onLoad={(e) => {
+            setLoaded(true);
+            onLoad?.(e);
+          }}
+          {...rest}
+        />
+      </div>
+    );
+  },
+);
+```
+
+Check out the live example at [pilot.weaverse.dev](https://pilot.weaverse.dev/products) to see how it all comes together!
+
+Happy coding! <Twemoji emoji="clinking-beer-mugs" />
