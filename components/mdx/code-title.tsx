@@ -41,7 +41,9 @@ export function CodeTitle({ lang, title }: { lang: string; title: string }) {
         as="icon"
         className="h-5 w-5 shrink-0 rounded-sm"
       />
-      <span className="truncate font-mono text-sm font-medium">{title}</span>
+      <span className="truncate font-jetbrains-mono text-sm font-medium">
+        {title}
+      </span>
       <CopyCodeButton
         parent="code-title"
         className="-mr-2 ml-auto bg-transparent dark:bg-transparent"
