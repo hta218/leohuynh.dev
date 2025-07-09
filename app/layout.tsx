@@ -5,7 +5,12 @@ import 'remark-github-blockquote-alert/alert.css'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import clsx from 'clsx'
 import type { Metadata } from 'next'
-import { JetBrains_Mono, Nunito, Playpen_Sans } from 'next/font/google'
+import {
+  Geist_Mono,
+  JetBrains_Mono,
+  Nunito,
+  Playpen_Sans,
+} from 'next/font/google'
 import { UmamiAnalytics } from '~/components/analytics/umami'
 import { Footer } from '~/components/footer'
 import { Header } from '~/components/header'
@@ -27,6 +32,14 @@ const FONT_NUNITO = Nunito({
   style: ['normal', 'italic'],
   weight: ['400', '500', '600', '700', '800'],
   variable: '--font-nunito',
+})
+
+const FONT_GEIST = Geist_Mono({
+  subsets: ['latin'],
+  display: 'swap',
+  style: ['normal'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-geist',
 })
 
 const FONT_JETBRAINS_MONO = JetBrains_Mono({
@@ -90,6 +103,7 @@ export default function RootLayout({
         FONT_NUNITO.variable,
         FONT_JETBRAINS_MONO.variable,
         FONT_PLAYPEN_SANS.variable,
+        FONT_GEIST.variable,
       )}
       suppressHydrationWarning
     >
