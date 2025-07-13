@@ -38,8 +38,14 @@ export function Terminal() {
   const [theme, setTheme] = useState('solarized-light')
   const [currentBlog, setCurrentBlog] = useState<string | null>(null)
 
+  // Terminal resizing state
+  const [terminalSize, setTerminalSize] = useState({ width: 1200, height: 600 })
+  const [isResizing, setIsResizing] = useState(false)
+  const [resizeDirection, setResizeDirection] = useState<string>('')
+
   const inputRef = useRef<HTMLInputElement>(null)
   const terminalRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
 
   // Initialize terminal
   useEffect(() => {
@@ -63,6 +69,65 @@ export function Terminal() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lines.length])
+
+  // Handle terminal resizing
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isResizing || !containerRef.current) return
+
+      const rect = containerRef.current.getBoundingClientRect()
+      const minWidth = 600
+      const minHeight = 400
+      const maxWidth = window.innerWidth - 100
+      const maxHeight = window.innerHeight - 100
+
+      let newWidth = terminalSize.width
+      let newHeight = terminalSize.height
+
+      if (resizeDirection.includes('right')) {
+        newWidth = Math.max(minWidth, Math.min(maxWidth, e.clientX - rect.left))
+      }
+      if (resizeDirection.includes('left')) {
+        newWidth = Math.max(
+          minWidth,
+          Math.min(maxWidth, rect.right - e.clientX),
+        )
+      }
+      if (resizeDirection.includes('bottom')) {
+        newHeight = Math.max(
+          minHeight,
+          Math.min(maxHeight, e.clientY - rect.top),
+        )
+      }
+      if (resizeDirection.includes('top')) {
+        newHeight = Math.max(
+          minHeight,
+          Math.min(maxHeight, rect.bottom - e.clientY),
+        )
+      }
+
+      setTerminalSize({ width: newWidth, height: newHeight })
+    }
+
+    const handleMouseUp = () => {
+      setIsResizing(false)
+      setResizeDirection('')
+      document.body.style.cursor = 'default'
+      document.body.style.userSelect = 'auto'
+    }
+
+    if (isResizing) {
+      document.addEventListener('mousemove', handleMouseMove)
+      document.addEventListener('mouseup', handleMouseUp)
+      document.body.style.cursor = getResizeCursor(resizeDirection)
+      document.body.style.userSelect = 'none'
+    }
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove)
+      document.removeEventListener('mouseup', handleMouseUp)
+    }
+  }, [isResizing, resizeDirection, terminalSize])
 
   // Handle input suggestions
   useEffect(() => {
@@ -168,6 +233,25 @@ export function Terminal() {
     }
   }
 
+  const getResizeCursor = (direction: string) => {
+    switch (direction) {
+      case 'right':
+      case 'left':
+        return 'ew-resize'
+      case 'bottom':
+      case 'top':
+        return 'ns-resize'
+      case 'bottom-right':
+      case 'top-left':
+        return 'nw-resize'
+      case 'bottom-left':
+      case 'top-right':
+        return 'ne-resize'
+      default:
+        return 'default'
+    }
+  }
+
   const getFontClass = () => {
     switch (font) {
       case 'mono':
@@ -235,14 +319,94 @@ export function Terminal() {
 
   return (
     <>
-      {' '}
       <div
+        ref={containerRef}
         className={clsx(
-          'relative mx-auto w-full max-w-6xl rounded-lg border shadow-2xl',
+          'terminal-container relative mx-auto rounded-lg border shadow-2xl',
           themeClasses.bg,
           getFontClass(),
         )}
+        style={{
+          width: `${terminalSize.width}px`,
+          height: `${terminalSize.height}px`,
+          maxWidth: '95vw',
+          maxHeight: '90vh',
+        }}
+        onMouseMove={(e) => {
+          if (isResizing) return
+
+          const rect = e.currentTarget.getBoundingClientRect()
+          const x = e.clientX - rect.left
+          const y = e.clientY - rect.top
+          const edgeThreshold = 10
+
+          let cursor = 'default'
+          let direction = ''
+
+          // Check edges
+          const nearRight = x >= rect.width - edgeThreshold
+          const nearBottom = y >= rect.height - edgeThreshold
+
+          if (nearRight && nearBottom) {
+            cursor = 'nw-resize'
+            direction = 'bottom-right'
+          } else if (nearRight) {
+            cursor = 'ew-resize'
+            direction = 'right'
+          } else if (nearBottom) {
+            cursor = 'ns-resize'
+            direction = 'bottom'
+          }
+
+          e.currentTarget.style.cursor = cursor
+        }}
+        onMouseLeave={(e) => {
+          if (!isResizing) {
+            e.currentTarget.style.cursor = 'default'
+          }
+        }}
+        onMouseDown={(e) => {
+          const rect = e.currentTarget.getBoundingClientRect()
+          const x = e.clientX - rect.left
+          const y = e.clientY - rect.top
+          const edgeThreshold = 10
+
+          let direction = ''
+          const nearRight = x >= rect.width - edgeThreshold
+          const nearBottom = y >= rect.height - edgeThreshold
+
+          if (nearRight && nearBottom) {
+            direction = 'bottom-right'
+          } else if (nearRight) {
+            direction = 'right'
+          } else if (nearBottom) {
+            direction = 'bottom'
+          }
+
+          if (direction) {
+            e.preventDefault()
+            setIsResizing(true)
+            setResizeDirection(direction)
+          }
+        }}
       >
+        {/* Resize indicator in bottom-right corner */}
+        <div className="absolute bottom-1 right-1 w-3 h-3 opacity-40 pointer-events-none">
+          <svg
+            viewBox="0 0 12 12"
+            className={clsx('w-full h-full', themeClasses.text)}
+            fill="currentColor"
+            aria-label="Resize terminal"
+          >
+            <title>Resize terminal</title>
+            <path d="M12 0v12L0 12z" opacity="0.15" />
+            <path d="M8 4v8L4 8z" opacity="0.4" />
+            <path d="M12 4v8L8 8z" opacity="0.6" />
+            <path d="M8 0v4L4 4z" opacity="0.4" />
+            <path d="M12 0v4L8 4z" opacity="0.8" />
+          </svg>
+        </div>
+
         {/* Terminal Header */}
         <div className="flex items-center justify-between border-b px-4 py-3">
           <div className="flex items-center space-x-2">
@@ -270,7 +434,8 @@ export function Terminal() {
         {/* Terminal Content */}
         <div
           ref={terminalRef}
-          className="h-[60vh] min-h-[400px] overflow-y-auto p-4"
+          className="overflow-y-auto p-4"
+          style={{ height: `${terminalSize.height - 60}px` }}
           onClick={() => inputRef.current?.focus()}
         >
           <div className="space-y-1">
@@ -347,6 +512,7 @@ export function Terminal() {
           </div>
         </div>
       </div>
+
       {/* Blog Viewer Modal */}
       {currentBlogData && (
         <BlogViewer

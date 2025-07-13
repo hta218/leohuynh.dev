@@ -15,6 +15,7 @@ A beautiful, interactive terminal interface for exploring Leo's personal data an
 - **Command history** - Use up/down arrows to navigate previous commands
 - **Tab completion** - Press tab to complete suggested commands
 - **Syntax highlighting** - Different colors for commands, output, and errors
+- **Resizable window** - Drag the edges to resize the terminal (look for the resize indicator)
 
 ### 📝 Available Commands
 
@@ -92,11 +93,12 @@ Click the font icon in the terminal header to choose from:
 
 ### 🚀 Getting Started
 
-1. Visit `/terminal` on the website
+1. Visit the home page to access the terminal
 2. Type `help` to see all available commands
 3. Start exploring with commands like `whoami`, `projects`, or `blogs`
 4. Try reading blog posts with `blogs` then `read 1`
 5. Customize the appearance with the theme and font selectors
+6. Resize the terminal by dragging near the edges (look for the resize indicator in the bottom-right)
 
 ### 💡 Pro Tips
 
@@ -106,5 +108,6 @@ Click the font icon in the terminal header to choose from:
 - **Blog reading** feature provides a rich reading experience
 - Terminal is fully **keyboard accessible**
 - **Mobile friendly** - works great on phones and tablets
+- **Resizable** - drag near the edges to adjust terminal size to your preference
 
 Enjoy exploring Leo's world through the terminal! 🚀
