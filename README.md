@@ -29,6 +29,29 @@ I started this blog to document and share things I’ve learned and found useful
 - 🏗️ Type-safe database operations with [Drizzle ORM](https://orm.drizzle.team/)
 - 🔧 Code linting and formatting with [Biome](https://biomejs.dev/)
 - 🌗 Dark mode theme using [GitHub dark dimmed](https://github.blog/changelog/2021-04-14-dark-and-dimmed-themes-are-now-generally-available/) colors
+- 💻 **Interactive Terminal Interface** - Main navigation and content exploration through a terminal-like UI
+- 🪟 **Resizable Window Component** - Drag-to-resize functionality with subtle visual indicators
+
+## Terminal Interface
+
+The homepage features an interactive terminal that serves as the main interface for exploring the site. Key features include:
+
+- **Command System**: Type commands to navigate and explore content
+- **Auto-suggestions**: Real-time command suggestions as you type
+- **Command History**: Use arrow keys to navigate through command history
+- **Theme Support**: Switch between Solarized Light, Solarized Dark, and GitHub Light themes
+- **Font Options**: Choose from multiple monospace fonts (Mono, JetBrains Mono, Fira Code, Source Code Pro)
+- **Resizable Window**: Drag window edges to resize, with cursor feedback and resize indicator
+- **Blog Integration**: Read blog posts directly in the terminal interface
+
+### Architecture
+
+The terminal interface is built with a modular architecture:
+
+- **`Window` Component**: Reusable window wrapper with resize functionality, theme controls, and header
+- **`Terminal` Component**: Core terminal logic for command execution and content display
+- **Command System**: Extensible command structure with categories (info, data, system, fun)
+- **Theme System**: Consistent theming across all terminal components
 
 ## Tech Stack
 

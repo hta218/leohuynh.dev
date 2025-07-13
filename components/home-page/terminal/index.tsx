@@ -1,4 +1,5 @@
 import { Terminal } from './terminal'
+import { Window } from './window'
 
 export function TerminalHome() {
   return (
@@ -7,3 +8,6 @@ export function TerminalHome() {
     </div>
   )
 }
+
+// Export components for reuse
+export { Terminal, Window }

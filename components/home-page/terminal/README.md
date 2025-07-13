@@ -2,6 +2,26 @@
 
 A beautiful, interactive terminal interface for exploring Leo's personal data and blog content.
 
+## Architecture
+
+The terminal is built with a modular architecture for better maintainability and reusability:
+
+### Core Components
+
+- **`Window` Component** (`window.tsx`): Reusable window wrapper with resize functionality, theme controls, and header
+- **`Terminal` Component** (`terminal.tsx`): Core terminal logic for command execution and content display
+- **Command System** (`command-executor.ts`, `commands.ts`): Extensible command structure with categories
+- **Theme System**: Consistent theming across all terminal components
+
+### Supporting Components
+
+- **`suggestion.tsx`**: Command suggestion display with keyboard navigation
+- **`font-selector.tsx`**: Font selection dropdown
+- **`theme-selector.tsx`**: Theme selection dropdown  
+- **`blog-viewer.tsx`**: Modal blog post reader
+- **`history.tsx`**: Command history management
+- **`types.ts`**: TypeScript interfaces for terminal data
+
 ## Features
 
 ### 🎨 Beautiful Design
