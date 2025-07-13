@@ -12,11 +12,12 @@ import { ThemeSelector } from './theme-selector'
 import type { Command, TerminalLine } from './types'
 
 const ASCII_ART = `
-██      ███████  ██████  ██   ██ ██    ██ ██    ██ ███    ██ ██   ██     ██████  ███████ ██    ██
-██      ██      ██    ██ ██   ██ ██    ██  ██  ██  ████   ██ ██   ██     ██   ██ ██      ██    ██
-██      █████   ██    ██ ███████ ██    ██   ████   ██ ██  ██ ███████     ██   ██ █████   ██    ██
-██      ██      ██    ██ ██   ██ ██    ██    ██    ██  ██ ██ ██   ██     ██   ██ ██       ██  ██ 
-███████ ███████  ██████  ██   ██  ██████     ██    ██   ████ ██   ██  ██ ██████  ███████   ████  
+██╗     ███████╗ ██████╗ ██╗  ██╗██╗   ██╗██╗   ██╗███╗   ██╗██╗  ██╗    ██████╗ ███████╗██╗   ██╗
+██║     ██╔════╝██╔═══██╗██║  ██║██║   ██║╚██╗ ██╔╝████╗  ██║██║  ██║    ██╔══██╗██╔════╝██║   ██║
+██║     █████╗  ██║   ██║███████║██║   ██║ ╚████╔╝ ██╔██╗ ██║███████║    ██║  ██║█████╗  ██║   ██║
+██║     ██╔══╝  ██║   ██║██╔══██║██║   ██║  ╚██╔╝  ██║╚██╗██║██╔══██║    ██║  ██║██╔══╝  ╚██╗ ██╔╝
+███████╗███████╗╚██████╔╝██║  ██║╚██████╔╝   ██║   ██║ ╚████║██║  ██║    ██████╔╝███████╗ ╚████╔╝ 
+╚══════╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝ ╚═════╝    ╚═╝   ╚═╝  ╚═══╝╚═╝  ╚═╝    ╚═════╝ ╚══════╝  ╚═══╝  
 `
 
 const WELCOME_TEXT = [
@@ -100,7 +101,7 @@ export function Terminal() {
       setCurrentBlog(blogId)
     })
 
-    if (result.lines) {
+    if (result.lines && result.lines.length > 0) {
       setLines((prev) => [...prev, ...result.lines])
     }
 
@@ -234,9 +235,10 @@ export function Terminal() {
 
   return (
     <>
+      {' '}
       <div
         className={clsx(
-          'relative mx-auto max-w-5xl rounded-lg border shadow-2xl',
+          'relative mx-auto w-full max-w-6xl rounded-lg border shadow-2xl',
           themeClasses.bg,
           getFontClass(),
         )}
@@ -255,7 +257,6 @@ export function Terminal() {
               leo@leohuynh.dev: ~
             </span>
           </div>
-
           <div className="flex items-center space-x-2">
             <FontSelector
               currentFont={font}
@@ -269,7 +270,7 @@ export function Terminal() {
         {/* Terminal Content */}
         <div
           ref={terminalRef}
-          className="h-96 overflow-y-auto p-4 md:h-[500px]"
+          className="h-[60vh] min-h-[400px] overflow-y-auto p-4"
           onClick={() => inputRef.current?.focus()}
         >
           <div className="space-y-1">
@@ -278,9 +279,15 @@ export function Terminal() {
                 {line.type === 'ascii' && (
                   <pre
                     className={clsx(
-                      'text-xs leading-tight',
+                      'text-xs leading-tight font-mono overflow-x-auto whitespace-pre ascii-art',
                       themeClasses.accent,
                     )}
+                    style={{
+                      fontFamily:
+                        'monospace, "Courier New", Courier, "Lucida Console", Monaco',
+                      letterSpacing: '0',
+                      fontVariantLigatures: 'none',
+                    }}
                   >
                     {line.content}
                   </pre>
@@ -340,7 +347,6 @@ export function Terminal() {
           </div>
         </div>
       </div>
-
       {/* Blog Viewer Modal */}
       {currentBlogData && (
         <BlogViewer

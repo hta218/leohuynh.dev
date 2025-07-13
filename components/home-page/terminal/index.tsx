@@ -1,12 +1,9 @@
-import { Container } from '~/components/ui/container'
 import { Terminal } from './terminal'
 
 export function TerminalHome() {
   return (
-    <Container as="div" className="min-h-screen bg-white">
-      <div className="py-8">
-        <Terminal />
-      </div>
-    </Container>
+    <div className="min-h-screen flex items-center justify-center p-4 bg-gray-100 dark:bg-gray-900">
+      <Terminal />
+    </div>
   )
 }
