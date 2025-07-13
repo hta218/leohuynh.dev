@@ -11,6 +11,12 @@
     SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
   --font-geist-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular,
     "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+  --font-jetbrains: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular,
+    "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+  --font-fira: "Fira Code", ui-monospace, SFMono-Regular, "SF Mono", Consolas,
+    "Liberation Mono", Menlo, monospace;
+  --font-source: "Source Code Pro", ui-monospace, SFMono-Regular, "SF Mono",
+    Consolas, "Liberation Mono", Menlo, monospace;
 }
 
 @theme {

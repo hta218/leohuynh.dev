@@ -23,6 +23,12 @@ const LINKS = [
     event: 'home-link-snippets',
   },
   {
+    title: 'Terminal interface',
+    href: '/terminal',
+    emoji: 'computer',
+    event: 'home-link-terminal',
+  },
+  {
     title: 'About me & this blog',
     href: '/about',
     emoji: 'smiling-face-with-sunglasses',
