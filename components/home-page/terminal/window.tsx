@@ -162,7 +162,7 @@ export function Window({
         const rect = e.currentTarget.getBoundingClientRect()
         const x = e.clientX - rect.left
         const y = e.clientY - rect.top
-        const edgeThreshold = 10
+        const edgeThreshold = 15
 
         let cursor = 'default'
         let direction = ''
@@ -193,7 +193,7 @@ export function Window({
         const rect = e.currentTarget.getBoundingClientRect()
         const x = e.clientX - rect.left
         const y = e.clientY - rect.top
-        const edgeThreshold = 10
+        const edgeThreshold = 15
 
         let direction = ''
         const nearRight = x >= rect.width - edgeThreshold
@@ -215,7 +215,7 @@ export function Window({
       }}
     >
       {/* Resize indicator in bottom-right corner */}
-      <div className="absolute bottom-1 right-1 w-3 h-3 opacity-40 pointer-events-none">
+      <div className="absolute bottom-0 right-0 w-6 h-6 p-1 opacity-40 pointer-events-none">
         <svg
           viewBox="0 0 12 12"
           className={clsx('w-full h-full', themeClasses.text)}
