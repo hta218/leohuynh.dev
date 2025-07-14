@@ -19,8 +19,8 @@ const ASCII_ART = `
 `
 
 const WELCOME_TEXT = [
-  "welcome to leo's interactive terminal!",
-  "type 'help' to see available commands or start typing for suggestions.",
+  'howdy, fellow! welcome to my personal cli on the web.',
+  "type 'help' or '?' to see available commands or start typing for suggestions.",
   '---',
 ]
 
@@ -243,7 +243,7 @@ export function Terminal() {
                 {line.type === 'ascii' && (
                   <pre
                     className={clsx(
-                      'text-xs leading-tight font-mono overflow-x-auto whitespace-pre ascii-art',
+                      'text-xs pb-2 leading-tight font-mono overflow-x-auto whitespace-pre ascii-art',
                       themeClasses.accent,
                     )}
                     style={{
