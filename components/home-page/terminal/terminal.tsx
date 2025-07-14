@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from 'react'
 import { BlogViewer } from './blog-viewer'
 import { MOCK_BLOGS, executeCommand } from './command-executor'
 import { COMMANDS } from './commands'
-import { History } from './history'
 import { Suggestion } from './suggestion'
 import type { Command, TerminalLine } from './types'
 import { Window } from './window'
@@ -231,9 +230,8 @@ export function Terminal() {
         onThemeChange={setTheme}
         themeClasses={themeClasses}
         defaultWidth={1200}
-        defaultHeight={600}
+        defaultHeight={800}
       >
-        {/* Terminal Content */}
         <div
           ref={terminalRef}
           className="overflow-y-auto p-4 h-full"
@@ -279,7 +277,7 @@ export function Terminal() {
             ))}
 
             {/* Current Input Line */}
-            <div className="flex items-center">
+            <div className="flex items-center pt-1">
               <span className={clsx('mr-2', themeClasses.prompt)}>$</span>
               <input
                 ref={inputRef}

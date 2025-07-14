@@ -249,6 +249,7 @@ export function Window({
             onChange={onFontChange}
             theme={themeClasses}
           />
+          <div className="h-4 w-px border-r border-gray-500" />
           <ThemeSelector currentTheme={theme} onChange={onThemeChange} />
         </div>
       </div>
