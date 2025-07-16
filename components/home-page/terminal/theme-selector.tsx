@@ -20,14 +20,14 @@ export function ThemeSelector({ currentTheme, onChange }: ThemeSelectorProps) {
       <MenuButton
         className={clsx(
           'flex items-center rounded p-1 hover:bg-gray-200 dark:hover:bg-gray-800 text-sm',
-          'data-[open]:bg-gray-200',
+          'data-[open]:bg-gray-200 focus-visible:outline-0',
         )}
       >
         <Twemoji emoji="artist-palette" size="base" />
         {/* <span className="ml-1 text-gray-600">({currentTheme})</span> */}
       </MenuButton>
 
-      <MenuItems className="absolute right-0 z-10 mt-2 w-52 border border-gray-200 rounded-md bg-white focus:ring-0 py-1 shadow-lg dark:bg-gray-800">
+      <MenuItems className="absolute right-0 z-10 mt-2 w-52 border border-gray-200 rounded-md bg-white focus-visible:outline-0 py-1 shadow-lg dark:bg-gray-800">
         {THEMES.map((theme) => {
           return (
             <MenuItem key={theme.name}>
