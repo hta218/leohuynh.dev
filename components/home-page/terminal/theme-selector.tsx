@@ -1,5 +1,6 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import clsx from 'clsx'
+import { Check } from 'lucide-react'
 import { Twemoji } from '~/components/ui/twemoji'
 
 interface ThemeSelectorProps {
@@ -16,12 +17,17 @@ const THEMES = [
 export function ThemeSelector({ currentTheme, onChange }: ThemeSelectorProps) {
   return (
     <Menu as="div" className="relative">
-      <MenuButton className="flex items-center text-sm rounded p-1 hover:bg-gray-100 dark:hover:bg-gray-800">
+      <MenuButton
+        className={clsx(
+          'flex items-center rounded p-1 hover:bg-gray-200 dark:hover:bg-gray-800 text-sm',
+          'data-[open]:bg-gray-200',
+        )}
+      >
         <Twemoji emoji="artist-palette" size="base" />
         {/* <span className="ml-1 text-gray-600">({currentTheme})</span> */}
       </MenuButton>
 
-      <MenuItems className="absolute right-0 z-10 mt-2 w-48 rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 dark:bg-gray-800">
+      <MenuItems className="absolute right-0 z-10 mt-2 w-52 border border-gray-200 rounded-md bg-white focus:ring-0 py-1 shadow-lg dark:bg-gray-800">
         {THEMES.map((theme) => {
           return (
             <MenuItem key={theme.name}>
@@ -29,13 +35,14 @@ export function ThemeSelector({ currentTheme, onChange }: ThemeSelectorProps) {
                 type="button"
                 onClick={() => onChange(theme.name)}
                 className={clsx(
-                  'flex w-full items-center px-4 py-2 text-sm',
-                  currentTheme === theme.name
-                    ? 'bg-blue-50 text-blue-600 dark:bg-blue-900 dark:text-blue-300'
-                    : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700',
+                  'flex w-full items-center justify-between px-4 py-2 text-sm',
+                  'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700',
                 )}
               >
-                {theme.label}
+                <span>{theme.label}</span>
+                {currentTheme === theme.name && (
+                  <Check className="ml-2 h-4 w-4" />
+                )}
               </button>
             </MenuItem>
           )
