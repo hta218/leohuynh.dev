@@ -35,6 +35,7 @@ export function Terminal() {
   const [font, setFont] = useState('mono')
   const [theme, setTheme] = useState('solarized-light')
   const [currentBlog, setCurrentBlog] = useState<string | null>(null)
+  const [isInputFocused, setIsInputFocused] = useState(false)
 
   const inputRef = useRef<HTMLInputElement>(null)
   const terminalRef = useRef<HTMLDivElement>(null)
@@ -51,6 +52,7 @@ export function Terminal() {
   // Auto-focus input
   useEffect(() => {
     inputRef.current?.focus()
+    setIsInputFocused(true)
   }, [])
 
   // Global keydown listener to handle typing from anywhere
@@ -73,6 +75,7 @@ export function Terminal() {
       if (isCharacterKey) {
         // Focus input and scroll to bottom when user starts typing
         inputRef.current?.focus()
+        setIsInputFocused(true)
         scrollToBottom()
       }
     }
@@ -126,6 +129,27 @@ export function Terminal() {
   const scrollToBottom = () => {
     if (terminalRef.current) {
       terminalRef.current.scrollTo(0, terminalRef.current.scrollHeight)
+    }
+  }
+
+  // Function to check if input is visible
+  const isInputVisible = () => {
+    if (!terminalRef.current || !inputRef.current) return false
+
+    const terminalRect = terminalRef.current.getBoundingClientRect()
+    const inputRect = inputRef.current.getBoundingClientRect()
+
+    // Check if input is within the visible area of the terminal
+    return (
+      inputRect.bottom <= terminalRect.bottom &&
+      inputRect.top >= terminalRect.top
+    )
+  }
+
+  // Handle terminal click
+  const handleTerminalClick = () => {
+    if (isInputVisible()) {
+      inputRef.current?.focus()
     }
   }
 
@@ -279,7 +303,11 @@ export function Terminal() {
         defaultWidth={1200}
         defaultHeight={800}
       >
-        <div ref={terminalRef} className="overflow-y-auto p-4 h-full">
+        <div
+          ref={terminalRef}
+          className="overflow-y-auto p-4 h-full"
+          onClick={handleTerminalClick}
+        >
           <div className="space-y-1">
             {lines.map((line, index) => (
               <div key={`line-${index}-${line.type}`} className="relative">
@@ -322,20 +350,36 @@ export function Terminal() {
             {/* Current Input Line */}
             <div className="flex items-center pt-1">
               <span className={clsx('mr-2', themeClasses.prompt)}>$</span>
-              <input
-                ref={inputRef}
-                type="text"
-                value={currentInput}
-                onChange={(e) => setCurrentInput(e.target.value)}
-                onKeyDown={handleKeyDown}
-                className={clsx(
-                  'flex-1 bg-transparent outline-none',
-                  themeClasses.text,
+              <div className="flex-1 relative">
+                <input
+                  ref={inputRef}
+                  type="text"
+                  value={currentInput}
+                  onChange={(e) => setCurrentInput(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  onFocus={() => setIsInputFocused(true)}
+                  onBlur={() => setIsInputFocused(false)}
+                  className={clsx(
+                    'w-full bg-transparent outline-none [caret-color:transparent]',
+                    !currentInput && 'pl-3',
+                    themeClasses.text,
+                  )}
+                  placeholder="type a command..."
+                  autoComplete="off"
+                  spellCheck={false}
+                />
+                {isInputFocused && (
+                  <span
+                    className={clsx(
+                      'inline-block absolute top-0 w-2 h-5.5 bg-current align-text-bottom animate-cursor-blink',
+                      themeClasses.text,
+                    )}
+                    style={{
+                      left: `calc(${currentInput.length * 0.6}em + 2px)`,
+                    }}
+                  />
                 )}
-                placeholder="type a command..."
-                autoComplete="off"
-                spellCheck={false}
-              />
+              </div>
             </div>
 
             {/* Suggestions */}
