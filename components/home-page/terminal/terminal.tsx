@@ -35,7 +35,6 @@ export function Terminal() {
   const [font, setFont] = useState('mono')
   const [theme, setTheme] = useState('solarized-light')
   const [currentBlog, setCurrentBlog] = useState<string | null>(null)
-  const [isInputFocused, setIsInputFocused] = useState(false)
 
   const inputRef = useRef<HTMLInputElement>(null)
   const terminalRef = useRef<HTMLDivElement>(null)
@@ -52,7 +51,6 @@ export function Terminal() {
   // Auto-focus input
   useEffect(() => {
     inputRef.current?.focus()
-    setIsInputFocused(true)
   }, [])
 
   // Global keydown listener to handle typing from anywhere
@@ -75,7 +73,6 @@ export function Terminal() {
       if (isCharacterKey) {
         // Focus input and scroll to bottom when user starts typing
         inputRef.current?.focus()
-        setIsInputFocused(true)
         scrollToBottom()
       }
     }
@@ -411,8 +408,8 @@ export function Terminal() {
             ))}
 
             {/* Current Input Line */}
-            <div className="flex items-center pt-1">
-              <span className={clsx('mr-2', themeClasses.prompt)}>$</span>
+            <div className="flex items-center">
+              <span className={clsx('mr-2.5', themeClasses.prompt)}>$</span>
               <div className="flex-1 relative">
                 {/* Input with ghost text overlay */}
                 <div className="relative">
@@ -422,11 +419,8 @@ export function Terminal() {
                     value={currentInput}
                     onChange={(e) => setCurrentInput(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    onFocus={() => setIsInputFocused(true)}
-                    onBlur={() => setIsInputFocused(false)}
                     className={clsx(
-                      'w-full bg-transparent outline-none [caret-color:transparent] relative z-10',
-                      !currentInput && 'pl-3',
+                      'w-full bg-transparent outline-none relative z-10',
                       themeClasses.text,
                     )}
                     placeholder="type a command..."
@@ -439,7 +433,6 @@ export function Terminal() {
                     <div
                       className={clsx(
                         'absolute top-0 left-0 w-full pointer-events-none z-0 opacity-40',
-                        !currentInput && 'pl-3',
                         themeClasses.text,
                       )}
                     >
@@ -448,18 +441,6 @@ export function Terminal() {
                     </div>
                   )}
                 </div>
-
-                {isInputFocused && (
-                  <span
-                    className={clsx(
-                      'inline-block absolute top-0 w-2 h-5.5 bg-current align-text-bottom animate-cursor-blink z-20',
-                      themeClasses.text,
-                    )}
-                    style={{
-                      left: `calc(${currentInput.length * 0.6}em + 2px)`,
-                    }}
-                  />
-                )}
               </div>
             </div>
           </div>
