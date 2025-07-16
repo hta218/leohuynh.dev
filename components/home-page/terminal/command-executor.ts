@@ -402,7 +402,10 @@ export async function executeCommand(
       return {
         lines: [
           { type: 'error', content: `command not found: ${cmd}` },
-          { type: 'info', content: 'type "help" to see available commands' },
+          {
+            type: 'info',
+            content: "type 'help' or '?' to see available commands",
+          },
         ],
       }
   }
