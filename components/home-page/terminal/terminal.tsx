@@ -53,6 +53,39 @@ export function Terminal() {
     inputRef.current?.focus()
   }, [])
 
+  // Global keydown listener to handle typing from anywhere
+  useEffect(() => {
+    const handleGlobalKeyDown = (e: KeyboardEvent) => {
+      // Skip if user is typing in a different input/textarea
+      const target = e.target as HTMLElement
+      if (
+        target &&
+        (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') &&
+        target !== inputRef.current
+      ) {
+        return
+      }
+
+      // Check if user is typing a character (not control keys)
+      const isCharacterKey =
+        e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey
+
+      if (isCharacterKey) {
+        // Focus input and scroll to bottom when user starts typing
+        inputRef.current?.focus()
+        scrollToBottom()
+      }
+    }
+
+    // Add global event listener
+    window.addEventListener('keydown', handleGlobalKeyDown)
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('keydown', handleGlobalKeyDown)
+    }
+  }, [])
+
   // Scroll to bottom when new lines are added
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
@@ -81,6 +114,20 @@ export function Terminal() {
     setShowSuggestions(matchingCommands.length > 0)
     setSelectedSuggestion(0)
   }, [currentInput])
+
+  // Scroll to bottom when suggestions are shown
+  useEffect(() => {
+    if (showSuggestions) {
+      scrollToBottom()
+    }
+  }, [showSuggestions])
+
+  // Function to scroll to bottom
+  const scrollToBottom = () => {
+    if (terminalRef.current) {
+      terminalRef.current.scrollTo(0, terminalRef.current.scrollHeight)
+    }
+  }
 
   const executeCommandHandler = async (command: string) => {
     const trimmedCommand = command.trim().toLowerCase()
@@ -232,11 +279,7 @@ export function Terminal() {
         defaultWidth={1200}
         defaultHeight={800}
       >
-        <div
-          ref={terminalRef}
-          className="overflow-y-auto p-4 h-full"
-          onClick={() => inputRef.current?.focus()}
-        >
+        <div ref={terminalRef} className="overflow-y-auto p-4 h-full">
           <div className="space-y-1">
             {lines.map((line, index) => (
               <div key={`line-${index}-${line.type}`} className="relative">
