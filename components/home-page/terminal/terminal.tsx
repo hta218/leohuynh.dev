@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from 'react'
 import { BlogViewer } from './blog-viewer'
 import { MOCK_BLOGS, executeCommand } from './command-executor'
 import { COMMANDS } from './commands'
-import { Suggestion } from './suggestion'
 import type { Command, TerminalLine } from './types'
 import { Window } from './window'
 
@@ -32,6 +31,7 @@ export function Terminal() {
   const [suggestions, setSuggestions] = useState<Command[]>([])
   const [selectedSuggestion, setSelectedSuggestion] = useState(0)
   const [showSuggestions, setShowSuggestions] = useState(false)
+  const [ghostText, setGhostText] = useState('')
   const [font, setFont] = useState('mono')
   const [theme, setTheme] = useState('solarized-light')
   const [currentBlog, setCurrentBlog] = useState<string | null>(null)
@@ -98,32 +98,47 @@ export function Terminal() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lines.length])
 
-  // Handle input suggestions
+  // Handle input suggestions and ghost text
   useEffect(() => {
     if (currentInput.trim() === '') {
       setShowSuggestions(false)
+      setGhostText('')
       return
     }
 
     const matchingCommands = COMMANDS.filter(
       (cmd) =>
-        cmd.command.includes(currentInput.toLowerCase()) ||
+        cmd.command.startsWith(currentInput.toLowerCase()) ||
         cmd.aliases?.some((alias) =>
-          alias.includes(currentInput.toLowerCase()),
+          alias.startsWith(currentInput.toLowerCase()),
         ),
     )
 
     setSuggestions(matchingCommands)
     setShowSuggestions(matchingCommands.length > 0)
     setSelectedSuggestion(0)
-  }, [currentInput])
 
-  // Scroll to bottom when suggestions are shown
-  useEffect(() => {
-    if (showSuggestions) {
-      scrollToBottom()
+    // Set ghost text for the best match
+    if (matchingCommands.length > 0) {
+      const bestMatch = matchingCommands[0]
+      const matchingCommand = bestMatch.command.startsWith(
+        currentInput.toLowerCase(),
+      )
+        ? bestMatch.command
+        : bestMatch.aliases?.find((alias) =>
+            alias.startsWith(currentInput.toLowerCase()),
+          ) || bestMatch.command
+
+      // Only show ghost text if there's more to complete
+      if (matchingCommand.length > currentInput.length) {
+        setGhostText(matchingCommand.slice(currentInput.length))
+      } else {
+        setGhostText('')
+      }
+    } else {
+      setGhostText('')
     }
-  }, [showSuggestions])
+  }, [currentInput])
 
   // Function to scroll to bottom
   const scrollToBottom = () => {
@@ -196,48 +211,96 @@ export function Terminal() {
         const selectedCmd = suggestions[selectedSuggestion]
         setCurrentInput(selectedCmd.command)
         setShowSuggestions(false)
+        setGhostText('')
         executeCommandHandler(selectedCmd.command)
       } else {
         // Execute current input
         executeCommandHandler(currentInput)
       }
       setCurrentInput('')
-    } else if (e.key === 'Tab') {
+      setGhostText('')
+    } else if (e.key === 'Tab' || e.key === 'ArrowRight') {
       e.preventDefault()
-      if (showSuggestions && suggestions[selectedSuggestion]) {
+      if (ghostText) {
+        // Accept ghost text completion
+        setCurrentInput(currentInput + ghostText)
+        setGhostText('')
+      } else if (showSuggestions && suggestions[selectedSuggestion]) {
+        // Fallback to suggestion if no ghost text
         setCurrentInput(suggestions[selectedSuggestion].command)
         setShowSuggestions(false)
+        setGhostText('')
       }
     } else if (e.key === 'ArrowUp') {
       e.preventDefault()
       if (showSuggestions) {
-        setSelectedSuggestion((prev) =>
-          prev > 0 ? prev - 1 : suggestions.length - 1,
+        const newIndex =
+          selectedSuggestion > 0
+            ? selectedSuggestion - 1
+            : suggestions.length - 1
+        setSelectedSuggestion(newIndex)
+
+        // Update ghost text for new selection
+        const selectedCmd = suggestions[newIndex]
+        const matchingCommand = selectedCmd.command.startsWith(
+          currentInput.toLowerCase(),
         )
+          ? selectedCmd.command
+          : selectedCmd.aliases?.find((alias) =>
+              alias.startsWith(currentInput.toLowerCase()),
+            ) || selectedCmd.command
+
+        if (matchingCommand.length > currentInput.length) {
+          setGhostText(matchingCommand.slice(currentInput.length))
+        } else {
+          setGhostText('')
+        }
       } else if (commandHistory.length > 0) {
         const newIndex = historyIndex + 1
         if (newIndex < commandHistory.length) {
           setHistoryIndex(newIndex)
           setCurrentInput(commandHistory[commandHistory.length - 1 - newIndex])
+          setGhostText('')
         }
       }
     } else if (e.key === 'ArrowDown') {
       e.preventDefault()
       if (showSuggestions) {
-        setSelectedSuggestion((prev) =>
-          prev < suggestions.length - 1 ? prev + 1 : 0,
+        const newIndex =
+          selectedSuggestion < suggestions.length - 1
+            ? selectedSuggestion + 1
+            : 0
+        setSelectedSuggestion(newIndex)
+
+        // Update ghost text for new selection
+        const selectedCmd = suggestions[newIndex]
+        const matchingCommand = selectedCmd.command.startsWith(
+          currentInput.toLowerCase(),
         )
+          ? selectedCmd.command
+          : selectedCmd.aliases?.find((alias) =>
+              alias.startsWith(currentInput.toLowerCase()),
+            ) || selectedCmd.command
+
+        if (matchingCommand.length > currentInput.length) {
+          setGhostText(matchingCommand.slice(currentInput.length))
+        } else {
+          setGhostText('')
+        }
       } else if (historyIndex > 0) {
         const newIndex = historyIndex - 1
         setHistoryIndex(newIndex)
         setCurrentInput(commandHistory[commandHistory.length - 1 - newIndex])
+        setGhostText('')
       } else if (historyIndex === 0) {
         setHistoryIndex(-1)
         setCurrentInput('')
+        setGhostText('')
       }
     } else if (e.key === 'Escape') {
       setShowSuggestions(false)
       setSelectedSuggestion(0)
+      setGhostText('')
     }
   }
 
@@ -351,27 +414,45 @@ export function Terminal() {
             <div className="flex items-center pt-1">
               <span className={clsx('mr-2', themeClasses.prompt)}>$</span>
               <div className="flex-1 relative">
-                <input
-                  ref={inputRef}
-                  type="text"
-                  value={currentInput}
-                  onChange={(e) => setCurrentInput(e.target.value)}
-                  onKeyDown={handleKeyDown}
-                  onFocus={() => setIsInputFocused(true)}
-                  onBlur={() => setIsInputFocused(false)}
-                  className={clsx(
-                    'w-full bg-transparent outline-none [caret-color:transparent]',
-                    !currentInput && 'pl-3',
-                    themeClasses.text,
+                {/* Input with ghost text overlay */}
+                <div className="relative">
+                  <input
+                    ref={inputRef}
+                    type="text"
+                    value={currentInput}
+                    onChange={(e) => setCurrentInput(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    onFocus={() => setIsInputFocused(true)}
+                    onBlur={() => setIsInputFocused(false)}
+                    className={clsx(
+                      'w-full bg-transparent outline-none [caret-color:transparent] relative z-10',
+                      !currentInput && 'pl-3',
+                      themeClasses.text,
+                    )}
+                    placeholder="type a command..."
+                    autoComplete="off"
+                    spellCheck={false}
+                  />
+
+                  {/* Ghost text overlay */}
+                  {ghostText && (
+                    <div
+                      className={clsx(
+                        'absolute top-0 left-0 w-full pointer-events-none z-0 opacity-40',
+                        !currentInput && 'pl-3',
+                        themeClasses.text,
+                      )}
+                    >
+                      <span className="invisible">{currentInput}</span>
+                      <span>{ghostText}</span>
+                    </div>
                   )}
-                  placeholder="type a command..."
-                  autoComplete="off"
-                  spellCheck={false}
-                />
+                </div>
+
                 {isInputFocused && (
                   <span
                     className={clsx(
-                      'inline-block absolute top-0 w-2 h-5.5 bg-current align-text-bottom animate-cursor-blink',
+                      'inline-block absolute top-0 w-2 h-5.5 bg-current align-text-bottom animate-cursor-blink z-20',
                       themeClasses.text,
                     )}
                     style={{
@@ -381,20 +462,6 @@ export function Terminal() {
                 )}
               </div>
             </div>
-
-            {/* Suggestions */}
-            {showSuggestions && (
-              <Suggestion
-                suggestions={suggestions}
-                selectedIndex={selectedSuggestion}
-                onSelect={(cmd) => {
-                  setCurrentInput(cmd.command)
-                  setShowSuggestions(false)
-                  executeCommandHandler(cmd.command)
-                }}
-                theme={themeClasses}
-              />
-            )}
           </div>
         </div>
       </Window>
