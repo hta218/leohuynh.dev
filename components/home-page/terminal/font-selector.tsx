@@ -24,7 +24,7 @@ export function FontSelector({
     <Menu as="div" className="relative">
       <MenuButton className="flex items-center rounded p-1 hover:bg-gray-100 dark:hover:bg-gray-800 text-sm">
         <Twemoji emoji="keyboard" size="base" />
-        <span className="ml-1 text-gray-600">({currentFont})</span>
+        {/* <span className="ml-1 text-gray-600">({currentFont})</span> */}
       </MenuButton>
 
       <MenuItems className="absolute right-0 z-10 mt-2 w-48 rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 dark:bg-gray-800">
