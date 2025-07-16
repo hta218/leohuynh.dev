@@ -26,6 +26,7 @@
   --animate-music-bar-3: music-bar-3 0.8s linear infinite;
   --animate-music-bar-4: music-bar-4 0.8s linear infinite;
   --animate-scale-up: scale-up 150ms ease-in-out forwards;
+  --animate-cursor-blink: terminal-cursor-blink 1s step-end infinite;
 
   @keyframes wiggle {
     0% {
@@ -97,6 +98,17 @@
     }
     100% {
       transform: scale(1);
+    }
+  }
+
+  @keyframes terminal-cursor-blink {
+    0%,
+    50% {
+      opacity: 1;
+    }
+    51%,
+    100% {
+      opacity: 0;
     }
   }
 
