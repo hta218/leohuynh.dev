@@ -117,7 +117,7 @@ export function Window({
         return 'ns-resize'
       case 'bottom-right':
       case 'top-left':
-        return 'nw-resize'
+        return 'nwse-resize'
       case 'bottom-left':
       case 'top-right':
         return 'ne-resize'
@@ -233,15 +233,15 @@ export function Window({
 
       {/* Window Header */}
       <div className="flex items-center justify-between border-b px-4 py-3">
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center justify-around space-x-2">
           <div className="flex space-x-2">
             <div className="h-3 w-3 rounded-full bg-red-400" />
             <div className="h-3 w-3 rounded-full bg-yellow-400" />
             <div className="h-3 w-3 rounded-full bg-green-400" />
           </div>
-          <span className={clsx('ml-4 text-sm font-medium', themeClasses.text)}>
-            {title}
-          </span>
+        </div>
+        <div className={clsx('ml-4 text-sm font-medium', themeClasses.text)}>
+          {title}
         </div>
         <div className="flex items-center space-x-1">
           <FontSelector
