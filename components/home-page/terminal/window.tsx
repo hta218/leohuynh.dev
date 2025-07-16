@@ -243,13 +243,13 @@ export function Window({
             {title}
           </span>
         </div>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-1">
           <FontSelector
             currentFont={font}
             onChange={onFontChange}
             theme={themeClasses}
           />
-          <div className="h-4 w-px border-r border-gray-500" />
+          <div className="h-3 w-px border-r border-gray-400" />
           <ThemeSelector currentTheme={theme} onChange={onThemeChange} />
         </div>
       </div>
