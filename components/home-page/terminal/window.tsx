@@ -115,7 +115,7 @@ export function Window({
     <div
       ref={containerRef}
       className={clsx(
-        'relative mx-auto rounded-lg border shadow-2xl',
+        'relative mx-auto rounded-lg border shadow-2xl flex flex-col',
         'bg-(--terminal-bg)',
         '[&_[data-terminal-text]]:text-(--terminal-text)',
         '[&_[data-terminal-prompt]]:text-(--terminal-prompt)',
@@ -237,12 +237,7 @@ export function Window({
       </div>
 
       {/* Window Content */}
-      <div
-        className="overflow-hidden"
-        style={{ height: `${windowSize.height - 60}px` }}
-      >
-        {children}
-      </div>
+      <div className="overflow-hidden grow">{children}</div>
     </div>
   )
 }
