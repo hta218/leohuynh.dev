@@ -11,8 +11,6 @@
     SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
   --font-geist-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular,
     "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
-  --font-jetbrains: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular,
-    "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
   --font-fira: "Fira Code", ui-monospace, SFMono-Regular, "SF Mono", Consolas,
     "Liberation Mono", Menlo, monospace;
   --font-source: "Source Code Pro", ui-monospace, SFMono-Regular, "SF Mono",
@@ -176,39 +174,4 @@
     font-family: var(--font-jetbrains-mono), monospace;
     font-weight: 500;
   }
-}
-
-/* Terminal font utility classes */
-.font-jetbrains {
-  font-family: var(--font-jetbrains);
-}
-
-.font-fira {
-  font-family: var(--font-fira);
-}
-
-.font-source {
-  font-family: var(--font-source);
-}
-
-.font-geist {
-  font-family: var(--font-geist-mono);
-}
-
-/* Unicode box-drawing character support for ASCII art */
-pre {
-  font-feature-settings: "liga" 0, "clig" 0;
-  text-rendering: optimizeSpeed;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* Ensure proper rendering of box-drawing characters */
-.ascii-art {
-  font-family: "Courier New", Courier, "Lucida Console", "Liberation Mono",
-    "DejaVu Sans Mono", "Bitstream Vera Sans Mono", monospace;
-  font-variant-ligatures: none;
-  font-feature-settings: normal;
-  letter-spacing: 0;
-  word-spacing: 0;
 }

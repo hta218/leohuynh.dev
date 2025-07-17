@@ -39,7 +39,7 @@ const FONT_GEIST = Geist_Mono({
   display: 'swap',
   style: ['normal'],
   weight: ['400', '500', '600', '700'],
-  variable: '--font-geist',
+  variable: '--font-geist-mono',
 })
 
 const FONT_JETBRAINS_MONO = JetBrains_Mono({
