@@ -1,10 +1,11 @@
 import clsx from 'clsx'
 
 export function AsciiArtText({
-  content,
+  children,
   className,
-}: { content?: string; className?: string }) {
-  if (!content) {
+  ...rest
+}: React.HTMLAttributes<HTMLPreElement>) {
+  if (!children) {
     return null
   }
   return (
@@ -24,8 +25,9 @@ export function AsciiArtText({
         letterSpacing: '0',
         fontVariantLigatures: 'none',
       }}
+      {...rest}
     >
-      {content}
+      {children}
     </pre>
   )
 }
