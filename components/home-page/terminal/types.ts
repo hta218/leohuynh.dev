@@ -31,3 +31,17 @@ export interface Font {
   label: string
   class: string
 }
+
+export interface Theme {
+  name: string
+  label: string
+  variables: {
+    bg: string
+    text: string
+    prompt: string
+    command: string
+    info: string
+    error: string
+    accent: string
+  }
+}

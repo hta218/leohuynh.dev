@@ -1,9 +1,7 @@
 'use client'
 
-import { clsx } from 'clsx'
 import { useEffect, useRef, useState } from 'react'
 import { AsciiArtText } from './ascii-art-text'
-import { BlogViewer } from './blog-viewer'
 import { MOCK_BLOGS, executeCommand } from './command-executor'
 import { COMMANDS } from './commands'
 import type { Command, TerminalLine } from './types'
@@ -33,7 +31,6 @@ export function Terminal() {
   const [selectedSuggestion, setSelectedSuggestion] = useState(0)
   const [showSuggestions, setShowSuggestions] = useState(false)
   const [ghostText, setGhostText] = useState('')
-  const [theme, setTheme] = useState('solarized-light')
   const [currentBlog, setCurrentBlog] = useState<string | null>(null)
 
   const inputRef = useRef<HTMLInputElement>(null)
@@ -301,52 +298,6 @@ export function Terminal() {
     }
   }
 
-  const getThemeClasses = () => {
-    switch (theme) {
-      case 'solarized-light':
-        return {
-          bg: 'bg-orange-50',
-          text: 'text-gray-800',
-          prompt: 'text-green-600',
-          command: 'text-blue-600',
-          info: 'text-gray-600',
-          error: 'text-red-600',
-          accent: 'text-purple-600',
-        }
-      case 'solarized-dark':
-        return {
-          bg: 'bg-slate-900',
-          text: 'text-orange-100',
-          prompt: 'text-green-400',
-          command: 'text-blue-400',
-          info: 'text-gray-400',
-          error: 'text-red-400',
-          accent: 'text-purple-400',
-        }
-      case 'github-light':
-        return {
-          bg: 'bg-white',
-          text: 'text-gray-900',
-          prompt: 'text-green-500',
-          command: 'text-blue-500',
-          info: 'text-gray-600',
-          error: 'text-red-500',
-          accent: 'text-purple-500',
-        }
-      default:
-        return {
-          bg: 'bg-orange-50',
-          text: 'text-gray-800',
-          prompt: 'text-green-600',
-          command: 'text-blue-600',
-          info: 'text-gray-600',
-          error: 'text-red-600',
-          accent: 'text-purple-600',
-        }
-    }
-  }
-
-  const themeClasses = getThemeClasses()
   const currentBlogData = currentBlog
     ? MOCK_BLOGS.find((blog) => blog.id === currentBlog)
     : null
@@ -355,9 +306,6 @@ export function Terminal() {
     <>
       <Window
         title="leo@leohuynh.dev: ~"
-        theme={theme}
-        onThemeChange={setTheme}
-        themeClasses={themeClasses}
         defaultWidth={1200}
         defaultHeight={800}
       >
@@ -370,26 +318,23 @@ export function Terminal() {
             {lines.map((line, index) => (
               <div key={`line-${index}-${line.type}`} className="relative">
                 {line.type === 'ascii' && (
-                  <AsciiArtText
-                    content={line.content}
-                    className={themeClasses.accent}
-                  />
+                  <AsciiArtText data-terminal-accent>
+                    {line.content}
+                  </AsciiArtText>
                 )}
                 {line.type === 'command' && (
-                  <div className={themeClasses.command}>{line.content}</div>
+                  <div data-terminal-command>{line.content}</div>
                 )}
                 {line.type === 'output' && (
-                  <div
-                    className={clsx('whitespace-pre-wrap', themeClasses.text)}
-                  >
+                  <div data-terminal-text className="whitespace-pre-wrap">
                     {line.content}
                   </div>
                 )}
                 {line.type === 'info' && (
-                  <div className={themeClasses.info}>{line.content}</div>
+                  <div data-terminal-info>{line.content}</div>
                 )}
                 {line.type === 'error' && (
-                  <div className={themeClasses.error}>{line.content}</div>
+                  <div data-terminal-error>{line.content}</div>
                 )}
                 {line.type === 'component' && line.component}
               </div>
@@ -397,7 +342,9 @@ export function Terminal() {
 
             {/* Current Input Line */}
             <div className="flex items-center">
-              <span className={clsx('mr-2.5', themeClasses.prompt)}>$</span>
+              <span data-terminal-prompt className="mr-2.5">
+                $
+              </span>
               <div className="flex-1 relative">
                 {/* Input with ghost text overlay */}
                 <div className="relative">
@@ -407,10 +354,8 @@ export function Terminal() {
                     value={currentInput}
                     onChange={(e) => setCurrentInput(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    className={clsx(
-                      'w-full bg-transparent outline-none relative z-10',
-                      themeClasses.text,
-                    )}
+                    className="w-full bg-transparent outline-none relative z-10"
+                    data-terminal-text
                     placeholder="type a command..."
                     autoComplete="off"
                     spellCheck={false}
@@ -419,10 +364,8 @@ export function Terminal() {
                   {/* Ghost text overlay */}
                   {ghostText && (
                     <div
-                      className={clsx(
-                        'absolute top-0 left-0 w-full pointer-events-none z-0 opacity-40',
-                        themeClasses.text,
-                      )}
+                      data-terminal-text
+                      className="absolute top-0 left-0 w-full pointer-events-none z-0 opacity-40"
                     >
                       <span className="invisible">{currentInput}</span>
                       <span>{ghostText}</span>
@@ -436,7 +379,7 @@ export function Terminal() {
       </Window>
 
       {/* Blog Viewer Modal */}
-      {currentBlogData && (
+      {/* {currentBlogData && (
         <BlogViewer
           post={{
             id: currentBlogData.id,
@@ -449,7 +392,7 @@ export function Terminal() {
           theme={themeClasses}
           onClose={() => setCurrentBlog(null)}
         />
-      )}
+      )} */}
     </>
   )
 }

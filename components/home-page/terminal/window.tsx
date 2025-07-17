@@ -3,25 +3,14 @@
 import { clsx } from 'clsx'
 import { type ReactNode, useEffect, useRef, useState } from 'react'
 import { FONTS, FontSelector } from './font-selector'
-import { ThemeSelector } from './theme-selector'
-import type { Font } from './types'
+import { THEMES, ThemeSelector } from './theme-selector'
+import type { Font, Theme } from './types'
 
 interface WindowProps {
   title?: string
   children: ReactNode
   defaultWidth?: number
   defaultHeight?: number
-  theme: string
-  onThemeChange: (theme: string) => void
-  themeClasses: {
-    bg: string
-    text: string
-    prompt: string
-    command: string
-    info: string
-    error: string
-    accent: string
-  }
   className?: string
 }
 
@@ -30,12 +19,10 @@ export function Window({
   children,
   defaultWidth = 1200,
   defaultHeight = 600,
-  theme,
-  onThemeChange,
-  themeClasses,
   className,
 }: WindowProps) {
   let [font, setFont] = useState<Font>(FONTS[0])
+  let [theme, setTheme] = useState<Theme>(THEMES[0])
   // Window resizing state
   const [windowSize, setWindowSize] = useState({
     width: defaultWidth,
@@ -128,17 +115,32 @@ export function Window({
     <div
       ref={containerRef}
       className={clsx(
-        'terminal-container relative mx-auto rounded-lg border shadow-2xl',
+        'relative mx-auto rounded-lg border shadow-2xl',
+        'bg-(--terminal-bg)',
+        '[&_[data-terminal-text]]:text-(--terminal-text)',
+        '[&_[data-terminal-prompt]]:text-(--terminal-prompt)',
+        '[&_[data-terminal-command]]:text-(--terminal-command)',
+        '[&_[data-terminal-info]]:text-(--terminal-info)',
+        '[&_[data-terminal-error]]:text-(--terminal-error)',
+        '[&_[data-terminal-accent]]:text-(--terminal-accent)',
         font?.class,
-        themeClasses.bg,
         className,
       )}
-      style={{
-        width: `${windowSize.width}px`,
-        height: `${windowSize.height}px`,
-        maxWidth: '95vw',
-        maxHeight: '90vh',
-      }}
+      style={
+        {
+          width: `${windowSize.width}px`,
+          height: `${windowSize.height}px`,
+          maxWidth: '95vw',
+          maxHeight: '90vh',
+          '--terminal-bg': theme.variables.bg,
+          '--terminal-text': theme.variables.text,
+          '--terminal-prompt': theme.variables.prompt,
+          '--terminal-command': theme.variables.command,
+          '--terminal-info': theme.variables.info,
+          '--terminal-error': theme.variables.error,
+          '--terminal-accent': theme.variables.accent,
+        } as React.CSSProperties
+      }
       onMouseMove={(e) => {
         if (isResizing) return
 
@@ -201,9 +203,10 @@ export function Window({
       <div className="absolute bottom-0 right-0 w-6 h-6 p-1 opacity-40 pointer-events-none">
         <svg
           viewBox="0 0 12 12"
-          className={clsx('w-full h-full', themeClasses.text)}
+          className={clsx('w-full h-full')}
           fill="currentColor"
           aria-label="Resize window"
+          data-terminal-text
         >
           <title>Resize window</title>
           <path d="M12 0v12L0 12z" opacity="0.15" />
@@ -223,13 +226,13 @@ export function Window({
             <div className="h-3 w-3 rounded-full bg-green-400" />
           </div>
         </div>
-        <div className={clsx('ml-4 text-sm font-medium', themeClasses.text)}>
+        <div className={clsx('ml-4 text-sm font-medium')} data-terminal-text>
           {title}
         </div>
         <div className="flex items-center space-x-1">
           <FontSelector currentFont={font} onChange={setFont} />
           <div className="h-3 w-px border-r border-gray-400" />
-          <ThemeSelector currentTheme={theme} onChange={onThemeChange} />
+          <ThemeSelector currentTheme={theme} onChange={setTheme} />
         </div>
       </div>
 
