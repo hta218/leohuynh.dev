@@ -12,7 +12,7 @@ interface FontSelectorProps {
 
 const fonts = [
   { name: 'mono', label: 'Mono', class: 'font-mono' },
-  { name: 'jetbrains', label: 'JetBrains Mono', class: 'font-jetbrains' },
+  { name: 'jetbrains', label: 'JetBrains Mono', class: 'font-jetbrains-mono' },
   { name: 'fira', label: 'Fira Code', class: 'font-fira' },
   { name: 'source', label: 'Source Code Pro', class: 'font-source' },
 ]

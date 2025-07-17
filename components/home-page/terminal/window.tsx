@@ -131,7 +131,7 @@ export function Window({
       case 'mono':
         return 'font-mono'
       case 'jetbrains':
-        return 'font-jetbrains'
+        return 'font-jetbrains-mono'
       case 'fira':
         return 'font-fira'
       case 'source':
