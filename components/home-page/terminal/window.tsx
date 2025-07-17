@@ -2,17 +2,16 @@
 
 import { clsx } from 'clsx'
 import { type ReactNode, useEffect, useRef, useState } from 'react'
-import { FontSelector } from './font-selector'
+import { FONTS, FontSelector } from './font-selector'
 import { ThemeSelector } from './theme-selector'
+import type { Font } from './types'
 
 interface WindowProps {
   title?: string
   children: ReactNode
   defaultWidth?: number
   defaultHeight?: number
-  font: string
   theme: string
-  onFontChange: (font: string) => void
   onThemeChange: (theme: string) => void
   themeClasses: {
     bg: string
@@ -31,13 +30,12 @@ export function Window({
   children,
   defaultWidth = 1200,
   defaultHeight = 600,
-  font,
   theme,
-  onFontChange,
   onThemeChange,
   themeClasses,
   className,
 }: WindowProps) {
+  let [font, setFont] = useState<Font>(FONTS[0])
   // Window resizing state
   const [windowSize, setWindowSize] = useState({
     width: defaultWidth,
@@ -126,28 +124,13 @@ export function Window({
     }
   }
 
-  const getFontClass = () => {
-    switch (font) {
-      case 'mono':
-        return 'font-mono'
-      case 'jetbrains':
-        return 'font-jetbrains-mono'
-      case 'fira':
-        return 'font-fira'
-      case 'source':
-        return 'font-source'
-      default:
-        return 'font-mono'
-    }
-  }
-
   return (
     <div
       ref={containerRef}
       className={clsx(
         'terminal-container relative mx-auto rounded-lg border shadow-2xl',
+        font?.class,
         themeClasses.bg,
-        getFontClass(),
         className,
       )}
       style={{
@@ -244,11 +227,7 @@ export function Window({
           {title}
         </div>
         <div className="flex items-center space-x-1">
-          <FontSelector
-            currentFont={font}
-            onChange={onFontChange}
-            theme={themeClasses}
-          />
+          <FontSelector currentFont={font} onChange={setFont} />
           <div className="h-3 w-px border-r border-gray-400" />
           <ThemeSelector currentTheme={theme} onChange={onThemeChange} />
         </div>

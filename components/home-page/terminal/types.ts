@@ -25,3 +25,9 @@ export interface ThemeClasses {
   error: string
   accent: string
 }
+
+export interface Font {
+  name: string
+  label: string
+  class: string
+}
