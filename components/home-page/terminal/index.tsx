@@ -3,24 +3,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { AsciiArtText } from './ascii-art-text'
 import { MOCK_BLOGS, executeCommand } from './command-executor'
-import { COMMANDS } from './commands'
+import { ASCII_ART, COMMANDS, WELCOME_TEXT } from './commands'
 import type { Command, TerminalLine } from './types'
 import { Window } from './window'
-
-const ASCII_ART = `
-██╗     ███████╗ ██████╗ ██╗  ██╗██╗   ██╗██╗   ██╗███╗   ██╗██╗  ██╗    ██████╗ ███████╗██╗   ██╗
-██║     ██╔════╝██╔═══██╗██║  ██║██║   ██║╚██╗ ██╔╝████╗  ██║██║  ██║    ██╔══██╗██╔════╝██║   ██║
-██║     █████╗  ██║   ██║███████║██║   ██║ ╚████╔╝ ██╔██╗ ██║███████║    ██║  ██║█████╗  ██║   ██║
-██║     ██╔══╝  ██║   ██║██╔══██║██║   ██║  ╚██╔╝  ██║╚██╗██║██╔══██║    ██║  ██║██╔══╝  ╚██╗ ██╔╝
-███████╗███████╗╚██████╔╝██║  ██║╚██████╔╝   ██║   ██║ ╚████║██║  ██║ ██╗██████╔╝███████╗ ╚████╔╝ 
-╚══════╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝ ╚═════╝    ╚═╝   ╚═╝  ╚═══╝╚═╝  ╚═╝ ╚═╝╚═════╝ ╚══════╝  ╚═══╝  
-`
-
-const WELCOME_TEXT = [
-  'howdy, fellow! welcome to my personal cli on the web.',
-  "type 'help' or '?' to see available commands or start typing for suggestions.",
-  '---',
-]
 
 export function Terminal() {
   const [lines, setLines] = useState<TerminalLine[]>([])

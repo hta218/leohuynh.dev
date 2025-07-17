@@ -1,5 +1,4 @@
 import { PROJECTS } from '~/data/projects'
-import { SITE_METADATA } from '~/data/site-metadata'
 import { COMMANDS } from './commands'
 import type { CommandResult } from './types'
 
