@@ -94,12 +94,10 @@ export async function executeCommand(
       return {
         lines: [
           { type: 'info', content: 'available commands:' },
-          { type: 'output', content: '' },
           ...COMMANDS.map((cmd) => ({
             type: 'output' as const,
             content: `  ${cmd.command.padEnd(12)} - ${cmd.description}${cmd.aliases ? ` (${cmd.aliases.join(', ')})` : ''}`,
           })),
-          { type: 'output', content: '' },
           {
             type: 'info',
             content:
@@ -125,7 +123,6 @@ export async function executeCommand(
         lines: [
           { type: 'output', content: 'about leo huynh' },
           { type: 'output', content: '=================' },
-          { type: 'output', content: '' },
           {
             type: 'output',
             content:
@@ -135,13 +132,11 @@ export async function executeCommand(
             type: 'output',
             content: 'landed my first job as a python coding mentor in 2017.',
           },
-          { type: 'output', content: '' },
           { type: 'output', content: 'passionate about:' },
           { type: 'output', content: '• javascript/typescript ecosystem' },
           { type: 'output', content: '• web development & modern frameworks' },
           { type: 'output', content: '• ecommerce & shopify development' },
           { type: 'output', content: '• building tools that help developers' },
-          { type: 'output', content: '' },
           {
             type: 'output',
             content:
@@ -155,25 +150,20 @@ export async function executeCommand(
         lines: [
           { type: 'output', content: 'technical skills' },
           { type: 'output', content: '===============' },
-          { type: 'output', content: '' },
           { type: 'output', content: 'languages:' },
           {
             type: 'output',
             content: '  javascript, typescript, python, liquid',
           },
-          { type: 'output', content: '' },
           { type: 'output', content: 'frontend:' },
           {
             type: 'output',
             content: '  react, next.js, remix, tailwindcss, headlessui',
           },
-          { type: 'output', content: '' },
           { type: 'output', content: 'backend:' },
           { type: 'output', content: '  node.js, prisma, drizzle, supabase' },
-          { type: 'output', content: '' },
           { type: 'output', content: 'ecommerce:' },
           { type: 'output', content: '  shopify, hydrogen, liquid, themekit' },
-          { type: 'output', content: '' },
           { type: 'output', content: 'tools:' },
           {
             type: 'output',
@@ -187,7 +177,6 @@ export async function executeCommand(
         lines: [
           { type: 'output', content: 'featured projects' },
           { type: 'output', content: '=================' },
-          { type: 'output', content: '' },
           ...PROJECTS.slice(0, 5).flatMap((project, index) => [
             {
               type: 'output' as const,
@@ -217,7 +206,6 @@ export async function executeCommand(
         lines: [
           { type: 'output', content: 'recent blog posts' },
           { type: 'output', content: '=================' },
-          { type: 'output', content: '' },
           ...MOCK_BLOGS.flatMap((blog, index) => [
             { type: 'output' as const, content: `${index + 1}. ${blog.title}` },
             {
@@ -239,7 +227,6 @@ export async function executeCommand(
         lines: [
           { type: 'output', content: 'code snippets collection' },
           { type: 'output', content: '=======================' },
-          { type: 'output', content: '' },
           {
             type: 'output',
             content: '• parse function from string - javascript utility',
@@ -256,7 +243,6 @@ export async function executeCommand(
             type: 'output',
             content: '• shopify liquid filters - theme development',
           },
-          { type: 'output', content: '' },
           {
             type: 'info',
             content: 'visit /snippets for the complete collection',
@@ -269,7 +255,6 @@ export async function executeCommand(
         lines: [
           { type: 'output', content: 'recent activities' },
           { type: 'output', content: '=================' },
-          { type: 'output', content: '' },
           {
             type: 'output',
             content: '🎵 last played: "the scientist" by coldplay',
@@ -288,7 +273,6 @@ export async function executeCommand(
               '💻 last commit: "fix: terminal ui responsiveness" (2 hours ago)',
           },
           { type: 'output', content: '🔥 github streak: 42 days' },
-          { type: 'output', content: '' },
           {
             type: 'info',
             content:
@@ -302,7 +286,6 @@ export async function executeCommand(
         lines: [
           { type: 'output', content: "when i'm not coding" },
           { type: 'output', content: '===================' },
-          { type: 'output', content: '' },
           {
             type: 'output',
             content: '🎵 listening to music (mostly indie, alternative rock)',
@@ -326,20 +309,17 @@ export async function executeCommand(
         lines: [
           { type: 'output', content: 'favorite quotes' },
           { type: 'output', content: '===============' },
-          { type: 'output', content: '' },
           {
             type: 'output',
             content: '"the best way to predict the future is to create it."',
           },
           { type: 'output', content: '- peter drucker' },
-          { type: 'output', content: '' },
           {
             type: 'output',
             content:
               '"code is like humor. when you have to explain it, it\'s bad."',
           },
           { type: 'output', content: '- cory house' },
-          { type: 'output', content: '' },
           {
             type: 'output',
             content: '"first, solve the problem. then, write the code."',
@@ -353,12 +333,10 @@ export async function executeCommand(
         lines: [
           { type: 'output', content: 'music taste' },
           { type: 'output', content: '===========' },
-          { type: 'output', content: '' },
           { type: 'output', content: 'favorite artists:' },
           { type: 'output', content: '• coldplay, radiohead, the beatles' },
           { type: 'output', content: '• bon iver, the national, arcade fire' },
           { type: 'output', content: '• kings of convenience, zero 7' },
-          { type: 'output', content: '' },
           { type: 'output', content: 'currently on repeat:' },
           { type: 'output', content: '🎵 "the scientist" by coldplay' },
           { type: 'output', content: '🎵 "holocene" by bon iver' },
