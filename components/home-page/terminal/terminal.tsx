@@ -2,6 +2,7 @@
 
 import { clsx } from 'clsx'
 import { useEffect, useRef, useState } from 'react'
+import { AsciiArtText } from './ascii-art-text'
 import { BlogViewer } from './blog-viewer'
 import { MOCK_BLOGS, executeCommand } from './command-executor'
 import { COMMANDS } from './commands'
@@ -372,20 +373,10 @@ export function Terminal() {
             {lines.map((line, index) => (
               <div key={`line-${index}-${line.type}`} className="relative">
                 {line.type === 'ascii' && (
-                  <pre
-                    className={clsx(
-                      'text-xs pb-2 leading-tight font-mono overflow-x-auto whitespace-pre ascii-art',
-                      themeClasses.accent,
-                    )}
-                    style={{
-                      fontFamily:
-                        'monospace, "Courier New", Courier, "Lucida Console", Monaco',
-                      letterSpacing: '0',
-                      fontVariantLigatures: 'none',
-                    }}
-                  >
-                    {line.content}
-                  </pre>
+                  <AsciiArtText
+                    content={line.content}
+                    className={themeClasses.accent}
+                  />
                 )}
                 {line.type === 'command' && (
                   <div className={themeClasses.command}>{line.content}</div>
