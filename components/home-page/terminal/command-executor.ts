@@ -93,7 +93,7 @@ export async function executeCommand(
     case 'help':
       return {
         lines: [
-          { type: 'info', content: 'available commands:' },
+          { type: 'info', content: 'available commands (and their aliases):' },
           ...COMMANDS.map((cmd) => ({
             type: 'output' as const,
             content: `  ${cmd.command.padEnd(12)} - ${cmd.description}${cmd.aliases ? ` (${cmd.aliases.join(', ')})` : ''}`,

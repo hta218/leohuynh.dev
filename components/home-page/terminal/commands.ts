@@ -11,7 +11,7 @@ export const COMMANDS: Command[] = [
   {
     command: 'whoami',
     aliases: ['who', 'me'],
-    description: 'display information about leo',
+    description: 'display information about me',
     category: 'info',
   },
   {
@@ -87,9 +87,9 @@ export const COMMANDS: Command[] = [
     category: 'system',
   },
   {
-    command: 'date',
-    aliases: ['time', 'now'],
-    description: 'show current date and time',
+    command: 'time',
+    aliases: ['date', 'now'],
+    description: 'show current time in my timezone',
     category: 'system',
   },
   {
