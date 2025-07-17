@@ -17,7 +17,6 @@ interface WindowProps {
 }
 
 export function Window({
-  title = 'leo@leohuynh.dev: ~',
   children,
   defaultWidth = 1200,
   defaultHeight = 600,

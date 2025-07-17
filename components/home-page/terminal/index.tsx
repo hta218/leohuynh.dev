@@ -248,11 +248,7 @@ export function Terminal() {
 
   return (
     <>
-      <Window
-        title="~/the-internet/leohuynh.dev [main] ✓"
-        defaultWidth={1200}
-        defaultHeight={800}
-      >
+      <Window defaultWidth={1200} defaultHeight={800}>
         <div
           ref={terminalRef}
           className="overflow-y-auto p-4 h-full"
