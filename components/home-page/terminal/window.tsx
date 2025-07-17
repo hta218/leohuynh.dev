@@ -250,7 +250,7 @@ function WindowTitle() {
       <span>~/the-internet/</span>
       <Twemoji emoji="flag-vietnam" />
       <span className="-ml-0.5">/leohuynh.dev</span>
-      <span className="mx-2">|</span>
+      <span className="mx-2 opacity-50">|</span>
       <span>[main]</span>
       <CheckCheck size={16} className="text-green-500 ml-2" />
     </div>
