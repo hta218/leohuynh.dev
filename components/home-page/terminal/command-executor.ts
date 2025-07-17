@@ -102,7 +102,8 @@ export async function executeCommand(
           { type: 'output', content: '' },
           {
             type: 'info',
-            content: 'tip: use tab to autocomplete, up/down arrows for history',
+            content:
+              'tips: `tab` or `→` for autocomplete, `↑/↓` for cycling through suggestions/history',
           },
         ],
       }
