@@ -120,27 +120,6 @@ export function Terminal() {
     }
   }
 
-  // Function to check if input is visible
-  const isInputVisible = () => {
-    if (!terminalRef.current || !inputRef.current) return false
-
-    const terminalRect = terminalRef.current.getBoundingClientRect()
-    const inputRect = inputRef.current.getBoundingClientRect()
-
-    // Check if input is within the visible area of the terminal
-    return (
-      inputRect.bottom <= terminalRect.bottom &&
-      inputRect.top >= terminalRect.top
-    )
-  }
-
-  // Handle terminal click
-  const handleTerminalClick = () => {
-    if (isInputVisible()) {
-      inputRef.current?.focus()
-    }
-  }
-
   const executeCommandHandler = async (command: string) => {
     const trimmedCommand = command.trim().toLowerCase()
 
@@ -157,7 +136,6 @@ export function Terminal() {
     const result = await executeCommand(trimmedCommand, (blogId: string) => {
       setCurrentBlog(blogId)
     })
-    console.log('👉 --------> - index.tsx - result - result:', result)
 
     if (
       result.lines &&
@@ -249,11 +227,7 @@ export function Terminal() {
   return (
     <>
       <Window defaultWidth={1200} defaultHeight={800}>
-        <div
-          ref={terminalRef}
-          className="overflow-y-auto p-4 h-full"
-          onClick={handleTerminalClick}
-        >
+        <div ref={terminalRef} className="overflow-y-auto p-4 h-full">
           <div className="space-y-1">
             {lines.map((line, index) => (
               <div key={`line-${index}-${line.type}`} className="relative">
