@@ -1,7 +1,9 @@
 'use client'
 
 import { clsx } from 'clsx'
+import { CheckCheck } from 'lucide-react'
 import { type ReactNode, useEffect, useRef, useState } from 'react'
+import { Twemoji } from '~/components/ui/twemoji'
 import { FONTS, FontSelector } from './font-selector'
 import { THEMES, ThemeSelector } from './theme-selector'
 import type { Font, Theme } from './types'
@@ -226,9 +228,7 @@ export function Window({
             <div className="h-3 w-3 rounded-full bg-green-400" />
           </div>
         </div>
-        <div className={clsx('ml-4 text-sm font-medium')} data-terminal-text>
-          {title}
-        </div>
+        <WindowTitle />
         <div className="flex items-center space-x-1">
           <FontSelector currentFont={font} onChange={setFont} />
           <div className="h-3 w-px border-r border-gray-400" />
@@ -238,6 +238,22 @@ export function Window({
 
       {/* Window Content */}
       <div className="overflow-hidden grow">{children}</div>
+    </div>
+  )
+}
+
+function WindowTitle() {
+  return (
+    <div
+      className="ml-4 text-sm font-medium flex items-center"
+      data-terminal-text
+    >
+      <span>~/the-internet/</span>
+      <Twemoji emoji="flag-vietnam" />
+      <span className="-ml-0.5">/leohuynh.dev</span>
+      <span className="mx-2">|</span>
+      <span>[main]</span>
+      <CheckCheck size={16} className="text-green-500 ml-2" />
     </div>
   )
 }
