@@ -93,25 +93,6 @@ export function Window({
     }
   }, [isResizing, resizeDirection, windowSize])
 
-  const getResizeCursor = (direction: string) => {
-    switch (direction) {
-      case 'right':
-      case 'left':
-        return 'ew-resize'
-      case 'bottom':
-      case 'top':
-        return 'ns-resize'
-      case 'bottom-right':
-      case 'top-left':
-        return 'nwse-resize'
-      case 'bottom-left':
-      case 'top-right':
-        return 'ne-resize'
-      default:
-        return 'default'
-    }
-  }
-
   return (
     <div
       ref={containerRef}
@@ -251,4 +232,23 @@ function WindowTitle() {
       <CheckCheck size={16} className="text-green-500 ml-2" />
     </div>
   )
+}
+
+function getResizeCursor(direction: string) {
+  switch (direction) {
+    case 'right':
+    case 'left':
+      return 'ew-resize'
+    case 'bottom':
+    case 'top':
+      return 'ns-resize'
+    case 'bottom-right':
+    case 'top-left':
+      return 'nwse-resize'
+    case 'bottom-left':
+    case 'top-right':
+      return 'ne-resize'
+    default:
+      return 'default'
+  }
 }
