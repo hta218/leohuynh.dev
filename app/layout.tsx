@@ -1,9 +1,7 @@
-import 'css/tailwind.css'
-import 'css/twemoji.css'
-import 'react-medium-image-zoom/dist/styles.css'
-import 'remark-github-blockquote-alert/alert.css'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import clsx from 'clsx'
+import 'css/tailwind.css'
+import 'css/twemoji.css'
 import type { Metadata } from 'next'
 import {
   Geist_Mono,
@@ -11,13 +9,10 @@ import {
   Nunito,
   Playpen_Sans,
 } from 'next/font/google'
+import 'remark-github-blockquote-alert/alert.css'
 import { UmamiAnalytics } from '~/components/analytics/umami'
-import { Footer } from '~/components/footer'
-import { Header } from '~/components/header'
-import { KBarSearchProvider } from '~/components/search/kbar-provider'
 import { TiltedGridBackground } from '~/components/ui/tilted-grid-background'
 import { SITE_METADATA } from '~/data/site-metadata'
-import { ThemeProviders } from './theme-providers'
 
 const FONT_PLAYPEN_SANS = Playpen_Sans({
   subsets: ['latin'],
@@ -159,16 +154,10 @@ export default function RootLayout({
         ])}
       >
         <TiltedGridBackground className="inset-x-0 top-0 z-[-1] h-[50vh]" />
-        <ThemeProviders>
-          <UmamiAnalytics
-            websiteId={SITE_METADATA.analytics.umamiAnalytics.websiteId}
-          />
-          <KBarSearchProvider configs={SITE_METADATA.search.kbarConfigs}>
-            {/* <Header /> */}
-            <main className="mb-auto grow">{children}</main>
-          </KBarSearchProvider>
-          {/* <Footer /> */}
-        </ThemeProviders>
+        <UmamiAnalytics
+          websiteId={SITE_METADATA.analytics.umamiAnalytics.websiteId}
+        />
+        <main className="mb-auto grow">{children}</main>
         <SpeedInsights />
       </body>
     </html>
