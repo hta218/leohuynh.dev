@@ -1,4 +1,8 @@
+import Link from 'next/link'
+import { Image } from '~/components/ui/image'
+import { MusicWaves } from '~/components/ui/music-waves'
 import { PROJECTS } from '~/data/projects'
+import { useNowPlaying } from '~/hooks/use-now-playing'
 import { COMMANDS } from './commands'
 import type { CommandResult } from './types'
 
@@ -109,12 +113,34 @@ export async function executeCommand(
     case 'whoami':
       return {
         lines: [
-          { type: 'output', content: 'leo huynh (hta218)' },
-          { type: 'output', content: 'full-stack developer & entrepreneur' },
-          { type: 'output', content: 'location: ho chi minh city, vietnam 🇻🇳' },
+          {
+            type: 'output',
+            content: 'Tuan Anh Huynh (aliased as Leo at work)',
+          },
+          { type: 'output', content: 'learner, builder, and freedom-seeker' },
+          {
+            type: 'output',
+            content: 'location: [::1]:443 - ha noi, vietnam 🇻🇳',
+          },
           { type: 'output', content: 'email: contact@leohuynh.dev' },
           { type: 'output', content: 'github: @hta218' },
           { type: 'output', content: 'twitter: @hta218_' },
+          { type: 'output', content: 'twitter: @hta218_' },
+          {
+            type: 'component',
+            component: () => {
+              return (
+                <a
+                  href="https://twitter.com/hta218_"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-4"
+                >
+                  test @hta218_
+                </a>
+              )
+            },
+          },
         ],
       }
 
@@ -333,6 +359,46 @@ export async function executeCommand(
         lines: [
           { type: 'output', content: 'music taste' },
           { type: 'output', content: '===========' },
+          {
+            type: 'component',
+            component: () => {
+              let { isLoading, data } = useNowPlaying()
+              if (isLoading) {
+                return <div>loading...</div>
+              }
+              if (!data.isPlaying) {
+                return <div>not listening to anything right now</div>
+              }
+              let { songUrl, title, artist, albumImageUrl } = data.song
+              return (
+                <div className="flex items-center truncate">
+                  <Image
+                    src={albumImageUrl}
+                    alt={title || 'Now playing'}
+                    width={40}
+                    height={40}
+                    className="h-5.5 w-5.5 shrink-0 animate-spin rounded-full border border-gray-300 [animation-duration:6s] dark:border-gray-700"
+                  />
+                  <div className="ml-2 inline-flex truncate lowercase">
+                    <MusicWaves className="mr-2" />
+                    <Link
+                      href={songUrl}
+                      className="hover:underline underline-offset-4"
+                      title={`${title} - ${artist}`}
+                    >
+                      <span data-umami-event="spotify-now-playing-view-song">
+                        {title}
+                      </span>
+                    </Link>
+                    <span className="mx-2 text-(--artist-color)">{' – '}</span>
+                    <p data-terminal-info className="max-w-max truncate">
+                      {artist}
+                    </p>
+                  </div>
+                </div>
+              )
+            },
+          },
           { type: 'output', content: 'favorite artists:' },
           { type: 'output', content: '• coldplay, radiohead, the beatles' },
           { type: 'output', content: '• bon iver, the national, arcade fire' },
