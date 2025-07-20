@@ -17,7 +17,7 @@ export function SpotifyNowPlaying({
   showCover?: boolean
   songEffect?: 'none' | 'underline'
 }) {
-  let data = useNowPlaying()
+  let { data } = useNowPlaying()
 
   if (!data.isPlaying) {
     return (

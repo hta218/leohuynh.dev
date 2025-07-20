@@ -14,7 +14,7 @@ export function LastPlayed({
 }: {
   recentlyPlayed: RecentlyPlayedData
 }) {
-  let nowPlayingData = useNowPlaying()
+  let { data: nowPlayingData } = useNowPlaying()
 
   // If there's a song currently playing, show that instead
   if (nowPlayingData.isPlaying && nowPlayingData.song) {
