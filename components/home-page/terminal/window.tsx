@@ -118,7 +118,7 @@ export function Window({
       className={clsx(
         'relative mx-auto rounded-lg border shadow-2xl flex flex-col',
         'bg-(--terminal-bg)',
-        '[&_[data-terminal-text]]:text-(--terminal-text)',
+        'text-(--terminal-text)',
         '[&_[data-terminal-prompt]]:text-(--terminal-prompt)',
         '[&_[data-terminal-command]]:text-(--terminal-command)',
         '[&_[data-terminal-info]]:text-(--terminal-info)',
@@ -207,7 +207,6 @@ export function Window({
           className={clsx('w-full h-full')}
           fill="currentColor"
           aria-label="Resize window"
-          data-terminal-text
         >
           <title>Resize window</title>
           <path d="M12 0v12L0 12z" opacity="0.15" />
@@ -243,10 +242,7 @@ export function Window({
 
 function WindowTitle() {
   return (
-    <div
-      className="ml-4 text-sm font-medium flex items-center"
-      data-terminal-text
-    >
+    <div className="ml-4 text-sm font-medium flex items-center">
       <span>~/the-internet/</span>
       <Twemoji emoji="flag-vietnam" />
       <span className="-ml-0.5">/leohuynh.dev</span>
