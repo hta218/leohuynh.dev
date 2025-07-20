@@ -27,7 +27,7 @@ export const execute = async (): Promise<CommandResult> => {
                 alt={title || 'Now playing'}
                 width={40}
                 height={40}
-                className="h-5.5 w-5.5 shrink-0 animate-spin rounded-full border border-gray-300 [animation-duration:6s] dark:border-gray-700"
+                className="h-5.5 w-5.5 shrink-0 animate-spin rounded-full [animation-duration:6s]"
               />
               <div className="ml-2 inline-flex truncate lowercase">
                 <MusicWaves className="mr-2" />
