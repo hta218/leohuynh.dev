@@ -8,7 +8,7 @@ export interface Command {
 export interface TerminalLine {
   type: 'command' | 'output' | 'info' | 'error' | 'ascii' | 'component'
   content?: string
-  component?: React.ReactNode
+  component?: React.FC
 }
 
 export interface CommandResult {
