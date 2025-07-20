@@ -229,31 +229,20 @@ export function Terminal() {
       <Window defaultWidth={1200} defaultHeight={800}>
         <div ref={terminalRef} className="overflow-y-auto p-4 h-full">
           <div className="space-y-1">
-            {lines.map((line, index) => (
-              <div key={`line-${index}-${line.type}`} className="relative">
-                {line.type === 'ascii' && (
-                  <AsciiArtText data-terminal-accent>
-                    {line.content}
-                  </AsciiArtText>
+            {lines.map(({ type, content, component: Component }, idx) => (
+              <div key={`line-${idx}-${type}`} className="relative">
+                {type === 'ascii' && (
+                  <AsciiArtText data-terminal-accent>{content}</AsciiArtText>
                 )}
-                {line.type === 'command' && (
-                  <div data-terminal-command>{line.content}</div>
+                {type === 'command' && (
+                  <div data-terminal-command>{content}</div>
                 )}
-                {line.type === 'output' && (
-                  <div
-                    data-terminal-text
-                    className="whitespace-pre-wrap min-h-3"
-                  >
-                    {line.content}
-                  </div>
+                {type === 'output' && (
+                  <div className="whitespace-pre-wrap min-h-3">{content}</div>
                 )}
-                {line.type === 'info' && (
-                  <div data-terminal-info>{line.content}</div>
-                )}
-                {line.type === 'error' && (
-                  <div data-terminal-error>{line.content}</div>
-                )}
-                {line.type === 'component' && line.component}
+                {type === 'info' && <div data-terminal-info>{content}</div>}
+                {type === 'error' && <div data-terminal-error>{content}</div>}
+                {type === 'component' && Component && <Component />}
               </div>
             ))}
 
@@ -272,7 +261,6 @@ export function Terminal() {
                     onChange={(e) => setCurrentInput(e.target.value)}
                     onKeyDown={handleKeyDown}
                     className="w-full bg-transparent outline-none relative z-10"
-                    data-terminal-text
                     placeholder="type a command..."
                     autoComplete="off"
                     spellCheck={false}
@@ -280,10 +268,7 @@ export function Terminal() {
 
                   {/* Ghost text overlay */}
                   {ghostText && (
-                    <div
-                      data-terminal-text
-                      className="absolute top-0 left-0 w-full pointer-events-none z-0 opacity-40"
-                    >
+                    <div className="absolute top-0 left-0 w-full pointer-events-none z-0 opacity-40">
                       <span className="invisible">{currentInput}</span>
                       <span>{ghostText}</span>
                     </div>
