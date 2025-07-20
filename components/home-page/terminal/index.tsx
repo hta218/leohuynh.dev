@@ -2,13 +2,18 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { AsciiArtText } from './ascii-art-text'
-import { MOCK_BLOGS, executeCommand } from './command-executor'
-import { ASCII_ART, COMMANDS, WELCOME_TEXT } from './commands'
+import { ASCII_ART, COMMANDS, WELCOME_TEXT, executeCommand } from './commands'
+import { MOCK_BLOGS } from './commands/blogs'
 import type { TerminalLine } from './types'
 import { Window } from './window'
 
+const DEFAULT_LINES: TerminalLine[] = [
+  { type: 'ascii', content: ASCII_ART },
+  ...WELCOME_TEXT.map((text) => ({ type: 'info' as const, content: text })),
+]
+
 export function Terminal() {
-  const [lines, setLines] = useState<TerminalLine[]>([])
+  const [lines, setLines] = useState<TerminalLine[]>(DEFAULT_LINES)
   const [currentInput, setCurrentInput] = useState('')
   const [commandHistory, setCommandHistory] = useState<string[]>([])
   const [historyIndex, setHistoryIndex] = useState(-1)
@@ -56,15 +61,6 @@ export function Terminal() {
     setSelectedSuggestion(0)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentInput])
-
-  // Initialize terminal
-  useEffect(() => {
-    const initialLines: TerminalLine[] = [
-      { type: 'ascii', content: ASCII_ART },
-      ...WELCOME_TEXT.map((text) => ({ type: 'info' as const, content: text })),
-    ]
-    setLines(initialLines)
-  }, [])
 
   // Auto-focus input
   useEffect(() => {
@@ -114,7 +110,7 @@ export function Terminal() {
   }, [lines.length])
 
   // Function to scroll to bottom
-  const scrollToBottom = () => {
+  function scrollToBottom() {
     if (terminalRef.current) {
       terminalRef.current.scrollTo(0, terminalRef.current.scrollHeight)
     }
@@ -153,13 +149,7 @@ export function Terminal() {
     }
 
     if (result.clear) {
-      setLines([
-        { type: 'ascii', content: ASCII_ART },
-        ...WELCOME_TEXT.map((text) => ({
-          type: 'info' as const,
-          content: text,
-        })),
-      ])
+      setLines(DEFAULT_LINES)
     }
   }
 
