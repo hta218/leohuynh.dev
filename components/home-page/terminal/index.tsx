@@ -220,7 +220,7 @@ export function Terminal() {
         <div ref={terminalRef} className="overflow-y-auto p-4 h-full">
           <div className="space-y-1">
             {lines.map(({ type, content, component: Component }, idx) => (
-              <div key={`line-${idx}-${type}`} className="relative">
+              <div key={`line-${idx}-${type}`}>
                 {type === 'ascii' && (
                   <AsciiArtText data-terminal-accent>{content}</AsciiArtText>
                 )}
