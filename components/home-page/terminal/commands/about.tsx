@@ -5,7 +5,7 @@ export const execute = async (): Promise<CommandResult> => {
   return {
     lines: [
       { type: 'output', content: 'about me' },
-      { type: 'output', content: '----------------' },
+      { type: 'output', content: '=================' },
       { type: 'output', content: 'background:' },
       {
         type: 'output',
@@ -36,7 +36,7 @@ export const execute = async (): Promise<CommandResult> => {
               <li>i'm tutulele's husband.</li>
               <li>
                 i'm a sport-guy, i love
-                <span className="ml-1.5">
+                <span className="ml-2">
                   <Twemoji emoji="soccer-ball" />,
                   <Twemoji emoji="man-swimming" />,
                   <Twemoji emoji="ping-pong" />,
