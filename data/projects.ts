@@ -7,10 +7,10 @@ export const PROJECTS: Project[] = [
     description:
       'The first Hydrogen-driven website builder powered by AI. Weaverse is a Shopify sales channel that allows you to create a website in minutes with no coding required.',
     imgSrc: '/static/images/weaverse-logo.png',
-    url: 'https://www.weaverse.io?ref=leohuynh.dev',
+    url: 'https://www.weaverse.io',
     builtWith: ['Shopify', 'Remix', 'TailwindCSS', 'Prisma', 'OpenAI'],
     links: [
-      { title: 'Website', url: 'https://www.weaverse.io?ref=leohuynh.dev' },
+      { title: 'Website', url: 'https://www.weaverse.io' },
       { title: 'GitHub Org', url: 'https://github.com/weaverse' },
     ],
   },
@@ -39,7 +39,7 @@ export const PROJECTS: Project[] = [
     description:
       'The Next Generation of highest-converting and extensible Shopify theme (Weekly bestseller & Top trending in Themeforest eCommerce category).',
     imgSrc: '/static/images/brush-96.png',
-    url: 'https://themeforest.net/item/minimog-the-high-converting-shopify-theme/33380968?ref=leohuynh.dev',
+    url: 'https://themeforest.net/item/minimog-the-high-converting-shopify-theme/33380968',
     builtWith: ['ThemeKit', 'Liquid', 'Webpack', 'TailwindCSS'],
     links: [
       { title: 'Demo site', url: 'https://demo.minimog.co' },
@@ -55,7 +55,7 @@ export const PROJECTS: Project[] = [
     description:
       'The upsells and boost conversion tools that is built to support Minimog theme.',
     imgSrc: '/static/images/sale-price-tag-96.png',
-    url: 'https://apps.shopify.com/foxkit?ref=leohuynh.dev',
+    url: 'https://apps.shopify.com/foxkit',
     builtWith: ['KoaJS', 'JWT', 'MongoDB', 'Polaris'],
     links: [
       { title: 'App store', url: 'https://apps.shopify.com/foxkit' },
@@ -91,7 +91,7 @@ export const PROJECTS: Project[] = [
     title: 'Animate loading bar',
     imgSrc: '/static/images/spinner-96.png',
     repo: 'hta218/animate-loading-bar',
-    builtWith: ['Javascript', 'CSS'],
+    builtWith: ['Typescript', 'CSS'],
   },
   {
     type: 'self',
