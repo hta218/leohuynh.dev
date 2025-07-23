@@ -26,7 +26,7 @@ export function FontSelector({ currentFont, onChange }: FontSelectorProps) {
           'data-[open]:bg-gray-200',
         )}
       >
-        <Twemoji emoji="keyboard" size="base" />
+        <Twemoji emoji="keyboard" size="base" style={{ margin: 0 }} />
         {/* <span className="ml-1 text-gray-600">({currentFont})</span> */}
       </MenuButton>
 

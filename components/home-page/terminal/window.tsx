@@ -208,7 +208,7 @@ export function Window({
           </div>
         </div>
         <WindowTitle />
-        <div className="flex items-center space-x-1">
+        <div className="flex items-center space-x-1.5">
           <FontSelector currentFont={font} onChange={setFont} />
           <div className="h-3 w-px border-r border-gray-400" />
           <ThemeSelector currentTheme={theme} onChange={setTheme} />

@@ -86,7 +86,7 @@ export function ThemeSelector({ currentTheme, onChange }: ThemeSelectorProps) {
           'data-[open]:bg-gray-200 focus-visible:outline-0',
         )}
       >
-        <Twemoji emoji="artist-palette" size="base" />
+        <Twemoji emoji="artist-palette" size="base" style={{ margin: 0 }} />
         {/* <span className="ml-1 text-gray-600">({currentTheme})</span> */}
       </MenuButton>
 
