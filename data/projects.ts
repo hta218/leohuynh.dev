@@ -8,7 +8,7 @@ export const PROJECTS: Project[] = [
       'The first Hydrogen-driven website builder powered by AI. Weaverse is a Shopify sales channel that allows you to create a website in minutes with no coding required.',
     imgSrc: '/static/images/weaverse-logo.png',
     url: 'https://www.weaverse.io',
-    builtWith: ['Shopify', 'Remix', 'TailwindCSS', 'Prisma', 'OpenAI'],
+    builtWith: ['Shopify', 'ReactRouter', 'TailwindCSS', 'Prisma', 'Claude'],
     links: [
       { title: 'Website', url: 'https://www.weaverse.io' },
       { title: 'GitHub Org', url: 'https://github.com/weaverse' },
@@ -21,7 +21,7 @@ export const PROJECTS: Project[] = [
       'Open-source toolkits for seamless integration and development of Shopify Hydrogen themes and headless commerce solutions.',
     imgSrc: '/static/images/weaverse-logo.png',
     repo: 'weaverse/weaverse',
-    builtWith: ['Turborepo', 'Hydrogen', 'React', 'Typescript'],
+    builtWith: ['Turborepo', 'React', 'Typescript', 'Hydrogen', 'Biome'],
   },
   {
     type: 'work',
@@ -31,7 +31,7 @@ export const PROJECTS: Project[] = [
     imgSrc: '/static/images/theme-100.png',
     repo: 'weaverse/pilot',
     url: 'https://pilot.weaverse.io/',
-    builtWith: ['Hydrogen', 'Remix', 'TailwindCSS', 'HeadlessUI'],
+    builtWith: ['Hydrogen', 'Remix', 'GraphQL', 'TailwindCSS', 'RadixUI'],
   },
   {
     type: 'work',
@@ -70,7 +70,14 @@ export const PROJECTS: Project[] = [
     title: 'leohuynh.dev',
     imgSrc: '/static/images/writer-96.png',
     repo: 'hta218/leohuynh.dev',
-    builtWith: ['NextJS', 'TailwindCSS', 'Typescript', 'Drizzle', 'Umami'],
+    builtWith: [
+      'NextJS',
+      'TailwindCSS',
+      'Typescript',
+      'Drizzle',
+      'Umami',
+      'Biome',
+    ],
   },
   {
     type: 'self',
