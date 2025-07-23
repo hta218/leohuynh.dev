@@ -1,9 +1,10 @@
 import clsx from 'clsx'
-import { Github } from 'lucide-react'
+import { Github, Star } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
 import useSWR from 'swr'
 import { Brand, type BrandsMap } from '~/components/ui/brand'
+import { TerminalLoading } from '~/components/ui/terminal-loading'
 import { PROJECTS } from '~/data/projects'
 import type { GithubRepository } from '~/types/data'
 import { fetcher } from '~/utils/misc'
@@ -25,8 +26,19 @@ function ProjectItem({ project, index }: ProjectItemProps) {
   let stars = repository?.stargazerCount
   let projectDescription = repository?.description || description
 
+  if (isLoading) {
+    return (
+      <div className="flex items-center flex-wrap">
+        <strong>
+          {index + 1}. {title}
+        </strong>
+        <TerminalLoading className="ml-2" />
+      </div>
+    )
+  }
+
   return (
-    <div className="mb-2 lowercase space-y-1">
+    <div className="lowercase space-y-1">
       <div className="flex items-center flex-wrap">
         <strong>
           {index + 1}. {title}
@@ -48,7 +60,7 @@ function ProjectItem({ project, index }: ProjectItemProps) {
         <div data-terminal-info>{projectDescription}</div>
         {stars && (
           <div className="flex items-center gap-1.5">
-            <Github size={20} /> stars: {stars}
+            github stars: <Star size={20} strokeWidth={1.5} /> {stars}
           </div>
         )}
         <div className="flex flex-wrap items-center gap-2">
