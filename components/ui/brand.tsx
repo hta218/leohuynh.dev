@@ -1,6 +1,7 @@
 import { Link } from '~/components/ui/link'
 import Bash from '~/icons/bash.svg'
 import Biome from '~/icons/biome.svg'
+import Claude from '~/icons/claude.svg'
 import Commitlint from '~/icons/commitlint.svg'
 import CSS from '~/icons/css.svg'
 import Drizzle from '~/icons/drizzle.svg'
@@ -10,6 +11,7 @@ import Git from '~/icons/git.svg'
 import GitHub from '~/icons/github.svg'
 import GithubCopilot from '~/icons/githubcopilot.svg'
 import Goodreads from '~/icons/goodreads.svg'
+import GraphQL from '~/icons/graphql.svg'
 import HeadlessUI from '~/icons/headlessui.svg'
 import Html from '~/icons/html5.svg'
 import Hydrogen from '~/icons/hydrogen.svg'
@@ -32,8 +34,10 @@ import Postcss from '~/icons/postcss.svg'
 import Prisma from '~/icons/prisma.svg'
 import Pygame from '~/icons/pygame.svg'
 import Python from '~/icons/python.svg'
+import RadixUI from '~/icons/radixui.svg'
 import Railway from '~/icons/railway.svg'
 import React from '~/icons/react.svg'
+import ReactRouter from '~/icons/reactrouter.svg'
 import Remix from '~/icons/remix.svg'
 import RottenTomatoes from '~/icons/rottentomatoes.svg'
 import SemanticUI from '~/icons/semanticui.svg'
@@ -68,6 +72,14 @@ export const BrandsMap = {
     Icon: Biome,
     url: 'https://biomejs.dev',
   },
+  Claude: {
+    Icon: Claude,
+    url: 'https://www.anthropic.com/claude',
+  },
+  GraphQL: {
+    Icon: GraphQL,
+    url: 'https://graphql.org',
+  },
   Supabase: {
     Icon: Supabase,
     url: 'https://supabase.com',
@@ -87,6 +99,14 @@ export const BrandsMap = {
   Remix: {
     Icon: Remix,
     url: 'https://remix.run',
+  },
+  ReactRouter: {
+    Icon: ReactRouter,
+    url: 'https://reactrouter.com',
+  },
+  RadixUI: {
+    Icon: RadixUI,
+    url: 'https://www.radix-ui.com/',
   },
   Git: {
     Icon: Git,
