@@ -17,11 +17,18 @@ let variants = cva('twa inline-block', {
   },
 })
 
-interface TwemojiProps extends VariantProps<typeof variants> {
+interface TwemojiProps
+  extends VariantProps<typeof variants>,
+    React.HTMLAttributes<HTMLSpanElement> {
   emoji: string
   className?: string
 }
 
-export function Twemoji({ emoji, size, className }: TwemojiProps) {
-  return <i className={clsx(variants({ size }), `twa-${emoji}`, className)} />
+export function Twemoji({ emoji, size, className, ...props }: TwemojiProps) {
+  return (
+    <i
+      className={clsx(variants({ size }), `twa-${emoji}`, className)}
+      {...props}
+    />
+  )
 }
