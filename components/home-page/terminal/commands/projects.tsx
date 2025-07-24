@@ -1,7 +1,6 @@
 import clsx from 'clsx'
-import { Github, Star } from 'lucide-react'
+import { Star } from 'lucide-react'
 import Link from 'next/link'
-import React from 'react'
 import useSWR from 'swr'
 import { Brand, type BrandsMap } from '~/components/ui/brand'
 import { TerminalLoading } from '~/components/ui/terminal-loading'
@@ -28,7 +27,7 @@ function ProjectItem({ project, index }: ProjectItemProps) {
 
   if (isLoading) {
     return (
-      <div className="flex items-center flex-wrap">
+      <div className="lowercase flex items-center flex-wrap">
         <strong>
           {index + 1}. {title}
         </strong>
