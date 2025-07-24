@@ -24,6 +24,8 @@ export const SITE_METADATA = {
     'https://www.goodreads.com/review/list/179720035-leo-huynh',
   goodreadsFeedUrl: 'https://www.goodreads.com/review/list_rss/179720035',
   imdbRatingsList: 'https://www.imdb.com/user/ur154483197/ratings/?view=grid',
+  spotify:
+    'https://open.spotify.com/user/31uxi2mgkrjhj4agxmudr5cmfj7a?si=8c9febb8bda84c7f',
   analytics: {
     umamiAnalytics: {
       websiteId: process.env.NEXT_UMAMI_ID,
