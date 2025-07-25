@@ -7,20 +7,14 @@ export const execute = async (): Promise<CommandResult> => {
       { type: 'output', content: '===============' },
       {
         type: 'output',
-        content: '"the best way to predict the future is to create it."',
+        content: `"i'm one of those weirdos who think the most rewarding things in life take effort`,
       },
-      { type: 'output', content: '- peter drucker' },
+      { type: 'info', content: '- a random one' },
       {
         type: 'output',
-        content:
-          '"code is like humor. when you have to explain it, it\'s bad."',
+        content: `"a man who doesn't spend time with his family can never be a real man."`,
       },
-      { type: 'output', content: '- cory house' },
-      {
-        type: 'output',
-        content: '"first, solve the problem. then, write the code."',
-      },
-      { type: 'output', content: '- john johnson' },
+      { type: 'info', content: '- mario puzo, the godfather' },
     ],
   }
 }
