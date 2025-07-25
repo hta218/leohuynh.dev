@@ -18,7 +18,7 @@ export function NowPlaying({ song }: { song: SpotifySong }) {
           alt={title || 'Now playing'}
           width={40}
           height={40}
-          className="h-5.5 w-5.5 shrink-0 rounded-full [animation-duration:6s]"
+          className="h-5.5 w-5.5 shrink-0 rounded [animation-duration:6s]"
         />
         <Link
           href={songUrl}
@@ -63,7 +63,7 @@ export const execute = async (): Promise<CommandResult> => {
       { type: 'output', content: '• ed sheeran, charlie puth, one d,' },
       {
         type: 'output',
-        content: '• den vau, ung hoang phuc, truc nhan (vpop)',
+        content: '• den vau, thuy chi, truc nhan (vpop)',
       },
       { type: 'output', content: 'genres:' },
       { type: 'output', content: '• rock, pop, rap' },
