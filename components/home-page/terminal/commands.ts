@@ -2,7 +2,6 @@ import { execute as executeAboutCommand } from './commands/about'
 import { execute as executeActivitiesCommand } from './commands/activities'
 import { execute as executeBlogsCommand } from './commands/blogs'
 import { execute as executeClearCommand } from './commands/clear'
-import { execute as executeDateCommand } from './commands/date'
 import { execute as executeHelpCommand } from './commands/help'
 import { execute as executeHobbiesCommand } from './commands/hobbies'
 import { execute as executeMusicCommand } from './commands/music'
@@ -12,6 +11,7 @@ import { execute as executeQuotesCommand } from './commands/quotes'
 import { execute as executeReadCommand } from './commands/read'
 import { execute as executeSkillsCommand } from './commands/skills'
 import { execute as executeSnippetsCommand } from './commands/snippets'
+import { execute as executeTimeCommand } from './commands/time'
 import { execute as executeWhoamiCommand } from './commands/whoami'
 import type { Command } from './types'
 import type { CommandResult } from './types'
@@ -182,8 +182,8 @@ export async function executeCommand(
     case 'pwd':
       return executePwdCommand()
 
-    case 'date':
-      return executeDateCommand()
+    case 'time':
+      return executeTimeCommand()
 
     default:
       // Check if it's a "read" command
