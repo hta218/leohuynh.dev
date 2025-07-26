@@ -218,7 +218,7 @@ export function Terminal() {
     <>
       <Window defaultWidth={1200} defaultHeight={800}>
         <div ref={terminalRef} className="overflow-y-auto p-4 h-full">
-          <div className="space-y-1">
+          <div className="space-y-1 lowercase">
             {lines.map(({ type, content, component: Component }, idx) => (
               <div key={`line-${idx}-${type}`}>
                 {type === 'ascii' && (
