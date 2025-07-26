@@ -230,7 +230,11 @@ export function Terminal() {
                 {type === 'output' && (
                   <div className="whitespace-pre-wrap min-h-3">{content}</div>
                 )}
-                {type === 'info' && <div data-terminal-info>{content}</div>}
+                {type === 'info' && (
+                  <div className="whitespace-pre-wrap" data-terminal-info>
+                    {content}
+                  </div>
+                )}
                 {type === 'error' && <div data-terminal-error>{content}</div>}
                 {type === 'component' && Component && <Component />}
               </div>
