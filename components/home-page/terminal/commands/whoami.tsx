@@ -40,7 +40,7 @@ export const execute = async (): Promise<CommandResult> => {
           return (
             <div className="space-y-1">
               <div>social accounts:</div>
-              <ul className="ml-8 mt-1 list-disc">
+              <ul className="ml-8 mt-1 list-disc space-y-1">
                 <li>
                   <Link
                     href={SITE_METADATA.github}
