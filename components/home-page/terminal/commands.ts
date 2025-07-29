@@ -138,10 +138,7 @@ export const WELCOME_TEXT = [
   '---',
 ]
 
-export async function executeCommand(
-  command: string,
-  openBlog?: (blogId: string) => void,
-): Promise<CommandResult> {
+export async function executeCommand(command: string): Promise<CommandResult> {
   const cmd = command.toLowerCase().trim()
 
   // Find command by name or alias
@@ -196,12 +193,6 @@ export async function executeCommand(
       return executeTimeCommand()
 
     default:
-      // Check if it's a "read" command
-      if (cmd.startsWith('read ')) {
-        const blogNum = Number.parseInt(cmd.split(' ')[1])
-        return executeReadCommand(blogNum, openBlog)
-      }
-
       return {
         lines: [
           { type: 'error', content: `command not found: ${cmd}` },

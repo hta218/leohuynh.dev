@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { AsciiArtText } from './ascii-art-text'
 import { ASCII_ART, COMMANDS, WELCOME_TEXT, executeCommand } from './commands'
-import { MOCK_BLOGS } from './commands/blogs'
 import type { TerminalLine } from './types'
 import { Window } from './window'
 
@@ -18,7 +17,6 @@ export function Terminal() {
   const [commandHistory, setCommandHistory] = useState<string[]>([])
   const [historyIndex, setHistoryIndex] = useState(-1)
   const [selectedSuggestion, setSelectedSuggestion] = useState(0)
-  const [currentBlog, setCurrentBlog] = useState<string | null>(null)
 
   const inputRef = useRef<HTMLInputElement>(null)
   const terminalRef = useRef<HTMLDivElement>(null)
@@ -136,9 +134,7 @@ export function Terminal() {
     ])
 
     // Execute command with blog opener callback
-    const result = await executeCommand(trimmedCommand, (blogId: string) => {
-      setCurrentBlog(blogId)
-    })
+    const result = await executeCommand(trimmedCommand)
 
     if (
       result.lines &&
@@ -217,85 +213,61 @@ export function Terminal() {
     }
   }
 
-  const currentBlogData = currentBlog
-    ? MOCK_BLOGS.find((blog) => blog.id === currentBlog)
-    : null
-
   return (
-    <>
-      <Window defaultWidth={1200} defaultHeight={800}>
-        <div ref={terminalRef} className="overflow-y-auto p-4 h-full">
-          <div className="space-y-1 lowercase">
-            {lines.map(({ type, content, component: Component }, idx) => (
-              <div key={`line-${idx}-${type}`}>
-                {type === 'ascii' && (
-                  <AsciiArtText data-terminal-accent>{content}</AsciiArtText>
-                )}
-                {type === 'command' && (
-                  <div data-terminal-command>{content}</div>
-                )}
-                {type === 'output' && (
-                  <div className="whitespace-pre-wrap min-h-3">{content}</div>
-                )}
-                {type === 'info' && (
-                  <div className="whitespace-pre-wrap" data-terminal-info>
-                    {content}
+    <Window defaultWidth={1200} defaultHeight={800}>
+      <div ref={terminalRef} className="overflow-y-auto p-4 h-full">
+        <div className="space-y-1 lowercase">
+          {lines.map(({ type, content, component: Component }, idx) => (
+            <div key={`line-${idx}-${type}`}>
+              {type === 'ascii' && (
+                <AsciiArtText data-terminal-accent>{content}</AsciiArtText>
+              )}
+              {type === 'command' && <div data-terminal-command>{content}</div>}
+              {type === 'output' && (
+                <div className="whitespace-pre-wrap min-h-3">{content}</div>
+              )}
+              {type === 'info' && (
+                <div className="whitespace-pre-wrap" data-terminal-info>
+                  {content}
+                </div>
+              )}
+              {type === 'error' && <div data-terminal-error>{content}</div>}
+              {type === 'component' && Component && <Component />}
+            </div>
+          ))}
+
+          {/* Current Input Line */}
+          <div className="flex items-center pt-1">
+            <span data-terminal-prompt className="mr-2.5">
+              $
+            </span>
+            <div className="flex-1 relative">
+              {/* Input with ghost text overlay */}
+              <div className="relative">
+                <input
+                  ref={inputRef}
+                  type="text"
+                  value={currentInput}
+                  onChange={(e) => setCurrentInput(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  className="w-full bg-transparent outline-none relative z-10"
+                  placeholder="type a command..."
+                  autoComplete="off"
+                  spellCheck={false}
+                />
+
+                {/* Ghost text overlay */}
+                {ghostText && (
+                  <div className="absolute top-0 left-0 w-full pointer-events-none z-0 opacity-40">
+                    <span className="invisible">{currentInput}</span>
+                    <span>{ghostText}</span>
                   </div>
                 )}
-                {type === 'error' && <div data-terminal-error>{content}</div>}
-                {type === 'component' && Component && <Component />}
-              </div>
-            ))}
-
-            {/* Current Input Line */}
-            <div className="flex items-center pt-1">
-              <span data-terminal-prompt className="mr-2.5">
-                $
-              </span>
-              <div className="flex-1 relative">
-                {/* Input with ghost text overlay */}
-                <div className="relative">
-                  <input
-                    ref={inputRef}
-                    type="text"
-                    value={currentInput}
-                    onChange={(e) => setCurrentInput(e.target.value)}
-                    onKeyDown={handleKeyDown}
-                    className="w-full bg-transparent outline-none relative z-10"
-                    placeholder="type a command..."
-                    autoComplete="off"
-                    spellCheck={false}
-                  />
-
-                  {/* Ghost text overlay */}
-                  {ghostText && (
-                    <div className="absolute top-0 left-0 w-full pointer-events-none z-0 opacity-40">
-                      <span className="invisible">{currentInput}</span>
-                      <span>{ghostText}</span>
-                    </div>
-                  )}
-                </div>
               </div>
             </div>
           </div>
         </div>
-      </Window>
-
-      {/* Blog Viewer Modal */}
-      {/* {currentBlogData && (
-        <BlogViewer
-          post={{
-            id: currentBlogData.id,
-            title: currentBlogData.title,
-            date: currentBlogData.date,
-            content: currentBlogData.content,
-            views: currentBlogData.views,
-            tags: currentBlogData.tags,
-          }}
-          theme={themeClasses}
-          onClose={() => setCurrentBlog(null)}
-        />
-      )} */}
-    </>
+      </div>
+    </Window>
   )
 }
