@@ -5,6 +5,7 @@ import { execute as executeClearCommand } from './commands/clear'
 import { execute as executeHelpCommand } from './commands/help'
 import { execute as executeHobbiesCommand } from './commands/hobbies'
 import { execute as executeMusicCommand } from './commands/music'
+import { execute as executeNavCommand } from './commands/nav'
 import { execute as executeProjectsCommand } from './commands/projects'
 import { execute as executePwdCommand } from './commands/pwd'
 import { execute as executeQuotesCommand } from './commands/quotes'
@@ -91,6 +92,12 @@ export const COMMANDS: Command[] = [
 
   // System commands
   {
+    command: 'nav',
+    aliases: ['navigate', 'links', 'pages'],
+    description: 'show site navigation and available pages',
+    category: 'system',
+  },
+  {
     command: 'clear',
     aliases: ['cls', 'clean'],
     description: 'clear the terminal screen',
@@ -175,6 +182,9 @@ export async function executeCommand(
 
     case 'music':
       return executeMusicCommand()
+
+    case 'nav':
+      return executeNavCommand()
 
     case 'clear':
       return executeClearCommand()
