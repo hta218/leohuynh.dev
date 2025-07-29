@@ -11,6 +11,7 @@ import {
 } from 'next/font/google'
 import 'remark-github-blockquote-alert/alert.css'
 import { UmamiAnalytics } from '~/components/analytics/umami'
+import { Terminal } from '~/components/home-page/terminal'
 import { TiltedGridBackground } from '~/components/ui/tilted-grid-background'
 import { SITE_METADATA } from '~/data/site-metadata'
 
@@ -157,7 +158,11 @@ export default function RootLayout({
         <UmamiAnalytics
           websiteId={SITE_METADATA.analytics.umamiAnalytics.websiteId}
         />
-        <main className="mb-auto grow">{children}</main>
+        {/* <main className="mb-auto grow">{children}</main> */}
+        <main className="mb-auto grow relative flex flex-col items-center p-4">
+          <div className="h-40" />
+          <Terminal />
+        </main>
         <SpeedInsights />
       </body>
     </html>
