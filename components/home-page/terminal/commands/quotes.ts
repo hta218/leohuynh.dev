@@ -7,14 +7,14 @@ export const execute = async (): Promise<CommandResult> => {
       { type: 'output', content: '===============' },
       {
         type: 'output',
-        content: `"i'm one of those weirdos who think the most rewarding things in life take effort`,
+        content: `"i'm one of those weirdos who think the most rewarding things in life take effort"`,
       },
-      { type: 'info', content: '- a random one' },
+      { type: 'info', content: '-- a random one' },
       {
         type: 'output',
         content: `"a man who doesn't spend time with his family can never be a real man."`,
       },
-      { type: 'info', content: '- mario puzo, the godfather' },
+      { type: 'info', content: '-- mario puzo, the godfather' },
     ],
   }
 }
