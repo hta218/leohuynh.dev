@@ -1,6 +1,8 @@
 'use client'
 
+import { CheckCheck } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
+import { Twemoji } from '~/components/ui/twemoji'
 import { AsciiArtText } from './ascii-art-text'
 import { ASCII_ART, COMMANDS, WELCOME_TEXT, executeCommand } from './commands'
 import type { TerminalLine } from './types'
@@ -11,7 +13,7 @@ const DEFAULT_LINES: TerminalLine[] = [
   ...WELCOME_TEXT.map((text) => ({ type: 'info' as const, content: text })),
 ]
 
-export function Terminal() {
+export function MainTerminal() {
   const [lines, setLines] = useState<TerminalLine[]>(DEFAULT_LINES)
   const [currentInput, setCurrentInput] = useState('')
   const [commandHistory, setCommandHistory] = useState<string[]>([])
@@ -214,7 +216,20 @@ export function Terminal() {
   }
 
   return (
-    <Window defaultWidth={1200} defaultHeight={800}>
+    <Window
+      defaultWidth={1200}
+      defaultHeight={800}
+      title={
+        <>
+          <span>~/the-internet/</span>
+          <Twemoji emoji="flag-vietnam" />
+          <span className="-ml-0.5">/leohuynh.dev</span>
+          <span className="mx-2 opacity-50">|</span>
+          <span>[main]</span>
+          <CheckCheck size={16} className="text-green-500 ml-2" />
+        </>
+      }
+    >
       <div ref={terminalRef} className="overflow-y-auto p-4 h-full">
         <div className="space-y-1 lowercase">
           {lines.map(({ type, content, component: Component }, idx) => (

@@ -1,15 +1,13 @@
 'use client'
 
 import { clsx } from 'clsx'
-import { CheckCheck } from 'lucide-react'
 import { type ReactNode, useEffect, useRef, useState } from 'react'
-import { Twemoji } from '~/components/ui/twemoji'
 import { FONTS, FontSelector } from './font-selector'
 import { THEMES, ThemeSelector } from './theme-selector'
 import type { Font, Theme } from './types'
 
 interface WindowProps {
-  title?: string
+  title: ReactNode
   children: ReactNode
   defaultWidth?: number
   defaultHeight?: number
@@ -17,6 +15,7 @@ interface WindowProps {
 }
 
 export function Window({
+  title,
   children,
   defaultWidth = 1200,
   defaultHeight = 600,
@@ -199,7 +198,7 @@ export function Window({
       </div>
 
       {/* Window Header */}
-      <div className="flex items-center justify-between border-b px-4 py-3">
+      <div className="flex items-center justify-between border-b px-4 py-3 text-sm">
         <div className="flex items-center justify-around space-x-2">
           <div className="flex space-x-2">
             <div className="h-3 w-3 rounded-full bg-red-400" />
@@ -207,7 +206,7 @@ export function Window({
             <div className="h-3 w-3 rounded-full bg-green-400" />
           </div>
         </div>
-        <WindowTitle />
+        <div className="flex items-center">{title}</div>
         <div className="flex items-center space-x-1.5">
           <FontSelector currentFont={font} onChange={setFont} />
           <div className="h-3 w-px border-r border-gray-400" />
@@ -217,19 +216,6 @@ export function Window({
 
       {/* Window Content */}
       <div className="overflow-hidden grow">{children}</div>
-    </div>
-  )
-}
-
-function WindowTitle() {
-  return (
-    <div className="ml-4 text-sm font-medium flex items-center">
-      <span>~/the-internet/</span>
-      <Twemoji emoji="flag-vietnam" />
-      <span className="-ml-0.5">/leohuynh.dev</span>
-      <span className="mx-2 opacity-50">|</span>
-      <span>[main]</span>
-      <CheckCheck size={16} className="text-green-500 ml-2" />
     </div>
   )
 }
