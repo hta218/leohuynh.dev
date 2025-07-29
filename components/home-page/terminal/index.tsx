@@ -116,8 +116,12 @@ export function Terminal() {
     }
   }
 
-  const executeCommandHandler = async (command: string) => {
+  const executeCommandHandler = async (
+    command: string,
+    displayCommand?: string,
+  ) => {
     const trimmedCommand = command.trim().toLowerCase()
+    const commandToDisplay = displayCommand || command
 
     // Add command to history
     if (trimmedCommand) {
@@ -125,8 +129,11 @@ export function Terminal() {
       setHistoryIndex(-1)
     }
 
-    // Add command line to terminal
-    setLines((prev) => [...prev, { type: 'command', content: `$ ${command}` }])
+    // Add command line to terminal with the display command (original input)
+    setLines((prev) => [
+      ...prev,
+      { type: 'command', content: `$ ${commandToDisplay}` },
+    ])
 
     // Execute command with blog opener callback
     const result = await executeCommand(trimmedCommand, (blogId: string) => {
@@ -156,10 +163,10 @@ export function Terminal() {
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       if (showSuggestions && suggestions[selectedSuggestion]) {
-        // Use selected suggestion
+        // Use selected suggestion but keep the original input for display
         const selectedCmd = suggestions[selectedSuggestion]
-        setCurrentInput(selectedCmd.command)
-        executeCommandHandler(selectedCmd.command)
+        // Execute with the full command name but display the original input
+        executeCommandHandler(selectedCmd.command, currentInput)
       } else {
         // Execute current input
         executeCommandHandler(currentInput)
