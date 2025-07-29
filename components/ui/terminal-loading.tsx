@@ -29,7 +29,11 @@ export function TerminalLoading({
   return (
     <span className={clsx('inline-flex items-center', className)}>
       <span className="font-mono">{SPINNER_CHARS[currentChar]}</span>
-      {text && <span className="ml-1">{text}</span>}
+      {text && (
+        <span className="ml-1" data-terminal-info>
+          {text}
+        </span>
+      )}
     </span>
   )
 }

@@ -6,11 +6,10 @@ const MY_TIMEZONE = 'Asia/Ho_Chi_Minh'
 const MY_TIMEZONE_OFFSET = 7 * -60 // UTC+7
 
 function getCurrentActivity(hour: number, isWeekend: boolean): string {
-  if (hour >= 6 && hour < 9) {
-    return 'side projects, learning english, or having breakfast'
-  }
-
   if (isWeekend) {
+    if (hour >= 6 && hour < 9) {
+      return 'having breakfast, working on side projects, or learning english'
+    }
     if (hour >= 9 && hour < 21) {
       return 'spending time with family, or working on side projects'
     }
@@ -23,7 +22,7 @@ function getCurrentActivity(hour: number, isWeekend: boolean): string {
   } else {
     // Weekday schedule
     if (hour >= 6 && hour < 9) {
-      return 'side projects, learning english, breakfast, or bringing my son to school'
+      return 'bringing my son to school, having breakfast, learning english, or working on side projects'
     }
     if (hour >= 9 && hour < 17) {
       return 'at work'
@@ -99,7 +98,7 @@ export const execute = async (): Promise<CommandResult> => {
             >
               <strong>{time}</strong>
             </Link>{' '}
-            (utc+7 - indochina time)
+            <span data-terminal-info>(utc+7 - indochina time)</span>
           </div>
         ),
       },
