@@ -1,10 +1,9 @@
 'use client'
 
-import { CheckCheck } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
-import { Twemoji } from '~/components/ui/twemoji'
 import { AsciiArtText } from './ascii-art-text'
 import { ASCII_ART, COMMANDS, WELCOME_TEXT, executeCommand } from './commands'
+import { TerminalWindowTitle } from './terminal-window-title'
 import type { TerminalLine } from './types'
 import { Window } from './window'
 
@@ -219,16 +218,7 @@ export function MainTerminal() {
     <Window
       defaultWidth={1200}
       defaultHeight={800}
-      title={
-        <>
-          <span>~/the-internet/</span>
-          <Twemoji emoji="flag-vietnam" />
-          <span className="-ml-0.5">/leohuynh.dev</span>
-          <span className="mx-2 opacity-50">|</span>
-          <span>[main]</span>
-          <CheckCheck size={16} className="text-green-500 ml-2" />
-        </>
-      }
+      title={<TerminalWindowTitle />}
     >
       <div ref={terminalRef} className="overflow-y-auto p-4 h-full">
         <div className="space-y-1 lowercase">
