@@ -1,3 +1,4 @@
+import React from 'react'
 import { COMMANDS } from '../commands'
 import type { CommandResult, TerminalLine } from '../types'
 
@@ -6,7 +7,21 @@ const COMMAND_WIDTH = 20
 const DESCRIPTION_WIDTH = 50
 const ALIASES_WIDTH = 20
 
-export const execute = async (): Promise<CommandResult> => {
+// Separator component
+const Separator: React.FC<{ widths: number[] }> = ({ widths }) => {
+  return (
+    <span className="font-mono">
+      {widths.map((width, index) => (
+        <React.Fragment key={index}>
+          {'─'.repeat(width)}
+          {index < widths.length - 1 && ' '}
+        </React.Fragment>
+      ))}
+    </span>
+  )
+}
+
+export async function execute(): Promise<CommandResult> {
   let lines: TerminalLine[] = [
     { type: 'info', content: 'available commands:' },
     { type: 'output', content: '' },
@@ -20,8 +35,10 @@ export const execute = async (): Promise<CommandResult> => {
 
   // Add separator line
   lines.push({
-    type: 'output',
-    content: `${'─'.repeat(COMMAND_WIDTH)} ${'─'.repeat(DESCRIPTION_WIDTH)} ${'─'.repeat(ALIASES_WIDTH)}`,
+    type: 'component',
+    component: () => (
+      <Separator widths={[COMMAND_WIDTH, DESCRIPTION_WIDTH, ALIASES_WIDTH]} />
+    ),
   })
 
   for (let cmd of COMMANDS) {
