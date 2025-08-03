@@ -198,7 +198,7 @@ export function Window({
       </div>
 
       {/* Window Header */}
-      <div className="flex items-center justify-between border-b px-4 py-3 text-sm">
+      <div className="flex items-center justify-between border-b border-current/20 px-4 py-3 text-sm">
         <div className="flex items-center justify-around space-x-2">
           <div className="flex space-x-2">
             <div className="h-3 w-3 rounded-full bg-red-400" />
@@ -209,7 +209,7 @@ export function Window({
         <div className="flex items-center">{title}</div>
         <div className="flex items-center space-x-1.5">
           <FontSelector currentFont={font} onChange={setFont} />
-          <div className="h-3 w-px border-r border-gray-400" />
+          <div className="h-3 w-px border-r border-current/20" />
           <ThemeSelector currentTheme={theme} onChange={setTheme} />
         </div>
       </div>

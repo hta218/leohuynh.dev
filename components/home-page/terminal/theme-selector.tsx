@@ -82,15 +82,15 @@ export function ThemeSelector({ currentTheme, onChange }: ThemeSelectorProps) {
     <Menu as="div" className="relative">
       <MenuButton
         className={clsx(
-          'flex items-center rounded p-1 hover:bg-gray-200 dark:hover:bg-gray-800 text-sm',
-          'data-[open]:bg-gray-200 focus-visible:outline-0',
+          'flex items-center rounded p-1 hover:bg-current/10 text-sm',
+          'data-[open]:bg-current/10 focus-visible:outline-0',
         )}
       >
         <Twemoji emoji="artist-palette" size="base" style={{ margin: 0 }} />
         {/* <span className="ml-1 text-gray-600">({currentTheme})</span> */}
       </MenuButton>
 
-      <MenuItems className="absolute right-0 z-10 mt-2 w-52 border border-gray-200 rounded-md bg-white focus-visible:outline-0 py-1 shadow-lg dark:bg-gray-800">
+      <MenuItems className="absolute right-0 z-10 mt-2 w-52 border border-current/20 rounded-md bg-(--terminal-bg) focus-visible:outline-0 py-1 shadow-lg">
         {THEMES.map((theme) => {
           return (
             <MenuItem key={theme.name}>
@@ -99,7 +99,7 @@ export function ThemeSelector({ currentTheme, onChange }: ThemeSelectorProps) {
                 onClick={() => onChange(theme)}
                 className={clsx(
                   'flex w-full items-center justify-between px-4 py-2 text-sm',
-                  'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700',
+                  'text-(--terminal-text) hover:bg-current/10',
                 )}
               >
                 <span>{theme.label}</span>
