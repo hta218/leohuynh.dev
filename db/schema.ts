@@ -11,7 +11,7 @@ import {
 } from 'drizzle-orm/pg-core'
 import { createInsertSchema } from 'drizzle-zod'
 
-export let typeEnum = pgEnum('type', ['blog', 'snippet'])
+export let typeEnum = pgEnum('type', ['blog', 'snippet', 'home'])
 
 export let statsTable = pgTable(
   'stats',

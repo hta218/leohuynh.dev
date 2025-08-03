@@ -51,18 +51,18 @@ export const COMMANDS: Command[] = [
     description: 'show projects and work',
     category: 'data',
   },
-  {
-    command: 'blogs',
-    aliases: ['posts', 'articles', 'writing'],
-    description: 'list blog posts and articles',
-    category: 'data',
-  },
-  {
-    command: 'snippets',
-    aliases: ['snip', 'code'],
-    description: 'show code snippets collection',
-    category: 'data',
-  },
+  // {
+  //   command: 'blogs',
+  //   aliases: ['posts', 'articles', 'writing'],
+  //   description: 'list blog posts and articles',
+  //   category: 'data',
+  // },
+  // {
+  //   command: 'snippets',
+  //   aliases: ['snip', 'code'],
+  //   description: 'show code snippets collection',
+  //   category: 'data',
+  // },
   {
     command: 'activities',
     aliases: ['activity', 'logs', 'recent'],
@@ -91,12 +91,12 @@ export const COMMANDS: Command[] = [
   },
 
   // System commands
-  {
-    command: 'nav',
-    aliases: ['navigate', 'links', 'pages'],
-    description: 'show site navigation and available pages',
-    category: 'system',
-  },
+  // {
+  //   command: 'nav',
+  //   aliases: ['navigate', 'links', 'pages'],
+  //   description: 'show site navigation and available pages',
+  //   category: 'system',
+  // },
   {
     command: 'clear',
     aliases: ['cls', 'clean'],
@@ -115,12 +115,12 @@ export const COMMANDS: Command[] = [
     description: 'show current time in my timezone',
     category: 'system',
   },
-  {
-    command: 'read',
-    aliases: ['open'],
-    description: 'read a blog post (usage: read <number>)',
-    category: 'system',
-  },
+  // {
+  //   command: 'read',
+  //   aliases: ['open'],
+  //   description: 'read a blog post (usage: read <number>)',
+  //   category: 'system',
+  // },
 ]
 
 export const ASCII_ART = `

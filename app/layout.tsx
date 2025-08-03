@@ -11,7 +11,9 @@ import {
 } from 'next/font/google'
 import 'remark-github-blockquote-alert/alert.css'
 import { UmamiAnalytics } from '~/components/analytics/umami'
+import { Comments } from '~/components/blog/comments'
 import { MainTerminal } from '~/components/home-page/terminal'
+import { Reactions } from '~/components/reactions'
 import { TiltedGridBackground } from '~/components/ui/tilted-grid-background'
 import { SITE_METADATA } from '~/data/site-metadata'
 
@@ -154,14 +156,22 @@ export default function RootLayout({
           'dark:bg-dark dark:text-gray-100',
         ])}
       >
-        <TiltedGridBackground className="inset-x-0 top-0 z-[-1] h-[50vh]" />
+        <TiltedGridBackground className="inset-0 z-[-1]" />
         <UmamiAnalytics
           websiteId={SITE_METADATA.analytics.umamiAnalytics.websiteId}
         />
         {/* <main className="mb-auto grow">{children}</main> */}
-        <main className="mb-auto grow relative flex flex-col items-center p-4">
-          <div className="h-40" />
+        <main className="mb-auto grow relative flex flex-col gap-28 items-center p-4">
+          <div />
           <MainTerminal />
+          {/* <Reactions type="home" slug="/" />
+          <div className="w-full px-4">
+            <Comments
+              configs={{ reactions: '0' }}
+              className="max-w-6xl mx-auto"
+            />
+          </div>
+          <div /> */}
         </main>
         <SpeedInsights />
       </body>
