@@ -11,8 +11,8 @@ export function TiltedGridBackground({ className }: { className?: string }) {
     >
       <TiltedGrid
         className={clsx([
-          'h-[160%] w-full',
-          'absolute inset-x-0 inset-y-[-30%] skew-y-[-18deg]',
+          'w-full h-full',
+          'absolute inset-x-0 inset-y-[-30%]',
           'dark:fill-white/1 dark:stroke-white/2.5',
           'fill-black/2 stroke-black/5',
         ])}
