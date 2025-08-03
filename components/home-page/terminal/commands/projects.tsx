@@ -62,20 +62,22 @@ function ProjectItem({ project, index }: ProjectItemProps) {
             github stars: <Star size={20} strokeWidth={1.5} /> {stars}
           </div>
         )}
-        <div className="flex flex-wrap items-center gap-2">
-          <span>stack:</span>
-          <div className="flex h-6 flex-wrap items-center gap-2">
-            {builtWith?.map((tool) => {
-              return (
-                <Brand
-                  key={tool}
-                  name={tool as keyof typeof BrandsMap}
-                  iconClassName={clsx(tool === 'Pygame' ? 'h-5' : 'h-5 w-5')}
-                />
-              )
-            })}
+        {builtWith?.length ? (
+          <div className="flex flex-wrap items-center gap-2">
+            <span>stack:</span>
+            <div className="flex h-6 flex-wrap items-center gap-2">
+              {builtWith?.map((tool) => {
+                return (
+                  <Brand
+                    key={tool}
+                    name={tool as keyof typeof BrandsMap}
+                    iconClassName={clsx(tool === 'Pygame' ? 'h-5' : 'h-5 w-5')}
+                  />
+                )
+              })}
+            </div>
           </div>
-        </div>
+        ) : null}
       </div>
     </div>
   )
