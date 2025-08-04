@@ -15,8 +15,6 @@ const DEFAULT_LINES: TerminalLine[] = [
 export function MainTerminal() {
   const [lines, setLines] = useState<TerminalLine[]>(DEFAULT_LINES)
   const [currentInput, setCurrentInput] = useState('')
-  const [commandHistory, setCommandHistory] = useState<string[]>([])
-  const [historyIndex, setHistoryIndex] = useState(-1)
   const [selectedSuggestion, setSelectedSuggestion] = useState(0)
 
   const inputRef = useRef<HTMLInputElement>(null)
@@ -122,12 +120,6 @@ export function MainTerminal() {
     const trimmedCommand = command.trim().toLowerCase()
     const commandToDisplay = displayCommand || command
 
-    // Add command to history
-    if (trimmedCommand) {
-      setCommandHistory((prev) => [...prev, trimmedCommand])
-      setHistoryIndex(-1)
-    }
-
     // Add command line to terminal with the display command (original input)
     setLines((prev) => [
       ...prev,
@@ -186,12 +178,6 @@ export function MainTerminal() {
             ? selectedSuggestion - 1
             : suggestions.length - 1
         setSelectedSuggestion(newIndex)
-      } else if (commandHistory.length > 0) {
-        const newIndex = historyIndex + 1
-        if (newIndex < commandHistory.length) {
-          setHistoryIndex(newIndex)
-          setCurrentInput(commandHistory[commandHistory.length - 1 - newIndex])
-        }
       }
     } else if (e.key === 'ArrowDown') {
       e.preventDefault()
@@ -201,13 +187,6 @@ export function MainTerminal() {
             ? selectedSuggestion + 1
             : 0
         setSelectedSuggestion(newIndex)
-      } else if (historyIndex > 0) {
-        const newIndex = historyIndex - 1
-        setHistoryIndex(newIndex)
-        setCurrentInput(commandHistory[commandHistory.length - 1 - newIndex])
-      } else if (historyIndex === 0) {
-        setHistoryIndex(-1)
-        setCurrentInput('')
       }
     } else if (e.key === 'Escape') {
       setSelectedSuggestion(0)
