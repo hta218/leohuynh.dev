@@ -58,7 +58,7 @@ export async function execute(): Promise<CommandResult> {
     {
       type: 'info',
       content:
-        'tips: `tab` or `→` for autocomplete, `↑/↓` for cycling through suggestions/history',
+        'tips: `tab` or `→` for autocomplete, `↑/↓` for cycling through history.',
     },
   )
 

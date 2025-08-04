@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { AsciiArtText } from './ascii-art-text'
 import { ASCII_ART, COMMANDS, WELCOME_TEXT, executeCommand } from './commands'
+import { terminalHistory } from './history'
 import { TerminalWindowTitle } from './terminal-window-title'
 import type { TerminalLine } from './types'
 import { Window } from './window'
@@ -15,49 +16,38 @@ const DEFAULT_LINES: TerminalLine[] = [
 export function MainTerminal() {
   const [lines, setLines] = useState<TerminalLine[]>(DEFAULT_LINES)
   const [currentInput, setCurrentInput] = useState('')
-  const [selectedSuggestion, setSelectedSuggestion] = useState(0)
 
   const inputRef = useRef<HTMLInputElement>(null)
   const terminalRef = useRef<HTMLDivElement>(null)
 
-  // Calculate suggestions - simple derived state
-  const suggestions =
-    currentInput.trim() === ''
-      ? []
-      : COMMANDS.filter(
-          (cmd) =>
-            cmd.command.startsWith(currentInput.toLowerCase()) ||
-            cmd.aliases?.some((alias) =>
-              alias.startsWith(currentInput.toLowerCase()),
-            ),
-        )
+  // Find the best matching command for ghost text
+  const findBestMatch = () => {
+    if (currentInput.trim() === '') return null
 
-  // Calculate ghost text using suggestions - simple derived state
-  let ghostText = ''
-  if (suggestions.length > 0 && selectedSuggestion < suggestions.length) {
-    const selectedMatch = suggestions[selectedSuggestion]
-    const matchingCommand = selectedMatch.command.startsWith(
-      currentInput.toLowerCase(),
+    const lowerInput = currentInput.toLowerCase()
+
+    // Find first matching command
+    const match = COMMANDS.find(
+      (cmd) =>
+        cmd.command.startsWith(lowerInput) ||
+        cmd.aliases?.some((alias) => alias.startsWith(lowerInput)),
     )
-      ? selectedMatch.command
-      : selectedMatch.aliases?.find((alias) =>
-          alias.startsWith(currentInput.toLowerCase()),
-        ) || selectedMatch.command
 
-    // Only show ghost text if there's more to complete
-    if (matchingCommand.length > currentInput.length) {
-      ghostText = matchingCommand.slice(currentInput.length)
+    if (!match) return null
+
+    // Return the matching command or alias
+    if (match.command.startsWith(lowerInput)) {
+      return match.command
     }
+
+    return match.aliases?.find((alias) => alias.startsWith(lowerInput)) || null
   }
 
-  const showSuggestions = suggestions.length > 0
-
-  // Reset selected suggestion when input changes
-  // biome-ignore lint/correctness/useExhaustiveDependencies: We want to reset when currentInput changes
-  useEffect(() => {
-    setSelectedSuggestion(0)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentInput])
+  const bestMatch = findBestMatch()
+  const ghostText =
+    bestMatch && bestMatch.length > currentInput.length
+      ? bestMatch.slice(currentInput.length)
+      : ''
 
   // Auto-focus input
   useEffect(() => {
@@ -151,45 +141,34 @@ export function MainTerminal() {
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-      if (showSuggestions && suggestions[selectedSuggestion]) {
-        // Use selected suggestion but keep the original input for display
-        const selectedCmd = suggestions[selectedSuggestion]
-        // Execute with the full command name but display the original input
-        executeCommandHandler(selectedCmd.command, currentInput)
-      } else {
-        // Execute current input
-        executeCommandHandler(currentInput)
+      // Save to history before executing (save the actual typed command)
+      if (currentInput.trim()) {
+        terminalHistory.add(currentInput)
       }
+
+      // Execute current input as-is
+      executeCommandHandler(currentInput)
       setCurrentInput('')
     } else if (e.key === 'Tab' || e.key === 'ArrowRight') {
       e.preventDefault()
       if (ghostText) {
         // Accept ghost text completion
         setCurrentInput(currentInput + ghostText)
-      } else if (showSuggestions && suggestions[selectedSuggestion]) {
-        // Fallback to suggestion if no ghost text
-        setCurrentInput(suggestions[selectedSuggestion].command)
       }
     } else if (e.key === 'ArrowUp') {
       e.preventDefault()
-      if (showSuggestions) {
-        const newIndex =
-          selectedSuggestion > 0
-            ? selectedSuggestion - 1
-            : suggestions.length - 1
-        setSelectedSuggestion(newIndex)
+      // Always navigate history with up arrow
+      const previousCommand = terminalHistory.navigateUp(currentInput)
+      if (previousCommand !== null) {
+        setCurrentInput(previousCommand)
       }
     } else if (e.key === 'ArrowDown') {
       e.preventDefault()
-      if (showSuggestions) {
-        const newIndex =
-          selectedSuggestion < suggestions.length - 1
-            ? selectedSuggestion + 1
-            : 0
-        setSelectedSuggestion(newIndex)
+      // Always navigate history with down arrow
+      const nextCommand = terminalHistory.navigateDown()
+      if (nextCommand !== null) {
+        setCurrentInput(nextCommand)
       }
-    } else if (e.key === 'Escape') {
-      setSelectedSuggestion(0)
     }
   }
 
@@ -232,7 +211,11 @@ export function MainTerminal() {
                   ref={inputRef}
                   type="text"
                   value={currentInput}
-                  onChange={(e) => setCurrentInput(e.target.value)}
+                  onChange={(e) => {
+                    setCurrentInput(e.target.value)
+                    // Reset history navigation when user types
+                    terminalHistory.reset()
+                  }}
                   onKeyDown={handleKeyDown}
                   className="w-full bg-transparent outline-none relative z-10"
                   placeholder="type a command..."
