@@ -9,13 +9,11 @@ import { execute as executeNavCommand } from './commands/nav'
 import { execute as executeProjectsCommand } from './commands/projects'
 import { execute as executePwdCommand } from './commands/pwd'
 import { execute as executeQuotesCommand } from './commands/quotes'
-import { execute as executeReadCommand } from './commands/read'
 import { execute as executeSkillsCommand } from './commands/skills'
 import { execute as executeSnippetsCommand } from './commands/snippets'
 import { execute as executeTimeCommand } from './commands/time'
 import { execute as executeWhoamiCommand } from './commands/whoami'
-import type { Command } from './types'
-import type { CommandResult } from './types'
+import type { Command, CommandResult } from './types'
 
 export const COMMANDS: Command[] = [
   // Info commands
@@ -203,4 +201,26 @@ export async function executeCommand(command: string): Promise<CommandResult> {
         ],
       }
   }
+}
+
+export function findBestMatch(input: string) {
+  if (input === '') return null
+
+  let lowerInput = input.toLowerCase()
+
+  // Find first matching command
+  let match = COMMANDS.find(
+    (cmd) =>
+      cmd.command.startsWith(lowerInput) ||
+      cmd.aliases?.some((alias) => alias.startsWith(lowerInput)),
+  )
+
+  if (!match) return null
+
+  // Return the matching command or alias
+  if (match.command.startsWith(lowerInput)) {
+    return match.command
+  }
+
+  return match.aliases?.find((alias) => alias.startsWith(lowerInput)) || null
 }

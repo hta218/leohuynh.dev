@@ -2,7 +2,12 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { AsciiArtText } from './ascii-art-text'
-import { ASCII_ART, COMMANDS, WELCOME_TEXT, executeCommand } from './commands'
+import {
+  ASCII_ART,
+  WELCOME_TEXT,
+  executeCommand,
+  findBestMatch,
+} from './commands'
 import { terminalHistory } from './history'
 import { TerminalWindowTitle } from './terminal-window-title'
 import type { TerminalLine } from './types'
@@ -20,30 +25,7 @@ export function MainTerminal() {
   const inputRef = useRef<HTMLInputElement>(null)
   const terminalRef = useRef<HTMLDivElement>(null)
 
-  // Find the best matching command for ghost text
-  const findBestMatch = () => {
-    if (currentInput.trim() === '') return null
-
-    const lowerInput = currentInput.toLowerCase()
-
-    // Find first matching command
-    const match = COMMANDS.find(
-      (cmd) =>
-        cmd.command.startsWith(lowerInput) ||
-        cmd.aliases?.some((alias) => alias.startsWith(lowerInput)),
-    )
-
-    if (!match) return null
-
-    // Return the matching command or alias
-    if (match.command.startsWith(lowerInput)) {
-      return match.command
-    }
-
-    return match.aliases?.find((alias) => alias.startsWith(lowerInput)) || null
-  }
-
-  const bestMatch = findBestMatch()
+  const bestMatch = findBestMatch(currentInput)
   const ghostText =
     bestMatch && bestMatch.length > currentInput.length
       ? bestMatch.slice(currentInput.length)
