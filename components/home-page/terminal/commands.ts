@@ -1,6 +1,7 @@
 import { execute as executeAboutCommand } from './commands/about'
 import { execute as executeActivitiesCommand } from './commands/activities'
 import { execute as executeBlogsCommand } from './commands/blogs'
+import { BooksCommand } from './commands/books'
 import { execute as executeClearCommand } from './commands/clear'
 import { execute as executeHelpCommand } from './commands/help'
 import { execute as executeHobbiesCommand } from './commands/hobbies'
@@ -85,6 +86,12 @@ export const COMMANDS: Command[] = [
     command: 'music',
     aliases: ['song', 'spotify'],
     description: 'current music taste',
+    category: 'fun',
+  },
+  {
+    command: 'books',
+    aliases: ['book', 'reading', 'library'],
+    description: 'my book collection and reading list',
     category: 'fun',
   },
 
@@ -189,6 +196,17 @@ export async function executeCommand(command: string): Promise<CommandResult> {
 
     case 'time':
       return executeTimeCommand()
+
+    case 'books':
+      return {
+        lines: [
+          {
+            type: 'component',
+            content: '',
+            component: BooksCommand,
+          },
+        ],
+      }
 
     default:
       return {
