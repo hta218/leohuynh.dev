@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { Image } from '~/components/ui/image'
 import { TerminalLoading } from '~/components/ui/terminal-loading'
 
 interface Book {
@@ -70,7 +71,7 @@ export function BooksCommand() {
 
   return (
     <div className="space-y-4">
-      <p>
+      <p data-terminal-info>
         Reading has been my hobby since childhood, starting with comics,
         magazines, and textbooks. Today, I strive to keep reading daily,
         exploring topics such as science, technology, nonfiction, business,
@@ -87,39 +88,55 @@ export function BooksCommand() {
             ({books[shelf].length})
           </div>
 
-          <div className="pl-4 space-y-1.5">
+          <div className="pl-4 space-y-3">
             {books[shelf].map((book, index) => (
               <div key={index} className="flex flex-col space-y-1">
-                <div className="flex items-start space-x-2">
+                <div className="flex items-center gap-2">
                   <span>•</span>
-                  <div className="flex-1">
-                    <a
-                      href={book.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:underline underline-offset-4"
-                    >
-                      <strong>{book.title}</strong>
-                    </a>
-                    <span data-terminal-info> by {book.author}</span>
+                  <Image
+                    src={book.bookImageUrl}
+                    alt={book.title}
+                    width={40}
+                    height={60}
+                    className="inline-block w-7 border"
+                    loading="lazy"
+                  />
+                  <div className="space-y-0.5 pl-1">
+                    <div className="flex-1 flex items-center">
+                      <a
+                        href={book.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:underline underline-offset-4"
+                      >
+                        <strong>{book.title}</strong>
+                      </a>
+                      <span data-terminal-info className="ml-2">
+                        {' '}
+                        by {book.author}
+                      </span>
+                    </div>
+                    <div className="text-sm" data-terminal-info>
+                      {book.rating !== '0' && (
+                        <span>My rate: {book.rating}/5</span>
+                      )}
+                      {book.rating !== '0' && book.averageRating !== '0' && (
+                        <span> | </span>
+                      )}
+                      {book.averageRating !== '0' && (
+                        <span>
+                          Avg: {Number(book.averageRating).toFixed(2)}
+                        </span>
+                      )}
+                      {book.userReadAt && (
+                        <span>
+                          {' '}
+                          | Read:{' '}
+                          {new Date(book.userReadAt).toLocaleDateString()}
+                        </span>
+                      )}
+                    </div>
                   </div>
-                </div>
-                <div className="pl-5 text-sm" data-terminal-info>
-                  {book.rating !== '0' && <span>My rate: {book.rating}/5</span>}
-                  {book.rating !== '0' && book.averageRating !== '0' && (
-                    <span> | </span>
-                  )}
-                  {book.averageRating !== '0' && (
-                    <span>
-                      Avg on goodreads: {Number(book.averageRating).toFixed(2)}
-                    </span>
-                  )}
-                  {book.userReadAt && (
-                    <span>
-                      {' '}
-                      | Read: {new Date(book.userReadAt).toLocaleDateString()}
-                    </span>
-                  )}
                 </div>
               </div>
             ))}
