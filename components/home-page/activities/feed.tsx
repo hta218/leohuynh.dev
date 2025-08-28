@@ -1,8 +1,7 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import type { SelectBook, SelectMovie } from '~/db/schema'
-import type { GithubUserActivity, RecentlyPlayedData } from '~/types/data'
+import { useActivities } from '~/hooks/use-activities'
+import { useIntersectionObserver } from '~/hooks/use-intersection-observer'
 import { CommitHistory } from './commit-history'
 import { CurrentlyReading } from './currently-reading'
 import { LastPlayed } from './last-played'
@@ -10,39 +9,24 @@ import { LastWatched } from './last-watched'
 import { PullRequest } from './pull-request'
 import { ActivitiesSkeleton } from './skeleton'
 
-interface ActivitiesData {
-  currentlyReading: SelectBook | null
-  lastWatchedMovie: SelectMovie | null
-  recentlyPlayed: RecentlyPlayedData
-  githubActivities: GithubUserActivity | null
-}
-
 export function ActivitiesFeed() {
-  const [data, setData] = useState<ActivitiesData | null>(null)
-  const [loading, setLoading] = useState(true)
+  const { targetRef, isIntersecting } = useIntersectionObserver({
+    threshold: 0,
+    triggerOnce: true,
+  })
 
-  useEffect(() => {
-    async function fetchActivities() {
-      try {
-        const response = await fetch('/api/activities')
-        const activities = await response.json()
-        setData(activities)
-      } catch (error) {
-        console.error('Failed to fetch activities:', error)
-      } finally {
-        setLoading(false)
-      }
-    }
+  const { data, isLoading } = useActivities(isIntersecting)
 
-    fetchActivities()
-  }, [])
-
-  if (loading) {
-    return <ActivitiesSkeleton />
+  if (!isIntersecting || isLoading) {
+    return (
+      <div ref={targetRef}>
+        <ActivitiesSkeleton />
+      </div>
+    )
   }
 
   if (!data) {
-    return null
+    return <div ref={targetRef} />
   }
 
   const {
@@ -54,7 +38,7 @@ export function ActivitiesFeed() {
   const { commit, pullRequest } = githubActivities || {}
 
   return (
-    <div className="space-y-4 md:space-y-8 pt-8">
+    <div ref={targetRef} className="space-y-4 md:space-y-8 pt-8">
       <div className="space-y-2">
         <h3 className="text-2xl font-bold sm:text-2xl sm:leading-10 md:text-4xl">
           Side quests and activities
