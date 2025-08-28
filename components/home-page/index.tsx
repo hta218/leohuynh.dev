@@ -2,12 +2,7 @@ import type { Blog, Snippet } from '~/.contentlayer/generated'
 import { ProfileCard } from '~/components/cards/profile'
 import { Container } from '~/components/ui/container'
 import { Twemoji } from '~/components/ui/twemoji'
-import type { SelectBook, SelectMovie } from '~/db/schema'
-import type {
-  CoreContent,
-  GithubUserActivity,
-  RecentlyPlayedData,
-} from '~/types/data'
+import type { CoreContent } from '~/types/data'
 import { ActivitiesFeed } from './activities/feed'
 import { Greeting } from './greeting'
 import { Intro } from './intro'
@@ -18,17 +13,9 @@ import { TypedBios } from './typed-bios'
 export function Home({
   posts,
   snippets,
-  currentlyReading,
-  lastWatchedMovie,
-  recentlyPlayed,
-  githubActivities,
 }: {
   posts: CoreContent<Blog>[]
   snippets: CoreContent<Snippet>[]
-  currentlyReading: SelectBook | null
-  lastWatchedMovie: SelectMovie | null
-  recentlyPlayed: RecentlyPlayedData
-  githubActivities: GithubUserActivity | null
 }) {
   return (
     <Container as="div" className="space-y-6 pt-4 md:space-y-24 lg:pt-12">
@@ -62,12 +49,7 @@ export function Home({
         </div>
       </div>
       <LatestPosts posts={posts} snippets={snippets} />
-      <ActivitiesFeed
-        recentlyPlayed={recentlyPlayed}
-        currentlyReading={currentlyReading}
-        lastWatchedMovie={lastWatchedMovie}
-        githubActivities={githubActivities}
-      />
+      <ActivitiesFeed />
       {/* {SITE_METADATA.newsletter?.provider && (
         <div className="flex items-center justify-center py-4 lg:py-10">
           <NewsletterForm />
