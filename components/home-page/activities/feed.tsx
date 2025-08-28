@@ -1,3 +1,6 @@
+'use client'
+
+import { useEffect, useState } from 'react'
 import type { SelectBook, SelectMovie } from '~/db/schema'
 import type { GithubUserActivity, RecentlyPlayedData } from '~/types/data'
 import { CommitHistory } from './commit-history'
@@ -5,21 +8,51 @@ import { CurrentlyReading } from './currently-reading'
 import { LastPlayed } from './last-played'
 import { LastWatched } from './last-watched'
 import { PullRequest } from './pull-request'
+import { ActivitiesSkeleton } from './skeleton'
 
-interface LatestActivitiesProps {
+interface ActivitiesData {
   currentlyReading: SelectBook | null
   lastWatchedMovie: SelectMovie | null
   recentlyPlayed: RecentlyPlayedData
   githubActivities: GithubUserActivity | null
 }
 
-export function ActivitiesFeed({
-  currentlyReading,
-  lastWatchedMovie,
-  recentlyPlayed,
-  githubActivities,
-}: LatestActivitiesProps) {
-  let { commit, pullRequest } = githubActivities || {}
+export function ActivitiesFeed() {
+  const [data, setData] = useState<ActivitiesData | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function fetchActivities() {
+      try {
+        const response = await fetch('/api/activities')
+        const activities = await response.json()
+        setData(activities)
+      } catch (error) {
+        console.error('Failed to fetch activities:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchActivities()
+  }, [])
+
+  if (loading) {
+    return <ActivitiesSkeleton />
+  }
+
+  if (!data) {
+    return null
+  }
+
+  const {
+    currentlyReading,
+    lastWatchedMovie,
+    recentlyPlayed,
+    githubActivities,
+  } = data
+  const { commit, pullRequest } = githubActivities || {}
+
   return (
     <div className="space-y-4 md:space-y-8 pt-8">
       <div className="space-y-2">
