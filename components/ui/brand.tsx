@@ -1,6 +1,7 @@
 import { Link } from '~/components/ui/link'
 import Bash from '~/icons/bash.svg'
 import Biome from '~/icons/biome.svg'
+import Claude from '~/icons/claude.svg'
 import Commitlint from '~/icons/commitlint.svg'
 import CSS from '~/icons/css.svg'
 import Drizzle from '~/icons/drizzle.svg'
@@ -14,6 +15,7 @@ import HeadlessUI from '~/icons/headlessui.svg'
 import Html from '~/icons/html5.svg'
 import Hydrogen from '~/icons/hydrogen.svg'
 import IMBb from '~/icons/imdb.svg'
+import Iterm2 from '~/icons/iterm2.svg'
 import Java from '~/icons/java.svg'
 import Javascript from '~/icons/javascript.svg'
 import JWT from '~/icons/jsonwebtokens.svg'
@@ -75,6 +77,14 @@ export const BrandsMap = {
   React: {
     Icon: React,
     url: 'https://reactjs.org',
+  },
+  Claude: {
+    Icon: Claude,
+    url: 'https://claude.ai',
+  },
+  Iterm2: {
+    Icon: Iterm2,
+    url: 'https://iterm2.com',
   },
   Drizzle: {
     Icon: Drizzle,
