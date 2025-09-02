@@ -35,6 +35,15 @@ export const PROJECTS: Project[] = [
   },
   {
     type: 'work',
+    title: 'claude code agents',
+    description:
+      'A collection of Claude AI agents for automating tasks and enhancing productivity.',
+    imgSrc: '/static/images/ai-generated-code-96.png',
+    repo: 'weaverse/claude-code-agents',
+    builtWith: ['Claude', 'Iterm2', 'Markdown'],
+  },
+  {
+    type: 'work',
     title: 'Minimog - Next-gen Shopify theme',
     description:
       'The Next Generation of highest-converting and extensible Shopify theme (Weekly bestseller & Top trending in Themeforest eCommerce category).',
