@@ -27,7 +27,7 @@ export function Tag({
       className={clsx([
         'rounded-lg px-2 py-0.5 font-semibold',
         'bg-slate-100 text-gray-600 hover:text-gray-800',
-        'dark:bg-gray-700 dark:text-gray-300',
+        'dark:bg-gray-700 dark:text-gray-300 dark:hover:text-gray-100',
         size === 'sm' ? 'text-sm' : 'text-base',
       ])}
     >
