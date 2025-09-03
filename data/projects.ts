@@ -83,6 +83,13 @@ export const PROJECTS: Project[] = [
   },
   {
     type: 'self',
+    title: 'Claude code notifier',
+    imgSrc: '/static/images/notification-96.png',
+    repo: 'hta218/claude-code-notifier',
+    builtWith: ['Shell', 'Claude', 'Bash'],
+  },
+  {
+    type: 'self',
     title: 'Shopify theme starter',
     imgSrc: '/static/images/liquid-96.png',
     repo: 'hta218/shopify-theme-starter',
