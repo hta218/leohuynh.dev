@@ -30,6 +30,7 @@ let parser = new Parser<{ [key: string]: unknown }, GoodreadsBook>({
       ['book_medium_image_url', 'bookMediumImageUrl'],
       ['book_large_image_url', 'bookLargeImageUrl'],
       ['book_description', 'bookDescription'],
+      ['book', 'numPages'],
       ['author_name', 'authorName'],
       ['isbn', 'isbn'],
       ['user_name', 'userName'],
@@ -60,6 +61,18 @@ export async function seedBooksUsingRssFeed() {
           .replace(/\.([a-zA-Z0-9])/g, '. $1')
         book.content = book.content.replace(/\n/g, '').replace(/\s\s+/g, ' ')
         book.userShelves = book.userShelves || 'read'
+
+        // Add numPages to book object for later use
+        if (book.numPages && typeof book.numPages === 'object') {
+          let numPages = Object.values(book.numPages)?.[1]?.[0]
+          if (numPages && !Number.isNaN(Number(numPages))) {
+            book.numPages = Number(numPages)
+          } else {
+            // If we can't extract a valid number, remove the field
+            // biome-ignore lint/performance/noDelete: <explanation>
+            delete book.numPages
+          }
+        }
       }
 
       // Validate books data using Zod schema
@@ -72,10 +85,7 @@ export async function seedBooksUsingRssFeed() {
           })
           validBooks.push(validatedBook)
         } catch (error: unknown) {
-          console.log(
-            `❌ Invalid book data for "${book.title}":`,
-            error?.[0]?.message,
-          )
+          console.log(`❌ Invalid book data for "${book.title}":`, error)
         }
       }
 
@@ -373,7 +383,7 @@ async function seedMovies() {
 }
 
 export async function seed() {
-  await seedMovies()
+  // await seedMovies()
   await seedBooksUsingRssFeed()
   // await seedBooksByParsingCSV()
 }

@@ -49,6 +49,7 @@ export let booksTable = pgTable('books', {
   userReview: text(),
   averageRating: numeric().notNull(),
   bookPublished: varchar({ length: 255 }),
+  numPages: integer(),
   content: text().notNull(),
   createdAt: timestamp().defaultNow().notNull(),
   updatedAt: timestamp().defaultNow().notNull(),

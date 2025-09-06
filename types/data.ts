@@ -54,6 +54,7 @@ export type GoodreadsBook = {
   averageRating: string
   bookPublished: string
   content: string
+  numPages?: number
 }
 
 export type GoodreadsCsvBook = {
