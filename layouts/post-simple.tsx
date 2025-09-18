@@ -50,7 +50,7 @@ export function PostSimple({ content, children }: PostSimpleProps) {
         <div className="prose prose-lg dark:prose-invert max-w-none">
           {children}
         </div>
-        <GradientDivider className="mt-1 mb-2" />
+        <GradientDivider className="mt-1 mb-10" />
         <div className="space-y-8">
           {/* <div className="flex justify-between gap-4">
             <div className="flex items-center gap-2">
