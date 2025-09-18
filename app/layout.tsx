@@ -99,7 +99,7 @@ export default function RootLayout({
     <html
       lang={SITE_METADATA.language}
       className={clsx(
-        'w-full overflow-x-hidden scroll-smooth',
+        'w-full overflow-x-hidden scroll-smooth antialiased lowercase',
         FONT_NUNITO.variable,
         FONT_JETBRAINS_MONO.variable,
         FONT_PLAYPEN_SANS.variable,
