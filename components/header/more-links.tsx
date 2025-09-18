@@ -23,7 +23,7 @@ export function MoreLinks() {
             data-umami-event="nav-more-links"
             className="flex items-center gap-1"
           >
-            <span>More</span>
+            <span>more</span>
             <ChevronDown strokeWidth={1.5} size={20} />
           </GrowingUnderline>
         </MenuButton>
