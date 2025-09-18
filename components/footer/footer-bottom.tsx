@@ -6,7 +6,7 @@ import { Link } from '~/components/ui/link'
 import { SpotifyNowPlaying } from '~/components/ui/now-playing'
 import { SITE_METADATA } from '~/data/site-metadata'
 import MadeInVietNam from '~/icons/miv.svg'
-import { BuiltWith } from './built-with'
+import { LastCommit } from './last-commit'
 
 export function FooterBottom() {
   let pathname = usePathname()
@@ -21,7 +21,7 @@ export function FooterBottom() {
       ])}
     >
       {isHomePage ? (
-        <BuiltWith />
+        <LastCommit />
       ) : (
         <SpotifyNowPlaying
           className="w-full justify-center truncate [--artist-color:var(--color-gray-500)] md:max-w-[50%] md:justify-start"
