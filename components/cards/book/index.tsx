@@ -1,8 +1,6 @@
-import { GradientBorder } from '~/components/ui/gradient-border'
 import { GrowingUnderline } from '~/components/ui/growing-underline'
 import { Link } from '~/components/ui/link'
 import { Rating } from '~/components/ui/rating'
-import { TiltedGridBackground } from '~/components/ui/tilted-grid-background'
 import { Twemoji } from '~/components/ui/twemoji'
 import type { SelectBook } from '~/db/schema'
 import GoodreadsLogo from '~/icons/goodreads-big.svg'
@@ -11,8 +9,7 @@ import { BookDetails } from './book-details'
 
 export function BookCard({ book }: { book: SelectBook }) {
   return (
-    <GradientBorder className="flex flex-col gap-8 rounded-2xl px-3 py-6 md:flex-row md:px-6 dark:bg-white/5">
-      <TiltedGridBackground className="inset-0 z-[-1]" />
+    <div className="flex flex-col gap-8 md:flex-row">
       <div className="mx-auto flex w-60 shrink-0 items-center justify-center">
         <BookCover image={book.bookLargeImageUrl} alt={book.title} />
       </div>
@@ -32,26 +29,28 @@ export function BookCard({ book }: { book: SelectBook }) {
                 className="hidden md:inline-flex"
               />
             </div>
+            <BookMeta book={book} />
           </div>
           <BookDetails book={book} />
         </div>
-        <div className="flex items-center justify-between">
+        {/* <div className="flex items-center justify-between">
           <BookMeta book={book} />
           <GoodreadsLink url={getBookUrl(book.content)} />
-        </div>
+        </div> */}
       </div>
-    </GradientBorder>
+    </div>
   )
 }
 
 function BookMeta({ book }: { book: SelectBook }) {
   return (
     <div className="flex items-center gap-1 text-gray-600 dark:text-gray-400">
-      <div className="flex items-center gap-1">
-        <Twemoji emoji="writing-hand" /> by{' '}
-        <span className="font-semibold">{book.authorName}</span>
+      <div className="flex items-center gap-1.5">
+        {/* <Twemoji emoji="writing-hand" />  */}
+        by <span className="font-bold">{book.authorName}</span>
+        on <GoodreadsLink url={getBookUrl(book.content)} />
       </div>
-      <div className="hidden items-center gap-1 md:flex">
+      <div className="hidden items-center gap-1 ml-0.5 md:flex">
         <span>(avg. {book.averageRating}/5)</span>
       </div>
     </div>
@@ -65,7 +64,7 @@ function GoodreadsLink({
   if (url) {
     return (
       <Link href={url} className={className}>
-        <GoodreadsLogo className="text-goodreads h-5 dark:text-gray-100" />
+        <GoodreadsLogo className="text-goodreads h-4 dark:text-gray-100" />
       </Link>
     )
   }
