@@ -1,3 +1,5 @@
+# legacy static assets symlinked in by scripts/link-static.mjs (not duplicated into git)
+public/static
 # build output
 dist/
 # generated types

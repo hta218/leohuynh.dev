@@ -1,0 +1,83 @@
+---
+import StudioShell from '~/components/studio/StudioShell.astro'
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import { PROJECTS, type Project } from '~/lib/projects'
+
+const work = PROJECTS.filter((p) => p.type === 'work')
+const self = PROJECTS.filter((p) => p.type === 'self')
+
+function projectHref(p: Project): string | undefined {
+  return p.url ?? (p.repo ? `https://github.com/${p.repo}` : undefined)
+}
+---
+
+<BaseLayout title="Projects" description="Things I've built — commercial work and personal open-source projects.">
+  <StudioShell active="/projects" crumb="~/leohuynh.dev/projects/">
+    <header class="mb-9 border-b border-line pb-7">
+      <h1 class="m-0 text-[clamp(34px,6vw,58px)] leading-[0.95] tracking-[-0.05em]">Projects</h1>
+      <p class="mt-4 max-w-[640px] text-lg text-muted">
+        A mix of commercial work and personal projects I've shipped over the years — eCommerce
+        platforms, Shopify themes, dev tooling, and small experiments.
+      </p>
+    </header>
+
+    {
+      [
+        { title: 'Work', items: work, note: 'commercial / professional' },
+        { title: 'Personal', items: self, note: 'side projects / open-source' },
+      ].map((group) => (
+        <section class="mb-12">
+          <div class="mb-5 flex items-end justify-between">
+            <h2 class="m-0 text-[22px] tracking-[-0.04em]">{group.title}</h2>
+            <span class="font-mono text-xs text-muted">{group.note}</span>
+          </div>
+          <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+            {group.items.map((p) => {
+              const href = projectHref(p)
+              const Tag = href ? 'a' : 'div'
+              return (
+                <Tag
+                  href={href}
+                  target={href ? '_blank' : undefined}
+                  rel={href ? 'noreferrer' : undefined}
+                  class="group flex flex-col gap-3 rounded-2xl border border-line bg-white p-4 no-underline transition-shadow hover:shadow-[4px_4px_0_var(--color-line)]"
+                >
+                  <div class="flex items-center gap-3">
+                    <img
+                      src={p.imgSrc}
+                      alt={p.title}
+                      width="40"
+                      height="40"
+                      loading="lazy"
+                      class="h-10 w-10 rounded-lg border border-line object-contain"
+                    />
+                    <h3 class="m-0 text-[17px] font-semibold tracking-[-0.02em] text-ink group-hover:text-code-blue">
+                      {p.title}
+                    </h3>
+                  </div>
+                  {p.description && (
+                    <p class="m-0 text-[15px] leading-snug text-muted">{p.description}</p>
+                  )}
+                  <div class="mt-auto flex flex-wrap gap-1.5 pt-1">
+                    {p.builtWith.map((t) => (
+                      <span class="rounded-full border border-line bg-panel2 px-2 py-0.5 font-mono text-[11px] text-muted">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                  {p.links && p.links.length > 0 && (
+                    <div class="flex flex-wrap gap-3 font-mono text-xs text-code-blue">
+                      {p.links.map((l) => (
+                        <span>↗ {l.title}</span>
+                      ))}
+                    </div>
+                  )}
+                </Tag>
+              )
+            })}
+          </div>
+        </section>
+      ))
+    }
+  </StudioShell>
+</BaseLayout>

@@ -76,11 +76,14 @@ root (or flip the build), retire the Next.js app, and update Vercel project root
 - [x] Diff v4 build routes against `route-inventory.md` (see "v4 build route inventory — M2")
 - Note: full MDX body now renders (Twemoji placeholder); `/static` assets + Expressive Code still M3.
 
-### M3 — Design + content rendering
-- [ ] Convert 006 mockup into production components (titlebar, sidebar explorer, runtime rail, status bar)
-- [ ] Responsive collapse to single column < 1050px
-- [ ] Full MDX rendering: `Twemoji` + component mapping, Expressive Code, images from `public/static`
-- [ ] Clean article / snippet / project / about / books / movies pages
+### M3 — Design + content rendering ✅ (2026-06-14)
+- [x] Convert 006 mockup into production components (titlebar, sidebar explorer, runtime rail, status bar)
+- [x] Responsive collapse to single column < 1050px (+ scrollable tab strip carries all routes on mobile)
+- [x] Full MDX rendering: real `Twemoji` glyphs, Expressive Code (with legacy `lang:title` fence
+      normalization → 0 Shiki warnings), images from symlinked `public/static`
+- [x] Clean article / snippet / project / about / books / movies pages
+- Guestbook intentionally deferred (auth/DB retain decision pending). Books/movies render from cached
+  `json/*.json` (static, no DB). RuntimeRail widgets remain static placeholders → M4 integrations.
 
 ### M4 — Integrations (graceful fallback first)
 - [ ] Spotify now playing (playing / recently played / unavailable)

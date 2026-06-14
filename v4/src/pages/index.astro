@@ -81,5 +81,46 @@ const dateFmt = new Intl.DateTimeFormat('en-CA') // YYYY-MM-DD
         ))
       }
     </div>
+
+    <!-- explore -->
+    <div class="border-b border-line py-[34px]">
+      <div class="mb-4 flex items-end justify-between">
+        <h2 class="m-0 text-[26px] tracking-[-0.05em]">explore</h2>
+        <span class="font-mono text-xs text-muted">cd ~/leohuynh.dev</span>
+      </div>
+      <div class="grid grid-cols-2 gap-3 md:grid-cols-4">
+        {
+          [
+            { href: '/snippets', label: 'snippets/', desc: 'reusable code bits' },
+            { href: '/projects', label: 'projects/', desc: 'things I built' },
+            { href: '/books', label: 'books/', desc: 'what I read' },
+            { href: '/movies', label: 'movies/', desc: 'what I watch' },
+          ].map((c) => (
+            <a
+              href={c.href}
+              class="rounded-2xl border border-line bg-white p-4 no-underline transition-shadow hover:shadow-[4px_4px_0_var(--color-line)]"
+            >
+              <div class="font-mono text-sm text-code-blue">▸ {c.label}</div>
+              <div class="mt-1 text-[13px] text-muted">{c.desc}</div>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- build log -->
+    <div class="py-[34px]">
+      <div class="mb-4 flex items-end justify-between">
+        <h2 class="m-0 text-[26px] tracking-[-0.05em]">build log</h2>
+        <span class="font-mono text-xs text-muted">api/activity.json</span>
+      </div>
+      <pre
+        class="overflow-auto rounded-2xl border border-line bg-[#0f172a] p-[18px] font-mono text-[13px] leading-[1.75] text-[#e5e7eb]"><span class="text-[#94a3b8]">// generated daily from GitHub + site APIs</span>
+{`{`}
+  <span class="text-[#93c5fd]">"site"</span>: {`{`} <span class="text-[#93c5fd]">"posts"</span>: <span class="text-[#86efac]">{posts.length}</span>, <span class="text-[#93c5fd]">"snippets"</span>: <span class="text-[#86efac]">{snippets.length}</span> {`}`},
+  <span class="text-[#93c5fd]">"stack"</span>: [<span class="text-[#86efac]">"astro"</span>, <span class="text-[#86efac]">"bun"</span>, <span class="text-[#86efac]">"tailwind"</span>, <span class="text-[#86efac]">"typescript"</span>],
+  <span class="text-[#93c5fd]">"status"</span>: <span class="text-[#86efac]">"v4 rebuild in progress"</span>
+{`}`}</pre>
+    </div>
   </StudioShell>
 </BaseLayout>

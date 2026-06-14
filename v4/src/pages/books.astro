@@ -1,0 +1,105 @@
+---
+import StudioShell from '~/components/studio/StudioShell.astro'
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import { getBooks } from '~/lib/media'
+import { SITE } from '~/lib/site'
+
+const books = getBooks().sort((a, b) => b.userRating - a.userRating)
+const reading = books.filter((b) => b.userShelves.includes('currently-reading'))
+const others = books.filter((b) => !b.userShelves.includes('currently-reading'))
+
+function stars(rating: number): string {
+  return rating > 0 ? '★'.repeat(Math.round(rating)) : '—'
+}
+---
+
+<BaseLayout title="My bookshelf" description="Books I've read and what's on my reading list, pulled from my Goodreads bookshelf.">
+  <StudioShell active="/books" crumb="~/leohuynh.dev/books/">
+    <header class="mb-9 border-b border-line pb-7">
+      <h1 class="m-0 text-[clamp(34px,6vw,58px)] leading-[0.95] tracking-[-0.05em]">Books</h1>
+      <p class="mt-4 max-w-[660px] text-lg text-muted">
+        Reading has been my hobby since childhood. I try to read daily — science, technology,
+        nonfiction, business, productivity, and history. This is where I track what I've read.
+      </p>
+      <p class="mt-2 font-mono text-xs text-muted">
+        *Data from my{' '}
+        <a href={SITE.goodreadsBookshelfUrl} target="_blank" rel="noreferrer" class="text-code-blue"
+          >Goodreads bookshelf</a
+        >.
+      </p>
+    </header>
+
+    {
+      books.length === 0 && (
+        <p class="rounded-xl border border-line bg-white p-6 font-mono text-sm text-muted">
+          Bookshelf snapshot unavailable right now.
+        </p>
+      )
+    }
+
+    {
+      reading.length > 0 && (
+        <section class="mb-12">
+          <h2 class="mb-5 text-[22px] tracking-[-0.04em]">Currently reading</h2>
+          <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+            {reading.map((book) => (
+              <a
+                href={book.link}
+                target="_blank"
+                rel="noreferrer"
+                class="flex gap-4 rounded-2xl border border-line bg-white p-4 no-underline hover:shadow-[4px_4px_0_var(--color-line)]"
+              >
+                <img
+                  src={book.imageUrl}
+                  alt={book.title}
+                  loading="lazy"
+                  class="h-[120px] w-[80px] flex-none rounded-md border border-line object-cover"
+                />
+                <div class="min-w-0">
+                  <h3 class="m-0 text-[16px] font-semibold leading-snug tracking-[-0.02em] text-ink">
+                    {book.title}
+                  </h3>
+                  <p class="mt-1 mb-0 font-mono text-xs text-muted">{book.authorName}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    {
+      others.length > 0 && (
+        <section>
+          <h2 class="mb-5 text-[22px] tracking-[-0.04em]">Read</h2>
+          <ul class="grid grid-cols-1 gap-3">
+            {others.map((book) => (
+              <li>
+                <a
+                  href={book.link}
+                  target="_blank"
+                  rel="noreferrer"
+                  class="flex items-center gap-4 rounded-xl border border-line bg-white p-3 no-underline hover:border-code-blue"
+                >
+                  <img
+                    src={book.imageUrl}
+                    alt={book.title}
+                    loading="lazy"
+                    class="h-[64px] w-[44px] flex-none rounded border border-line object-cover"
+                  />
+                  <div class="min-w-0 flex-1">
+                    <h3 class="m-0 truncate text-[15px] font-medium text-ink">{book.title}</h3>
+                    <p class="m-0 truncate font-mono text-xs text-muted">{book.authorName}</p>
+                  </div>
+                  <span class="flex-none font-mono text-xs text-code-amber" title={`${book.userRating}/5`}>
+                    {stars(book.userRating)}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+  </StudioShell>
+</BaseLayout>

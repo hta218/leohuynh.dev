@@ -4,10 +4,11 @@
   "version": "4.0.0-alpha.0",
   "private": true,
   "scripts": {
-    "dev": "astro dev --port 4321",
-    "build": "astro build",
+    "link-static": "node scripts/link-static.mjs",
+    "dev": "node scripts/link-static.mjs && astro dev --port 4321",
+    "build": "node scripts/link-static.mjs && astro build",
     "preview": "astro preview",
-    "check": "astro check",
+    "check": "node scripts/link-static.mjs && astro check",
     "typecheck": "astro check"
   },
   "dependencies": {
@@ -17,10 +18,12 @@
     "@astrojs/sitemap": "^3.3.0",
     "@tailwindcss/vite": "^4.1.10",
     "astro": "^5.7.0",
+    "astro-expressive-code": "^0.43.1",
     "github-slugger": "^2.0.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "tailwindcss": "^4.1.10"
+    "tailwindcss": "^4.1.10",
+    "unist-util-visit": "^5.1.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",

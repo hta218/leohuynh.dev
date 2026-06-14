@@ -1,5 +1,85 @@
 # Work Logs
 
+## 2026-06-14 — @hta218 (Claude) — M3: design polish, static assets, remaining pages
+
+### Scope of this run
+Implement M3 in the controlled `v4/` subdirectory: make legacy `/static/*` assets available
+without duplicating them into git, polish article/content rendering (Expressive Code + legacy
+`lang:title` fences + real Twemoji glyphs), build the remaining static pages
+(`/about`, `/projects`, `/books`, `/movies`), and push the homepage/shell closer to sketch 006
+with reasonable mobile behavior. Guestbook intentionally **not** built (auth/DB decision pending).
+No commits — left for Hermes.
+
+### Guardrail compliance
+- Stayed on branch `v4`. No changes to `main`, `v3`, `legacy-v3`, or any legacy source file. `git status`
+  shows only spec-doc updates plus modified/untracked paths under `v4/` (legacy `data/**`, `app/**`, `css/**`, `json/**`
+  read-only references only).
+- No secrets touched. Books/movies render from the **cached** `json/*.json` snapshots at build
+  time — no Supabase/DB access, no tokens. `v4/src/lib/site.ts` only adds non-secret public URLs.
+- Single-sourced assets: `v4/public/static` is a git-ignored symlink to legacy `../public/static`
+  (21MB not duplicated into git).
+
+### Static assets (no git bloat)
+- `v4/scripts/link-static.mjs` — idempotent script that symlinks `v4/public/static -> ../../public/static`.
+  Wired into `dev`/`build`/`check` npm scripts so assets resolve in every mode. At cutover (v4 hoisted
+  to repo root) it becomes a no-op.
+- `v4/.gitignore` — ignores `public/static` (the symlink/assets stay out of git).
+- Verified: `dist/static/{images,favicons,resume.pdf}` are emitted; `/static/resume.pdf` and blog
+  images (e.g. `/static/images/goodreads-api.png`) serve `200` in `astro preview`.
+
+### Content rendering polish
+- `astro-expressive-code` added (dark `github-dark-default` panels on the light canvas → sketch 006
+  vibe; 12px frame radius, wrap on). Owns all code-block rendering.
+- `v4/src/plugins/remark-code-titles.mjs` — normalizes legacy ```lang:file``` fences (e.g. `ts:file.ts`,
+  `bash:.env`, `js:index.js`) into real `lang` + Expressive Code `title="…"` meta. **Eliminates the
+  Shiki "language doesn't exist" warnings** and renders the filename as a frame tab. Verified: 0 build
+  warnings; promise post shows `promises.js` / `concurrently.js` / etc. title tabs + copy buttons.
+- Twemoji replaced: `v4/src/lib/emoji.ts` (name→codepoint map ported from legacy `css/twemoji.css`)
+  + rewritten `v4/src/components/mdx/Twemoji.astro` now render the **real Unicode glyph** (e.g. 🤔 🍻 👋)
+  — non-breaking, asset-free, no remote SVG fetch. Unknown names degrade to an empty `<span>`.
+- `v4/src/styles/global.css` — article prose retuned for readability (heading scale, h2 rules, list
+  markers, links, inline-code scoped to `:not(pre) > code` so it never fights Expressive Code, table
+  overflow, twemoji baseline). Removed the old hand-rolled `.prose pre` (EC owns code now).
+
+### Remaining pages (legacy data, static-first)
+- `v4/src/pages/about.astro` — ported from `layouts/author-layout.tsx` + `data/authors/default.mdx`:
+  intro, career timeline (`CAREER` in `site.ts`), resume link (`/static/resume.pdf`), build-with list,
+  socials, support links. Uses real Twemoji.
+- `v4/src/pages/projects.astro` + `v4/src/lib/projects.ts` — 16 projects (work/personal) ported from
+  `data/projects.ts`, card grid with logos from `/static`, tech chips, external links.
+- `v4/src/pages/books.astro` + `v4/src/lib/media.ts` — reads cached `../json/books.json` (Goodreads):
+  Currently-reading + Read sections, 25 covers, star ratings, graceful empty state.
+- `v4/src/pages/movies.astro` — reads cached `../json/movies.json` (IMDb/OMDB): 98 poster cards sorted
+  by my rating then IMDb, graceful empty state.
+- **Guestbook deliberately skipped** (no placeholder route added) — auth/DB retain decision still pending.
+
+### Design polish
+- `v4/src/components/studio/StudioShell.astro` — tab strip now horizontally scrollable and includes
+  every route (primary + books/movies/tags) so the whole site is reachable on mobile (sidebar/rail
+  hide < lg, no horizontal page overflow).
+- `v4/src/pages/index.astro` — added an "explore" card grid (snippets/projects/books/movies) and a
+  coder "build log" code block, reinforcing the studio motif while staying readable. Live post/snippet
+  counts feed the JSON block.
+
+### Verification (real output)
+- `bun run check` → **0 errors, 0 warnings, 0 hints** (30 files).
+- `bun run build` → **success, 236 page(s) built in ~4s**; **no Shiki/language warnings** (M2 had benign
+  ones). 236 = 232 (M2) + `/about` `/projects` `/books` `/movies`.
+- Symlink emits assets into `dist/static/**`.
+- `astro preview` smoke test — all `200`: `/`, `/blog/does-promise-all-run-in-parallel-or-sequential`,
+  `/about`, `/projects`, `/books`, `/movies`, `/snippets`, `/tags`, `/static/resume.pdf`, blog image.
+- Rendered HTML spot-checks: projects 16 logos, books 25 Goodreads covers, movies 98 posters,
+  homepage explore + build log, post EC frames with copy buttons, Twemoji real glyphs.
+- Hermes re-ran `bun run check` and `bun run build` after Claude's pass: check stayed 0/0/0, build stayed 236 pages. Smoke-tested `/`, evergreen blog post, `/about`, `/projects`, `/books`, `/movies`, `/snippets`, `/tags`, `/static/resume.pdf`, and `/static/images/goodreads-api.png` with HTTP 200. Browser console had 0 JS errors on sampled pages.
+
+### Known gaps (next milestones)
+- M4 integrations: Spotify now-playing, GitHub-today, activity timeline (RuntimeRail still static
+  placeholders), Umami. Views/reactions + guestbook/auth retain decisions still open.
+- Search `/search.json` (Pagefind/deferred).
+- Books/movies use cached `json/*.json`; swap to a live Drizzle query at cutover if fresh data wanted.
+- `vercel.json` Umami `/stats/:match*` rewrite + security headers + optional `/sitemap.xml` alias =
+  cutover/hosting milestone.
+
 ## 2026-06-14 — @hta218 (Claude) — M0 + M1: plan, inventory, scaffold
 
 ### Scope of this run

@@ -42,97 +42,142 @@ body {
 }
 
 /*
- * Minimal article prose — readable defaults for migrated MDX bodies.
- * Design polish (typography scale, Expressive Code, twemoji assets) is M3.
+ * Article prose — readable long-form defaults for migrated MDX bodies.
+ * Code blocks are owned by Expressive Code (`.expressive-code`); the rules below
+ * deliberately avoid restyling those so the two never fight.
  */
 .prose {
-  max-width: 760px;
-  font-size: 17px;
-  line-height: 1.75;
-  color: var(--color-ink);
+  max-width: 720px;
+  font-size: 17.5px;
+  line-height: 1.78;
+  color: #1f2937;
+}
+.prose > * + * {
+  margin-top: 0;
 }
 .prose h1 {
-  font-size: clamp(30px, 5vw, 46px);
-  line-height: 1.05;
+  font-size: clamp(32px, 5vw, 46px);
+  line-height: 1.08;
   letter-spacing: -0.04em;
   margin: 0 0 0.5em;
+  color: var(--color-ink);
 }
 .prose h2 {
-  font-size: 28px;
+  font-size: 27px;
   letter-spacing: -0.03em;
-  margin: 1.6em 0 0.6em;
+  margin: 1.7em 0 0.6em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--color-line);
+  color: var(--color-ink);
 }
 .prose h3 {
-  font-size: 22px;
+  font-size: 21px;
   letter-spacing: -0.02em;
-  margin: 1.4em 0 0.5em;
+  margin: 1.5em 0 0.5em;
+  color: var(--color-ink);
+}
+.prose h4 {
+  font-size: 18px;
+  margin: 1.4em 0 0.4em;
+  color: var(--color-ink);
 }
 .prose p,
 .prose ul,
 .prose ol {
-  margin: 0 0 1.1em;
+  margin: 0 0 1.15em;
 }
 .prose ul,
 .prose ol {
   padding-left: 1.4em;
 }
+.prose ul {
+  list-style: disc;
+}
+.prose ol {
+  list-style: decimal;
+}
 .prose li {
-  margin: 0.3em 0;
+  margin: 0.35em 0;
+}
+.prose li::marker {
+  color: var(--color-muted);
 }
 .prose a {
   color: var(--color-code-blue);
-  text-underline-offset: 2px;
+  text-decoration: underline;
+  text-decoration-color: color-mix(
+    in srgb,
+    var(--color-code-blue) 35%,
+    transparent
+  );
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.15s ease;
 }
-.prose code {
+.prose a:hover {
+  text-decoration-color: var(--color-code-blue);
+}
+.prose strong {
+  font-weight: 650;
+  color: var(--color-ink);
+}
+/* Inline code only — Expressive Code blocks are excluded. */
+.prose :not(pre) > code {
   font-family: var(--font-mono);
-  font-size: 0.88em;
+  font-size: 0.86em;
   background: var(--color-panel2);
   border: 1px solid var(--color-line);
   border-radius: 5px;
-  padding: 0.1em 0.35em;
+  padding: 0.12em 0.36em;
+  color: var(--color-code-purple);
 }
-.prose pre {
-  background: #0f1729;
-  color: #e5e7eb;
-  border-radius: 12px;
-  padding: 16px 18px;
-  overflow: auto;
-  font-size: 14px;
-  line-height: 1.6;
-  margin: 0 0 1.2em;
-}
-.prose pre code {
-  background: none;
-  border: 0;
-  padding: 0;
-  font-size: inherit;
-  color: inherit;
+/* Expressive Code frame spacing inside prose. */
+.prose .expressive-code {
+  margin: 0 0 1.3em;
 }
 .prose img {
   max-width: 100%;
   height: auto;
   border-radius: 12px;
+  border: 1px solid var(--color-line);
 }
 .prose blockquote {
-  margin: 0 0 1.1em;
-  padding-left: 1em;
-  border-left: 3px solid var(--color-line);
+  margin: 0 0 1.2em;
+  padding: 0.2em 0 0.2em 1.1em;
+  border-left: 3px solid var(--color-code-blue);
   color: var(--color-muted);
+  font-style: italic;
+}
+.prose blockquote p {
+  margin: 0;
 }
 .prose hr {
   border: 0;
   border-top: 1px solid var(--color-line);
-  margin: 2em 0;
+  margin: 2.2em 0;
 }
 .prose table {
   width: 100%;
   border-collapse: collapse;
-  margin: 0 0 1.2em;
+  margin: 0 0 1.3em;
   font-size: 15px;
+  display: block;
+  overflow-x: auto;
 }
 .prose th,
 .prose td {
   border: 1px solid var(--color-line);
-  padding: 7px 10px;
+  padding: 8px 11px;
   text-align: left;
+}
+.prose th {
+  background: var(--color-panel2);
+  font-weight: 600;
+}
+.prose .twemoji {
+  display: inline-block;
+  font-size: 1.05em;
+  line-height: 1;
+  vertical-align: -0.1em;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji",
+    sans-serif;
 }

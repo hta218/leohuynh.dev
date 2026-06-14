@@ -1,0 +1,152 @@
+---
+import Twemoji from '~/components/mdx/Twemoji.astro'
+import StudioShell from '~/components/studio/StudioShell.astro'
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import { CAREER, SITE, SUPPORT } from '~/lib/site'
+
+const socials = [
+  { label: 'GitHub', href: SITE.github },
+  { label: 'X', href: SITE.x },
+  { label: 'LinkedIn', href: SITE.linkedin },
+  { label: 'Instagram', href: SITE.instagram },
+  { label: 'Threads', href: SITE.threads },
+  { label: 'YouTube', href: SITE.youtube },
+]
+
+const features = [
+  { emoji: 'rocket', label: 'Astro 5 static-first + React islands for live widgets.' },
+  { emoji: 'artist-palette', label: 'Tailwind CSS v4 with a custom code-studio theme.' },
+  { emoji: 'safety-vest', label: 'TypeScript end to end for type safety.' },
+  { emoji: 'open-book', label: 'MDX + Astro Content Collections for blog & snippets.' },
+  { emoji: 'bar-chart', label: 'Umami for privacy-friendly analytics.' },
+  { emoji: 'card-file-box', label: 'Supabase Postgres + Drizzle for stats and lists.' },
+]
+---
+
+<BaseLayout title="About" description="A bit of background on who I am, what I do, and why I started this blog.">
+  <StudioShell active="/about" crumb="~/leohuynh.dev/about.md">
+    <header class="mb-8 border-b border-line pb-7">
+      <h1 class="m-0 text-[clamp(34px,6vw,58px)] leading-[0.95] tracking-[-0.05em]">About</h1>
+      <p class="mt-4 max-w-[640px] text-lg text-muted">
+        A bit of background on who I am, what I do, and why I started this blog. Nothing too
+        serious — just a little intro to the person typing away behind the scenes.
+      </p>
+    </header>
+
+    <article class="prose">
+      <h2 class="!mt-0">
+        Hi there <Twemoji emoji="waving-hand" />
+      </h2>
+      <p>
+        I'm <strong>Tuan Anh Huynh</strong> (alias <strong>Leo</strong> at work), a software
+        engineer from <strong>Vietnam</strong>. I have a passion for all things
+        <strong>JavaScript</strong>. I enjoy building eCommerce software and things related to web
+        dev. I work mainly with <strong>TypeScript</strong>, <strong>React</strong>,
+        <strong>Node</strong>, <strong>Remix</strong>, and <strong>Next.js</strong>.
+      </p>
+
+      <div class="mt-10 flex flex-wrap items-center justify-between gap-3">
+        <h2 class="!my-0 !border-0">My career</h2>
+        <a
+          href="/static/resume.pdf"
+          target="_blank"
+          rel="noreferrer"
+          class="rounded-lg border border-ink bg-ink px-3.5 py-2 font-mono text-xs text-white no-underline shadow-[3px_3px_0_var(--color-line)]"
+        >
+          Resume <Twemoji emoji="page-facing-up" className="!align-baseline" />
+        </a>
+      </div>
+
+      <ol class="not-prose mt-6 grid gap-0">
+        {
+          CAREER.map((job) => (
+            <li class="grid grid-cols-1 gap-1 border-l-2 border-line py-4 pl-5 md:grid-cols-[1fr_auto]">
+              <div>
+                <h3 class="m-0 text-[18px] font-semibold tracking-[-0.02em]">
+                  {job.role}{' '}
+                  <span class="text-muted">
+                    @{' '}
+                    <a href={job.url} target="_blank" rel="noreferrer" class="text-code-blue">
+                      {job.org}
+                    </a>
+                  </span>
+                </h3>
+                <ul class="mt-2 mb-0 list-disc space-y-1 pl-5 text-[15px] text-muted">
+                  {job.notes.map((n) => (
+                    <li>{n}</li>
+                  ))}
+                </ul>
+              </div>
+              <span class="font-mono text-xs text-muted md:text-right">{job.period}</span>
+            </li>
+          ))
+        }
+      </ol>
+
+      <h2>Why this blog?</h2>
+      <blockquote><p>Because sharing is learning.</p></blockquote>
+      <p>
+        I started this blog to document and share the things I've learned as a software engineer.
+        Writing things down is a great way to solidify my understanding of new concepts — and I
+        hope it's a helpful resource for others into web development and eCommerce.
+      </p>
+
+      <h2>What it's built with</h2>
+      <ul class="not-prose grid gap-2 sm:grid-cols-2">
+        {
+          features.map((f) => (
+            <li class="flex items-start gap-2.5 rounded-xl border border-line bg-white p-3 text-[15px]">
+              <Twemoji emoji={f.emoji} />
+              <span>{f.label}</span>
+            </li>
+          ))
+        }
+      </ul>
+
+      <h2>Contact</h2>
+      <p>
+        Reach me at <a href={`mailto:${SITE.email}`}>{SITE.email}</a> or find me on social:
+      </p>
+      <div class="not-prose flex flex-wrap gap-2">
+        {
+          socials.map((s) => (
+            <a
+              href={s.href}
+              target="_blank"
+              rel="noreferrer"
+              class="rounded-full border border-line bg-white px-3 py-1.5 font-mono text-xs text-ink no-underline hover:text-code-blue"
+            >
+              {s.label}
+            </a>
+          ))
+        }
+      </div>
+
+      <h2>Support</h2>
+      <p>If you appreciate my work, consider supporting me <Twemoji emoji="folded-hands" /></p>
+      <div class="not-prose flex flex-wrap gap-2">
+        <a
+          href={SUPPORT.buyMeACoffee}
+          target="_blank"
+          rel="noreferrer"
+          class="rounded-lg border border-line bg-white px-3 py-1.5 font-mono text-xs no-underline hover:text-code-blue"
+          >Buy me a coffee</a
+        >
+        <a
+          href={SUPPORT.kofi}
+          target="_blank"
+          rel="noreferrer"
+          class="rounded-lg border border-line bg-white px-3 py-1.5 font-mono text-xs no-underline hover:text-code-blue"
+          >Ko-fi</a
+        >
+        <a
+          href={SUPPORT.paypal}
+          target="_blank"
+          rel="noreferrer"
+          class="rounded-lg border border-line bg-white px-3 py-1.5 font-mono text-xs no-underline hover:text-code-blue"
+          >PayPal</a
+        >
+      </div>
+    </article>
+  </StudioShell>
+</BaseLayout>

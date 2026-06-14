@@ -85,7 +85,11 @@ Source: `cd v4 && bun run build` → `v4/dist`. **233 HTML pages** + feeds/sitem
 | `/snippets` | `src/pages/snippets/index.astro` | ✅ built (M1) |
 | `/tags`     | `src/pages/tags/index.astro`     | ✅ all tags + counts |
 | `/404`      | `src/pages/404.astro`            | ✅ `dist/404.html` |
-| `/projects` `/about` `/books` `/movies` `/guestbook` | — | ⛔ **gap → M3/M4** (not in M2 scope) |
+| `/about`    | `src/pages/about.astro`          | ✅ M3 — career timeline, resume, socials |
+| `/projects` | `src/pages/projects.astro`       | ✅ M3 — 16 projects from `lib/projects.ts` |
+| `/books`    | `src/pages/books.astro`          | ✅ M3 — 25 books from cached `json/books.json` |
+| `/movies`   | `src/pages/movies.astro`         | ✅ M3 — 98 titles from cached `json/movies.json` |
+| `/guestbook`| —                                | ⛔ **deferred** (auth/DB retain decision pending) |
 
 ### Dynamic pages
 
@@ -105,7 +109,7 @@ Source: `cd v4 && bun run build` → `v4/dist`. **233 HTML pages** + feeds/sitem
 | `/sitemap-index.xml` + `/sitemap-0.xml` | `@astrojs/sitemap`    | ✅ (legacy used `/sitemap.xml`) |
 | `/robots.txt`          | `public/robots.txt`                | ✅ points at `/sitemap-index.xml` |
 | `/search.json`         | —                                  | ⛔ **gap → search milestone** (Pagefind/deferred) |
-| `/static/*`            | —                                  | ⛔ assets not copied into v4 yet → M3 |
+| `/static/*`            | `public/static` → symlink to legacy `../public/static` (M3) | ✅ images/resume/favicons emitted to `dist/static/**`; git-ignored, not duplicated |
 
 ### Redirects
 
@@ -125,8 +129,14 @@ main + per-tag RSS, robots, 404, the goodreads 301, canonical/OG/Twitter from fr
   `/sitemap.xml` alias at cutover if any external service hardcodes the old path.
 
 **Known gaps (later milestones):**
-- Pages: `/projects`, `/about`, `/books`, `/movies`, `/guestbook` (M3/M4 + retain decisions).
 - `/search.json` local search index (search milestone).
-- `/static/*` assets (images/resume) not yet copied into v4 — post images 404 until M3.
 - API routes (`/api/*`) — M4 integrations.
 - `vercel.json` Umami `/stats/:match*` rewrite + security headers — cutover/hosting milestone.
+
+### M3 update (2026-06-14)
+- **Closed:** `/about`, `/projects`, `/books`, `/movies` now built (236 total pages, was 232).
+  `/static/*` assets resolve via git-ignored symlink (no 21MB duplication). Legacy `lang:title`
+  code fences + Twemoji render cleanly (Expressive Code title tabs; real Unicode emoji glyphs);
+  **0 Shiki warnings** at build.
+- **Still open:** `/guestbook` deferred pending auth/DB decision. Books/movies use the cached
+  `json/*.json` snapshots (static); swap to live Drizzle at cutover if fresh data is wanted.

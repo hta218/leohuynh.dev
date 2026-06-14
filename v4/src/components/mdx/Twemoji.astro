@@ -1,16 +1,26 @@
 ---
 /**
- * Minimal `<Twemoji>` placeholder so legacy MDX prose (212 inline uses) renders
- * without crashing in M2. Full twemoji-awesome styling/assets land in M3.
- * Mirrors the legacy `components/ui/twemoji.tsx` class contract (`twa twa-<emoji>`).
+ * Renders the real Unicode emoji glyph for a legacy `<Twemoji emoji="name" />` tag
+ * (212 inline uses across migrated MDX). Replaces the M2 CSS-class placeholder with
+ * a non-breaking, asset-free glyph mapped from the legacy twemoji codepoints.
+ *
+ * Unknown names resolve to an empty glyph, so prose never crashes or shows a tofu box.
  */
+import { emojiGlyph } from '~/lib/emoji'
+
 interface Props {
   emoji: string
-  size?: string
+  /** Optional extra classes; mirrors the legacy `className` contract. */
   className?: string
 }
 
 const { emoji, className = '' } = Astro.props
+const glyph = emojiGlyph(emoji)
 ---
 
-<i class:list={['twa', `twa-${emoji}`, className]} aria-hidden="true" title={emoji}></i>
+<span
+  class:list={['twemoji', className]}
+  role="img"
+  aria-label={emoji.replace(/-/g, ' ')}
+  title={emoji.replace(/-/g, ' ')}>{glyph}</span
+>

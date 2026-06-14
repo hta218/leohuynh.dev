@@ -2,6 +2,10 @@
 import { MORE_LINKS, NAV_LINKS } from '~/lib/site'
 import RuntimeRail from './RuntimeRail.astro'
 
+// Mobile loses the explorer sidebar, so surface every route in the scrollable
+// tab strip (primary nav + books/movies/tags) to keep the whole site reachable.
+const TAB_LINKS = [...NAV_LINKS, ...MORE_LINKS]
+
 /**
  * Fullscreen Code Studio shell (sketch 006).
  * Grid: 44px titlebar / fluid workspace / 28px status bar.
@@ -101,14 +105,14 @@ const explorer = [
     <main
       class="min-w-0 overflow-auto bg-panel [background-image:linear-gradient(90deg,rgba(37,99,235,0.035)_1px,transparent_1px)] [background-size:64px_64px]"
     >
-      <!-- top tab strip -->
-      <nav class="sticky top-0 z-[2] flex border-b border-line bg-[#fbfcff]">
+      <!-- top tab strip (scrolls horizontally on mobile, no overflow) -->
+      <nav class="sticky top-0 z-[2] flex overflow-x-auto border-b border-line bg-[#fbfcff] [scrollbar-width:none]">
         {
-          NAV_LINKS.map((l) => (
+          TAB_LINKS.map((l) => (
             <a
               href={l.href}
               class:list={[
-                'border-r border-line px-4 py-[11px] font-mono text-xs no-underline',
+                'shrink-0 border-r border-line px-4 py-[11px] font-mono text-xs no-underline',
                 active === l.href
                   ? 'bg-white text-ink shadow-[inset_0_-2px_0_var(--color-code-blue)]'
                   : 'text-muted hover:text-ink',

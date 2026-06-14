@@ -1,0 +1,68 @@
+---
+import StudioShell from '~/components/studio/StudioShell.astro'
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import { getMovies } from '~/lib/media'
+import { SITE } from '~/lib/site'
+
+const movies = getMovies().sort((a, b) => {
+  if (b.yourRating === a.yourRating) return b.imdbRating - a.imdbRating
+  return b.yourRating - a.yourRating
+})
+---
+
+<BaseLayout title="My movies list" description="Movies and TV series I've watched, exported from my IMDb ratings.">
+  <StudioShell active="/movies" crumb="~/leohuynh.dev/movies/">
+    <header class="mb-9 border-b border-line pb-7">
+      <h1 class="m-0 text-[clamp(34px,6vw,58px)] leading-[0.95] tracking-[-0.05em]">Movies</h1>
+      <p class="mt-4 max-w-[680px] text-lg text-muted">
+        Where I log the movies and TV series I've watched. Big fan of Tom Hanks and Christopher
+        Nolan — anything rated 10 is something I love and have probably rewatched many times.
+      </p>
+      <p class="mt-2 font-mono text-xs text-muted">
+        *Exported from my{' '}
+        <a href={SITE.imdbRatingsList} target="_blank" rel="noreferrer" class="text-code-blue"
+          >IMDb ratings</a
+        >, enriched via the OMDB API.
+      </p>
+    </header>
+
+    {
+      movies.length === 0 ? (
+        <p class="rounded-xl border border-line bg-white p-6 font-mono text-sm text-muted">
+          Movies snapshot unavailable right now.
+        </p>
+      ) : (
+        <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+          {movies.map((m) => (
+            <a
+              href={m.url}
+              target="_blank"
+              rel="noreferrer"
+              class="group flex flex-col overflow-hidden rounded-2xl border border-line bg-white no-underline hover:shadow-[4px_4px_0_var(--color-line)]"
+            >
+              <div class="relative aspect-[2/3] overflow-hidden bg-panel2">
+                <img
+                  src={m.poster}
+                  alt={m.title}
+                  loading="lazy"
+                  class="h-full w-full object-cover transition-transform group-hover:scale-[1.03]"
+                />
+                <span class="absolute right-2 top-2 rounded-md bg-ink/85 px-1.5 py-0.5 font-mono text-[11px] text-white">
+                  ★ {m.yourRating}
+                </span>
+              </div>
+              <div class="flex flex-1 flex-col p-3">
+                <h3 class="m-0 text-[14px] font-semibold leading-snug tracking-[-0.01em] text-ink group-hover:text-code-blue">
+                  {m.title}
+                </h3>
+                <p class="mt-1 mb-0 font-mono text-[11px] text-muted">
+                  {m.year} · {m.titleType}
+                </p>
+              </div>
+            </a>
+          ))}
+        </div>
+      )
+    }
+  </StudioShell>
+</BaseLayout>
