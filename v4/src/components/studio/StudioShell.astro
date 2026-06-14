@@ -20,6 +20,7 @@ interface Props {
 }
 
 const { active = '/', crumb = '~/leohuynh.dev/main' } = Astro.props
+const isExternal = (href: string) => href.startsWith('http')
 
 const explorer = [
   { href: '/', label: 'README.md' },
@@ -92,9 +93,11 @@ const explorer = [
           MORE_LINKS.map((l) => (
             <a
               href={l.href}
+              target={isExternal(l.href) ? '_blank' : undefined}
+              rel={isExternal(l.href) ? 'noreferrer' : undefined}
               class="flex items-center gap-2 rounded-lg px-2 py-[7px] font-mono text-xs text-[#374151] no-underline hover:text-code-blue"
             >
-              {l.href}
+              {l.title}
             </a>
           ))
         }
@@ -111,6 +114,8 @@ const explorer = [
           TAB_LINKS.map((l) => (
             <a
               href={l.href}
+              target={isExternal(l.href) ? '_blank' : undefined}
+              rel={isExternal(l.href) ? 'noreferrer' : undefined}
               class:list={[
                 'shrink-0 border-r border-line px-4 py-[11px] font-mono text-xs no-underline',
                 active === l.href

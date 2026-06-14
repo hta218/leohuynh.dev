@@ -1,28 +1,25 @@
-# leohuynh.dev — v4 (Astro)
+# leohuynh.dev v4
 
-New v4 site rebuild. Astro + Bun + Astro Content Collections + MDX + Tailwind v4,
-following the **Fullscreen Code Studio** design direction (`sketches/006-fullscreen-code-studio`).
+Astro + Bun rebuild of leohuynh.dev, kept in `v4/` during migration so the legacy Next.js app remains available as the content/reference source.
 
-Spec: `../docs/specs/2026-06-14--v4-astro-rebuild/`.
-
-## Why a subdirectory?
-
-During migration this app lives in `v4/` so the legacy Next.js app at repo root stays intact
-as a reference. Content is **not duplicated** — collections load the existing legacy MDX from
-`../data/blog` and `../data/snippets` via Astro's glob loader (single source of truth).
-Final cutover hoists this to repo root. See `plan.md`.
-
-## Commands (Bun)
+## Commands
 
 ```bash
 bun install
-bun run dev        # dev server on :4321
-bun run build      # static build → dist/
-bun run preview    # preview built site
-bun run check      # astro check (typecheck)
+bun run dev
+bun run check
+bun run build
+bun run preview
 ```
 
-## Status
+## Integrations
 
-M1 (scaffold + content schema) — homepage shell, blog/snippet indexes, collection schema.
-Article rendering, tags, RSS, sitemap, and integrations are later milestones (see `plan.md`).
+The runtime rail currently fetches static JSON generated during `bun run build` and degrades cleanly when credentials are missing. For local/prod build-time data, copy `.env.example` to `.env` and set:
+
+- `PUBLIC_UMAMI_WEBSITE_ID` or legacy `NEXT_UMAMI_ID`
+- `SPOTIFY_CLIENT_ID`
+- `SPOTIFY_CLIENT_SECRET`
+- `SPOTIFY_REFRESH_TOKEN`
+- `GITHUB_API_TOKEN`
+
+No secrets are required for static content pages, RSS, sitemap, `/books`, `/movies`, or `/search.json`.

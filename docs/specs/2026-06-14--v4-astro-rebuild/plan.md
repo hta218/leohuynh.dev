@@ -85,12 +85,14 @@ root (or flip the build), retire the Next.js app, and update Vercel project root
 - Guestbook intentionally deferred (auth/DB retain decision pending). Books/movies render from cached
   `json/*.json` (static, no DB). RuntimeRail widgets remain static placeholders → M4 integrations.
 
-### M4 — Integrations (graceful fallback first)
-- [ ] Spotify now playing (playing / recently played / unavailable)
-- [ ] GitHub today summary (contribs / commits / lines / top repo)
-- [ ] Recent activity timeline
-- [ ] Umami analytics
+### M4 — Integrations (graceful fallback first) ✅ (2026-06-14)
+- [x] Spotify now playing JSON + rail widget (build-time/static JSON fallback; real values when env is present)
+- [x] GitHub today JSON + rail widget (contribs / commits / optional lines / top repo; unavailable state when token missing)
+- [x] Recent activity timeline (cached books/movies + optional Spotify/GitHub)
+- [x] Umami analytics script support (`PUBLIC_UMAMI_WEBSITE_ID` or legacy `NEXT_UMAMI_ID`) + analytics nav link
+- [x] Static `/search.json` for posts/snippets
 - [ ] Decide: views/reactions/guestbook retain vs. drop (README open question)
+- Note: true request-time API endpoints are deferred until the Astro/Vercel adapter version is compatible with this Astro version; M4 keeps the site static and safe for now.
 
 ### M5 — Verify + cutover
 - [ ] typecheck / lint / build green

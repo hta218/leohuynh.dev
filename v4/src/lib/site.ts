@@ -25,6 +25,10 @@ export const SITE = {
   imdbRatingsList: 'https://www.imdb.com/user/ur154483197/ratings/?view=grid',
   // OG/Twitter fallback banner, parity with legacy `socialBanner`.
   socialBanner: '/static/images/twitter-card.jpeg',
+  analytics: {
+    umamiShareUrl:
+      'https://analytics.leohuynh.dev/share/c9ErglxqzY5CQJ8g/leohuynh.dev',
+  },
 } as const
 
 /** Support/donation links — parity with legacy `site-metadata.support`. */
@@ -108,4 +112,5 @@ export const MORE_LINKS = [
   { href: '/books', title: 'Books' },
   { href: '/movies', title: 'Movies' },
   { href: '/tags', title: 'Tags' },
+  { href: SITE.analytics.umamiShareUrl, title: 'Analytics' },
 ] as const

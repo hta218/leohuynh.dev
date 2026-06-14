@@ -29,6 +29,8 @@ const canonical =
   canonicalUrl ?? new URL(Astro.url.pathname, SITE.siteUrl).href
 const image = new URL(ogImage ?? SITE.socialBanner, SITE.siteUrl).href
 const rssTitle = `${SITE.title} RSS feed`
+const umamiWebsiteId =
+  process.env.PUBLIC_UMAMI_WEBSITE_ID?.trim() || process.env.NEXT_UMAMI_ID?.trim()
 ---
 
 <!doctype html>
@@ -64,6 +66,16 @@ const rssTitle = `${SITE.title} RSS feed`
       href={new URL('/feed.xml', SITE.siteUrl).href}
     />
     <meta name="generator" content={Astro.generator} />
+    {
+      umamiWebsiteId && (
+        <script
+          is:inline
+          defer
+          src="https://analytics.leohuynh.dev/script.js"
+          data-website-id={umamiWebsiteId}
+        />
+      )
+    }
     <slot name="head" />
   </head>
   <body>

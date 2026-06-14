@@ -1,5 +1,46 @@
 # Work Logs
 
+## 2026-06-14 — Hermes — M4: runtime rail integrations, analytics, search JSON
+
+### Scope of this run
+Implemented M4 as a static-safe integration layer for the v4 Astro app: React rail widgets, static JSON endpoints, Umami script support, analytics nav link, env docs, and `/search.json`. Claude Code was attempted first but was rate-limited until 2:30am Asia/Saigon, so Hermes implemented and verified directly.
+
+### Guardrail compliance
+- Stayed on branch `v4` and edited only `v4/**` plus this spec folder.
+- Did not read or commit secret values. Added `v4/.env.example` with key names only.
+- Kept output static. Attempted `@astrojs/vercel@10` for request-time endpoints, but it requires Astro 6 and failed against Astro 5.18.2 (`Missing "./app/entrypoint" specifier in "astro" package`). Removed the adapter and kept M4 build-time JSON fallback instead.
+
+### What changed
+- `v4/src/components/studio/RuntimeRail.astro` now mounts React islands:
+  - `SpotifyWidget.tsx`
+  - `GithubTodayWidget.tsx`
+  - `ActivityWidget.tsx`
+- `v4/src/lib/runtime.ts` centralizes safe integration fetchers:
+  - Spotify current/recent track from Spotify refresh-token flow, with unavailable fallback.
+  - GitHub today summary from GraphQL, with contribs/commits/top repo and optional line stats.
+  - Recent activity from cached books/movies plus optional Spotify/GitHub.
+- Static JSON routes generated at build:
+  - `/api/spotify.json`
+  - `/api/github-today.json`
+  - `/api/activity.json`
+  - `/search.json`
+- `BaseLayout.astro` adds Umami script when `PUBLIC_UMAMI_WEBSITE_ID` or legacy `NEXT_UMAMI_ID` is available.
+- `site.ts` adds the legacy Umami share URL and Analytics nav link.
+- `StudioShell.astro` makes external links open with `target="_blank"` and displays friendly route labels.
+- `v4/.env.example` + `v4/README.md` document integration env keys.
+
+### Verification (real output)
+- `bun run check` → **0 errors, 0 warnings, 0 hints** (39 files).
+- `bun run build` → **success, 236 page(s) built in ~4.06s**.
+- Local preview smoke test on `http://127.0.0.1:4324` returned `200` for `/`, `/search.json`, `/api/activity.json`, `/api/spotify.json`, `/api/github-today.json`, and `/static/resume.pdf`.
+- Browser console on homepage: **0 JS errors**.
+- Visual QA: runtime rail widgets fit, no obvious overlap/clipping; fallback states render cleanly.
+
+### Known gaps / next decisions
+- JSON integration routes are build-time/static for now, not live per request. Request-time APIs should wait for compatible Astro/Vercel adapter or an Astro upgrade.
+- Current local build did not load root `.env`, so Spotify/GitHub JSON intentionally rendered unavailable states; production/build env can populate them.
+- Views/reactions/guestbook/auth retain/drop decision still open.
+
 ## 2026-06-14 — @hta218 (Claude) — M3: design polish, static assets, remaining pages
 
 ### Scope of this run
