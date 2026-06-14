@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Leo Huynh v4 sketch — Minimal Coder Light</title>
+  <style>
+    * { box-sizing: border-box; }
+    :root { --bg:#fbfaf7; --paper:#fffefa; --ink:#181713; --muted:#77736a; --line:#e7e1d7; --soft:#f4efe6; --green:#168a5b; --blue:#2563eb; --amber:#b7791f; --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    body { margin:0; background:var(--bg); color:var(--ink); font-family:var(--sans); letter-spacing:-.02em; }
+    body:before { content:""; position:fixed; inset:0; pointer-events:none; opacity:.5; background:radial-gradient(circle at 15% 0%, #e8fff4, transparent 28rem), radial-gradient(circle at 85% 5%, #eef4ff, transparent 24rem); }
+    a { color:inherit; text-decoration:none; }
+    .wrap { position:relative; width:min(1180px, calc(100vw - 32px)); margin:0 auto; padding:24px 0 52px; }
+    header { display:flex; justify-content:space-between; align-items:center; gap:18px; padding:10px 0 22px; border-bottom:1px solid var(--line); }
+    .brand { display:flex; align-items:center; gap:12px; font-weight:760; }
+    .mark { width:28px; height:28px; border:1px solid var(--ink); border-radius:8px; display:grid; place-items:center; font-family:var(--mono); font-size:13px; background:var(--paper); box-shadow:3px 3px 0 var(--ink); }
+    nav { display:flex; gap:18px; color:var(--muted); font-size:14px; }
+    nav a:hover { color:var(--ink); }
+    .shortcut { font-family:var(--mono); color:var(--muted); border:1px solid var(--line); border-radius:999px; padding:8px 11px; background:var(--paper); font-size:12px; }
+    .hero { display:grid; grid-template-columns: 1fr 360px; gap:48px; padding:70px 0 46px; }
+    .eyebrow { font-family:var(--mono); color:var(--green); font-size:13px; margin-bottom:20px; }
+    h1 { margin:0; font-size:clamp(48px, 7vw, 92px); line-height:.92; letter-spacing:-.065em; word-spacing:.06em; max-width:760px; }
+    .lead { color:var(--muted); font-size:20px; line-height:1.65; max-width:650px; margin:24px 0 28px; }
+    .chips { display:flex; gap:10px; flex-wrap:wrap; }
+    .chip { font-family:var(--mono); font-size:12px; padding:8px 10px; border:1px solid var(--line); border-radius:999px; background:var(--paper); color:#4b463d; }
+    .side { position:sticky; top:20px; height:max-content; display:grid; gap:14px; }
+    .card { background:rgba(255,254,250,.82); border:1px solid var(--line); border-radius:20px; padding:18px; box-shadow:0 18px 50px rgba(38,31,18,.06); backdrop-filter:blur(12px); }
+    .card h3 { margin:0 0 12px; font-family:var(--mono); color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.08em; }
+    .spotify { display:flex; gap:14px; align-items:center; }
+    .cover { width:54px; height:54px; border-radius:14px; background:linear-gradient(135deg, #a7f3d0, #bfdbfe); border:1px solid var(--line); }
+    .bars { display:flex; gap:3px; align-items:end; height:22px; margin-top:10px; }
+    .bars i { width:4px; border-radius:99px; background:var(--green); animation:pulse .9s infinite alternate; } .bars i:nth-child(2){animation-delay:.12s}.bars i:nth-child(3){animation-delay:.24s}.bars i:nth-child(4){animation-delay:.36s}@keyframes pulse{from{height:5px}to{height:22px}}
+    .github-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .metric { border:1px solid var(--line); border-radius:14px; padding:12px; background:#fff; }
+    .metric b { display:block; font-size:24px; letter-spacing:-.05em; } .metric span { color:var(--muted); font-family:var(--mono); font-size:11px; }
+    .main { display:grid; grid-template-columns:1fr 360px; gap:48px; align-items:start; }
+    .section-head { display:flex; justify-content:space-between; align-items:end; margin-bottom:14px; }
+    h2 { margin:0; font-size:28px; letter-spacing:-.055em; }
+    .all { color:var(--muted); font-family:var(--mono); font-size:12px; }
+    .post { display:grid; grid-template-columns:96px 1fr; gap:18px; padding:22px 0; border-top:1px solid var(--line); }
+    .post time { font-family:var(--mono); color:var(--muted); font-size:12px; }
+    .post h3 { margin:0 0 8px; font-size:24px; letter-spacing:-.045em; } .post p { margin:0; color:var(--muted); line-height:1.55; }
+    .activity-controls { display:flex; gap:8px; margin-bottom:14px; }
+    button { border:1px solid var(--line); background:var(--paper); border-radius:999px; padding:8px 10px; cursor:pointer; font-family:var(--mono); color:var(--muted); } button.active { color:white; background:var(--ink); border-color:var(--ink); }
+    .log { display:grid; gap:10px; }
+    .event { border:1px solid var(--line); background:var(--paper); border-radius:16px; padding:14px; display:grid; grid-template-columns:18px 1fr; gap:10px; }
+    .event.hidden { display:none; }
+    .dot { width:9px; height:9px; margin-top:6px; border-radius:99px; background:var(--green); } .dot.git { background:var(--blue); } .dot.life { background:var(--amber); }
+    .event strong { display:block; margin-bottom:4px; } .event span { color:var(--muted); font-size:13px; line-height:1.45; }
+    .diff { display:flex; gap:8px; margin-top:8px; font-family:var(--mono); font-size:12px; } .plus { color:var(--green); } .minus { color:#dc2626; }
+    footer { margin-top:46px; padding-top:20px; border-top:1px solid var(--line); color:var(--muted); font-family:var(--mono); font-size:12px; display:flex; justify-content:space-between; gap:14px; }
+    @media (max-width: 900px) { nav { display:none; } .hero,.main { grid-template-columns:1fr; } .side { position:static; } .post { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header><a class="brand"><span class="mark">~/</span><span>leohuynh.dev</span></a><nav><a>writing</a><a>snippets</a><a>projects</a><a>books</a><a>movies</a><a>about</a></nav><span class="shortcut">⌘K</span></header>
+    <section class="hero">
+      <div><div class="eyebrow">// hanoi · software engineer · builder</div><h1>simple notes from a coder building commerce software.</h1><p class="lead">A lighter v4 direction: mostly quiet, fast, and readable — with small traces of terminal, GitHub, music, and daily building activity.</p><div class="chips"><span class="chip">astro + bun</span><span class="chip">shopify hydrogen</span><span class="chip">typescript</span><span class="chip">ai coding workflows</span></div></div>
+      <aside class="side"><div class="card"><h3>spotify now playing</h3><div class="spotify"><div class="cover"></div><div><b>Sweet Disposition</b><br/><span style="color:var(--muted)">The Temper Trap</span><div class="bars"><i></i><i></i><i></i><i></i></div></div></div></div><div class="card"><h3>github today</h3><div class="github-grid"><div class="metric"><b>12</b><span>contributions</span></div><div class="metric"><b>4</b><span>commits</span></div><div class="metric"><b class="plus">+842</b><span>lines added</span></div><div class="metric"><b class="minus">-219</b><span>removed</span></div></div></div><div class="card"><h3>currently</h3><p style="margin:0;color:var(--muted);line-height:1.55">Rebuilding this site as a faster, calmer Astro blog while preserving v3.</p></div></aside>
+    </section>
+    <main class="main">
+      <section><div class="section-head"><h2>latest writing</h2><a class="all">all posts →</a></div><a class="post"><time>Jul 09<br/>2025</time><div><h3>Building a Smooth Blurry Loading Effect for Images in Shopify Hydrogen</h3><p>Image UX, layout stability, and practical Hydrogen implementation details.</p></div></a><a class="post"><time>Jun 27<br/>2025</time><div><h3>Crawling Goodreads books data in Node.js</h3><p>Turning personal reading history into structured data.</p></div></a><a class="post"><time>Jun 11<br/>2025</time><div><h3>Enhance GitHub Copilot with custom instructions</h3><p>Opinionated project instructions for better AI-assisted engineering.</p></div></a></section>
+      <aside><div class="section-head"><h2>recent activity</h2><a class="all">live-ish</a></div><div class="activity-controls"><button class="active" onclick="filterLog('all',this)">all</button><button onclick="filterLog('git',this)">git</button><button onclick="filterLog('life',this)">life</button></div><div class="log"><div class="event" data-kind="git"><span class="dot git"></span><span><strong>Committed v4 sketches</strong><span>Added minimal design spikes on branch v4.</span><span class="diff"><b class="plus">+153</b><b class="minus">-0</b></span></span></div><div class="event" data-kind="git"><span class="dot git"></span><span><strong>Weaverse SDK work</strong><span>Reviewed theme/editor integration notes.</span><span class="diff"><b class="plus">+412</b><b class="minus">-98</b></span></span></div><div class="event" data-kind="life"><span class="dot life"></span><span><strong>Last watched</strong><span>Dune: Part Two · rating synced from movies list.</span></span></div><div class="event" data-kind="life"><span class="dot life"></span><span><strong>Reading</strong><span>Designing Data-Intensive Applications.</span></span></div></div></aside>
+    </main>
+    <footer><span>rss · github · x · linkedin · umami</span><span>v4 sketch / minimal coder light</span></footer>
+  </div>
+  <script>function filterLog(kind,btn){document.querySelectorAll('button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.event').forEach(e=>e.classList.toggle('hidden',kind!=='all'&&e.dataset.kind!==kind));}</script>
+</body>
+</html>
