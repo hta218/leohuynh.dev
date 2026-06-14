@@ -24,6 +24,7 @@ The v4 site should feel like a light, minimal, personal code workspace: clearly 
 - Freeze `main` into branch `v3` and deploy it to `v3.leohuynh.dev` as the long-lived legacy reference.
 - Continue all new work on `v4`.
 - Promote `v4` to `main` only after content migration, URL parity, design QA, and deployment checks pass.
+- Note: remote branch `v3` already exists and diverges from `origin/main`; updating it to current legacy `main` requires an explicit force-update decision before deployment setup.
 
 ## Chosen design direction
 
