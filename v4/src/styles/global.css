@@ -1,0 +1,138 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens from sketch 006 — Fullscreen Code Studio.
+ * Light-mode first, programmer-native, off-white editor canvas.
+ */
+@theme {
+  --color-bg: #f6f8fb;
+  --color-panel: #ffffff;
+  --color-panel2: #fbfcfe;
+  --color-ink: #111827;
+  --color-muted: #6b7280;
+  --color-line: #dfe5ee;
+  --color-code-green: #168a5b;
+  --color-code-blue: #2563eb;
+  --color-code-purple: #7c3aed;
+  --color-code-red: #dc2626;
+  --color-code-amber: #b7791f;
+
+  --font-sans: Inter, ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+html,
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  letter-spacing: -0.015em;
+}
+
+/* equalizer animation for the now-playing widget */
+@keyframes eq {
+  from {
+    height: 4px;
+  }
+  to {
+    height: 20px;
+  }
+}
+
+/*
+ * Minimal article prose — readable defaults for migrated MDX bodies.
+ * Design polish (typography scale, Expressive Code, twemoji assets) is M3.
+ */
+.prose {
+  max-width: 760px;
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--color-ink);
+}
+.prose h1 {
+  font-size: clamp(30px, 5vw, 46px);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  margin: 0 0 0.5em;
+}
+.prose h2 {
+  font-size: 28px;
+  letter-spacing: -0.03em;
+  margin: 1.6em 0 0.6em;
+}
+.prose h3 {
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  margin: 1.4em 0 0.5em;
+}
+.prose p,
+.prose ul,
+.prose ol {
+  margin: 0 0 1.1em;
+}
+.prose ul,
+.prose ol {
+  padding-left: 1.4em;
+}
+.prose li {
+  margin: 0.3em 0;
+}
+.prose a {
+  color: var(--color-code-blue);
+  text-underline-offset: 2px;
+}
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: var(--color-panel2);
+  border: 1px solid var(--color-line);
+  border-radius: 5px;
+  padding: 0.1em 0.35em;
+}
+.prose pre {
+  background: #0f1729;
+  color: #e5e7eb;
+  border-radius: 12px;
+  padding: 16px 18px;
+  overflow: auto;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 0 1.2em;
+}
+.prose pre code {
+  background: none;
+  border: 0;
+  padding: 0;
+  font-size: inherit;
+  color: inherit;
+}
+.prose img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+.prose blockquote {
+  margin: 0 0 1.1em;
+  padding-left: 1em;
+  border-left: 3px solid var(--color-line);
+  color: var(--color-muted);
+}
+.prose hr {
+  border: 0;
+  border-top: 1px solid var(--color-line);
+  margin: 2em 0;
+}
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 1.2em;
+  font-size: 15px;
+}
+.prose th,
+.prose td {
+  border: 1px solid var(--color-line);
+  padding: 7px 10px;
+  text-align: left;
+}

@@ -1,0 +1,16 @@
+---
+/**
+ * Minimal `<Twemoji>` placeholder so legacy MDX prose (212 inline uses) renders
+ * without crashing in M2. Full twemoji-awesome styling/assets land in M3.
+ * Mirrors the legacy `components/ui/twemoji.tsx` class contract (`twa twa-<emoji>`).
+ */
+interface Props {
+  emoji: string
+  size?: string
+  className?: string
+}
+
+const { emoji, className = '' } = Astro.props
+---
+
+<i class:list={['twa', `twa-${emoji}`, className]} aria-hidden="true" title={emoji}></i>

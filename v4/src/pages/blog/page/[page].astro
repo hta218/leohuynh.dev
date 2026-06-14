@@ -1,0 +1,43 @@
+---
+import PostList from '~/components/PostList.astro'
+import StudioShell from '~/components/studio/StudioShell.astro'
+import { getPublishedBlog } from '~/lib/content'
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import { POSTS_PER_PAGE } from '~/lib/site'
+
+// Parity with legacy `/blog/page/[page]`: generate pages 1..N (page 1 included).
+export async function getStaticPaths() {
+  const posts = await getPublishedBlog()
+  const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE)
+  return Array.from({ length: totalPages }, (_, i) => {
+    const page = i + 1
+    return {
+      params: { page: String(page) },
+      props: {
+        display: posts.slice(
+          POSTS_PER_PAGE * (page - 1),
+          POSTS_PER_PAGE * page,
+        ),
+        currentPage: page,
+        totalPages,
+        totalPosts: posts.length,
+      },
+    }
+  })
+}
+
+const { display, currentPage, totalPages, totalPosts } = Astro.props
+---
+
+<BaseLayout
+  title={`Blog — page ${currentPage}`}
+  description="Writing on web development, Shopify Hydrogen, TypeScript and AI workflows."
+>
+  <StudioShell active="/blog" crumb={`~/leohuynh.dev/blog/page/${currentPage}`}>
+    <div class="mb-4 flex items-end justify-between border-b border-line pb-4">
+      <h2 class="m-0 text-[26px] tracking-[-0.05em]">post index</h2>
+      <span class="font-mono text-xs text-muted">{totalPosts} posts · page {currentPage}/{totalPages}</span>
+    </div>
+    <PostList posts={display} currentPage={currentPage} totalPages={totalPages} />
+  </StudioShell>
+</BaseLayout>

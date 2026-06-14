@@ -1,0 +1,32 @@
+---
+import { getCollection } from 'astro:content'
+import StudioShell from '~/components/studio/StudioShell.astro'
+import BaseLayout from '~/layouts/BaseLayout.astro'
+
+const snippets = (await getCollection('snippets', (d) => d.data.draft !== true)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+)
+---
+
+<BaseLayout title="Snippets" description="Ready-to-use code snippets and utilities.">
+  <StudioShell active="/snippets" crumb="~/leohuynh.dev/snippets">
+    <div class="mb-4 flex items-end justify-between border-b border-line pb-4">
+      <h2 class="m-0 text-[26px] tracking-[-0.05em]">snippets/</h2>
+      <span class="font-mono text-xs text-muted">{snippets.length} snippets</span>
+    </div>
+    <div class="grid gap-3 md:grid-cols-2">
+      {
+        snippets.map((snippet) => (
+          <a
+            href={`/snippets/${snippet.id}`}
+            class="rounded-2xl border border-line bg-white p-4 no-underline transition-colors hover:border-code-blue"
+          >
+            <div class="mb-1.5 font-mono text-[11px] text-muted">{snippet.data.icon}</div>
+            <h3 class="m-0 mb-1.5 text-[18px] tracking-[-0.03em] text-ink">{snippet.data.heading}</h3>
+            <p class="m-0 text-sm leading-snug text-muted">{snippet.data.summary}</p>
+          </a>
+        ))
+      }
+    </div>
+  </StudioShell>
+</BaseLayout>

@@ -1,0 +1,56 @@
+---
+import { getCollection, render } from 'astro:content'
+import Twemoji from '~/components/mdx/Twemoji.astro'
+import StudioShell from '~/components/studio/StudioShell.astro'
+import { isPublished, tagSlug } from '~/lib/content'
+import BaseLayout from '~/layouts/BaseLayout.astro'
+
+// Slug parity: id = filename → `/snippets/<slug>` exactly as legacy.
+export async function getStaticPaths() {
+  const snippets = await getCollection('snippets', isPublished)
+  return snippets.map((snippet) => ({
+    params: { slug: snippet.id },
+    props: { snippet },
+  }))
+}
+
+const { snippet } = Astro.props
+const { Content } = await render(snippet)
+const { title, heading, summary, date, tags, images, canonicalUrl } =
+  snippet.data
+const ogImage = Array.isArray(images) ? images[0] : images
+const dateFmt = new Intl.DateTimeFormat('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+})
+---
+
+<BaseLayout
+  title={title}
+  description={summary}
+  canonicalUrl={canonicalUrl}
+  ogImage={ogImage}
+  ogType="article"
+  publishedTime={date.toISOString()}
+>
+  <StudioShell active="/snippets" crumb={`~/leohuynh.dev/snippets/${snippet.id}`}>
+    <article class="prose">
+      <h1>{heading}</h1>
+      <div class="mb-8 flex flex-wrap items-center gap-3 font-mono text-xs text-muted not-prose">
+        <time datetime={date.toISOString()}>{dateFmt.format(date)}</time>
+        {
+          tags.map((tag) => (
+            <a
+              href={`/tags/${tagSlug(tag)}`}
+              class="rounded-full border border-line px-2 py-0.5 text-code-blue no-underline"
+            >
+              #{tag}
+            </a>
+          ))
+        }
+      </div>
+      <Content components={{ Twemoji }} />
+    </article>
+  </StudioShell>
+</BaseLayout>

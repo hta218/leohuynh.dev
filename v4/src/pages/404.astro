@@ -1,0 +1,24 @@
+---
+import StudioShell from '~/components/studio/StudioShell.astro'
+import BaseLayout from '~/layouts/BaseLayout.astro'
+---
+
+<BaseLayout title="404 — Not found" description="This page could not be found.">
+  <StudioShell active="/" crumb="~/leohuynh.dev/404">
+    <div class="prose">
+      <p class="font-mono text-sm text-code-red">Error: ENOENT — no such file or directory</p>
+      <h1>404 — page not found</h1>
+      <p class="text-muted">
+        The file you tried to open doesn't exist in this workspace. It may have been moved
+        or renamed.
+      </p>
+      <p class="font-mono text-sm">
+        <a href="/" class="text-code-blue no-underline">cd ~/</a>
+        <span class="text-muted"> · </span>
+        <a href="/blog" class="text-code-blue no-underline">open blog</a>
+        <span class="text-muted"> · </span>
+        <a href="/snippets" class="text-code-blue no-underline">open snippets</a>
+      </p>
+    </div>
+  </StudioShell>
+</BaseLayout>

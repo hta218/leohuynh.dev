@@ -1,0 +1,75 @@
+---
+/**
+ * Right runtime rail (sketch 006). Static placeholders for this milestone — real
+ * Spotify / GitHub-today / activity integrations land in a later milestone (M4) as
+ * React islands with graceful fallback. Markup is structured so swapping in live data
+ * is a drop-in later.
+ */
+---
+
+<aside class="hidden content-start gap-3 overflow-auto border-l border-line bg-panel2 p-3.5 lg:grid">
+  <!-- spotify now playing -->
+  <div class="rounded-2xl border border-line bg-white p-3.5">
+    <h3 class="mb-3 font-mono text-[11px] uppercase tracking-[0.08em] text-muted">
+      spotify now playing
+    </h3>
+    <div class="grid grid-cols-[48px_1fr] items-center gap-3">
+      <div
+        class="h-12 w-12 rounded-xl border border-line bg-[linear-gradient(135deg,#bbf7d0,#bfdbfe)]"
+      >
+      </div>
+      <div>
+        <b>—</b><br />
+        <span class="font-mono text-xs text-muted">not playing</span>
+        <div class="mt-[7px] flex h-5 items-end gap-[3px]">
+          {
+            [0, 0.1, 0.2, 0.3].map((d) => (
+              <i
+                class="w-1 rounded-full bg-code-green"
+                style={`height:6px;animation:eq .9s ${d}s infinite alternate`}
+              />
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- github today -->
+  <div class="rounded-2xl border border-line bg-white p-3.5">
+    <h3 class="mb-3 font-mono text-[11px] uppercase tracking-[0.08em] text-muted">github today</h3>
+    <div class="grid grid-cols-2 gap-2">
+      <div class="rounded-xl border border-line bg-[#fbfdff] p-2.5">
+        <b class="block text-2xl">—</b><span class="font-mono text-[10px] text-muted">contribs</span>
+      </div>
+      <div class="rounded-xl border border-line bg-[#fbfdff] p-2.5">
+        <b class="block text-2xl">—</b><span class="font-mono text-[10px] text-muted">commits</span>
+      </div>
+      <div class="rounded-xl border border-line bg-[#fbfdff] p-2.5">
+        <b class="block text-2xl text-code-green">—</b><span
+          class="font-mono text-[10px] text-muted">added</span
+        >
+      </div>
+      <div class="rounded-xl border border-line bg-[#fbfdff] p-2.5">
+        <b class="block text-2xl text-code-red">—</b><span class="font-mono text-[10px] text-muted"
+          >removed</span
+        >
+      </div>
+    </div>
+  </div>
+
+  <!-- recent activity -->
+  <div class="rounded-2xl border border-line bg-white p-3.5">
+    <h3 class="mb-3 font-mono text-[11px] uppercase tracking-[0.08em] text-muted">recent activity</h3>
+    <div class="grid gap-2.5">
+      <div class="grid grid-cols-[18px_1fr] gap-2.5 rounded-xl border border-line bg-white p-3">
+        <span class="mt-1.5 h-2 w-2 rounded-full bg-code-blue"></span>
+        <span
+          ><strong class="block">scaffolded v4</strong><span class="text-[13px] leading-snug text-muted"
+            >astro + bun workspace</span
+          ></span
+        >
+      </div>
+    </div>
+  </div>
+</aside>

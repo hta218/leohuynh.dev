@@ -1,0 +1,85 @@
+---
+import { getCollection } from 'astro:content'
+import StudioShell from '~/components/studio/StudioShell.astro'
+import BaseLayout from '~/layouts/BaseLayout.astro'
+
+const isPublished = (d: { data: { draft?: boolean } }) => d.data.draft !== true
+
+const posts = (await getCollection('blog', isPublished)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+)
+const snippets = await getCollection('snippets', isPublished)
+const latest = posts.slice(0, 3)
+
+const dateFmt = new Intl.DateTimeFormat('en-CA') // YYYY-MM-DD
+---
+
+<BaseLayout>
+  <StudioShell active="/" crumb="~/leohuynh.dev/main">
+    <!-- hero -->
+    <div class="grid items-end gap-6 border-b border-line pb-9">
+      <div>
+        <h1
+          class="m-0 max-w-[920px] text-[clamp(40px,8vw,118px)] leading-[0.9] tracking-[-0.075em]"
+        >
+          A personal site that feels like a clean coding workspace.
+        </h1>
+        <p class="mt-6 max-w-[730px] text-xl leading-relaxed text-muted">
+          Full-screen, light-mode, programmer-native. The UI borrows from editors and terminals
+          without turning the blog into a fake IDE.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-2">
+          {
+            ['writer', 'builder', 'shopify hydrogen', 'typescript', 'ai workflows'].map((b) => (
+              <span class="rounded-full border border-line bg-white px-2.5 py-2 font-mono text-xs">
+                {b}
+              </span>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="grid w-[min(520px,100%)] grid-cols-3 gap-2">
+        <div class="rounded-2xl border border-line bg-white p-3">
+          <b class="block text-[28px]">{posts.length}</b>
+          <span class="font-mono text-[11px] text-muted">posts</span>
+        </div>
+        <div class="rounded-2xl border border-line bg-white p-3">
+          <b class="block text-[28px]">{snippets.length}</b>
+          <span class="font-mono text-[11px] text-muted">snippets</span>
+        </div>
+        <div class="rounded-2xl border border-line bg-white p-3">
+          <b class="block text-[28px]">—</b>
+          <span class="font-mono text-[11px] text-muted">views</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- latest writing -->
+    <div class="border-b border-line py-[34px]">
+      <div class="mb-4 flex items-end justify-between">
+        <h2 class="m-0 text-[26px] tracking-[-0.05em]">latest writing</h2>
+        <span class="font-mono text-xs text-muted">content/blog/*.mdx</span>
+      </div>
+      {
+        latest.map((post) => (
+          <a
+            href={`/blog/${post.id}`}
+            class="grid grid-cols-1 items-start gap-[18px] border-t border-line py-[18px] no-underline first-of-type:border-t-0 md:grid-cols-[92px_1fr_auto]"
+          >
+            <time class="font-mono text-xs text-muted">{dateFmt.format(post.data.date)}</time>
+            <div>
+              <h3 class="mb-[7px] text-[23px] tracking-[-0.04em] text-ink">{post.data.title}</h3>
+              <p class="m-0 leading-snug text-muted">{post.data.summary}</p>
+            </div>
+            {post.data.tags[0] && (
+              <span class="rounded-full border border-line px-[7px] py-[5px] font-mono text-[11px] text-code-blue">
+                {post.data.tags[0]}
+              </span>
+            )}
+          </a>
+        ))
+      }
+    </div>
+  </StudioShell>
+</BaseLayout>

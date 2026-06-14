@@ -1,0 +1,64 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import { tagSlug } from '~/lib/content'
+
+interface Props {
+  posts: CollectionEntry<'blog'>[]
+  currentPage: number
+  totalPages: number
+}
+
+const { posts, currentPage, totalPages } = Astro.props
+const dateFmt = new Intl.DateTimeFormat('en-CA') // YYYY-MM-DD
+
+// Page 1 lives at `/blog`; pages 2..N at `/blog/page/N` (legacy parity).
+const pageHref = (n: number) => (n <= 1 ? '/blog' : `/blog/page/${n}`)
+const hasPrev = currentPage > 1
+const hasNext = currentPage < totalPages
+---
+
+<div>
+  {
+    posts.map((post) => (
+      <a
+        href={`/blog/${post.id}`}
+        class="grid grid-cols-1 items-start gap-[18px] border-t border-line py-[18px] no-underline first-of-type:border-t-0 md:grid-cols-[110px_1fr_auto]"
+      >
+        <time class="font-mono text-xs text-muted">{dateFmt.format(post.data.date)}</time>
+        <div>
+          <h3 class="mb-[7px] text-[21px] tracking-[-0.04em] text-ink">{post.data.title}</h3>
+          <p class="m-0 leading-snug text-muted">{post.data.summary}</p>
+        </div>
+        {post.data.tags[0] && (
+          <span class="rounded-full border border-line px-[7px] py-[5px] font-mono text-[11px] text-code-blue">
+            {tagSlug(post.data.tags[0])}
+          </span>
+        )}
+      </a>
+    ))
+  }
+
+  {
+    totalPages > 1 && (
+      <nav class="mt-8 flex items-center justify-between border-t border-line pt-5 font-mono text-xs">
+        {hasPrev ? (
+          <a href={pageHref(currentPage - 1)} class="text-code-blue no-underline">
+            ← prev
+          </a>
+        ) : (
+          <span class="text-muted/50">← prev</span>
+        )}
+        <span class="text-muted">
+          page {currentPage} / {totalPages}
+        </span>
+        {hasNext ? (
+          <a href={pageHref(currentPage + 1)} class="text-code-blue no-underline">
+            next →
+          </a>
+        ) : (
+          <span class="text-muted/50">next →</span>
+        )}
+      </nav>
+    )
+  }
+</div>

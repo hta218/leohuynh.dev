@@ -1,0 +1,140 @@
+---
+import { MORE_LINKS, NAV_LINKS } from '~/lib/site'
+import RuntimeRail from './RuntimeRail.astro'
+
+/**
+ * Fullscreen Code Studio shell (sketch 006).
+ * Grid: 44px titlebar / fluid workspace / 28px status bar.
+ * Workspace: 240px explorer sidebar / fluid main / 390px runtime rail.
+ * Collapses to a single column under 1050px (sidebar + rail hidden).
+ */
+interface Props {
+  /** path used to highlight the active explorer entry, e.g. "/blog" */
+  active?: string
+  /** breadcrumb shown above the main content, e.g. "~/leohuynh.dev/main" */
+  crumb?: string
+}
+
+const { active = '/', crumb = '~/leohuynh.dev/main' } = Astro.props
+
+const explorer = [
+  { href: '/', label: 'README.md' },
+  { href: '/blog', label: 'posts.mdx' },
+  { href: '/snippets', label: 'snippets/' },
+  { href: '/projects', label: 'projects/' },
+  { href: '/about', label: 'about.md' },
+]
+---
+
+<div class="grid min-h-screen grid-rows-[44px_1fr_28px]">
+  <!-- titlebar -->
+  <header
+    class="flex items-center justify-between border-b border-line bg-panel px-3.5 font-mono text-xs text-muted"
+  >
+    <div class="flex gap-[7px]">
+      <i class="h-[11px] w-[11px] rounded-full bg-[#ff5f57]"></i>
+      <i class="h-[11px] w-[11px] rounded-full bg-[#febc2e]"></i>
+      <i class="h-[11px] w-[11px] rounded-full bg-[#28c840]"></i>
+    </div>
+    <span>leohuynh.dev — v4.code-workspace</span>
+    <span>astro + bun</span>
+  </header>
+
+  <!-- workspace -->
+  <div class="grid min-h-0 grid-cols-1 lg:grid-cols-[240px_1fr_390px]">
+    <!-- explorer sidebar -->
+    <aside class="hidden overflow-auto border-r border-line bg-[#f9fafb] p-3.5 lg:block">
+      <a href="/" class="mb-[18px] flex items-center gap-2.5 font-extrabold no-underline text-ink">
+        <span
+          class="grid h-[30px] w-[30px] place-items-center rounded-lg border border-ink bg-white font-mono text-xs shadow-[3px_3px_0_var(--color-ink)]"
+          >LH</span
+        >
+        <span>leo workspace</span>
+      </a>
+
+      <div class="my-[18px]">
+        <h3 class="mb-2 font-mono text-[11px] uppercase tracking-[0.08em] text-muted">explorer</h3>
+        {
+          explorer.map((item) => (
+            <a
+              href={item.href}
+              class:list={[
+                'flex items-center gap-2 rounded-lg px-2 py-[7px] font-mono text-xs no-underline',
+                active === item.href
+                  ? 'bg-[#eef2ff] text-code-blue'
+                  : 'text-[#374151] hover:bg-[#eef2ff] hover:text-code-blue',
+              ]}
+            >
+              ▸ {item.label}
+            </a>
+          ))
+        }
+      </div>
+
+      <div class="my-[18px]">
+        <h3 class="mb-2 font-mono text-[11px] uppercase tracking-[0.08em] text-muted">stack</h3>
+        {
+          ['astro.config.mjs', 'bun.lock', 'content.config.ts'].map((f) => (
+            <div class="flex items-center gap-2 rounded-lg px-2 py-[7px] font-mono text-xs text-[#374151]">
+              {f}
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="my-[18px]">
+        <h3 class="mb-2 font-mono text-[11px] uppercase tracking-[0.08em] text-muted">routes</h3>
+        {
+          MORE_LINKS.map((l) => (
+            <a
+              href={l.href}
+              class="flex items-center gap-2 rounded-lg px-2 py-[7px] font-mono text-xs text-[#374151] no-underline hover:text-code-blue"
+            >
+              {l.href}
+            </a>
+          ))
+        }
+      </div>
+    </aside>
+
+    <!-- main content -->
+    <main
+      class="min-w-0 overflow-auto bg-panel [background-image:linear-gradient(90deg,rgba(37,99,235,0.035)_1px,transparent_1px)] [background-size:64px_64px]"
+    >
+      <!-- top tab strip -->
+      <nav class="sticky top-0 z-[2] flex border-b border-line bg-[#fbfcff]">
+        {
+          NAV_LINKS.map((l) => (
+            <a
+              href={l.href}
+              class:list={[
+                'border-r border-line px-4 py-[11px] font-mono text-xs no-underline',
+                active === l.href
+                  ? 'bg-white text-ink shadow-[inset_0_-2px_0_var(--color-code-blue)]'
+                  : 'text-muted hover:text-ink',
+              ]}
+            >
+              {l.title}
+            </a>
+          ))
+        }
+      </nav>
+
+      <div class="px-[clamp(22px,5vw,78px)] pt-[46px] pb-[70px]">
+        <div class="mb-[18px] font-mono text-xs text-code-green">{crumb}</div>
+        <slot />
+      </div>
+    </main>
+
+    <!-- runtime rail -->
+    <RuntimeRail />
+  </div>
+
+  <!-- status bar -->
+  <footer
+    class="flex items-center justify-between bg-ink px-3 font-mono text-xs text-[#e5e7eb]"
+  >
+    <span>main · v4 branch · v3 preserved</span>
+    <span>rss · github · x · analytics</span>
+  </footer>
+</div>

@@ -1,0 +1,78 @@
+---
+import StudioShell from '~/components/studio/StudioShell.astro'
+import { getContentByTag, getTagCounts } from '~/lib/content'
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import { SITE } from '~/lib/site'
+
+// One page per tag slug (parity with legacy `json/tag-data.json` keys).
+export async function getStaticPaths() {
+  const counts = await getTagCounts()
+  const entries = await Promise.all(
+    Object.keys(counts).map(async (tag) => {
+      const { posts, snippets } = await getContentByTag(tag)
+      return { params: { tag }, props: { tag, posts, snippets } }
+    }),
+  )
+  return entries
+}
+
+const { tag, posts, snippets } = Astro.props
+const dateFmt = new Intl.DateTimeFormat('en-CA')
+const rssHref = `${SITE.siteUrl}/tags/${tag}/feed.xml`
+---
+
+<BaseLayout
+  title={`#${tag}`}
+  description={`${SITE.title} ${tag} tagged content`}
+>
+  <Fragment slot="head">
+    <link rel="alternate" type="application/rss+xml" title={`#${tag} RSS`} href={rssHref} />
+  </Fragment>
+  <StudioShell active="/tags" crumb={`~/leohuynh.dev/tags/${tag}`}>
+    <div class="mb-6 flex items-end justify-between border-b border-line pb-4">
+      <h2 class="m-0 text-[26px] tracking-[-0.05em]">#{tag}</h2>
+      <a href={`/tags/${tag}/feed.xml`} class="font-mono text-xs text-code-blue no-underline">
+        rss
+      </a>
+    </div>
+
+    {
+      posts.length > 0 && (
+        <section class="mb-8">
+          <h3 class="mb-3 font-mono text-[11px] uppercase tracking-[0.08em] text-muted">posts</h3>
+          {posts.map((post) => (
+            <a
+              href={`/blog/${post.id}`}
+              class="grid grid-cols-1 items-start gap-[18px] border-t border-line py-[18px] no-underline first-of-type:border-t-0 md:grid-cols-[110px_1fr]"
+            >
+              <time class="font-mono text-xs text-muted">{dateFmt.format(post.data.date)}</time>
+              <div>
+                <h4 class="mb-[7px] text-[20px] tracking-[-0.04em] text-ink">{post.data.title}</h4>
+                <p class="m-0 leading-snug text-muted">{post.data.summary}</p>
+              </div>
+            </a>
+          ))}
+        </section>
+      )
+    }
+
+    {
+      snippets.length > 0 && (
+        <section>
+          <h3 class="mb-3 font-mono text-[11px] uppercase tracking-[0.08em] text-muted">snippets</h3>
+          <div class="grid gap-3 md:grid-cols-2">
+            {snippets.map((snippet) => (
+              <a
+                href={`/snippets/${snippet.id}`}
+                class="rounded-2xl border border-line bg-white p-4 no-underline transition-colors hover:border-code-blue"
+              >
+                <h4 class="m-0 mb-1.5 text-[17px] tracking-[-0.03em] text-ink">{snippet.data.heading}</h4>
+                <p class="m-0 text-sm leading-snug text-muted">{snippet.data.summary}</p>
+              </a>
+            ))}
+          </div>
+        </section>
+      )
+    }
+  </StudioShell>
+</BaseLayout>
