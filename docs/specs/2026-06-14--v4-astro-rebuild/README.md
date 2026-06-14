@@ -21,10 +21,10 @@ The v4 site should feel like a light, minimal, personal code workspace: clearly 
 ## Branch and deployment strategy
 
 - `main` currently represents the legacy production site.
-- Freeze `main` into branch `v3` and deploy it to `v3.leohuynh.dev` as the long-lived legacy reference.
+- Existing remote `v3` is preserved as-is because it already diverges from `origin/main`.
+- Freeze current `origin/main` into branch `legacy-v3` and deploy it to `v3.leohuynh.dev` as the long-lived legacy reference.
 - Continue all new work on `v4`.
 - Promote `v4` to `main` only after content migration, URL parity, design QA, and deployment checks pass.
-- Note: remote branch `v3` already exists and diverges from `origin/main`; updating it to current legacy `main` requires an explicit force-update decision before deployment setup.
 
 ## Chosen design direction
 
@@ -186,9 +186,9 @@ Before promoting v4 to `main`:
 ## Implementation milestones
 
 1. Freeze legacy v3
-   - Create `v3` from current `origin/main`.
-   - Push `v3` to GitHub.
-   - Configure `v3.leohuynh.dev` to deploy from that branch/project.
+   - Preserve the existing remote `v3` branch.
+   - Use `legacy-v3` as the frozen copy of current `origin/main`.
+   - Configure `v3.leohuynh.dev` to deploy from `legacy-v3` or from a separate legacy project pointing at that branch.
 
 2. Scaffold v4
    - Replace old Next.js app with Astro structure on branch `v4`.
