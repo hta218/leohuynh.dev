@@ -7,7 +7,15 @@ Continue v4 verification toward cutover without promoting production. Focused on
 visual QA, and Vercel hosting config that can be safely committed before a deploy preview.
 
 ### What changed
-- `v4/vercel.json` now carries the legacy Umami `/stats/:match*` rewrite and security headers from
+- Root `vercel.json` now sets `framework: astro` and forces the GitHub/Vercel project to install/build/output
+  the `v4/` Astro app
+  (`cd v4 && bun install --frozen-lockfile`, `cd v4 && bun run build`, output `v4/dist`) because the
+  current Vercel project was still trying to build the legacy root Next app.
+- Root `api/stats.ts` is a small shim to `v4/api/stats.ts` so `/api/stats` can still deploy if the
+  Vercel project root remains the repository root. If the project Root Directory is later set to `v4`,
+  this shim is ignored.
+- `v4/vercel.json` mirrors the same hosting routes for a future clean Root Directory = `v4` setup.
+- Vercel config carries the legacy Umami `/stats/:match*` rewrite and security headers from
   legacy `next.config.js`.
 - Added Vercel 301 compat redirects:
   - `/snippets/snippets/:slug*` → `/snippets/:slug*` because production sitemap currently exposes
@@ -27,9 +35,12 @@ visual QA, and Vercel hosting config that can be safely committed before a deplo
   layout issues; mobile screenshots for homepage/article had no obvious blocking layout issues.
 
 ### Blocker / next step
-- `vercel build` cannot run locally yet because this checkout has no local Vercel Project Settings:
-  `No Project Settings found locally. Run vercel pull --yes to retrieve them.`
-- Next side-effecting step is to link/pull the correct Vercel project and create a deploy preview; do not
+- GitHub/Vercel preview for commit `822493a` failed because the project was still building the legacy
+  repository root. This run adds root `vercel.json` build settings to target `v4`; the next pushed commit
+  should trigger a fresh preview build.
+- `vercel build` cannot inspect/build the Vercel deployment locally because this checkout has no Vercel
+  credentials/project settings: `No Project Settings found locally` / `No existing credentials found`.
+- Next step after push is to watch the new GitHub/Vercel status and smoke-test the preview URL. Do not
   promote production without approval.
 
 ## 2026-06-15 — Claude + Hermes — M4 follow-up: persisted views + reactions

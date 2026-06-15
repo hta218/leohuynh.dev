@@ -1,4 +1,5 @@
 {
+  "framework": "astro",
   "redirects": [
     {
       "source": "/snippets/crawling-goodreads-books-data",
