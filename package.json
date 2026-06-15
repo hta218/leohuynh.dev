@@ -22,7 +22,7 @@
   "dependencies": {
     "@giscus/react": "^3.1.0",
     "@headlessui/react": "2.2.4",
-    "@next/bundle-analyzer": "15.3.3",
+    "@next/bundle-analyzer": "16.2.9",
     "@octokit/graphql": "^9.0.1",
     "@tailwindcss/forms": "^0.5.10",
     "@tailwindcss/postcss": "^4.1.10",
@@ -44,7 +44,7 @@
     "kbar": "0.1.0-beta.45",
     "lucide-react": "^0.515.0",
     "mdast-util-to-string": "^4.0.0",
-    "next": "15.4.7",
+    "next": "16.2.9",
     "next-contentlayer2": "0.5.8",
     "next-themes": "^0.4.6",
     "postcss": "^8.5.5",
