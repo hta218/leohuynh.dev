@@ -1,5 +1,33 @@
 # Work Logs
 
+## 2026-06-15 — Hermes — M7 shell polish follow-up
+
+### Scope
+Leo requested a tighter VS Code-like shell pass:
+- Shorter homepage greeting.
+- Use real brand/simpleicons icons, including adding Astro under root `icons/`.
+- Slate / black-white tone and thinner scrollbars.
+- Max 5 tab triggers.
+- Restore `/projects` GitHub repo data parity with the live site.
+- Move `posts/` and `snippets/` route folders to the top and show actual route filenames only: `index.astro` + `[...slug].astro`.
+
+### Result
+- Added `icons/astro.svg` from Simple Icons.
+- `StudioShell.astro` now uses inline SVGs from root `icons/` via Vite `?raw` imports instead of emoji placeholders.
+- Route folders now sit above explorer, no disclosure triangle, and list only `index.astro` + `[...slug].astro`.
+- Tab bar is capped at 5 triggers: README, blog, snippets, projects, about.
+- `global.css` moved shell tokens/scrollbar accents to slate/black-white and reduced WebKit scrollbar width/height to 4px.
+- Homepage H1 now `Hi, I’m Leo.` with shorter supporting copy.
+- Added `v4/src/lib/github.ts` and updated `projects.astro` to fetch GitHub repo description, stars, and primary language at build time with fallback to static project data.
+
+### Verification
+- `bun run check` ✅ 0 errors / 0 warnings.
+- `bun run build` ✅ 236 pages.
+- Generated `/projects` HTML contains GitHub repo metadata: stars/language/repo names for repos that resolve.
+- Local preview smoke ✅ for `/`, `/projects`, `/blog`, `/snippets`, `/api/github-today.json`, `/api/activity.json`, and `/static/resume.pdf`.
+- Browser QA ✅: client-side nav preserved window state across `/projects` → `/blog`; visual pass for route folders, max 5 tabs, slate tone, and thin scrollbars.
+- Screenshots: `/tmp/leohuynh-v4-m7-polish/{home,projects,blog}.png`.
+
 ## 2026-06-15 — Hermes — M6 pre-production polish kickoff
 
 ### Scope of this run

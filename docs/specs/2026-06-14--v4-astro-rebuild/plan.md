@@ -122,9 +122,20 @@ root (or flip the build), retire the Next.js app, and update Vercel project root
 - [x] Add icons to left sidebar nav and tab triggers.
 - [x] Render `posts/` and `snippets/` as folders in the left explorer, each initially showing 10 files with `+10 more...` expansion controls.
 - [x] Re-run check/build, local screenshot review.
-- [ ] Push and smoke-test Vercel preview for Leo.
+- [x] Push and smoke-test Vercel preview for Leo.
 
-### M7 — Production cutover (after Leo approves polished preview)
+### M7 — Shell polish follow-up requested by Leo (2026-06-15)
+- [x] Shorten homepage greeting so it no longer dominates the page.
+- [x] Replace emoji route/file icons with real icons from root `icons/`; add `icons/astro.svg` from Simple Icons.
+- [x] Shift shell tone to slate / black-white and remove blue/purple scrollbar accents.
+- [x] Reduce scrollbar width.
+- [x] Cap tab bar triggers to 5.
+- [x] Restore `/projects` GitHub repo data parity: repo description, stars, primary language.
+- [x] Move `posts/` and `snippets/` route folders above explorer.
+- [x] Show actual route filenames only: `index.astro` + `[...slug].astro`.
+- [x] Re-run check/build, local smoke, browser QA, and screenshots.
+
+### M8 — Production cutover (after Leo approves polished preview)
 - [ ] Hoist `v4/` to repo root or permanently set Vercel Root Directory = `v4`.
 - [ ] Remove/retire legacy root Next app from production path.
 - [ ] Final preview smoke, then promote/merge to production with rollback path.

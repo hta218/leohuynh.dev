@@ -1,13 +1,34 @@
 ---
 import StudioShell from '~/components/studio/StudioShell.astro'
 import BaseLayout from '~/layouts/BaseLayout.astro'
+import { fetchGithubRepository, type GithubRepository } from '~/lib/github'
 import { PROJECTS, type Project } from '~/lib/projects'
 
-const work = PROJECTS.filter((p) => p.type === 'work')
-const self = PROJECTS.filter((p) => p.type === 'self')
+interface ProjectView extends Project {
+  repository: GithubRepository | null
+}
 
-function projectHref(p: Project): string | undefined {
-  return p.url ?? (p.repo ? `https://github.com/${p.repo}` : undefined)
+const projects = await Promise.all(
+  PROJECTS.map(async (project): Promise<ProjectView> => ({
+    ...project,
+    repository: await fetchGithubRepository(project.repo),
+  })),
+)
+
+const work = projects.filter((p) => p.type === 'work')
+const self = projects.filter((p) => p.type === 'self')
+
+function projectHref(p: ProjectView): string | undefined {
+  return p.repository?.url ?? p.url ?? (p.repo ? `https://github.com/${p.repo}` : undefined)
+}
+
+function formatDate(value: string | undefined): string | undefined {
+  if (!value) return undefined
+  return new Intl.DateTimeFormat('en-CA', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(new Date(value))
 }
 ---
 
@@ -15,16 +36,16 @@ function projectHref(p: Project): string | undefined {
   <StudioShell active="/projects" crumb="~/leohuynh.dev/projects/">
     <header class="mb-9 border-b border-line pb-7">
       <h1 class="m-0 text-[clamp(34px,6vw,58px)] leading-[0.95] tracking-[-0.05em]">Projects</h1>
-      <p class="mt-4 max-w-[640px] text-lg text-muted">
-        A mix of commercial work and personal projects I've shipped over the years — eCommerce
-        platforms, Shopify themes, dev tooling, and small experiments.
+      <p class="mt-4 max-w-[680px] text-lg text-muted">
+        Collections of open-source side projects, commercial work, and practical tools I’ve
+        built with teammates or shipped on my own.
       </p>
     </header>
 
     {
       [
         { title: 'Work', items: work, note: 'commercial / professional' },
-        { title: 'Personal', items: self, note: 'side projects / open-source' },
+        { title: 'Side projects', items: self, note: 'open-source / personal' },
       ].map((group) => (
         <section class="mb-12">
           <div class="mb-5 flex items-end justify-between">
@@ -35,12 +56,15 @@ function projectHref(p: Project): string | undefined {
             {group.items.map((p) => {
               const href = projectHref(p)
               const Tag = href ? 'a' : 'div'
+              const language = p.repository?.languages?.[0]
+              const lastCommitDate = formatDate(p.repository?.lastCommit?.committedDate)
+
               return (
                 <Tag
                   href={href}
                   target={href ? '_blank' : undefined}
                   rel={href ? 'noreferrer' : undefined}
-                  class="group flex flex-col gap-3 rounded-2xl border border-line bg-white p-4 no-underline transition-shadow hover:shadow-[4px_4px_0_var(--color-line)]"
+                  class="group flex min-h-[238px] flex-col gap-3 rounded-2xl border border-line bg-white p-4 no-underline transition-shadow hover:shadow-[4px_4px_0_var(--color-line)]"
                 >
                   <div class="flex items-center gap-3">
                     <img
@@ -51,22 +75,52 @@ function projectHref(p: Project): string | undefined {
                       loading="lazy"
                       class="h-10 w-10 rounded-lg border border-line object-contain"
                     />
-                    <h3 class="m-0 text-[17px] font-semibold tracking-[-0.02em] text-ink group-hover:text-code-blue">
-                      {p.title}
-                    </h3>
+                    <div>
+                      <h3 class="m-0 text-[17px] font-semibold tracking-[-0.02em] text-ink group-hover:text-slate-950">
+                        {p.title}
+                      </h3>
+                      {p.repository?.nameWithOwner && (
+                        <div class="mt-1 font-mono text-[11px] text-muted">
+                          {p.repository.nameWithOwner}
+                        </div>
+                      )}
+                    </div>
                   </div>
-                  {p.description && (
-                    <p class="m-0 text-[15px] leading-snug text-muted">{p.description}</p>
-                  )}
-                  <div class="mt-auto flex flex-wrap gap-1.5 pt-1">
-                    {p.builtWith.map((t) => (
-                      <span class="rounded-full border border-line bg-panel2 px-2 py-0.5 font-mono text-[11px] text-muted">
-                        {t}
-                      </span>
-                    ))}
+
+                  <p class="m-0 line-clamp-3 text-[15px] leading-snug text-muted">
+                    {p.repository?.description || p.description}
+                  </p>
+
+                  <div class="mt-auto grid grid-cols-2 gap-3 border-t border-line pt-3 font-mono text-xs text-muted sm:grid-cols-3">
+                    {p.repository ? (
+                      <div>
+                        <div class="text-[10px] uppercase tracking-[0.08em] text-slate-400">Stars</div>
+                        <div class="mt-1 text-slate-900">★ {p.repository.stargazerCount}</div>
+                      </div>
+                    ) : (
+                      <div>
+                        <div class="text-[10px] uppercase tracking-[0.08em] text-slate-400">Links</div>
+                        <div class="mt-1 text-slate-900">{p.links?.length ?? (href ? 1 : 0)}</div>
+                      </div>
+                    )}
+
+                    <div>
+                      <div class="text-[10px] uppercase tracking-[0.08em] text-slate-400">Stack</div>
+                      <div class="mt-1 truncate text-slate-900">{p.builtWith.slice(0, 2).join(', ')}</div>
+                    </div>
+
+                    <div>
+                      <div class="text-[10px] uppercase tracking-[0.08em] text-slate-400">
+                        {language ? 'Language' : lastCommitDate ? 'Updated' : 'Type'}
+                      </div>
+                      <div class="mt-1 truncate text-slate-900">
+                        {language?.name ?? lastCommitDate ?? p.type}
+                      </div>
+                    </div>
                   </div>
-                  {p.links && p.links.length > 0 && (
-                    <div class="flex flex-wrap gap-3 font-mono text-xs text-code-blue">
+
+                  {p.links && p.links.length > 0 && !p.repository && (
+                    <div class="flex flex-wrap gap-3 font-mono text-xs text-slate-700">
                       {p.links.map((l) => (
                         <span>↗ {l.title}</span>
                       ))}
