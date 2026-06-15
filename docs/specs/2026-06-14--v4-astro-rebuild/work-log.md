@@ -1,5 +1,59 @@
 # Work Logs
 
+## 2026-06-15 — Claude + Hermes — M4 follow-up: persisted views + reactions
+
+### Scope of this run
+Implement views + reactions for v4, keep their legacy `/api/stats` persistence contract, and settle
+the open retain/drop decisions: **views + reactions retained**, **guestbook dropped / not in scope**
+(production `/guestbook` is 404, no guestbook code to migrate). Claude implemented the client UI;
+Hermes added the Vercel Function persistence layer and verified.
+
+### Guardrail compliance
+- Stayed on branch `v4`; edited only `v4/**` plus this spec folder. No legacy source modified
+  (legacy `app/**`, `components/**`, `db/**`, `hooks/**` read as reference only).
+- Did not read or print `.env` values. No secrets touched. **Did not** re-add `@astrojs/vercel` or
+  force an adapter upgrade. Astro build stays static.
+- `DATABASE_URL` is documented as a required production/Vercel env var for persisted stats; only the
+  key name is committed.
+
+### What changed (created)
+- `v4/src/types/stats.ts` — `StatsType`, `ReactionKey`, `BlogStats` (mirrors legacy `statsTable`).
+- `v4/src/lib/stats.ts` — client compat layer for the legacy `/api/stats` contract. `fetchStats`
+  returns `null` on 404/unavailable; `postStats` returns `false` unless a real persisted success. No
+  throwing, no fake success.
+- `v4/src/components/widgets/ViewsCounter.tsx` — React island; reads stats, increments once per load
+  only when the endpoint answers, else renders `–– views`. Ported from `components/blog/views-counter.tsx`.
+- `v4/src/components/widgets/Reactions.tsx` — React island; four reactions (loves/applauses/bullseyes/
+  ideas) using `lib/emoji` Unicode glyphs, 10-per-slug localStorage cap, debounced save, local
+  optimistic `+N`. Renders `--` + local counts when API is unavailable. Ported from `components/blog/reactions.tsx`.
+- `v4/api/stats.ts` — Vercel Function that preserves the legacy `/api/stats` GET/POST contract,
+  creates missing `stats` rows, and persists monotonic views/reaction updates to the existing `stats`
+  table using `DATABASE_URL`.
+
+### What changed (modified)
+- `v4/src/pages/blog/[...slug].astro` — `ViewsCounter` in the header meta row (`client:load`),
+  `Reactions` in a `not-prose` block after the article (`client:visible`).
+- `v4/src/pages/snippets/[...slug].astro` — same wiring for snippets.
+- `v4/package.json` / `bun.lock` — added `postgres` for the Vercel Function.
+- `v4/.env.example` / `v4/README.md` — added/documented `DATABASE_URL` for persisted stats.
+- Spec docs: `plan.md` (M3/M4 decisions), `route-inventory.md` (stats retained, guestbook/auth dropped).
+
+### Runtime note
+`astro preview` serves Astro's static output only, so it does not execute `v4/api/stats.ts`. In plain
+preview the widgets intentionally fall back (`–– views`, `--` reactions + local optimistic counts).
+On Vercel, `api/stats.ts` should be deployed as a serverless function alongside the static Astro output
+and persist counts when `DATABASE_URL` is configured.
+
+### Verification (real output)
+- `bun run check` → **0 errors, 0 warnings, 0 hints** (44 files after adding `api/stats.ts`).
+- `bun run build` → **success, 236 page(s) built** (unchanged count — islands on existing routes).
+- `astro preview` smoke test: `/blog/does-promise-all-run-in-parallel-or-sequential` and
+  `/snippets/using-spotify-api-to-display-currently-playing-track` both `200`, each with ViewsCounter +
+  Reactions islands. `/api/stats?...` is not served by `astro preview`, exercising the graceful-fallback path.
+
+### Known gaps / next decisions
+- Persisted stats need Vercel/deploy-preview verification because Astro preview does not run Vercel Functions.
+
 ## 2026-06-14 — Hermes — M4: runtime rail integrations, analytics, search JSON
 
 ### Scope of this run
@@ -39,7 +93,8 @@ Implemented M4 as a static-safe integration layer for the v4 Astro app: React ra
 ### Known gaps / next decisions
 - JSON integration routes are build-time/static for now, not live per request. Request-time APIs should wait for compatible Astro/Vercel adapter or an Astro upgrade.
 - Current local build did not load root `.env`, so Spotify/GitHub JSON intentionally rendered unavailable states; production/build env can populate them.
-- Views/reactions/guestbook/auth retain/drop decision still open.
+- Views/reactions/guestbook/auth decision was still open at this point; resolved in 2026-06-15 M4 follow-up
+  (views/reactions retained, guestbook/auth dropped).
 
 ## 2026-06-14 — @hta218 (Claude) — M3: design polish, static assets, remaining pages
 
@@ -48,7 +103,8 @@ Implement M3 in the controlled `v4/` subdirectory: make legacy `/static/*` asset
 without duplicating them into git, polish article/content rendering (Expressive Code + legacy
 `lang:title` fences + real Twemoji glyphs), build the remaining static pages
 (`/about`, `/projects`, `/books`, `/movies`), and push the homepage/shell closer to sketch 006
-with reasonable mobile behavior. Guestbook intentionally **not** built (auth/DB decision pending).
+with reasonable mobile behavior. Guestbook intentionally **not** built; later confirmed dropped because production
+`/guestbook` is 404.
 No commits — left for Hermes.
 
 ### Guardrail compliance
@@ -92,7 +148,8 @@ No commits — left for Hermes.
   Currently-reading + Read sections, 25 covers, star ratings, graceful empty state.
 - `v4/src/pages/movies.astro` — reads cached `../json/movies.json` (IMDb/OMDB): 98 poster cards sorted
   by my rating then IMDb, graceful empty state.
-- **Guestbook deliberately skipped** (no placeholder route added) — auth/DB retain decision still pending.
+- **Guestbook deliberately skipped** (no placeholder route added) — later confirmed dropped because production
+  `/guestbook` is 404.
 
 ### Design polish
 - `v4/src/components/studio/StudioShell.astro` — tab strip now horizontally scrollable and includes

@@ -18,7 +18,7 @@ No nested content subdirectories — slug = filename without `.mdx`, so URL = `/
 | `/books`     | `app/books/page.tsx`          | Goodreads-derived                      |
 | `/movies`    | `app/movies/page.tsx`         | IMDb-derived                           |
 | `/tags`      | `app/tags/page.tsx`           | All tags                               |
-| `/guestbook` | `app/guestbook/`              | Guestbook (retain decision pending)    |
+| `/guestbook` | —                             | **Dropped / not in scope** — production `/guestbook` is 404; no guestbook code to migrate |
 
 ## Dynamic pages
 
@@ -54,10 +54,10 @@ No nested content subdirectories — slug = filename without `.mdx`, so URL = `/
 | `/api/spotify`            | `app/api/spotify/route.ts`          | Port for now-playing island                   |
 | `/api/github`             | `app/api/github/route.ts`           | Port for GitHub-today widget                  |
 | `/api/activities`         | `app/api/activities/route.ts`       | Port for activity timeline                    |
-| `/api/stats`              | `app/api/stats/route.ts`            | Views/stats — retain decision pending         |
+| `/api/stats`              | `app/api/stats/route.ts`            | **Retained** — views/reactions. v4 ships `api/stats.ts` Vercel Function preserving the legacy GET/POST contract |
 | `/api/newsletter`         | `app/api/newsletter/route.ts`       | Buttondown newsletter                         |
-| `/api/guestbook`, `/api/guestbook/[id]` | `app/api/guestbook/`  | Retain decision pending                       |
-| `/api/auth/[...nextauth]` | `app/api/auth/[...nextauth]/`       | Only if guestbook/auth retained               |
+| `/api/guestbook`, `/api/guestbook/[id]` | —                     | **Dropped / not in scope** — no guestbook in production |
+| `/api/auth/[...nextauth]` | —                                   | **Dropped** — was only for guestbook/auth      |
 
 ## Known redirects to preserve
 
@@ -89,7 +89,7 @@ Source: `cd v4 && bun run build` → `v4/dist`. **233 HTML pages** + feeds/sitem
 | `/projects` | `src/pages/projects.astro`       | ✅ M3 — 16 projects from `lib/projects.ts` |
 | `/books`    | `src/pages/books.astro`          | ✅ M3 — 25 books from cached `json/books.json` |
 | `/movies`   | `src/pages/movies.astro`         | ✅ M3 — 98 titles from cached `json/movies.json` |
-| `/guestbook`| —                                | ⛔ **deferred** (auth/DB retain decision pending) |
+| `/guestbook`| —                                | ⛔ **dropped / not in scope** (production `/guestbook` is 404; nothing to migrate) |
 
 ### Dynamic pages
 
@@ -138,5 +138,15 @@ main + per-tag RSS, robots, 404, the goodreads 301, canonical/OG/Twitter from fr
   `/static/*` assets resolve via git-ignored symlink (no 21MB duplication). Legacy `lang:title`
   code fences + Twemoji render cleanly (Expressive Code title tabs; real Unicode emoji glyphs);
   **0 Shiki warnings** at build.
-- **Still open:** `/guestbook` deferred pending auth/DB decision. Books/movies use the cached
-  `json/*.json` snapshots (static); swap to live Drizzle at cutover if fresh data is wanted.
+- **Still open:** Books/movies use the cached `json/*.json` snapshots (static); swap to live Drizzle
+  at cutover if fresh data is wanted.
+
+### M4 update (2026-06-15) — views + reactions retained
+- **Retained & shipped:** blog + snippet detail pages now render a `ViewsCounter` and a four-reaction
+  `Reactions` bar (loves / applauses / bullseyes / ideas, 10-per-slug localStorage cap), ported from
+  the legacy Next.js components.
+- **Persistence:** v4 ships `api/stats.ts`, a Vercel Function that preserves the legacy `/api/stats`
+  GET/POST contract against the existing `stats` table when `DATABASE_URL` is configured. The client
+  compat layer (`v4/src/lib/stats.ts`) degrades gracefully in plain `astro preview`, where Vercel
+  Functions are not served.
+- **Guestbook:** dropped / not in scope — production `/guestbook` is 404 and no guestbook code exists.

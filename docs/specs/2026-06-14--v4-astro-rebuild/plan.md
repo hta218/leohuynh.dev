@@ -82,8 +82,9 @@ root (or flip the build), retire the Next.js app, and update Vercel project root
 - [x] Full MDX rendering: real `Twemoji` glyphs, Expressive Code (with legacy `lang:title` fence
       normalization → 0 Shiki warnings), images from symlinked `public/static`
 - [x] Clean article / snippet / project / about / books / movies pages
-- Guestbook intentionally deferred (auth/DB retain decision pending). Books/movies render from cached
-  `json/*.json` (static, no DB). RuntimeRail widgets remain static placeholders → M4 integrations.
+- Guestbook **dropped / not in scope** (production `/guestbook` is 404 and no guestbook code exists,
+  so there is no route to migrate). Books/movies render from cached `json/*.json` (static, no DB).
+  RuntimeRail widgets remain static placeholders → M4 integrations.
 
 ### M4 — Integrations (graceful fallback first) ✅ (2026-06-14)
 - [x] Spotify now playing JSON + rail widget (build-time/static JSON fallback; real values when env is present)
@@ -91,8 +92,15 @@ root (or flip the build), retire the Next.js app, and update Vercel project root
 - [x] Recent activity timeline (cached books/movies + optional Spotify/GitHub)
 - [x] Umami analytics script support (`PUBLIC_UMAMI_WEBSITE_ID` or legacy `NEXT_UMAMI_ID`) + analytics nav link
 - [x] Static `/search.json` for posts/snippets
-- [ ] Decide: views/reactions/guestbook retain vs. drop (README open question)
-- Note: true request-time API endpoints are deferred until the Astro/Vercel adapter version is compatible with this Astro version; M4 keeps the site static and safe for now.
+- [x] Views + reactions **retained** — implemented as client React islands plus a Vercel Function
+      (`api/stats.ts`) that preserves the legacy `/api/stats` GET/POST contract against the existing
+      `stats` table when `DATABASE_URL` is configured. Plain `astro preview` still falls back cleanly
+      because it does not serve Vercel Functions.
+- [x] Guestbook **dropped / not in scope** — production `/guestbook` is 404 and no guestbook code
+      exists, so there is nothing to migrate. Removed the prior "retain decision pending" language.
+- Note: request-time endpoints that require Astro rendering are still deferred until the Astro/Vercel adapter
+  version is compatible with this Astro version. Views/reactions are handled separately by `api/stats.ts`,
+  a Vercel Function that can coexist with the static Astro output.
 
 ### M5 — Verify + cutover
 - [ ] typecheck / lint / build green
@@ -120,3 +128,8 @@ Read-only references (NOT modified):
 
 Future milestones will add: `v4/src/pages/blog/[...slug].astro`, `v4/src/pages/snippets/[...slug].astro`,
 `v4/src/pages/tags/**`, RSS/sitemap endpoints, integration islands under `v4/src/components/widgets/`.
+
+Views/reactions run (added): `v4/src/types/stats.ts`, `v4/src/lib/stats.ts` (client compat layer),
+`v4/src/components/widgets/ViewsCounter.tsx`, `v4/src/components/widgets/Reactions.tsx`, and
+`v4/api/stats.ts` (Vercel Function for persisted stats); wired into
+`v4/src/pages/blog/[...slug].astro` and `v4/src/pages/snippets/[...slug].astro`.

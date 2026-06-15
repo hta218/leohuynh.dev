@@ -160,13 +160,13 @@ Keep the current site’s activity concept, but improve the display:
 
 ### Stats/reactions
 
-Decide during implementation whether to keep:
+Resolved in M4 follow-up:
 
-- views counter
-- reactions
-- guestbook/comments integrations
+- views counter retained
+- reactions retained
+- guestbook/comments dropped (production `/guestbook` is 404; no current feature to migrate)
 
-If retained, migrate DB access carefully and keep write APIs server-side only.
+Views/reactions use client islands plus a server-side `/api/stats` Vercel Function backed by `DATABASE_URL`.
 
 ## URL and SEO checklist
 
@@ -210,7 +210,7 @@ Before promoting v4 to `main`:
    - Recent activities.
    - GitHub today summary.
    - Umami.
-   - Optional stats/reactions.
+   - Stats/reactions.
 
 6. Verification and cutover
    - Run typecheck/lint/build.
@@ -251,7 +251,7 @@ Before making broad changes, produce the implementation plan and route/content m
 
 ## Open questions
 
-- Keep reactions/views in v4 or simplify them out for launch?
+- Views/reactions retained in M4 follow-up; guestbook dropped because production `/guestbook` is 404.
 - Use Pagefind search at launch or defer?
 - Should books/movies stay as dedicated pages or become small homepage widgets?
 - Vercel setup detail for `v3.leohuynh.dev`: branch domain in same project vs separate legacy project.

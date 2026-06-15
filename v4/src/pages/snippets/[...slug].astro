@@ -2,6 +2,8 @@
 import { getCollection, render } from 'astro:content'
 import Twemoji from '~/components/mdx/Twemoji.astro'
 import StudioShell from '~/components/studio/StudioShell.astro'
+import Reactions from '~/components/widgets/Reactions'
+import ViewsCounter from '~/components/widgets/ViewsCounter'
 import { isPublished, tagSlug } from '~/lib/content'
 import BaseLayout from '~/layouts/BaseLayout.astro'
 
@@ -39,6 +41,8 @@ const dateFmt = new Intl.DateTimeFormat('en-US', {
       <h1>{heading}</h1>
       <div class="mb-8 flex flex-wrap items-center gap-3 font-mono text-xs text-muted not-prose">
         <time datetime={date.toISOString()}>{dateFmt.format(date)}</time>
+        <span>·</span>
+        <ViewsCounter type="snippet" slug={snippet.id} client:load />
         {
           tags.map((tag) => (
             <a
@@ -51,6 +55,12 @@ const dateFmt = new Intl.DateTimeFormat('en-US', {
         }
       </div>
       <Content components={{ Twemoji }} />
+      <div class="mt-12 flex flex-col gap-3 border-t border-line pt-6 not-prose">
+        <span class="font-mono text-[11px] uppercase tracking-[0.08em] text-muted">
+          react to this snippet
+        </span>
+        <Reactions type="snippet" slug={snippet.id} client:visible />
+      </div>
     </article>
   </StudioShell>
 </BaseLayout>

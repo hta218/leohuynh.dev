@@ -2,6 +2,8 @@
 import { getCollection, render } from 'astro:content'
 import Twemoji from '~/components/mdx/Twemoji.astro'
 import StudioShell from '~/components/studio/StudioShell.astro'
+import Reactions from '~/components/widgets/Reactions'
+import ViewsCounter from '~/components/widgets/ViewsCounter'
 import { isPublished, tagSlug } from '~/lib/content'
 import BaseLayout from '~/layouts/BaseLayout.astro'
 
@@ -40,6 +42,8 @@ const dateFmt = new Intl.DateTimeFormat('en-US', {
             <span>· updated {dateFmt.format(new Date(lastmod))}</span>
           )
         }
+        <span>·</span>
+        <ViewsCounter type="blog" slug={post.id} client:load />
         {
           tags.map((tag) => (
             <a
@@ -52,6 +56,12 @@ const dateFmt = new Intl.DateTimeFormat('en-US', {
         }
       </div>
       <Content components={{ Twemoji }} />
+      <div class="mt-12 flex flex-col gap-3 border-t border-line pt-6 not-prose">
+        <span class="font-mono text-[11px] uppercase tracking-[0.08em] text-muted">
+          react to this post
+        </span>
+        <Reactions type="blog" slug={post.id} client:visible />
+      </div>
     </article>
   </StudioShell>
 </BaseLayout>
