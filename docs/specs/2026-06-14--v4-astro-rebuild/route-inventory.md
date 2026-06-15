@@ -133,7 +133,7 @@ main + per-tag RSS, robots, 404, the goodreads 301, canonical/OG/Twitter from fr
   `v4/vercel.json` 301 alias from `/sitemap.xml` to `/sitemap-index.xml`.
 
 **M5 resolved:** `/search.json` exists, `/api/stats` is retained as a Vercel Function, and both root
-`vercel.json` (current GitHub/Vercel project root, with `framework: astro` + `v4` build/output settings)
+`vercel.json` (current GitHub/Vercel project root, with `framework: astro`, `bunVersion: 1.3.14`, and `v4` build/output settings)
 plus `v4/vercel.json` (future clean Root Directory = `v4`)
 port the Umami `/stats/:match*` rewrite plus legacy security headers. Root `api/stats.ts` shims to
 `v4/api/stats.ts` so `/api/stats` deploys while the project root remains the repo root. Remaining API

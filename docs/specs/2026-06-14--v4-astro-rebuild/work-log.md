@@ -7,7 +7,7 @@ Continue v4 verification toward cutover without promoting production. Focused on
 visual QA, and Vercel hosting config that can be safely committed before a deploy preview.
 
 ### What changed
-- Root `vercel.json` now sets `framework: astro` and forces the GitHub/Vercel project to install/build/output
+- Root `vercel.json` now sets `framework: astro`, pins `bunVersion: 1.3.14`, and forces the GitHub/Vercel project to install/build/output
   the `v4/` Astro app
   (`cd v4 && bun install --frozen-lockfile`, `cd v4 && bun run build`, output `v4/dist`) because the
   current Vercel project was still trying to build the legacy root Next app.

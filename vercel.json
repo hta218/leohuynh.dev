@@ -1,5 +1,6 @@
 {
   "framework": "astro",
+  "bunVersion": "1.3.14",
   "installCommand": "cd v4 && bun install --frozen-lockfile",
   "buildCommand": "cd v4 && bun run build",
   "outputDirectory": "v4/dist",
