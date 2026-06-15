@@ -253,9 +253,9 @@ export async function fetchGithubToday(): Promise<GithubTodayPayload> {
     }
 
     const data = await githubGraphql<GraphqlResponse>(
-      `query GithubToday($username: String!, $from: DateTime!, $to: DateTime!, $searchQuery: String!) {
+      `query GithubToday($username: String!, $fromDateTime: DateTime!, $toDateTime: DateTime!, $fromGitTimestamp: GitTimestamp!, $searchQuery: String!) {
         user(login: $username) {
-          contributionsCollection(from: $from, to: $to) {
+          contributionsCollection(from: $fromDateTime, to: $toDateTime) {
             totalCommitContributions
             totalIssueContributions
             totalPullRequestContributions
@@ -274,7 +274,7 @@ export async function fetchGithubToday(): Promise<GithubTodayPayload> {
               defaultBranchRef {
                 target {
                   ... on Commit {
-                    history(first: 20, since: $from) {
+                    history(first: 20, since: $fromGitTimestamp) {
                       nodes {
                         committedDate
                         message
@@ -293,8 +293,9 @@ export async function fetchGithubToday(): Promise<GithubTodayPayload> {
       }`,
       {
         username,
-        from,
-        to,
+        fromDateTime: from,
+        toDateTime: to,
+        fromGitTimestamp: from,
         searchQuery: `user:${username} sort:updated-desc`,
       },
     )

@@ -1,5 +1,44 @@
 # Work Logs
 
+## 2026-06-15 — Hermes — M6 pre-production polish kickoff
+
+### Scope of this run
+Leo approved continuing after preview and listed pre-production changes needed before production cutover:
+
+- Keep implementation under `v4` for safe migration until cutover.
+- Replace placeholder homepage greeting with copy matching live personal-site identity.
+- Enable Astro client-side navigation.
+- Fix GitHub APIs / env-backed runtime widgets.
+- Remove browser chrome/header from shell.
+- Make IDE-like layout: sticky explorer, tab strip, right rail, bottom bar; only panes scroll internally.
+- Add toggle for right rail.
+- Keep bottom bar light-mode.
+- Add icons to explorer + tab triggers.
+- Render posts/snippets as expandable folders, initially 10 items with `+10 more...` pagination.
+
+### Result
+Implemented in v4:
+- `StudioShell.astro` rebuilt as a full-height IDE shell with fixed sidebars, tab strip, internal scroll panes, iconized explorer/tabs, posts/snippets folders, and right-rail toggle persisted in localStorage.
+- `RuntimeRail.astro` made internally scrollable and controlled by shell toggle.
+- `BaseLayout.astro` now uses Astro `ClientRouter` for client-side navigation.
+- `runtime.ts` GitHub GraphQL query fixed by using `GitTimestamp` for commit history and `DateTime` for contributions collection.
+- `index.astro` greeting updated from live-site identity/persona instead of placeholder rebuild copy.
+- `global.css` adds thin scrollbar styling and shell right-rail grid transition.
+
+### Verification
+- `bun run check` ✅ 0 errors / 0 warnings.
+- `bun run build` ✅ 236 pages.
+- Generated API outputs from build:
+  - `dist/api/github-today.json`: `ok: true`, `contributions: 5`, `commits: 2`, `topRepo: hta218/infinite-gallery`.
+  - `dist/api/activity.json`: `ok: true`.
+- Local preview HTTP smoke ✅ for `/`, `/blog`, representative blog/snippet details, `/projects`, `/about`, `/books`, `/movies`, `/tags`, JSON APIs, RSS, search JSON, and resume PDF.
+- Browser QA ✅:
+  - client-side navigation preserved `window.__navPersistCheck` across `/blog` → `/snippets`.
+  - right rail toggle changed state to `hidden` and button text to `show right rail`.
+  - `+10 more...` folder expansion changed posts list from 10 visible to 20 visible.
+  - screenshot contact sheet generated at `/tmp/leohuynh-v4-m6-screens/contact-sheet.png`.
+
+
 ## 2026-06-15 — Hermes — M5 verification prep + hosting parity
 
 ### Scope of this run

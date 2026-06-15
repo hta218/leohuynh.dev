@@ -31,6 +31,49 @@ body {
   letter-spacing: -0.015em;
 }
 
+body {
+  overflow: hidden;
+}
+
+.thin-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #c7d2fe transparent;
+}
+
+.thin-scrollbar::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+.thin-scrollbar::-webkit-scrollbar-thumb {
+  background: #c7d2fe;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+.thin-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@media (min-width: 1024px) {
+  .studio-workspace {
+    grid-template-columns: 260px minmax(0, 1fr) 360px;
+    transition: grid-template-columns 180ms ease;
+  }
+
+  .studio-shell[data-rail="hidden"] .studio-workspace {
+    grid-template-columns: 260px minmax(0, 1fr) 0;
+  }
+
+  .studio-shell[data-rail="hidden"] .runtime-rail {
+    border-left-width: 0;
+    padding-left: 0;
+    padding-right: 0;
+    overflow: hidden;
+  }
+}
+
 /* equalizer animation for the now-playing widget */
 @keyframes eq {
   from {

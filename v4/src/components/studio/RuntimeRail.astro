@@ -4,7 +4,7 @@ import GithubTodayWidget from '~/components/widgets/GithubTodayWidget'
 import SpotifyWidget from '~/components/widgets/SpotifyWidget'
 ---
 
-<aside class="hidden content-start gap-3 overflow-auto border-l border-line bg-panel2 p-3.5 lg:grid">
+<aside id="runtime-rail" class="runtime-rail thin-scrollbar hidden min-h-0 content-start gap-3 overflow-y-auto border-l border-line bg-panel2 p-3.5 lg:grid">
   <SpotifyWidget client:load />
   <GithubTodayWidget client:load />
   <ActivityWidget client:load />

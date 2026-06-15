@@ -102,11 +102,32 @@ root (or flip the build), retire the Next.js app, and update Vercel project root
   version is compatible with this Astro version. Views/reactions are handled separately by `api/stats.ts`,
   a Vercel Function that can coexist with the static Astro output.
 
-### M5 — Verify + cutover
+### M5 — Verify + preview deploy ✅ (2026-06-15)
 - [x] typecheck / lint / build green
 - [x] Route inventory diff clean, RSS/sitemap/canonical/OG verified
 - [x] Desktop + mobile screenshots
-- [ ] Deploy preview, then promote `v4` → `main` after approval
+- [x] Vercel preview deploy green after legacy root `next` patch
+- [x] Preview smoke: routes, redirects, `/api/stats`, static JSON APIs, Umami, browser console
+
+### M6 — Pre-production polish requested by Leo (2026-06-15)
+- [x] Explain/retain `v4/` as safe migration workspace, then hoist to root only in final cutover phase.
+- [x] Replace placeholder homepage greeting/copy with personal-site copy based on the live site.
+- [x] Enable Astro client-side navigation so internal links do not full page reload.
+- [x] Fix GitHub today API GraphQL type mismatch; env is present, current failure is query/schema.
+- [x] Remove the browser-like top chrome/header from the studio shell.
+- [x] Refactor shell into a VS Code-like IDE viewport: sticky tab triggers, sticky left/right sidebars, sticky bottom bar, only content pane scrolls.
+- [x] Make left/right sidebars internally scrollable with thin controlled scrollbars.
+- [x] Add right sidebar show/hide trigger.
+- [x] Make bottom bar light-mode.
+- [x] Add icons to left sidebar nav and tab triggers.
+- [x] Render `posts/` and `snippets/` as folders in the left explorer, each initially showing 10 files with `+10 more...` expansion controls.
+- [x] Re-run check/build, local screenshot review.
+- [ ] Push and smoke-test Vercel preview for Leo.
+
+### M7 — Production cutover (after Leo approves polished preview)
+- [ ] Hoist `v4/` to repo root or permanently set Vercel Root Directory = `v4`.
+- [ ] Remove/retire legacy root Next app from production path.
+- [ ] Final preview smoke, then promote/merge to production with rollback path.
 
 ## Files & folders this feature touches
 

@@ -1,17 +1,8 @@
 ---
+import { getCollection } from 'astro:content'
 import { MORE_LINKS, NAV_LINKS } from '~/lib/site'
 import RuntimeRail from './RuntimeRail.astro'
 
-// Mobile loses the explorer sidebar, so surface every route in the scrollable
-// tab strip (primary nav + books/movies/tags) to keep the whole site reachable.
-const TAB_LINKS = [...NAV_LINKS, ...MORE_LINKS]
-
-/**
- * Fullscreen Code Studio shell (sketch 006).
- * Grid: 44px titlebar / fluid workspace / 28px status bar.
- * Workspace: 240px explorer sidebar / fluid main / 390px runtime rail.
- * Collapses to a single column under 1050px (sidebar + rail hidden).
- */
 interface Props {
   /** path used to highlight the active explorer entry, e.g. "/blog" */
   active?: string
@@ -21,129 +12,273 @@ interface Props {
 
 const { active = '/', crumb = '~/leohuynh.dev/main' } = Astro.props
 const isExternal = (href: string) => href.startsWith('http')
+const isPublished = (d: { data: { draft?: boolean } }) => d.data.draft !== true
 
-const explorer = [
-  { href: '/', label: 'README.md' },
-  { href: '/blog', label: 'posts.mdx' },
-  { href: '/snippets', label: 'snippets/' },
-  { href: '/projects', label: 'projects/' },
-  { href: '/about', label: 'about.md' },
+const [posts, snippets] = await Promise.all([
+  getCollection('blog', isPublished),
+  getCollection('snippets', isPublished),
+])
+
+const latestPosts = posts
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .map((post) => ({ href: `/blog/${post.id}`, label: `${post.id}.mdx` }))
+
+const latestSnippets = snippets
+  .sort((a, b) => a.id.localeCompare(b.id))
+  .map((snippet) => ({ href: `/snippets/${snippet.id}`, label: `${snippet.id}.mdx` }))
+
+const routeLinks = [
+  { href: '/', title: 'Home', icon: '⌂', file: 'README.md' },
+  ...NAV_LINKS.map((link) => ({
+    ...link,
+    icon:
+      link.href === '/blog'
+        ? '✎'
+        : link.href === '/snippets'
+          ? '{}'
+          : link.href === '/projects'
+            ? '▦'
+            : '☻',
+    file:
+      link.href === '/blog'
+        ? 'posts/'
+        : link.href === '/snippets'
+          ? 'snippets/'
+          : link.href === '/projects'
+            ? 'projects/'
+            : 'about.md',
+  })),
+  ...MORE_LINKS.map((link) => ({
+    ...link,
+    icon:
+      link.href === '/books'
+        ? '▤'
+        : link.href === '/movies'
+          ? '◉'
+          : link.href === '/tags'
+            ? '#'
+            : '↗',
+    file:
+      link.href === '/books'
+        ? 'books.json'
+        : link.href === '/movies'
+          ? 'movies.json'
+          : link.href === '/tags'
+            ? 'tags/'
+            : 'analytics.url',
+  })),
 ]
+
+const tabLinks = routeLinks.filter((link) => link.href !== '/')
+const shellId = `studio-${Math.random().toString(36).slice(2)}`
 ---
 
-<div class="grid min-h-screen grid-rows-[44px_1fr_28px]">
-  <!-- titlebar -->
-  <header
-    class="flex items-center justify-between border-b border-line bg-panel px-3.5 font-mono text-xs text-muted"
-  >
-    <div class="flex gap-[7px]">
-      <i class="h-[11px] w-[11px] rounded-full bg-[#ff5f57]"></i>
-      <i class="h-[11px] w-[11px] rounded-full bg-[#febc2e]"></i>
-      <i class="h-[11px] w-[11px] rounded-full bg-[#28c840]"></i>
-    </div>
-    <span>leohuynh.dev — v4.code-workspace</span>
-    <span>astro + bun</span>
-  </header>
-
-  <!-- workspace -->
-  <div class="grid min-h-0 grid-cols-1 lg:grid-cols-[240px_1fr_390px]">
-    <!-- explorer sidebar -->
-    <aside class="hidden overflow-auto border-r border-line bg-[#f9fafb] p-3.5 lg:block">
-      <a href="/" class="mb-[18px] flex items-center gap-2.5 font-extrabold no-underline text-ink">
-        <span
-          class="grid h-[30px] w-[30px] place-items-center rounded-lg border border-ink bg-white font-mono text-xs shadow-[3px_3px_0_var(--color-ink)]"
-          >LH</span
-        >
+<div id={shellId} class="studio-shell grid h-screen grid-rows-[1fr_30px] overflow-hidden bg-bg" data-rail="visible">
+  <div class="studio-workspace grid min-h-0 grid-cols-1 overflow-hidden lg:grid-cols-[260px_minmax(0,1fr)_360px]">
+    <aside class="thin-scrollbar hidden min-h-0 overflow-y-auto border-r border-line bg-[#f8fafc] p-3 lg:block">
+      <a href="/" class="mb-4 flex items-center gap-2.5 font-extrabold no-underline text-ink">
+        <span class="grid h-[30px] w-[30px] place-items-center rounded-lg border border-ink bg-white font-mono text-xs shadow-[3px_3px_0_var(--color-ink)]">LH</span>
         <span>leo workspace</span>
       </a>
 
-      <div class="my-[18px]">
+      <section class="mb-5">
         <h3 class="mb-2 font-mono text-[11px] uppercase tracking-[0.08em] text-muted">explorer</h3>
-        {
-          explorer.map((item) => (
-            <a
-              href={item.href}
-              class:list={[
-                'flex items-center gap-2 rounded-lg px-2 py-[7px] font-mono text-xs no-underline',
-                active === item.href
-                  ? 'bg-[#eef2ff] text-code-blue'
-                  : 'text-[#374151] hover:bg-[#eef2ff] hover:text-code-blue',
-              ]}
-            >
-              ▸ {item.label}
-            </a>
-          ))
-        }
-      </div>
+        <nav class="space-y-1">
+          {
+            routeLinks.map((item) => (
+              <a
+                href={item.href}
+                target={isExternal(item.href) ? '_blank' : undefined}
+                rel={isExternal(item.href) ? 'noreferrer' : undefined}
+                class:list={[
+                  'flex items-center gap-2 rounded-lg px-2 py-[7px] font-mono text-xs no-underline',
+                  active === item.href
+                    ? 'bg-[#e8f0ff] text-code-blue'
+                    : 'text-[#334155] hover:bg-[#eef2ff] hover:text-code-blue',
+                ]}
+              >
+                <span class="grid w-5 place-items-center text-[12px] text-code-blue">{item.icon}</span>
+                <span>{item.file}</span>
+              </a>
+            ))
+          }
+        </nav>
+      </section>
 
-      <div class="my-[18px]">
-        <h3 class="mb-2 font-mono text-[11px] uppercase tracking-[0.08em] text-muted">stack</h3>
-        {
-          ['astro.config.mjs', 'bun.lock', 'content.config.ts'].map((f) => (
-            <div class="flex items-center gap-2 rounded-lg px-2 py-[7px] font-mono text-xs text-[#374151]">
-              {f}
-            </div>
-          ))
-        }
-      </div>
+      <section class="mb-5">
+        <details open>
+          <summary class="cursor-pointer rounded-lg px-2 py-[7px] font-mono text-xs text-[#334155] hover:bg-[#eef2ff]">
+            <span class="mr-1 text-code-amber">▾</span> posts/
+          </summary>
+          <div class="mt-1 space-y-1 pl-4" data-folder="posts">
+            {
+              latestPosts.map((post, index) => (
+                <a
+                  href={post.href}
+                  data-file-item
+                  data-index={index}
+                  class:list={[
+                    'flex items-center gap-2 rounded-lg px-2 py-[6px] font-mono text-[11px] no-underline text-[#475569] hover:bg-[#eef2ff] hover:text-code-blue',
+                    index >= 10 && 'hidden',
+                  ]}
+                >
+                  <span class="text-code-purple">mdx</span>
+                  <span class="truncate">{post.label}</span>
+                </a>
+              ))
+            }
+            {latestPosts.length > 10 && (
+              <button
+                type="button"
+                data-expand-folder="posts"
+                data-step="10"
+                class="w-full rounded-lg px-2 py-[6px] text-left font-mono text-[11px] text-code-blue hover:bg-[#eef2ff]"
+              >
+                +10 more...
+              </button>
+            )}
+          </div>
+        </details>
+      </section>
 
-      <div class="my-[18px]">
-        <h3 class="mb-2 font-mono text-[11px] uppercase tracking-[0.08em] text-muted">routes</h3>
-        {
-          MORE_LINKS.map((l) => (
-            <a
-              href={l.href}
-              target={isExternal(l.href) ? '_blank' : undefined}
-              rel={isExternal(l.href) ? 'noreferrer' : undefined}
-              class="flex items-center gap-2 rounded-lg px-2 py-[7px] font-mono text-xs text-[#374151] no-underline hover:text-code-blue"
-            >
-              {l.title}
-            </a>
-          ))
-        }
-      </div>
+      <section class="mb-5">
+        <details open>
+          <summary class="cursor-pointer rounded-lg px-2 py-[7px] font-mono text-xs text-[#334155] hover:bg-[#eef2ff]">
+            <span class="mr-1 text-code-amber">▾</span> snippets/
+          </summary>
+          <div class="mt-1 space-y-1 pl-4" data-folder="snippets">
+            {
+              latestSnippets.map((snippet, index) => (
+                <a
+                  href={snippet.href}
+                  data-file-item
+                  data-index={index}
+                  class:list={[
+                    'flex items-center gap-2 rounded-lg px-2 py-[6px] font-mono text-[11px] no-underline text-[#475569] hover:bg-[#eef2ff] hover:text-code-blue',
+                    index >= 10 && 'hidden',
+                  ]}
+                >
+                  <span class="text-code-green">{`{}`}</span>
+                  <span class="truncate">{snippet.label}</span>
+                </a>
+              ))
+            }
+            {latestSnippets.length > 10 && (
+              <button
+                type="button"
+                data-expand-folder="snippets"
+                data-step="10"
+                class="w-full rounded-lg px-2 py-[6px] text-left font-mono text-[11px] text-code-blue hover:bg-[#eef2ff]"
+              >
+                +10 more...
+              </button>
+            )}
+          </div>
+        </details>
+      </section>
     </aside>
 
-    <!-- main content -->
-    <main
-      class="min-w-0 overflow-auto bg-panel [background-image:linear-gradient(90deg,rgba(37,99,235,0.035)_1px,transparent_1px)] [background-size:64px_64px]"
-    >
-      <!-- top tab strip (scrolls horizontally on mobile, no overflow) -->
-      <nav class="sticky top-0 z-[2] flex overflow-x-auto border-b border-line bg-[#fbfcff] [scrollbar-width:none]">
-        {
-          TAB_LINKS.map((l) => (
-            <a
-              href={l.href}
-              target={isExternal(l.href) ? '_blank' : undefined}
-              rel={isExternal(l.href) ? 'noreferrer' : undefined}
-              class:list={[
-                'shrink-0 border-r border-line px-4 py-[11px] font-mono text-xs no-underline',
-                active === l.href
-                  ? 'bg-white text-ink shadow-[inset_0_-2px_0_var(--color-code-blue)]'
-                  : 'text-muted hover:text-ink',
-              ]}
-            >
-              {l.title}
-            </a>
-          ))
-        }
+    <main class="flex min-h-0 min-w-0 flex-col overflow-hidden bg-panel [background-image:linear-gradient(90deg,rgba(37,99,235,0.035)_1px,transparent_1px)] [background-size:64px_64px]">
+      <nav class="flex shrink-0 items-stretch border-b border-line bg-[#fbfcff]">
+        <div class="thin-scrollbar flex min-w-0 flex-1 overflow-x-auto">
+          <a
+            href="/"
+            class:list={[
+              'shrink-0 border-r border-line px-3.5 py-[10px] font-mono text-xs no-underline',
+              active === '/'
+                ? 'bg-white text-ink shadow-[inset_0_-2px_0_var(--color-code-blue)]'
+                : 'text-muted hover:text-ink',
+            ]}
+          >
+            <span class="mr-2 text-code-blue">⌂</span> README.md
+          </a>
+          {
+            tabLinks.map((l) => (
+              <a
+                href={l.href}
+                target={isExternal(l.href) ? '_blank' : undefined}
+                rel={isExternal(l.href) ? 'noreferrer' : undefined}
+                class:list={[
+                  'shrink-0 border-r border-line px-3.5 py-[10px] font-mono text-xs no-underline',
+                  active === l.href
+                    ? 'bg-white text-ink shadow-[inset_0_-2px_0_var(--color-code-blue)]'
+                    : 'text-muted hover:text-ink',
+                ]}
+              >
+                <span class="mr-2 text-code-blue">{l.icon}</span>{l.file}
+              </a>
+            ))
+          }
+        </div>
+        <button
+          type="button"
+          class="hidden shrink-0 border-l border-line bg-[#fbfcff] px-3.5 py-[10px] font-mono text-xs text-muted hover:bg-white hover:text-ink lg:block"
+          data-toggle-rail
+          aria-controls="runtime-rail"
+          aria-expanded="true"
+        >
+          hide right rail
+        </button>
       </nav>
 
-      <div class="px-[clamp(22px,5vw,78px)] pt-[46px] pb-[70px]">
+      <div class="thin-scrollbar min-h-0 flex-1 overflow-y-auto px-[clamp(22px,5vw,78px)] pt-[38px] pb-[70px]">
         <div class="mb-[18px] font-mono text-xs text-code-green">{crumb}</div>
         <slot />
       </div>
     </main>
 
-    <!-- runtime rail -->
     <RuntimeRail />
   </div>
 
-  <!-- status bar -->
-  <footer
-    class="flex items-center justify-between bg-ink px-3 font-mono text-xs text-[#e5e7eb]"
-  >
-    <span>main · v4 branch · v3 preserved</span>
+  <footer class="flex items-center justify-between border-t border-line bg-white px-3 font-mono text-xs text-[#475569]">
+    <span>v4 preview · v3 preserved · production pending</span>
     <span>rss · github · x · analytics</span>
   </footer>
 </div>
+
+<script is:inline>
+  function initStudioShell() {
+    document.querySelectorAll('.studio-shell').forEach((shell) => {
+      const toggle = shell.querySelector('[data-toggle-rail]')
+      const saved = localStorage.getItem('leohuynh:right-rail') || 'visible'
+      const setRail = (state) => {
+        shell.dataset.rail = state
+        if (toggle) {
+          toggle.textContent = state === 'hidden' ? 'show right rail' : 'hide right rail'
+          toggle.setAttribute('aria-expanded', String(state !== 'hidden'))
+        }
+        localStorage.setItem('leohuynh:right-rail', state)
+      }
+      setRail(saved)
+      if (toggle && !toggle.dataset.bound) {
+        toggle.dataset.bound = 'true'
+        toggle.addEventListener('click', () => {
+          setRail(shell.dataset.rail === 'hidden' ? 'visible' : 'hidden')
+        })
+      }
+    })
+
+    document.querySelectorAll('[data-expand-folder]').forEach((button) => {
+      if (button.dataset.bound) return
+      button.dataset.bound = 'true'
+      button.addEventListener('click', () => {
+        const folder = button.dataset.expandFolder
+        const step = Number(button.dataset.step || 10)
+        const container = document.querySelector(`[data-folder="${folder}"]`)
+        if (!container) return
+        const items = Array.from(container.querySelectorAll('[data-file-item]'))
+        const visible = items.filter((item) => !item.classList.contains('hidden')).length
+        items.slice(visible, visible + step).forEach((item) => item.classList.remove('hidden'))
+        const nextVisible = items.filter((item) => !item.classList.contains('hidden')).length
+        if (nextVisible >= items.length) {
+          button.remove()
+        } else {
+          button.textContent = `+${Math.min(step, items.length - nextVisible)} more...`
+        }
+      })
+    })
+  }
+
+  initStudioShell()
+  document.addEventListener('astro:page-load', initStudioShell)
+</script>
