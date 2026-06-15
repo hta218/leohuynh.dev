@@ -1,5 +1,37 @@
 # Work Logs
 
+## 2026-06-15 — Hermes — M5 verification prep + hosting parity
+
+### Scope of this run
+Continue v4 verification toward cutover without promoting production. Focused on route parity, preview smoke,
+visual QA, and Vercel hosting config that can be safely committed before a deploy preview.
+
+### What changed
+- `v4/vercel.json` now carries the legacy Umami `/stats/:match*` rewrite and security headers from
+  legacy `next.config.js`.
+- Added Vercel 301 compat redirects:
+  - `/snippets/snippets/:slug*` → `/snippets/:slug*` because production sitemap currently exposes
+    broken `/snippets/snippets/*` URLs.
+  - `/sitemap.xml` → `/sitemap-index.xml` for legacy sitemap URL compatibility.
+- `route-inventory.md` updated to reflect `/search.json`, redirect compat, and M5-resolved hosting gaps.
+- `plan.md` M5 checklist updated: build/check, route inventory, and screenshots are green; deploy preview
+  remains pending approval/project linking.
+
+### Verification (real output)
+- `bun run check` → **0 errors, 0 warnings, 0 hints**.
+- `bun run build` → **success, 236 page(s) built**.
+- Production sitemap vs v4 build diff: **61 prod URLs**, **25 redirected production sitemap-bug URLs**, **0 uncovered missing URLs**.
+- Preview HTTP smoke on port 4326: `200` for `/`, `/blog`, representative blog/snippet, `/projects`,
+  `/about`, `/books`, `/movies`, `/tags`, `/feed.xml`, `/search.json`, static JSON APIs, and `/static/resume.pdf`.
+- Browser QA: homepage + representative article console had **0 JS errors**; desktop visual had no obvious
+  layout issues; mobile screenshots for homepage/article had no obvious blocking layout issues.
+
+### Blocker / next step
+- `vercel build` cannot run locally yet because this checkout has no local Vercel Project Settings:
+  `No Project Settings found locally. Run vercel pull --yes to retrieve them.`
+- Next side-effecting step is to link/pull the correct Vercel project and create a deploy preview; do not
+  promote production without approval.
+
 ## 2026-06-15 — Claude + Hermes — M4 follow-up: persisted views + reactions
 
 ### Scope of this run

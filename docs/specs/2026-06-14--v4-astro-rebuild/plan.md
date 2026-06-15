@@ -103,9 +103,9 @@ root (or flip the build), retire the Next.js app, and update Vercel project root
   a Vercel Function that can coexist with the static Astro output.
 
 ### M5 — Verify + cutover
-- [ ] typecheck / lint / build green
-- [ ] Route inventory diff clean, RSS/sitemap/canonical/OG verified
-- [ ] Desktop + mobile screenshots
+- [x] typecheck / lint / build green
+- [x] Route inventory diff clean, RSS/sitemap/canonical/OG verified
+- [x] Desktop + mobile screenshots
 - [ ] Deploy preview, then promote `v4` → `main` after approval
 
 ## Files & folders this feature touches

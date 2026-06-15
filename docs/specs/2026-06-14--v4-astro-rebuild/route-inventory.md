@@ -64,12 +64,14 @@ No nested content subdirectories — slug = filename without `.mdx`, so URL = `/
 | From                                          | To                                          | Type      |
 | --------------------------------------------- | ------------------------------------------- | --------- |
 | `/snippets/crawling-goodreads-books-data`     | `/blog/crawling-goodreads-books-data`       | permanent (301) |
+| `/snippets/snippets/<slug>`                   | `/snippets/<slug>`                         | permanent (301) — production sitemap bug compat |
+| `/sitemap.xml`                                | `/sitemap-index.xml`                       | permanent (301) — legacy sitemap URL compat |
 
-Source: `next.config.js` `redirects()`.
+Source: `next.config.js` `redirects()` for the Goodreads snippet move; M5 adds the sitemap-bug and sitemap-alias compat redirects in `v4/vercel.json`.
 
 ## Other behavior to preserve
-- `vercel.json` rewrite: `/stats/:match*` → `https://analytics.leohuynh.dev/:match*` (Umami proxy).
-- Security headers from `next.config.js` `headers()` (re-evaluate equivalents in v4 hosting).
+- `vercel.json` rewrite: `/stats/:match*` → `https://analytics.leohuynh.dev/:match*` (Umami proxy) — ported in M5.
+- Security headers from `next.config.js` `headers()` — ported in M5 `v4/vercel.json`.
 
 ## v4 build route inventory — M2 (generated 2026-06-14)
 
@@ -108,7 +110,7 @@ Source: `cd v4 && bun run build` → `v4/dist`. **233 HTML pages** + feeds/sitem
 | `/tags/<tag>/feed.xml` | `src/pages/tags/[tag]/feed.xml.ts` | ✅ 170 per-tag feeds |
 | `/sitemap-index.xml` + `/sitemap-0.xml` | `@astrojs/sitemap`    | ✅ (legacy used `/sitemap.xml`) |
 | `/robots.txt`          | `public/robots.txt`                | ✅ points at `/sitemap-index.xml` |
-| `/search.json`         | —                                  | ⛔ **gap → search milestone** (Pagefind/deferred) |
+| `/search.json`         | `src/pages/search.json.ts`           | ✅ static search index for posts/snippets |
 | `/static/*`            | `public/static` → symlink to legacy `../public/static` (M3) | ✅ images/resume/favicons emitted to `dist/static/**`; git-ignored, not duplicated |
 
 ### Redirects
@@ -116,6 +118,8 @@ Source: `cd v4 && bun run build` → `v4/dist`. **233 HTML pages** + feeds/sitem
 | From                                      | To                                    | v4 impl | Status |
 | ----------------------------------------- | ------------------------------------- | ------- | ------ |
 | `/snippets/crawling-goodreads-books-data` | `/blog/crawling-goodreads-books-data` | `astro.config.mjs` static redirect fallback + `v4/vercel.json` 301 for Vercel | ✅ built locally; real HTTP 301 depends on Vercel config at cutover |
+| `/snippets/snippets/<slug>` | `/snippets/<slug>` | `v4/vercel.json` 301 | ✅ M5 compat for production sitemap bug |
+| `/sitemap.xml` | `/sitemap-index.xml` | `v4/vercel.json` 301 | ✅ M5 legacy sitemap alias |
 
 ### M2 diff vs legacy parity target
 
@@ -125,13 +129,13 @@ main + per-tag RSS, robots, 404, the goodreads 301, canonical/OG/Twitter from fr
 **Intentional deltas:**
 - RSS item links go to the item's real collection URL (`/snippets/<slug>` for snippets).
   Legacy linked **every** item under `/blog/<slug>` (a legacy bug → broken snippet links). Fixed in v4.
-- Sitemap is `sitemap-index.xml` (+ `sitemap-0.xml`) vs legacy `/sitemap.xml`. Add a
-  `/sitemap.xml` alias at cutover if any external service hardcodes the old path.
+- Sitemap is `sitemap-index.xml` (+ `sitemap-0.xml`) vs legacy `/sitemap.xml`; M5 adds a
+  `v4/vercel.json` 301 alias from `/sitemap.xml` to `/sitemap-index.xml`.
 
-**Known gaps (later milestones):**
-- `/search.json` local search index (search milestone).
-- API routes (`/api/*`) — M4 integrations.
-- `vercel.json` Umami `/stats/:match*` rewrite + security headers — cutover/hosting milestone.
+**M5 resolved:** `/search.json` exists, `/api/stats` is retained as a Vercel Function, and `v4/vercel.json`
+ports the Umami `/stats/:match*` rewrite plus legacy security headers. Remaining API integrations
+for Spotify/GitHub/activity are intentionally static JSON in M4 until a compatible request-time Astro
+adapter is chosen.
 
 ### M3 update (2026-06-14)
 - **Closed:** `/about`, `/projects`, `/books`, `/movies` now built (236 total pages, was 232).
