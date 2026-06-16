@@ -1,5 +1,51 @@
 # Work Logs
 
+## 2026-06-16 — Hermes — M9 sidebar/assets/codeblock polish
+
+### Scope
+Leo approved another polish batch:
+- Use `IMG_1110-EDIT.jpg` from Downloads for avatar/SEO image, preferably local static.
+- Use keyboard Twemoji for favicon.
+- Remove all border/rounded styling from Twemoji.
+- Improve left sidebar typography/icons, folder toggles, sorting, icon mapping, active highlights, and stats external hint.
+- Align blog/snippet card dates.
+- Disable Giscus reactions and match legacy custom reaction UI.
+- Add local time, last commit, and Made in Vietnam to the bottom bar.
+- Upgrade code blocks with language badge, theme selector, and font selector.
+
+### Result
+- Generated local images:
+  - `public/static/images/avatar.jpg` — 1024×1024 square crop.
+  - `public/static/images/og.jpg` — 1200×630 social image crop.
+- Re-encoded both image assets without sensitive EXIF/GPS/device metadata before commit.
+- Updated `SITE.socialBanner` to `/static/images/og.jpg` and sidebar avatar to `/static/images/avatar.jpg`.
+- Added `/static/twemoji/2328-fe0f.svg` and wired it as SVG favicon.
+- Sidebar/tabs now share the same explorer metadata inside `StudioShell.astro`:
+  - folders first; posts/snippets default open with caret toggles;
+  - larger 13px row text with 16px aligned icons;
+  - `README.md` uses markdown icon;
+  - `books.astro` uses Goodreads icon;
+  - `projects.astro` uses a project/code icon;
+  - `stats` replaces `analytics.url` and shows an external-link icon on hover;
+  - `/blog` and `/snippets` highlight `index.astro`; detail routes highlight `[...slug].astro`.
+- Added a sticky status bar with ICT local time, last commit, made-in-Vietnam label, and code block controls.
+- Disabled Giscus reactions (`reactionsEnabled: '0'`).
+- Reworked custom reaction UI to match live: no hover scaling; click shows the sliding `+n` state and persists the local reaction immediately before the mouse-leave API save.
+- Twemoji images now explicitly have no border/radius/background, and prose image styling excludes `.twemoji`.
+- Blog list and snippet cards now align date/time labels with content titles.
+- Expressive Code now uses default light + selectable dark theme, language badges, and a font selector (`ui-mono`, `jetbrains`, `sfmono`).
+
+### Verification
+- `bun run check` ✅ 0 errors / 0 warnings.
+- `bun run build` ✅ 236 pages.
+- Local HTTP smoke ✅ `/`, `/blog`, `/snippets`, blog detail, avatar, OG image, keyboard favicon.
+- Browser QA ✅ home/sidebar: avatar crop, folder toggles, aligned icons, tab mapping, bottom bar.
+- Browser QA ✅ `/blog`: `index.astro` active.
+- Browser QA ✅ blog detail: `[...slug].astro` active, Giscus widget has `reactionsenabled="0"`, custom reaction buttons render, no hover-scale class.
+- Browser QA ✅ Twemoji computed style: `border: 0`, `border-radius: 0`.
+- Browser QA ✅ code blocks: BASH language badge, default light theme, theme selector + font selector apply and persist.
+- Browser console ✅ 0 JS errors.
+
 ## 2026-06-16 — Hermes — M8 icons, comments, and Twemoji polish
 
 ### Scope

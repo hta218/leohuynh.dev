@@ -35,7 +35,7 @@ const giscusConfig = getGiscusConfig()
   ogType="article"
   publishedTime={date.toISOString()}
 >
-  <StudioShell active="/blog" crumb={`~/leohuynh.dev/blog/${post.id}`}>
+  <StudioShell active={`/blog/${post.id}`} crumb={`~/leohuynh.dev/blog/${post.id}`}>
     <article class="prose">
       <h1>{title}</h1>
       <div class="mb-8 flex flex-wrap items-center gap-3 font-mono text-xs text-muted not-prose">

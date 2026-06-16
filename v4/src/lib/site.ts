@@ -23,8 +23,8 @@ export const SITE = {
   goodreadsBookshelfUrl:
     'https://www.goodreads.com/review/list/179720035-leo-huynh',
   imdbRatingsList: 'https://www.imdb.com/user/ur154483197/ratings/?view=grid',
-  // OG/Twitter fallback banner, parity with legacy `socialBanner`.
-  socialBanner: '/static/images/twitter-card.jpeg',
+  // OG/Twitter fallback banner generated from the current profile photo.
+  socialBanner: '/static/images/og.jpg',
   analytics: {
     umamiShareUrl:
       'https://analytics.leohuynh.dev/share/c9ErglxqzY5CQJ8g/leohuynh.dev',

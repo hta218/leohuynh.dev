@@ -3,13 +3,6 @@ import Twemoji from '~/components/icons/Twemoji'
 import { fetchStats, postStats } from '~/lib/stats'
 import type { ReactionKey, StatsType } from '~/types/stats'
 
-/**
- * Four-reaction bar (loves / applauses / bullseyes / ideas), ported from legacy
- * `components/blog/reactions.tsx`. Per-visitor reactions are capped at 10 each per slug
- * via localStorage. It renders and works even when `/api/stats` is unavailable: with no
- * endpoint the base counts are 0 and only the visitor's own optimistic clicks show — a
- * write that can't persist is silently dropped rather than faked.
- */
 const MAX_REACTIONS = 10
 
 const REACTIONS: Array<{ emoji: string; key: ReactionKey; label: string }> = [
@@ -45,15 +38,9 @@ export default function Reactions({
   slug: string
 }) {
   const storageKey = `${type}/${slug}`
-  // Stats persisted server-side; `null` until the endpoint answers (stays null if static).
   const [base, setBase] = useState<Counts | null>(null)
-  // This visitor's own reactions for the current session (seeded from localStorage).
   const [local, setLocal] = useState<Counts>({ ...EMPTY_COUNTS })
-  // localStorage snapshot at load, so previously-saved reactions aren't double-counted.
   const initialRef = useRef<Counts>({ ...EMPTY_COUNTS })
-  const saveTimers = useRef<
-    Partial<Record<ReactionKey, ReturnType<typeof setTimeout>>>
-  >({})
 
   useEffect(() => {
     const stored = readLocal(storageKey)
@@ -79,18 +66,7 @@ export default function Reactions({
     localStorage.setItem(storageKey, JSON.stringify(nextLocal))
     const baseCount = base?.[key] ?? 0
     const delta = nextLocal[key] - initialRef.current[key]
-    // Fire-and-forget; dropped cleanly when the endpoint can't persist.
     postStats({ type, slug, [key]: baseCount + delta })
-  }
-
-  function react(key: ReactionKey) {
-    setLocal((prev) => {
-      if (prev[key] >= MAX_REACTIONS) return prev
-      const next = { ...prev, [key]: prev[key] + 1 }
-      if (saveTimers.current[key]) clearTimeout(saveTimers.current[key])
-      saveTimers.current[key] = setTimeout(() => save(key, next), 800)
-      return next
-    })
   }
 
   return (
@@ -98,31 +74,117 @@ export default function Reactions({
       {REACTIONS.map(({ key, emoji, label }) => {
         const baseCount = base?.[key] ?? 0
         const display = baseCount + (local[key] - initialRef.current[key])
-        const added = local[key]
+        const value = base === null && local[key] === 0 ? '--' : display
         return (
-          <button
+          <Reaction
             key={key}
-            type="button"
-            onClick={() => react(key)}
-            aria-label={`React with ${label}`}
-            disabled={added >= MAX_REACTIONS}
-            className="flex flex-col items-center justify-center gap-1.5 disabled:cursor-not-allowed"
-            data-umami-event="post-reaction"
-            data-umami-event-post={storageKey}
-            data-umami-event-react={key}
-          >
-            <span className="transition-transform hover:scale-110">
-              <Twemoji emoji={emoji} size="2x" />
-            </span>
-            <span className="font-mono text-xs font-semibold text-muted">
-              {base === null && added === 0 ? '--' : display}
-              {added > 0 && (
-                <span className="ml-1 text-code-green">+{added}</span>
-              )}
-            </span>
-          </button>
+            path={storageKey}
+            emoji={emoji}
+            label={label}
+            reactionKey={key}
+            value={value}
+            reactions={local[key]}
+            onReact={(nextValue) =>
+              setLocal((prev) => {
+                const next = { ...prev, [key]: nextValue }
+                localStorage.setItem(storageKey, JSON.stringify(next))
+                return next
+              })
+            }
+            onSave={(nextValue) => save(key, { ...local, [key]: nextValue })}
+          />
         )
       })}
     </div>
+  )
+}
+
+function Reaction({
+  path,
+  emoji,
+  label,
+  reactionKey,
+  value,
+  reactions,
+  onReact,
+  onSave,
+}: {
+  path: string
+  emoji: string
+  label: string
+  reactionKey: ReactionKey
+  value: string | number
+  reactions: number
+  onReact: (v: number) => void
+  onSave: (v: number) => void
+}) {
+  const [reacting, setReacting] = useState(false)
+  const latestReactions = useRef(reactions)
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const countRef = useRef<HTMLSpanElement>(null)
+
+  useEffect(() => {
+    latestReactions.current = reactions
+  }, [reactions])
+
+  function handleReact() {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current)
+    setReacting(true)
+
+    if (reactions >= MAX_REACTIONS) {
+      countRef.current?.classList.add('animate-scale-up')
+      setTimeout(
+        () => countRef.current?.classList.remove('animate-scale-up'),
+        150,
+      )
+      return
+    }
+
+    const next = reactions + 1
+    latestReactions.current = next
+    onReact(next)
+  }
+
+  function handleMouseLeave() {
+    if (!reacting) return
+    if (timeoutRef.current) clearTimeout(timeoutRef.current)
+    timeoutRef.current = setTimeout(() => {
+      setReacting(false)
+      onSave(latestReactions.current)
+    }, 1000)
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={handleReact}
+      onMouseLeave={handleMouseLeave}
+      aria-label={`React with ${label}`}
+      className="relative flex flex-col items-center justify-center gap-1.5"
+      data-umami-event="post-reaction"
+      data-umami-event-post={path}
+      data-umami-event-react={reactionKey}
+    >
+      <Twemoji emoji={emoji} size="2x" />
+      <span className="relative h-6 w-8 overflow-hidden text-center font-mono text-xs">
+        <span
+          className={[
+            'absolute inset-0 font-semibold text-slate-600 transition-all',
+            reacting ? '-translate-y-6 opacity-0' : 'translate-y-0 opacity-100',
+          ].join(' ')}
+        >
+          {value}
+        </span>
+        <span
+          ref={countRef}
+          className={[
+            'absolute inset-0 text-slate-500 transition-all',
+            reacting ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0',
+          ].join(' ')}
+        >
+          +{reactions}
+        </span>
+      </span>
+    </button>
   )
 }

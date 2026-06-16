@@ -39,7 +39,7 @@ export function getGiscusConfig(): GiscusConfig | null {
     category,
     categoryId,
     mapping: 'title',
-    reactionsEnabled: '1',
+    reactionsEnabled: '0',
     emitMetadata: '0',
     inputPosition: 'bottom',
     theme: 'light',

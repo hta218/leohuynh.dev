@@ -1,11 +1,15 @@
 ---
 import {
   Analytics01Icon,
+  ArrowDown01Icon,
+  ArrowRight01Icon,
   BookOpen01Icon,
+  CodeSquareIcon,
+  ExternalLinkIcon,
   File01Icon,
   FileCodeIcon,
   FolderOpenIcon,
-  Home03Icon,
+  KeyboardIcon,
   Message02Icon,
   Note01Icon,
   StarIcon,
@@ -17,11 +21,15 @@ import { HugeiconsIcon } from '@hugeicons/react'
 type IconName =
   | 'analytics'
   | 'book'
+  | 'caret-down'
+  | 'caret-right'
   | 'comment'
+  | 'external'
   | 'file'
   | 'folder'
-  | 'home'
+  | 'keyboard'
   | 'markdown'
+  | 'project'
   | 'star'
   | 'tag'
   | 'user'
@@ -46,11 +54,15 @@ const {
 const ICONS = {
   analytics: Analytics01Icon,
   book: BookOpen01Icon,
+  'caret-down': ArrowDown01Icon,
+  'caret-right': ArrowRight01Icon,
   comment: Message02Icon,
+  external: ExternalLinkIcon,
   file: File01Icon,
   folder: FolderOpenIcon,
-  home: Home03Icon,
+  keyboard: KeyboardIcon,
   markdown: Note01Icon,
+  project: CodeSquareIcon,
   star: StarIcon,
   tag: Tag01Icon,
   user: UserCircleIcon,

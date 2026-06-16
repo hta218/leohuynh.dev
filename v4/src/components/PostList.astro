@@ -24,7 +24,7 @@ const hasNext = currentPage < totalPages
         href={`/blog/${post.id}`}
         class="grid grid-cols-1 items-start gap-[18px] border-t border-line py-[18px] no-underline first-of-type:border-t-0 md:grid-cols-[110px_1fr_auto]"
       >
-        <time class="font-mono text-xs text-muted">{dateFmt.format(post.data.date)}</time>
+        <time class="pt-[4px] font-mono text-xs text-muted">{dateFmt.format(post.data.date)}</time>
         <div>
           <h3 class="mb-[7px] text-[21px] tracking-[-0.04em] text-ink">{post.data.title}</h3>
           <p class="m-0 leading-snug text-muted">{post.data.summary}</p>

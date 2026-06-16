@@ -14,8 +14,9 @@ export default defineConfig({
   // expressiveCode must run before mdx so it owns code-block rendering.
   integrations: [
     expressiveCode({
-      // Dark code panels on the light editor canvas — matches sketch 006.
-      themes: ['github-dark-default'],
+      // Default light, with a manually selectable dark variant via <html data-theme="...">.
+      themes: ['github-light-default', 'github-dark-default'],
+      useDarkModeMediaQuery: false,
       styleOverrides: {
         borderRadius: '12px',
         borderColor: 'transparent',

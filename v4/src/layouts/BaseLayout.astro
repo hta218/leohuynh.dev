@@ -40,9 +40,20 @@ const umamiWebsiteId =
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/static/twemoji/2328-fe0f.svg" />
+    <link rel="apple-touch-icon" href="/static/images/avatar.jpg" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <meta name="author" content={SITE.author} />
+    <script is:inline>
+      ;(() => {
+        const root = document.documentElement
+        const storedTheme = localStorage.getItem('leohuynh:code-theme') || 'github-light-default'
+        const storedFont = localStorage.getItem('leohuynh:code-font') || 'ui-mono'
+        root.dataset.theme = storedTheme
+        root.dataset.codeFont = storedFont
+      })()
+    </script>
 
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />

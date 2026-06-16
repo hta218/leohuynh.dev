@@ -147,7 +147,26 @@ root (or flip the build), retire the Next.js app, and update Vercel project root
 - [x] Replace native emoji rendering with managed self-hosted Twemoji SVG assets instead of a hand-written CSS class map.
 - [x] Re-run check/build, local smoke, browser QA.
 
-### M9 — Production cutover (after Leo approves polished preview)
+### M9 — Sidebar/assets/codeblock polish requested by Leo (2026-06-16)
+- [x] Crop `~/Downloads/IMG_1110-EDIT.jpg` into local static avatar and 1200×630 OG image, then strip sensitive EXIF/GPS metadata.
+- [x] Use local avatar in sidebar and local OG image for default SEO/social image.
+- [x] Add keyboard Twemoji SVG favicon.
+- [x] Remove rounded corners/borders from all Twemoji images inside posts and reactions.
+- [x] Increase sidebar row text/icons to a more readable/harmonized size.
+- [x] Refactor explorer/tab data to one source of truth so tab trigger icon/file mapping matches the sidebar.
+- [x] Add default-open caret toggles for posts/snippets folders.
+- [x] Align folder/file icons and sort folders before files.
+- [x] Use markdown icon for `README.md`, Goodreads icon for `books.astro`, project icon for `projects.astro`, and `stats` external-link affordance.
+- [x] Remove trailing slash labels from `posts`, `snippets`, and `tags`.
+- [x] Highlight `index.astro` for `/blog` and `/snippets`, and `[...slug].astro` for detail routes.
+- [x] Fix blog/snippet card date alignment.
+- [x] Disable Giscus reactions and keep only the custom reaction bar.
+- [x] Match legacy reaction behavior: no hover scale, click shows sliding `+n` state.
+- [x] Add sticky bottom status bar with ICT local time, last commit, and made-in-Vietnam badge.
+- [x] Upgrade code blocks with language badge, default light/dark theme selector, and font selector.
+- [x] Re-run check/build, local smoke, browser QA.
+
+### M10 — Production cutover (after Leo approves polished preview)
 - [ ] Hoist `v4/` to repo root or permanently set Vercel Root Directory = `v4`.
 - [ ] Remove/retire legacy root Next app from production path.
 - [ ] Final preview smoke, then promote/merge to production with rollback path.
