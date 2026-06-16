@@ -63,3 +63,4 @@ tsconfig.tsbuildinfo
 
 # webstorm
 .idea/
+.env*

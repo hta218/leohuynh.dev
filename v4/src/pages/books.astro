@@ -1,4 +1,5 @@
 ---
+import HugeIcon from '~/components/icons/HugeIcon.astro'
 import StudioShell from '~/components/studio/StudioShell.astro'
 import BaseLayout from '~/layouts/BaseLayout.astro'
 import { getBooks } from '~/lib/media'
@@ -8,8 +9,9 @@ const books = getBooks().sort((a, b) => b.userRating - a.userRating)
 const reading = books.filter((b) => b.userShelves.includes('currently-reading'))
 const others = books.filter((b) => !b.userShelves.includes('currently-reading'))
 
-function stars(rating: number): string {
-  return rating > 0 ? '★'.repeat(Math.round(rating)) : '—'
+function ratingStars(rating: number): boolean[] {
+  const rounded = Math.round(rating)
+  return Array.from({ length: 5 }, (_, index) => index < rounded)
 }
 ---
 
@@ -91,8 +93,19 @@ function stars(rating: number): string {
                     <h3 class="m-0 truncate text-[15px] font-medium text-ink">{book.title}</h3>
                     <p class="m-0 truncate font-mono text-xs text-muted">{book.authorName}</p>
                   </div>
-                  <span class="flex-none font-mono text-xs text-code-amber" title={`${book.userRating}/5`}>
-                    {stars(book.userRating)}
+                  <span class="flex flex-none items-center gap-0.5 text-code-amber" title={`${book.userRating}/5`}>
+                    {book.userRating > 0 ? (
+                      ratingStars(book.userRating).map((filled) => (
+                        <HugeIcon
+                          name="star"
+                          class={filled ? 'text-code-amber' : 'text-slate-300'}
+                          size={13}
+                          strokeWidth={filled ? 2.2 : 1.6}
+                        />
+                      ))
+                    ) : (
+                      <span class="font-mono text-xs text-muted">—</span>
+                    )}
                   </span>
                 </a>
               </li>

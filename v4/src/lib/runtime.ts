@@ -16,8 +16,23 @@ const RECENTLY_PLAYED_ENDPOINT =
 const GITHUB_GRAPHQL_ENDPOINT = 'https://api.github.com/graphql'
 const HANOI_UTC_OFFSET_MS = 7 * 60 * 60 * 1000
 
+/**
+ * Reads a runtime env var from both Astro/Vite (`import.meta.env`) and Node
+ * (`process.env`). In `astro dev`, values from `.env.local` are loaded into
+ * `import.meta.env` (server-side) but NOT into `process.env`, so the old
+ * `process.env`-only lookup reported tokens as missing locally.
+ *
+ * Dynamic key access on `import.meta.env` is never statically inlined by Vite,
+ * and this module is only imported by server endpoints + `.astro` frontmatter,
+ * so non-public secrets are never shipped to the client.
+ */
 function env(name: string): string | undefined {
-  return process.env[name]?.trim() || undefined
+  const viteEnv =
+    typeof import.meta !== 'undefined' && import.meta.env
+      ? (import.meta.env as Record<string, string | undefined>)
+      : undefined
+  const value = viteEnv?.[name] ?? process.env[name]
+  return value?.trim() || undefined
 }
 
 function timeoutSignal(ms = 8000): AbortSignal {
@@ -474,6 +489,28 @@ export async function fetchLatestGithubActivity(): Promise<ActivityItem | null> 
 
   return null
 }
+
+export function fetchRuntimeRailData(): Promise<{
+  spotify: SpotifyPayload
+  github: GithubTodayPayload
+  activity: ActivityPayload
+}> {
+  runtimeRailDataPromise ??= Promise.all([
+    fetchSpotifyStatus(),
+    fetchGithubToday(),
+    fetchActivity(),
+  ]).then(([spotify, github, activity]) => ({ spotify, github, activity }))
+
+  return runtimeRailDataPromise
+}
+
+let runtimeRailDataPromise:
+  | Promise<{
+      spotify: SpotifyPayload
+      github: GithubTodayPayload
+      activity: ActivityPayload
+    }>
+  | undefined
 
 export async function fetchActivity(): Promise<ActivityPayload> {
   const items: ActivityItem[] = []

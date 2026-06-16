@@ -1,11 +1,157 @@
 ---
-import ActivityWidget from '~/components/widgets/ActivityWidget'
-import GithubTodayWidget from '~/components/widgets/GithubTodayWidget'
-import SpotifyWidget from '~/components/widgets/SpotifyWidget'
+import { fetchRuntimeRailData } from '~/lib/runtime'
+import type { ActivityItem } from '~/types/integrations'
+
+const { spotify, github, activity } = await fetchRuntimeRailData()
+
+const song = spotify.song
+const spotifyStatus =
+  spotify.status === 'playing'
+    ? 'playing now'
+    : spotify.status === 'recently-played'
+      ? 'last played'
+      : 'not playing'
+
+const stat = (value: number | null | undefined) =>
+  typeof value === 'number' ? value.toLocaleString() : '—'
+
+const colorByType: Record<ActivityItem['type'], string> = {
+  book: 'bg-code-amber',
+  movie: 'bg-code-red',
+  spotify: 'bg-code-green',
+  github: 'bg-code-blue',
+  build: 'bg-code-blue',
+}
 ---
 
 <aside id="runtime-rail" class="runtime-rail thin-scrollbar hidden min-h-0 content-start gap-3 overflow-y-auto border-l border-line bg-panel2 p-3.5 lg:grid">
-  <SpotifyWidget client:load />
-  <GithubTodayWidget client:load />
-  <ActivityWidget client:load />
+  <div class="rounded-2xl border border-line bg-white p-3.5">
+    <h3 class="mb-3 font-mono text-[11px] uppercase tracking-[0.08em] text-muted">
+      spotify now playing
+    </h3>
+    <div class="grid grid-cols-[48px_1fr] items-center gap-3">
+      {song?.albumImageUrl ? (
+        <img
+          src={song.albumImageUrl}
+          alt={song.album}
+          class="h-12 w-12 rounded-xl border border-line object-cover"
+        />
+      ) : (
+        <div class="h-12 w-12 rounded-xl border border-line bg-[linear-gradient(135deg,#bbf7d0,#bfdbfe)]"></div>
+      )}
+      <div class="min-w-0">
+        {song?.songUrl ? (
+          <a
+            href={song.songUrl}
+            target="_blank"
+            rel="noreferrer"
+            class="block truncate font-semibold text-ink no-underline hover:text-code-blue"
+          >
+            {song.title}
+          </a>
+        ) : (
+          <b>—</b>
+        )}
+        <span class="block truncate font-mono text-xs text-muted">
+          {song ? song.artist : spotifyStatus}
+        </span>
+        <span class="mt-1 block font-mono text-[10px] uppercase tracking-[0.08em] text-code-green">
+          {spotifyStatus}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="rounded-2xl border border-line bg-white p-3.5">
+    <h3 class="mb-3 font-mono text-[11px] uppercase tracking-[0.08em] text-muted">
+      github today
+    </h3>
+    <div class="grid grid-cols-2 gap-2">
+      <div class="rounded-xl border border-line bg-[#fbfdff] p-2.5">
+        <b class="block text-2xl">{stat(github.contributions)}</b>
+        <span class="font-mono text-[10px] text-muted">contribs</span>
+      </div>
+      <div class="rounded-xl border border-line bg-[#fbfdff] p-2.5">
+        <b class="block text-2xl">{stat(github.commits)}</b>
+        <span class="font-mono text-[10px] text-muted">commits</span>
+      </div>
+      <div class="rounded-xl border border-line bg-[#fbfdff] p-2.5">
+        <b class="block text-2xl text-code-green">+{stat(github.additions)}</b>
+        <span class="font-mono text-[10px] text-muted">added</span>
+      </div>
+      <div class="rounded-xl border border-line bg-[#fbfdff] p-2.5">
+        <b class="block text-2xl text-code-red">-{stat(github.deletions)}</b>
+        <span class="font-mono text-[10px] text-muted">removed</span>
+      </div>
+    </div>
+    {github.topRepo && (
+      <a
+        href={github.topRepo.url}
+        target="_blank"
+        rel="noreferrer"
+        class="mt-2 block truncate rounded-lg border border-line bg-white px-2 py-1.5 font-mono text-[11px] text-muted no-underline hover:text-code-blue"
+      >
+        top repo: {github.topRepo.nameWithOwner}
+      </a>
+    )}
+    {!github.ok && github.error && (
+      <p class="mt-2 mb-0 font-mono text-[10px] text-muted">{github.error}</p>
+    )}
+  </div>
+
+  <div class="rounded-2xl border border-line bg-white p-3.5">
+    <h3 class="mb-3 font-mono text-[11px] uppercase tracking-[0.08em] text-muted">
+      recent activity
+    </h3>
+    <div class="grid gap-2.5">
+      {activity.items.slice(0, 4).map((item) => (
+        item.url ? (
+          <a
+            href={item.url}
+            target="_blank"
+            rel="noreferrer"
+            class:list={[
+              'rounded-xl border border-line bg-white no-underline text-ink hover:border-code-blue',
+              item.imageUrl
+                ? 'grid grid-cols-[36px_1fr] items-center gap-2.5 p-2.5'
+                : 'grid grid-cols-[18px_1fr] gap-2.5 p-3',
+            ]}
+          >
+            {item.imageUrl ? (
+              <img src={item.imageUrl} alt="" loading="lazy" class="h-12 w-9 rounded-md border border-line object-cover" />
+            ) : (
+              <span class:list={['mt-1.5 h-2 w-2 rounded-full', colorByType[item.type]]}></span>
+            )}
+            <span class="min-w-0">
+              <strong class="block truncate">{item.title}</strong>
+              <span class="block truncate text-[13px] leading-snug text-muted">
+                {item.subtitle ?? item.meta ?? item.type}
+              </span>
+            </span>
+          </a>
+        ) : (
+          <div
+            class:list={[
+              'rounded-xl border border-line bg-white text-ink hover:border-code-blue',
+              item.imageUrl
+                ? 'grid grid-cols-[36px_1fr] items-center gap-2.5 p-2.5'
+                : 'grid grid-cols-[18px_1fr] gap-2.5 p-3',
+            ]}
+          >
+            {item.imageUrl ? (
+              <img src={item.imageUrl} alt="" loading="lazy" class="h-12 w-9 rounded-md border border-line object-cover" />
+            ) : (
+              <span class:list={['mt-1.5 h-2 w-2 rounded-full', colorByType[item.type]]}></span>
+            )}
+            <span class="min-w-0">
+              <strong class="block truncate">{item.title}</strong>
+              <span class="block truncate text-[13px] leading-snug text-muted">
+                {item.subtitle ?? item.meta ?? item.type}
+              </span>
+            </span>
+          </div>
+        )
+      ))}
+    </div>
+  </div>
 </aside>

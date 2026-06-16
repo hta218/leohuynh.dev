@@ -96,8 +96,32 @@ body {
   gap: 7px;
 }
 
+/*
+ * Full-bleed explorer rows: pull the hover/active background out to the sidebar
+ * edges (-12px = the aside's p-3 padding) while the caret in the first grid
+ * column lines up with the "EXPLORER" heading text (12px in from the edge).
+ */
+.explorer-row {
+  margin-left: -12px;
+  margin-right: -12px;
+  padding-left: 12px;
+  padding-right: 12px;
+  border-radius: 6px;
+}
+
+/* Nested file rows sit one icon-step further in than their folder. */
+.explorer-row--child {
+  padding-left: 30px;
+}
+
 .explorer-folder-row {
-  cursor: default;
+  cursor: pointer;
+}
+
+/* Swap open/closed folder glyphs based on the toggle's expanded state. */
+.explorer-folder-row[aria-expanded="true"] .folder-icon-closed,
+.explorer-folder-row[aria-expanded="false"] .folder-icon-open {
+  display: none;
 }
 
 .explorer-caret,
@@ -129,6 +153,16 @@ body {
   color: #334155;
   font-family: var(--font-mono);
   font-size: 11px;
+}
+
+.vn-badge {
+  align-items: center;
+  gap: 5px;
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  background: #f8fafc;
+  padding: 2px 8px;
+  color: #334155;
 }
 
 html[data-code-font="ui-mono"] {
@@ -183,11 +217,11 @@ html[data-code-font="sfmono"] {
     transition: grid-template-columns 180ms ease;
   }
 
-  .studio-shell[data-rail="hidden"] .studio-workspace {
+  html[data-rail="hidden"] .studio-workspace {
     grid-template-columns: 260px minmax(0, 1fr) 0;
   }
 
-  .studio-shell[data-rail="hidden"] .runtime-rail {
+  html[data-rail="hidden"] .runtime-rail {
     border-left-width: 0;
     padding-left: 0;
     padding-right: 0;
@@ -313,8 +347,53 @@ html[data-code-font="sfmono"] {
   --ec-codeFontFml: var(--code-font-family);
 }
 
+/* Give code blocks a visible edge + slightly tinted canvas so they no longer
+ * blend into the off-white site background. */
 .expressive-code figure.frame {
   position: relative;
+  border: 1px solid var(--color-line);
+  border-radius: 12px;
+  background: var(--color-panel2);
+  box-shadow: 3px 3px 0 var(--color-line);
+}
+
+html[data-theme="github-dark-default"] .expressive-code figure.frame {
+  border-color: #1f2937;
+  background: #0d1117;
+  box-shadow: none;
+}
+
+/*
+ * Shared code-block toolbar — used by both the home build-log component and the
+ * controls injected into every Expressive Code frame. Mirrors the legacy
+ * codeblock header controls (theme + font selectors).
+ */
+.code-toolbar {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-muted);
+}
+
+.code-toolbar label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Toolbar floated into an Expressive Code frame's top-right corner. */
+.expressive-code .ec-code-toolbar {
+  position: absolute;
+  top: 7px;
+  right: 10px;
+  z-index: 3;
+}
+
+/* Hide the language pill when our toolbar is present to avoid overlap. */
+.expressive-code .frame:has(.ec-code-toolbar) pre[data-language]::before {
+  display: none;
 }
 
 .expressive-code pre[data-language]::before {

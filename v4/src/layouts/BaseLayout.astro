@@ -31,7 +31,8 @@ const canonical =
 const image = new URL(ogImage ?? SITE.socialBanner, SITE.siteUrl).href
 const rssTitle = `${SITE.title} RSS feed`
 const umamiWebsiteId =
-  process.env.PUBLIC_UMAMI_WEBSITE_ID?.trim() || process.env.NEXT_UMAMI_ID?.trim()
+  (import.meta.env.PUBLIC_UMAMI_WEBSITE_ID || process.env.PUBLIC_UMAMI_WEBSITE_ID)?.trim() ||
+  (import.meta.env.NEXT_UMAMI_ID || process.env.NEXT_UMAMI_ID)?.trim()
 ---
 
 <!doctype html>
@@ -47,11 +48,18 @@ const umamiWebsiteId =
     <meta name="author" content={SITE.author} />
     <script is:inline>
       ;(() => {
-        const root = document.documentElement
-        const storedTheme = localStorage.getItem('leohuynh:code-theme') || 'github-light-default'
-        const storedFont = localStorage.getItem('leohuynh:code-font') || 'ui-mono'
-        root.dataset.theme = storedTheme
-        root.dataset.codeFont = storedFont
+        const apply = (root) => {
+          root.dataset.theme = localStorage.getItem('leohuynh:code-theme') || 'github-light-default'
+          root.dataset.codeFont = localStorage.getItem('leohuynh:code-font') || 'ui-mono'
+          root.dataset.rail = localStorage.getItem('leohuynh:right-rail') || 'visible'
+        }
+        // Run before first paint so the right rail never flashes visible→hidden.
+        apply(document.documentElement)
+        // Carry the persisted state onto the incoming document before the
+        // view-transition swap paints, so SPA navigations don't flicker either.
+        document.addEventListener('astro:before-swap', (event) => {
+          apply(event.newDocument.documentElement)
+        })
       })()
     </script>
 

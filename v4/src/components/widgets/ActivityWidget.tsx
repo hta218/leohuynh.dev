@@ -46,12 +46,24 @@ export default function ActivityWidget() {
       </h3>
       <div className="grid gap-2.5">
         {data.items.slice(0, 4).map((item) => {
+          const media = item.imageUrl ? (
+            <img
+              key="image"
+              src={item.imageUrl}
+              alt=""
+              loading="lazy"
+              className="h-12 w-9 rounded-md border border-line object-cover"
+            />
+          ) : (
+            <span
+              key="dot"
+              className={`mt-1.5 h-2 w-2 rounded-full ${colorByType[item.type]}`}
+            />
+          )
+
           const body = (
             <>
-              <span
-                key="dot"
-                className={`mt-1.5 h-2 w-2 rounded-full ${colorByType[item.type]}`}
-              />
+              {media}
               <span key="body" className="min-w-0">
                 <strong className="block truncate">{item.title}</strong>
                 <span className="block truncate text-[13px] leading-snug text-muted">
@@ -61,8 +73,9 @@ export default function ActivityWidget() {
             </>
           )
 
-          const className =
-            'grid grid-cols-[18px_1fr] gap-2.5 rounded-xl border border-line bg-white p-3 no-underline text-ink hover:border-code-blue'
+          const className = item.imageUrl
+            ? 'grid grid-cols-[36px_1fr] items-center gap-2.5 rounded-xl border border-line bg-white p-2.5 no-underline text-ink hover:border-code-blue'
+            : 'grid grid-cols-[18px_1fr] gap-2.5 rounded-xl border border-line bg-white p-3 no-underline text-ink hover:border-code-blue'
 
           return item.url ? (
             <a

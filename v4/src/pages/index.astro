@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content'
 import Twemoji from '~/components/mdx/Twemoji.astro'
+import CodeBlock from '~/components/studio/CodeBlock.astro'
 import StudioShell from '~/components/studio/StudioShell.astro'
 import HugeIcon from '~/components/icons/HugeIcon.astro'
 import BaseLayout from '~/layouts/BaseLayout.astro'
@@ -129,13 +130,12 @@ const dateFmt = new Intl.DateTimeFormat('en-CA') // YYYY-MM-DD
         <h2 class="m-0 text-[26px] tracking-[-0.05em]">build log</h2>
         <span class="font-mono text-xs text-muted">api/activity.json</span>
       </div>
-      <pre
-        class="overflow-auto rounded-2xl border border-line bg-[#0f172a] p-[18px] font-mono text-[13px] leading-[1.75] text-[#e5e7eb]"><span class="text-[#94a3b8]">// generated daily from GitHub + site APIs</span>
+      <CodeBlock title="activity.json"><span class="text-[#94a3b8]">// generated daily from GitHub + site APIs</span>
 {`{`}
   <span class="text-[#93c5fd]">"site"</span>: {`{`} <span class="text-[#93c5fd]">"posts"</span>: <span class="text-[#86efac]">{posts.length}</span>, <span class="text-[#93c5fd]">"snippets"</span>: <span class="text-[#86efac]">{snippets.length}</span> {`}`},
   <span class="text-[#93c5fd]">"stack"</span>: [<span class="text-[#86efac]">"astro"</span>, <span class="text-[#86efac]">"bun"</span>, <span class="text-[#86efac]">"tailwind"</span>, <span class="text-[#86efac]">"typescript"</span>],
   <span class="text-[#93c5fd]">"status"</span>: <span class="text-[#86efac]">"documenting the work, one note at a time"</span>
-{`}`}</pre>
+{`}`}</CodeBlock>
     </div>
   </StudioShell>
 </BaseLayout>

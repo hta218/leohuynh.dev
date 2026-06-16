@@ -27,9 +27,11 @@ type HugeIconName =
   | 'external'
   | 'file'
   | 'folder'
+  | 'folder-open'
   | 'keyboard'
   | 'markdown'
   | 'project'
+  | 'rocket'
   | 'star'
   | 'tag'
   | 'user'
@@ -127,6 +129,15 @@ const snippetsSlug: TreeLeaf = {
 
 const explorerItems: TreeItem[] = [
   {
+    kind: 'leaf',
+    id: 'readme',
+    href: '/',
+    file: 'README.md',
+    title: 'Home',
+    icon: { type: 'brand', name: 'markdown' },
+    activeWhen: exact('/'),
+  },
+  {
     kind: 'folder',
     id: 'posts-folder',
     file: 'posts',
@@ -146,29 +157,11 @@ const explorerItems: TreeItem[] = [
   },
   {
     kind: 'leaf',
-    id: 'tags',
-    href: '/tags',
-    file: 'tags',
-    title: 'Tags',
-    icon: { type: 'huge', name: 'tag' },
-    activeWhen: startsWith('/tags'),
-  },
-  {
-    kind: 'leaf',
-    id: 'readme',
-    href: '/',
-    file: 'README.md',
-    title: 'Home',
-    icon: { type: 'brand', name: 'markdown' },
-    activeWhen: exact('/'),
-  },
-  {
-    kind: 'leaf',
     id: 'projects',
     href: '/projects',
     file: 'projects.astro',
     title: 'Projects',
-    icon: { type: 'huge', name: 'project' },
+    icon: { type: 'huge', name: 'rocket' },
     activeWhen: exact('/projects'),
   },
   {
@@ -197,6 +190,15 @@ const explorerItems: TreeItem[] = [
     title: 'Movies',
     icon: { type: 'brand', name: 'imdb' },
     activeWhen: exact('/movies'),
+  },
+  {
+    kind: 'leaf',
+    id: 'tags',
+    href: '/tags',
+    file: 'tags',
+    title: 'Tags',
+    icon: { type: 'huge', name: 'tag' },
+    activeWhen: startsWith('/tags'),
   },
   {
     kind: 'leaf',
@@ -231,11 +233,21 @@ const renderCommit = () => {
   }
 }
 const lastCommit = renderCommit()
+const lastCommitUrl =
+  lastCommit && lastCommit !== 'local'
+    ? `${SITE.siteRepo}/commit/${lastCommit}`
+    : SITE.siteRepo
+const SITE_VERSIONS = [
+  { value: 'latest', label: 'latest', href: '/', current: true },
+  { value: 'v3', label: 'v3', href: 'https://www.leohuynh.dev/' },
+  { value: 'v2', label: 'v2', href: 'https://leohuynhdev-git-v2-leo-huynhs-projects.vercel.app/' },
+  { value: 'v1', label: 'v1', href: 'https://leohuynhdev-git-v1-leo-huynhs-projects.vercel.app/' },
+]
 ---
 
 <div id={shellId} class="studio-shell grid h-screen grid-rows-[1fr_32px] overflow-hidden bg-bg" data-rail="visible">
   <div class="studio-workspace grid min-h-0 grid-cols-1 overflow-hidden lg:grid-cols-[260px_minmax(0,1fr)_360px]">
-    <aside class="thin-scrollbar hidden min-h-0 overflow-y-auto border-r border-line bg-[#f8fafc] p-3 lg:block">
+    <aside class="thin-scrollbar hidden min-h-0 overflow-y-auto border-r border-line bg-[#f8fafc] px-3 py-3 lg:block">
       <a href="/" class="mb-4 flex items-center gap-2.5 font-extrabold no-underline text-ink">
         <img
           src="/static/images/avatar.jpg"
@@ -260,26 +272,25 @@ const lastCommit = renderCommit()
                       data-folder-toggle={item.id}
                       aria-expanded="true"
                       class:list={[
-                        'explorer-row explorer-folder-row w-full rounded-md px-2 py-[6px] text-left font-mono text-[13px]',
+                        'explorer-row explorer-folder-row w-full py-[6px] text-left font-mono text-[13px]',
                         item.activeWhen?.(currentPath)
                           ? 'text-slate-950'
                           : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950',
                       ]}
                     >
                       <HugeIcon name="caret-down" class="explorer-caret text-slate-500" />
-                      {item.icon.type === 'brand' ? (
-                        <span class="brand-icon explorer-icon text-slate-500" set:html={BRAND_ICONS[item.icon.name]} />
-                      ) : (
-                        <HugeIcon name={item.icon.name} class="explorer-icon text-slate-500" />
-                      )}
+                      <span class="explorer-icon text-slate-500">
+                        <HugeIcon name="folder-open" class="folder-icon-open" />
+                        <HugeIcon name="folder" class="folder-icon-closed" />
+                      </span>
                       <span>{item.file}</span>
                     </button>
-                    <div class="mt-0.5 space-y-0.5 pl-[22px]" data-folder-children={item.id}>
+                    <div class="mt-0.5 space-y-0.5" data-folder-children={item.id}>
                       {item.children.map((child) => (
                         <a
                           href={child.href}
                           class:list={[
-                            'explorer-row rounded-md px-2 py-[5px] font-mono text-[13px] no-underline',
+                            'explorer-row explorer-row--child py-[5px] font-mono text-[13px] no-underline',
                             isActive(child)
                               ? 'bg-slate-200 text-slate-950'
                               : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950',
@@ -302,7 +313,7 @@ const lastCommit = renderCommit()
                     target={item.external || isExternal(item.href) ? '_blank' : undefined}
                     rel={item.external || isExternal(item.href) ? 'noreferrer' : undefined}
                     class:list={[
-                      'explorer-row group rounded-md px-2 py-[6px] font-mono text-[13px] no-underline',
+                      'explorer-row group py-[6px] font-mono text-[13px] no-underline',
                       isActive(item)
                         ? 'bg-slate-200 text-slate-950'
                         : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950',
@@ -371,37 +382,94 @@ const lastCommit = renderCommit()
 
   <footer class="studio-statusbar flex min-w-0 items-center justify-between gap-3 border-t border-line bg-white px-3 font-mono text-[12px] text-slate-600">
     <div class="flex min-w-0 items-center gap-3 overflow-hidden">
-      <span class="whitespace-nowrap">ICT <span data-local-time>--:--</span></span>
-      <span class="hidden whitespace-nowrap sm:inline">last commit <span class="text-slate-950">{lastCommit}</span></span>
-      <span class="hidden whitespace-nowrap sm:inline">made in Vietnam</span>
+      <a
+        href="https://time.is/Hanoi"
+        target="_blank"
+        rel="noreferrer"
+        class="whitespace-nowrap text-slate-700 underline decoration-slate-300 underline-offset-3 hover:text-slate-950"
+        data-local-time-link
+      >
+        Hanoi <span data-local-time>--:--</span> <span class="text-slate-400" data-local-time-diff></span>
+      </a>
+      <a
+        href={lastCommitUrl}
+        target="_blank"
+        rel="noreferrer"
+        class="hidden whitespace-nowrap text-slate-950 underline decoration-slate-300 underline-offset-3 hover:decoration-slate-950 sm:inline"
+        title="View last commit on GitHub"
+      >
+        #{lastCommit}
+      </a>
+      <span class="vn-badge hidden whitespace-nowrap sm:inline-flex" title="Made in Vietnam">
+        <span aria-hidden="true">🇻🇳</span>
+        made in Vietnam
+      </span>
     </div>
-    <div class="flex shrink-0 items-center gap-2">
-      <label class="flex items-center gap-1">
-        <span class="hidden sm:inline">theme</span>
-        <select data-code-theme-select class="status-select">
-          <option value="github-light-default">light</option>
-          <option value="github-dark-default">dark</option>
-        </select>
-      </label>
-      <label class="flex items-center gap-1">
-        <span class="hidden sm:inline">font</span>
-        <select data-code-font-select class="status-select">
-          <option value="ui-mono">ui-mono</option>
-          <option value="jetbrains">jetbrains</option>
-          <option value="sfmono">sfmono</option>
-        </select>
-      </label>
-    </div>
+    <label class="flex shrink-0 items-center gap-1 whitespace-nowrap">
+      <span class="hidden sm:inline">version</span>
+      <select class="status-select" data-version-select aria-label="Open site version">
+        {SITE_VERSIONS.map((version) => (
+          <option value={version.value} data-href={version.href} selected={version.current}>
+            {version.label}
+          </option>
+        ))}
+      </select>
+    </label>
   </footer>
 </div>
 
 <script is:inline>
   function initStudioShell() {
+    const root = document.documentElement
+    const toolbarMarkup = `<span class="code-toolbar ec-code-toolbar"><label><span class="hidden sm:inline">theme</span><select data-code-theme-select class="status-select"><option value="github-light-default">light</option><option value="github-dark-default">dark</option></select></label><label><span class="hidden sm:inline">font</span><select data-code-font-select class="status-select"><option value="ui-mono">ui-mono</option><option value="jetbrains">jetbrains</option><option value="sfmono">sfmono</option></select></label></span>`
+
+    const syncCodeControls = () => {
+      const theme = localStorage.getItem('leohuynh:code-theme') || 'github-light-default'
+      const font = localStorage.getItem('leohuynh:code-font') || 'ui-mono'
+      root.dataset.theme = theme
+      root.dataset.codeFont = font
+      document.querySelectorAll('[data-code-theme-select]').forEach((select) => {
+        select.value = theme
+      })
+      document.querySelectorAll('[data-code-font-select]').forEach((select) => {
+        select.value = font
+      })
+    }
+
+    document.querySelectorAll('.expressive-code figure.frame').forEach((frame) => {
+      if (frame.querySelector('.ec-code-toolbar')) return
+      frame.insertAdjacentHTML('afterbegin', toolbarMarkup)
+    })
+
+    syncCodeControls()
+    if (!window.__leohuynhCodeControlsBound) {
+      window.__leohuynhCodeControlsBound = true
+      document.addEventListener('change', (event) => {
+        const target = event.target
+        if (!(target instanceof HTMLSelectElement)) return
+        if (target.matches('[data-code-theme-select]')) {
+          localStorage.setItem('leohuynh:code-theme', target.value)
+          syncCodeControls()
+        }
+        if (target.matches('[data-code-font-select]')) {
+          localStorage.setItem('leohuynh:code-font', target.value)
+          syncCodeControls()
+        }
+        if (target.matches('[data-version-select]')) {
+          const option = target.selectedOptions[0]
+          const href = option?.dataset.href
+          if (target.value !== 'latest' && href) window.open(href, '_blank', 'noopener,noreferrer')
+          target.value = 'latest'
+        }
+      })
+    }
+
     document.querySelectorAll('.studio-shell').forEach((shell) => {
       const toggle = shell.querySelector('[data-toggle-rail]')
-      const saved = localStorage.getItem('leohuynh:right-rail') || 'visible'
+      const saved = root.dataset.rail || localStorage.getItem('leohuynh:right-rail') || 'visible'
       const setRail = (state) => {
         shell.dataset.rail = state
+        root.dataset.rail = state
         if (toggle) {
           toggle.textContent = state === 'hidden' ? 'show right rail' : 'hide right rail'
           toggle.setAttribute('aria-expanded', String(state !== 'hidden'))
@@ -412,7 +480,7 @@ const lastCommit = renderCommit()
       if (toggle && !toggle.dataset.bound) {
         toggle.dataset.bound = 'true'
         toggle.addEventListener('click', () => {
-          setRail(shell.dataset.rail === 'hidden' ? 'visible' : 'hidden')
+          setRail((root.dataset.rail || shell.dataset.rail) === 'hidden' ? 'visible' : 'hidden')
         })
       }
 
@@ -433,38 +501,23 @@ const lastCommit = renderCommit()
         })
       })
 
-      const root = document.documentElement
-      const themeSelect = shell.querySelector('[data-code-theme-select]')
-      const fontSelect = shell.querySelector('[data-code-font-select]')
-      const applyTheme = (value) => {
-        root.dataset.theme = value
-        localStorage.setItem('leohuynh:code-theme', value)
-        if (themeSelect) themeSelect.value = value
-      }
-      const applyFont = (value) => {
-        root.dataset.codeFont = value
-        localStorage.setItem('leohuynh:code-font', value)
-        if (fontSelect) fontSelect.value = value
-      }
-      applyTheme(localStorage.getItem('leohuynh:code-theme') || 'github-light-default')
-      applyFont(localStorage.getItem('leohuynh:code-font') || 'ui-mono')
-      if (themeSelect && !themeSelect.dataset.bound) {
-        themeSelect.dataset.bound = 'true'
-        themeSelect.addEventListener('change', (event) => applyTheme(event.target.value))
-      }
-      if (fontSelect && !fontSelect.dataset.bound) {
-        fontSelect.dataset.bound = 'true'
-        fontSelect.addEventListener('change', (event) => applyFont(event.target.value))
-      }
-
       const timeEl = shell.querySelector('[data-local-time]')
+      const diffEl = shell.querySelector('[data-local-time-diff]')
       const updateTime = () => {
         if (!timeEl) return
-        timeEl.textContent = new Intl.DateTimeFormat('en-GB', {
+        const date = new Date()
+        const hanoiOffset = -420
+        const visitorOffset = date.getTimezoneOffset()
+        const hoursDiff = (visitorOffset - hanoiOffset) / 60
+        const diff = hoursDiff === 0 ? 'same time' : hoursDiff > 0 ? `${hoursDiff}h ahead` : `${Math.abs(hoursDiff)}h behind`
+        timeEl.textContent = new Intl.DateTimeFormat('en-US', {
           timeZone: 'Asia/Ho_Chi_Minh',
           hour: '2-digit',
           minute: '2-digit',
-        }).format(new Date())
+          hour12: true,
+          timeZoneName: 'short',
+        }).format(date)
+        if (diffEl) diffEl.textContent = `- ${diff}`
       }
       updateTime()
       if (!shell.dataset.timeBound) {

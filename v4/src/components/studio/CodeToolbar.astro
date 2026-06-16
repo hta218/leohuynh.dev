@@ -1,0 +1,28 @@
+---
+/**
+ * Shared code-block toolbar (theme + font controls).
+ *
+ * Used directly by `CodeBlock.astro` (home build log) and cloned at runtime into
+ * every Expressive Code frame. The `[data-code-theme-select]` /
+ * `[data-code-font-select]` hooks are wired up by the global script in
+ * `StudioShell.astro`, which keeps every toolbar on the page in sync.
+ */
+---
+
+<span class="code-toolbar">
+  <label>
+    <span class="hidden sm:inline">theme</span>
+    <select data-code-theme-select class="status-select">
+      <option value="github-light-default">light</option>
+      <option value="github-dark-default">dark</option>
+    </select>
+  </label>
+  <label>
+    <span class="hidden sm:inline">font</span>
+    <select data-code-font-select class="status-select">
+      <option value="ui-mono">ui-mono</option>
+      <option value="jetbrains">jetbrains</option>
+      <option value="sfmono">sfmono</option>
+    </select>
+  </label>
+</span>

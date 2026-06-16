@@ -8,10 +8,12 @@ import {
   ExternalLinkIcon,
   File01Icon,
   FileCodeIcon,
+  Folder01Icon,
   FolderOpenIcon,
   KeyboardIcon,
   Message02Icon,
   Note01Icon,
+  Rocket01Icon,
   StarIcon,
   Tag01Icon,
   UserCircleIcon,
@@ -27,9 +29,11 @@ type IconName =
   | 'external'
   | 'file'
   | 'folder'
+  | 'folder-open'
   | 'keyboard'
   | 'markdown'
   | 'project'
+  | 'rocket'
   | 'star'
   | 'tag'
   | 'user'
@@ -46,7 +50,7 @@ interface Props {
 const {
   name,
   class: className = '',
-  size = 15,
+  size = 16,
   strokeWidth = 1.8,
   title,
 } = Astro.props
@@ -59,10 +63,12 @@ const ICONS = {
   comment: Message02Icon,
   external: ExternalLinkIcon,
   file: File01Icon,
-  folder: FolderOpenIcon,
+  folder: Folder01Icon,
+  'folder-open': FolderOpenIcon,
   keyboard: KeyboardIcon,
   markdown: Note01Icon,
   project: CodeSquareIcon,
+  rocket: Rocket01Icon,
   star: StarIcon,
   tag: Tag01Icon,
   user: UserCircleIcon,

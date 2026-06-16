@@ -33,7 +33,11 @@ export interface GithubRepository {
 const GITHUB_GRAPHQL_ENDPOINT = 'https://api.github.com/graphql'
 
 function env(name: string): string | undefined {
-  return process.env[name]?.trim() || undefined
+  const viteEnv =
+    typeof import.meta !== 'undefined' && import.meta.env
+      ? (import.meta.env as Record<string, string | undefined>)
+      : undefined
+  return (viteEnv?.[name] ?? process.env[name])?.trim() || undefined
 }
 
 function timeoutSignal(ms = 8000): AbortSignal {
