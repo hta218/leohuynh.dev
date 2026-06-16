@@ -1,5 +1,29 @@
 # Work Logs
 
+## 2026-06-16 — Claude — M10 Astro 6 upgrade
+
+### Scope
+Upgrade from Astro 5.18.2 → 6.4.7 after Leo asked why the project wasn't on the latest version.
+The original reason for staying on Astro 5 (M4) was a missing Vercel adapter; that blocker no longer applies
+for this static build.
+
+### What changed
+- `v4/package.json` — bumped `astro` ^5.7.0 → ^6.4.7, `@astrojs/mdx` ^4 → ^6, `@astrojs/react` ^4 → ^5,
+  plus minor bumps for `@astrojs/rss`, `@astrojs/sitemap`, `@tailwindcss/vite`, `tailwindcss`.
+- `v4/src/content.config.ts` — fixed deprecated `z` import: `astro:content` → `astro/zod`.
+- `v4/astro.config.mjs` — replaced deprecated `markdown.remarkPlugins` with new
+  `markdown.processor: unified({ remarkPlugins: [remarkCodeTitles] })` from `@astrojs/markdown-remark`.
+
+### No-change items (already compatible)
+- `astro-expressive-code@0.43.1` — already at latest, already supports Astro 6.
+- Content Collections — already using `loader: glob()` API.
+- `<ClientRouter />` — already correct import.
+- Node 26.3.0 — satisfies Astro 6's Node ≥ 22.12.0 requirement.
+
+### Verification
+- `bun run check` ✅ 0 errors / 0 warnings / 0 hints (51 files). Zero deprecation warnings.
+- `bun run build` ✅ 236 page(s) built — same count as pre-upgrade.
+
 ## 2026-06-16 — Hermes — M9 sidebar/assets/codeblock polish
 
 ### Scope

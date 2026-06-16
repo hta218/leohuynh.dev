@@ -166,7 +166,23 @@ root (or flip the build), retire the Next.js app, and update Vercel project root
 - [x] Upgrade code blocks with language badge, default light/dark theme selector, and font selector.
 - [x] Re-run check/build, local smoke, browser QA.
 
-### M10 — Production cutover (after Leo approves polished preview)
+### M10 — Astro 6 upgrade ✅ (2026-06-16)
+- [x] Bump `astro` ^5.7.0 → ^6.4.7 and all official integrations to Astro-6-compatible majors:
+      `@astrojs/mdx` ^4 → ^6, `@astrojs/react` ^4 → ^5, `@astrojs/rss` + `@astrojs/sitemap` minor bumps.
+- [x] Fix deprecated `z` import: `import { z } from 'astro:content'` → `import { z } from 'astro/zod'`
+      in `src/content.config.ts`.
+- [x] Fix deprecated `markdown.remarkPlugins` → `markdown.processor: unified({ remarkPlugins })` from
+      `@astrojs/markdown-remark` in `astro.config.mjs`.
+- [x] `bun install` — lockfile updated, 42 packages refreshed.
+- [x] `bun run check` → 0 errors / 0 warnings / 0 hints (51 files). No deprecation warnings.
+- [x] `bun run build` → 236 page(s) built. Same count as pre-upgrade.
+- Notes:
+  - `astro-expressive-code@0.43.1` already supports Astro 6 — no change needed.
+  - Content Collections already use the new `loader: glob()` API — no change needed.
+  - `<ClientRouter />` import already correct — no change needed.
+  - Node 26.3.0 satisfies Astro 6's Node ≥ 22.12.0 requirement.
+
+### M11 — Production cutover (after Leo approves polished preview)
 - [ ] Hoist `v4/` to repo root or permanently set Vercel Root Directory = `v4`.
 - [ ] Remove/retire legacy root Next app from production path.
 - [ ] Final preview smoke, then promote/merge to production with rollback path.
