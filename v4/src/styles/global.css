@@ -106,7 +106,7 @@ body {
   margin-right: -12px;
   padding-left: 12px;
   padding-right: 12px;
-  border-radius: 6px;
+  border-radius: 0;
 }
 
 /* Nested file rows sit one icon-step further in than their folder. */
@@ -115,6 +115,7 @@ body {
 }
 
 .explorer-folder-row {
+  width: calc(100% + 24px);
   cursor: pointer;
 }
 

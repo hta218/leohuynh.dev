@@ -272,9 +272,9 @@ const SITE_VERSIONS = [
                       data-folder-toggle={item.id}
                       aria-expanded="true"
                       class:list={[
-                        'explorer-row explorer-folder-row w-full py-[6px] text-left font-mono text-[13px]',
+                        'explorer-row explorer-folder-row py-[6px] text-left font-mono text-[13px]',
                         item.activeWhen?.(currentPath)
-                          ? 'text-slate-950'
+                          ? 'bg-slate-200 text-slate-950'
                           : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950',
                       ]}
                     >
