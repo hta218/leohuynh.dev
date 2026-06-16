@@ -73,7 +73,7 @@
     "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.9.4",
+    "@biomejs/biome": "2.5.0",
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@svgr/webpack": "^8.1.0",
