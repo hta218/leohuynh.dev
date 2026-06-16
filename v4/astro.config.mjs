@@ -1,4 +1,5 @@
 import mdx from '@astrojs/mdx'
+import { unified } from '@astrojs/markdown-remark'
 import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
 import tailwindcss from '@tailwindcss/vite'
@@ -36,8 +37,9 @@ export default defineConfig({
     sitemap(),
   ],
   markdown: {
-    // Normalize legacy `lang:title` fences before Expressive Code renders them.
-    remarkPlugins: [remarkCodeTitles],
+    processor: unified({
+      remarkPlugins: [remarkCodeTitles],
+    }),
   },
   // Preserve the legacy 301 (next.config.js redirects()). In static output Astro
   // emits a redirect page; on a Vercel deploy this maps to a real 301.

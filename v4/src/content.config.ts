@@ -1,5 +1,6 @@
-import { defineCollection, z } from 'astro:content'
+import { defineCollection } from 'astro:content'
 import { glob } from 'astro/loaders'
+import { z } from 'astro/zod'
 
 /**
  * v4 content schema — mirrors the legacy `contentlayer.config.ts` field set so MDX
