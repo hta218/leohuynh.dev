@@ -20,6 +20,11 @@
     "lineEnding": "lf"
   },
   "assist": { "actions": { "source": { "organizeImports": "on" } } },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    }
+  },
   "linter": {
     "enabled": true,
     "rules": {
@@ -28,8 +33,12 @@
         "useKeyWithClickEvents": "off",
         "useFocusableInteractive": "off"
       },
+      "complexity": {
+        "noImportantStyles": "off"
+      },
       "style": {
-        "useConst": "off"
+        "useConst": "off",
+        "noDescendingSpecificity": "off"
       },
       "suspicious": {
         "noShadowRestrictedNames": "off"

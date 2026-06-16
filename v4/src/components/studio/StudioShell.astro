@@ -271,12 +271,7 @@ const SITE_VERSIONS = [
                       type="button"
                       data-folder-toggle={item.id}
                       aria-expanded="true"
-                      class:list={[
-                        'explorer-row explorer-folder-row py-[6px] text-left font-mono text-[13px]',
-                        item.activeWhen?.(currentPath)
-                          ? 'bg-slate-200 text-slate-950'
-                          : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950',
-                      ]}
+                      class="explorer-row explorer-folder-row py-1.5 text-left font-mono text-[13px] text-slate-600 hover:bg-slate-100 hover:text-slate-950"
                     >
                       <HugeIcon name="caret-down" class="explorer-caret text-slate-500" />
                       <span class="explorer-icon text-slate-500">
@@ -290,7 +285,7 @@ const SITE_VERSIONS = [
                         <a
                           href={child.href}
                           class:list={[
-                            'explorer-row explorer-row--child py-[5px] font-mono text-[13px] no-underline',
+                            'explorer-row explorer-row--child py-1.5 font-mono text-[13px] no-underline',
                             isActive(child)
                               ? 'bg-slate-200 text-slate-950'
                               : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950',
@@ -421,8 +416,6 @@ const SITE_VERSIONS = [
 <script is:inline>
   function initStudioShell() {
     const root = document.documentElement
-    const toolbarMarkup = `<span class="code-toolbar ec-code-toolbar"><label><span class="hidden sm:inline">theme</span><select data-code-theme-select class="status-select"><option value="github-light-default">light</option><option value="github-dark-default">dark</option></select></label><label><span class="hidden sm:inline">font</span><select data-code-font-select class="status-select"><option value="ui-mono">ui-mono</option><option value="jetbrains">jetbrains</option><option value="sfmono">sfmono</option></select></label></span>`
-
     const syncCodeControls = () => {
       const theme = localStorage.getItem('leohuynh:code-theme') || 'github-light-default'
       const font = localStorage.getItem('leohuynh:code-font') || 'ui-mono'
@@ -438,7 +431,22 @@ const SITE_VERSIONS = [
 
     document.querySelectorAll('.expressive-code figure.frame').forEach((frame) => {
       if (frame.querySelector('.ec-code-toolbar')) return
-      frame.insertAdjacentHTML('afterbegin', toolbarMarkup)
+      const figcaption = frame.querySelector('figcaption.header')
+      if (!figcaption) return
+      const pre = frame.querySelector('pre[data-language]')
+      const lang = pre?.getAttribute('data-language')?.toUpperCase() || ''
+      const titleEl = figcaption.querySelector('.title')
+      if (lang) {
+        const badge = document.createElement('span')
+        badge.className = 'ec-lang-badge'
+        badge.textContent = lang
+        if (titleEl) figcaption.insertBefore(badge, titleEl)
+        else figcaption.prepend(badge)
+      }
+      const toolbar = document.createElement('span')
+      toolbar.className = 'code-toolbar ec-code-toolbar'
+      toolbar.innerHTML = '<label><span class="hidden sm:inline">theme</span><select data-code-theme-select class="status-select"><option value="github-light-default">light</option><option value="github-dark-default">dark</option></select></label><label><span class="hidden sm:inline">font</span><select data-code-font-select class="status-select"><option value="ui-mono">ui-mono</option><option value="jetbrains">jetbrains</option><option value="sfmono">sfmono</option></select></label>'
+      figcaption.appendChild(toolbar)
     })
 
     syncCodeControls()
@@ -490,14 +498,18 @@ const SITE_VERSIONS = [
         const id = button.getAttribute('data-folder-toggle')
         const children = shell.querySelector(`[data-folder-children="${id}"]`)
         const caret = button.querySelector('.explorer-caret')
+        const storageKey = `leohuynh:folder:${id}`
         const setOpen = (open) => {
           button.setAttribute('aria-expanded', String(open))
           if (children) children.hidden = !open
           if (caret) caret.style.transform = open ? 'rotate(0deg)' : 'rotate(-90deg)'
         }
-        setOpen(true)
+        const saved = localStorage.getItem(storageKey)
+        setOpen(saved !== 'false')
         button.addEventListener('click', () => {
-          setOpen(button.getAttribute('aria-expanded') !== 'true')
+          const next = button.getAttribute('aria-expanded') !== 'true'
+          localStorage.setItem(storageKey, String(next))
+          setOpen(next)
         })
       })
 

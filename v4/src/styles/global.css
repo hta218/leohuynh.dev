@@ -17,11 +17,12 @@
   --color-code-red: #7f1d1d;
   --color-code-amber: #57534e;
 
-  --font-sans: Inter, ui-sans-serif, system-ui, -apple-system,
-    BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-sans:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  --code-font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    monospace;
+  --code-font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 html,
@@ -167,18 +168,19 @@ body {
 }
 
 html[data-code-font="ui-mono"] {
-  --code-font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    monospace;
+  --code-font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 html[data-code-font="jetbrains"] {
-  --code-font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo,
-    Monaco, Consolas, monospace;
+  --code-font-family:
+    "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    monospace;
 }
 
 html[data-code-font="sfmono"] {
-  --code-font-family: SFMono-Regular, ui-monospace, Menlo, Monaco, Consolas,
-    monospace;
+  --code-font-family:
+    SFMono-Regular, ui-monospace, Menlo, Monaco, Consolas, monospace;
 }
 
 .twemoji {
@@ -384,36 +386,50 @@ html[data-theme="github-dark-default"] .expressive-code figure.frame {
   gap: 4px;
 }
 
-/* Toolbar floated into an Expressive Code frame's top-right corner. */
-.expressive-code .ec-code-toolbar {
-  position: absolute;
-  top: 7px;
-  right: 10px;
-  z-index: 3;
+/* EC figcaption — match the home CodeBlock codeblock-header look.
+ * :has(.ec-code-toolbar) activates after JS injection, also forces
+ * empty figcaptions (untitled frames) to become visible. */
+.expressive-code figcaption.header:has(.ec-code-toolbar) {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 7px 10px 7px 12px !important;
+  background: var(--color-panel) !important;
+  border-bottom: 1px solid var(--color-line) !important;
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  color: var(--color-muted) !important;
+  min-height: unset !important;
+  height: auto !important;
 }
 
-/* Hide the language pill when our toolbar is present to avoid overlap. */
-.expressive-code .frame:has(.ec-code-toolbar) pre[data-language]::before {
-  display: none;
+/* Title inside EC figcaption */
+.expressive-code figcaption.header .title {
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  color: var(--color-muted) !important;
 }
 
-.expressive-code pre[data-language]::before {
-  content: attr(data-language);
-  position: absolute;
-  top: 8px;
-  right: 42px;
-  z-index: 2;
-  border: 1px solid color-mix(in srgb, currentColor 16%, transparent);
-  border-radius: 999px;
-  background: color-mix(in srgb, Canvas 88%, transparent);
-  padding: 2px 7px;
-  color: color-mix(in srgb, currentColor 72%, transparent);
+/* Push toolbar to the far right */
+.expressive-code figcaption.header .ec-code-toolbar {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+/* Language badge — compact monospace pill left of the filename */
+.ec-lang-badge {
+  flex-shrink: 0;
   font-family: var(--font-mono);
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.03em;
-  line-height: 1.4;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
+  color: color-mix(in srgb, currentColor 50%, transparent);
+  border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+  border-radius: 4px;
+  padding: 1px 5px;
+  line-height: 1.4;
+  white-space: nowrap;
 }
 .prose img:not(.twemoji) {
   max-width: 100%;
