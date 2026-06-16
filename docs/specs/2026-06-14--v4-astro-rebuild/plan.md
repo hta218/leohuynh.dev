@@ -135,7 +135,19 @@ root (or flip the build), retire the Next.js app, and update Vercel project root
 - [x] Show actual route filenames only: `index.astro` + `[...slug].astro`.
 - [x] Re-run check/build, local smoke, browser QA, and screenshots.
 
-### M8 — Production cutover (after Leo approves polished preview)
+### M8 — Icons/comments/Twemoji follow-up requested by Leo (2026-06-16)
+- [x] Use `Howdy, fellow!` greeting with inline waving-hand Twemoji and no `I'm Leo` in H1.
+- [x] Rewrite home paragraph using current bios details: Tuan Anh Huynh / Leo alias, learner-builder-freedom seeker, Hanoi, JS/TS, eCommerce, Shopify Hydrogen.
+- [x] Use `/static/images/logo.jpg` avatar in the left sidebar logo area.
+- [x] Collapse sidebar to one Explorer tree.
+- [x] Use folder icons for `posts/` and `snippets/`, with children `index.astro` and `[...slug].astro`.
+- [x] Rename about route display to `about.md` with markdown icon.
+- [x] Integrate Hugeicons free for generic UI/nav icons while keeping Simple Icons for brand marks.
+- [x] Restore Giscus comments on blog and snippet detail pages.
+- [x] Replace native emoji rendering with managed self-hosted Twemoji SVG assets instead of a hand-written CSS class map.
+- [x] Re-run check/build, local smoke, browser QA.
+
+### M9 — Production cutover (after Leo approves polished preview)
 - [ ] Hoist `v4/` to repo root or permanently set Vercel Root Directory = `v4`.
 - [ ] Remove/retire legacy root Next app from production path.
 - [ ] Final preview smoke, then promote/merge to production with rollback path.

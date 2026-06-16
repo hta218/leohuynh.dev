@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { emojiGlyph } from '~/lib/emoji'
+import Twemoji from '~/components/icons/Twemoji'
 import { fetchStats, postStats } from '~/lib/stats'
 import type { ReactionKey, StatsType } from '~/types/stats'
 
@@ -111,12 +111,8 @@ export default function Reactions({
             data-umami-event-post={storageKey}
             data-umami-event-react={key}
           >
-            <span
-              role="img"
-              aria-hidden="true"
-              className="text-2xl leading-none transition-transform hover:scale-110"
-            >
-              {emojiGlyph(emoji)}
+            <span className="transition-transform hover:scale-110">
+              <Twemoji emoji={emoji} size="2x" />
             </span>
             <span className="font-mono text-xs font-semibold text-muted">
               {base === null && added === 0 ? '--' : display}

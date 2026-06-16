@@ -1,5 +1,6 @@
 ---
 import StudioShell from '~/components/studio/StudioShell.astro'
+import HugeIcon from '~/components/icons/HugeIcon.astro'
 import BaseLayout from '~/layouts/BaseLayout.astro'
 import { fetchGithubRepository, type GithubRepository } from '~/lib/github'
 import { PROJECTS, type Project } from '~/lib/projects'
@@ -95,7 +96,10 @@ function formatDate(value: string | undefined): string | undefined {
                     {p.repository ? (
                       <div>
                         <div class="text-[10px] uppercase tracking-[0.08em] text-slate-400">Stars</div>
-                        <div class="mt-1 text-slate-900">★ {p.repository.stargazerCount}</div>
+                        <div class="mt-1 flex items-center gap-1.5 text-slate-900">
+                          <HugeIcon name="star" class="text-slate-500" />
+                          {p.repository.stargazerCount}
+                        </div>
                       </div>
                     ) : (
                       <div>

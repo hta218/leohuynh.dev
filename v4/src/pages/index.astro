@@ -1,6 +1,8 @@
 ---
 import { getCollection } from 'astro:content'
+import Twemoji from '~/components/mdx/Twemoji.astro'
 import StudioShell from '~/components/studio/StudioShell.astro'
+import HugeIcon from '~/components/icons/HugeIcon.astro'
 import BaseLayout from '~/layouts/BaseLayout.astro'
 
 const isPublished = (d: { data: { draft?: boolean } }) => d.data.draft !== true
@@ -11,6 +13,13 @@ const posts = (await getCollection('blog', isPublished)).sort(
 const snippets = await getCollection('snippets', isPublished)
 const latest = posts.slice(0, 3)
 
+const exploreCards = [
+  { href: '/snippets', label: 'snippets/', desc: 'reusable code bits', icon: 'code' },
+  { href: '/projects', label: 'projects/', desc: 'things I built', icon: 'folder' },
+  { href: '/books', label: 'books/', desc: 'what I read', icon: 'book' },
+  { href: '/movies', label: 'movies/', desc: 'what I watch', icon: 'file' },
+] as const
+
 const dateFmt = new Intl.DateTimeFormat('en-CA') // YYYY-MM-DD
 ---
 
@@ -20,13 +29,13 @@ const dateFmt = new Intl.DateTimeFormat('en-CA') // YYYY-MM-DD
     <div class="grid items-end gap-6 border-b border-line pb-9">
       <div>
         <h1
-          class="m-0 max-w-[760px] text-[clamp(38px,7vw,84px)] leading-[0.92] tracking-[-0.07em]"
+          class="m-0 max-w-[800px] text-[clamp(40px,6vw,74px)] leading-[0.96] tracking-[-0.07em]"
         >
-          Hi, I’m Leo.
+          Howdy, fellow! <Twemoji emoji="waving-hand" size="base" className="twemoji-heading" />
         </h1>
-        <p class="mt-5 max-w-[680px] text-lg leading-relaxed text-muted">
-          I build eCommerce software and write about JavaScript, Shopify Hydrogen,
-          and developer workflows.
+        <p class="mt-5 max-w-[700px] text-lg leading-relaxed text-muted">
+          Tuan Anh Huynh, aliased Leo at work — a learner, builder, and freedom
+          seeker in Hanoi, building eCommerce software with JS/TS and Shopify Hydrogen.
         </p>
         <div class="mt-6 flex flex-wrap gap-2">
           {
@@ -41,15 +50,24 @@ const dateFmt = new Intl.DateTimeFormat('en-CA') // YYYY-MM-DD
 
       <div class="grid w-[min(520px,100%)] grid-cols-3 gap-2">
         <div class="rounded-2xl border border-line bg-white p-3">
-          <b class="block text-[28px]">{posts.length}</b>
+          <div class="flex items-center justify-between">
+            <b class="block text-[28px]">{posts.length}</b>
+            <HugeIcon name="folder" class="text-slate-400" />
+          </div>
           <span class="font-mono text-[11px] text-muted">posts</span>
         </div>
         <div class="rounded-2xl border border-line bg-white p-3">
-          <b class="block text-[28px]">{snippets.length}</b>
+          <div class="flex items-center justify-between">
+            <b class="block text-[28px]">{snippets.length}</b>
+            <HugeIcon name="code" class="text-slate-400" />
+          </div>
           <span class="font-mono text-[11px] text-muted">snippets</span>
         </div>
         <div class="rounded-2xl border border-line bg-white p-3">
-          <b class="block text-[28px]">—</b>
+          <div class="flex items-center justify-between">
+            <b class="block text-[28px]">—</b>
+            <HugeIcon name="analytics" class="text-slate-400" />
+          </div>
           <span class="font-mono text-[11px] text-muted">views</span>
         </div>
       </div>
@@ -90,17 +108,14 @@ const dateFmt = new Intl.DateTimeFormat('en-CA') // YYYY-MM-DD
       </div>
       <div class="grid grid-cols-2 gap-3 md:grid-cols-4">
         {
-          [
-            { href: '/snippets', label: 'snippets/', desc: 'reusable code bits' },
-            { href: '/projects', label: 'projects/', desc: 'things I built' },
-            { href: '/books', label: 'books/', desc: 'what I read' },
-            { href: '/movies', label: 'movies/', desc: 'what I watch' },
-          ].map((c) => (
+          exploreCards.map((c) => (
             <a
               href={c.href}
               class="rounded-2xl border border-line bg-white p-4 no-underline transition-shadow hover:shadow-[4px_4px_0_var(--color-line)]"
             >
-              <div class="font-mono text-sm text-code-blue">▸ {c.label}</div>
+              <div class="flex items-center gap-2 font-mono text-sm text-slate-900">
+                <HugeIcon name={c.icon} class="text-slate-500" /> {c.label}
+              </div>
               <div class="mt-1 text-[13px] text-muted">{c.desc}</div>
             </a>
           ))

@@ -5,9 +5,9 @@ import GoodreadsIcon from '../../../../icons/goodreads.svg?raw'
 import ImdbIcon from '../../../../icons/imdb.svg?raw'
 import MarkdownIcon from '../../../../icons/markdown.svg?raw'
 import UmamiIcon from '../../../../icons/umami.svg?raw'
-import VSCodeIcon from '../../../../icons/vscode.svg?raw'
 import { getCollection } from 'astro:content'
-import { MORE_LINKS, NAV_LINKS } from '~/lib/site'
+import HugeIcon from '~/components/icons/HugeIcon.astro'
+import { SITE } from '~/lib/site'
 import RuntimeRail from './RuntimeRail.astro'
 
 interface Props {
@@ -17,27 +17,27 @@ interface Props {
   crumb?: string
 }
 
-type IconName =
-  | 'astro'
-  | 'markdown'
-  | 'github'
-  | 'goodreads'
-  | 'imdb'
-  | 'umami'
-  | 'vscode'
+type BrandIconName = 'astro' | 'github' | 'goodreads' | 'imdb' | 'markdown' | 'umami'
+type HugeIconName = 'analytics' | 'book' | 'code' | 'file' | 'folder' | 'home' | 'markdown' | 'tag' | 'user'
+type TreeItem = {
+  href: string
+  file: string
+  title?: string
+  icon: { type: 'brand'; name: BrandIconName } | { type: 'huge'; name: HugeIconName }
+  children?: TreeItem[]
+}
 
 const { active = '/', crumb = '~/leohuynh.dev/main' } = Astro.props
 const isExternal = (href: string) => href.startsWith('http')
 const isPublished = (d: { data: { draft?: boolean } }) => d.data.draft !== true
 
-const ICONS: Record<IconName, string> = {
+const BRAND_ICONS: Record<BrandIconName, string> = {
   astro: AstroIcon,
-  markdown: MarkdownIcon,
   github: GitHubIcon,
   goodreads: GoodreadsIcon,
   imdb: ImdbIcon,
+  markdown: MarkdownIcon,
   umami: UmamiIcon,
-  vscode: VSCodeIcon,
 }
 
 const [posts, snippets] = await Promise.all([
@@ -48,124 +48,122 @@ const [posts, snippets] = await Promise.all([
 const latestPost = posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())[0]
 const latestSnippet = snippets.sort((a, b) => b.id.localeCompare(a.id))[0]
 
-const routeFolders = [
+const explorerItems: TreeItem[] = [
+  { href: '/', file: 'README.md', title: 'Home', icon: { type: 'huge', name: 'home' } },
   {
-    label: 'posts/',
-    items: [
-      { href: '/blog', file: 'index.astro' },
-      { href: latestPost ? `/blog/${latestPost.id}` : '/blog', file: '[...slug].astro' },
-    ],
-  },
-  {
-    label: 'snippets/',
-    items: [
-      { href: '/snippets', file: 'index.astro' },
+    href: '/blog',
+    file: 'posts/',
+    title: 'Posts',
+    icon: { type: 'huge', name: 'folder' },
+    children: [
+      { href: '/blog', file: 'index.astro', icon: { type: 'brand', name: 'astro' } },
       {
-        href: latestSnippet ? `/snippets/${latestSnippet.id}` : '/snippets',
+        href: latestPost ? `/blog/${latestPost.id}` : '/blog',
         file: '[...slug].astro',
+        icon: { type: 'brand', name: 'astro' },
       },
     ],
   },
+  {
+    href: '/snippets',
+    file: 'snippets/',
+    title: 'Snippets',
+    icon: { type: 'huge', name: 'folder' },
+    children: [
+      { href: '/snippets', file: 'index.astro', icon: { type: 'brand', name: 'astro' } },
+      {
+        href: latestSnippet ? `/snippets/${latestSnippet.id}` : '/snippets',
+        file: '[...slug].astro',
+        icon: { type: 'brand', name: 'astro' },
+      },
+    ],
+  },
+  { href: '/projects', file: 'projects.astro', title: 'Projects', icon: { type: 'brand', name: 'github' } },
+  { href: '/about', file: 'about.md', title: 'About', icon: { type: 'brand', name: 'markdown' } },
+  { href: '/books', file: 'books.astro', title: 'Books', icon: { type: 'huge', name: 'book' } },
+  { href: '/movies', file: 'movies.astro', title: 'Movies', icon: { type: 'brand', name: 'imdb' } },
+  { href: '/tags', file: 'tags/', title: 'Tags', icon: { type: 'huge', name: 'tag' } },
+  {
+    href: SITE.analytics.umamiShareUrl,
+    file: 'analytics.url',
+    title: 'Analytics',
+    icon: { type: 'huge', name: 'analytics' },
+  },
 ]
 
-const routeLinks: Array<{
-  href: string
-  title: string
-  icon: IconName
-  file: string
-}> = [
-  { href: '/', title: 'Home', icon: 'markdown', file: 'README.md' },
-  ...NAV_LINKS.map((link) => ({
-    ...link,
-    icon: link.href === '/projects' ? ('github' as const) : ('astro' as const),
+const tabLinks = explorerItems
+  .filter((item) => !isExternal(item.href))
+  .slice(0, 5)
+  .map((item) => ({
+    ...item,
     file:
-      link.href === '/blog'
+      item.href === '/blog'
         ? 'blog/index.astro'
-        : link.href === '/snippets'
+        : item.href === '/snippets'
           ? 'snippets/index.astro'
-          : link.href === '/projects'
-            ? 'projects.astro'
-            : 'about.astro',
-  })),
-  ...MORE_LINKS.map((link) => ({
-    ...link,
-    icon:
-      link.href === '/books'
-        ? ('goodreads' as const)
-        : link.href === '/movies'
-          ? ('imdb' as const)
-          : link.href === '/tags'
-            ? ('astro' as const)
-            : ('umami' as const),
-    file:
-      link.href === '/books'
-        ? 'books.astro'
-        : link.href === '/movies'
-          ? 'movies.astro'
-          : link.href === '/tags'
-            ? 'tags/index.astro'
-            : 'analytics.url',
-  })),
-]
+          : item.file,
+  }))
 
-const tabLinks = routeLinks.filter((link) => !isExternal(link.href)).slice(0, 5)
 const shellId = `studio-${Math.random().toString(36).slice(2)}`
+const isActive = (href: string) => active === href
 ---
 
 <div id={shellId} class="studio-shell grid h-screen grid-rows-[1fr_30px] overflow-hidden bg-bg" data-rail="visible">
   <div class="studio-workspace grid min-h-0 grid-cols-1 overflow-hidden lg:grid-cols-[260px_minmax(0,1fr)_360px]">
     <aside class="thin-scrollbar hidden min-h-0 overflow-y-auto border-r border-line bg-[#f8fafc] p-3 lg:block">
       <a href="/" class="mb-4 flex items-center gap-2.5 font-extrabold no-underline text-ink">
-        <span class="grid h-[30px] w-[30px] place-items-center rounded-lg border border-ink bg-white font-mono text-xs shadow-[3px_3px_0_var(--color-ink)]">LH</span>
+        <img
+          src="/static/images/logo.jpg"
+          alt="Leo Huynh"
+          width="34"
+          height="34"
+          class="h-[34px] w-[34px] rounded-xl border border-ink object-cover shadow-[3px_3px_0_var(--color-ink)]"
+        />
         <span>leo workspace</span>
       </a>
-
-      <section class="mb-5">
-        <h3 class="mb-2 font-mono text-[11px] uppercase tracking-[0.08em] text-muted">routes</h3>
-        <div class="space-y-3">
-          {
-            routeFolders.map((folder) => (
-              <div>
-                <div class="mb-1 flex items-center gap-2 px-2 font-mono text-xs font-semibold text-slate-700">
-                  <span class="brand-icon text-slate-500" set:html={ICONS.astro} />
-                  <span>{folder.label}</span>
-                </div>
-                <div class="space-y-1 pl-4">
-                  {folder.items.map((item) => (
-                    <a
-                      href={item.href}
-                      class="flex items-center gap-2 rounded-md px-2 py-[5px] font-mono text-[11px] text-slate-600 no-underline hover:bg-slate-100 hover:text-slate-950"
-                    >
-                      <span class="brand-icon text-slate-500" set:html={ICONS.astro} />
-                      <span>{item.file}</span>
-                    </a>
-                  ))}
-                </div>
-              </div>
-            ))
-          }
-        </div>
-      </section>
 
       <section class="mb-5">
         <h3 class="mb-2 font-mono text-[11px] uppercase tracking-[0.08em] text-muted">explorer</h3>
         <nav class="space-y-1">
           {
-            routeLinks.map((item) => (
-              <a
-                href={item.href}
-                target={isExternal(item.href) ? '_blank' : undefined}
-                rel={isExternal(item.href) ? 'noreferrer' : undefined}
-                class:list={[
-                  'flex items-center gap-2 rounded-md px-2 py-[6px] font-mono text-xs no-underline',
-                  active === item.href
-                    ? 'bg-slate-200 text-slate-950'
-                    : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950',
-                ]}
-              >
-                <span class="brand-icon text-slate-500" set:html={ICONS[item.icon]} />
-                <span>{item.file}</span>
-              </a>
+            explorerItems.map((item) => (
+              <div>
+                <a
+                  href={item.href}
+                  target={isExternal(item.href) ? '_blank' : undefined}
+                  rel={isExternal(item.href) ? 'noreferrer' : undefined}
+                  class:list={[
+                    'flex items-center gap-2 rounded-md px-2 py-[6px] font-mono text-xs no-underline',
+                    isActive(item.href)
+                      ? 'bg-slate-200 text-slate-950'
+                      : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950',
+                  ]}
+                >
+                  {item.icon.type === 'brand' ? (
+                    <span class="brand-icon text-slate-500" set:html={BRAND_ICONS[item.icon.name]} />
+                  ) : (
+                    <HugeIcon name={item.icon.name} class="text-slate-500" />
+                  )}
+                  <span>{item.file}</span>
+                </a>
+                {item.children && (
+                  <div class="mt-1 space-y-1 pl-5">
+                    {item.children.map((child) => (
+                      <a
+                        href={child.href}
+                        class="flex items-center gap-2 rounded-md px-2 py-[5px] font-mono text-[11px] text-slate-600 no-underline hover:bg-slate-100 hover:text-slate-950"
+                      >
+                        {child.icon.type === 'brand' ? (
+                          <span class="brand-icon text-slate-500" set:html={BRAND_ICONS[child.icon.name]} />
+                        ) : (
+                          <HugeIcon name={child.icon.name} class="text-slate-500" />
+                        )}
+                        <span>{child.file}</span>
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
             ))
           }
         </nav>
@@ -181,12 +179,16 @@ const shellId = `studio-${Math.random().toString(36).slice(2)}`
                 href={l.href}
                 class:list={[
                   'shrink-0 border-r border-line px-3.5 py-[10px] font-mono text-xs no-underline',
-                  active === l.href
+                  isActive(l.href)
                     ? 'bg-white text-slate-950 shadow-[inset_0_-2px_0_var(--color-ink)]'
                     : 'text-muted hover:text-slate-950',
                 ]}
               >
-                <span class="brand-icon mr-2 inline-grid align-[-2px] text-slate-500" set:html={ICONS[l.icon]} />
+                {l.icon.type === 'brand' ? (
+                  <span class="brand-icon mr-2 inline-grid align-[-2px] text-slate-500" set:html={BRAND_ICONS[l.icon.name]} />
+                ) : (
+                  <HugeIcon name={l.icon.name} class="mr-2 inline-grid align-[-2px] text-slate-500" />
+                )}
                 {l.file}
               </a>
             ))

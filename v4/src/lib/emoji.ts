@@ -132,9 +132,22 @@ function codepointsToGlyph(codepoints: string): string {
     .join('')
 }
 
+function normalizeTwemojiCodepoint(codepoint: string): string {
+  // Twemoji's SVG filenames omit U+FE0F for standalone emoji like stopwatch.
+  return codepoint === '23f1-fe0f' ? '23f1' : codepoint
+}
+
 /**
- * Resolve an emoji name to its Unicode glyph. Returns an empty string for unknown
- * names so prose never breaks (the `<Twemoji>` element still renders, just blank).
+ * Resolve an emoji name to a local Twemoji SVG filename stem.
+ */
+export function emojiCodepoint(name: string): string {
+  const cp = EMOJI_CODEPOINTS[name]
+  return cp ? normalizeTwemojiCodepoint(cp) : ''
+}
+
+/**
+ * Resolve an emoji name to its Unicode glyph. Kept as a fallback/utility for places
+ * where plain text is preferable to an image.
  */
 export function emojiGlyph(name: string): string {
   const cp = EMOJI_CODEPOINTS[name]

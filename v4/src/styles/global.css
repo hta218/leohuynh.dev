@@ -73,6 +73,47 @@ body {
   fill: currentColor;
 }
 
+.huge-icon {
+  display: inline-grid;
+  height: 15px;
+  width: 15px;
+  flex: 0 0 15px;
+  place-items: center;
+  color: currentColor;
+}
+
+.huge-icon svg {
+  display: block;
+}
+
+.twemoji {
+  display: inline-block;
+  margin: 0 0.12em;
+  vertical-align: -0.15em;
+}
+
+.twemoji-base {
+  height: 1em;
+  width: 1em;
+}
+
+.twemoji-lg {
+  height: 1.25em;
+  width: 1.25em;
+}
+
+.twemoji-2x {
+  height: 2em;
+  width: 2em;
+}
+
+.twemoji-heading {
+  height: 0.82em;
+  width: 0.82em;
+  margin-left: 0.02em;
+  vertical-align: -0.04em;
+}
+
 @media (min-width: 1024px) {
   .studio-workspace {
     grid-template-columns: 260px minmax(0, 1fr) 360px;

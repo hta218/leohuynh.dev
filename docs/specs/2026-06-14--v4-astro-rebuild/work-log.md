@@ -1,5 +1,37 @@
 # Work Logs
 
+## 2026-06-16 — Hermes — M8 icons, comments, and Twemoji polish
+
+### Scope
+Leo approved the follow-up direction:
+- Greeting should keep the old `Howdy, fellow!` vibe with the waving hand, no `I'm Leo` in the H1.
+- Paragraph under the greeting should mention Tuan Anh/Leo and borrow better bits from the legacy bios.
+- Left sidebar should use Leo's avatar, become one Explorer tree, and show posts/snippets as folders.
+- Generic UI icons should move to Hugeicons free where it makes sense.
+- Blog/snippet detail pages should restore Giscus comments.
+- Legacy `<Twemoji emoji="..." />` should render real Twemoji, but managed better than the old hand-written CSS map.
+
+### Result
+- Added dependencies: `@hugeicons/core-free-icons`, `@hugeicons/react`, and `@giscus/react`.
+- Added `HugeIcon.astro` for server-rendered Hugeicons in Astro.
+- Sidebar now uses `/static/images/logo.jpg`, one `EXPLORER` group, folder icons for `posts/` and `snippets/`, and `about.md` with the markdown icon.
+- Home greeting now reads `Howdy, fellow!` with an inline self-hosted Twemoji waving hand.
+- Home paragraph now uses legacy bio details: Tuan Anh Huynh / Leo alias, learner-builder-freedom seeker, Hanoi, eCommerce, JS/TS, Shopify Hydrogen.
+- Added more Hugeicons in homepage cards and project stars.
+- Added `Comments.tsx` + `getGiscusConfig()` and mounted comments on blog/snippet detail pages with `client:visible`.
+- Replaced native emoji fallback with self-hosted Twemoji SVG rendering:
+  - `v4/src/lib/emoji.ts` now exposes `emojiCodepoint()`.
+  - `Twemoji.astro` renders `/static/twemoji/<codepoint>.svg`.
+  - `Reactions.tsx` uses the same Twemoji component.
+  - Generated used assets into `public/static/twemoji/`.
+
+### Verification
+- `bun run check` ✅ 0 errors / 0 warnings.
+- `bun run build` ✅ 236 pages.
+- Local preview smoke ✅ `/`, `/projects`, blog detail, snippet detail, avatar asset, and Twemoji asset.
+- Browser QA ✅ home: avatar logo, single Explorer tree, `posts/`/`snippets/` folders, `about.md`, inline Twemoji greeting, slate layout.
+- Browser QA ✅ blog detail: MDX Twemoji renders as image assets; Giscus component hydrates to `<giscus-widget>`; console has 0 JS errors.
+
 ## 2026-06-15 — Hermes — M7 shell polish follow-up
 
 ### Scope

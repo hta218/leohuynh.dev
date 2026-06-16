@@ -1,26 +1,34 @@
 ---
 /**
- * Renders the real Unicode emoji glyph for a legacy `<Twemoji emoji="name" />` tag
- * (212 inline uses across migrated MDX). Replaces the M2 CSS-class placeholder with
- * a non-breaking, asset-free glyph mapped from the legacy twemoji codepoints.
- *
- * Unknown names resolve to an empty glyph, so prose never crashes or shows a tofu box.
+ * Renders legacy `<Twemoji emoji="name" />` tags as local Twemoji SVG images.
+ * This keeps content authoring stable while replacing the legacy hand-written
+ * `.twa-*` CSS map with a small TS codepoint map + generated assets.
  */
-import { emojiGlyph } from '~/lib/emoji'
+import { emojiCodepoint } from '~/lib/emoji'
 
 interface Props {
   emoji: string
   /** Optional extra classes; mirrors the legacy `className` contract. */
   className?: string
+  size?: 'base' | 'lg' | '2x'
 }
 
-const { emoji, className = '' } = Astro.props
-const glyph = emojiGlyph(emoji)
+const { emoji, className = '', size = 'lg' } = Astro.props
+const codepoint = emojiCodepoint(emoji)
+const label = emoji.replace(/-/g, ' ')
+const sizeClass =
+  size === 'base' ? 'twemoji-base' : size === '2x' ? 'twemoji-2x' : 'twemoji-lg'
 ---
 
-<span
-  class:list={['twemoji', className]}
-  role="img"
-  aria-label={emoji.replace(/-/g, ' ')}
-  title={emoji.replace(/-/g, ' ')}>{glyph}</span
->
+{
+  codepoint && (
+    <img
+      src={`/static/twemoji/${codepoint}.svg`}
+      alt={label}
+      title={label}
+      loading="lazy"
+      decoding="async"
+      class:list={['twemoji', sizeClass, className]}
+    />
+  )
+}

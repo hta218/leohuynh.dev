@@ -1,0 +1,63 @@
+---
+import {
+  Analytics01Icon,
+  BookOpen01Icon,
+  File01Icon,
+  FileCodeIcon,
+  FolderOpenIcon,
+  Home03Icon,
+  Message02Icon,
+  Note01Icon,
+  StarIcon,
+  Tag01Icon,
+  UserCircleIcon,
+} from '@hugeicons/core-free-icons'
+import { HugeiconsIcon } from '@hugeicons/react'
+
+type IconName =
+  | 'analytics'
+  | 'book'
+  | 'comment'
+  | 'file'
+  | 'folder'
+  | 'home'
+  | 'markdown'
+  | 'star'
+  | 'tag'
+  | 'user'
+  | 'code'
+
+interface Props {
+  name: IconName
+  class?: string
+  size?: number
+  strokeWidth?: number
+  title?: string
+}
+
+const {
+  name,
+  class: className = '',
+  size = 15,
+  strokeWidth = 1.8,
+  title,
+} = Astro.props
+
+const ICONS = {
+  analytics: Analytics01Icon,
+  book: BookOpen01Icon,
+  comment: Message02Icon,
+  file: File01Icon,
+  folder: FolderOpenIcon,
+  home: Home03Icon,
+  markdown: Note01Icon,
+  star: StarIcon,
+  tag: Tag01Icon,
+  user: UserCircleIcon,
+  code: FileCodeIcon,
+} as const
+---
+
+<span class:list={['huge-icon', className]} title={title} aria-hidden={title ? undefined : 'true'}>
+  <HugeiconsIcon icon={ICONS[name]} size={size} strokeWidth={strokeWidth} />
+</span>

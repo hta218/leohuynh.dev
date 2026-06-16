@@ -4,6 +4,8 @@ import Twemoji from '~/components/mdx/Twemoji.astro'
 import StudioShell from '~/components/studio/StudioShell.astro'
 import Reactions from '~/components/widgets/Reactions'
 import ViewsCounter from '~/components/widgets/ViewsCounter'
+import Comments from '~/components/widgets/Comments'
+import { getGiscusConfig } from '~/lib/comments'
 import { isPublished, tagSlug } from '~/lib/content'
 import BaseLayout from '~/layouts/BaseLayout.astro'
 
@@ -26,6 +28,7 @@ const dateFmt = new Intl.DateTimeFormat('en-US', {
   month: 'long',
   day: 'numeric',
 })
+const giscusConfig = getGiscusConfig()
 ---
 
 <BaseLayout
@@ -61,6 +64,7 @@ const dateFmt = new Intl.DateTimeFormat('en-US', {
         </span>
         <Reactions type="snippet" slug={snippet.id} client:visible />
       </div>
+      {giscusConfig && <Comments config={giscusConfig} client:visible />}
     </article>
   </StudioShell>
 </BaseLayout>
