@@ -3,6 +3,9 @@ import { SITE } from '~/lib/site'
 import type {
   ActivityItem,
   ActivityPayload,
+  GithubContributionDay,
+  GithubDayPayload,
+  GithubStreakPayload,
   GithubTodayPayload,
   SpotifyPayload,
   SpotifyTrack,
@@ -177,18 +180,94 @@ export async function fetchSpotifyStatus(): Promise<SpotifyPayload> {
   }
 }
 
-function todayInHanoi(): { date: string; from: string; to: string } {
+export function todayInHanoi(): {
+  date: string
+  from: string
+  to: string
+  startMs: number
+} {
   const now = new Date()
   const hanoiNow = new Date(now.getTime() + HANOI_UTC_OFFSET_MS)
-  const y = hanoiNow.getUTCFullYear()
-  const m = hanoiNow.getUTCMonth()
-  const d = hanoiNow.getUTCDate()
-  const startUtc = new Date(Date.UTC(y, m, d) - HANOI_UTC_OFFSET_MS)
-  const endUtc = new Date(startUtc.getTime() + 24 * 60 * 60 * 1000 - 1)
+  return hanoiDateRange(
+    hanoiNow.getUTCFullYear(),
+    hanoiNow.getUTCMonth(),
+    hanoiNow.getUTCDate(),
+  )
+}
+
+function hanoiDateRange(
+  year: number,
+  zeroBasedMonth: number,
+  day: number,
+): { date: string; from: string; to: string; startMs: number } {
+  const startMs = Date.UTC(year, zeroBasedMonth, day) - HANOI_UTC_OFFSET_MS
+  const startUtc = new Date(startMs)
+  const endUtc = new Date(startMs + 24 * 60 * 60 * 1000 - 1)
   return {
-    date: `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`,
+    date: `${year}-${String(zeroBasedMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`,
     from: startUtc.toISOString(),
     to: endUtc.toISOString(),
+    startMs,
+  }
+}
+
+function hanoiDateRangeFromDate(date: string): {
+  date: string
+  from: string
+  to: string
+  startMs: number
+} {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(date)
+  if (!match) throw new Error('Expected date in YYYY-MM-DD format.')
+
+  const year = Number(match[1])
+  const month = Number(match[2])
+  const day = Number(match[3])
+  const normalized = new Date(Date.UTC(year, month - 1, day))
+  if (
+    normalized.getUTCFullYear() !== year ||
+    normalized.getUTCMonth() !== month - 1 ||
+    normalized.getUTCDate() !== day
+  ) {
+    throw new Error('Invalid calendar date.')
+  }
+
+  return hanoiDateRange(year, month - 1, day)
+}
+
+function hanoiDateRangeOffset(
+  baseStartMs: number,
+  offsetDays: number,
+): {
+  date: string
+  from: string
+  to: string
+  startMs: number
+} {
+  const hanoiDate = new Date(
+    baseStartMs + offsetDays * 24 * 60 * 60 * 1000 + HANOI_UTC_OFFSET_MS,
+  )
+  return hanoiDateRange(
+    hanoiDate.getUTCFullYear(),
+    hanoiDate.getUTCMonth(),
+    hanoiDate.getUTCDate(),
+  )
+}
+
+export function githubHeatmapDateWindow(): {
+  fromDate: string
+  toDate: string
+  from: string
+  to: string
+} {
+  const today = todayInHanoi()
+  const yesterday = hanoiDateRangeOffset(today.startMs, -1)
+  const start = hanoiDateRangeOffset(yesterday.startMs, -27)
+  return {
+    fromDate: start.date,
+    toDate: yesterday.date,
+    from: start.from,
+    to: yesterday.to,
   }
 }
 
@@ -227,77 +306,155 @@ async function githubGraphql<T>(
   return json.data as T
 }
 
-export async function fetchGithubToday(): Promise<GithubTodayPayload> {
-  const username = githubUsername()
-  const { date, from, to } = todayInHanoi()
+type GithubContributionCollection = {
+  totalCommitContributions: number
+  totalIssueContributions: number
+  totalPullRequestContributions: number
+  totalPullRequestReviewContributions: number
+  commitContributionsByRepository: Array<{
+    repository: { nameWithOwner: string; url: string }
+    contributions: { totalCount: number }
+  }>
+  contributionCalendar?: {
+    weeks: Array<{ contributionDays: GithubContributionDay[] }>
+  }
+}
 
-  try {
-    type GraphqlResponse = {
-      user?: {
-        contributionsCollection?: {
-          totalCommitContributions: number
-          totalIssueContributions: number
-          totalPullRequestContributions: number
-          totalPullRequestReviewContributions: number
-          commitContributionsByRepository: Array<{
-            repository: { nameWithOwner: string; url: string }
-            contributions: { totalCount: number }
-          }>
-        }
-      }
-      search?: {
-        nodes: Array<{
-          nameWithOwner: string
-          url: string
-          defaultBranchRef?: {
-            target?: {
-              history?: {
-                nodes: Array<{
-                  committedDate: string
-                  message: string
-                  url: string
-                  additions?: number
-                  deletions?: number
-                  author?: { user?: { login?: string } }
-                }>
-              }
-            }
-          }
-        }>
+type GithubSearchCommit = {
+  committedDate: string
+  message: string
+  url: string
+  additions?: number
+  deletions?: number
+  author?: { user?: { login?: string } }
+}
+
+type GithubDayGraphqlResponse = {
+  user?: {
+    selected?: GithubContributionCollection
+    heat?: {
+      contributionCalendar?: {
+        weeks: Array<{ contributionDays: GithubContributionDay[] }>
       }
     }
-
-    const data = await githubGraphql<GraphqlResponse>(
-      `query GithubToday($username: String!, $fromDateTime: DateTime!, $toDateTime: DateTime!, $fromGitTimestamp: GitTimestamp!, $searchQuery: String!) {
-        user(login: $username) {
-          contributionsCollection(from: $fromDateTime, to: $toDateTime) {
-            totalCommitContributions
-            totalIssueContributions
-            totalPullRequestContributions
-            totalPullRequestReviewContributions
-            commitContributionsByRepository(maxRepositories: 10) {
-              repository { nameWithOwner url }
-              contributions(first: 100) { totalCount }
-            }
+  }
+  search?: {
+    nodes: Array<{
+      nameWithOwner: string
+      url: string
+      defaultBranchRef?: {
+        target?: {
+          history?: {
+            nodes: GithubSearchCommit[]
           }
         }
-        search(query: $searchQuery, type: REPOSITORY, first: 8) {
-          nodes {
-            ... on Repository {
-              nameWithOwner
-              url
-              defaultBranchRef {
-                target {
-                  ... on Commit {
-                    history(first: 20, since: $fromGitTimestamp) {
-                      nodes {
-                        committedDate
-                        message
-                        url
-                        additions
-                        deletions
-                        author { user { login } }
-                      }
+      }
+    }>
+  }
+}
+
+function buildGithubDayPayload(
+  response: GithubDayGraphqlResponse,
+  username: string,
+  range: { date: string; from: string; to: string },
+): GithubDayPayload {
+  const collection = response.user?.selected
+  const repos = collection?.commitContributionsByRepository ?? []
+  const topRepo = repos
+    .map((repo) => ({
+      nameWithOwner: repo.repository.nameWithOwner,
+      url: repo.repository.url,
+      commits: repo.contributions.totalCount,
+    }))
+    .sort((a, b) => b.commits - a.commits)[0]
+
+  const dayCommits =
+    response.search?.nodes.flatMap((repo) =>
+      (repo.defaultBranchRef?.target?.history?.nodes ?? [])
+        .filter((commit) => commit.author?.user?.login === username)
+        .filter(
+          (commit) =>
+            commit.committedDate >= range.from &&
+            commit.committedDate <= range.to,
+        ),
+    ) ?? []
+
+  const fallbackCommits = collection?.totalCommitContributions ?? null
+  const commits = dayCommits.length || fallbackCommits
+  const additions = dayCommits.length
+    ? dayCommits.reduce((sum, commit) => sum + (commit.additions ?? 0), 0)
+    : null
+  const deletions = dayCommits.length
+    ? dayCommits.reduce((sum, commit) => sum + (commit.deletions ?? 0), 0)
+    : null
+  const contributions = collection
+    ? collection.totalCommitContributions +
+      collection.totalIssueContributions +
+      collection.totalPullRequestContributions +
+      collection.totalPullRequestReviewContributions
+    : null
+
+  return {
+    ok: true,
+    username,
+    date: range.date,
+    contributions,
+    commits,
+    additions,
+    deletions,
+    issues: collection?.totalIssueContributions ?? null,
+    pullRequests: collection?.totalPullRequestContributions ?? null,
+    reviews: collection?.totalPullRequestReviewContributions ?? null,
+    topRepo,
+  }
+}
+
+type GithubStreakGraphqlResponse = {
+  user?: {
+    contributionsCollection?: {
+      contributionCalendar?: {
+        weeks: Array<{ contributionDays: GithubContributionDay[] }>
+      }
+    }
+  }
+}
+
+async function fetchGithubSingleDayGraphql(range: {
+  date: string
+  from: string
+  to: string
+}): Promise<GithubDayGraphqlResponse> {
+  const username = githubUsername()
+  return githubGraphql<GithubDayGraphqlResponse>(
+    `query GithubSingleDay($username: String!, $fromDateTime: DateTime!, $toDateTime: DateTime!, $fromGitTimestamp: GitTimestamp!, $toGitTimestamp: GitTimestamp!, $searchQuery: String!) {
+      user(login: $username) {
+        selected: contributionsCollection(from: $fromDateTime, to: $toDateTime) {
+          totalCommitContributions
+          totalIssueContributions
+          totalPullRequestContributions
+          totalPullRequestReviewContributions
+          commitContributionsByRepository(maxRepositories: 10) {
+            repository { nameWithOwner url }
+            contributions(first: 100) { totalCount }
+          }
+        }
+      }
+      search(query: $searchQuery, type: REPOSITORY, first: 8) {
+        nodes {
+          ... on Repository {
+            nameWithOwner
+            url
+            defaultBranchRef {
+              target {
+                ... on Commit {
+                  history(first: 40, since: $fromGitTimestamp, until: $toGitTimestamp) {
+                    nodes {
+                      committedDate
+                      message
+                      url
+                      additions
+                      deletions
+                      author { user { login } }
                     }
                   }
                 }
@@ -305,61 +462,95 @@ export async function fetchGithubToday(): Promise<GithubTodayPayload> {
             }
           }
         }
-      }`,
-      {
-        username,
-        fromDateTime: from,
-        toDateTime: to,
-        fromGitTimestamp: from,
-        searchQuery: `user:${username} sort:updated-desc`,
-      },
-    )
+      }
+    }`,
+    {
+      username,
+      fromDateTime: range.from,
+      toDateTime: range.to,
+      fromGitTimestamp: range.from,
+      toGitTimestamp: range.to,
+      searchQuery: `user:${username} sort:updated-desc`,
+    },
+  )
+}
 
-    const collection = data.user?.contributionsCollection
-    const repos = collection?.commitContributionsByRepository ?? []
-    const topRepo = repos
-      .map((repo) => ({
-        nameWithOwner: repo.repository.nameWithOwner,
-        url: repo.repository.url,
-        commits: repo.contributions.totalCount,
-      }))
-      .sort((a, b) => b.commits - a.commits)[0]
+async function fetchGithubStreakGraphql(window: {
+  from: string
+  to: string
+}): Promise<GithubStreakGraphqlResponse> {
+  const username = githubUsername()
+  return githubGraphql<GithubStreakGraphqlResponse>(
+    `query GithubStreak($username: String!, $fromDateTime: DateTime!, $toDateTime: DateTime!) {
+      user(login: $username) {
+        contributionsCollection(from: $fromDateTime, to: $toDateTime) {
+          contributionCalendar {
+            weeks {
+              contributionDays {
+                date
+                contributionCount
+                contributionLevel
+                weekday
+              }
+            }
+          }
+        }
+      }
+    }`,
+    {
+      username,
+      fromDateTime: window.from,
+      toDateTime: window.to,
+    },
+  )
+}
 
-    const todayCommits =
-      data.search?.nodes.flatMap((repo) =>
-        (repo.defaultBranchRef?.target?.history?.nodes ?? [])
-          .filter((commit) => commit.author?.user?.login === username)
-          .filter(
-            (commit) =>
-              commit.committedDate >= from && commit.committedDate <= to,
-          ),
-      ) ?? []
+export async function fetchGithubStreak(): Promise<GithubStreakPayload> {
+  const username = githubUsername()
+  const window = githubHeatmapDateWindow()
 
-    const fallbackCommits = collection?.totalCommitContributions ?? null
-    const commits = todayCommits.length || fallbackCommits
-    const additions = todayCommits.length
-      ? todayCommits.reduce((sum, commit) => sum + (commit.additions ?? 0), 0)
-      : null
-    const deletions = todayCommits.length
-      ? todayCommits.reduce((sum, commit) => sum + (commit.deletions ?? 0), 0)
-      : null
-    const contributions = collection
-      ? collection.totalCommitContributions +
-        collection.totalIssueContributions +
-        collection.totalPullRequestContributions +
-        collection.totalPullRequestReviewContributions
-      : null
+  try {
+    const data = await fetchGithubStreakGraphql(window)
+    const heatmap =
+      data.user?.contributionsCollection?.contributionCalendar?.weeks
+        .flatMap((week) => week.contributionDays)
+        .filter(
+          (day) => day.date >= window.fromDate && day.date <= window.toDate,
+        )
+        .slice(-28) ?? []
 
     return {
       ok: true,
       username,
-      date,
-      contributions,
-      commits,
-      additions,
-      deletions,
-      topRepo,
+      fromDate: window.fromDate,
+      toDate: window.toDate,
+      heatmap,
     }
+  } catch (error) {
+    return {
+      ok: false,
+      username,
+      fromDate: window.fromDate,
+      toDate: window.toDate,
+      heatmap: [],
+      error: error instanceof Error ? error.message : 'GitHub request failed.',
+    }
+  }
+}
+
+export async function fetchGithubDay(date: string): Promise<GithubDayPayload> {
+  const username = githubUsername()
+
+  try {
+    const range = hanoiDateRangeFromDate(date)
+    const window = githubHeatmapDateWindow()
+    if (range.date < window.fromDate || range.date > window.toDate) {
+      throw new Error(
+        `Date must be within ${window.fromDate} and ${window.toDate}.`,
+      )
+    }
+    const data = await fetchGithubSingleDayGraphql(range)
+    return buildGithubDayPayload(data, username, range)
   } catch (error) {
     return {
       ok: false,
@@ -369,6 +560,33 @@ export async function fetchGithubToday(): Promise<GithubTodayPayload> {
       commits: null,
       additions: null,
       deletions: null,
+      issues: null,
+      pullRequests: null,
+      reviews: null,
+      error: error instanceof Error ? error.message : 'GitHub request failed.',
+    }
+  }
+}
+
+export async function fetchGithubToday(): Promise<GithubTodayPayload> {
+  const username = githubUsername()
+  const today = todayInHanoi()
+
+  try {
+    const data = await fetchGithubSingleDayGraphql(today)
+    return buildGithubDayPayload(data, username, today)
+  } catch (error) {
+    return {
+      ok: false,
+      username,
+      date: today.date,
+      contributions: null,
+      commits: null,
+      additions: null,
+      deletions: null,
+      issues: null,
+      pullRequests: null,
+      reviews: null,
       error: error instanceof Error ? error.message : 'GitHub request failed.',
     }
   }
@@ -376,39 +594,43 @@ export async function fetchGithubToday(): Promise<GithubTodayPayload> {
 
 export async function fetchLatestGithubActivity(): Promise<ActivityItem | null> {
   const username = githubUsername()
-
-  try {
-    type GraphqlResponse = {
-      user?: {
-        pullRequests?: {
-          nodes: Array<{
-            title: string
-            url: string
-            createdAt: string
-            repository: { nameWithOwner: string; owner: { login: string } }
-          }>
-        }
-      }
-      search?: {
+  type GraphqlResponse = {
+    user?: {
+      pullRequests?: {
         nodes: Array<{
-          nameWithOwner: string
-          defaultBranchRef?: {
-            target?: {
-              history?: {
-                nodes: Array<{
-                  committedDate: string
-                  message: string
-                  url: string
-                  abbreviatedOid: string
-                  author?: { user?: { login?: string } }
-                }>
-              }
-            }
+          title: string
+          url: string
+          createdAt: string
+          repository: {
+            nameWithOwner: string
+            owner: { login: string; avatarUrl: string }
           }
         }>
       }
     }
+    search?: {
+      nodes: Array<{
+        nameWithOwner: string
+        url: string
+        owner: { login: string; avatarUrl: string }
+        defaultBranchRef?: {
+          target?: {
+            history?: {
+              nodes: Array<{
+                committedDate: string
+                message: string
+                url: string
+                abbreviatedOid: string
+                author?: { user?: { login?: string } }
+              }>
+            }
+          }
+        }
+      }>
+    }
+  }
 
+  try {
     const data = await githubGraphql<GraphqlResponse>(
       `query LatestGithubActivity($username: String!, $searchQuery: String!) {
         user(login: $username) {
@@ -417,7 +639,7 @@ export async function fetchLatestGithubActivity(): Promise<ActivityItem | null> 
               title
               url
               createdAt
-              repository { nameWithOwner owner { login } }
+              repository { nameWithOwner owner { login avatarUrl } }
             }
           }
         }
@@ -425,6 +647,8 @@ export async function fetchLatestGithubActivity(): Promise<ActivityItem | null> 
           nodes {
             ... on Repository {
               nameWithOwner
+              url
+              owner { login avatarUrl }
               defaultBranchRef {
                 target {
                   ... on Commit {
@@ -451,7 +675,11 @@ export async function fetchLatestGithubActivity(): Promise<ActivityItem | null> 
       data.search?.nodes.flatMap((repo) =>
         (repo.defaultBranchRef?.target?.history?.nodes ?? [])
           .filter((commit) => commit.author?.user?.login === username)
-          .map((commit) => ({ ...commit, repo: repo.nameWithOwner })),
+          .map((commit) => ({
+            ...commit,
+            repo: repo.nameWithOwner,
+            imageUrl: repo.owner.avatarUrl,
+          })),
       ) ?? []
 
     const commit = commits.sort(
@@ -461,12 +689,17 @@ export async function fetchLatestGithubActivity(): Promise<ActivityItem | null> 
     )[0]
 
     if (commit) {
+      const mergeMatch = /#(\d+)/.exec(commit.message)
+      const title = mergeMatch
+        ? `Merged PR #${mergeMatch[1]}`
+        : commit.message.split('\n')[0]
       return {
         type: 'github',
-        title: commit.message.split('\n')[0],
+        title,
         subtitle: commit.repo,
         url: commit.url,
         meta: commit.abbreviatedOid,
+        imageUrl: commit.imageUrl,
       }
     }
 
@@ -481,6 +714,7 @@ export async function fetchLatestGithubActivity(): Promise<ActivityItem | null> 
         subtitle: pr.repository.nameWithOwner,
         url: pr.url,
         meta: 'pull request',
+        imageUrl: pr.repository.owner.avatarUrl,
       }
     }
   } catch {
@@ -498,10 +732,18 @@ export async function fetchActivity(): Promise<ActivityPayload> {
     book.userShelves.includes('currently-reading'),
   )
   const watched = movies.sort((a, b) => b.yourRating - a.yourRating)[0]
-  const [spotify, github] = await Promise.all([
-    fetchSpotifyStatus(),
-    fetchLatestGithubActivity(),
-  ])
+  const github = await fetchLatestGithubActivity()
+
+  if (watched) {
+    items.push({
+      type: 'movie',
+      title: watched.title,
+      subtitle: `${watched.year} · ★ ${watched.yourRating}`,
+      url: watched.url,
+      imageUrl: watched.poster,
+      meta: 'last watch',
+    })
+  }
 
   if (reading) {
     items.push({
@@ -511,28 +753,6 @@ export async function fetchActivity(): Promise<ActivityPayload> {
       url: reading.link,
       imageUrl: reading.imageUrl,
       meta: 'currently reading',
-    })
-  }
-
-  if (watched) {
-    items.push({
-      type: 'movie',
-      title: watched.title,
-      subtitle: `${watched.year} · ★ ${watched.yourRating}`,
-      url: watched.url,
-      imageUrl: watched.poster,
-      meta: 'top rated recently',
-    })
-  }
-
-  if (spotify.ok && spotify.song) {
-    items.push({
-      type: 'spotify',
-      title: spotify.song.title,
-      subtitle: spotify.song.artist,
-      url: spotify.song.songUrl,
-      imageUrl: spotify.song.albumImageUrl,
-      meta: spotify.status === 'playing' ? 'now playing' : 'recently played',
     })
   }
 
@@ -547,5 +767,5 @@ export async function fetchActivity(): Promise<ActivityPayload> {
     })
   }
 
-  return { ok: true, items: items.slice(0, 4) }
+  return { ok: true, items: items.slice(0, 3) }
 }

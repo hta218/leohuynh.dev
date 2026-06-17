@@ -8,6 +8,7 @@ import GoodreadsIcon from '../../../../icons/goodreads.svg?raw'
 import ImdbIcon from '../../../../icons/imdb.svg?raw'
 import MarkdownIcon from '../../../../icons/markdown.svg?raw'
 import UmamiIcon from '../../../../icons/umami.svg?raw'
+import VietnamIcon from '../../../../icons/vietnam.svg?raw'
 import RuntimeRail from './RuntimeRail.astro'
 
 interface Props {
@@ -244,7 +245,17 @@ const renderCommit = () => {
     return 'local'
   }
 }
+const renderCommitDate = () => {
+  const envDate = process.env.VERCEL_GIT_COMMIT_AUTHOR_DATE
+  if (envDate) return envDate
+  try {
+    return execSync('git log -1 --format=%cI', { encoding: 'utf8' }).trim()
+  } catch {
+    return new Date().toISOString()
+  }
+}
 const lastCommit = renderCommit()
+const lastCommitDate = renderCommitDate()
 const lastCommitUrl =
   lastCommit && lastCommit !== 'local'
     ? `${SITE.siteRepo}/commit/${lastCommit}`
@@ -398,6 +409,17 @@ const SITE_VERSIONS = [
   <footer class="studio-statusbar flex min-w-0 items-center justify-between gap-3 border-t border-line bg-white px-3 font-mono text-[12px] text-slate-600">
     <div class="flex min-w-0 items-center gap-3 overflow-hidden">
       <a
+        href={lastCommitUrl}
+        target="_blank"
+        rel="noreferrer"
+        class="hidden whitespace-nowrap text-slate-950 underline decoration-slate-300 underline-offset-3 hover:decoration-slate-950 sm:inline"
+        title="View last commit on GitHub"
+        data-commit-time={lastCommitDate}
+      >
+        #{lastCommit}
+        <span class="text-slate-400" data-commit-ago>—</span>
+      </a>
+      <a
         href="https://time.is/Hanoi"
         target="_blank"
         rel="noreferrer"
@@ -406,30 +428,25 @@ const SITE_VERSIONS = [
       >
         Hanoi <span data-local-time>--:--</span> <span class="text-slate-400" data-local-time-diff></span>
       </a>
-      <a
-        href={lastCommitUrl}
-        target="_blank"
-        rel="noreferrer"
-        class="hidden whitespace-nowrap text-slate-950 underline decoration-slate-300 underline-offset-3 hover:decoration-slate-950 sm:inline"
-        title="View last commit on GitHub"
-      >
-        #{lastCommit}
-      </a>
+    </div>
+    <div class="flex shrink-0 items-center gap-3">
       <span class="vn-badge hidden whitespace-nowrap sm:inline-flex" title="Made in Vietnam">
-        <span aria-hidden="true">🇻🇳</span>
+        <span class="inline-block h-4 w-auto [&_svg]:h-4 [&_svg]:w-auto" set:html={VietnamIcon} />
         made in Vietnam
       </span>
+      <label class="flex shrink-0 items-center gap-1 whitespace-nowrap">
+        <span class="hidden sm:inline">version</span>
+        <select class="status-select" data-version-select aria-label="Open site version">
+          {
+            SITE_VERSIONS.map((version) => (
+              <option value={version.value} data-href={version.href} selected={version.current}>
+                {version.label}
+              </option>
+            ))
+          }
+        </select>
+      </label>
     </div>
-    <label class="flex shrink-0 items-center gap-1 whitespace-nowrap">
-      <span class="hidden sm:inline">version</span>
-      <select class="status-select" data-version-select aria-label="Open site version">
-        {SITE_VERSIONS.map((version) => (
-          <option value={version.value} data-href={version.href} selected={version.current}>
-            {version.label}
-          </option>
-        ))}
-      </select>
-    </label>
   </footer>
 </div>
 
@@ -574,6 +591,37 @@ const SITE_VERSIONS = [
       if (!shell.dataset.timeBound) {
         shell.dataset.timeBound = 'true'
         setInterval(updateTime, 30_000)
+      }
+
+      const commitLink = shell.querySelector('[data-commit-time]')
+      const commitAgoEl = shell.querySelector('[data-commit-ago]')
+      const updateCommitAgo = () => {
+        if (!commitLink || !commitAgoEl) return
+        const date = new Date(commitLink.getAttribute('data-commit-time') || '')
+        if (Number.isNaN(date.getTime())) return
+        const seconds = Math.floor((Date.now() - date.getTime()) / 1000)
+        const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' })
+        let value
+        let unit
+        if (seconds < 60) {
+          value = seconds
+          unit = 'second'
+        } else if (seconds < 3600) {
+          value = Math.floor(seconds / 60)
+          unit = 'minute'
+        } else if (seconds < 86400) {
+          value = Math.floor(seconds / 3600)
+          unit = 'hour'
+        } else {
+          value = Math.floor(seconds / 86400)
+          unit = 'day'
+        }
+        commitAgoEl.textContent = `· ${rtf.format(-value, unit)}`
+      }
+      updateCommitAgo()
+      if (!shell.dataset.commitBound) {
+        shell.dataset.commitBound = 'true'
+        setInterval(updateCommitAgo, 60_000)
       }
     })
   }

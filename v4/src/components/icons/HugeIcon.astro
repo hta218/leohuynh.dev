@@ -3,41 +3,67 @@ import {
   Analytics01Icon,
   ArrowDown01Icon,
   ArrowRight01Icon,
+  BellIcon,
   BookOpen01Icon,
+  Briefcase01Icon,
   CodeSquareIcon,
+  DatabaseIcon,
   ExternalLinkIcon,
   File01Icon,
   FileCodeIcon,
   Folder01Icon,
   FolderOpenIcon,
+  GalleryThumbnailsIcon,
+  GlobeIcon,
+  Home01Icon,
   KeyboardIcon,
   Message02Icon,
   Note01Icon,
+  PaintBrushIcon,
+  PuzzleIcon,
+  RefreshIcon,
+  RobotIcon,
   Rocket01Icon,
+  ShoppingBag01Icon,
   StarIcon,
+  Store01Icon,
   Tag01Icon,
   UserCircleIcon,
+  WorkIcon,
 } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
 
 type IconName =
   | 'analytics'
+  | 'bell'
   | 'book'
+  | 'briefcase'
   | 'caret-down'
   | 'caret-right'
   | 'comment'
+  | 'database'
   | 'external'
   | 'file'
   | 'folder'
   | 'folder-open'
+  | 'gallery'
+  | 'globe'
+  | 'home'
   | 'keyboard'
   | 'markdown'
+  | 'paint-brush'
   | 'project'
+  | 'puzzle'
+  | 'refresh'
+  | 'robot'
   | 'rocket'
+  | 'shopping-bag'
   | 'star'
+  | 'store'
   | 'tag'
   | 'user'
   | 'code'
+  | 'work'
 
 interface Props {
   name: IconName
@@ -57,22 +83,35 @@ const {
 
 const ICONS = {
   analytics: Analytics01Icon,
+  bell: BellIcon,
   book: BookOpen01Icon,
+  briefcase: Briefcase01Icon,
   'caret-down': ArrowDown01Icon,
   'caret-right': ArrowRight01Icon,
   comment: Message02Icon,
+  database: DatabaseIcon,
   external: ExternalLinkIcon,
   file: File01Icon,
   folder: Folder01Icon,
   'folder-open': FolderOpenIcon,
+  gallery: GalleryThumbnailsIcon,
+  globe: GlobeIcon,
+  home: Home01Icon,
   keyboard: KeyboardIcon,
   markdown: Note01Icon,
+  'paint-brush': PaintBrushIcon,
   project: CodeSquareIcon,
+  puzzle: PuzzleIcon,
+  refresh: RefreshIcon,
+  robot: RobotIcon,
   rocket: Rocket01Icon,
+  'shopping-bag': ShoppingBag01Icon,
   star: StarIcon,
+  store: Store01Icon,
   tag: Tag01Icon,
   user: UserCircleIcon,
   code: FileCodeIcon,
+  work: WorkIcon,
 } as const
 ---
 

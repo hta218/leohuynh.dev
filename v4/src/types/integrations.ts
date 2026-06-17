@@ -15,7 +15,20 @@ export interface SpotifyPayload {
   error?: string
 }
 
-export interface GithubTodayPayload {
+export interface GithubContributionDay {
+  date: string
+  contributionCount: number
+  contributionLevel:
+    | 'NONE'
+    | 'FIRST_QUARTILE'
+    | 'SECOND_QUARTILE'
+    | 'THIRD_QUARTILE'
+    | 'FOURTH_QUARTILE'
+    | string
+  weekday?: number
+}
+
+export interface GithubDayPayload {
   ok: boolean
   username: string
   date: string
@@ -23,11 +36,25 @@ export interface GithubTodayPayload {
   commits: number | null
   additions: number | null
   deletions: number | null
+  issues?: number | null
+  pullRequests?: number | null
+  reviews?: number | null
   topRepo?: {
     nameWithOwner: string
     url: string
     commits: number
   }
+  error?: string
+}
+
+export interface GithubTodayPayload extends GithubDayPayload {}
+
+export interface GithubStreakPayload {
+  ok: boolean
+  username: string
+  fromDate: string
+  toDate: string
+  heatmap: GithubContributionDay[]
   error?: string
 }
 

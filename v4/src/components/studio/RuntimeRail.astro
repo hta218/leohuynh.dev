@@ -29,35 +29,62 @@
   </div>
 
   <div class="rounded-2xl border border-line bg-white p-3.5">
-    <h3 class="mb-3 font-mono text-[11px] uppercase tracking-[0.08em] text-muted">
-      github today
-    </h3>
-    <div class="grid grid-cols-2 gap-2">
-      <div class="rounded-xl border border-line bg-[#fbfdff] p-2.5">
-        <b data-github-contributions class="block text-2xl">—</b>
-        <span class="font-mono text-[10px] text-muted">contribs</span>
+    <div class="mb-3 flex items-center justify-between gap-3">
+      <h3 class="font-mono text-[11px] uppercase tracking-[0.08em] text-muted">
+        github streak
+      </h3>
+      <span data-github-heat-meta class="font-mono text-[10px] uppercase tracking-[0.08em] text-muted">
+        last 28 days
+      </span>
+    </div>
+    <div
+      data-github-heat
+      class="grid [grid-template-columns:repeat(14,minmax(0,1fr))] gap-1"
+      aria-label="GitHub contribution heatmap"
+    >
+      {
+        Array.from({ length: 28 }).map(() => (
+          <span class="aspect-square w-full rounded-[3px] border border-line bg-[#eef3f7] animate-pulse" />
+        ))
+      }
+    </div>
+
+    <div class="mt-3 border-t border-line pt-3">
+      <div class="mb-2 flex items-center justify-between gap-3">
+        <h3 data-github-detail-title class="font-mono text-[11px] uppercase tracking-[0.08em] text-muted">
+          github today
+        </h3>
+        <button
+          data-github-clear
+          type="button"
+          class="hidden font-mono text-[10px] uppercase tracking-[0.08em] text-muted hover:text-code-blue"
+        >
+          clear
+        </button>
       </div>
-      <div class="rounded-xl border border-line bg-[#fbfdff] p-2.5">
-        <b data-github-commits class="block text-2xl">—</b>
-        <span class="font-mono text-[10px] text-muted">commits</span>
-      </div>
-      <div class="rounded-xl border border-line bg-[#fbfdff] p-2.5">
-        <b data-github-additions class="block text-2xl text-code-green">+—</b>
-        <span class="font-mono text-[10px] text-muted">added</span>
-      </div>
-      <div class="rounded-xl border border-line bg-[#fbfdff] p-2.5">
-        <b data-github-deletions class="block text-2xl text-code-red">-—</b>
-        <span class="font-mono text-[10px] text-muted">removed</span>
+      <div data-github-detail class="grid gap-1.5">
+        <div class="flex items-center justify-between gap-3 border-b border-dashed border-line/80 py-1 last:border-b-0">
+          <span class="font-mono text-[10px] uppercase tracking-[0.06em] text-muted">contribs</span>
+          <span class="h-4 w-10 rounded-full bg-line/70 animate-pulse"></span>
+        </div>
+        <div class="flex items-center justify-between gap-3 border-b border-dashed border-line/80 py-1 last:border-b-0">
+          <span class="font-mono text-[10px] uppercase tracking-[0.06em] text-muted">commits</span>
+          <span class="h-4 w-8 rounded-full bg-line/70 animate-pulse"></span>
+        </div>
+        <div class="flex items-center justify-between gap-3 border-b border-dashed border-line/80 py-1 last:border-b-0">
+          <span class="font-mono text-[10px] uppercase tracking-[0.06em] text-muted">prs / issues</span>
+          <span class="h-4 w-12 rounded-full bg-line/70 animate-pulse"></span>
+        </div>
+        <div class="flex items-center justify-between gap-3 border-b border-dashed border-line/80 py-1 last:border-b-0">
+          <span class="font-mono text-[10px] uppercase tracking-[0.06em] text-muted">reviews</span>
+          <span class="h-4 w-6 rounded-full bg-line/70 animate-pulse"></span>
+        </div>
+        <div class="flex items-center justify-between gap-3 border-b border-dashed border-line/80 py-1 last:border-b-0">
+          <span class="font-mono text-[10px] uppercase tracking-[0.06em] text-muted">LOCs</span>
+          <span class="h-4 w-16 rounded-full bg-line/70 animate-pulse"></span>
+        </div>
       </div>
     </div>
-    <a
-      data-github-top-repo
-      href="#"
-      target="_blank"
-      rel="noreferrer"
-      class="mt-2 hidden truncate rounded-lg border border-line bg-white px-2 py-1.5 font-mono text-[11px] text-muted no-underline hover:text-code-blue"
-    ></a>
-    <p data-github-error class="mt-2 mb-0 hidden font-mono text-[10px] text-muted"></p>
   </div>
 
   <div class="rounded-2xl border border-line bg-white p-3.5">
@@ -89,17 +116,39 @@
     status?: 'playing' | 'recently-played' | 'not-playing' | 'unavailable' | string
   }
 
-  type GithubTodayPayload = {
+  type GithubContributionDay = {
+    date: string
+    contributionCount: number
+    contributionLevel: string
+    weekday?: number
+  }
+
+  type GithubDayPayload = {
     additions?: number | null
     commits?: number | null
     contributions?: number | null
+    date: string
     deletions?: number | null
     error?: string
+    issues?: number | null
     ok?: boolean
+    pullRequests?: number | null
+    reviews?: number | null
     topRepo?: {
       nameWithOwner?: string
       url?: string
     } | null
+  }
+
+  type GithubTodayPayload = GithubDayPayload
+
+  type GithubStreakPayload = {
+    error?: string
+    fromDate?: string
+    heatmap?: GithubContributionDay[]
+    ok?: boolean
+    toDate?: string
+    username?: string
   }
 
   type ActivityItem = {
@@ -123,16 +172,36 @@
     spotify: 'bg-code-green',
   }
 
+  const HEAT_LEVEL_CLASSES: Record<string, string> = {
+    NONE: 'border-[#dde6ee] bg-[#eef3f7] hover:bg-[#e3ebf2]',
+    FIRST_QUARTILE: 'border-[#9ae6b4] bg-[#bbf7d0] hover:bg-[#a7f3c2]',
+    SECOND_QUARTILE: 'border-[#4ade80] bg-[#86efac] hover:bg-[#74e89d]',
+    THIRD_QUARTILE: 'border-[#22c55e] bg-[#4ade80] hover:bg-[#35d56f]',
+    FOURTH_QUARTILE: 'border-[#15803d] bg-[#16a34a] hover:bg-[#15803d]',
+  }
+
+  const GITHUB_DAY_CACHE_PREFIX = 'leohuynh:github-day:v1:'
+  const GITHUB_DAY_TTL = 24 * 60 * 60 * 1000
+  const GITHUB_TODAY_TTL = 5 * 60 * 1000
+  let githubTodayPayload: GithubTodayPayload | null = null
+  let selectedGithubDate: string | null = null
+  let githubDayAbort: AbortController | null = null
+
   const stat = (value: number | null | undefined) =>
     typeof value === 'number' ? value.toLocaleString() : '—'
 
-  async function fetchRuntimeJson<T>(url: string): Promise<T | null> {
+  async function fetchRuntimeJson<T>(
+    url: string,
+    init?: RequestInit,
+  ): Promise<T | null> {
     try {
-      const response = await fetch(url)
+      const response = await fetch(url, init)
       if (!response.ok) return null
       return (await response.json()) as T
     } catch (error) {
-      console.warn(`[runtime-rail] failed to fetch ${url}`, error)
+      if (!(error instanceof DOMException && error.name === 'AbortError')) {
+        console.warn(`[runtime-rail] failed to fetch ${url}`, error)
+      }
       return null
     }
   }
@@ -183,32 +252,292 @@
     if (status) status.textContent = spotifyStatusLabel(spotify?.status)
   }
 
-  function updateGithub(rail: Element, github: GithubTodayPayload | null) {
-    rail.querySelector('[data-github-contributions]')!.textContent = stat(github?.contributions)
-    rail.querySelector('[data-github-commits]')!.textContent = stat(github?.commits)
-    rail.querySelector('[data-github-additions]')!.textContent = `+${stat(github?.additions)}`
-    rail.querySelector('[data-github-deletions]')!.textContent = `-${stat(github?.deletions)}`
+  function formatGithubDate(date: string): string {
+    const [year, month, day] = date.split('-').map(Number)
+    return new Intl.DateTimeFormat('en-US', {
+      month: 'short',
+      day: 'numeric',
+    }).format(new Date(Date.UTC(year, month - 1, day)))
+  }
 
-    const topRepo = rail.querySelector<HTMLAnchorElement>('[data-github-top-repo]')
-    if (topRepo) {
-      if (github?.topRepo?.url && github.topRepo.nameWithOwner) {
-        topRepo.href = github.topRepo.url
-        topRepo.textContent = `top repo: ${github.topRepo.nameWithOwner}`
-        topRepo.classList.remove('hidden')
-        topRepo.classList.add('block')
-      } else {
-        topRepo.classList.add('hidden')
-        topRepo.classList.remove('block')
+  function contributionLabel(count: number | null | undefined): string {
+    const value = count ?? 0
+    return `${value.toLocaleString()} contribution${value === 1 ? '' : 's'}`
+  }
+
+  function heatClass(day: GithubContributionDay): string {
+    return HEAT_LEVEL_CLASSES[day.contributionLevel] ?? HEAT_LEVEL_CLASSES.NONE
+  }
+
+  function readGithubDayCache(date: string): GithubDayPayload | null {
+    try {
+      const raw = localStorage.getItem(`${GITHUB_DAY_CACHE_PREFIX}${date}`)
+      if (!raw) return null
+      const parsed = JSON.parse(raw) as {
+        payload?: GithubDayPayload
+        timestamp?: number
       }
+      const ttl = date === githubTodayPayload?.date ? GITHUB_TODAY_TTL : GITHUB_DAY_TTL
+      if (!parsed.timestamp || !parsed.payload || Date.now() - parsed.timestamp > ttl) {
+        return null
+      }
+      return parsed.payload
+    } catch {
+      return null
+    }
+  }
+
+  function writeGithubDayCache(payload: GithubDayPayload) {
+    try {
+      localStorage.setItem(
+        `${GITHUB_DAY_CACHE_PREFIX}${payload.date}`,
+        JSON.stringify({ payload, timestamp: Date.now() }),
+      )
+    } catch {
+      // Cache is an enhancement only.
+    }
+  }
+
+  function renderGithubHeat(rail: Element, streak: GithubStreakPayload | null) {
+    const heat = rail.querySelector<HTMLElement>('[data-github-heat]')
+    if (!heat) return
+    heat.textContent = ''
+
+    const days = streak?.heatmap?.slice(-28) ?? []
+    if (!days.length) {
+      Array.from({ length: 28 }).forEach(() => {
+        const square = document.createElement('span')
+        square.className = 'aspect-square w-full rounded-[3px] border border-line bg-[#eef3f7]'
+        heat.append(square)
+      })
+      return
     }
 
-    const error = rail.querySelector<HTMLElement>('[data-github-error]')
-    if (error) {
-      if (github && github.ok === false && github.error) {
-        error.textContent = github.error
-        error.classList.remove('hidden')
-      } else {
-        error.classList.add('hidden')
+    days.forEach((day) => {
+      const square = document.createElement('button')
+      const isSelected = selectedGithubDate === day.date
+      square.type = 'button'
+      square.dataset.githubDay = day.date
+      square.dataset.githubCount = String(day.contributionCount)
+      square.title = `${formatGithubDate(day.date)} — ${contributionLabel(day.contributionCount)}`
+      square.setAttribute('aria-label', square.title)
+      square.setAttribute('aria-pressed', String(isSelected))
+      square.className = [
+        'aspect-square w-full rounded-[3px] border cursor-pointer transition focus:outline-none hover:ring-1 hover:ring-code-blue hover:ring-offset-1',
+        heatClass(day),
+        isSelected ? 'ring-2 ring-code-blue ring-offset-1' : '',
+      ]
+        .filter(Boolean)
+        .join(' ')
+      heat.append(square)
+    })
+  }
+
+  function setGithubDetailTitle(rail: Element, date: string | null) {
+    const title = rail.querySelector<HTMLElement>('[data-github-detail-title]')
+    const clear = rail.querySelector<HTMLButtonElement>('[data-github-clear]')
+    if (title) title.textContent = date ? `github · ${formatGithubDate(date)}` : 'github today'
+    if (clear) {
+      clear.classList.toggle('hidden', !date)
+    }
+  }
+
+  function appendGithubSkeletonRow(
+    detail: HTMLElement,
+    label: string,
+    width = 'w-12',
+  ) {
+    const row = document.createElement('div')
+    row.className = 'flex items-center justify-between gap-3 border-b border-dashed border-line/80 py-1 last:border-b-0'
+    const labelEl = document.createElement('span')
+    labelEl.className = 'font-mono text-[10px] uppercase tracking-[0.06em] text-muted'
+    labelEl.textContent = label
+    const shimmer = document.createElement('span')
+    shimmer.className = `h-4 rounded-full bg-line/70 animate-pulse ${width}`
+    row.append(labelEl, shimmer)
+    detail.append(row)
+  }
+
+  function renderGithubSkeleton(detail: HTMLElement) {
+    detail.textContent = ''
+    appendGithubSkeletonRow(detail, 'contribs', 'w-10')
+    appendGithubSkeletonRow(detail, 'commits', 'w-8')
+    appendGithubSkeletonRow(detail, 'prs / issues', 'w-12')
+    appendGithubSkeletonRow(detail, 'reviews', 'w-6')
+    appendGithubSkeletonRow(detail, 'LOCs', 'w-16')
+  }
+
+  function renderGithubLoading(rail: Element, date: string) {
+    setGithubDetailTitle(rail, date)
+    const detail = rail.querySelector<HTMLElement>('[data-github-detail]')
+    if (!detail) return
+    renderGithubSkeleton(detail)
+  }
+
+  function appendGithubRow(
+    detail: HTMLElement,
+    label: string,
+    value: string,
+    tone = 'text-ink',
+  ) {
+    const row = document.createElement('div')
+    row.className = 'flex items-baseline justify-between gap-3 border-b border-dashed border-line/80 py-1 last:border-b-0'
+    const labelEl = document.createElement('span')
+    labelEl.className = 'font-mono text-[10px] uppercase tracking-[0.06em] text-muted'
+    labelEl.textContent = label
+    const valueEl = document.createElement('strong')
+    valueEl.className = `font-mono text-[12px] ${tone}`
+    valueEl.textContent = value
+    row.append(labelEl, valueEl)
+    detail.append(row)
+  }
+
+  function appendGithubChangedRow(
+    detail: HTMLElement,
+    additions: number | null | undefined,
+    deletions: number | null | undefined,
+  ) {
+    const row = document.createElement('div')
+    row.className = 'flex items-baseline justify-between gap-3 border-b border-dashed border-line/80 py-1 last:border-b-0'
+    const labelEl = document.createElement('span')
+    labelEl.className = 'font-mono text-[10px] uppercase tracking-[0.06em] text-muted'
+    labelEl.textContent = 'LOCs'
+    const valueEl = document.createElement('strong')
+    valueEl.className = 'font-mono text-[12px]'
+    const added = document.createElement('span')
+    added.className = 'text-code-green'
+    added.textContent = `+${stat(additions)}`
+    const sep = document.createTextNode(' / ')
+    const removed = document.createElement('span')
+    removed.className = 'text-code-red'
+    removed.textContent = `-${stat(deletions)}`
+    valueEl.append(added, sep, removed)
+    row.append(labelEl, valueEl)
+    detail.append(row)
+  }
+
+  function renderGithubDetail(
+    rail: Element,
+    github: GithubDayPayload | null,
+    options: { selectedDate?: string | null; fallbackCount?: number } = {},
+  ) {
+    setGithubDetailTitle(rail, options.selectedDate ?? null)
+    const detail = rail.querySelector<HTMLElement>('[data-github-detail]')
+    if (!detail) return
+    detail.textContent = ''
+
+    if (!github || github.ok === false) {
+      appendGithubRow(detail, 'status', 'day details unavailable', 'text-muted')
+      if (typeof options.fallbackCount === 'number') {
+        appendGithubRow(detail, 'contribs', stat(options.fallbackCount))
+      }
+      appendGithubSkeletonRow(detail, 'commits', 'w-8')
+      appendGithubSkeletonRow(detail, 'prs / issues', 'w-12')
+      appendGithubSkeletonRow(detail, 'reviews', 'w-6')
+      appendGithubSkeletonRow(detail, 'LOCs', 'w-16')
+      return
+    }
+
+    const displayedContributions =
+      typeof options.fallbackCount === 'number'
+        ? options.fallbackCount
+        : github.contributions
+
+    appendGithubRow(detail, 'contribs', stat(displayedContributions))
+    appendGithubRow(detail, 'commits', stat(github.commits))
+    appendGithubRow(detail, 'prs / issues', `${stat(github.pullRequests)} / ${stat(github.issues)}`)
+    appendGithubRow(detail, 'reviews', stat(github.reviews))
+    appendGithubChangedRow(detail, github.additions, github.deletions)
+  }
+
+  function syncGithubSelectedState(rail: Element) {
+    rail.querySelectorAll<HTMLButtonElement>('[data-github-day]').forEach((square) => {
+      const selected = square.dataset.githubDay === selectedGithubDate
+      square.setAttribute('aria-pressed', String(selected))
+      square.classList.toggle('ring-2', selected)
+      square.classList.toggle('ring-code-blue', selected)
+      square.classList.toggle('ring-offset-1', selected)
+    })
+  }
+
+  async function selectGithubDay(rail: Element, date: string, count?: number) {
+    if (selectedGithubDate === date) {
+      selectedGithubDate = null
+      githubDayAbort?.abort()
+      syncGithubSelectedState(rail)
+      renderGithubDetail(rail, githubTodayPayload)
+      return
+    }
+
+    selectedGithubDate = date
+    syncGithubSelectedState(rail)
+
+    if (date === githubTodayPayload?.date) {
+      renderGithubDetail(rail, githubTodayPayload, { selectedDate: date })
+      return
+    }
+
+    const cached = readGithubDayCache(date)
+    if (cached) {
+      renderGithubDetail(rail, cached, { selectedDate: date, fallbackCount: count })
+      return
+    }
+
+    githubDayAbort?.abort()
+    githubDayAbort = new AbortController()
+    renderGithubLoading(rail, date)
+
+    const detail = await fetchRuntimeJson<GithubDayPayload>(
+      `/api/github-day.json?date=${encodeURIComponent(date)}`,
+      { signal: githubDayAbort.signal },
+    )
+    if (selectedGithubDate !== date) return
+
+    if (detail) writeGithubDayCache(detail)
+    renderGithubDetail(rail, detail, { selectedDate: date, fallbackCount: count })
+  }
+
+  function bindGithubInteractions(rail: Element) {
+    const heat = rail.querySelector<HTMLElement>('[data-github-heat]')
+    if (heat && !heat.dataset.bound) {
+      heat.dataset.bound = 'true'
+      heat.addEventListener('click', (event) => {
+        const target = event.target as HTMLElement
+        const square = target.closest('[data-github-day]') as HTMLButtonElement | null
+        const date = square?.dataset.githubDay
+        if (!date) return
+        const count = Number(square.dataset.githubCount)
+        selectGithubDay(rail, date, Number.isFinite(count) ? count : undefined)
+      })
+    }
+
+    const clear = rail.querySelector<HTMLButtonElement>('[data-github-clear]')
+    if (clear && !clear.dataset.bound) {
+      clear.dataset.bound = 'true'
+      clear.addEventListener('click', () => {
+        selectedGithubDate = null
+        githubDayAbort?.abort()
+        syncGithubSelectedState(rail)
+        renderGithubDetail(rail, githubTodayPayload)
+      })
+    }
+  }
+
+  function updateGithub(
+    rail: Element,
+    streak: GithubStreakPayload | null,
+    today: GithubTodayPayload | null,
+  ) {
+    if (streak) {
+      renderGithubHeat(rail, streak)
+      bindGithubInteractions(rail)
+    }
+
+    if (today) {
+      githubTodayPayload = today
+      writeGithubDayCache(today)
+      if (!selectedGithubDate) {
+        renderGithubDetail(rail, today)
       }
     }
   }
@@ -229,7 +558,7 @@
       image.src = item.imageUrl
       image.alt = ''
       image.loading = 'lazy'
-      image.className = 'h-12 w-9 rounded-md border border-line object-cover'
+      image.className = 'h-9 w-9 rounded-md border border-line object-cover'
       wrapper.append(image)
     } else {
       const dot = document.createElement('span')
@@ -268,13 +597,14 @@
   async function hydrateRuntimeRail() {
     const rail = document.querySelector('#runtime-rail')
     if (!rail) return
-    const [spotify, github, activity] = await Promise.all([
+    const [spotify, streak, today, activity] = await Promise.all([
       fetchRuntimeJson<SpotifyPayload>('/api/spotify.json'),
+      fetchRuntimeJson<GithubStreakPayload>('/api/github-streak.json'),
       fetchRuntimeJson<GithubTodayPayload>('/api/github-today.json'),
       fetchRuntimeJson<ActivityPayload>('/api/activity.json'),
     ])
     updateSpotify(rail, spotify)
-    updateGithub(rail, github)
+    updateGithub(rail, streak, today)
     updateActivity(rail, activity)
   }
 
