@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro'
 import { fetchGithubToday, jsonHeaders } from '~/lib/runtime'
 
-export const prerender = true
+export const prerender = false
 
 export const GET: APIRoute = async () => {
   const payload = await fetchGithubToday()

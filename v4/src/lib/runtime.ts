@@ -490,28 +490,6 @@ export async function fetchLatestGithubActivity(): Promise<ActivityItem | null> 
   return null
 }
 
-export function fetchRuntimeRailData(): Promise<{
-  spotify: SpotifyPayload
-  github: GithubTodayPayload
-  activity: ActivityPayload
-}> {
-  runtimeRailDataPromise ??= Promise.all([
-    fetchSpotifyStatus(),
-    fetchGithubToday(),
-    fetchActivity(),
-  ]).then(([spotify, github, activity]) => ({ spotify, github, activity }))
-
-  return runtimeRailDataPromise
-}
-
-let runtimeRailDataPromise:
-  | Promise<{
-      spotify: SpotifyPayload
-      github: GithubTodayPayload
-      activity: ActivityPayload
-    }>
-  | undefined
-
 export async function fetchActivity(): Promise<ActivityPayload> {
   const items: ActivityItem[] = []
   const books = getBooks()

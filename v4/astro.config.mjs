@@ -3,6 +3,7 @@ import { unified } from '@astrojs/markdown-remark'
 import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
 import tailwindcss from '@tailwindcss/vite'
+import vercel from '@astrojs/vercel'
 import { defineConfig } from 'astro/config'
 import expressiveCode from 'astro-expressive-code'
 import { remarkCodeTitles } from './src/plugins/remark-code-titles.mjs'
@@ -10,6 +11,7 @@ import { remarkCodeTitles } from './src/plugins/remark-code-titles.mjs'
 // Production site URL — kept in parity with legacy `data/site-metadata.ts`.
 export default defineConfig({
   site: 'https://www.leohuynh.dev',
+  adapter: vercel(),
   // No trailing slash, matching the legacy Next.js canonical URLs.
   trailingSlash: 'never',
   // expressiveCode must run before mdx so it owns code-block rendering.

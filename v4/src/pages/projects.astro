@@ -2,34 +2,14 @@
 import StudioShell from '~/components/studio/StudioShell.astro'
 import HugeIcon from '~/components/icons/HugeIcon.astro'
 import BaseLayout from '~/layouts/BaseLayout.astro'
-import { fetchGithubRepository, type GithubRepository } from '~/lib/github'
 import { PROJECTS, type Project } from '~/lib/projects'
 
-interface ProjectView extends Project {
-  repository: GithubRepository | null
-}
-
-const projects = await Promise.all(
-  PROJECTS.map(async (project): Promise<ProjectView> => ({
-    ...project,
-    repository: await fetchGithubRepository(project.repo),
-  })),
-)
-
+const projects = PROJECTS
 const work = projects.filter((p) => p.type === 'work')
 const self = projects.filter((p) => p.type === 'self')
 
-function projectHref(p: ProjectView): string | undefined {
-  return p.repository?.url ?? p.url ?? (p.repo ? `https://github.com/${p.repo}` : undefined)
-}
-
-function formatDate(value: string | undefined): string | undefined {
-  if (!value) return undefined
-  return new Intl.DateTimeFormat('en-CA', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-  }).format(new Date(value))
+function projectHref(p: Project): string | undefined {
+  return p.repo ? `https://github.com/${p.repo}` : p.url
 }
 ---
 
@@ -57,14 +37,13 @@ function formatDate(value: string | undefined): string | undefined {
             {group.items.map((p) => {
               const href = projectHref(p)
               const Tag = href ? 'a' : 'div'
-              const language = p.repository?.languages?.[0]
-              const lastCommitDate = formatDate(p.repository?.lastCommit?.committedDate)
 
               return (
                 <Tag
                   href={href}
                   target={href ? '_blank' : undefined}
                   rel={href ? 'noreferrer' : undefined}
+                  data-project-repo={p.repo}
                   class="group flex min-h-[238px] flex-col gap-3 rounded-2xl border border-line bg-white p-4 no-underline transition-shadow hover:shadow-[4px_4px_0_var(--color-line)]"
                 >
                   <div class="flex items-center gap-3">
@@ -80,25 +59,25 @@ function formatDate(value: string | undefined): string | undefined {
                       <h3 class="m-0 text-[17px] font-semibold tracking-[-0.02em] text-ink group-hover:text-slate-950">
                         {p.title}
                       </h3>
-                      {p.repository?.nameWithOwner && (
-                        <div class="mt-1 font-mono text-[11px] text-muted">
-                          {p.repository.nameWithOwner}
+                      {p.repo && (
+                        <div class="mt-1 font-mono text-[11px] text-muted" data-project-owner>
+                          {p.repo}
                         </div>
                       )}
                     </div>
                   </div>
 
-                  <p class="m-0 line-clamp-3 text-[15px] leading-snug text-muted">
-                    {p.repository?.description || p.description}
+                  <p class="m-0 line-clamp-3 text-[15px] leading-snug text-muted" data-project-description>
+                    {p.description || 'Live GitHub metadata loads on demand.'}
                   </p>
 
                   <div class="mt-auto grid grid-cols-2 gap-3 border-t border-line pt-3 font-mono text-xs text-muted sm:grid-cols-3">
-                    {p.repository ? (
+                    {p.repo ? (
                       <div>
                         <div class="text-[10px] uppercase tracking-[0.08em] text-slate-400">Stars</div>
                         <div class="mt-1 flex items-center gap-1.5 text-slate-900">
                           <HugeIcon name="star" class="text-slate-500" />
-                          {p.repository.stargazerCount}
+                          <span data-project-stars>—</span>
                         </div>
                       </div>
                     ) : (
@@ -114,16 +93,16 @@ function formatDate(value: string | undefined): string | undefined {
                     </div>
 
                     <div>
-                      <div class="text-[10px] uppercase tracking-[0.08em] text-slate-400">
-                        {language ? 'Language' : lastCommitDate ? 'Updated' : 'Type'}
+                      <div class="text-[10px] uppercase tracking-[0.08em] text-slate-400" data-project-meta-label>
+                        {p.repo ? 'Language' : 'Type'}
                       </div>
-                      <div class="mt-1 truncate text-slate-900">
-                        {language?.name ?? lastCommitDate ?? p.type}
+                      <div class="mt-1 truncate text-slate-900" data-project-meta>
+                        {p.repo ? 'loading…' : p.type}
                       </div>
                     </div>
                   </div>
 
-                  {p.links && p.links.length > 0 && !p.repository && (
+                  {p.links && p.links.length > 0 && !p.repo && (
                     <div class="flex flex-wrap gap-3 font-mono text-xs text-slate-700">
                       {p.links.map((l) => (
                         <span>↗ {l.title}</span>
@@ -139,3 +118,124 @@ function formatDate(value: string | undefined): string | undefined {
     }
   </StudioShell>
 </BaseLayout>
+
+<script>
+  type ProjectMeta = {
+    description?: string | null
+    language?: string | null
+    nameWithOwner?: string | null
+    pushedAt?: string | null
+    stargazerCount?: number | null
+    url?: string | null
+  }
+
+  type ProjectMetaMap = Record<string, ProjectMeta>
+
+  const PROJECTS_CACHE_KEY = 'leohuynh:github-projects:v1'
+  const PROJECTS_CACHE_TTL = 10 * 60 * 1000
+
+  function readProjectsCache(): ProjectMetaMap | null {
+    try {
+      const raw = localStorage.getItem(PROJECTS_CACHE_KEY)
+      if (!raw) return null
+      const parsed = JSON.parse(raw) as {
+        items?: ProjectMetaMap
+        timestamp?: number
+      }
+      if (
+        !parsed.timestamp ||
+        !parsed.items ||
+        Date.now() - parsed.timestamp > PROJECTS_CACHE_TTL
+      ) {
+        return null
+      }
+      return parsed.items
+    } catch {
+      return null
+    }
+  }
+
+  function writeProjectsCache(items: ProjectMetaMap) {
+    try {
+      localStorage.setItem(
+        PROJECTS_CACHE_KEY,
+        JSON.stringify({ timestamp: Date.now(), items }),
+      )
+    } catch {
+      // Ignore storage failures; live fetch is best-effort UI enhancement.
+    }
+  }
+
+  function formatDate(value: string | null | undefined): string | null {
+    if (!value) return null
+    return new Intl.DateTimeFormat('en-CA', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    }).format(new Date(value))
+  }
+
+  function applyProjectMeta(items: ProjectMetaMap) {
+    document.querySelectorAll('[data-project-repo]').forEach((card) => {
+      const repo = card.getAttribute('data-project-repo')
+      if (!repo) return
+      const meta = items[repo]
+      if (!meta) return
+
+      if (card instanceof HTMLAnchorElement && meta.url) card.href = meta.url
+      const owner = card.querySelector('[data-project-owner]')
+      const description = card.querySelector('[data-project-description]')
+      const stars = card.querySelector('[data-project-stars]')
+      const metaLabel = card.querySelector('[data-project-meta-label]')
+      const metaValue = card.querySelector('[data-project-meta]')
+
+      if (owner && meta.nameWithOwner) owner.textContent = meta.nameWithOwner
+      if (description && meta.description) description.textContent = meta.description
+      if (stars) stars.textContent = Number(meta.stargazerCount || 0).toLocaleString()
+      if (metaLabel && metaValue) {
+        if (meta.language) {
+          metaLabel.textContent = 'Language'
+          metaValue.textContent = meta.language
+        } else if (meta.pushedAt) {
+          metaLabel.textContent = 'Updated'
+          metaValue.textContent = formatDate(meta.pushedAt) || '—'
+        } else {
+          metaLabel.textContent = 'Type'
+          metaValue.textContent = 'repo'
+        }
+      }
+    })
+  }
+
+  async function fetchProjectMetaMap(): Promise<ProjectMetaMap> {
+    const response = await fetch('/api/projects-github.json')
+    if (!response.ok) throw new Error(`Project GitHub API ${response.status}`)
+    return (await response.json()) as ProjectMetaMap
+  }
+
+  async function hydrateProjectCards() {
+    const cards = Array.from(document.querySelectorAll('[data-project-repo]'))
+    const repos = [
+      ...new Set(
+        cards
+          .map((card) => card.getAttribute('data-project-repo'))
+          .filter((repo): repo is string => Boolean(repo)),
+      ),
+    ]
+    if (!repos.length) return
+
+    const cached = readProjectsCache()
+    if (cached) applyProjectMeta(cached)
+
+    try {
+      const live = await fetchProjectMetaMap()
+      writeProjectsCache(live)
+      applyProjectMeta(live)
+    } catch (error) {
+      console.warn('[projects] failed to hydrate GitHub metadata', error)
+    }
+  }
+
+  hydrateProjectCards()
+  document.addEventListener('astro:page-load', hydrateProjectCards)
+</script>

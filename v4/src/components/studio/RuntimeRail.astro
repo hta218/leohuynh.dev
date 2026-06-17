@@ -1,62 +1,28 @@
----
-import { fetchRuntimeRailData } from '~/lib/runtime'
-import type { ActivityItem } from '~/types/integrations'
-
-const { spotify, github, activity } = await fetchRuntimeRailData()
-
-const song = spotify.song
-const spotifyStatus =
-  spotify.status === 'playing'
-    ? 'playing now'
-    : spotify.status === 'recently-played'
-      ? 'last played'
-      : 'not playing'
-
-const stat = (value: number | null | undefined) =>
-  typeof value === 'number' ? value.toLocaleString() : '—'
-
-const colorByType: Record<ActivityItem['type'], string> = {
-  book: 'bg-code-amber',
-  movie: 'bg-code-red',
-  spotify: 'bg-code-green',
-  github: 'bg-code-blue',
-  build: 'bg-code-blue',
-}
----
-
 <aside id="runtime-rail" class="runtime-rail thin-scrollbar hidden min-h-0 content-start gap-3 overflow-y-auto border-l border-line bg-panel2 p-3.5 lg:grid">
   <div class="rounded-2xl border border-line bg-white p-3.5">
     <h3 class="mb-3 font-mono text-[11px] uppercase tracking-[0.08em] text-muted">
       spotify now playing
     </h3>
     <div class="grid grid-cols-[48px_1fr] items-center gap-3">
-      {song?.albumImageUrl ? (
-        <img
-          src={song.albumImageUrl}
-          alt={song.album}
-          class="h-12 w-12 rounded-xl border border-line object-cover"
-        />
-      ) : (
-        <div class="h-12 w-12 rounded-xl border border-line bg-[linear-gradient(135deg,#bbf7d0,#bfdbfe)]"></div>
-      )}
+      <img
+        data-spotify-image
+        src=""
+        alt=""
+        class="hidden h-12 w-12 rounded-xl border border-line object-cover"
+      />
+      <div data-spotify-placeholder class="h-12 w-12 rounded-xl border border-line bg-[linear-gradient(135deg,#bbf7d0,#bfdbfe)]"></div>
       <div class="min-w-0">
-        {song?.songUrl ? (
-          <a
-            href={song.songUrl}
-            target="_blank"
-            rel="noreferrer"
-            class="block truncate font-semibold text-ink no-underline hover:text-code-blue"
-          >
-            {song.title}
-          </a>
-        ) : (
-          <b>—</b>
-        )}
-        <span class="block truncate font-mono text-xs text-muted">
-          {song ? song.artist : spotifyStatus}
-        </span>
-        <span class="mt-1 block font-mono text-[10px] uppercase tracking-[0.08em] text-code-green">
-          {spotifyStatus}
+        <a
+          data-spotify-title-link
+          href="#"
+          target="_blank"
+          rel="noreferrer"
+          class="hidden truncate font-semibold text-ink no-underline hover:text-code-blue"
+        ></a>
+        <b data-spotify-empty>—</b>
+        <span data-spotify-artist class="block truncate font-mono text-xs text-muted">loading…</span>
+        <span data-spotify-status class="mt-1 block font-mono text-[10px] uppercase tracking-[0.08em] text-code-green">
+          loading
         </span>
       </div>
     </div>
@@ -68,90 +34,250 @@ const colorByType: Record<ActivityItem['type'], string> = {
     </h3>
     <div class="grid grid-cols-2 gap-2">
       <div class="rounded-xl border border-line bg-[#fbfdff] p-2.5">
-        <b class="block text-2xl">{stat(github.contributions)}</b>
+        <b data-github-contributions class="block text-2xl">—</b>
         <span class="font-mono text-[10px] text-muted">contribs</span>
       </div>
       <div class="rounded-xl border border-line bg-[#fbfdff] p-2.5">
-        <b class="block text-2xl">{stat(github.commits)}</b>
+        <b data-github-commits class="block text-2xl">—</b>
         <span class="font-mono text-[10px] text-muted">commits</span>
       </div>
       <div class="rounded-xl border border-line bg-[#fbfdff] p-2.5">
-        <b class="block text-2xl text-code-green">+{stat(github.additions)}</b>
+        <b data-github-additions class="block text-2xl text-code-green">+—</b>
         <span class="font-mono text-[10px] text-muted">added</span>
       </div>
       <div class="rounded-xl border border-line bg-[#fbfdff] p-2.5">
-        <b class="block text-2xl text-code-red">-{stat(github.deletions)}</b>
+        <b data-github-deletions class="block text-2xl text-code-red">-—</b>
         <span class="font-mono text-[10px] text-muted">removed</span>
       </div>
     </div>
-    {github.topRepo && (
-      <a
-        href={github.topRepo.url}
-        target="_blank"
-        rel="noreferrer"
-        class="mt-2 block truncate rounded-lg border border-line bg-white px-2 py-1.5 font-mono text-[11px] text-muted no-underline hover:text-code-blue"
-      >
-        top repo: {github.topRepo.nameWithOwner}
-      </a>
-    )}
-    {!github.ok && github.error && (
-      <p class="mt-2 mb-0 font-mono text-[10px] text-muted">{github.error}</p>
-    )}
+    <a
+      data-github-top-repo
+      href="#"
+      target="_blank"
+      rel="noreferrer"
+      class="mt-2 hidden truncate rounded-lg border border-line bg-white px-2 py-1.5 font-mono text-[11px] text-muted no-underline hover:text-code-blue"
+    ></a>
+    <p data-github-error class="mt-2 mb-0 hidden font-mono text-[10px] text-muted"></p>
   </div>
 
   <div class="rounded-2xl border border-line bg-white p-3.5">
     <h3 class="mb-3 font-mono text-[11px] uppercase tracking-[0.08em] text-muted">
       recent activity
     </h3>
-    <div class="grid gap-2.5">
-      {activity.items.slice(0, 4).map((item) => (
-        item.url ? (
-          <a
-            href={item.url}
-            target="_blank"
-            rel="noreferrer"
-            class:list={[
-              'rounded-xl border border-line bg-white no-underline text-ink hover:border-code-blue',
-              item.imageUrl
-                ? 'grid grid-cols-[36px_1fr] items-center gap-2.5 p-2.5'
-                : 'grid grid-cols-[18px_1fr] gap-2.5 p-3',
-            ]}
-          >
-            {item.imageUrl ? (
-              <img src={item.imageUrl} alt="" loading="lazy" class="h-12 w-9 rounded-md border border-line object-cover" />
-            ) : (
-              <span class:list={['mt-1.5 h-2 w-2 rounded-full', colorByType[item.type]]}></span>
-            )}
-            <span class="min-w-0">
-              <strong class="block truncate">{item.title}</strong>
-              <span class="block truncate text-[13px] leading-snug text-muted">
-                {item.subtitle ?? item.meta ?? item.type}
-              </span>
-            </span>
-          </a>
-        ) : (
-          <div
-            class:list={[
-              'rounded-xl border border-line bg-white text-ink hover:border-code-blue',
-              item.imageUrl
-                ? 'grid grid-cols-[36px_1fr] items-center gap-2.5 p-2.5'
-                : 'grid grid-cols-[18px_1fr] gap-2.5 p-3',
-            ]}
-          >
-            {item.imageUrl ? (
-              <img src={item.imageUrl} alt="" loading="lazy" class="h-12 w-9 rounded-md border border-line object-cover" />
-            ) : (
-              <span class:list={['mt-1.5 h-2 w-2 rounded-full', colorByType[item.type]]}></span>
-            )}
-            <span class="min-w-0">
-              <strong class="block truncate">{item.title}</strong>
-              <span class="block truncate text-[13px] leading-snug text-muted">
-                {item.subtitle ?? item.meta ?? item.type}
-              </span>
-            </span>
-          </div>
-        )
-      ))}
+    <div data-activity-list class="grid gap-2.5">
+      <div class="grid grid-cols-[18px_1fr] gap-2.5 rounded-xl border border-line bg-white p-3 text-ink">
+        <span class="mt-1.5 h-2 w-2 rounded-full bg-code-blue"></span>
+        <span class="min-w-0">
+          <strong class="block truncate">loading activity…</strong>
+          <span class="block truncate text-[13px] leading-snug text-muted">on demand</span>
+        </span>
+      </div>
     </div>
   </div>
 </aside>
+
+<script>
+  type SpotifyPayload = {
+    ok?: boolean
+    song?: {
+      album?: string
+      albumImageUrl?: string
+      artist?: string
+      songUrl?: string
+      title?: string
+    } | null
+    status?: 'playing' | 'recently-played' | 'not-playing' | 'unavailable' | string
+  }
+
+  type GithubTodayPayload = {
+    additions?: number | null
+    commits?: number | null
+    contributions?: number | null
+    deletions?: number | null
+    error?: string
+    ok?: boolean
+    topRepo?: {
+      nameWithOwner?: string
+      url?: string
+    } | null
+  }
+
+  type ActivityItem = {
+    imageUrl?: string
+    meta?: string
+    subtitle?: string
+    title: string
+    type: 'book' | 'movie' | 'spotify' | 'github' | 'build'
+    url?: string
+  }
+
+  type ActivityPayload = {
+    items?: ActivityItem[]
+  }
+
+  const ACTIVITY_COLORS: Record<ActivityItem['type'], string> = {
+    book: 'bg-code-amber',
+    build: 'bg-code-blue',
+    github: 'bg-code-blue',
+    movie: 'bg-code-red',
+    spotify: 'bg-code-green',
+  }
+
+  const stat = (value: number | null | undefined) =>
+    typeof value === 'number' ? value.toLocaleString() : '—'
+
+  async function fetchRuntimeJson<T>(url: string): Promise<T | null> {
+    try {
+      const response = await fetch(url)
+      if (!response.ok) return null
+      return (await response.json()) as T
+    } catch (error) {
+      console.warn(`[runtime-rail] failed to fetch ${url}`, error)
+      return null
+    }
+  }
+
+  function spotifyStatusLabel(status: SpotifyPayload['status']): string {
+    if (status === 'playing') return 'playing now'
+    if (status === 'recently-played') return 'last played'
+    if (status === 'not-playing') return 'not playing'
+    return status || 'unavailable'
+  }
+
+  function updateSpotify(rail: Element, spotify: SpotifyPayload | null) {
+    const song = spotify?.song
+    const image = rail.querySelector<HTMLImageElement>('[data-spotify-image]')
+    const placeholder = rail.querySelector<HTMLElement>('[data-spotify-placeholder]')
+    const link = rail.querySelector<HTMLAnchorElement>('[data-spotify-title-link]')
+    const empty = rail.querySelector<HTMLElement>('[data-spotify-empty]')
+    const artist = rail.querySelector<HTMLElement>('[data-spotify-artist]')
+    const status = rail.querySelector<HTMLElement>('[data-spotify-status]')
+
+    if (image && placeholder) {
+      if (song?.albumImageUrl) {
+        image.src = song.albumImageUrl
+        image.alt = song.album || song.title || ''
+        image.classList.remove('hidden')
+        placeholder.classList.add('hidden')
+      } else {
+        image.classList.add('hidden')
+        placeholder.classList.remove('hidden')
+      }
+    }
+
+    if (link && empty) {
+      if (song?.songUrl && song.title) {
+        link.href = song.songUrl
+        link.textContent = song.title
+        link.classList.remove('hidden')
+        link.classList.add('block')
+        empty.hidden = true
+      } else {
+        link.classList.add('hidden')
+        link.classList.remove('block')
+        empty.hidden = false
+      }
+    }
+
+    if (artist) artist.textContent = song ? song.artist || '' : spotifyStatusLabel(spotify?.status)
+    if (status) status.textContent = spotifyStatusLabel(spotify?.status)
+  }
+
+  function updateGithub(rail: Element, github: GithubTodayPayload | null) {
+    rail.querySelector('[data-github-contributions]')!.textContent = stat(github?.contributions)
+    rail.querySelector('[data-github-commits]')!.textContent = stat(github?.commits)
+    rail.querySelector('[data-github-additions]')!.textContent = `+${stat(github?.additions)}`
+    rail.querySelector('[data-github-deletions]')!.textContent = `-${stat(github?.deletions)}`
+
+    const topRepo = rail.querySelector<HTMLAnchorElement>('[data-github-top-repo]')
+    if (topRepo) {
+      if (github?.topRepo?.url && github.topRepo.nameWithOwner) {
+        topRepo.href = github.topRepo.url
+        topRepo.textContent = `top repo: ${github.topRepo.nameWithOwner}`
+        topRepo.classList.remove('hidden')
+        topRepo.classList.add('block')
+      } else {
+        topRepo.classList.add('hidden')
+        topRepo.classList.remove('block')
+      }
+    }
+
+    const error = rail.querySelector<HTMLElement>('[data-github-error]')
+    if (error) {
+      if (github && github.ok === false && github.error) {
+        error.textContent = github.error
+        error.classList.remove('hidden')
+      } else {
+        error.classList.add('hidden')
+      }
+    }
+  }
+
+  function activityCard(item: ActivityItem): HTMLElement {
+    const wrapper = document.createElement(item.url ? 'a' : 'div')
+    if (item.url) {
+      ;(wrapper as HTMLAnchorElement).href = item.url
+      ;(wrapper as HTMLAnchorElement).target = '_blank'
+      ;(wrapper as HTMLAnchorElement).rel = 'noreferrer'
+    }
+    wrapper.className = item.imageUrl
+      ? 'grid grid-cols-[36px_1fr] items-center gap-2.5 rounded-xl border border-line bg-white p-2.5 text-ink no-underline hover:border-code-blue'
+      : 'grid grid-cols-[18px_1fr] gap-2.5 rounded-xl border border-line bg-white p-3 text-ink no-underline hover:border-code-blue'
+
+    if (item.imageUrl) {
+      const image = document.createElement('img')
+      image.src = item.imageUrl
+      image.alt = ''
+      image.loading = 'lazy'
+      image.className = 'h-12 w-9 rounded-md border border-line object-cover'
+      wrapper.append(image)
+    } else {
+      const dot = document.createElement('span')
+      dot.className = `mt-1.5 h-2 w-2 rounded-full ${ACTIVITY_COLORS[item.type] || 'bg-code-blue'}`
+      wrapper.append(dot)
+    }
+
+    const content = document.createElement('span')
+    content.className = 'min-w-0'
+    const title = document.createElement('strong')
+    title.className = 'block truncate'
+    title.textContent = item.title
+    const subtitle = document.createElement('span')
+    subtitle.className = 'block truncate text-[13px] leading-snug text-muted'
+    subtitle.textContent = item.subtitle || item.meta || item.type
+    content.append(title, subtitle)
+    wrapper.append(content)
+    return wrapper
+  }
+
+  function updateActivity(rail: Element, activity: ActivityPayload | null) {
+    const list = rail.querySelector<HTMLElement>('[data-activity-list]')
+    if (!list) return
+    list.textContent = ''
+    const items = activity?.items?.slice(0, 4) || []
+    if (!items.length) {
+      const empty = document.createElement('div')
+      empty.className = 'rounded-xl border border-line bg-white p-3 text-[13px] text-muted'
+      empty.textContent = 'No recent activity.'
+      list.append(empty)
+      return
+    }
+    list.append(...items.map(activityCard))
+  }
+
+  async function hydrateRuntimeRail() {
+    const rail = document.querySelector('#runtime-rail')
+    if (!rail) return
+    const [spotify, github, activity] = await Promise.all([
+      fetchRuntimeJson<SpotifyPayload>('/api/spotify.json'),
+      fetchRuntimeJson<GithubTodayPayload>('/api/github-today.json'),
+      fetchRuntimeJson<ActivityPayload>('/api/activity.json'),
+    ])
+    updateSpotify(rail, spotify)
+    updateGithub(rail, github)
+    updateActivity(rail, activity)
+  }
+
+  hydrateRuntimeRail()
+  document.addEventListener('astro:page-load', hydrateRuntimeRail)
+</script>
