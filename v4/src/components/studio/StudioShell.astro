@@ -7,8 +7,8 @@ import AstroIcon from '../../../../icons/astro.svg?raw'
 import GoodreadsIcon from '../../../../icons/goodreads.svg?raw'
 import ImdbIcon from '../../../../icons/imdb.svg?raw'
 import MarkdownIcon from '../../../../icons/markdown.svg?raw'
+import MadeInVietnamIcon from '../../../../icons/miv.svg?raw'
 import UmamiIcon from '../../../../icons/umami.svg?raw'
-import VietnamIcon from '../../../../icons/vietnam.svg?raw'
 import RuntimeRail from './RuntimeRail.astro'
 
 interface Props {
@@ -280,14 +280,8 @@ const SITE_VERSIONS = [
   <div class="studio-workspace grid min-h-0 grid-cols-1 overflow-hidden lg:grid-cols-[260px_minmax(0,1fr)_360px]">
     <aside class="thin-scrollbar hidden min-h-0 overflow-y-auto border-r border-line bg-[#f8fafc] px-3 py-3 lg:block">
       <a href="/" class="mb-4 flex items-center gap-2.5 font-extrabold no-underline text-ink">
-        <img
-          src="/static/images/avatar.jpg"
-          alt="Leo Huynh"
-          width="36"
-          height="36"
-          class="h-9 w-9 rounded-xl border border-ink object-cover shadow-[3px_3px_0_var(--color-ink)]"
-        />
-        <span>leo workspace</span>
+        <span class="flex h-9 w-9 items-center justify-center rounded-xl border border-ink bg-white font-mono text-base shadow-[3px_3px_0_var(--color-ink)]">~/</span>
+        <span>leohuynh.dev</span>
       </a>
 
       <section class="mb-5">
@@ -430,10 +424,6 @@ const SITE_VERSIONS = [
       </a>
     </div>
     <div class="flex shrink-0 items-center gap-3">
-      <span class="vn-badge hidden whitespace-nowrap sm:inline-flex" title="Made in Vietnam">
-        <span class="inline-block h-4 w-auto [&_svg]:h-4 [&_svg]:w-auto" set:html={VietnamIcon} />
-        made in Vietnam
-      </span>
       <label class="flex shrink-0 items-center gap-1 whitespace-nowrap">
         <span class="hidden sm:inline">version</span>
         <select class="status-select" data-version-select aria-label="Open site version">
@@ -446,6 +436,9 @@ const SITE_VERSIONS = [
           }
         </select>
       </label>
+      <span class="vn-badge hidden whitespace-nowrap sm:inline-flex" title="Made in Vietnam">
+        <span class="inline-block h-5 w-auto [&_svg]:h-5 [&_svg]:w-auto" set:html={MadeInVietnamIcon} />
+      </span>
     </div>
   </footer>
 </div>

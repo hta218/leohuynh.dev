@@ -173,10 +173,6 @@ body {
 .vn-badge {
   align-items: center;
   gap: 5px;
-  border: 1px solid var(--color-line);
-  border-radius: 999px;
-  background: #f8fafc;
-  padding: 2px 8px;
   color: #334155;
 }
 
