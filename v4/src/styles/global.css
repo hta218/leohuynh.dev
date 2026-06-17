@@ -403,11 +403,13 @@ html[data-theme="github-dark-default"] .expressive-code figure.frame {
   height: auto !important;
 }
 
-/* Title inside EC figcaption */
+/* Title inside EC figcaption — strip the orange active-tab indicator */
 .expressive-code figcaption.header .title {
   font-family: var(--font-mono) !important;
   font-size: 11px !important;
   color: var(--color-muted) !important;
+  border-top: none !important;
+  padding-top: 0 !important;
 }
 
 /* Push toolbar to the far right */
@@ -416,7 +418,20 @@ html[data-theme="github-dark-default"] .expressive-code figure.frame {
   flex-shrink: 0;
 }
 
-/* Language badge — compact monospace pill left of the filename */
+/* Ensure select styles are not stomped by EC's own CSS */
+.expressive-code figcaption.header .status-select {
+  height: 22px;
+  border: 1px solid var(--color-line);
+  border-radius: 5px;
+  background: var(--color-panel2);
+  padding: 0 20px 0 6px;
+  color: var(--color-muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  appearance: auto;
+}
+
+/* Language text badge — compact monospace pill */
 .ec-lang-badge {
   flex-shrink: 0;
   font-family: var(--font-mono);
@@ -430,6 +445,24 @@ html[data-theme="github-dark-default"] .expressive-code figure.frame {
   padding: 1px 5px;
   line-height: 1.4;
   white-space: nowrap;
+}
+
+/* Icon badge variant — raw SVG, no border/text styling */
+.ec-lang-icon {
+  width: 16px;
+  height: 16px;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  padding: 0;
+  background: none;
+  color: var(--color-muted);
+}
+
+.ec-lang-icon svg {
+  display: block;
+  flex-shrink: 0;
 }
 .prose img:not(.twemoji) {
   max-width: 100%;

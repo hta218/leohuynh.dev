@@ -1,13 +1,13 @@
 ---
+import { getCollection } from 'astro:content'
 import { execSync } from 'node:child_process'
+import HugeIcon from '~/components/icons/HugeIcon.astro'
+import { SITE } from '~/lib/site'
 import AstroIcon from '../../../../icons/astro.svg?raw'
 import GoodreadsIcon from '../../../../icons/goodreads.svg?raw'
 import ImdbIcon from '../../../../icons/imdb.svg?raw'
 import MarkdownIcon from '../../../../icons/markdown.svg?raw'
 import UmamiIcon from '../../../../icons/umami.svg?raw'
-import { getCollection } from 'astro:content'
-import HugeIcon from '~/components/icons/HugeIcon.astro'
-import { SITE } from '~/lib/site'
 import RuntimeRail from './RuntimeRail.astro'
 
 interface Props {
@@ -83,7 +83,9 @@ const [posts, snippets] = await Promise.all([
   getCollection('snippets', isPublished),
 ])
 
-const latestPost = posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())[0]
+const latestPost = posts.sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+)[0]
 const latestSnippet = snippets.sort((a, b) => b.id.localeCompare(a.id))[0]
 
 const exact = (href: string) => (path: string) => path === href
@@ -106,7 +108,8 @@ const postsSlug: TreeLeaf = {
   file: '[...slug].astro',
   title: 'Post detail template',
   icon: { type: 'brand', name: 'astro' },
-  activeWhen: (path) => path.startsWith('/blog/') && !path.startsWith('/blog/page/'),
+  activeWhen: (path) =>
+    path.startsWith('/blog/') && !path.startsWith('/blog/page/'),
 }
 const snippetsIndex: TreeLeaf = {
   kind: 'leaf',
@@ -213,15 +216,24 @@ const explorerItems: TreeItem[] = [
 ]
 
 const tabLinks: TreeLeaf[] = [
-  explorerItems.find((item) => item.kind === 'leaf' && item.id === 'readme') as TreeLeaf,
+  explorerItems.find(
+    (item) => item.kind === 'leaf' && item.id === 'readme',
+  ) as TreeLeaf,
   { ...postsIndex, file: 'posts/index.astro' },
   { ...snippetsIndex, file: 'snippets/index.astro' },
-  explorerItems.find((item) => item.kind === 'leaf' && item.id === 'projects') as TreeLeaf,
-  explorerItems.find((item) => item.kind === 'leaf' && item.id === 'about') as TreeLeaf,
+  explorerItems.find(
+    (item) => item.kind === 'leaf' && item.id === 'projects',
+  ) as TreeLeaf,
+  explorerItems.find(
+    (item) => item.kind === 'leaf' && item.id === 'about',
+  ) as TreeLeaf,
 ]
 
 const shellId = `studio-${Math.random().toString(36).slice(2)}`
-const isActive = (item: { href: string; activeWhen?: (path: string) => boolean }) =>
+const isActive = (item: {
+  href: string
+  activeWhen?: (path: string) => boolean
+}) =>
   item.activeWhen ? item.activeWhen(currentPath) : currentPath === item.href
 const renderCommit = () => {
   const sha = process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 7)
@@ -240,8 +252,16 @@ const lastCommitUrl =
 const SITE_VERSIONS = [
   { value: 'latest', label: 'latest', href: '/', current: true },
   { value: 'v3', label: 'v3', href: 'https://www.leohuynh.dev/' },
-  { value: 'v2', label: 'v2', href: 'https://leohuynhdev-git-v2-leo-huynhs-projects.vercel.app/' },
-  { value: 'v1', label: 'v1', href: 'https://leohuynhdev-git-v1-leo-huynhs-projects.vercel.app/' },
+  {
+    value: 'v2',
+    label: 'v2',
+    href: 'https://leohuynhdev-git-v2-leo-huynhs-projects.vercel.app/',
+  },
+  {
+    value: 'v1',
+    label: 'v1',
+    href: 'https://leohuynhdev-git-v1-leo-huynhs-projects.vercel.app/',
+  },
 ]
 ---
 
@@ -414,6 +434,17 @@ const SITE_VERSIONS = [
 </div>
 
 <script is:inline>
+  const LANG_ICONS = {
+    ts: `<svg viewBox="0 0 128 128" width="14" height="14" fill="currentColor"><path d="M2 63.91v62.5h125v-125H2zm100.73-5a15.56 15.56 0 017.82 4.5 20.58 20.58 0 013 4c0 .16-5.4 3.81-8.69 5.85-.12.08-.6-.44-1.13-1.23a7.09 7.09 0 00-5.87-3.53c-3.79-.26-6.23 1.73-6.21 5a4.58 4.58 0 00.54 2.34c.83 1.73 2.38 2.76 7.24 4.86 8.95 3.85 12.78 6.39 15.16 10 2.66 4 3.25 10.46 1.45 15.24-2 5.2-6.9 8.73-13.83 9.9a38.32 38.32 0 01-9.52-.1A23 23 0 0180 109.19c-1.15-1.27-3.39-4.58-3.25-4.82a9.34 9.34 0 011.15-.73l4.6-2.64 3.59-2.08.75 1.11a16.78 16.78 0 004.74 4.54c4 2.1 9.46 1.81 12.16-.62a5.43 5.43 0 00.69-6.92c-1-1.39-3-2.56-8.59-5-6.45-2.78-9.23-4.5-11.77-7.24a16.48 16.48 0 01-3.43-6.25 25 25 0 01-.22-8c1.33-6.23 6-10.58 12.82-11.87a31.66 31.66 0 019.49.26zm-29.34 5.24v5.12H57.16v46.23H45.65V69.26H29.38v-5a49.19 49.19 0 01.14-5.16c.06-.08 10-.12 22-.1h21.81z"/></svg>`,
+    js: `<svg viewBox="0 0 128 128" width="14" height="14" fill="currentColor"><path d="M116.347 96.736c-.917-5.711-4.641-10.508-15.672-14.981-3.832-1.761-8.104-3.022-9.377-5.926-.452-1.69-.512-2.642-.226-3.665.821-3.32 4.784-4.355 7.925-3.403 2.023.678 3.938 2.237 5.093 4.724 5.402-3.498 5.391-3.475 9.163-5.879-1.381-2.141-2.118-3.129-3.022-4.045-3.249-3.629-7.676-5.498-14.756-5.355l-3.688.477c-3.534.893-6.902 2.748-8.877 5.235-5.926 6.724-4.236 18.492 2.975 23.335 7.104 5.332 17.54 6.545 18.873 11.531 1.297 6.104-4.486 8.08-10.234 7.378-4.236-.881-6.592-3.034-9.139-6.949-4.688 2.713-4.688 2.713-9.508 5.485 1.143 2.499 2.344 3.63 4.26 5.795 9.068 9.198 31.76 8.746 35.83-5.176.165-.478 1.261-3.666.38-8.581zM69.462 58.943H57.753l-.048 30.272c0 6.438.333 12.34-.714 14.149-1.713 3.558-6.152 3.117-8.175 2.427-2.059-1.012-3.106-2.451-4.319-4.485-.333-.584-.583-1.036-.667-1.071l-9.52 5.83c1.583 3.249 3.915 6.069 6.902 7.901 4.462 2.678 10.459 3.499 16.731 2.059 4.082-1.189 7.604-3.652 9.448-7.401 2.666-4.915 2.094-10.864 2.07-17.444.06-10.735.001-21.468.001-32.237z"/></svg>`,
+    css: `<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.565-2.438L1.5 0zm17.09 4.413L5.41 4.41l.213 2.622 10.125.002-.255 2.716h-6.64l.24 2.573h6.182l-.366 3.523-2.91.804-2.956-.81-.188-2.11h-2.61l.29 3.855L12 19.288l5.373-1.53L18.59 4.414z"/></svg>`,
+    html: `<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"/></svg>`,
+    bash: `<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M21.038 4.9l-7.577-4.498C13.009.134 12.505 0 12 0c-.505 0-1.009.134-1.462.403L2.961 4.9C2.057 5.437 1.5 6.429 1.5 7.503v8.995c0 1.073.557 2.066 1.462 2.603l7.577 4.497C10.991 23.866 11.495 24 12 24c.505 0 1.009-.134 1.461-.402l7.577-4.497c.904-.537 1.462-1.529 1.462-2.603V7.503C22.5 6.429 21.943 5.437 21.038 4.9zM20.459 6.797l-7.168 4.427c-.894.523-1.553 1.109-1.553 2.187v8.833c0 .645.26 1.063.66 1.184-.131.023-.264.039-.398.039-.42 0-.833-.114-1.197-.33L3.226 18.64c-.741-.44-1.201-1.261-1.201-2.142V7.503c0-.881.46-1.702 1.201-2.142l7.577-4.498c.363-.216.777-.33 1.197-.33.419 0 .833.114 1.197.33l7.577 4.498c.624.371 1.046 1.013 1.164 1.732C21.686 6.557 21.12 6.411 20.459 6.797z"/></svg>`,
+    react: `<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M14.23 12.004a2.236 2.236 0 01-2.235 2.236 2.236 2.236 0 01-2.236-2.236 2.236 2.236 0 012.235-2.236 2.236 2.236 0 012.236 2.236zm2.648-10.69c-1.346 0-3.107.96-4.888 2.622-1.78-1.653-3.542-2.602-4.887-2.602-.41 0-.783.093-1.106.278-1.375.793-1.683 3.264-.973 6.365C1.98 8.917 0 10.42 0 12.004c0 1.59 1.99 3.097 5.043 4.03-.704 3.113-.39 5.588.988 6.38.32.187.69.275 1.102.275 1.345 0 3.107-.96 4.888-2.624 1.78 1.654 3.542 2.603 4.887 2.603.41 0 .783-.09 1.106-.275 1.374-.792 1.683-3.263.973-6.365C22.02 15.096 24 13.59 24 12.004c0-1.59-1.99-3.097-5.043-4.032.704-3.11.39-5.587-.988-6.38-.318-.184-.688-.277-1.092-.278zm-.005 1.09c.225 0 .406.044.558.127.666.382.955 1.835.73 3.704-.054.46-.142.945-.25 1.44-.96-.236-2.006-.417-3.107-.534-.66-.905-1.345-1.727-2.035-2.447 1.592-1.48 3.087-2.292 4.105-2.295zm-9.77.02c1.012 0 2.514.808 4.11 2.28-.686.72-1.37 1.537-2.02 2.442-1.107.117-2.154.298-3.113.538-.112-.49-.195-.964-.254-1.42-.23-1.868.054-3.32.714-3.707.19-.09.4-.127.563-.132zm4.882 3.05c.455.468.91.992 1.36 1.564-.44-.02-.89-.034-1.345-.034-.46 0-.915.01-1.36.034.44-.572.895-1.096 1.345-1.565zM12 8.1c.74 0 1.477.034 2.202.093.406.582.802 1.203 1.183 1.86.372.64.71 1.29 1.018 1.946-.308.655-.646 1.31-1.013 1.95-.38.66-.773 1.288-1.18 1.87-.728.063-1.466.098-2.21.098-.74 0-1.477-.035-2.202-.093-.406-.582-.802-1.204-1.183-1.86-.372-.64-.71-1.29-1.018-1.946.303-.657.646-1.313 1.013-1.954.38-.66.773-1.286 1.18-1.868.728-.064 1.466-.098 2.21-.098zm-3.635.254c-.24.377-.48.763-.704 1.16-.225.39-.435.782-.635 1.174-.265-.656-.49-1.31-.676-1.947.64-.15 1.315-.283 2.015-.386zm7.26 0c.695.103 1.365.23 2.006.387-.18.632-.405 1.282-.66 1.933-.2-.39-.41-.783-.64-1.174-.225-.392-.465-.774-.705-1.146zm3.063.675c.484.15.944.317 1.375.498 1.732.74 2.852 1.708 2.852 2.476-.005.768-1.125 1.74-2.857 2.475-.42.18-.88.342-1.355.493-.28-.958-.646-1.956-1.1-2.98.45-1.017.81-2.01 1.085-2.964zm-13.395.004c.278.96.645 1.957 1.1 2.98-.45 1.017-.812 2.01-1.086 2.964-.484-.15-.944-.318-1.37-.5-1.732-.737-2.852-1.706-2.852-2.474 0-.768 1.12-1.742 2.852-2.476.42-.18.88-.342 1.356-.494zm11.678 4.28c.265.657.49 1.312.676 1.948-.64.157-1.316.29-2.016.39.24-.375.48-.762.705-1.158.225-.39.435-.788.636-1.18zm-9.945.02c.2.392.41.783.64 1.175.23.39.465.772.705 1.143-.695-.102-1.365-.23-2.006-.386.18-.63.406-1.282.66-1.933zM17.92 16.32c.112.493.2.968.254 1.423.23 1.868-.054 3.32-.714 3.708-.147.09-.338.128-.563.128-1.012 0-2.514-.807-4.11-2.28.686-.72 1.37-1.536 2.02-2.44 1.107-.118 2.154-.3 3.113-.54zm-11.83.01c.96.234 2.006.415 3.107.532.66.905 1.345 1.727 2.035 2.446-1.595 1.483-3.092 2.295-4.11 2.295-.22-.005-.406-.05-.553-.132-.666-.38-.955-1.834-.73-3.703.054-.46.142-.944.25-1.438zm4.56.64c.44.02.89.034 1.345.034.46 0 .915-.01 1.36-.034-.44.572-.895 1.095-1.345 1.565-.455-.47-.91-.993-1.36-1.565z"/></svg>`,
+    md: `<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M22.27 19.385H1.73A1.73 1.73 0 010 17.655V6.345a1.73 1.73 0 011.73-1.73h20.54A1.73 1.73 0 0124 6.345v11.308a1.73 1.73 0 01-1.73 1.731zM5.769 15.923v-4.5l2.308 2.885 2.307-2.885v4.5h2.308V8.078h-2.308l-2.307 2.885-2.308-2.885H3.46v7.847zM21.232 12h-2.309V8.077h-2.307V12h-2.308l3.461 4.039z"/></svg>`,
+    astro: `<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M8.358 20.162c-1.186-1.07-1.532-3.316-1.038-4.944.856 1.026 2.043 1.352 3.272 1.535 1.897.283 3.76.177 5.522-.678.202-.098.388-.229.608-.36.166.473.209.95.151 1.437-.14 1.185-.738 2.1-1.688 2.794-.38.277-.782.525-1.175.787-1.205.804-1.531 1.747-1.078 3.119l.044.148a3.158 3.158 0 01-1.407-1.188 3.31 3.31 0 01-.544-1.815c-.004-.32-.004-.642-.048-.958-.106-.769-.472-1.113-1.161-1.133-.707-.02-1.267.411-1.415 1.09-.012.053-.028.104-.045.165h.002zm-5.961-4.445s3.24-1.575 6.49-1.575l2.451-7.565c.092-.366.36-.614.662-.614.302 0 .57.248.662.614l2.45 7.565c3.85 0 6.491 1.575 6.491 1.575L16.088.727C15.93.285 15.663 0 15.303 0H8.697c-.36 0-.615.285-.784.727l-5.516 14.99z"/></svg>`,
+  }
+
   function initStudioShell() {
     const root = document.documentElement
     const syncCodeControls = () => {
@@ -434,12 +465,20 @@ const SITE_VERSIONS = [
       const figcaption = frame.querySelector('figcaption.header')
       if (!figcaption) return
       const pre = frame.querySelector('pre[data-language]')
-      const lang = pre?.getAttribute('data-language')?.toUpperCase() || ''
+      const langAttr = pre?.getAttribute('data-language') || ''
       const titleEl = figcaption.querySelector('.title')
-      if (lang) {
+      if (langAttr) {
+        const aliases = { tsx: 'ts', typescript: 'ts', jsx: 'js', javascript: 'js', mjs: 'js', cjs: 'js', scss: 'css', sass: 'css', sh: 'bash', shell: 'bash', zsh: 'bash', mdx: 'md', markdown: 'md' }
+        const iconKey = aliases[langAttr] || langAttr
+        const icon = LANG_ICONS[iconKey]
         const badge = document.createElement('span')
-        badge.className = 'ec-lang-badge'
-        badge.textContent = lang
+        if (icon) {
+          badge.className = 'ec-lang-badge ec-lang-icon'
+          badge.innerHTML = icon
+        } else {
+          badge.className = 'ec-lang-badge'
+          badge.textContent = langAttr.toUpperCase()
+        }
         if (titleEl) figcaption.insertBefore(badge, titleEl)
         else figcaption.prepend(badge)
       }
