@@ -1,4 +1,4 @@
-<aside id="runtime-rail" class="runtime-rail thin-scrollbar hidden min-h-0 content-start gap-3 overflow-y-auto border-l border-line bg-panel2 p-3.5 lg:grid">
+<aside id="runtime-rail" transition:persist="runtime-rail" class="runtime-rail thin-scrollbar hidden min-h-0 content-start gap-3 overflow-y-auto border-l border-line bg-panel2 p-3.5 lg:grid">
   <div class="rounded-2xl border border-line bg-white p-3.5">
     <h3 class="mb-3 font-mono text-[11px] uppercase tracking-[0.08em] text-muted">
       spotify now playing
@@ -178,6 +178,8 @@
   let githubTodayPayload: GithubTodayPayload | null = null
   let selectedGithubDate: string | null = null
   let githubDayAbort: AbortController | null = null
+  let spotifyTimer: number | null = null
+  const SPOTIFY_REFRESH_INTERVAL = 45 * 1000
 
   const stat = (value: number | null | undefined) =>
     typeof value === 'number' ? value.toLocaleString() : '—'
@@ -583,20 +585,39 @@
     list.append(...items.map(activityCard))
   }
 
-  async function hydrateRuntimeRail() {
-    const rail = document.querySelector('#runtime-rail')
-    if (!rail) return
-    const [spotify, streak, today, activity] = await Promise.all([
-      fetchRuntimeJson<SpotifyPayload>('/api/spotify.json'),
+  async function refreshSpotify(rail: Element) {
+    const spotify = await fetchRuntimeJson<SpotifyPayload>('/api/spotify.json')
+    updateSpotify(rail, spotify)
+  }
+
+  async function hydrateGithubActivity(rail: HTMLElement) {
+    if (rail.dataset.hydrated === 'true') return
+    rail.dataset.hydrated = 'true'
+    const [streak, today, activity] = await Promise.all([
       fetchRuntimeJson<GithubStreakPayload>('/api/github-streak.json'),
       fetchRuntimeJson<GithubTodayPayload>('/api/github-today.json'),
       fetchRuntimeJson<ActivityPayload>('/api/activity.json'),
     ])
-    updateSpotify(rail, spotify)
     updateGithub(rail, streak, today)
     updateActivity(rail, activity)
   }
 
-  hydrateRuntimeRail()
+  function hydrateRuntimeRail() {
+    const rail = document.querySelector<HTMLElement>('#runtime-rail')
+    if (!rail) return
+    // GitHub heatmap + activity feed are static for the session — fetch once.
+    // The rail node is persisted across route changes (transition:persist),
+    // so the dataset flag survives and prevents re-querying on navigation.
+    hydrateGithubActivity(rail)
+    // Spotify is live — refresh now and keep a single interval running.
+    refreshSpotify(rail)
+    if (spotifyTimer === null) {
+      spotifyTimer = window.setInterval(() => {
+        const current = document.querySelector('#runtime-rail')
+        if (current) refreshSpotify(current)
+      }, SPOTIFY_REFRESH_INTERVAL)
+    }
+  }
+
   document.addEventListener('astro:page-load', hydrateRuntimeRail)
 </script>
