@@ -312,7 +312,17 @@ type GithubContributionCollection = {
   totalPullRequestContributions: number
   totalPullRequestReviewContributions: number
   commitContributionsByRepository: Array<{
-    repository: { nameWithOwner: string; url: string }
+    repository: {
+      nameWithOwner: string
+      url: string
+      defaultBranchRef?: {
+        target?: {
+          history?: {
+            nodes: GithubRepoCommit[]
+          }
+        }
+      }
+    }
     contributions: { totalCount: number }
   }>
   contributionCalendar?: {
@@ -320,10 +330,8 @@ type GithubContributionCollection = {
   }
 }
 
-type GithubSearchCommit = {
+type GithubRepoCommit = {
   committedDate: string
-  message: string
-  url: string
   additions?: number
   deletions?: number
   author?: { user?: { login?: string } }
@@ -337,19 +345,6 @@ type GithubDayGraphqlResponse = {
         weeks: Array<{ contributionDays: GithubContributionDay[] }>
       }
     }
-  }
-  search?: {
-    nodes: Array<{
-      nameWithOwner: string
-      url: string
-      defaultBranchRef?: {
-        target?: {
-          history?: {
-            nodes: GithubSearchCommit[]
-          }
-        }
-      }
-    }>
   }
 }
 
@@ -368,16 +363,15 @@ function buildGithubDayPayload(
     }))
     .sort((a, b) => b.commits - a.commits)[0]
 
-  const dayCommits =
-    response.search?.nodes.flatMap((repo) =>
-      (repo.defaultBranchRef?.target?.history?.nodes ?? [])
-        .filter((commit) => commit.author?.user?.login === username)
-        .filter(
-          (commit) =>
-            commit.committedDate >= range.from &&
-            commit.committedDate <= range.to,
-        ),
-    ) ?? []
+  const dayCommits = repos.flatMap((repo) =>
+    (repo.repository.defaultBranchRef?.target?.history?.nodes ?? [])
+      .filter((commit) => commit.author?.user?.login === username)
+      .filter(
+        (commit) =>
+          commit.committedDate >= range.from &&
+          commit.committedDate <= range.to,
+      ),
+  )
 
   const fallbackCommits = collection?.totalCommitContributions ?? null
   const commits = dayCommits.length || fallbackCommits
@@ -426,7 +420,7 @@ async function fetchGithubSingleDayGraphql(range: {
 }): Promise<GithubDayGraphqlResponse> {
   const username = githubUsername()
   return githubGraphql<GithubDayGraphqlResponse>(
-    `query GithubSingleDay($username: String!, $fromDateTime: DateTime!, $toDateTime: DateTime!, $fromGitTimestamp: GitTimestamp!, $toGitTimestamp: GitTimestamp!, $searchQuery: String!) {
+    `query GithubSingleDay($username: String!, $fromDateTime: DateTime!, $toDateTime: DateTime!, $fromGitTimestamp: GitTimestamp!, $toGitTimestamp: GitTimestamp!) {
       user(login: $username) {
         selected: contributionsCollection(from: $fromDateTime, to: $toDateTime) {
           totalCommitContributions
@@ -434,32 +428,25 @@ async function fetchGithubSingleDayGraphql(range: {
           totalPullRequestContributions
           totalPullRequestReviewContributions
           commitContributionsByRepository(maxRepositories: 10) {
-            repository { nameWithOwner url }
-            contributions(first: 100) { totalCount }
-          }
-        }
-      }
-      search(query: $searchQuery, type: REPOSITORY, first: 8) {
-        nodes {
-          ... on Repository {
-            nameWithOwner
-            url
-            defaultBranchRef {
-              target {
-                ... on Commit {
-                  history(first: 40, since: $fromGitTimestamp, until: $toGitTimestamp) {
-                    nodes {
-                      committedDate
-                      message
-                      url
-                      additions
-                      deletions
-                      author { user { login } }
+            repository {
+              nameWithOwner
+              url
+              defaultBranchRef {
+                target {
+                  ... on Commit {
+                    history(first: 40, since: $fromGitTimestamp, until: $toGitTimestamp) {
+                      nodes {
+                        committedDate
+                        additions
+                        deletions
+                        author { user { login } }
+                      }
                     }
                   }
                 }
               }
             }
+            contributions(first: 100) { totalCount }
           }
         }
       }
@@ -470,7 +457,6 @@ async function fetchGithubSingleDayGraphql(range: {
       toDateTime: range.to,
       fromGitTimestamp: range.from,
       toGitTimestamp: range.to,
-      searchQuery: `user:${username} sort:updated-desc`,
     },
   )
 }

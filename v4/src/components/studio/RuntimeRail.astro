@@ -63,25 +63,17 @@
         </button>
       </div>
       <div data-github-detail class="grid gap-1.5">
-        <div class="flex items-center justify-between gap-3 border-b border-dashed border-line/80 py-1 last:border-b-0">
+        <div class="flex items-baseline justify-between gap-3 border-b border-dashed border-line/80 py-1 last:border-b-0">
           <span class="font-mono text-[10px] uppercase tracking-[0.06em] text-muted">contribs</span>
-          <span class="h-4 w-10 rounded-full bg-line/70 animate-pulse"></span>
+          <strong class="font-mono text-[12px]"><span class="inline-block h-2 w-10 align-middle rounded-full bg-line/70 animate-pulse"></span></strong>
         </div>
-        <div class="flex items-center justify-between gap-3 border-b border-dashed border-line/80 py-1 last:border-b-0">
-          <span class="font-mono text-[10px] uppercase tracking-[0.06em] text-muted">commits</span>
-          <span class="h-4 w-8 rounded-full bg-line/70 animate-pulse"></span>
-        </div>
-        <div class="flex items-center justify-between gap-3 border-b border-dashed border-line/80 py-1 last:border-b-0">
-          <span class="font-mono text-[10px] uppercase tracking-[0.06em] text-muted">prs / issues</span>
-          <span class="h-4 w-12 rounded-full bg-line/70 animate-pulse"></span>
-        </div>
-        <div class="flex items-center justify-between gap-3 border-b border-dashed border-line/80 py-1 last:border-b-0">
-          <span class="font-mono text-[10px] uppercase tracking-[0.06em] text-muted">reviews</span>
-          <span class="h-4 w-6 rounded-full bg-line/70 animate-pulse"></span>
-        </div>
-        <div class="flex items-center justify-between gap-3 border-b border-dashed border-line/80 py-1 last:border-b-0">
+        <div class="flex items-baseline justify-between gap-3 border-b border-dashed border-line/80 py-1 last:border-b-0">
           <span class="font-mono text-[10px] uppercase tracking-[0.06em] text-muted">LOCs</span>
-          <span class="h-4 w-16 rounded-full bg-line/70 animate-pulse"></span>
+          <strong class="font-mono text-[12px]"><span class="inline-block h-2 w-16 align-middle rounded-full bg-line/70 animate-pulse"></span></strong>
+        </div>
+        <div class="flex items-baseline justify-between gap-3 border-b border-dashed border-line/80 py-1 last:border-b-0">
+          <span class="font-mono text-[10px] uppercase tracking-[0.06em] text-muted">commits / prs / issues</span>
+          <strong class="font-mono text-[12px]"><span class="inline-block h-2 w-16 align-middle rounded-full bg-line/70 animate-pulse"></span></strong>
         </div>
       </div>
     </div>
@@ -348,23 +340,24 @@
     width = 'w-12',
   ) {
     const row = document.createElement('div')
-    row.className = 'flex items-center justify-between gap-3 border-b border-dashed border-line/80 py-1 last:border-b-0'
+    row.className = 'flex items-baseline justify-between gap-3 border-b border-dashed border-line/80 py-1 last:border-b-0'
     const labelEl = document.createElement('span')
     labelEl.className = 'font-mono text-[10px] uppercase tracking-[0.06em] text-muted'
     labelEl.textContent = label
+    const valueEl = document.createElement('strong')
+    valueEl.className = 'font-mono text-[12px]'
     const shimmer = document.createElement('span')
-    shimmer.className = `h-4 rounded-full bg-line/70 animate-pulse ${width}`
-    row.append(labelEl, shimmer)
+    shimmer.className = `inline-block h-2 align-middle rounded-full bg-line/70 animate-pulse ${width}`
+    valueEl.append(shimmer)
+    row.append(labelEl, valueEl)
     detail.append(row)
   }
 
   function renderGithubSkeleton(detail: HTMLElement) {
     detail.textContent = ''
     appendGithubSkeletonRow(detail, 'contribs', 'w-10')
-    appendGithubSkeletonRow(detail, 'commits', 'w-8')
-    appendGithubSkeletonRow(detail, 'prs / issues', 'w-12')
-    appendGithubSkeletonRow(detail, 'reviews', 'w-6')
     appendGithubSkeletonRow(detail, 'LOCs', 'w-16')
+    appendGithubSkeletonRow(detail, 'commits / prs / issues', 'w-16')
   }
 
   function renderGithubLoading(rail: Element, date: string) {
@@ -405,11 +398,11 @@
     const valueEl = document.createElement('strong')
     valueEl.className = 'font-mono text-[12px]'
     const added = document.createElement('span')
-    added.className = 'text-code-green'
+    added.className = 'text-green-600'
     added.textContent = `+${stat(additions)}`
     const sep = document.createTextNode(' / ')
     const removed = document.createElement('span')
-    removed.className = 'text-code-red'
+    removed.className = 'text-red-600'
     removed.textContent = `-${stat(deletions)}`
     valueEl.append(added, sep, removed)
     row.append(labelEl, valueEl)
@@ -431,10 +424,8 @@
       if (typeof options.fallbackCount === 'number') {
         appendGithubRow(detail, 'contribs', stat(options.fallbackCount))
       }
-      appendGithubSkeletonRow(detail, 'commits', 'w-8')
-      appendGithubSkeletonRow(detail, 'prs / issues', 'w-12')
-      appendGithubSkeletonRow(detail, 'reviews', 'w-6')
       appendGithubSkeletonRow(detail, 'LOCs', 'w-16')
+      appendGithubSkeletonRow(detail, 'commits / prs / issues', 'w-16')
       return
     }
 
@@ -444,10 +435,8 @@
         : github.contributions
 
     appendGithubRow(detail, 'contribs', stat(displayedContributions))
-    appendGithubRow(detail, 'commits', stat(github.commits))
-    appendGithubRow(detail, 'prs / issues', `${stat(github.pullRequests)} / ${stat(github.issues)}`)
-    appendGithubRow(detail, 'reviews', stat(github.reviews))
     appendGithubChangedRow(detail, github.additions, github.deletions)
+    appendGithubRow(detail, 'commits / prs / issues', `${stat(github.commits)} / ${stat(github.pullRequests)} / ${stat(github.issues)}`)
   }
 
   function syncGithubSelectedState(rail: Element) {

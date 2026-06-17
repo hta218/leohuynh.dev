@@ -11,7 +11,7 @@ const fallback: GithubTodayPayload = {
   deletions: null,
 }
 
-function stat(value: number | null) {
+function stat(value: number | null | undefined) {
   return typeof value === 'number' ? value.toLocaleString() : '—'
 }
 
@@ -40,24 +40,32 @@ export default function GithubTodayWidget() {
       </h3>
       <div className="grid grid-cols-2 gap-2">
         <div className="rounded-xl border border-line bg-[#fbfdff] p-2.5">
-          <b className="block text-2xl">{stat(data.contributions)}</b>
-          <span className="font-mono text-[10px] text-muted">contribs</span>
-        </div>
-        <div className="rounded-xl border border-line bg-[#fbfdff] p-2.5">
           <b className="block text-2xl">{stat(data.commits)}</b>
           <span className="font-mono text-[10px] text-muted">commits</span>
         </div>
         <div className="rounded-xl border border-line bg-[#fbfdff] p-2.5">
-          <b className="block text-2xl text-code-green">
-            +{stat(data.additions)}
-          </b>
-          <span className="font-mono text-[10px] text-muted">added</span>
+          <b className="block text-2xl">{stat(data.pullRequests)}</b>
+          <span className="font-mono text-[10px] text-muted">PRs</span>
         </div>
         <div className="rounded-xl border border-line bg-[#fbfdff] p-2.5">
-          <b className="block text-2xl text-code-red">
-            -{stat(data.deletions)}
+          <b className="block text-2xl">{stat(data.issues)}</b>
+          <span className="font-mono text-[10px] text-muted">issues</span>
+        </div>
+        <div className="rounded-xl border border-line bg-[#fbfdff] p-2.5">
+          <b className="block text-2xl">{stat(data.reviews)}</b>
+          <span className="font-mono text-[10px] text-muted">reviews</span>
+        </div>
+      </div>
+      <div className="mt-2 grid grid-cols-2 gap-2">
+        <div className="rounded-xl border border-green-600/30 bg-green-50 p-2.5">
+          <b className="block text-2xl text-green-600">
+            +{stat(data.additions)}
           </b>
-          <span className="font-mono text-[10px] text-muted">removed</span>
+          <span className="font-mono text-[10px] text-green-700/80">added</span>
+        </div>
+        <div className="rounded-xl border border-red-600/30 bg-red-50 p-2.5">
+          <b className="block text-2xl text-red-600">-{stat(data.deletions)}</b>
+          <span className="font-mono text-[10px] text-red-700/80">removed</span>
         </div>
       </div>
       {data.topRepo && (
