@@ -1,7 +1,8 @@
 ---
-import StudioShell from '~/components/studio/StudioShell.astro'
 import HugeIcon from '~/components/icons/HugeIcon.astro'
+import StudioShell from '~/components/studio/StudioShell.astro'
 import BaseLayout from '~/layouts/BaseLayout.astro'
+import { BRAND_ICONS, brandIcon } from '~/lib/brand-icons'
 import { PROJECTS, type Project } from '~/lib/projects'
 
 const projects = PROJECTS
@@ -11,13 +12,31 @@ const self = projects.filter((p) => p.type === 'self')
 function projectHref(p: Project): string | undefined {
   return p.repo ? `https://github.com/${p.repo}` : p.url
 }
+
+// Languages the GitHub API may report for these repos — serialized for the
+// client script so the hydrated "Language" cell can swap in a brand icon.
+const LANGUAGE_ICONS: Record<string, string> = Object.fromEntries(
+  [
+    'TypeScript',
+    'JavaScript',
+    'Shell',
+    'Liquid',
+    'Python',
+    'Java',
+    'CSS',
+    'HTML',
+    'MDX',
+  ]
+    .map((lang) => [lang, BRAND_ICONS[lang]])
+    .filter(([, icon]) => Boolean(icon)),
+)
 ---
 
 <BaseLayout title="Projects" description="Things I've built — commercial work and personal open-source projects.">
   <StudioShell active="/projects" crumb="~/leohuynh.dev/projects/">
     <header class="mb-9 border-b border-line pb-7">
       <h1 class="m-0 text-[clamp(34px,6vw,58px)] leading-[0.95] tracking-[-0.05em]">Projects</h1>
-      <p class="mt-4 max-w-[680px] text-lg text-muted">
+      <p class="mt-4 max-w-170 text-lg text-muted">
         Collections of open-source side projects, commercial work, and practical tools I’ve
         built with teammates or shipped on my own.
       </p>
@@ -36,28 +55,48 @@ function projectHref(p: Project): string | undefined {
           <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
             {group.items.map((p) => {
               const href = projectHref(p)
-              const Tag = href ? 'a' : 'div'
+              const isRepo = Boolean(p.repo)
+              // Repo cards are a single anchor to GitHub. Non-repo cards stay a
+              // <div> so the title and each link can be their own anchors.
+              const Tag = isRepo && href ? 'a' : 'div'
 
               return (
                 <Tag
-                  href={href}
-                  target={href ? '_blank' : undefined}
-                  rel={href ? 'noreferrer' : undefined}
+                  href={isRepo ? href : undefined}
+                  target={isRepo && href ? '_blank' : undefined}
+                  rel={isRepo && href ? 'noreferrer' : undefined}
                   data-project-repo={p.repo}
-                  class="group flex min-h-[238px] flex-col gap-3 rounded-2xl border border-line bg-white p-4 no-underline transition-shadow hover:shadow-[4px_4px_0_var(--color-line)]"
+                  class="group flex min-h-59.5 flex-col gap-3 rounded-2xl border border-line bg-white p-4 no-underline transition-shadow hover:shadow-[4px_4px_0_var(--color-line)]"
                 >
                   <div class="flex items-center gap-3">
-                    <img
-                      src={p.imgSrc}
-                      alt={p.title}
-                      width="40"
-                      height="40"
-                      loading="lazy"
-                      class="h-10 w-10 rounded-lg border border-line object-contain"
-                    />
+                    {p.imgSrc ? (
+                      <img
+                        src={p.imgSrc}
+                        alt={p.title}
+                        width="40"
+                        height="40"
+                        loading="lazy"
+                        class="h-10 w-10 rounded-lg object-contain"
+                      />
+                    ) : (
+                      <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-line bg-[#f8fafc] text-slate-500">
+                        <HugeIcon name={p.icon ?? 'code'} size={24} class="size-6! flex-none!" />
+                      </span>
+                    )}
                     <div>
                       <h3 class="m-0 text-[17px] font-semibold tracking-[-0.02em] text-ink group-hover:text-slate-950">
-                        {p.title}
+                        {isRepo || !href ? (
+                          p.title
+                        ) : (
+                          <a
+                            href={href}
+                            target="_blank"
+                            rel="noreferrer"
+                            class="text-ink no-underline hover:text-slate-950 hover:underline"
+                          >
+                            {p.title}
+                          </a>
+                        )}
                       </h3>
                       {p.repo && (
                         <div class="mt-1 font-mono text-[11px] text-muted" data-project-owner>
@@ -71,8 +110,13 @@ function projectHref(p: Project): string | undefined {
                     {p.description || 'Live GitHub metadata loads on demand.'}
                   </p>
 
-                  <div class="mt-auto grid grid-cols-2 gap-3 border-t border-line pt-3 font-mono text-xs text-muted sm:grid-cols-3">
-                    {p.repo ? (
+                  <div
+                    class:list={[
+                      'mt-auto grid grid-cols-2 gap-3 border-t border-line pt-3 font-mono text-xs text-muted',
+                      p.repo && 'sm:grid-cols-3',
+                    ]}
+                  >
+                    {isRepo ? (
                       <div>
                         <div class="text-[10px] uppercase tracking-[0.08em] text-slate-400">Stars</div>
                         <div class="mt-1 flex items-center gap-1.5 text-slate-900">
@@ -81,34 +125,58 @@ function projectHref(p: Project): string | undefined {
                         </div>
                       </div>
                     ) : (
-                      <div>
+                      <div class="min-w-0">
                         <div class="text-[10px] uppercase tracking-[0.08em] text-slate-400">Links</div>
-                        <div class="mt-1 text-slate-900">{p.links?.length ?? (href ? 1 : 0)}</div>
+                        <div class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-slate-900">
+                          {(p.links?.length
+                            ? p.links
+                            : href
+                              ? [{ title: 'Website', url: href }]
+                              : []
+                          ).map((l) => (
+                            <a
+                              href={l.url}
+                              target="_blank"
+                              rel="noreferrer"
+                              class="flex items-center gap-1 whitespace-nowrap text-slate-900 no-underline hover:text-slate-950 hover:underline"
+                            >
+                              <span class="text-slate-400">↗</span>
+                              <span>{l.title}</span>
+                            </a>
+                          ))}
+                        </div>
                       </div>
                     )}
 
                     <div>
                       <div class="text-[10px] uppercase tracking-[0.08em] text-slate-400">Stack</div>
-                      <div class="mt-1 truncate text-slate-900">{p.builtWith.slice(0, 2).join(', ')}</div>
+                      <div class="mt-1 flex min-h-5 flex-wrap items-center gap-1.5 text-slate-900">
+                        {p.builtWith.map((tool) => {
+                          const icon = brandIcon(tool)
+                          return icon ? (
+                            <span
+                              class="tech-icon"
+                              title={tool}
+                              set:html={icon}
+                            />
+                          ) : (
+                            <span class="text-[11px] text-slate-500">{tool}</span>
+                          )
+                        })}
+                      </div>
                     </div>
 
-                    <div>
-                      <div class="text-[10px] uppercase tracking-[0.08em] text-slate-400" data-project-meta-label>
-                        {p.repo ? 'Language' : 'Type'}
+                    {p.repo && (
+                      <div>
+                        <div class="text-[10px] uppercase tracking-[0.08em] text-slate-400" data-project-meta-label>
+                          Language
+                        </div>
+                        <div class="mt-1 flex h-5 items-center gap-1.5 truncate text-slate-900" data-project-meta>
+                          loading…
+                        </div>
                       </div>
-                      <div class="mt-1 truncate text-slate-900" data-project-meta>
-                        {p.repo ? 'loading…' : p.type}
-                      </div>
-                    </div>
+                    )}
                   </div>
-
-                  {p.links && p.links.length > 0 && !p.repo && (
-                    <div class="flex flex-wrap gap-3 font-mono text-xs text-slate-700">
-                      {p.links.map((l) => (
-                        <span>↗ {l.title}</span>
-                      ))}
-                    </div>
-                  )}
                 </Tag>
               )
             })}
@@ -118,6 +186,8 @@ function projectHref(p: Project): string | undefined {
     }
   </StudioShell>
 </BaseLayout>
+
+<script is:inline type="application/json" id="project-language-icons" set:html={JSON.stringify(LANGUAGE_ICONS)}></script>
 
 <script>
   type ProjectMeta = {
@@ -133,6 +203,26 @@ function projectHref(p: Project): string | undefined {
 
   const PROJECTS_CACHE_KEY = 'leohuynh:github-projects:v1'
   const PROJECTS_CACHE_TTL = 10 * 60 * 1000
+
+  function readLanguageIcons(): Record<string, string> {
+    try {
+      const raw = document.getElementById('project-language-icons')?.textContent
+      return raw ? (JSON.parse(raw) as Record<string, string>) : {}
+    } catch {
+      return {}
+    }
+  }
+
+  const LANGUAGE_ICONS = readLanguageIcons()
+
+  function renderLanguageCell(cell: Element, language: string) {
+    const icon = LANGUAGE_ICONS[language]
+    if (icon) {
+      cell.innerHTML = `<span class="tech-icon" title="${language}">${icon}</span><span>${language}</span>`
+    } else {
+      cell.textContent = language
+    }
+  }
 
   function readProjectsCache(): ProjectMetaMap | null {
     try {
@@ -195,7 +285,7 @@ function projectHref(p: Project): string | undefined {
       if (metaLabel && metaValue) {
         if (meta.language) {
           metaLabel.textContent = 'Language'
-          metaValue.textContent = meta.language
+          renderLanguageCell(metaValue, meta.language)
         } else if (meta.pushedAt) {
           metaLabel.textContent = 'Updated'
           metaValue.textContent = formatDate(meta.pushedAt) || '—'
