@@ -373,9 +373,10 @@ html[data-code-font="sfmono"] {
 
 /* Brand headings — tighter tracking + the signature h2 underline. */
 .prose h1 {
-  font-size: clamp(32px, 5vw, 46px);
-  line-height: 1.08;
-  letter-spacing: -0.04em;
+  font-size: clamp(40px, 6vw, 74px);
+  line-height: 0.96;
+  letter-spacing: -0.07em;
+  font-weight: 400;
 }
 .prose h2 {
   font-size: 27px;
