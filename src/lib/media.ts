@@ -49,7 +49,7 @@ function readJson<T>(relPath: string): T[] {
 }
 
 export function getBooks(): Book[] {
-  const raw = readJson<Record<string, string>>('../json/books.json')
+  const raw = readJson<Record<string, string>>('json/books.json')
   return raw.map((b) => ({
     title: b.title,
     link: b.link,
@@ -66,7 +66,7 @@ export function getBooks(): Book[] {
 }
 
 export function getMovies(): Movie[] {
-  const raw = readJson<Record<string, string>>('../json/movies.json')
+  const raw = readJson<Record<string, string>>('json/movies.json')
   return raw.map((m) => ({
     id: m.const,
     title: m.title,

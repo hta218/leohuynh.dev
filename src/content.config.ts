@@ -6,8 +6,8 @@ import { z } from 'astro/zod'
  * v4 content schema — mirrors the legacy `contentlayer.config.ts` field set so MDX
  * frontmatter migrates 1:1 and existing URLs/SEO stay intact.
  *
- * Content is NOT duplicated: collections load the existing legacy MDX from `../data`
- * (single source of truth during migration). Slug = filename, so URLs map to
+ * Content is NOT duplicated: collections load the existing MDX from `./data`
+ * (single source of truth). Slug = filename, so URLs map to
  * `/blog/<slug>` and `/snippets/<slug>` exactly like the Next.js site.
  */
 
@@ -28,7 +28,7 @@ const sharedFields = {
 }
 
 const blog = defineCollection({
-  loader: glob({ pattern: '**/*.mdx', base: '../data/blog' }),
+  loader: glob({ pattern: '**/*.mdx', base: './data/blog' }),
   schema: z.object({
     title: z.string(),
     ...sharedFields,
@@ -36,7 +36,7 @@ const blog = defineCollection({
 })
 
 const snippets = defineCollection({
-  loader: glob({ pattern: '**/*.mdx', base: '../data/snippets' }),
+  loader: glob({ pattern: '**/*.mdx', base: './data/snippets' }),
   schema: z.object({
     heading: z.string(),
     title: z.string(),
