@@ -39,11 +39,6 @@ export interface GithubDayPayload {
   issues?: number | null
   pullRequests?: number | null
   reviews?: number | null
-  topRepo?: {
-    nameWithOwner: string
-    url: string
-    commits: number
-  }
   error?: string
 }
 

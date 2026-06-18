@@ -311,23 +311,6 @@ type GithubContributionCollection = {
   totalIssueContributions: number
   totalPullRequestContributions: number
   totalPullRequestReviewContributions: number
-  commitContributionsByRepository: Array<{
-    repository: {
-      nameWithOwner: string
-      url: string
-      defaultBranchRef?: {
-        target?: {
-          history?: {
-            nodes: GithubRepoCommit[]
-          }
-        }
-      }
-    }
-    contributions: { totalCount: number }
-  }>
-  contributionCalendar?: {
-    weeks: Array<{ contributionDays: GithubContributionDay[] }>
-  }
 }
 
 type GithubRepoCommit = {
@@ -337,13 +320,27 @@ type GithubRepoCommit = {
   author?: { user?: { login?: string } }
 }
 
+type GithubRepoNode = {
+  defaultBranchRef?: {
+    target?: {
+      history?: {
+        nodes: GithubRepoCommit[]
+      }
+    }
+  }
+}
+
 type GithubDayGraphqlResponse = {
   user?: {
     selected?: GithubContributionCollection
-    heat?: {
-      contributionCalendar?: {
-        weeks: Array<{ contributionDays: GithubContributionDay[] }>
-      }
+  }
+  // Commit totals from `contributionsCollection` hide private contributions
+  // (collapsed into `restrictedContributionsCount`). To count LOCs in private
+  // repos too, the LOC walk uses `viewer.repositories` instead — the token's
+  // own repos, including private ones it has `repo` scope for.
+  viewer?: {
+    repositories?: {
+      nodes: GithubRepoNode[]
     }
   }
 }
@@ -354,18 +351,17 @@ function buildGithubDayPayload(
   range: { date: string; from: string; to: string },
 ): GithubDayPayload {
   const collection = response.user?.selected
-  const repos = collection?.commitContributionsByRepository ?? []
-  const topRepo = repos
-    .map((repo) => ({
-      nameWithOwner: repo.repository.nameWithOwner,
-      url: repo.repository.url,
-      commits: repo.contributions.totalCount,
-    }))
-    .sort((a, b) => b.commits - a.commits)[0]
+  const repos = response.viewer?.repositories?.nodes ?? []
 
+  // Today's commits across each repo's default branch. Keep the user's commits,
+  // plus commits whose author email isn't linked to a GitHub login (author.user
+  // is null) — otherwise unlinked-email commits get dropped.
   const dayCommits = repos.flatMap((repo) =>
-    (repo.repository.defaultBranchRef?.target?.history?.nodes ?? [])
-      .filter((commit) => commit.author?.user?.login === username)
+    (repo.defaultBranchRef?.target?.history?.nodes ?? [])
+      .filter(
+        (commit) =>
+          !commit.author?.user?.login || commit.author.user.login === username,
+      )
       .filter(
         (commit) =>
           commit.committedDate >= range.from &&
@@ -399,7 +395,6 @@ function buildGithubDayPayload(
     issues: collection?.totalIssueContributions ?? null,
     pullRequests: collection?.totalPullRequestContributions ?? null,
     reviews: collection?.totalPullRequestReviewContributions ?? null,
-    topRepo,
   }
 }
 
@@ -427,26 +422,25 @@ async function fetchGithubSingleDayGraphql(range: {
           totalIssueContributions
           totalPullRequestContributions
           totalPullRequestReviewContributions
-          commitContributionsByRepository(maxRepositories: 10) {
-            repository {
-              nameWithOwner
-              url
-              defaultBranchRef {
-                target {
-                  ... on Commit {
-                    history(first: 40, since: $fromGitTimestamp, until: $toGitTimestamp) {
-                      nodes {
-                        committedDate
-                        additions
-                        deletions
-                        author { user { login } }
-                      }
+        }
+      }
+      viewer {
+        repositories(first: 30, orderBy: { field: PUSHED_AT, direction: DESC }, affiliations: [OWNER, COLLABORATOR, ORGANIZATION_MEMBER]) {
+          nodes {
+            defaultBranchRef {
+              target {
+                ... on Commit {
+                  history(first: 60, since: $fromGitTimestamp, until: $toGitTimestamp) {
+                    nodes {
+                      committedDate
+                      additions
+                      deletions
+                      author { user { login } }
                     }
                   }
                 }
               }
             }
-            contributions(first: 100) { totalCount }
           }
         }
       }

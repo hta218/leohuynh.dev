@@ -68,16 +68,6 @@ export default function GithubTodayWidget() {
           <span className="font-mono text-[10px] text-red-700/80">removed</span>
         </div>
       </div>
-      {data.topRepo && (
-        <a
-          href={data.topRepo.url}
-          target="_blank"
-          rel="noreferrer"
-          className="mt-2 block truncate rounded-lg border border-line bg-white px-2 py-1.5 font-mono text-[11px] text-muted no-underline hover:text-code-blue"
-        >
-          top repo: {data.topRepo.nameWithOwner}
-        </a>
-      )}
     </div>
   )
 }
