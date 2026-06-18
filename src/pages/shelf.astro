@@ -1,0 +1,249 @@
+---
+import PageHeader from '~/components/PageHeader.astro'
+import HugeIcon from '~/components/icons/HugeIcon.astro'
+import StudioShell from '~/components/studio/StudioShell.astro'
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import { getBooks, getMovies, type Movie } from '~/lib/media'
+import { SITE } from '~/lib/site'
+
+const books = getBooks().sort((a, b) => b.userRating - a.userRating)
+const reading = books.filter((b) => b.userShelves.includes('currently-reading'))
+const readBooks = books.filter(
+  (b) => !b.userShelves.includes('currently-reading'),
+)
+
+const movies = getMovies().sort((a, b) => {
+  if (b.yourRating === a.yourRating) return b.imdbRating - a.imdbRating
+  return b.yourRating - a.yourRating
+})
+const groupedMovies = movies.reduce<Array<{ rating: number; movies: Movie[] }>>(
+  (groups, movie) => {
+    const group = groups.find((item) => item.rating === movie.yourRating)
+    if (group) {
+      group.movies.push(movie)
+    } else {
+      groups.push({ rating: movie.yourRating, movies: [movie] })
+    }
+    return groups
+  },
+  [],
+)
+
+function ratingStars(rating: number): boolean[] {
+  const rounded = Math.round(rating)
+  return Array.from({ length: 5 }, (_, index) => index < rounded)
+}
+
+function meta(movie: Movie): string {
+  return [
+    movie.year,
+    movie.titleType,
+    movie.genres?.split(',')[0],
+    movie.runtime ? `${movie.runtime}m` : undefined,
+  ]
+    .filter(Boolean)
+    .join(' · ')
+}
+---
+
+<BaseLayout
+  title="Shelf"
+  description="What I read and watch — books from my Goodreads bookshelf and movies from my IMDb ratings."
+>
+  <StudioShell active="/shelf" crumb="~/leohuynh.dev/shelf/">
+    <PageHeader
+      title="Shelf"
+      description="What I read and watch — books from my Goodreads bookshelf, movies and TV from my IMDb ratings."
+    >
+      <nav class="mt-4 flex gap-4 font-mono text-xs">
+        <a href="#reading" class="text-code-blue no-underline">→ reading</a>
+        <a href="#watching" class="text-code-blue no-underline">→ watching</a>
+      </nav>
+    </PageHeader>
+
+    <section id="reading" class="mb-14 scroll-mt-24">
+      <div class="mb-5 flex items-end justify-between gap-3 border-b border-line pb-2">
+        <h2 class="m-0 text-[22px] tracking-[-0.04em]">Reading</h2>
+        <a
+          href={SITE.goodreadsBookshelfUrl}
+          target="_blank"
+          rel="noreferrer"
+          class="font-mono text-xs text-code-blue no-underline">Goodreads ↗</a
+        >
+      </div>
+
+      {
+        books.length === 0 && (
+          <p class="rounded-xl border border-line bg-white p-6 font-mono text-sm text-muted">
+            Bookshelf snapshot unavailable right now.
+          </p>
+        )
+      }
+
+      {
+        reading.length > 0 && (
+          <div class="mb-10">
+            <h3 class="mb-4 font-mono text-xs tracking-wide text-muted uppercase">
+              Currently reading
+            </h3>
+            <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+              {reading.map((book) => (
+                <a
+                  href={book.link}
+                  target="_blank"
+                  rel="noreferrer"
+                  class="flex gap-4 rounded-2xl border border-line bg-white p-4 no-underline hover:shadow-[4px_4px_0_var(--color-line)]"
+                >
+                  <img
+                    src={book.imageUrl}
+                    alt={book.title}
+                    loading="lazy"
+                    class="h-[120px] w-[80px] flex-none rounded-md border border-line object-cover"
+                  />
+                  <div class="min-w-0">
+                    <h4 class="m-0 text-[16px] font-semibold leading-snug tracking-[-0.02em] text-ink">
+                      {book.title}
+                    </h4>
+                    <p class="mt-1 mb-0 font-mono text-xs text-muted">
+                      {book.authorName}
+                    </p>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        )
+      }
+
+      {
+        readBooks.length > 0 && (
+          <ul class="grid grid-cols-1 gap-3">
+            {readBooks.map((book) => (
+              <li>
+                <a
+                  href={book.link}
+                  target="_blank"
+                  rel="noreferrer"
+                  class="flex items-center gap-4 rounded-xl border border-line bg-white p-3 no-underline hover:border-code-blue"
+                >
+                  <img
+                    src={book.imageUrl}
+                    alt={book.title}
+                    loading="lazy"
+                    class="h-[64px] w-[44px] flex-none rounded border border-line object-cover"
+                  />
+                  <div class="min-w-0 flex-1">
+                    <h4 class="m-0 truncate text-[15px] font-medium text-ink">
+                      {book.title}
+                    </h4>
+                    <p class="m-0 truncate font-mono text-xs text-muted">
+                      {book.authorName}
+                    </p>
+                  </div>
+                  <span
+                    class="flex flex-none items-center gap-0.5 text-code-amber"
+                    title={`${book.userRating}/5`}
+                  >
+                    {book.userRating > 0 ? (
+                      ratingStars(book.userRating).map((filled) => (
+                        <HugeIcon
+                          name="star"
+                          class={filled ? 'text-code-amber' : 'text-slate-300'}
+                          size={13}
+                          strokeWidth={filled ? 2.2 : 1.6}
+                        />
+                      ))
+                    ) : (
+                      <span class="font-mono text-xs text-muted">—</span>
+                    )}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </section>
+
+    <section id="watching" class="scroll-mt-24">
+      <div class="mb-5 flex items-end justify-between gap-3 border-b border-line pb-2">
+        <h2 class="m-0 text-[22px] tracking-[-0.04em]">Watching</h2>
+        <a
+          href={SITE.imdbRatingsList}
+          target="_blank"
+          rel="noreferrer"
+          class="font-mono text-xs text-code-blue no-underline">IMDb ↗</a
+        >
+      </div>
+
+      {
+        groupedMovies.length === 0 ? (
+          <p class="rounded-xl border border-line bg-white p-6 font-mono text-sm text-muted">
+            Movies snapshot unavailable right now.
+          </p>
+        ) : (
+          <div class="space-y-8">
+            {groupedMovies.map((group) => (
+              <section class="space-y-3">
+                <div class="flex items-end justify-between gap-3 border-b border-line pb-2">
+                  <h3 class="m-0 text-[18px] tracking-[-0.03em]">
+                    My rating {group.rating}/10
+                  </h3>
+                  <span class="font-mono text-xs text-muted">
+                    {group.movies.length} titles
+                  </span>
+                </div>
+                <div class="divide-y divide-line overflow-hidden rounded-2xl border border-line bg-white">
+                  {group.movies.map((m) => (
+                    <a
+                      href={m.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      class="group grid gap-3 p-3 no-underline hover:bg-panel2 sm:grid-cols-[58px_1fr_auto] sm:items-center"
+                    >
+                      <div class="h-[86px] w-[58px] overflow-hidden rounded-lg border border-line bg-panel2 sm:h-[76px] sm:w-[50px]">
+                        {m.poster ? (
+                          <img
+                            src={m.poster}
+                            alt={m.title}
+                            loading="lazy"
+                            class="h-full w-full object-cover transition-transform group-hover:scale-[1.04]"
+                          />
+                        ) : (
+                          <div class="grid h-full w-full place-items-center font-mono text-[10px] text-muted">
+                            IMDb
+                          </div>
+                        )}
+                      </div>
+                      <div class="min-w-0">
+                        <h4 class="m-0 truncate text-[15px] font-semibold leading-snug tracking-[-0.01em] text-ink group-hover:text-code-blue">
+                          {m.title}
+                        </h4>
+                        <p class="mt-1 mb-0 truncate font-mono text-[11px] text-muted">
+                          {meta(m)}
+                        </p>
+                        {m.directors && (
+                          <p class="mt-1 mb-0 truncate text-[12px] text-muted">
+                            Directed by {m.directors}
+                          </p>
+                        )}
+                      </div>
+                      <div class="flex flex-wrap gap-1.5 font-mono text-[11px] sm:justify-end">
+                        <span class="rounded-md border border-line bg-panel px-2 py-1 text-ink">
+                          my ★ {m.yourRating}
+                        </span>
+                        <span class="rounded-md border border-line bg-[#f5c518] px-2 py-1 text-ink">
+                          IMDb {m.imdbRating || '—'}
+                        </span>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </section>
+            ))}
+          </div>
+        )
+      }
+    </section>
+  </StudioShell>
+</BaseLayout>

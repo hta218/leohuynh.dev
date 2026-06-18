@@ -4,12 +4,39 @@
   "redirects": [
     {
       "source": "/snippets/crawling-goodreads-books-data",
-      "destination": "/blog/crawling-goodreads-books-data",
+      "destination": "/log/crawling-goodreads-books-data",
       "permanent": true
     },
     {
       "source": "/snippets/snippets/:slug*",
-      "destination": "/snippets/:slug*",
+      "destination": "/gists/:slug*",
+      "permanent": true
+    },
+    { "source": "/about", "destination": "/whoami", "permanent": true },
+    { "source": "/blog", "destination": "/log", "permanent": true },
+    {
+      "source": "/blog/page/:page",
+      "destination": "/log/page/:page",
+      "permanent": true
+    },
+    {
+      "source": "/blog/:slug*",
+      "destination": "/log/:slug*",
+      "permanent": true
+    },
+    { "source": "/snippets", "destination": "/gists", "permanent": true },
+    {
+      "source": "/snippets/:slug*",
+      "destination": "/gists/:slug*",
+      "permanent": true
+    },
+    { "source": "/projects", "destination": "/builds", "permanent": true },
+    { "source": "/books", "destination": "/shelf", "permanent": true },
+    { "source": "/movies", "destination": "/shelf", "permanent": true },
+    { "source": "/tags", "destination": "/topics", "permanent": true },
+    {
+      "source": "/tags/:tag",
+      "destination": "/topics/:tag",
       "permanent": true
     },
     {

@@ -1,4 +1,5 @@
 ---
+import PageHeader from '~/components/PageHeader.astro'
 import Twemoji from '~/components/mdx/Twemoji.astro'
 import StudioShell from '~/components/studio/StudioShell.astro'
 import BaseLayout from '~/layouts/BaseLayout.astro'
@@ -23,15 +24,12 @@ const features = [
 ]
 ---
 
-<BaseLayout title="About" description="A bit of background on who I am, what I do, and why I started this blog.">
-  <StudioShell active="/about" crumb="~/leohuynh.dev/about.md">
-    <header class="mb-8 border-b border-line pb-7">
-      <h1 class="m-0 text-[clamp(34px,6vw,58px)] leading-[0.95] tracking-[-0.05em]">About</h1>
-      <p class="mt-4 max-w-[640px] text-lg text-muted">
-        A bit of background on who I am, what I do, and why I started this blog. Nothing too
-        serious — just a little intro to the person typing away behind the scenes.
-      </p>
-    </header>
+<BaseLayout title="whoami" description="A bit about who I am, what I do, and why I write here.">
+  <StudioShell active="/whoami" crumb="~/leohuynh.dev/whoami.md">
+    <PageHeader
+      title="whoami"
+      description="A bit about who I am, what I do, and why I write here — a quick intro to the person typing away behind the scenes."
+    />
 
     <article class="prose">
       <h2 class="!mt-0">

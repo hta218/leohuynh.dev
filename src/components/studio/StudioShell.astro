@@ -29,6 +29,7 @@ type HugeIconName =
   | 'file'
   | 'folder'
   | 'folder-open'
+  | 'gallery'
   | 'keyboard'
   | 'markdown'
   | 'project'
@@ -96,39 +97,39 @@ const startsWith = (prefix: string) => (path: string) =>
 const postsIndex: TreeLeaf = {
   kind: 'leaf',
   id: 'posts-index',
-  href: '/blog',
+  href: '/log',
   file: 'index.astro',
   title: 'Posts index',
   icon: { type: 'brand', name: 'astro' },
-  activeWhen: (path) => path === '/blog' || path.startsWith('/blog/page/'),
+  activeWhen: (path) => path === '/log' || path.startsWith('/log/page/'),
 }
 const postsSlug: TreeLeaf = {
   kind: 'leaf',
   id: 'posts-slug',
-  href: latestPost ? `/blog/${latestPost.id}` : '/blog',
+  href: latestPost ? `/log/${latestPost.id}` : '/log',
   file: '[...slug].astro',
   title: 'Post detail template',
   icon: { type: 'brand', name: 'astro' },
   activeWhen: (path) =>
-    path.startsWith('/blog/') && !path.startsWith('/blog/page/'),
+    path.startsWith('/log/') && !path.startsWith('/log/page/'),
 }
 const snippetsIndex: TreeLeaf = {
   kind: 'leaf',
   id: 'snippets-index',
-  href: '/snippets',
+  href: '/gists',
   file: 'index.astro',
   title: 'Snippets index',
   icon: { type: 'brand', name: 'astro' },
-  activeWhen: exact('/snippets'),
+  activeWhen: exact('/gists'),
 }
 const snippetsSlug: TreeLeaf = {
   kind: 'leaf',
   id: 'snippets-slug',
-  href: latestSnippet ? `/snippets/${latestSnippet.id}` : '/snippets',
+  href: latestSnippet ? `/gists/${latestSnippet.id}` : '/gists',
   file: '[...slug].astro',
   title: 'Snippet detail template',
   icon: { type: 'brand', name: 'astro' },
-  activeWhen: (path) => path.startsWith('/snippets/'),
+  activeWhen: (path) => path.startsWith('/gists/'),
 }
 
 const explorerItems: TreeItem[] = [
@@ -144,65 +145,56 @@ const explorerItems: TreeItem[] = [
   {
     kind: 'folder',
     id: 'posts-folder',
-    file: 'posts',
-    title: 'Posts',
+    file: 'logs',
+    title: 'Logs',
     icon: { type: 'huge', name: 'folder' },
     children: [postsIndex, postsSlug],
-    activeWhen: startsWith('/blog'),
+    activeWhen: startsWith('/log'),
   },
   {
     kind: 'folder',
     id: 'snippets-folder',
-    file: 'snippets',
-    title: 'Snippets',
+    file: 'gists',
+    title: 'Gists',
     icon: { type: 'huge', name: 'folder' },
     children: [snippetsIndex, snippetsSlug],
-    activeWhen: startsWith('/snippets'),
+    activeWhen: startsWith('/gists'),
   },
   {
     kind: 'leaf',
     id: 'projects',
-    href: '/projects',
-    file: 'projects.astro',
-    title: 'Projects',
+    href: '/builds',
+    file: 'builds.astro',
+    title: 'Builds',
     icon: { type: 'huge', name: 'rocket' },
-    activeWhen: exact('/projects'),
+    activeWhen: exact('/builds'),
   },
   {
     kind: 'leaf',
     id: 'about',
-    href: '/about',
-    file: 'about.md',
-    title: 'About',
+    href: '/whoami',
+    file: 'whoami',
+    title: 'whoami',
     icon: { type: 'brand', name: 'markdown' },
-    activeWhen: exact('/about'),
+    activeWhen: exact('/whoami'),
   },
   {
     kind: 'leaf',
-    id: 'books',
-    href: '/books',
-    file: 'books.astro',
-    title: 'Books',
-    icon: { type: 'brand', name: 'goodreads' },
-    activeWhen: exact('/books'),
-  },
-  {
-    kind: 'leaf',
-    id: 'movies',
-    href: '/movies',
-    file: 'movies.astro',
-    title: 'Movies',
-    icon: { type: 'brand', name: 'imdb' },
-    activeWhen: exact('/movies'),
+    id: 'shelf',
+    href: '/shelf',
+    file: 'shelf.astro',
+    title: 'Shelf',
+    icon: { type: 'huge', name: 'gallery' },
+    activeWhen: startsWith('/shelf'),
   },
   {
     kind: 'leaf',
     id: 'tags',
-    href: '/tags',
-    file: 'tags',
-    title: 'Tags',
+    href: '/topics',
+    file: 'topics',
+    title: 'Topics',
     icon: { type: 'huge', name: 'tag' },
-    activeWhen: startsWith('/tags'),
+    activeWhen: startsWith('/topics'),
   },
   {
     kind: 'leaf',
@@ -220,8 +212,8 @@ const tabLinks: TreeLeaf[] = [
   explorerItems.find(
     (item) => item.kind === 'leaf' && item.id === 'readme',
   ) as TreeLeaf,
-  { ...postsIndex, file: 'posts/index.astro' },
-  { ...snippetsIndex, file: 'snippets/index.astro' },
+  { ...postsIndex, file: 'log/index.astro' },
+  { ...snippetsIndex, file: 'gists/index.astro' },
   explorerItems.find(
     (item) => item.kind === 'leaf' && item.id === 'projects',
   ) as TreeLeaf,

@@ -1,4 +1,5 @@
 ---
+import PageHeader from '~/components/PageHeader.astro'
 import HugeIcon from '~/components/icons/HugeIcon.astro'
 import StudioShell from '~/components/studio/StudioShell.astro'
 import BaseLayout from '~/layouts/BaseLayout.astro'
@@ -32,15 +33,12 @@ const LANGUAGE_ICONS: Record<string, string> = Object.fromEntries(
 )
 ---
 
-<BaseLayout title="Projects" description="Things I've built — commercial work and personal open-source projects.">
-  <StudioShell active="/projects" crumb="~/leohuynh.dev/projects/">
-    <header class="mb-9 border-b border-line pb-7">
-      <h1 class="m-0 text-[clamp(34px,6vw,58px)] leading-[0.95] tracking-[-0.05em]">Projects</h1>
-      <p class="mt-4 max-w-170 text-lg text-muted">
-        Collections of open-source side projects, commercial work, and practical tools I’ve
-        built with teammates or shipped on my own.
-      </p>
-    </header>
+<BaseLayout title="Builds" description="Things I've built — commercial work and personal open-source projects.">
+  <StudioShell active="/builds" crumb="~/leohuynh.dev/builds/">
+    <PageHeader
+      title="Builds"
+      description="Open-source side projects, commercial work, and practical tools I’ve built with teammates or shipped on my own."
+    />
 
     {
       [

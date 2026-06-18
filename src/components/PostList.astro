@@ -12,7 +12,7 @@ const { posts, currentPage, totalPages } = Astro.props
 const dateFmt = new Intl.DateTimeFormat('en-CA') // YYYY-MM-DD
 
 // Page 1 lives at `/blog`; pages 2..N at `/blog/page/N` (legacy parity).
-const pageHref = (n: number) => (n <= 1 ? '/blog' : `/blog/page/${n}`)
+const pageHref = (n: number) => (n <= 1 ? '/log' : `/log/page/${n}`)
 const hasPrev = currentPage > 1
 const hasNext = currentPage < totalPages
 ---
@@ -21,7 +21,7 @@ const hasNext = currentPage < totalPages
   {
     posts.map((post) => (
       <a
-        href={`/blog/${post.id}`}
+        href={`/log/${post.id}`}
         class="grid grid-cols-1 items-start gap-[18px] border-t border-line py-[18px] no-underline first-of-type:border-t-0 md:grid-cols-[110px_1fr_auto]"
       >
         <time class="pt-[4px] font-mono text-xs text-muted">{dateFmt.format(post.data.date)}</time>

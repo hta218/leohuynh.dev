@@ -43,13 +43,24 @@ export default defineConfig({
       remarkPlugins: [remarkCodeTitles],
     }),
   },
-  // Preserve the legacy 301 (next.config.js redirects()). In static output Astro
-  // emits a redirect page; on a Vercel deploy this maps to a real 301.
+  // v4 route rebrand: old section prefixes 301 to the new ones (slugs preserved).
+  // The specific legacy redirect must precede the broader `/snippets/*` rule.
   redirects: {
     '/snippets/crawling-goodreads-books-data': {
       status: 301,
-      destination: '/blog/crawling-goodreads-books-data',
+      destination: '/log/crawling-goodreads-books-data',
     },
+    '/about': { status: 301, destination: '/whoami' },
+    '/blog': { status: 301, destination: '/log' },
+    '/blog/page/[page]': { status: 301, destination: '/log/page/[page]' },
+    '/blog/[...slug]': { status: 301, destination: '/log/[...slug]' },
+    '/snippets': { status: 301, destination: '/gists' },
+    '/snippets/[...slug]': { status: 301, destination: '/gists/[...slug]' },
+    '/projects': { status: 301, destination: '/builds' },
+    '/books': { status: 301, destination: '/shelf' },
+    '/movies': { status: 301, destination: '/shelf' },
+    '/tags': { status: 301, destination: '/topics' },
+    '/tags/[tag]': { status: 301, destination: '/topics/[tag]' },
   },
   vite: {
     plugins: [tailwindcss()],

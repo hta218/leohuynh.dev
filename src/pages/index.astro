@@ -15,10 +15,10 @@ const snippets = await getCollection('snippets', isPublished)
 const latest = posts.slice(0, 3)
 
 const exploreCards = [
-  { href: '/snippets', label: 'snippets/', desc: 'reusable code bits', icon: 'code' },
-  { href: '/projects', label: 'projects/', desc: 'things I built', icon: 'folder' },
-  { href: '/books', label: 'books/', desc: 'what I read', icon: 'book' },
-  { href: '/movies', label: 'movies/', desc: 'what I watch', icon: 'file' },
+  { href: '/gists', label: 'gists/', desc: 'reusable code bits', icon: 'code' },
+  { href: '/builds', label: 'builds/', desc: 'things I built', icon: 'folder' },
+  { href: '/shelf#reading', label: 'shelf/reading', desc: 'what I read', icon: 'book' },
+  { href: '/shelf#watching', label: 'shelf/watching', desc: 'what I watch', icon: 'file' },
 ] as const
 
 const dateFmt = new Intl.DateTimeFormat('en-CA') // YYYY-MM-DD
@@ -83,7 +83,7 @@ const dateFmt = new Intl.DateTimeFormat('en-CA') // YYYY-MM-DD
       {
         latest.map((post) => (
           <a
-            href={`/blog/${post.id}`}
+            href={`/log/${post.id}`}
             class="grid grid-cols-1 items-start gap-[18px] border-t border-line py-[18px] no-underline first-of-type:border-t-0 md:grid-cols-[92px_1fr_auto]"
           >
             <time class="font-mono text-xs text-muted">{dateFmt.format(post.data.date)}</time>

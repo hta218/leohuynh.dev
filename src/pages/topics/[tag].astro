@@ -1,4 +1,5 @@
 ---
+import PageHeader from '~/components/PageHeader.astro'
 import StudioShell from '~/components/studio/StudioShell.astro'
 import { getContentByTag, getTagCounts } from '~/lib/content'
 import BaseLayout from '~/layouts/BaseLayout.astro'
@@ -18,7 +19,7 @@ export async function getStaticPaths() {
 
 const { tag, posts, snippets } = Astro.props
 const dateFmt = new Intl.DateTimeFormat('en-CA')
-const rssHref = `${SITE.siteUrl}/tags/${tag}/feed.xml`
+const rssHref = `${SITE.siteUrl}/topics/${tag}/feed.xml`
 ---
 
 <BaseLayout
@@ -28,13 +29,15 @@ const rssHref = `${SITE.siteUrl}/tags/${tag}/feed.xml`
   <Fragment slot="head">
     <link rel="alternate" type="application/rss+xml" title={`#${tag} RSS`} href={rssHref} />
   </Fragment>
-  <StudioShell active="/tags" crumb={`~/leohuynh.dev/tags/${tag}`}>
-    <div class="mb-6 flex items-end justify-between border-b border-line pb-4">
-      <h2 class="m-0 text-[26px] tracking-[-0.05em]">#{tag}</h2>
-      <a href={`/tags/${tag}/feed.xml`} class="font-mono text-xs text-code-blue no-underline">
-        rss
+  <StudioShell active="/topics" crumb={`~/leohuynh.dev/topics/${tag}`}>
+    <PageHeader title={`#${tag}`} description={`Posts and snippets tagged #${tag}.`}>
+      <a
+        href={`/topics/${tag}/feed.xml`}
+        class="mt-2 inline-block font-mono text-xs text-code-blue no-underline"
+      >
+        rss feed ↗
       </a>
-    </div>
+    </PageHeader>
 
     {
       posts.length > 0 && (
@@ -42,7 +45,7 @@ const rssHref = `${SITE.siteUrl}/tags/${tag}/feed.xml`
           <h3 class="mb-3 font-mono text-[11px] uppercase tracking-[0.08em] text-muted">posts</h3>
           {posts.map((post) => (
             <a
-              href={`/blog/${post.id}`}
+              href={`/log/${post.id}`}
               class="grid grid-cols-1 items-start gap-[18px] border-t border-line py-[18px] no-underline first-of-type:border-t-0 md:grid-cols-[110px_1fr]"
             >
               <time class="font-mono text-xs text-muted">{dateFmt.format(post.data.date)}</time>
@@ -63,7 +66,7 @@ const rssHref = `${SITE.siteUrl}/tags/${tag}/feed.xml`
           <div class="grid gap-3 md:grid-cols-2">
             {snippets.map((snippet) => (
               <a
-                href={`/snippets/${snippet.id}`}
+                href={`/gists/${snippet.id}`}
                 class="rounded-2xl border border-line bg-white p-4 no-underline transition-colors hover:border-code-blue"
               >
                 <h4 class="m-0 mb-1.5 text-[17px] tracking-[-0.03em] text-ink">{snippet.data.heading}</h4>

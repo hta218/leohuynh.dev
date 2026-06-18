@@ -102,15 +102,14 @@ export const CAREER = [
 export const POSTS_PER_PAGE = 9
 
 export const NAV_LINKS = [
-  { href: '/blog', title: 'Blog' },
-  { href: '/snippets', title: 'Snippets' },
-  { href: '/projects', title: 'Projects' },
-  { href: '/about', title: 'About' },
+  { href: '/log', title: 'Log' },
+  { href: '/gists', title: 'Gists' },
+  { href: '/builds', title: 'Builds' },
+  { href: '/whoami', title: 'whoami' },
 ] as const
 
 export const MORE_LINKS = [
-  { href: '/books', title: 'Books' },
-  { href: '/movies', title: 'Movies' },
-  { href: '/tags', title: 'Tags' },
+  { href: '/shelf', title: 'Shelf' },
+  { href: '/topics', title: 'Topics' },
   { href: SITE.analytics.umamiShareUrl, title: 'Analytics' },
 ] as const

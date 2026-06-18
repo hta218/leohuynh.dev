@@ -35,7 +35,7 @@ const giscusConfig = getGiscusConfig()
   ogType="article"
   publishedTime={date.toISOString()}
 >
-  <StudioShell active={`/blog/${post.id}`} crumb={`~/leohuynh.dev/blog/${post.id}`}>
+  <StudioShell active={`/log/${post.id}`} crumb={`~/leohuynh.dev/log/${post.id}`}>
     <article class="prose">
       <h1>{title}</h1>
       <div class="mb-8 flex flex-wrap items-center gap-3 font-mono text-xs text-muted not-prose">
@@ -50,7 +50,7 @@ const giscusConfig = getGiscusConfig()
         {
           tags.map((tag) => (
             <a
-              href={`/tags/${tagSlug(tag)}`}
+              href={`/topics/${tagSlug(tag)}`}
               class="rounded-full border border-line px-2 py-0.5 text-code-blue no-underline"
             >
               #{tag}

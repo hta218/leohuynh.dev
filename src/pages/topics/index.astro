@@ -1,4 +1,5 @@
 ---
+import PageHeader from '~/components/PageHeader.astro'
 import StudioShell from '~/components/studio/StudioShell.astro'
 import { getTagCounts } from '~/lib/content'
 import BaseLayout from '~/layouts/BaseLayout.astro'
@@ -7,17 +8,16 @@ const counts = await getTagCounts()
 const tags = Object.keys(counts).sort((a, b) => counts[b] - counts[a])
 ---
 
-<BaseLayout title="Tags" description="Things I blog about">
-  <StudioShell active="/tags" crumb="~/leohuynh.dev/tags">
-    <div class="mb-6 flex items-end justify-between border-b border-line pb-4">
-      <h2 class="m-0 text-[26px] tracking-[-0.05em]">tags/</h2>
-      <span class="font-mono text-xs text-muted">{tags.length} tags</span>
-    </div>
+<BaseLayout title="Topics" description="Topics I write about.">
+  <StudioShell active="/topics" crumb="~/leohuynh.dev/topics">
+    <PageHeader title="Topics" description="Topics I write about — browse posts and snippets by tag.">
+      <p class="mt-2 font-mono text-xs text-muted">{tags.length} topics</p>
+    </PageHeader>
     <div class="flex flex-wrap gap-2">
       {
         tags.map((tag) => (
           <a
-            href={`/tags/${tag}`}
+            href={`/topics/${tag}`}
             class="rounded-full border border-line bg-white px-3 py-1.5 font-mono text-xs no-underline hover:border-code-blue"
           >
             <span class="text-code-blue">#{tag}</span>

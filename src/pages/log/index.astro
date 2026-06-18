@@ -1,4 +1,5 @@
 ---
+import PageHeader from '~/components/PageHeader.astro'
 import PostList from '~/components/PostList.astro'
 import StudioShell from '~/components/studio/StudioShell.astro'
 import { getPublishedBlog } from '~/lib/content'
@@ -11,14 +12,16 @@ const display = posts.slice(0, POSTS_PER_PAGE)
 ---
 
 <BaseLayout
-  title="Blog"
-  description="Writing on web development, Shopify Hydrogen, TypeScript and AI workflows."
+  title="Log"
+  description="Writing on web development, Shopify Hydrogen, TypeScript, and AI workflows."
 >
-  <StudioShell active="/blog" crumb="~/leohuynh.dev/blog">
-    <div class="mb-4 flex items-end justify-between border-b border-line pb-4">
-      <h2 class="m-0 text-[26px] tracking-[-0.05em]">post index</h2>
-      <span class="font-mono text-xs text-muted">{posts.length} posts · sorted desc</span>
-    </div>
+  <StudioShell active="/log" crumb="~/leohuynh.dev/log">
+    <PageHeader
+      title="Log"
+      description="Writing on web development, Shopify Hydrogen, TypeScript, and AI workflows."
+    >
+      <p class="mt-2 font-mono text-xs text-muted">{posts.length} posts · newest first</p>
+    </PageHeader>
     <PostList posts={display} currentPage={1} totalPages={totalPages} />
   </StudioShell>
 </BaseLayout>
