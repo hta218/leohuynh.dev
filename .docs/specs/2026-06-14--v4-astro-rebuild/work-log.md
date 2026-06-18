@@ -22,7 +22,7 @@ Leo confirmed the production target is a clean repository root, not a permanent 
 - Work only on branch `v4`.
 - Do not mutate `main`, `v3`, or `legacy-v3`.
 - Do not push.
-- Preserve shared content/assets (`data/`, `json/`, `public/static/`, `icons/`, docs/specs, `.github/`, `.husky/`).
+- Preserve shared content/assets (`data/`, `json/`, `public/static/`, `icons/`, .docs/specs, `.github/`, `.husky/`).
 - Remove legacy Next-only code from this branch only after hoisting the Astro app and fixing root-native paths/config.
 - Mark M11 complete only after root-level `bun install`, `bun run check`, `bun run build`, and smoke checks pass.
 
@@ -441,7 +441,7 @@ first safe implementation milestone (scaffold + content schema). No commits — 
 ### Guardrail compliance
 - Stayed on branch `v4`. Did not touch `main`, `v3`, or `legacy-v3`.
 - No legacy files modified — `git status` shows only new untracked paths
-  (`docs/specs/.../plan.md`, `route-inventory.md`, `work-log.md`, `v4/`).
+  (`.docs/specs/.../plan.md`, `route-inventory.md`, `work-log.md`, `v4/`).
 - No secrets committed. `v4/src/lib/site.ts` ports only non-secret metadata; analytics IDs/tokens
   stay in env. `v4/.gitignore` excludes `.env*`.
 

@@ -27,7 +27,7 @@ leohuynh.dev/
 │   ├── astro.config.mjs
 │   ├── src/
 │   └── ...
-└── docs/specs/2026-06-14--v4-astro-rebuild/
+└── .docs/specs/2026-06-14--v4-astro-rebuild/
 ```
 
 Content is **not duplicated**: the v4 Content Collections load the existing
@@ -192,7 +192,7 @@ See `work-log.md` 2026-06-18 entry for exact files, command outputs, and smoke r
 - [x] Preflight:
   - [x] Stay on branch `v4`; do not mutate `main`, `v3`, or `legacy-v3`.
   - [x] Confirm current root dirty files are only generated/noise or intentional spec updates.
-  - [x] Preserve `data/`, `json/`, `public/static/`, `icons/`, `.github/`, docs/specs, and non-secret project metadata. (`.husky/` broken hooks removed — see work-log deviation.)
+  - [x] Preserve `data/`, `json/`, `public/static/`, `icons/`, `.github/`, .docs/specs, and non-secret project metadata. (`.husky/` broken hooks removed — see work-log deviation.)
 - [x] Hoist Astro app from `v4/` to repo root:
   - [x] Move Astro root files (`package.json`, `astro.config.mjs`, `tsconfig.json`, `src/`, `api/`, public files, `bun.lock`) to root. (`scripts/link-static.mjs` dropped — root owns `public/static`.)
   - [x] Remove the `v4/` directory after its contents are hoisted.
@@ -220,9 +220,9 @@ See `work-log.md` 2026-06-18 entry for exact files, command outputs, and smoke r
 ## Files & folders this feature touches
 
 Created (this run):
-- `docs/specs/2026-06-14--v4-astro-rebuild/plan.md`
-- `docs/specs/2026-06-14--v4-astro-rebuild/route-inventory.md`
-- `docs/specs/2026-06-14--v4-astro-rebuild/work-log.md`
+- `.docs/specs/2026-06-14--v4-astro-rebuild/plan.md`
+- `.docs/specs/2026-06-14--v4-astro-rebuild/route-inventory.md`
+- `.docs/specs/2026-06-14--v4-astro-rebuild/work-log.md`
 - `v4/` (new Astro app — package.json, astro.config.mjs, tsconfig.json, .gitignore, README.md)
 - `v4/src/content.config.ts`
 - `v4/src/styles/global.css`

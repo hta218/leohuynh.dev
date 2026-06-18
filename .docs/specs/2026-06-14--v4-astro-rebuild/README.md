@@ -237,7 +237,7 @@ Current handoff is M11 clean root cutover, not initial rebuild. Use this after r
 ```text
 /goal Perform M11 production cutover for leohuynh.dev on branch v4.
 
-Read docs/specs/2026-06-14--v4-astro-rebuild/README.md, plan.md, route-inventory.md, work-log.md, and m11-cutover-handoff.md first.
+Read .docs/specs/2026-06-14--v4-astro-rebuild/README.md, plan.md, route-inventory.md, work-log.md, and m11-cutover-handoff.md first.
 
 Goal: hoist the Astro app from v4/ to repository root, remove legacy Next source from this branch, fix all paths/config/scripts for root-native Astro, and verify from repo root.
 
@@ -245,7 +245,7 @@ Important constraints:
 - Work only on branch v4.
 - Do not mutate main, v3, or legacy-v3.
 - Legacy code is preserved on other branches, so v4 should become clean Astro root.
-- Preserve data/, json/, public/static/, icons/, docs/specs/, .github/, .husky/, and non-secret project metadata.
+- Preserve data/, json/, public/static/, icons/, .docs/specs/, .github/, .husky/, and non-secret project metadata.
 - Do not commit secrets or .env values.
 - Do not push.
 - Run bun install, bun run check, bun run build, and HTTP/browser smoke where practical.

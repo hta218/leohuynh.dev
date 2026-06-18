@@ -6,10 +6,10 @@ Perform the final clean cutover on branch `v4`: hoist the Astro app currently un
 
 This is a continuation of the existing v4 rebuild spec, not a new project. Read these first:
 
-1. `docs/specs/2026-06-14--v4-astro-rebuild/README.md`
-2. `docs/specs/2026-06-14--v4-astro-rebuild/plan.md`
-3. `docs/specs/2026-06-14--v4-astro-rebuild/route-inventory.md`
-4. `docs/specs/2026-06-14--v4-astro-rebuild/work-log.md`
+1. `.docs/specs/2026-06-14--v4-astro-rebuild/README.md`
+2. `.docs/specs/2026-06-14--v4-astro-rebuild/plan.md`
+3. `.docs/specs/2026-06-14--v4-astro-rebuild/route-inventory.md`
+4. `.docs/specs/2026-06-14--v4-astro-rebuild/work-log.md`
 
 ## Current context
 
@@ -38,7 +38,7 @@ After completion:
   - `json/`
   - `public/static/`
   - `icons/`
-  - `docs/specs/2026-06-14--v4-astro-rebuild/`
+  - `.docs/specs/2026-06-14--v4-astro-rebuild/`
   - `.github/`, `.husky/`, `CLAUDE.md`, `README.md`, license/config files that still apply.
 - `vercel.json` is root-native and no longer uses `cd v4`, `v4/dist`, or Root Directory shims.
 
