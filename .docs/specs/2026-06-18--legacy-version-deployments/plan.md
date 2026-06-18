@@ -23,8 +23,9 @@ upcoming v4 → `main` cutover.
   - `analytics.leohuynh.dev` → self-hosted Umami (unrelated, leave alone).
   - `leo-blog-gatsby` → `leo-blog-legacy.vercel.app` — **already deploys the
     Gatsby build**. Reuse this for v1.
-- **Branches** (after cleanup): `v1` (Gatsby), `v2` (Next 15.3), `v3` (Next 15.4),
-  `v4` (Astro), `main`. All version branches exist on `origin`.
+- **Branches** (final): `v1` (Gatsby), `v2` (Next 14), `v3` (Next 15.4),
+  `v4` (Astro), `main`. All version branches exist on `origin`. The redundant
+  Next 15.3 snapshot is kept as tag `v2-next15-snapshot`.
 - The v4 rebuild spec already declared intent to publish the legacy site to
   `v3.leohuynh.dev`; this spec generalizes that to v1–v3.
 
@@ -50,7 +51,7 @@ Each archive project is configured as a **frozen snapshot**:
 3. Add domain `v1.leohuynh.dev` to the project.
 4. Verify the archive renders.
 
-**v2 — Next.js 15.3**
+**v2 — Next.js 14** (first deployed as Next 15.3, later redone as the Next 14 generation — see work-logs)
 
 1. Create project `leohuynh-dev-v2`, link repo, Production Branch = `v2`.
 2. Set required env vars (see §4).
