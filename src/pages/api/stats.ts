@@ -21,14 +21,19 @@ const JSON_HEADERS = {
   'content-type': 'application/json; charset=utf-8',
 }
 
+// `astro dev` loads `.env` into `import.meta.env`, not `process.env`.
+// On Vercel the Function runtime injects real env into `process.env`.
+// Read both so the route works locally and in production.
+const DATABASE_URL = import.meta.env.DATABASE_URL ?? process.env.DATABASE_URL
+
 let sql: ReturnType<typeof postgres> | undefined
 
 function getSql() {
-  if (!process.env.DATABASE_URL) {
+  if (!DATABASE_URL) {
     throw new Error('DATABASE_URL is not configured.')
   }
 
-  sql ??= postgres(process.env.DATABASE_URL, {
+  sql ??= postgres(DATABASE_URL, {
     max: 1,
     idle_timeout: 20,
     connect_timeout: 8,
