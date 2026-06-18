@@ -128,8 +128,10 @@ Follow `biome.json` and match surrounding code. In addition:
 
 ## Spec-Driven Development
 
-Specs (when used) live under `.specs/{YYYY-MM-DD}--{kebab-title}/`. The v4 rebuild spec
-is tracked there. Read the relevant spec before changing a feature it covers.
+Specs live under `.docs/specs/{YYYY-MM-DD}--{kebab-title}/`, each with a
+`README.md` (status, owner, original prompt) and `plan.md`. The v4 rebuild and
+legacy-deployments specs are tracked there. Read the relevant spec before
+changing a feature it covers.
 
 ## Don't
 
