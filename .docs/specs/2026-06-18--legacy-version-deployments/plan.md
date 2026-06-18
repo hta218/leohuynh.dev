@@ -9,7 +9,7 @@ upcoming v4 → `main` cutover.
 | Version | Stack            | Branch | Target URL          |
 | ------- | ---------------- | ------ | ------------------- |
 | v1      | Gatsby (2018–21) | `v1`   | `v1.leohuynh.dev`   |
-| v2      | Next.js 15.3     | `v2`   | `v2.leohuynh.dev`   |
+| v2      | Next.js 14       | `v2`   | `v2.leohuynh.dev`   |
 | v3      | Next.js 15.4     | `v3`   | `v3.leohuynh.dev`   |
 | v4      | Astro 6          | `v4`   | `www.leohuynh.dev`  (separate cutover spec) |
 

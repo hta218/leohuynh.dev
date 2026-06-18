@@ -149,3 +149,20 @@ owner disabled it so the archives are public.
 auto-rebuild. Decision (confirmed): do NOT connect Git (keep frozen).
 
 **Done.** v1/v2/v3 all return HTTP 200.
+
+## 2026-06-18 (post) — v2 redone as the Next 14 generation
+
+Owner noticed v2 (Next 15.3) and v3 (Next 15.4) were nearly identical (same
+Next-15 generation), while the genuinely distinct **Next 14** generation had been
+deleted in the earlier branch cleanup. Recovered it (commit was still in the
+object store, nothing lost) and re-pointed v2 to it:
+
+- Tagged the old v2 (Next 15.3) as `v2-next15-snapshot` (pushed) before overwriting.
+- Force-updated branch `v2` to the Next 14 commit (`ed4eac7`); force-pushed.
+- Bumped Next 14.1 → 14.2.35 to clear Vercel's CVE gate; committed (`07f2c16`).
+  Next 14 uses Tailwind 3 + sharp 0.33 (no css-loader/node-sass issues) and Prisma.
+- Redeployed to `leohuynh-dev-v2` and re-aliased `v2.leohuynh.dev` → now serves the
+  Next 14 site (title "Leo's blog - Leo's coding journey"). HTTP 200.
+
+Final version mapping: v1=Gatsby, **v2=Next 14**, v3=Next 15, v4=Astro.
+The redundant Next 15.3 snapshot is preserved as tag `v2-next15-snapshot`.
