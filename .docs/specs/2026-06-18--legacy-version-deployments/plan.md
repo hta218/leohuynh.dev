@@ -18,7 +18,7 @@ upcoming v4 → `main` cutover.
 - **DNS**: `leohuynh.dev` nameservers are `ns1/ns2.vercel-dns.com` → DNS is
   managed on Vercel. Subdomains can be created entirely via Vercel (no external
   DNS provider step). `v1.leohuynh.dev` already resolves to Vercel IPs.
-- **Vercel projects** (account `hta218`):
+- **Vercel projects** (in the project's Vercel team):
   - `leohuynh.dev` → `www.leohuynh.dev` (production; will host v4 after cutover).
   - `analytics.leohuynh.dev` → self-hosted Umami (unrelated, leave alone).
   - `leo-blog-gatsby` → `leo-blog-legacy.vercel.app` — **already deploys the

@@ -36,8 +36,9 @@ plan assumptions:
 3. **Wildcard `*.leohuynh.dev` exists**: `v1/v2/v3.leohuynh.dev` resolve to Vercel
    but return 404 `DEPLOYMENT_NOT_FOUND` (no project claims them yet). Attaching a
    project's domain will claim/route the subdomain.
-4. Single Vercel scope `hta218`; apex `leohuynh.dev` domain mgmt returned an
-   access error via CLI, but project-level `domains add` appears available.
+4. Apex `leohuynh.dev` domain management returned an access error via CLI from the
+   Vercel scope the archive projects sit in, but project-level `domains add`
+   appeared available.
 
 Paused for owner direction on v1 (Gatsby build) approach and go-ahead to create
 the v2/v3 projects.
@@ -84,13 +85,12 @@ not production. So v1 needs **no rebuild** — only a domain attach. (Earlier
 node-sass blocker only matters if we wanted to *rebuild* v1, which we don't.)
 
 **New hard blocker (affects ALL versions): domain access.** Attaching any
-`vX.leohuynh.dev` fails with `403 — You don't have access to the domain
-leohuynh.dev under hta218`, via both `vercel alias set` and project-scoped
-`vercel domains add`. The apex `leohuynh.dev` is not manageable under the current
-CLI scope (`hta218`), even though `www.leohuynh.dev` serves fine — the domain is
-owned by a different Vercel account/team. **Subdomain attachment must be done by
-the account/team that owns `leohuynh.dev` (Vercel dashboard), or by switching the
-CLI to that owner.**
+`vX.leohuynh.dev` failed with a `403 — domain access` error via both
+`vercel alias set` and project-scoped `vercel domains add`: the apex
+`leohuynh.dev` was not manageable from the Vercel scope the archive projects sit
+in, even though `www.leohuynh.dev` served fine (a Vercel domain-ownership /
+permissions mismatch). **The domain owner had to unblock domain access from the
+Vercel dashboard** before any subdomain could be wired up.
 
 **Revised status per version:**
 - v1: deployment ready & live; ONLY needs `v1.leohuynh.dev` → `leo-blog-gatsby`
@@ -121,13 +121,14 @@ deploy of the branch now hits the 4.1.11 regression.
 
 **Implication:** deploying v2/v3 fresh needs a small fix committed to each archive
 branch (neutralize the offending Tailwind tokens, or pin Tailwind). Combined with
-the domain-access blocker (needs owner re-auth to team `leo-huynhs-projects`), the
+the domain-access blocker (needs the domain owner to unblock domain access), the
 live `vX.leohuynh.dev` URLs cannot be completed without owner action either way.
 
 ## 2026-06-18 (final) — COMPLETED: all three legacy URLs live
 
-Domain owner resolved the access blocker by **moving `leohuynh.dev` to team
-`hta218`**. With domain access, all three archives are now live (HTTP 200):
+The domain owner resolved the access blocker from the Vercel dashboard (moving the
+domain into the Vercel team that hosts the archive projects). With domain access,
+all three archives are now live (HTTP 200):
 
 - **v1.leohuynh.dev** → reused existing `leo-blog-gatsby` production deployment
   (Gatsby, no rebuild). Aliased the domain to it.
