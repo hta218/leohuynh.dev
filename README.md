@@ -20,25 +20,26 @@ I started this blog to document and share things I’ve learned and found useful
 
 ## Features
 
-- ⚛️ **Next.js 15** (App Router) and **React 19**
-- 🎨 **Tailwind CSS** for styling
+- 🚀 **Astro 6** with SSR (Vercel adapter) and **React 19** islands
+- 🎨 **Tailwind CSS v4** for styling
 - 💡 **TypeScript** for better type safety
-- 📖 [Contentlayer](https://contentlayer.dev/) & MDX for rich content and code snippets
+- 📖 **MDX** with [Astro content collections](https://docs.astro.build/en/guides/content-collections/) for rich content and snippets
+- ✨ Beautiful code blocks with [Expressive Code](https://expressive-code.com/)
 - 📊 Website analytics with [Umami](https://umami.is/)
-- 🗃️ Database hosting with [Supabase](https://supabase.com/)
-- 🏗️ Type-safe database operations with [Drizzle ORM](https://orm.drizzle.team/)
+- 🗃️ Views & reactions stored in [Supabase](https://supabase.com/) Postgres
 - 🔧 Code linting and formatting with [Biome](https://biomejs.dev/)
-- 🌗 Dark mode theme using [GitHub dark dimmed](https://github.blog/changelog/2021-04-14-dark-and-dimmed-themes-are-now-generally-available/) colors
+- 🌗 Dark mode theme using [GitHub light/dark](https://github.com/primer/github-vscode-theme) colors
 
 ## Tech Stack
 
-[![Next.js](https://img.shields.io/badge/next.js-000?logo=next.js&logoColor=white)](https://nextjs.org/)
+[![Astro](https://img.shields.io/badge/astro-BC52EE?logo=astro&logoColor=white)](https://astro.build/)
+[![React](https://img.shields.io/badge/react-20232A?logo=react&logoColor=61DAFB)](https://react.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/tailwindcss-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![TypeScript](https://img.shields.io/badge/typescript-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Umami](https://img.shields.io/badge/umami-262626?logo=umami&logoColor=white)](https://umami.is/)
 [![Supabase](https://img.shields.io/badge/supabase-3ECF8E?logo=supabase&logoColor=white)](https://supabase.com/)
-[![Drizzle ORM](https://img.shields.io/badge/drizzle%20orm-1a1a1a?logo=drizzle&logoColor=white)](https://orm.drizzle.team/)
-[![Biome](https://img.shields.io/badge/biome-1a1a1a?logo=biome&logoColor=white)](https://orm.drizzle.team/)
+[![Biome](https://img.shields.io/badge/biome-60A5FA?logo=biome&logoColor=white)](https://biomejs.dev/)
+[![Vercel](https://img.shields.io/badge/vercel-000?logo=vercel&logoColor=white)](https://vercel.com/)
 
 ## Assets & Credits
 
