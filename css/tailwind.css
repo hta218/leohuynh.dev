@@ -159,3 +159,6 @@
     font-weight: 500;
   }
 }
+
+.grit-bg { background-image: url(/static/images/black-grit.png); }
+.dark .grit-bg { background-image: url(/static/images/white-grit.png); }
