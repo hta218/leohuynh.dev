@@ -182,10 +182,40 @@ root (or flip the build), retire the Next.js app, and update Vercel project root
   - `<ClientRouter />` import already correct — no change needed.
   - Node 26.3.0 satisfies Astro 6's Node ≥ 22.12.0 requirement.
 
-### M11 — Production cutover (after Leo approves polished preview)
-- [ ] Hoist `v4/` to repo root or permanently set Vercel Root Directory = `v4`.
-- [ ] Remove/retire legacy root Next app from production path.
-- [ ] Final preview smoke, then promote/merge to production with rollback path.
+### M11 — Production cutover / clean root hoist ✅ (2026-06-18)
+
+Leo confirmed the goal is a clean final repository, not a permanent `v4/` subdirectory. Legacy code is already preserved on other branches (`origin/main`, `origin/v3`, `origin/legacy-v3`, etc.), so branch `v4` should become the Astro root.
+
+Use `m11-cutover-handoff.md` as the detailed Claude Code handoff for this milestone.
+See `work-log.md` 2026-06-18 entry for exact files, command outputs, and smoke results.
+
+- [x] Preflight:
+  - [x] Stay on branch `v4`; do not mutate `main`, `v3`, or `legacy-v3`.
+  - [x] Confirm current root dirty files are only generated/noise or intentional spec updates.
+  - [x] Preserve `data/`, `json/`, `public/static/`, `icons/`, `.github/`, docs/specs, and non-secret project metadata. (`.husky/` broken hooks removed — see work-log deviation.)
+- [x] Hoist Astro app from `v4/` to repo root:
+  - [x] Move Astro root files (`package.json`, `astro.config.mjs`, `tsconfig.json`, `src/`, `api/`, public files, `bun.lock`) to root. (`scripts/link-static.mjs` dropped — root owns `public/static`.)
+  - [x] Remove the `v4/` directory after its contents are hoisted.
+  - [x] Replace the root legacy Next `package.json`/scripts/deps with the Astro package.
+- [x] Remove/retire legacy Next app from branch `v4` production path:
+  - [x] Remove root Next-only source/config that is no longer used (`app/`, legacy `components/`, `layouts/`, `hooks/`, `db/`, `supabase/`, `contentlayer.config.ts`, `next.config.*`, etc. — 228 deletions).
+  - [x] Keep shared content/assets and any config still required by Astro.
+- [x] Fix all subdirectory path assumptions:
+  - [x] Content globs `../data/*` -> `./data/*`.
+  - [x] Cached media JSON `../json/*` -> `./json/*`.
+  - [x] Root icon imports lose one `../` level after hoist (43 in `brand-icons.ts`, 6 in `StudioShell.astro`).
+  - [x] Static asset symlink script removed because root owns `public/static`.
+  - [x] `/api/stats` is now a root-native Astro endpoint at `src/pages/api/stats.ts` and is registered in Vercel output as `^/api/stats$ -> _render`.
+- [x] Update hosting config:
+  - [x] Root `vercel.json` no longer contains `cd v4`, `v4/dist`, or root-directory shims.
+  - [x] Redirects, rewrites, headers, Bun version, and Astro framework config remain intact.
+- [x] Verification from repo root:
+  - [x] `bun install` → 545 packages, clean.
+  - [x] `bun run check` → 0 errors / 0 warnings / 0 hints (54 files).
+  - [x] `bun run build` → 236 pages built (matches M10 baseline exactly).
+  - [x] Local HTTP smoke for representative pages, static JSON, `/feed.xml`, `/search.json`, `/static/resume.pdf`, right rail, statusbar, project cards → all 200 / render OK. (Live SSR `api/*.json` + `/api/stats` need the Vercel runtime — Hermes to verify on preview deploy.)
+- [x] Update `work-log.md` with exact changed files, command outputs, smoke results, blockers if any.
+- [ ] Commit as `refactor: hoist astro v4 to repository root` only after verification passes; do not push until Hermes/Leo approve. **(Left for Hermes/Leo — no commit/push performed.)**
 
 ## Files & folders this feature touches
 

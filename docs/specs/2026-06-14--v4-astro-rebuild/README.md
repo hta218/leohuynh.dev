@@ -232,21 +232,24 @@ Before promoting v4 to `main`:
 
 ## Claude Code handoff prompt
 
-Use this after the spec is committed:
+Current handoff is M11 clean root cutover, not initial rebuild. Use this after reading `plan.md` and `m11-cutover-handoff.md`:
 
 ```text
-/goal Rebuild leohuynh.dev v4 on branch v4 using Astro + Bun + Astro Content Collections + MDX + Tailwind v4.
+/goal Perform M11 production cutover for leohuynh.dev on branch v4.
 
-Read docs/specs/2026-06-14--v4-astro-rebuild/README.md first. Use sketches/006-fullscreen-code-studio as the accepted design direction.
+Read docs/specs/2026-06-14--v4-astro-rebuild/README.md, plan.md, route-inventory.md, work-log.md, and m11-cutover-handoff.md first.
+
+Goal: hoist the Astro app from v4/ to repository root, remove legacy Next source from this branch, fix all paths/config/scripts for root-native Astro, and verify from repo root.
 
 Important constraints:
-- Preserve existing blog/snippet URLs and SEO.
-- Keep v3 legacy separate; do not mutate main for the rebuild.
-- Do not commit secrets or local env values.
-- Prefer simple Astro/static architecture. Use React islands only where client interactivity is needed.
-- Implement and verify incrementally: scaffold, content migration, design, integrations, route parity, build.
-
-Before making broad changes, produce the implementation plan and route/content migration checklist.
+- Work only on branch v4.
+- Do not mutate main, v3, or legacy-v3.
+- Legacy code is preserved on other branches, so v4 should become clean Astro root.
+- Preserve data/, json/, public/static/, icons/, docs/specs/, .github/, .husky/, and non-secret project metadata.
+- Do not commit secrets or .env values.
+- Do not push.
+- Run bun install, bun run check, bun run build, and HTTP/browser smoke where practical.
+- Update work-log.md and mark M11 complete only if verification passes.
 ```
 
 ## Open questions
