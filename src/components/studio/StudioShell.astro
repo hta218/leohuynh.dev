@@ -261,18 +261,10 @@ const lastCommitUrl =
     ? `${SITE.siteRepo}/commit/${lastCommit}`
     : SITE.siteRepo
 const SITE_VERSIONS = [
-  { value: 'latest', label: 'latest', href: '/', current: true },
-  { value: 'v3', label: 'v3', href: 'https://www.leohuynh.dev/' },
-  {
-    value: 'v2',
-    label: 'v2',
-    href: 'https://leohuynhdev-git-v2-leo-huynhs-projects.vercel.app/',
-  },
-  {
-    value: 'v1',
-    label: 'v1',
-    href: 'https://leohuynhdev-git-v1-leo-huynhs-projects.vercel.app/',
-  },
+  { value: 'latest', label: 'latest (Astro × bun)', href: '/', current: true },
+  { value: 'v3', label: 'v3 (Next.js 15 × pnpm)', href: 'https://v3.leohuynh.dev/' },
+  { value: 'v2', label: 'v2 (Next.js 14 × npm)', href: 'https://v2.leohuynh.dev/' },
+  { value: 'v1', label: 'v1 (Gatsby × yarn)', href: 'https://v1.leohuynh.dev/' },
 ]
 ---
 
@@ -424,18 +416,38 @@ const SITE_VERSIONS = [
       </a>
     </div>
     <div class="flex shrink-0 items-center gap-3">
-      <label class="flex shrink-0 items-center gap-1 whitespace-nowrap">
-        <span class="hidden sm:inline">version</span>
-        <select class="status-select" data-version-select aria-label="Open site version">
+      <div class="version-menu" data-version-menu>
+        <button
+          type="button"
+          class="version-trigger"
+          data-version-trigger
+          aria-haspopup="menu"
+          aria-expanded="false"
+          aria-label="Choose site version"
+        >
+          <span>versions (latest)</span>
+          <svg class="version-caret" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 15l6-6 6 6" />
+          </svg>
+        </button>
+        <div class="version-popover" data-version-popover role="menu" hidden>
           {
             SITE_VERSIONS.map((version) => (
-              <option value={version.value} data-href={version.href} selected={version.current}>
-                {version.label}
-              </option>
+              <a
+                href={version.href}
+                target={version.value === 'latest' ? '_self' : '_blank'}
+                rel="noreferrer"
+                class="version-item"
+                role="menuitem"
+                data-version-item
+                aria-current={version.current ? 'true' : undefined}
+              >
+                <span class="version-item-label">{version.label}</span>
+              </a>
             ))
           }
-        </select>
-      </label>
+        </div>
+      </div>
       <span class="vn-badge hidden whitespace-nowrap sm:inline-flex" title="Made in Vietnam">
         <span class="inline-block h-5 w-auto [&_svg]:h-5 [&_svg]:w-auto" set:html={MadeInVietnamIcon} />
       </span>
@@ -512,12 +524,41 @@ const SITE_VERSIONS = [
           localStorage.setItem('leohuynh:code-font', target.value)
           syncCodeControls()
         }
-        if (target.matches('[data-version-select]')) {
-          const option = target.selectedOptions[0]
-          const href = option?.dataset.href
-          if (target.value !== 'latest' && href) window.open(href, '_blank', 'noopener,noreferrer')
-          target.value = 'latest'
+      })
+    }
+
+    if (!window.__leohuynhVersionMenuBound) {
+      window.__leohuynhVersionMenuBound = true
+      const closeVersionMenus = () => {
+        document.querySelectorAll('[data-version-popover]').forEach((p) => {
+          p.hidden = true
+        })
+        document.querySelectorAll('[data-version-trigger]').forEach((t) => {
+          t.setAttribute('aria-expanded', 'false')
+        })
+      }
+      document.addEventListener('click', (event) => {
+        const trigger = event.target.closest('[data-version-trigger]')
+        if (trigger) {
+          const menu = trigger.closest('[data-version-menu]')
+          const popover = menu && menu.querySelector('[data-version-popover]')
+          const willOpen = popover && popover.hidden
+          closeVersionMenus()
+          if (willOpen) {
+            popover.hidden = false
+            trigger.setAttribute('aria-expanded', 'true')
+          }
+          return
         }
+        // a menu item navigates natively; just close the popover
+        if (event.target.closest('[data-version-item]')) {
+          closeVersionMenus()
+          return
+        }
+        if (!event.target.closest('[data-version-popover]')) closeVersionMenus()
+      })
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') closeVersionMenus()
       })
     }
 

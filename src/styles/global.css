@@ -176,6 +176,88 @@ body {
   color: #334155;
 }
 
+.version-menu {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.version-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 22px;
+  padding: 0 7px;
+  border: 1px solid var(--color-line);
+  border-radius: 5px;
+  background: #f8fafc;
+  color: #334155;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+.version-trigger:hover {
+  background: #fff;
+  border-color: #cbd5e1;
+}
+.version-caret {
+  height: 11px;
+  width: 11px;
+  fill: none;
+  stroke: #94a3b8;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.15s ease;
+}
+.version-trigger[aria-expanded="true"] .version-caret {
+  transform: rotate(180deg);
+}
+.version-popover {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  right: 0;
+  min-width: 188px;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: #fff;
+  border: 1px solid var(--color-line);
+  border-radius: 8px;
+  box-shadow:
+    0 10px 28px -10px rgba(15, 23, 42, 0.28),
+    0 2px 6px -2px rgba(15, 23, 42, 0.12);
+  z-index: 60;
+}
+.version-popover[hidden] {
+  display: none;
+}
+.version-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 9px;
+  border-radius: 5px;
+  color: #475569;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.version-item:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+.version-item[aria-current="true"] {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
 html[data-code-font="ui-mono"] {
   --code-font-family:
     ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
