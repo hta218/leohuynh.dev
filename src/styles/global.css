@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 /*
  * Design tokens from sketch 006 — Fullscreen Code Studio.
@@ -344,69 +345,57 @@ html[data-code-font="sfmono"] {
 }
 
 /*
- * Article prose — readable long-form defaults for migrated MDX bodies.
- * Code blocks are owned by Expressive Code (`.expressive-code`); the rules below
- * deliberately avoid restyling those so the two never fight.
+ * Article prose — the Tailwind Typography plugin owns the baseline rhythm
+ * (spacing, lists, tables, `not-prose`); the rules below only re-skin it to the
+ * site's brand. Code blocks are owned by Expressive Code, which applies
+ * `all: revert` to its own subtree — so the plugin never reaches them and the
+ * two never fight.
  */
 .prose {
+  --tw-prose-body: #1f2937;
+  --tw-prose-headings: var(--color-ink);
+  --tw-prose-links: var(--color-code-blue);
+  --tw-prose-bold: var(--color-ink);
+  --tw-prose-counters: var(--color-muted);
+  --tw-prose-bullets: var(--color-muted);
+  --tw-prose-hr: var(--color-line);
+  --tw-prose-quotes: var(--color-muted);
+  --tw-prose-quote-borders: var(--color-code-blue);
+  --tw-prose-captions: var(--color-muted);
+  --tw-prose-code: var(--color-code-purple);
+  --tw-prose-th-borders: var(--color-line);
+  --tw-prose-td-borders: var(--color-line);
+
   max-width: 720px;
   font-size: 17.5px;
   line-height: 1.78;
-  color: #1f2937;
 }
-.prose > * + * {
-  margin-top: 0;
-}
+
+/* Brand headings — tighter tracking + the signature h2 underline. */
 .prose h1 {
   font-size: clamp(32px, 5vw, 46px);
   line-height: 1.08;
   letter-spacing: -0.04em;
-  margin: 0 0 0.5em;
-  color: var(--color-ink);
 }
 .prose h2 {
   font-size: 27px;
   letter-spacing: -0.03em;
-  margin: 1.7em 0 0.6em;
   padding-bottom: 0.3em;
   border-bottom: 1px solid var(--color-line);
-  color: var(--color-ink);
 }
 .prose h3 {
   font-size: 21px;
   letter-spacing: -0.02em;
-  margin: 1.5em 0 0.5em;
-  color: var(--color-ink);
 }
 .prose h4 {
   font-size: 18px;
-  margin: 1.4em 0 0.4em;
-  color: var(--color-ink);
 }
-.prose p,
-.prose ul,
-.prose ol {
-  margin: 0 0 1.15em;
+.prose strong {
+  font-weight: 650;
 }
-.prose ul,
-.prose ol {
-  padding-left: 1.4em;
-}
-.prose ul {
-  list-style: disc;
-}
-.prose ol {
-  list-style: decimal;
-}
-.prose li {
-  margin: 0.35em 0;
-}
-.prose li::marker {
-  color: var(--color-muted);
-}
+
+/* Links — subtle underline that thickens on hover. */
 .prose a {
-  color: var(--color-code-blue);
-  text-decoration: underline;
   text-decoration-color: color-mix(
     in srgb,
     var(--color-code-blue) 35%,
@@ -418,20 +407,22 @@ html[data-code-font="sfmono"] {
 .prose a:hover {
   text-decoration-color: var(--color-code-blue);
 }
-.prose strong {
-  font-weight: 650;
-  color: var(--color-ink);
+
+/* Inline code pill — drop the plugin's backtick pseudo-elements. */
+.prose :not(pre) > code::before,
+.prose :not(pre) > code::after {
+  content: none;
 }
-/* Inline code only — Expressive Code blocks are excluded. */
 .prose :not(pre) > code {
   font-family: var(--font-mono);
+  font-weight: 500;
   font-size: 0.86em;
   background: var(--color-panel2);
   border: 1px solid var(--color-line);
   border-radius: 5px;
   padding: 0.12em 0.36em;
-  color: var(--color-code-purple);
 }
+
 /* Expressive Code frame spacing inside prose. */
 .prose .expressive-code {
   margin: 0 0 1.3em;
@@ -555,44 +546,32 @@ html[data-theme="github-dark-default"] .expressive-code figure.frame {
   display: block;
   flex-shrink: 0;
 }
+/* Framed images — the plugin sizes them, we add the edge + radius. */
 .prose img:not(.twemoji) {
-  max-width: 100%;
-  height: auto;
   border-radius: 12px;
   border: 1px solid var(--color-line);
 }
-.prose blockquote {
-  margin: 0 0 1.2em;
-  padding: 0.2em 0 0.2em 1.1em;
-  border-left: 3px solid var(--color-code-blue);
-  color: var(--color-muted);
-  font-style: italic;
+
+/* Drop the plugin's auto quote glyphs — design uses a plain rule + italic. */
+.prose blockquote p:first-of-type::before,
+.prose blockquote p:last-of-type::after {
+  content: none;
 }
-.prose blockquote p {
-  margin: 0;
-}
-.prose hr {
-  border: 0;
-  border-top: 1px solid var(--color-line);
-  margin: 2.2em 0;
-}
+
+/* Fully bordered tables — the plugin only draws header/row rules by default. */
 .prose table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 0 0 1.3em;
-  font-size: 15px;
   display: block;
   overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 15px;
 }
 .prose th,
 .prose td {
   border: 1px solid var(--color-line);
   padding: 8px 11px;
-  text-align: left;
 }
 .prose th {
   background: var(--color-panel2);
-  font-weight: 600;
 }
 .prose .twemoji {
   vertical-align: -0.1em;
