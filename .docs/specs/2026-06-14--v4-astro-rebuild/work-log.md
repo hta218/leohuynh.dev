@@ -1,5 +1,45 @@
 # Work Logs
 
+## 2026-06-19 — Claude — Wire books/movies shelf to live DB
+
+### Scope
+The shelf + home-page activity rail were reading stale static JSON snapshots
+(`json/books.json`, `json/movies.json`, last regenerated 2025-02-07) even though
+the Supabase DB already holds fresh data (`books` 26 rows updated 2025-09-06,
+`movies` 100 rows updated 2025-06-27). Switched the loaders to read the DB.
+
+### What changed
+- Added `src/lib/db.ts` — shared `getSql()` Postgres connection (extracted from
+  the inline helper in `api/stats.ts`).
+- `src/lib/media.ts` — `getBooks()` / `getMovies()` are now `async` and query the
+  `books` / `movies` tables via `getSql()`. They fall back to the legacy JSON
+  snapshot (with field-name aliasing) if the DB is unreachable, so offline builds
+  still render.
+- `src/pages/api/stats.ts` — now imports `getSql` from `~/lib/db` (removed the
+  duplicated connection code; behavior unchanged).
+- Consumers updated for the async signature: `src/lib/runtime.ts` (`fetchActivity`
+  → `Promise.all([getBooks(), getMovies()])`) and `src/pages/shelf.astro`
+  (`await getBooks()` / `await getMovies()` in frontmatter).
+
+### Verified
+- `nr typecheck` → 0 errors / 0 warnings / 0 hints.
+- DB sanity: `last watched` now resolves to "Your Name." (2016 • 106 mins • ★8,
+  date_rated 2025-06-15); 4 books carry the `currently-reading` shelf.
+
+### Follow-ups handled in this session
+- 3 of the 4 `currently-reading` books are also tagged `paused`. `fetchActivity`
+  now prefers a non-paused shelf (`find(!paused) ?? currentlyReading[0]`) so the
+  rail deterministically shows the actively-read book.
+- Restyled the recent-activity cards in `RuntimeRail.astro`: titles no longer
+  truncate and use `font-medium` (lighter than the old bold); book/movie covers
+  render as portrait posters instead of squares; book/movie cards link to the
+  internal `/shelf` page (`#reading` / `#watching`) while github keeps its
+  external link.
+
+### Notes
+- `shelf.astro` is prerendered → DB is queried at build time (fresh on each
+  deploy). `/api/stats` and `/api/activity.json` query at runtime.
+
 ## 2026-06-18 — Hermes — M11 clean root cutover handoff prep
 
 ### Scope

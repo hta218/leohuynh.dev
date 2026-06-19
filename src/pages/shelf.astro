@@ -6,13 +6,13 @@ import BaseLayout from '~/layouts/BaseLayout.astro'
 import { getBooks, getMovies, type Movie } from '~/lib/media'
 import { SITE } from '~/lib/site'
 
-const books = getBooks().sort((a, b) => b.userRating - a.userRating)
+const books = (await getBooks()).sort((a, b) => b.userRating - a.userRating)
 const reading = books.filter((b) => b.userShelves.includes('currently-reading'))
 const readBooks = books.filter(
   (b) => !b.userShelves.includes('currently-reading'),
 )
 
-const movies = getMovies().sort((a, b) => {
+const movies = (await getMovies()).sort((a, b) => {
   if (b.yourRating === a.yourRating) return b.imdbRating - a.imdbRating
   return b.yourRating - a.yourRating
 })

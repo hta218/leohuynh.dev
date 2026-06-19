@@ -712,11 +712,14 @@ export async function fetchLatestGithubActivity(): Promise<ActivityItem | null> 
 
 export async function fetchActivity(): Promise<ActivityPayload> {
   const items: ActivityItem[] = []
-  const books = getBooks()
-  const movies = getMovies()
-  const reading = books.find((book) =>
+  const [books, movies] = await Promise.all([getBooks(), getMovies()])
+  const currentlyReading = books.filter((book) =>
     book.userShelves.includes('currently-reading'),
   )
+  // Prefer an actively-read book over a paused one for the rail.
+  const reading =
+    currentlyReading.find((book) => !book.userShelves.includes('paused')) ??
+    currentlyReading[0]
   const watched = movies.sort((a, b) =>
     b.dateRated.localeCompare(a.dateRated),
   )[0]

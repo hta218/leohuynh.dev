@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro'
-import postgres from 'postgres'
+import { getSql } from '~/lib/db'
 
 type StatsType = 'blog' | 'snippet'
 type StatsField = 'views' | 'loves' | 'applauses' | 'ideas' | 'bullseyes'
@@ -19,27 +19,6 @@ const STATS_FIELDS: StatsField[] = [
 const JSON_HEADERS = {
   'cache-control': 'no-store',
   'content-type': 'application/json; charset=utf-8',
-}
-
-// `astro dev` loads `.env` into `import.meta.env`, not `process.env`.
-// On Vercel the Function runtime injects real env into `process.env`.
-// Read both so the route works locally and in production.
-const DATABASE_URL = import.meta.env.DATABASE_URL ?? process.env.DATABASE_URL
-
-let sql: ReturnType<typeof postgres> | undefined
-
-function getSql() {
-  if (!DATABASE_URL) {
-    throw new Error('DATABASE_URL is not configured.')
-  }
-
-  sql ??= postgres(DATABASE_URL, {
-    max: 1,
-    idle_timeout: 20,
-    connect_timeout: 8,
-  })
-
-  return sql
 }
 
 function parseType(value: string | undefined): StatsType | null {

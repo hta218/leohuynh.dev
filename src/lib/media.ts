@@ -1,13 +1,13 @@
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
+import { getSql } from '~/lib/db'
 
 /**
- * Build-time loaders for `/books` and `/movies`. Reads the legacy cached exports
- * (`json/books.json` from Goodreads RSS, `json/movies.json` from IMDb + OMDB) so
- * the pages stay fully static — no DB/Supabase access during the v4 build.
- *
- * At cutover these can be swapped for a Drizzle query if live data is wanted;
- * the shapes below mirror the cached snapshot field names (snake_case).
+ * Loaders for `/books` and `/movies`. Reads the live Supabase tables (`books`
+ * from Goodreads RSS, `movies` from IMDb + OMDB) so the shelf and the home-page
+ * activity rail stay current. If the DB is unreachable (e.g. an offline build
+ * with no `DATABASE_URL`), it falls back to the legacy cached snapshots in
+ * `json/books.json` / `json/movies.json` so pages still render.
  */
 
 export interface Book {
@@ -39,48 +39,74 @@ export interface Movie {
   runtime: number
 }
 
-function readJson<T>(relPath: string): T[] {
+function mapBook(b: Record<string, unknown>): Book {
+  const str = (v: unknown) => (v == null ? '' : String(v))
+  return {
+    title: str(b.title),
+    link: str(b.link),
+    guid: str(b.guid),
+    bookId: str(b.id ?? b.book_id),
+    imageUrl: str(
+      b.book_large_image_url || b.book_medium_image_url || b.book_image_url,
+    ),
+    description: str(b.book_description),
+    authorName: str(b.author_name),
+    userRating: Number(b.user_rating ?? 0),
+    userShelves: str(b.user_shelves),
+    averageRating: Number(b.average_rating ?? 0),
+  }
+}
+
+function mapMovie(m: Record<string, unknown>): Movie {
+  const str = (v: unknown) => (v == null ? '' : String(v))
+  return {
+    id: str(m.id ?? m.const),
+    title: str(m.title),
+    url: str(m.url),
+    titleType: (str(m.title_type) as Movie['titleType']) || 'Movie',
+    yourRating: Number(m.your_rating ?? 0),
+    imdbRating: Number(m.imdb_rating ?? 0),
+    dateRated: str(m.date_rated),
+    year: str(m.year),
+    genres: str(m.genres),
+    directors: str(m.directors),
+    poster: str(m.poster),
+    plot: str(m.plot),
+    runtime: Number(m.runtime ?? 0),
+  }
+}
+
+function readJson(relPath: string): Record<string, unknown>[] {
   try {
     const file = resolve(process.cwd(), relPath)
-    return JSON.parse(readFileSync(file, 'utf-8')) as T[]
+    return JSON.parse(readFileSync(file, 'utf-8')) as Record<string, unknown>[]
   } catch {
-    // Graceful fallback — page renders its empty state if the snapshot is missing.
     return []
   }
 }
 
-export function getBooks(): Book[] {
-  const raw = readJson<Record<string, string>>('json/books.json')
-  return raw.map((b) => ({
-    title: b.title,
-    link: b.link,
-    guid: b.guid,
-    bookId: b.book_id,
-    imageUrl:
-      b.book_large_image_url || b.book_medium_image_url || b.book_image_url,
-    description: b.book_description ?? '',
-    authorName: b.author_name ?? '',
-    userRating: Number(b.user_rating ?? 0),
-    userShelves: b.user_shelves ?? '',
-    averageRating: Number(b.average_rating ?? 0),
-  }))
+export async function getBooks(): Promise<Book[]> {
+  try {
+    const sql = getSql()
+    const rows = await sql<Record<string, unknown>[]>`
+      select * from books
+    `
+    return rows.map(mapBook)
+  } catch (error) {
+    console.error('[lib/media] getBooks falling back to snapshot', error)
+    return readJson('json/books.json').map(mapBook)
+  }
 }
 
-export function getMovies(): Movie[] {
-  const raw = readJson<Record<string, string>>('json/movies.json')
-  return raw.map((m) => ({
-    id: m.const,
-    title: m.title,
-    url: m.url,
-    titleType: (m.title_type as Movie['titleType']) ?? 'Movie',
-    yourRating: Number(m.your_rating ?? 0),
-    imdbRating: Number(m.imdb_rating ?? 0),
-    dateRated: m.date_rated ?? '',
-    year: m.year ?? '',
-    genres: m.genres ?? '',
-    directors: m.directors ?? '',
-    poster: m.poster ?? '',
-    plot: m.plot ?? '',
-    runtime: Number(m.runtime ?? 0),
-  }))
+export async function getMovies(): Promise<Movie[]> {
+  try {
+    const sql = getSql()
+    const rows = await sql<Record<string, unknown>[]>`
+      select * from movies
+    `
+    return rows.map(mapMovie)
+  } catch (error) {
+    console.error('[lib/media] getMovies falling back to snapshot', error)
+    return readJson('json/movies.json').map(mapMovie)
+  }
 }
