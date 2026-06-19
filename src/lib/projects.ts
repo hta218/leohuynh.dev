@@ -15,6 +15,7 @@ export interface ProjectLink {
 export type ProjectIcon =
   | 'analytics'
   | 'bell'
+  | 'book'
   | 'code'
   | 'gallery'
   | 'globe'
@@ -82,6 +83,15 @@ export const PROJECTS: Project[] = [
     icon: 'robot',
     repo: 'Weaverse/.agents',
     builtWith: ['Claude', 'Markdown', 'Bash'],
+  },
+  {
+    type: 'work',
+    title: 'Shopify Hydrogen Skills',
+    description:
+      'Dedicated agent skills for building, upgrading, and maintaining Shopify Hydrogen storefronts — works with Claude, Cursor, Copilot, and more.',
+    icon: 'book',
+    repo: 'Weaverse/shopify-hydrogen-skills',
+    builtWith: ['Claude', 'Hydrogen', 'Markdown', 'Typescript'],
   },
   {
     type: 'work',
