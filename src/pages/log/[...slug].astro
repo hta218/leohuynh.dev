@@ -65,7 +65,7 @@ const giscusConfig = getGiscusConfig()
         </span>
         <Reactions type="blog" slug={post.id} client:visible />
       </div>
-      {giscusConfig && <Comments config={giscusConfig} client:visible />}
+      {giscusConfig && <Comments config={giscusConfig} client:only="react" />}
     </article>
   </StudioShell>
 </BaseLayout>
