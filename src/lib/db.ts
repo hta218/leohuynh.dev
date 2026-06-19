@@ -21,6 +21,25 @@ export function getSql() {
     max: 1,
     idle_timeout: 20,
     connect_timeout: 8,
+    types: {
+      // Some json/jsonb cells hold scraped HTML/text that isn't valid JSON
+      // (e.g. a failed Goodreads/OMDB fetch wrote an error page into the cell).
+      // The default parser JSON.parse()s every json column and throws on these,
+      // which kills the whole `select *` query. Parse leniently: fall back to
+      // the raw string instead of throwing so one bad cell can't break the read.
+      jsonSafe: {
+        to: 3802,
+        from: [114, 3802],
+        serialize: (value: unknown) => JSON.stringify(value),
+        parse: (value: string) => {
+          try {
+            return JSON.parse(value)
+          } catch {
+            return value
+          }
+        },
+      },
+    },
   })
 
   return sql
