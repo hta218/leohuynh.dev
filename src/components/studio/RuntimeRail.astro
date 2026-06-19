@@ -80,6 +80,42 @@
   </div>
 
   <div class="rounded-2xl border border-line bg-white p-3.5">
+    <div class="mb-3 flex items-center justify-between gap-3">
+      <h3 class="font-mono text-[11px] uppercase tracking-[0.08em] text-muted">
+        token burn
+      </h3>
+      <span data-tb-meta class="font-mono text-[10px] uppercase tracking-[0.08em] text-muted">
+        all-time
+      </span>
+    </div>
+    <div class="rounded-xl border border-line bg-[#fbfdff] p-2.5">
+      <b data-tb-alltime-tokens class="block text-2xl leading-tight">—</b>
+      <span data-tb-alltime-sub class="font-mono text-[10px] text-muted">loading…</span>
+    </div>
+    <div class="mt-2 grid gap-1.5">
+      <div class="flex items-baseline justify-between gap-3 border-b border-dashed border-line/80 py-1 last:border-b-0">
+        <span class="font-mono text-[10px] uppercase tracking-[0.06em] text-muted">today</span>
+        <strong data-tb-today class="font-mono text-[12px]">—</strong>
+      </div>
+      <div class="flex items-baseline justify-between gap-3 border-b border-dashed border-line/80 py-1 last:border-b-0">
+        <span class="font-mono text-[10px] uppercase tracking-[0.06em] text-muted">7 days</span>
+        <strong data-tb-7d class="font-mono text-[12px]">—</strong>
+      </div>
+    </div>
+    <div class="mt-3 border-t border-line pt-3">
+      <h4 class="mb-2 font-mono text-[10px] uppercase tracking-[0.08em] text-muted">
+        top models
+      </h4>
+      <div data-tb-models class="grid gap-1.5">
+        <div class="flex items-center justify-between gap-3 py-1">
+          <span class="inline-block h-3 w-20 rounded-full bg-line/70 animate-pulse"></span>
+          <span class="inline-block h-3 w-16 rounded-full bg-line/70 animate-pulse"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rounded-2xl border border-line bg-white p-3.5">
     <h3 class="mb-3 font-mono text-[11px] uppercase tracking-[0.08em] text-muted">
       recent activity
     </h3>
@@ -150,6 +186,25 @@
 
   type ActivityPayload = {
     items?: ActivityItem[]
+  }
+
+  type TokenBurnWindow = {
+    cost?: number
+    tokens?: number
+    sessions?: number
+    messages?: number
+  }
+
+  type TokenBurnModelSlice = { model: string; cost: number; tokens: number }
+
+  type TokenBurnPayload = {
+    ok?: boolean
+    allTime?: TokenBurnWindow
+    today?: TokenBurnWindow
+    last7Days?: TokenBurnWindow
+    topModels?: TokenBurnModelSlice[]
+    lastActivity?: string
+    error?: string
   }
 
   const ACTIVITY_COLORS: Record<ActivityItem['type'], string> = {
@@ -555,7 +610,11 @@
       image.src = item.imageUrl
       image.alt = ''
       image.loading = 'lazy'
-      image.className = 'h-[54px] w-10 rounded-md border border-line object-cover'
+      // Book/movie covers keep their natural aspect ratio (fixed width, auto
+      // height); github (and any other) image stays a 1:1 square.
+      image.className = isShelf
+        ? 'h-auto w-10 rounded-md border border-line'
+        : 'h-10 w-10 rounded-md border border-line object-cover'
       wrapper.append(image)
     } else {
       const dot = document.createElement('span')
@@ -600,21 +659,167 @@
     list.append(...items.map(activityCard))
   }
 
+  // Price is a secondary, approximate figure — round to whole dollars.
+  function formatApproxUsd(value: number | null | undefined): string {
+    const cost = value ?? 0
+    if (cost > 0 && cost < 1) return '~<$1'
+    return `~$${Math.round(cost).toLocaleString()}`
+  }
+
+  function formatTokens(value: number | null | undefined): string {
+    const tokens = value ?? 0
+    if (tokens >= 1e9) return `${(tokens / 1e9).toFixed(2)}B`
+    if (tokens >= 1e6) return `${(tokens / 1e6).toFixed(1)}M`
+    if (tokens >= 1e3) return `${(tokens / 1e3).toFixed(1)}K`
+    return tokens.toLocaleString()
+  }
+
+  // Simple Icons has no OpenAI/ChatGPT mark (removed for trademark reasons), so
+  // brands it lacks are rendered from this inline SVG map instead of the CDN.
+  const INLINE_MODEL_ICONS: Record<string, string> = {
+    openai:
+      '<svg viewBox="0 0 320 320" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="m297.06 130.97c7.26-21.79 4.76-45.66-6.85-65.48-17.46-30.4-52.56-46.04-86.84-38.68-15.25-17.18-37.16-26.95-60.13-26.81-35.04-.08-66.13 22.48-76.91 55.82-22.51 4.61-41.94 18.7-53.31 38.67-17.59 30.32-13.58 68.54 9.92 94.54-7.26 21.79-4.76 45.66 6.85 65.48 17.46 30.4 52.56 46.04 86.84 38.68 15.24 17.18 37.16 26.95 60.13 26.8 35.06.09 66.16-22.49 76.94-55.86 22.51-4.61 41.94-18.7 53.31-38.67 17.57-30.32 13.55-68.51-9.94-94.51zm-120.28 168.11c-14.03.02-27.62-4.89-38.39-13.88.49-.26 1.34-.73 1.89-1.07l63.72-36.8c3.26-1.85 5.26-5.32 5.24-9.07v-89.83l26.93 15.55c.29.14.48.42.52.74v74.39c-.04 33.08-26.83 59.9-59.91 59.97zm-128.84-55.03c-7.03-12.14-9.56-26.37-7.15-40.18.47.28 1.3.79 1.89 1.13l63.72 36.8c3.23 1.89 7.23 1.89 10.47 0l77.79-44.92v31.1c.02.32-.13.63-.38.83l-64.41 37.19c-28.69 16.52-65.33 6.7-81.92-21.95zm-16.77-139.09c7-12.16 18.05-21.46 31.21-26.29 0 .55-.03 1.52-.03 2.2v73.61c-.02 3.74 1.98 7.21 5.23 9.06l77.79 44.91-26.93 15.55c-.27.18-.61.21-.91.08l-64.42-37.22c-28.63-16.58-38.45-53.21-21.95-81.89zm221.26 51.49-77.79-44.92 26.93-15.54c.27-.18.61-.21.91-.08l64.42 37.19c28.68 16.57 38.51 53.26 21.94 81.94-7.01 12.14-18.05 21.44-31.2 26.28v-75.81c.03-3.74-1.96-7.2-5.2-9.06zm26.8-40.34c-.47-.29-1.3-.79-1.89-1.13l-63.72-36.8c-3.23-1.89-7.23-1.89-10.47 0l-77.79 44.92v-31.1c-.02-.32.13-.63.38-.83l64.41-37.16c28.69-16.55 65.37-6.7 81.91 22 6.99 12.12 9.52 26.31 7.15 40.1zm-168.51 55.43-26.94-15.55c-.29-.14-.48-.42-.52-.74v-74.39c.02-33.12 26.89-59.96 60.01-59.94 14.01 0 27.57 4.92 38.34 13.88-.49.26-1.33.73-1.89 1.07l-63.72 36.8c-3.26 1.85-5.26 5.31-5.24 9.06l-.04 89.79zm14.63-31.54 34.65-20.01 34.65 20v40.01l-34.65 20-34.65-20z"/></svg>',
+  }
+
+  // Map a raw model id to a brand icon: either a Simple Icons CDN slug
+  // (cdn.simpleicons.org/<slug>) or an inline SVG key for brands the CDN lacks.
+  function modelBrandIcon(
+    model: string,
+  ): { type: 'cdn'; slug: string } | { type: 'inline'; key: string } | null {
+    const id = model.toLowerCase()
+    if (/claude|opus|sonnet|haiku|anthropic/.test(id))
+      return { type: 'cdn', slug: 'claude' }
+    if (/gpt|codex|chatgpt|openai|^o\d/.test(id))
+      return { type: 'inline', key: 'openai' }
+    if (/gemini|bard/.test(id)) return { type: 'cdn', slug: 'googlegemini' }
+    if (/copilot/.test(id)) return { type: 'cdn', slug: 'githubcopilot' }
+    if (/llama|meta/.test(id)) return { type: 'cdn', slug: 'meta' }
+    if (/mistral/.test(id)) return { type: 'cdn', slug: 'mistralai' }
+    if (/qwen/.test(id)) return { type: 'cdn', slug: 'qwen' }
+    if (/deepseek/.test(id)) return { type: 'cdn', slug: 'deepseek' }
+    if (/kimi|moonshot/.test(id)) return { type: 'cdn', slug: 'moonshotai' }
+    return null
+  }
+
+  function tokenBurnWindowLabel(
+    window: TokenBurnWindow | null | undefined,
+  ): string {
+    const sessions = window?.sessions ?? 0
+    return `${formatTokens(window?.tokens)} · ${sessions.toLocaleString()} sess · ${formatApproxUsd(window?.cost)}`
+  }
+
+  function renderTokenBurnModels(
+    rail: Element,
+    models: TokenBurnModelSlice[] | undefined,
+  ) {
+    const list = rail.querySelector<HTMLElement>('[data-tb-models]')
+    if (!list) return
+    list.textContent = ''
+
+    if (!models?.length) {
+      const empty = document.createElement('span')
+      empty.className = 'font-mono text-[12px] text-muted'
+      empty.textContent = '—'
+      list.append(empty)
+      return
+    }
+
+    models.forEach((model) => {
+      const row = document.createElement('div')
+      row.className = 'flex items-center justify-between gap-2 py-0.5'
+
+      const left = document.createElement('span')
+      left.className = 'flex min-w-0 items-center gap-1.5'
+      const brand = modelBrandIcon(model.model)
+      if (brand?.type === 'cdn') {
+        const icon = document.createElement('img')
+        icon.src = `https://cdn.simpleicons.org/${brand.slug}`
+        icon.alt = ''
+        icon.loading = 'lazy'
+        icon.className = 'h-3.5 w-3.5 shrink-0'
+        // Hide gracefully if the slug 404s.
+        icon.addEventListener('error', () => icon.remove())
+        left.append(icon)
+      } else if (brand?.type === 'inline') {
+        const icon = document.createElement('span')
+        icon.className =
+          'inline-flex h-3.5 w-3.5 shrink-0 items-center justify-center text-ink'
+        icon.innerHTML = INLINE_MODEL_ICONS[brand.key] ?? ''
+        left.append(icon)
+      }
+      const name = document.createElement('span')
+      name.className = 'truncate font-mono text-[12px] text-ink'
+      // The brand icon already conveys the vendor — drop the "claude-" prefix
+      // so "claude-opus-4-8" reads as "opus-4-8".
+      name.textContent = model.model.replace(/^claude-/, '')
+      left.append(name)
+
+      const value = document.createElement('strong')
+      value.className = 'shrink-0 font-mono text-[11px] text-muted'
+      value.textContent = `${formatTokens(model.tokens)} · ${formatApproxUsd(model.cost)}`
+
+      row.append(left, value)
+      list.append(row)
+    })
+  }
+
+  function updateTokenBurn(rail: Element, tb: TokenBurnPayload | null) {
+    const set = (selector: string, text: string) => {
+      const el = rail.querySelector<HTMLElement>(selector)
+      if (el) el.textContent = text
+    }
+
+    if (!tb || tb.ok === false) {
+      set('[data-tb-alltime-tokens]', '—')
+      set('[data-tb-alltime-sub]', 'unavailable')
+      set('[data-tb-today]', '—')
+      set('[data-tb-7d]', '—')
+      renderTokenBurnModels(rail, [])
+      return
+    }
+
+    set('[data-tb-alltime-tokens]', `${formatTokens(tb.allTime?.tokens)}`)
+    set(
+      '[data-tb-alltime-sub]',
+      `tokens · ${(tb.allTime?.sessions ?? 0).toLocaleString()} sessions · ${formatApproxUsd(tb.allTime?.cost)}`,
+    )
+    set('[data-tb-today]', tokenBurnWindowLabel(tb.today))
+    set('[data-tb-7d]', tokenBurnWindowLabel(tb.last7Days))
+    renderTokenBurnModels(rail, tb.topModels)
+  }
+
   async function refreshSpotify(rail: Element) {
     const spotify = await fetchRuntimeJson<SpotifyPayload>('/api/spotify.json')
     updateSpotify(rail, spotify)
   }
 
-  async function hydrateGithubActivity(rail: HTMLElement) {
+  function hydrateGithubActivity(rail: HTMLElement) {
     if (rail.dataset.hydrated === 'true') return
     rail.dataset.hydrated = 'true'
-    const [streak, today, activity] = await Promise.all([
-      fetchRuntimeJson<GithubStreakPayload>('/api/github-streak.json'),
-      fetchRuntimeJson<GithubTodayPayload>('/api/github-today.json'),
-      fetchRuntimeJson<ActivityPayload>('/api/activity.json'),
-    ])
-    updateGithub(rail, streak, today)
-    updateActivity(rail, activity)
+    // Three independent sources — each renders as soon as its own fetch
+    // resolves, so a slow one never holds back the others. The heatmap (streak)
+    // and the today detail share `selectedGithubDate` + `githubTodayPayload`,
+    // but updateGithub() guards each branch, so order of arrival is safe.
+    fetchRuntimeJson<GithubStreakPayload>('/api/github-streak.json').then(
+      (streak) => updateGithub(rail, streak, null),
+    )
+    fetchRuntimeJson<GithubTodayPayload>('/api/github-today.json').then(
+      (today) => updateGithub(rail, null, today),
+    )
+    fetchRuntimeJson<ActivityPayload>('/api/activity.json').then((activity) =>
+      updateActivity(rail, activity),
+    )
+  }
+
+  async function hydrateTokenBurn(rail: HTMLElement) {
+    if (rail.dataset.tbHydrated === 'true') return
+    rail.dataset.tbHydrated = 'true'
+    // Fetched independently of the GitHub/activity group so a slow token-burn
+    // response never blocks the other rail widgets from rendering.
+    const tokenBurn = await fetchRuntimeJson<TokenBurnPayload>(
+      '/api/token-burn.json',
+    )
+    updateTokenBurn(rail, tokenBurn)
   }
 
   function hydrateRuntimeRail() {
@@ -624,6 +829,8 @@
     // The rail node is persisted across route changes (transition:persist),
     // so the dataset flag survives and prevents re-querying on navigation.
     hydrateGithubActivity(rail)
+    // token-burn is static for the session too — fetch once, independently.
+    hydrateTokenBurn(rail)
     // Spotify is live — refresh now and keep a single interval running.
     refreshSpotify(rail)
     if (spotifyTimer === null) {
