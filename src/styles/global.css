@@ -376,20 +376,23 @@ html[data-code-font="sfmono"] {
   font-size: clamp(40px, 6vw, 74px);
   line-height: 0.96;
   letter-spacing: -0.07em;
-  font-weight: 400;
+  font-weight: 500;
 }
 .prose h2 {
   font-size: 27px;
   letter-spacing: -0.03em;
   padding-bottom: 0.3em;
   border-bottom: 1px solid var(--color-line);
+  font-weight: 500;
 }
 .prose h3 {
   font-size: 21px;
   letter-spacing: -0.02em;
+  font-weight: 500;
 }
 .prose h4 {
   font-size: 18px;
+  font-weight: 500;
 }
 .prose strong {
   font-weight: 650;
