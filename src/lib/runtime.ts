@@ -777,7 +777,10 @@ type TokenBurnTotals = {
   messages?: number
 }
 
-type TokenBurnDailyRow = TokenBurnTotals & { date: string }
+type TokenBurnDailyRow = TokenBurnTotals & {
+  date: string
+  byModel?: Record<string, TokenBurnTotals>
+}
 
 type TokenBurnSummary = {
   lastActivity?: string
@@ -826,15 +829,17 @@ function buildTokenBurnPayload(summary: TokenBurnSummary): TokenBurnPayload {
   const daily = summary.daily ?? []
 
   const todayRow = daily.find((row) => row.date === today.date)
-  // Top 2 models by token count (tokens lead the widget; cost is secondary).
-  const topModels = Object.entries(summary.byModel ?? {})
+  // Top models for *today* by token count (tokens lead the widget; cost is
+  // secondary). Sourced from todayRow.byModel so it tracks the same Hanoi day as
+  // the rest of the widget. The UI shows a few and expands the rest via "+n more".
+  const topModels = Object.entries(todayRow?.byModel ?? {})
     .map(([model, totals]) => ({
       model,
       cost: totals.cost ?? 0,
       tokens: totals.tokens ?? 0,
     }))
     .sort((a, b) => b.tokens - a.tokens)
-    .slice(0, 2)
+    .slice(0, 10)
 
   return {
     ok: true,
