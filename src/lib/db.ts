@@ -18,7 +18,12 @@ export function getSql() {
   }
 
   sql ??= postgres(DATABASE_URL, {
-    max: 1,
+    // max:1 deadlocks: two concurrent queries (e.g. /api/activity + /api/stats
+    // firing on the same page load) pipeline onto a single pgbouncer
+    // transaction-pooler connection and hang. A small pool gives each its own
+    // connection. The Supabase transaction pooler (port 6543) multiplexes
+    // fine, so a few connections per serverless instance is safe.
+    max: 3,
     idle_timeout: 20,
     connect_timeout: 8,
     types: {

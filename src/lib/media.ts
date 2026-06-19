@@ -110,3 +110,39 @@ export async function getMovies(): Promise<Movie[]> {
     return readJson('json/movies.json').map(mapMovie)
   }
 }
+
+/**
+ * Targeted readers for the home-page activity rail. Unlike getBooks/getMovies
+ * they fetch only the few rows the rail needs (currently-reading shelf, latest
+ * rated movie) instead of the whole table, so the rail stays light.
+ */
+export async function getCurrentlyReading(): Promise<Book[]> {
+  try {
+    const sql = getSql()
+    const rows = await sql<Record<string, unknown>[]>`
+      select * from books where user_shelves like '%currently-reading%'
+    `
+    return rows.map(mapBook)
+  } catch (error) {
+    console.error('[lib/media] getCurrentlyReading falling back to snapshot', error)
+    return readJson('json/books.json')
+      .map(mapBook)
+      .filter((book) => book.userShelves.includes('currently-reading'))
+  }
+}
+
+export async function getLatestWatched(): Promise<Movie | null> {
+  try {
+    const sql = getSql()
+    const rows = await sql<Record<string, unknown>[]>`
+      select * from movies order by date_rated desc limit 1
+    `
+    return rows.length ? mapMovie(rows[0]) : null
+  } catch (error) {
+    console.error('[lib/media] getLatestWatched falling back to snapshot', error)
+    const movies = readJson('json/movies.json').map(mapMovie)
+    return (
+      movies.sort((a, b) => b.dateRated.localeCompare(a.dateRated))[0] ?? null
+    )
+  }
+}

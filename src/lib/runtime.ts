@@ -1,4 +1,4 @@
-import { getBooks, getMovies } from '~/lib/media'
+import { getCurrentlyReading, getLatestWatched } from '~/lib/media'
 import { SITE } from '~/lib/site'
 import type {
   ActivityItem,
@@ -716,17 +716,15 @@ export async function fetchLatestGithubActivity(): Promise<ActivityItem | null> 
 
 export async function fetchActivity(): Promise<ActivityPayload> {
   const items: ActivityItem[] = []
-  const [books, movies] = await Promise.all([getBooks(), getMovies()])
-  const currentlyReading = books.filter((book) =>
-    book.userShelves.includes('currently-reading'),
-  )
+  // Run sequentially rather than Promise.all: concurrent queries on the shared
+  // pgbouncer transaction-pooler connection can deadlock. Each query is only a
+  // few ms, so sequential is fine and keeps this endpoint off that failure mode.
+  const currentlyReading = await getCurrentlyReading()
+  const watched = await getLatestWatched()
   // Prefer an actively-read book over a paused one for the rail.
   const reading =
     currentlyReading.find((book) => !book.userShelves.includes('paused')) ??
     currentlyReading[0]
-  const watched = movies.sort((a, b) =>
-    b.dateRated.localeCompare(a.dateRated),
-  )[0]
   const github = await fetchLatestGithubActivity()
 
   if (reading) {
