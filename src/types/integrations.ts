@@ -67,3 +67,28 @@ export interface ActivityPayload {
   items: ActivityItem[]
   error?: string
 }
+
+export interface TokenBurnWindow {
+  cost: number
+  tokens: number
+  sessions: number
+  messages: number
+}
+
+export interface TokenBurnModelSlice {
+  model: string
+  cost: number
+  tokens: number
+}
+
+export interface TokenBurnPayload {
+  ok: boolean
+  allTime: TokenBurnWindow
+  today: TokenBurnWindow
+  last7Days: TokenBurnWindow
+  last30Days: TokenBurnWindow
+  topModels: TokenBurnModelSlice[]
+  machines: string[]
+  lastActivity?: string
+  error?: string
+}
