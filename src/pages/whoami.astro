@@ -56,33 +56,49 @@ const features = [
           href="/static/resume.pdf"
           target="_blank"
           rel="noreferrer"
-          class="rounded-lg border border-ink bg-ink px-3.5 py-2 font-mono text-xs text-white no-underline shadow-[3px_3px_0_var(--color-line)]"
+          class="group inline-flex items-center gap-1.5 rounded-lg border border-ink bg-white px-3.5 py-2 font-mono text-xs text-ink no-underline shadow-[3px_3px_0_var(--color-ink)] transition-all hover:-translate-x-px hover:-translate-y-px hover:shadow-[4px_4px_0_var(--color-ink)] active:translate-x-px active:translate-y-px active:shadow-[1px_1px_0_var(--color-ink)]"
         >
-          Resume <Twemoji emoji="page-facing-up" className="!align-baseline" />
+          <Twemoji emoji="page-facing-up" size="base" className="m-0!" /> View resume
         </a>
       </div>
 
-      <ol class="not-prose mt-6 grid gap-0">
+      <ol class="not-prose mt-6">
         {
-          CAREER.map((job) => (
-            <li class="grid grid-cols-1 gap-1 border-l-2 border-line py-4 pl-5 md:grid-cols-[1fr_auto]">
-              <div>
-                <h3 class="m-0 text-[18px] font-semibold tracking-[-0.02em]">
-                  {job.role}{' '}
-                  <span class="text-muted">
-                    @{' '}
-                    <a href={job.url} target="_blank" rel="noreferrer" class="text-code-blue">
-                      {job.org}
-                    </a>
+          CAREER.map((job, i) => (
+            <li class="relative flex gap-4 pb-8 last:pb-0">
+              {i < CAREER.length - 1 && (
+                <span class="absolute top-12 bottom-0 left-5.75 w-px bg-line" />
+              )}
+              <img
+                src={job.logo}
+                alt={job.org}
+                width="88"
+                height="88"
+                loading="lazy"
+                decoding="async"
+                class="relative z-10 h-12 w-12 shrink-0 rounded-lg border border-line bg-white object-contain p-1"
+              />
+              <div class="min-w-0 flex-1 pt-0.5">
+                <div class="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+                  <h3 class="m-0 text-[17px] leading-snug font-semibold tracking-[-0.02em]">
+                    {job.role}{' '}
+                    <span class="font-normal text-muted">
+                      @{' '}
+                      <a href={job.url} target="_blank" rel="noreferrer" class="text-code-blue">
+                        {job.org}
+                      </a>
+                    </span>
+                  </h3>
+                  <span class="rounded-md border border-line bg-panel2 px-2 py-0.5 font-mono text-[11px] whitespace-nowrap text-muted">
+                    {job.period}
                   </span>
-                </h3>
-                <ul class="mt-2 mb-0 list-disc space-y-1 pl-5 text-[15px] text-muted">
+                </div>
+                <ul class="mt-2 mb-0 list-disc space-y-1 pl-5 text-[15px] text-muted marker:text-line">
                   {job.notes.map((n) => (
-                    <li>{n}</li>
+                    <li set:html={n} />
                   ))}
                 </ul>
               </div>
-              <span class="font-mono text-xs text-muted md:text-right">{job.period}</span>
             </li>
           ))
         }
@@ -97,11 +113,11 @@ const features = [
       </p>
 
       <h2>What it's built with</h2>
-      <ul class="not-prose grid gap-2 sm:grid-cols-2">
+      <ul class="not-prose mt-6 space-y-2.5">
         {
           features.map((f) => (
-            <li class="flex items-start gap-2.5 rounded-xl border border-line bg-white p-3 text-[15px]">
-              <Twemoji emoji={f.emoji} />
+            <li class="flex items-start gap-2.5 text-[15px] leading-relaxed">
+              <Twemoji emoji={f.emoji} size="base" className="mt-1 m-0! shrink-0" />
               <span>{f.label}</span>
             </li>
           ))

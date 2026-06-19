@@ -39,62 +39,78 @@ export const SUPPORT = {
 } as const
 
 /** Career timeline shown on `/about`, ported from `data/authors/default.mdx`. */
+/** Shared class for inline links rendered inside career note HTML. */
+const NOTE_LINK = 'text-code-blue underline underline-offset-2 hover:decoration-2'
+
 export const CAREER = [
   {
     role: 'CTO / Co-Founder / Software Engineer',
     org: 'Weaverse',
     url: 'https://weaverse.io/',
+    logo: '/static/images/weaverse-logo.png',
     period: 'Mar 2022 - now',
     notes: [
-      'Building a headless eCommerce platform to help creators build high quality, high performance online stores easily.',
+      `Building a smart <a class="${NOTE_LINK}" href="https://weaverse.io/demo" target="_blank" rel="noreferrer">Shopify Hydrogen Theme Customizer</a> to help creators build their own high quality and high performance headless storefronts easily.`,
     ],
   },
   {
-    role: 'Shopify Engineer',
+    role: 'Senior Software Engineer',
     org: 'FoxEcom',
     url: 'https://foxecom.com/',
+    logo: '/static/images/foxecom-logo.jpeg',
     period: 'May 2021 - Feb 2022',
     notes: [
-      'Built Minimog — the next-generation Shopify theme (weekly bestseller, top trending in eCommerce).',
-      'Built the Fox Kit Shopify app — upsell and conversion tools supporting Minimog.',
+      `Built <a class="${NOTE_LINK}" href="https://themeforest.net/item/minimog-the-high-converting-shopify-theme/33380968" target="_blank" rel="noreferrer">Minimog</a> — a multipurpose Shopify theme (top best-selling templates on Envato Market).`,
+      `Built the <a class="${NOTE_LINK}" href="https://apps.shopify.com/foxecom-boost-sales" target="_blank" rel="noreferrer">Fox Kit Shopify App</a> — the upsells and boost-conversion tool built to support Minimog theme.`,
     ],
   },
   {
     role: 'Frontend Engineer',
     org: 'Coc Coc',
-    url: 'https://coccoc.com/',
+    url: 'https://coccoc.com/en',
+    logo: '/static/images/coc-coc-logo.png',
     period: 'May 2020 - Apr 2021',
     notes: [
-      'Worked on the #1 web browser in Vietnam with 25M+ users.',
-      "Built Coc Coc's newsfeed and optimized the new-tab widgets and performance.",
+      'Working on the <strong>#1 web browser & search engine</strong> in <strong>Viet Nam</strong> (30M+ users).',
+      `Built <a class="${NOTE_LINK}" href="https://coccoc.com/webhp" target="_blank" rel="noreferrer">Coc Coc's newsfeed</a>.`,
+      "Maintained and optimized the new tab's widgets and performance.",
     ],
   },
   {
     role: 'Fullstack Developer',
     org: 'BraveBits',
     url: 'https://bravebits.co/',
+    logo: '/static/images/bb-logo.png',
     period: 'Aug 2018 - Apr 2020',
     notes: [
-      "Built PageFly's analytics APIs and Slider-x.",
-      'Helped bring PageFly into the top 3 page builder apps on Shopify.',
+      'Working on the #1 Page Builder app on the Shopify app store.',
+      "Built PageFly's Analytics APIs.",
+      `Built <a class="${NOTE_LINK}" href="https://github.com/sellersmith/slider-x" target="_blank" rel="noreferrer">Slider-x</a>.`,
     ],
   },
   {
     role: 'Instructor and Developer',
     org: 'MindX - Technology School',
     url: 'https://mindx.edu.vn/',
+    logo: '/static/images/mindx-logo.jpeg',
     period: 'May 2017 - Jul 2018',
     notes: [
-      'Built Love of Knowledge, Room Finder, and Travel Egypt (a pygame puzzle).',
-      'Mentored Python fundamentals and web development for newcomers.',
+      `Built <a class="${NOTE_LINK}" href="http://lok.vn/" target="_blank" rel="noreferrer">Love of Knowledge</a> (Front-end Developer).`,
+      `Built <a class="${NOTE_LINK}" href="https://hta218.github.io/get-a-room-api-docs/" target="_blank" rel="noreferrer">Room Finder APIs</a> (Back-end Developer).`,
+      `Built <a class="${NOTE_LINK}" href="https://github.com/hta218/Travel_Egypt" target="_blank" rel="noreferrer">Travel Egypt</a> — a picture puzzle game made by pygame (Python).`,
+      'Mentored Python fundamentals and Python web development for newbies.',
     ],
   },
   {
-    role: 'Electronics & Telecommunications',
+    role: 'Student at SEEE (School of Electrical & Electronic Engineering)',
     org: 'Hanoi University of Science and Technology',
-    url: 'https://www.hust.edu.vn/',
+    url: 'https://www.hust.edu.vn/en/',
+    logo: '/static/images/hust-logo.png',
     period: 'Sep 2013 - Feb 2019',
-    notes: ['Graduated with a good degree after 5 years at HUST.'],
+    notes: [
+      'Got a good degree at the <strong>School of Electrical & Electronic Engineering</strong>.',
+      "And yeah! My major was <strong>Electronics and Telecommunications</strong>, but I couldn't find interest in that field. So I learned Software Engineering instead, and became what I am today.",
+    ],
   },
 ] as const
 
