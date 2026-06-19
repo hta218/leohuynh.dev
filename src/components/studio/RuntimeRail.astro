@@ -87,8 +87,8 @@
       <div class="grid grid-cols-[18px_1fr] gap-2.5 rounded-xl border border-line bg-white p-3 text-ink">
         <span class="mt-1.5 h-2 w-2 rounded-full bg-code-blue"></span>
         <span class="min-w-0">
-          <strong class="block truncate">loading activity…</strong>
-          <span class="block truncate text-[13px] leading-snug text-muted">on demand</span>
+          <strong class="block font-medium leading-snug">loading activity…</strong>
+          <span class="mt-0.5 block truncate text-[13px] leading-snug text-muted">on demand</span>
         </span>
       </div>
     </div>
@@ -530,14 +530,24 @@
   }
 
   function activityCard(item: ActivityItem): HTMLElement {
-    const wrapper = document.createElement(item.url ? 'a' : 'div')
-    if (item.url) {
-      ;(wrapper as HTMLAnchorElement).href = item.url
-      ;(wrapper as HTMLAnchorElement).target = '_blank'
-      ;(wrapper as HTMLAnchorElement).rel = 'noreferrer'
+    // Book/movie cards point to the internal shelf page; everything else
+    // (e.g. github) keeps its own external link.
+    const isShelf = item.type === 'book' || item.type === 'movie'
+    const href = isShelf
+      ? item.type === 'book'
+        ? '/shelf#reading'
+        : '/shelf#watching'
+      : item.url
+    const wrapper = document.createElement(href ? 'a' : 'div')
+    if (href) {
+      ;(wrapper as HTMLAnchorElement).href = href
+      if (!isShelf) {
+        ;(wrapper as HTMLAnchorElement).target = '_blank'
+        ;(wrapper as HTMLAnchorElement).rel = 'noreferrer'
+      }
     }
     wrapper.className = item.imageUrl
-      ? 'grid grid-cols-[36px_1fr] items-center gap-2.5 rounded-xl border border-line bg-white p-2.5 text-ink no-underline hover:border-code-blue'
+      ? 'grid grid-cols-[40px_1fr] items-center gap-3 rounded-xl border border-line bg-white p-2.5 text-ink no-underline hover:border-code-blue'
       : 'grid grid-cols-[18px_1fr] gap-2.5 rounded-xl border border-line bg-white p-3 text-ink no-underline hover:border-code-blue'
 
     if (item.imageUrl) {
@@ -545,7 +555,7 @@
       image.src = item.imageUrl
       image.alt = ''
       image.loading = 'lazy'
-      image.className = 'h-9 w-9 rounded-md border border-line object-cover'
+      image.className = 'h-[54px] w-10 rounded-md border border-line object-cover'
       wrapper.append(image)
     } else {
       const dot = document.createElement('span')
@@ -565,10 +575,10 @@
       content.append(label)
     }
     const title = document.createElement('strong')
-    title.className = 'block truncate'
+    title.className = 'block font-medium leading-snug'
     title.textContent = item.title
     const subtitle = document.createElement('span')
-    subtitle.className = 'block truncate text-[13px] leading-snug text-muted'
+    subtitle.className = 'mt-0.5 block truncate text-[13px] leading-snug text-muted'
     subtitle.textContent = item.subtitle || item.meta || item.type
     content.append(title, subtitle)
     wrapper.append(content)
