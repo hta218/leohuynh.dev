@@ -555,6 +555,15 @@
 
     const content = document.createElement('span')
     content.className = 'min-w-0'
+    const labelMeta =
+      item.type === 'book' || item.type === 'movie' ? item.meta : ''
+    if (labelMeta) {
+      const label = document.createElement('span')
+      label.className =
+        'block font-mono text-[10px] uppercase tracking-[0.06em] text-muted'
+      label.textContent = labelMeta
+      content.append(label)
+    }
     const title = document.createElement('strong')
     title.className = 'block truncate'
     title.textContent = item.title

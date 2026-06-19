@@ -583,6 +583,7 @@ export async function fetchLatestGithubActivity(): Promise<ActivityItem | null> 
           createdAt: string
           repository: {
             nameWithOwner: string
+            isPrivate: boolean
             owner: { login: string; avatarUrl: string }
           }
         }>
@@ -592,6 +593,7 @@ export async function fetchLatestGithubActivity(): Promise<ActivityItem | null> 
       nodes: Array<{
         nameWithOwner: string
         url: string
+        isPrivate: boolean
         owner: { login: string; avatarUrl: string }
         defaultBranchRef?: {
           target?: {
@@ -619,7 +621,7 @@ export async function fetchLatestGithubActivity(): Promise<ActivityItem | null> 
               title
               url
               createdAt
-              repository { nameWithOwner owner { login avatarUrl } }
+              repository { nameWithOwner isPrivate owner { login avatarUrl } }
             }
           }
         }
@@ -628,6 +630,7 @@ export async function fetchLatestGithubActivity(): Promise<ActivityItem | null> 
             ... on Repository {
               nameWithOwner
               url
+              isPrivate
               owner { login avatarUrl }
               defaultBranchRef {
                 target {
@@ -648,19 +651,21 @@ export async function fetchLatestGithubActivity(): Promise<ActivityItem | null> 
           }
         }
       }`,
-      { username, searchQuery: `user:${username} sort:updated-desc` },
+      { username, searchQuery: `user:${username} is:public sort:updated-desc` },
     )
 
     const commits =
-      data.search?.nodes.flatMap((repo) =>
-        (repo.defaultBranchRef?.target?.history?.nodes ?? [])
-          .filter((commit) => commit.author?.user?.login === username)
-          .map((commit) => ({
-            ...commit,
-            repo: repo.nameWithOwner,
-            imageUrl: repo.owner.avatarUrl,
-          })),
-      ) ?? []
+      data.search?.nodes
+        .filter((repo) => !repo.isPrivate)
+        .flatMap((repo) =>
+          (repo.defaultBranchRef?.target?.history?.nodes ?? [])
+            .filter((commit) => commit.author?.user?.login === username)
+            .map((commit) => ({
+              ...commit,
+              repo: repo.nameWithOwner,
+              imageUrl: repo.owner.avatarUrl,
+            })),
+        ) ?? []
 
     const commit = commits.sort(
       (a, b) =>
@@ -684,7 +689,8 @@ export async function fetchLatestGithubActivity(): Promise<ActivityItem | null> 
     }
 
     const pr = data.user?.pullRequests?.nodes.find(
-      (node) => node.repository.owner.login !== username,
+      (node) =>
+        node.repository.owner.login !== username && !node.repository.isPrivate,
     )
 
     if (pr) {
@@ -711,19 +717,10 @@ export async function fetchActivity(): Promise<ActivityPayload> {
   const reading = books.find((book) =>
     book.userShelves.includes('currently-reading'),
   )
-  const watched = movies.sort((a, b) => b.yourRating - a.yourRating)[0]
+  const watched = movies.sort((a, b) =>
+    b.dateRated.localeCompare(a.dateRated),
+  )[0]
   const github = await fetchLatestGithubActivity()
-
-  if (watched) {
-    items.push({
-      type: 'movie',
-      title: watched.title,
-      subtitle: `${watched.year} · ★ ${watched.yourRating}`,
-      url: watched.url,
-      imageUrl: watched.poster,
-      meta: 'last watch',
-    })
-  }
 
   if (reading) {
     items.push({
@@ -733,6 +730,17 @@ export async function fetchActivity(): Promise<ActivityPayload> {
       url: reading.link,
       imageUrl: reading.imageUrl,
       meta: 'currently reading',
+    })
+  }
+
+  if (watched) {
+    items.push({
+      type: 'movie',
+      title: watched.title,
+      subtitle: `${watched.year} • ${watched.runtime} mins • ★ ${watched.yourRating}`,
+      url: watched.url,
+      imageUrl: watched.poster,
+      meta: 'last watched',
     })
   }
 

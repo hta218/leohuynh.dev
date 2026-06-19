@@ -30,6 +30,7 @@ export interface Movie {
   titleType: 'Movie' | 'TV Series' | 'TV Mini Series'
   yourRating: number
   imdbRating: number
+  dateRated: string
   year: string
   genres: string
   directors: string
@@ -74,6 +75,7 @@ export function getMovies(): Movie[] {
     titleType: (m.title_type as Movie['titleType']) ?? 'Movie',
     yourRating: Number(m.your_rating ?? 0),
     imdbRating: Number(m.imdb_rating ?? 0),
+    dateRated: m.date_rated ?? '',
     year: m.year ?? '',
     genres: m.genres ?? '',
     directors: m.directors ?? '',
