@@ -1,0 +1,73 @@
+---
+import HugeIcon from '~/components/icons/HugeIcon.astro'
+import type { DotfileNode } from '~/lib/dotfiles'
+import DotfilesNav from './DotfilesNav.astro'
+
+interface Props {
+  nodes: DotfileNode[]
+  /** Nesting level, used to indent rows. */
+  depth?: number
+  /** Repo-relative path of the file currently open, e.g. `.zshrc`. */
+  currentPath?: string
+}
+
+const { nodes, depth = 0, currentPath } = Astro.props
+
+const fileIcon = (name: string) => (/\.mdx?$/.test(name) ? 'markdown' : 'code')
+const indent = (d: number) => `padding-left:${12 + d * 16}px`
+// Open folders that are ancestors of the file currently being viewed so the
+// active row is visible on first paint.
+const isAncestor = (path: string) =>
+  Boolean(currentPath) &&
+  (currentPath === path || currentPath!.startsWith(`${path}/`))
+---
+
+{
+  nodes.map((node) =>
+    node.type === 'dir' ? (
+      <div data-folder={`dot-${node.path}`}>
+        <button
+          type="button"
+          data-folder-toggle={`dot-${node.path}`}
+          data-folder-default={isAncestor(node.path) ? 'open' : 'closed'}
+          aria-expanded={isAncestor(node.path) ? 'true' : 'false'}
+          class="explorer-row explorer-folder-row py-1.5 text-left font-mono text-[13px] text-slate-600 hover:bg-slate-100 hover:text-slate-950"
+          style={indent(depth)}
+        >
+          <HugeIcon name="caret-down" class="explorer-caret text-slate-500" />
+          <span class="explorer-icon text-slate-500">
+            <HugeIcon name="folder-open" class="folder-icon-open" />
+            <HugeIcon name="folder" class="folder-icon-closed" />
+          </span>
+          <span>{node.name}</span>
+        </button>
+        <div class="space-y-0.5" data-folder-children={`dot-${node.path}`} hidden={!isAncestor(node.path)}>
+          {node.children && node.children.length > 0 ? (
+            <DotfilesNav nodes={node.children} depth={depth + 1} currentPath={currentPath} />
+          ) : (
+            <div class="explorer-row py-1 font-mono text-[12px] text-slate-400" style={indent(depth + 1)}>
+              <span class="explorer-caret" aria-hidden="true" />
+              <span class="explorer-icon" aria-hidden="true" />
+              <span>empty</span>
+            </div>
+          )}
+        </div>
+      </div>
+    ) : (
+      <a
+        href={`/dotfiles/${node.path}`}
+        class:list={[
+          'explorer-row group py-[6px] font-mono text-[13px] no-underline',
+          currentPath === node.path
+            ? 'bg-slate-200 text-slate-950'
+            : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950',
+        ]}
+        style={indent(depth)}
+      >
+        <span class="explorer-caret" aria-hidden="true" />
+        <HugeIcon name={fileIcon(node.name)} class="explorer-icon text-slate-500" />
+        <span>{node.name}</span>
+      </a>
+    ),
+  )
+}

@@ -1,0 +1,135 @@
+---
+export const prerender = false
+
+import { Code } from 'astro-expressive-code/components'
+import HugeIcon from '~/components/icons/HugeIcon.astro'
+import StudioShell from '~/components/studio/StudioShell.astro'
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import { dotfileGithubUrl, getDotfileEntry } from '~/lib/dotfiles'
+
+const slug = Astro.params.slug ?? ''
+const entry = await getDotfileEntry(slug)
+
+if (entry.kind === 'missing') {
+  Astro.response.status = 404
+}
+
+// Dotfiles change rarely → cache hard at the CDN, revalidate in the background.
+Astro.response.headers.set(
+  'cache-control',
+  'public, s-maxage=3600, stale-while-revalidate=86400',
+)
+
+const fmtBytes = (n: number) =>
+  n < 1024 ? `${n} B` : `${(n / 1024).toFixed(1)} KB`
+
+const title = entry.kind === 'missing' ? 'Not found' : slug
+---
+
+<BaseLayout title={`${title} — dotfiles`} description={`${slug} from my dotfiles repo.`}>
+  <StudioShell active={`/dotfiles/${slug}`} crumb={`~/dotfiles/${slug}`}>
+    {
+      entry.kind === 'file' && (
+        <div class="not-prose">
+          <div class="mb-4 flex flex-wrap items-center justify-between gap-3 border-b border-line pb-3 font-mono text-xs text-muted">
+            <span class="flex items-center gap-2 text-ink">
+              <HugeIcon name="code" size={14} class="text-slate-500" />
+              {slug}
+              <span class="text-slate-400">· {fmtBytes(entry.size)} · {entry.lang}</span>
+            </span>
+            <span class="flex items-center gap-3">
+              <a
+                href={entry.htmlUrl}
+                target="_blank"
+                rel="noreferrer"
+                class="flex items-center gap-1 no-underline hover:text-ink"
+              >
+                GitHub <HugeIcon name="external" size={12} />
+              </a>
+              <a
+                href={entry.rawUrl}
+                target="_blank"
+                rel="noreferrer"
+                class="flex items-center gap-1 no-underline hover:text-ink"
+              >
+                Raw <HugeIcon name="external" size={12} />
+              </a>
+            </span>
+          </div>
+          <Code code={entry.text} lang={entry.lang} />
+        </div>
+      )
+    }
+
+    {
+      entry.kind === 'dir' && (
+        <div class="not-prose">
+          <div class="mb-4 flex items-center justify-between gap-3 border-b border-line pb-3 font-mono text-xs text-muted">
+            <span class="flex items-center gap-2 text-ink">
+              <HugeIcon name="folder" size={14} class="text-slate-500" />
+              {slug}/
+            </span>
+            <a
+              href={entry.htmlUrl}
+              target="_blank"
+              rel="noreferrer"
+              class="flex items-center gap-1 no-underline hover:text-ink"
+            >
+              GitHub <HugeIcon name="external" size={12} />
+            </a>
+          </div>
+          <ul class="space-y-1 font-mono text-[13px]">
+            {entry.children.map((child) => (
+              <li>
+                <a
+                  href={`/dotfiles/${child.path}`}
+                  class="flex items-center gap-2 rounded-md px-2 py-1.5 text-slate-600 no-underline hover:bg-slate-100 hover:text-slate-950"
+                >
+                  <HugeIcon
+                    name={child.type === 'dir' ? 'folder' : 'code'}
+                    size={14}
+                    class="text-slate-500"
+                  />
+                  {child.name}
+                  {child.type === 'dir' && '/'}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+
+    {
+      entry.kind === 'too-large' && (
+        <div class="not-prose font-mono text-sm text-muted">
+          <p class="mb-3">
+            <span class="text-ink">{slug}</span> is {fmtBytes(entry.size)} — too large to
+            render inline.
+          </p>
+          <a href={entry.htmlUrl} target="_blank" rel="noreferrer" class="text-code-blue">
+            Open on GitHub →
+          </a>
+        </div>
+      )
+    }
+
+    {
+      entry.kind === 'missing' && (
+        <div class="not-prose font-mono text-sm text-muted">
+          <p class="mb-3">
+            <span class="text-ink">{slug}</span> doesn't exist in the dotfiles repo.
+          </p>
+          <a
+            href={dotfileGithubUrl('', 'tree')}
+            target="_blank"
+            rel="noreferrer"
+            class="text-code-blue"
+          >
+            Browse the repo →
+          </a>
+        </div>
+      )
+    }
+  </StudioShell>
+</BaseLayout>

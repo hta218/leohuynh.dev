@@ -259,6 +259,87 @@ body {
   color: #0f172a;
 }
 
+/* Collapsible sidebar section headers (Explorer, dotfiles, …). */
+.sidebar-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1px 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-muted);
+  transition: color 0.12s ease;
+}
+.sidebar-section-header:hover {
+  color: #334155;
+}
+.section-toggle {
+  display: inline-grid;
+  place-items: center;
+  height: 16px;
+  width: 16px;
+  font-size: 14px;
+  line-height: 1;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}
+.section-toggle::after {
+  content: "−";
+}
+.sidebar-section-header:hover .section-toggle {
+  opacity: 1;
+}
+.sidebar-section-header[aria-expanded="false"] .section-toggle {
+  opacity: 0.65;
+}
+.sidebar-section-header[aria-expanded="false"] .section-toggle::after {
+  content: "+";
+}
+
+/* Git-branch chip in the status bar version switcher. */
+.git-branch-icon {
+  display: inline-grid;
+  place-items: center;
+  height: 12px;
+  width: 12px;
+  flex: 0 0 12px;
+  color: #64748b;
+}
+.git-branch-icon svg {
+  display: block;
+  height: 12px;
+  width: 12px;
+}
+.version-popover-title {
+  padding: 3px 9px 5px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #94a3b8;
+}
+.version-item-branch {
+  color: #0f172a;
+  font-weight: 600;
+}
+.version-item-label {
+  margin-left: auto;
+  color: #94a3b8;
+  font-size: 10px;
+}
+.version-item-check {
+  margin-left: 6px;
+  color: #16a34a;
+}
+.version-item[aria-current="true"] .git-branch-icon {
+  color: #16a34a;
+}
+
 html[data-code-font="ui-mono"] {
   --code-font-family:
     ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;

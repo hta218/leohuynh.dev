@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content'
 import { execSync } from 'node:child_process'
 import HugeIcon from '~/components/icons/HugeIcon.astro'
+import { getDotfilesTree } from '~/lib/dotfiles'
 import { SITE } from '~/lib/site'
 import AstroIcon from '../../../icons/astro.svg?raw'
 import GoodreadsIcon from '../../../icons/goodreads.svg?raw'
@@ -9,6 +10,7 @@ import ImdbIcon from '../../../icons/imdb.svg?raw'
 import MarkdownIcon from '../../../icons/markdown.svg?raw'
 import MadeInVietnamIcon from '../../../icons/miv.svg?raw'
 import UmamiIcon from '../../../icons/umami.svg?raw'
+import DotfilesNav from './DotfilesNav.astro'
 import RuntimeRail from './RuntimeRail.astro'
 
 interface Props {
@@ -208,6 +210,11 @@ const explorerItems: TreeItem[] = [
   },
 ]
 
+const dotfilesTree = await getDotfilesTree()
+const activeDotfile = currentPath.startsWith('/dotfiles/')
+  ? decodeURIComponent(currentPath.slice('/dotfiles/'.length))
+  : undefined
+
 const tabLinks: TreeLeaf[] = [
   explorerItems.find(
     (item) => item.kind === 'leaf' && item.id === 'readme',
@@ -253,11 +260,35 @@ const lastCommitUrl =
     ? `${SITE.siteRepo}/commit/${lastCommit}`
     : SITE.siteRepo
 const SITE_VERSIONS = [
-  { value: 'latest', label: 'latest (Astro × bun)', href: '/', current: true },
-  { value: 'v3', label: 'v3 (Next.js 15 × pnpm)', href: 'https://v3.leohuynh.dev/' },
-  { value: 'v2', label: 'v2 (Next.js 14 × npm)', href: 'https://v2.leohuynh.dev/' },
-  { value: 'v1', label: 'v1 (Gatsby × yarn)', href: 'https://v1.leohuynh.dev/' },
+  {
+    value: 'latest',
+    branch: 'main',
+    label: 'Astro × bun',
+    href: '/',
+    current: true,
+  },
+  {
+    value: 'v3',
+    branch: 'v3',
+    label: 'Next.js 15 × pnpm',
+    href: 'https://v3.leohuynh.dev/',
+  },
+  {
+    value: 'v2',
+    branch: 'v2',
+    label: 'Next.js 14 × npm',
+    href: 'https://v2.leohuynh.dev/',
+  },
+  {
+    value: 'v1',
+    branch: 'v1',
+    label: 'Gatsby × yarn',
+    href: 'https://v1.leohuynh.dev/',
+  },
 ]
+const currentBranch = SITE_VERSIONS.find((v) => v.current)?.branch ?? 'main'
+const GIT_BRANCH_ICON =
+  '<svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M9.5 3.25a2.25 2.25 0 1 1 3 2.122V6A2.5 2.5 0 0 1 10 8.5H6a1 1 0 0 0-1 1v1.128a2.251 2.251 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.5 0v1.836A2.493 2.493 0 0 1 6 7h4a1 1 0 0 0 1-1v-.628A2.25 2.25 0 0 1 9.5 3.25Zm-6 0a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Zm8.25-.75a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5ZM4.25 12a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Z"></path></svg>'
 ---
 
 <div id={shellId} class="studio-shell grid h-screen grid-rows-[1fr_32px] overflow-hidden bg-bg" data-rail="visible">
@@ -268,9 +299,17 @@ const SITE_VERSIONS = [
         <span>leohuynh.dev</span>
       </a>
 
-      <section class="mb-5">
-        <h3 class="mb-2 font-mono text-[11px] uppercase tracking-[0.08em] text-muted">explorer</h3>
-        <nav class="space-y-0.5">
+      <section class="mb-4" data-folder="section-explorer">
+        <button
+          type="button"
+          data-folder-toggle="section-explorer"
+          aria-expanded="true"
+          class="sidebar-section-header mb-2"
+        >
+          <span>explorer</span>
+          <span class="section-toggle" aria-hidden="true" />
+        </button>
+        <nav class="space-y-0.5" data-folder-children="section-explorer">
           {
             explorerItems.map((item) => (
               <div data-folder={item.kind === 'folder' ? item.id : undefined}>
@@ -336,6 +375,21 @@ const SITE_VERSIONS = [
               </div>
             ))
           }
+        </nav>
+      </section>
+
+      <section class="mb-4" data-folder="section-dotfiles">
+        <button
+          type="button"
+          data-folder-toggle="section-dotfiles"
+          aria-expanded="true"
+          class="sidebar-section-header mb-2"
+        >
+          <span>dotfiles</span>
+          <span class="section-toggle" aria-hidden="true" />
+        </button>
+        <nav class="space-y-0.5" data-folder-children="section-dotfiles">
+          <DotfilesNav nodes={dotfilesTree} currentPath={activeDotfile} />
         </nav>
       </section>
     </aside>
@@ -415,14 +469,17 @@ const SITE_VERSIONS = [
           data-version-trigger
           aria-haspopup="menu"
           aria-expanded="false"
-          aria-label="Choose site version"
+          aria-label="Switch site version (git branch)"
+          title="Switch site version"
         >
-          <span>versions (latest)</span>
+          <span class="git-branch-icon" set:html={GIT_BRANCH_ICON} />
+          <span>{currentBranch}</span>
           <svg class="version-caret" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M6 15l6-6 6 6" />
           </svg>
         </button>
         <div class="version-popover" data-version-popover role="menu" hidden>
+          <div class="version-popover-title">Checkout version</div>
           {
             SITE_VERSIONS.map((version) => (
               <a
@@ -434,7 +491,10 @@ const SITE_VERSIONS = [
                 data-version-item
                 aria-current={version.current ? 'true' : undefined}
               >
+                <span class="git-branch-icon" set:html={GIT_BRANCH_ICON} />
+                <span class="version-item-branch">{version.branch}</span>
                 <span class="version-item-label">{version.label}</span>
+                {version.current && <span class="version-item-check" aria-hidden="true">✓</span>}
               </a>
             ))
           }
@@ -587,7 +647,8 @@ const SITE_VERSIONS = [
           if (caret) caret.style.transform = open ? 'rotate(0deg)' : 'rotate(-90deg)'
         }
         const saved = localStorage.getItem(storageKey)
-        setOpen(saved !== 'false')
+        const defaultOpen = button.getAttribute('data-folder-default') !== 'closed'
+        setOpen(saved !== null ? saved !== 'false' : defaultOpen)
         button.addEventListener('click', () => {
           const next = button.getAttribute('aria-expanded') !== 'true'
           localStorage.setItem(storageKey, String(next))
