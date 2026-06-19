@@ -20,14 +20,10 @@ function env(name: string): string | undefined {
 }
 
 export function getGiscusConfig(): GiscusConfig | null {
-  const repo = env('NEXT_PUBLIC_GISCUS_REPO') ?? env('PUBLIC_GISCUS_REPO')
-  const repoId =
-    env('NEXT_PUBLIC_GISCUS_REPOSITORY_ID') ??
-    env('PUBLIC_GISCUS_REPOSITORY_ID')
-  const category =
-    env('NEXT_PUBLIC_GISCUS_CATEGORY') ?? env('PUBLIC_GISCUS_CATEGORY')
-  const categoryId =
-    env('NEXT_PUBLIC_GISCUS_CATEGORY_ID') ?? env('PUBLIC_GISCUS_CATEGORY_ID')
+  const repo = env('PUBLIC_GISCUS_REPO')
+  const repoId = env('PUBLIC_GISCUS_REPOSITORY_ID')
+  const category = env('PUBLIC_GISCUS_CATEGORY')
+  const categoryId = env('PUBLIC_GISCUS_CATEGORY_ID')
 
   if (!repo || !repoId || !category || !categoryId || !repo.includes('/')) {
     return null

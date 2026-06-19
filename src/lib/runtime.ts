@@ -43,7 +43,7 @@ function timeoutSignal(ms = 8000): AbortSignal {
 }
 
 export function getUmamiWebsiteId(): string | undefined {
-  return env('PUBLIC_UMAMI_WEBSITE_ID') ?? env('NEXT_UMAMI_ID')
+  return env('PUBLIC_UMAMI_WEBSITE_ID')
 }
 
 export function jsonHeaders(ttl = 60): HeadersInit {

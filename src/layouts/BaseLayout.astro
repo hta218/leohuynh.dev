@@ -31,8 +31,7 @@ const canonical =
 const image = new URL(ogImage ?? SITE.socialBanner, SITE.siteUrl).href
 const rssTitle = `${SITE.title} RSS feed`
 const umamiWebsiteId =
-  (import.meta.env.PUBLIC_UMAMI_WEBSITE_ID || process.env.PUBLIC_UMAMI_WEBSITE_ID)?.trim() ||
-  (import.meta.env.NEXT_UMAMI_ID || process.env.NEXT_UMAMI_ID)?.trim()
+  (import.meta.env.PUBLIC_UMAMI_WEBSITE_ID || process.env.PUBLIC_UMAMI_WEBSITE_ID)?.trim()
 ---
 
 <!doctype html>
