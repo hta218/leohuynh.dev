@@ -17,12 +17,18 @@
           href="#"
           target="_blank"
           rel="noreferrer"
-          class="hidden truncate font-semibold text-ink no-underline hover:text-code-blue"
+          class="hidden font-semibold text-ink no-underline hover:text-code-blue"
         ></a>
         <b data-spotify-empty>—</b>
-        <span data-spotify-artist class="block truncate font-mono text-xs text-muted">loading…</span>
-        <span data-spotify-status class="mt-1 block font-mono text-[10px] uppercase tracking-[0.08em] text-code-green">
-          loading
+        <span data-spotify-artist class="block font-mono text-xs text-muted">loading…</span>
+        <span class="mt-1 flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.08em] text-code-green">
+          <span data-spotify-eq class="eq hidden" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+          <span data-spotify-status>loading</span>
         </span>
       </div>
     </div>
@@ -265,6 +271,7 @@
     const empty = rail.querySelector<HTMLElement>('[data-spotify-empty]')
     const artist = rail.querySelector<HTMLElement>('[data-spotify-artist]')
     const status = rail.querySelector<HTMLElement>('[data-spotify-status]')
+    const eq = rail.querySelector<HTMLElement>('[data-spotify-eq]')
 
     if (image && placeholder) {
       if (song?.albumImageUrl) {
@@ -294,6 +301,7 @@
 
     if (artist) artist.textContent = song ? song.artist || '' : spotifyStatusLabel(spotify?.status)
     if (status) status.textContent = spotifyStatusLabel(spotify?.status)
+    if (eq) eq.classList.toggle('hidden', spotify?.status !== 'playing')
   }
 
   function formatGithubDate(date: string): string {

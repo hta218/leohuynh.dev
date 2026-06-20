@@ -418,10 +418,48 @@ html[data-code-font="sfmono"] {
 /* equalizer animation for the now-playing widget */
 @keyframes eq {
   from {
-    height: 4px;
+    height: 3px;
   }
   to {
-    height: 20px;
+    height: 14px;
+  }
+}
+
+.eq {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 14px;
+}
+
+.eq span {
+  width: 3px;
+  height: 3px;
+  border-radius: 9999px;
+  background: #1db954;
+  animation: eq 0.45s ease-in-out infinite alternate;
+}
+
+.eq span:nth-child(1) {
+  animation-duration: 0.4s;
+}
+.eq span:nth-child(2) {
+  animation-duration: 0.56s;
+  animation-delay: 0.12s;
+}
+.eq span:nth-child(3) {
+  animation-duration: 0.34s;
+  animation-delay: 0.05s;
+}
+.eq span:nth-child(4) {
+  animation-duration: 0.5s;
+  animation-delay: 0.16s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eq span {
+    animation: none;
+    height: 8px;
   }
 }
 
