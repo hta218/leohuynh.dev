@@ -61,5 +61,21 @@
     "formatter": {
       "trailingCommas": "none"
     }
-  }
+  },
+  "overrides": [
+    {
+      "includes": ["**/*.astro", "**/*.svelte", "**/*.vue"],
+      "linter": {
+        "rules": {
+          "style": {
+            "useImportType": "off"
+          },
+          "correctness": {
+            "noUnusedVariables": "off",
+            "noUnusedImports": "off"
+          }
+        }
+      }
+    }
+  ]
 }
