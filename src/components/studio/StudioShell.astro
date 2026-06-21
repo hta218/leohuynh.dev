@@ -200,6 +200,15 @@ const explorerItems: TreeItem[] = [
   },
   {
     kind: 'leaf',
+    id: 'guestbook',
+    href: '/guestbook',
+    file: 'guestbook.astro',
+    title: 'Guestbook',
+    icon: { type: 'huge', name: 'comment' },
+    activeWhen: exact('/guestbook'),
+  },
+  {
+    kind: 'leaf',
     id: 'stats',
     href: SITE.analytics.umamiShareUrl,
     file: 'stats',

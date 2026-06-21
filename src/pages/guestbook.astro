@@ -1,0 +1,54 @@
+---
+import GuestbookApp from '~/components/guestbook/GuestbookApp'
+import PageHeader from '~/components/PageHeader.astro'
+import StudioShell from '~/components/studio/StudioShell.astro'
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import { SESSION_COOKIE } from '~/lib/github-oauth'
+import {
+  getGuestbookCurrentUser,
+  getGuestbookEntries,
+  isGuestbookAdmin,
+} from '~/lib/guestbook'
+import type { GuestbookEntry } from '~/types/guestbook'
+
+export const prerender = false
+
+const nowSeconds = Math.floor(Date.now() / 1000)
+const currentUser = getGuestbookCurrentUser(
+  Astro.cookies.get(SESSION_COOKIE)?.value,
+  nowSeconds,
+)
+const isAdmin = isGuestbookAdmin(currentUser?.login)
+
+// Server-render the first page for fast first paint and SEO. If the database
+// or env is not configured yet, fall back to an empty wall instead of 500ing.
+let entries: GuestbookEntry[] = []
+let nextCursor: string | null = null
+try {
+  const result = await getGuestbookEntries({ viewer: currentUser, isAdmin })
+  entries = result.entries
+  nextCursor = result.nextCursor
+} catch (error) {
+  console.error('[guestbook] SSR load failed', error)
+}
+---
+
+<BaseLayout
+  title="Guestbook"
+  description="Sign in with GitHub and leave a small trace on the wall."
+>
+  <StudioShell active="/guestbook" crumb="~/leohuynh.dev/guestbook/">
+    <PageHeader
+      title="guestbook"
+      description="Leave a small trace on the wall."
+    />
+
+    <GuestbookApp
+      client:load
+      currentUser={currentUser}
+      isAdmin={isAdmin}
+      initialEntries={entries}
+      initialNextCursor={nextCursor}
+    />
+  </StudioShell>
+</BaseLayout>
