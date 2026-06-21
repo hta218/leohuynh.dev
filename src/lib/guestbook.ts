@@ -286,20 +286,6 @@ export async function getGuestbookEntries(options: {
   return { entries, nextCursor }
 }
 
-async function countRecentEntries(
-  column: 'github_id' | 'ip_hash',
-  value: string | number,
-): Promise<number> {
-  const db = getSql()
-  const [row] = await db<{ count: number }[]>`
-    select count(*)::int as count
-    from guestbook_entries
-    where ${column === 'github_id' ? db`github_id` : db`ip_hash`} = ${value}
-      and created_at > now() - interval '24 hours'
-  `
-  return row?.count ?? 0
-}
-
 /** Create an entry for an authenticated GitHub user. Server controls identity. */
 export async function createGuestbookEntry(
   input: {
@@ -323,25 +309,6 @@ export async function createGuestbookEntry(
     return { ok: false, status: 400, message: signature.message }
   }
 
-  const userCount = await countRecentEntries('github_id', user.id)
-  if (userCount >= MAX_ENTRIES_PER_USER_PER_DAY) {
-    return {
-      ok: false,
-      status: 429,
-      message: 'Daily limit reached. Try again tomorrow.',
-    }
-  }
-  if (meta.ipHash) {
-    const ipCount = await countRecentEntries('ip_hash', meta.ipHash)
-    if (ipCount >= MAX_ENTRIES_PER_IP_PER_DAY) {
-      return {
-        ok: false,
-        status: 429,
-        message: 'Daily limit reached. Try again tomorrow.',
-      }
-    }
-  }
-
   // Auto-approve GitHub-authenticated entries, but hold spammy-looking ones for
   // manual review rather than publishing them.
   const status: GuestbookStatus =
@@ -350,30 +317,77 @@ export async function createGuestbookEntry(
       : 'pending'
 
   const db = getSql()
-  const [row] = await db<GuestbookRow[]>`
-    insert into guestbook_entries (
-      github_id, github_login, github_name, github_avatar_url,
-      display_name, message, signature, status, ip_hash, user_agent_hash
-    ) values (
-      ${user.id}, ${user.login}, ${user.name}, ${user.avatarUrl},
-      ${displayName.value}, ${message.value},
-      ${
-        signature.value
-          ? db.json(signature.value as unknown as Parameters<typeof db.json>[0])
-          : null
-      },
-      ${status}, ${meta.ipHash}, ${meta.userAgentHash}
-    )
-    returning
-      id, github_id, github_login, github_name, github_avatar_url,
-      display_name, message, signature, status, created_at
-  `
+  return db.begin(async (tx) => {
+    // Serialize per-user and per-IP checks so parallel submissions cannot all
+    // observe the same pre-insert count and bypass the 24h limits.
+    await tx`
+      select pg_advisory_xact_lock(
+        hashtextextended(${`guestbook:user:${user.id}`}, 0)
+      )
+    `
+    if (meta.ipHash) {
+      await tx`
+        select pg_advisory_xact_lock(
+          hashtextextended(${`guestbook:ip:${meta.ipHash}`}, 0)
+        )
+      `
+    }
 
-  return {
-    ok: true,
-    entry: toEntryDTO(row, user),
-    status: status === 'approved' ? 'approved' : 'pending',
-  }
+    const [userCount] = await tx<{ count: number }[]>`
+      select count(*)::int as count
+      from guestbook_entries
+      where github_id = ${user.id}
+        and created_at > now() - interval '24 hours'
+    `
+    if ((userCount?.count ?? 0) >= MAX_ENTRIES_PER_USER_PER_DAY) {
+      return {
+        ok: false,
+        status: 429,
+        message: 'Daily limit reached. Try again tomorrow.',
+      }
+    }
+
+    if (meta.ipHash) {
+      const [ipCount] = await tx<{ count: number }[]>`
+        select count(*)::int as count
+        from guestbook_entries
+        where ip_hash = ${meta.ipHash}
+          and created_at > now() - interval '24 hours'
+      `
+      if ((ipCount?.count ?? 0) >= MAX_ENTRIES_PER_IP_PER_DAY) {
+        return {
+          ok: false,
+          status: 429,
+          message: 'Daily limit reached. Try again tomorrow.',
+        }
+      }
+    }
+
+    const [row] = await tx<GuestbookRow[]>`
+      insert into guestbook_entries (
+        github_id, github_login, github_name, github_avatar_url,
+        display_name, message, signature, status, ip_hash, user_agent_hash
+      ) values (
+        ${user.id}, ${user.login}, ${user.name}, ${user.avatarUrl},
+        ${displayName.value}, ${message.value},
+        ${
+          signature.value
+            ? tx.json(signature.value as unknown as Parameters<typeof tx.json>[0])
+            : null
+        },
+        ${status}, ${meta.ipHash}, ${meta.userAgentHash}
+      )
+      returning
+        id, github_id, github_login, github_name, github_avatar_url,
+        display_name, message, signature, status, created_at
+    `
+
+    return {
+      ok: true,
+      entry: toEntryDTO(row, user),
+      status: status === 'approved' ? 'approved' : 'pending',
+    }
+  })
 }
 
 /** Admin moderation: soft-hide or restore an entry. Never deletes. */

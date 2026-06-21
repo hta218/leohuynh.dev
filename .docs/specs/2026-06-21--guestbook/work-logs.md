@@ -72,8 +72,9 @@ This repo has no migration system — create the table by hand.
    `guestbook_oauth_sessions` table is NOT needed — sessions are cookie-based.)
 
 2. **GitHub OAuth app** (Settings → Developer settings → OAuth Apps → New):
-   - Homepage URL: `https://leohuynh.dev`
-   - Authorization callback URL (add both):
+   - Homepage URL: `https://www.leohuynh.dev`
+   - Authorization callback URLs (add all origins users/devs can hit):
+     - `https://www.leohuynh.dev/api/auth/github/callback`
      - `https://leohuynh.dev/api/auth/github/callback`
      - `http://localhost:3434/api/auth/github/callback`
    - Scope used by code: `read:user` only (no repo/email).

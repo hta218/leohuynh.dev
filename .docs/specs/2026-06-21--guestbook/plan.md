@@ -255,10 +255,16 @@ render responsively.
 
 OAuth app settings:
 
-- Homepage URL: `https://leohuynh.dev`
-- Authorization callback URL:
-  - production: `https://leohuynh.dev/api/auth/github/callback`
+- Homepage URL: `https://www.leohuynh.dev`
+- Authorization callback URLs:
+  - production canonical: `https://www.leohuynh.dev/api/auth/github/callback`
+  - production apex fallback: `https://leohuynh.dev/api/auth/github/callback`
   - local dev: `http://localhost:3434/api/auth/github/callback`
+
+The implementation builds `redirect_uri` from the incoming request origin, so
+the GitHub OAuth app must allow every origin visitors can actually use. The site
+metadata/canonical URL is `https://www.leohuynh.dev`; keep the apex callback too
+unless the host guarantees apex-to-www redirect before the OAuth start route.
 
 Scopes:
 
