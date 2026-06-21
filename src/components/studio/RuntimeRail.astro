@@ -1,8 +1,19 @@
+---
+import SpotifyIcon from '@icons/spotify.svg?raw'
+---
+
 <aside id="runtime-rail" transition:persist="runtime-rail" class="runtime-rail thin-scrollbar hidden min-h-0 content-start gap-3 overflow-y-auto border-l border-line bg-panel2 p-3.5 lg:grid">
   <div class="rounded-2xl border border-line bg-white p-3.5">
-    <h3 class="mb-3 font-mono text-[11px] uppercase tracking-[0.08em] text-muted">
-      spotify now playing
-    </h3>
+    <div class="mb-3 flex items-center gap-1.5">
+      <span
+        class="flex h-3.5 w-3.5 shrink-0 items-center [&_svg]:h-full [&_svg]:w-full"
+        aria-hidden="true"
+        set:html={SpotifyIcon}
+      />
+      <h3 data-spotify-heading class="font-mono text-[11px] uppercase tracking-[0.08em] text-muted">
+        <span class="inline-block h-2.5 w-16 rounded-full bg-line/70 align-middle animate-pulse"></span>
+      </h3>
+    </div>
     <div class="grid grid-cols-[48px_1fr] items-center gap-3">
       <img
         data-spotify-image
@@ -17,12 +28,18 @@
           href="#"
           target="_blank"
           rel="noreferrer"
-          class="hidden truncate font-semibold text-ink no-underline hover:text-code-blue"
+          class="hidden font-semibold text-ink no-underline hover:text-code-blue"
         ></a>
         <b data-spotify-empty>—</b>
-        <span data-spotify-artist class="block truncate font-mono text-xs text-muted">loading…</span>
-        <span data-spotify-status class="mt-1 block font-mono text-[10px] uppercase tracking-[0.08em] text-code-green">
-          loading
+        <span data-spotify-artist class="block font-mono text-xs text-muted">loading…</span>
+        <span class="mt-1 flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.08em] text-code-green">
+          <span data-spotify-eq class="eq" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+          <span data-spotify-status>loading</span>
         </span>
       </div>
     </div>
@@ -96,18 +113,14 @@
       <span data-tb-alltime-sub class="mt-1 block font-mono text-[10px] text-muted">loading…</span>
     </div>
     <div class="mt-2 grid gap-1.5">
-      <div class="flex items-baseline justify-between gap-3 border-b border-dashed border-line/80 py-1 last:border-b-0">
+      <div class="flex items-baseline justify-between gap-3 border-b border-dashed border-line/80 py-1">
         <span class="font-mono text-[10px] uppercase tracking-[0.06em] text-muted">today</span>
         <strong data-tb-today class="font-mono text-[12px]">—</strong>
       </div>
-      <div class="flex items-baseline justify-between gap-3 border-b border-dashed border-line/80 py-1 last:border-b-0">
-        <span class="font-mono text-[10px] uppercase tracking-[0.06em] text-muted">7 days</span>
-        <strong data-tb-7d class="font-mono text-[12px]">—</strong>
-      </div>
     </div>
-    <div class="mt-3 border-t border-line pt-3">
+    <div class="mt-2">
       <h4 class="mb-2 font-mono text-[10px] uppercase tracking-[0.08em] text-muted">
-        top models · today
+        by models
       </h4>
       <div data-tb-models class="grid gap-1.5">
         <div class="flex items-center justify-between gap-3 py-1">
@@ -143,6 +156,7 @@
       artist?: string
       songUrl?: string
       title?: string
+      playedAt?: string
     } | null
     status?: 'playing' | 'recently-played' | 'not-playing' | 'unavailable' | string
   }
@@ -261,6 +275,32 @@
     return status || 'unavailable'
   }
 
+  function spotifyHeading(status: SpotifyPayload['status']): string {
+    if (status === 'recently-played') return 'last played'
+    return 'now playing'
+  }
+
+  function spotifyTimeAgo(playedAt: string | null | undefined): string {
+    if (!playedAt) return 'last played'
+    const then = new Date(playedAt).getTime()
+    if (Number.isNaN(then)) return 'last played'
+    const secs = Math.floor(Math.max(0, Date.now() - then) / 1000)
+    const ago = (value: number, unit: string) =>
+      `${value} ${unit}${value === 1 ? '' : 's'} ago`
+    if (secs < 60) return 'just now'
+    const mins = Math.floor(secs / 60)
+    if (mins < 60) return ago(mins, 'minute')
+    const hours = Math.floor(mins / 60)
+    if (hours < 24) return ago(hours, 'hour')
+    const days = Math.floor(hours / 24)
+    if (days < 7) return ago(days, 'day')
+    const weeks = Math.floor(days / 7)
+    if (weeks < 5) return ago(weeks, 'week')
+    const months = Math.floor(days / 30)
+    if (months < 12) return ago(months, 'month')
+    return ago(Math.floor(days / 365), 'year')
+  }
+
   function updateSpotify(rail: Element, spotify: SpotifyPayload | null) {
     const song = spotify?.song
     const image = rail.querySelector<HTMLImageElement>('[data-spotify-image]')
@@ -269,6 +309,8 @@
     const empty = rail.querySelector<HTMLElement>('[data-spotify-empty]')
     const artist = rail.querySelector<HTMLElement>('[data-spotify-artist]')
     const status = rail.querySelector<HTMLElement>('[data-spotify-status]')
+    const heading = rail.querySelector<HTMLElement>('[data-spotify-heading]')
+    const eq = rail.querySelector<HTMLElement>('[data-spotify-eq]')
 
     if (image && placeholder) {
       if (song?.albumImageUrl) {
@@ -297,7 +339,15 @@
     }
 
     if (artist) artist.textContent = song ? song.artist || '' : spotifyStatusLabel(spotify?.status)
-    if (status) status.textContent = spotifyStatusLabel(spotify?.status)
+    if (status) {
+      const isRecent = spotify?.status === 'recently-played'
+      status.textContent = isRecent
+        ? spotifyTimeAgo(song?.playedAt)
+        : spotifyStatusLabel(spotify?.status)
+      status.classList.toggle('normal-case', isRecent)
+    }
+    if (heading) heading.textContent = spotifyHeading(spotify?.status)
+    if (eq) eq.classList.toggle('is-playing', spotify?.status === 'playing')
   }
 
   function formatGithubDate(date: string): string {
@@ -813,7 +863,6 @@
       set('[data-tb-alltime-tokens]', '—')
       set('[data-tb-alltime-sub]', 'unavailable')
       set('[data-tb-today]', '—')
-      set('[data-tb-7d]', '—')
       renderTokenBurnModels(rail, [])
       return
     }
@@ -824,7 +873,6 @@
       `${(tb.allTime?.sessions ?? 0).toLocaleString()} sessions · ${formatApproxUsd(tb.allTime?.cost)}`,
     )
     set('[data-tb-today]', tokenBurnWindowLabel(tb.today))
-    set('[data-tb-7d]', tokenBurnWindowLabel(tb.last7Days))
     renderTokenBurnModels(rail, tb.topModels)
   }
 
