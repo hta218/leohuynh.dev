@@ -426,10 +426,14 @@ html[data-code-font="sfmono"] {
 }
 
 .eq {
-  display: inline-flex;
+  display: none;
   align-items: flex-end;
   gap: 2px;
   height: 14px;
+}
+
+.eq.is-playing {
+  display: inline-flex;
 }
 
 .eq span {
