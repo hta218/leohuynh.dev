@@ -310,7 +310,7 @@ function Composer({ gb }: { gb: ReturnType<typeof useGuestbook> }) {
           <button
             type="submit"
             disabled={gb.submitting || gb.message.trim().length === 0}
-            className="rounded-lg border border-ink bg-ink px-4 py-2 text-xs text-white shadow-[3px_3px_0_var(--color-line)] transition-transform hover:translate-y-px disabled:cursor-not-allowed disabled:opacity-40"
+            className="rounded-lg border border-ink bg-ink px-4 py-2 text-xs text-white shadow-[3px_3px_0_var(--color-line)] disabled:cursor-not-allowed disabled:opacity-40"
           >
             {gb.submitting ? 'committing…' : 'git commit'}
           </button>
@@ -341,7 +341,7 @@ function SignedOutPrompt() {
         </p>
         <a
           href="/api/auth/github"
-          className="inline-flex items-center gap-2 rounded-lg border border-ink bg-ink px-4 py-2 text-xs text-white no-underline shadow-[3px_3px_0_var(--color-line)] transition-transform hover:translate-y-px"
+          className="inline-flex items-center gap-2 rounded-lg border border-ink bg-ink px-4 py-2 text-xs text-white no-underline shadow-[3px_3px_0_var(--color-line)]"
           data-umami-event="guestbook-signin"
         >
           Sign in with GitHub
