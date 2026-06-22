@@ -8,9 +8,12 @@ import BaseLayout from '~/layouts/BaseLayout.astro'
 import { dotfileGithubUrl, getDotfileEntry } from '~/lib/dotfiles'
 
 const slug = Astro.params.slug ?? ''
-const entry = await getDotfileEntry(slug)
+// `/dotfiles` is a hand-written landing page (not the repo README) — skip the
+// GitHub fetch and render the intro below.
+const isIndex = slug === ''
+const entry = isIndex ? null : await getDotfileEntry(slug)
 
-if (entry.kind === 'missing') {
+if (entry?.kind === 'missing') {
   Astro.response.status = 404
 }
 
@@ -23,13 +26,63 @@ Astro.response.headers.set(
 const fmtBytes = (n: number) =>
   n < 1024 ? `${n} B` : `${(n / 1024).toFixed(1)} KB`
 
-const title = entry.kind === 'missing' ? 'Not found' : slug
+const title = isIndex
+  ? 'dotfiles'
+  : entry?.kind === 'missing'
+    ? 'Not found'
+    : slug
+const crumb = isIndex ? '~/dotfiles' : `~/dotfiles/${slug}`
 ---
 
-<BaseLayout title={`${title} — dotfiles`} description={`${slug} from my dotfiles repo.`}>
-  <StudioShell active={`/dotfiles/${slug}`} crumb={`~/dotfiles/${slug}`}>
+<BaseLayout title={`${title} — dotfiles`} description="Shared personal config & dev setup from my dotfiles repo.">
+  <StudioShell active={isIndex ? '/dotfiles' : `/dotfiles/${slug}`} crumb={crumb}>
     {
-      entry.kind === 'file' && (
+      isIndex && (
+        <div class="not-prose">
+          <div class="mb-4 flex items-center justify-between gap-3 border-b border-line pb-3 font-mono text-xs text-muted">
+            <span class="flex items-center gap-2 text-ink">
+              <HugeIcon name="markdown" size={14} class="text-slate-500" />
+              ~/dotfiles
+            </span>
+            <a
+              href={dotfileGithubUrl('', 'tree')}
+              target="_blank"
+              rel="noreferrer"
+              class="flex items-center gap-1 no-underline hover:text-ink"
+            >
+              GitHub <HugeIcon name="external" size={12} />
+            </a>
+          </div>
+          <h1 class="mb-3 text-2xl font-semibold text-ink">dotfiles</h1>
+          <p class="mb-4 leading-relaxed text-muted">
+            My shared personal config and dev setup — the dotfiles I carry across
+            machines to get a fresh Mac feeling like home in minutes.
+          </p>
+          <p class="mb-4 leading-relaxed text-muted">
+            Shell, editor, and tooling config: <code class="font-mono text-[13px] text-ink">.zshrc</code>,
+            git, editor settings, and the AI coding setups (
+            <code class="font-mono text-[13px] text-ink">.claude</code>,{' '}
+            <code class="font-mono text-[13px] text-ink">.copilot</code>,{' '}
+            <code class="font-mono text-[13px] text-ink">.opencode</code>) I use day to day.
+          </p>
+          <p class="leading-relaxed text-muted">
+            Browse the tree in the sidebar to read any file inline, or open the{' '}
+            <a
+              href={dotfileGithubUrl('', 'tree')}
+              target="_blank"
+              rel="noreferrer"
+              class="text-code-blue no-underline hover:underline"
+            >
+              repo on GitHub
+            </a>
+            .
+          </p>
+        </div>
+      )
+    }
+
+    {
+      entry?.kind === 'file' && (
         <div class="not-prose">
           <div class="mb-4 flex flex-wrap items-center justify-between gap-3 border-b border-line pb-3 font-mono text-xs text-muted">
             <span class="flex items-center gap-2 text-ink">
@@ -62,7 +115,7 @@ const title = entry.kind === 'missing' ? 'Not found' : slug
     }
 
     {
-      entry.kind === 'dir' && (
+      entry?.kind === 'dir' && (
         <div class="not-prose">
           <div class="mb-4 flex items-center justify-between gap-3 border-b border-line pb-3 font-mono text-xs text-muted">
             <span class="flex items-center gap-2 text-ink">
@@ -101,7 +154,7 @@ const title = entry.kind === 'missing' ? 'Not found' : slug
     }
 
     {
-      entry.kind === 'too-large' && (
+      entry?.kind === 'too-large' && (
         <div class="not-prose font-mono text-sm text-muted">
           <p class="mb-3">
             <span class="text-ink">{slug}</span> is {fmtBytes(entry.size)} — too large to
@@ -115,7 +168,7 @@ const title = entry.kind === 'missing' ? 'Not found' : slug
     }
 
     {
-      entry.kind === 'missing' && (
+      entry?.kind === 'missing' && (
         <div class="not-prose font-mono text-sm text-muted">
           <p class="mb-3">
             <span class="text-ink">{slug}</span> doesn't exist in the dotfiles repo.
