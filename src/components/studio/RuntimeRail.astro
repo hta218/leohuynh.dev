@@ -39,7 +39,7 @@ import SpotifyIcon from '@icons/spotify.svg?raw'
             <span></span>
             <span></span>
           </span>
-          <span data-spotify-status>loading</span>
+          <span data-spotify-status class="min-w-0 truncate">loading</span>
         </span>
       </div>
     </div>
@@ -269,15 +269,11 @@ import SpotifyIcon from '@icons/spotify.svg?raw'
   }
 
   function spotifyStatusLabel(status: SpotifyPayload['status']): string {
-    if (status === 'playing') return 'playing now'
-    if (status === 'recently-played') return 'last played'
-    if (status === 'not-playing') return 'not playing'
     return status || 'unavailable'
   }
 
   function spotifyHeading(status: SpotifyPayload['status']): string {
-    if (status === 'recently-played') return 'last played'
-    return 'now playing'
+    return status === 'playing' ? 'audio: live' : 'audio: idle'
   }
 
   function spotifyTimeAgo(playedAt: string | null | undefined): string {
@@ -340,11 +336,14 @@ import SpotifyIcon from '@icons/spotify.svg?raw'
 
     if (artist) artist.textContent = song ? song.artist || '' : spotifyStatusLabel(spotify?.status)
     if (status) {
-      const isRecent = spotify?.status === 'recently-played'
-      status.textContent = isRecent
-        ? spotifyTimeAgo(song?.playedAt)
-        : spotifyStatusLabel(spotify?.status)
-      status.classList.toggle('normal-case', isRecent)
+      const state = spotify?.status
+      if (state === 'playing') {
+        status.textContent = 'now playing'
+      } else if (state === 'recently-played') {
+        status.textContent = `last played · ${spotifyTimeAgo(song?.playedAt)}`
+      } else {
+        status.textContent = spotifyStatusLabel(state)
+      }
     }
     if (heading) heading.textContent = spotifyHeading(spotify?.status)
     if (eq) eq.classList.toggle('is-playing', spotify?.status === 'playing')
