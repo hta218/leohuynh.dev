@@ -11,7 +11,7 @@
 
 ## Original Prompt
 
-> đọc repo token-burn của anh nhé, a đang có idea connect để show data trên blog này
+> Build token burn stats widget for the blog's runtime rail. The widget should surface AI coding token-burn stats (cost + tokens across Claude Code, Codex, Copilot, opencode) from the private `token-burn` repo. The blog reads the repo's pre-aggregated, safe-to-expose `public/summary.json` server-side via the GitHub Contents API (PAT in env, never shipped to the client), then renders a compact card next to the existing Spotify / git-grass widgets.
 
 ## Summary
 

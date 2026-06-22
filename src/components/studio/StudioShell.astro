@@ -35,6 +35,7 @@ type HugeIconName =
   | 'keyboard'
   | 'markdown'
   | 'project'
+  | 'quill'
   | 'rocket'
   | 'star'
   | 'tag'
@@ -197,6 +198,15 @@ const explorerItems: TreeItem[] = [
     title: 'Topics',
     icon: { type: 'huge', name: 'tag' },
     activeWhen: startsWith('/topics'),
+  },
+  {
+    kind: 'leaf',
+    id: 'guestbook',
+    href: '/guestbook',
+    file: 'guestbook.astro',
+    title: 'Guestbook',
+    icon: { type: 'huge', name: 'quill' },
+    activeWhen: exact('/guestbook'),
   },
   {
     kind: 'leaf',
