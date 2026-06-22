@@ -1,3 +1,5 @@
+import { QuillWrite02Icon } from '@hugeicons/core-free-icons'
+import { HugeiconsIcon } from '@hugeicons/react'
 import { useRef, useState } from 'react'
 import type { GuestbookSignature } from '~/types/guestbook'
 
@@ -108,13 +110,14 @@ export function SignaturePad({
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
         onPointerLeave={handlePointerUp}
-        className="relative h-32 w-full touch-none rounded-xl border border-dashed border-line bg-[#fbfcff] [background-image:linear-gradient(90deg,rgba(15,23,42,0.03)_1px,transparent_1px)] [background-size:24px_24px]"
+        className="relative h-48 w-full touch-none rounded-xl border border-dashed border-line bg-[#fbfcff] [background-image:linear-gradient(90deg,rgba(15,23,42,0.03)_1px,transparent_1px)] [background-size:24px_24px]"
         role="img"
         aria-label="Draw an optional signature"
       >
         {!hasInk && (
-          <span className="pointer-events-none absolute inset-0 flex items-center justify-center font-mono text-xs text-slate-400">
-            draw here ✍
+          <span className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-2 text-slate-300">
+            <HugeiconsIcon icon={QuillWrite02Icon} size={30} strokeWidth={1.8} />
+            <span className="font-mono text-xs text-slate-400">draw here</span>
           </span>
         )}
         <svg

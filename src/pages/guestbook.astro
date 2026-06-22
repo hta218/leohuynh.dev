@@ -1,5 +1,5 @@
 ---
-import GuestbookApp from '~/components/guestbook/GuestbookApp'
+import GuestbookWall from '~/components/guestbook/GuestbookWall'
 import PageHeader from '~/components/PageHeader.astro'
 import StudioShell from '~/components/studio/StudioShell.astro'
 import BaseLayout from '~/layouts/BaseLayout.astro'
@@ -43,7 +43,7 @@ try {
       description="Leave a small trace on the wall."
     />
 
-    <GuestbookApp
+    <GuestbookWall
       client:load
       currentUser={currentUser}
       isAdmin={isAdmin}
