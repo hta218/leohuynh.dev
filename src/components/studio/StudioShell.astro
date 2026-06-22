@@ -220,10 +220,19 @@ const explorerItems: TreeItem[] = [
   },
 ]
 
-const dotfilesTree = await getDotfilesTree()
-const activeDotfile = currentPath.startsWith('/dotfiles/')
-  ? decodeURIComponent(currentPath.slice('/dotfiles/'.length))
-  : undefined
+const rawDotfilesTree = await getDotfilesTree()
+// Hoist the root README to the top of the group so it reads like a landing entry.
+const dotfilesTree = [...rawDotfilesTree].sort((a, b) => {
+  if (a.path === 'README.md') return -1
+  if (b.path === 'README.md') return 1
+  return 0
+})
+const activeDotfile =
+  currentPath === '/dotfiles'
+    ? ''
+    : currentPath.startsWith('/dotfiles/')
+      ? decodeURIComponent(currentPath.slice('/dotfiles/'.length))
+      : undefined
 
 const tabLinks: TreeLeaf[] = [
   explorerItems.find(

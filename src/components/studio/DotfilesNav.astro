@@ -15,6 +15,13 @@ const { nodes, depth = 0, currentPath } = Astro.props
 
 const fileIcon = (name: string) => (/\.mdx?$/.test(name) ? 'markdown' : 'code')
 const indent = (d: number) => `padding-left:${12 + d * 16}px`
+// The root README routes to the hand-written `/dotfiles` landing page instead
+// of rendering the repo's own README content.
+const isRootReadme = (path: string) => path === 'README.md'
+const fileHref = (path: string) =>
+  isRootReadme(path) ? '/dotfiles' : `/dotfiles/${path}`
+const isFileActive = (path: string) =>
+  currentPath === path || (isRootReadme(path) && currentPath === '')
 // Open folders that are ancestors of the file currently being viewed so the
 // active row is visible on first paint.
 const isAncestor = (path: string) =>
@@ -55,10 +62,10 @@ const isAncestor = (path: string) =>
       </div>
     ) : (
       <a
-        href={`/dotfiles/${node.path}`}
+        href={fileHref(node.path)}
         class:list={[
           'explorer-row group py-[6px] font-mono text-[13px] no-underline',
-          currentPath === node.path
+          isFileActive(node.path)
             ? 'bg-slate-200 text-slate-950'
             : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950',
         ]}
