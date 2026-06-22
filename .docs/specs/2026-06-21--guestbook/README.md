@@ -11,10 +11,7 @@
 
 ## Original Prompt
 
-> A đang muốn build tính năng guestbook như 2 ví dụ này:
-> https://duncan.land/guestbook
-> https://anishde.dev/guestbook
-> Chú nghiên cứu cho a xong viết specs để làm nhé
+> Build guestbook functionality for the site. Visitors should be able to sign in with GitHub and leave a short note on the site. The guestbook should feel native to the current Astro v4 portfolio, not like an embedded third-party widget.
 
 ## Goal
 
