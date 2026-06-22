@@ -110,7 +110,7 @@ export function SignaturePad({
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
         onPointerLeave={handlePointerUp}
-        className="relative h-48 w-full touch-none rounded-xl border border-dashed border-line bg-[#fbfcff] [background-image:linear-gradient(90deg,rgba(15,23,42,0.03)_1px,transparent_1px)] [background-size:24px_24px]"
+        className="relative h-44 w-full touch-none rounded-xl border border-dashed border-line bg-[#fbfcff] [background-image:linear-gradient(90deg,rgba(15,23,42,0.03)_1px,transparent_1px)] [background-size:24px_24px]"
         role="img"
         aria-label="Draw an optional signature"
       >

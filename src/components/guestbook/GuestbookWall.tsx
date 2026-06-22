@@ -164,7 +164,7 @@ function Commit({
       {entry.signature && entry.signature.strokes.length > 0 && (
         <div className="mt-3 inline-block rounded-lg border border-line bg-[#fbfcff] p-3">
           <svg
-            className="h-48 w-120 max-w-full"
+            className="h-44 w-100 max-w-full"
             viewBox={`0 0 ${entry.signature.width} ${entry.signature.height}`}
             preserveAspectRatio="xMidYMid meet"
             fill="none"
