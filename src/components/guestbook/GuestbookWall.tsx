@@ -325,7 +325,7 @@ function SignedOutPrompt() {
     <TerminalChrome
       title={
         <span className="ml-1 font-mono text-[11px] text-slate-500">
-          guestbook — login required
+          login w GitHub and sign my guestbook
         </span>
       }
     >
@@ -337,7 +337,7 @@ function SignedOutPrompt() {
           <span className="animate-pulse">▌</span>
         </p>
         <p className="mt-3 mb-5 text-slate-400">
-          # authenticate with GitHub to leave a commit on the wall
+          # only your public profile is used — no repo or email access
         </p>
         <a
           href="/api/auth/github"
