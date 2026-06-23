@@ -13,6 +13,7 @@
 import type { BlogStats, StatsType } from '~/types/stats'
 
 const STATS_ENDPOINT = '/api/stats'
+const HITS_ENDPOINT = '/api/hits.json'
 
 export function emptyStats(type: StatsType, slug: string): BlogStats {
   return {
@@ -74,5 +75,27 @@ export async function postStats(
     return res.ok
   } catch {
     return false
+  }
+}
+
+/** Read the site-wide global hit count. Returns `null` when the endpoint is unavailable. */
+export async function fetchSiteHits(): Promise<number | null> {
+  try {
+    const res = await fetch(HITS_ENDPOINT)
+    if (!res.ok) return null
+    const data = (await res.json()) as { ok?: boolean; hits?: number }
+    if (!data.ok || typeof data.hits !== 'number') return null
+    return data.hits
+  } catch {
+    return null
+  }
+}
+
+/** Increment the site-wide hit count (fire-and-forget). Errors are swallowed. */
+export async function incrementSiteHits(): Promise<void> {
+  try {
+    await fetch(HITS_ENDPOINT, { method: 'POST', keepalive: true })
+  } catch {
+    // ignore — vanity counter, never block or surface failures
   }
 }
