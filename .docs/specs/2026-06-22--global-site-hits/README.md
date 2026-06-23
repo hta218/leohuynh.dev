@@ -2,12 +2,12 @@
 
 | Field            | Value                                   |
 | ---------------- | --------------------------------------- |
-| **Status**       | draft                                   |
+| **Status**       | in-progress                             |
 | **Owner**        | @hta218                                 |
 | **Issue**        | N/A                                     |
 | **Branch**       | `feat/global-site-hits`                 |
 | **Created**      | 2026-06-22                              |
-| **Last Updated** | 2026-06-22                              |
+| **Last Updated** | 2026-06-23                              |
 
 ## Original Prompt
 
