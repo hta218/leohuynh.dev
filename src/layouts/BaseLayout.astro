@@ -26,12 +26,12 @@ const {
 } = Astro.props
 
 const pageTitle = title ? `${title} — ${SITE.author}` : SITE.title
-const canonical =
-  canonicalUrl ?? new URL(Astro.url.pathname, SITE.siteUrl).href
+const canonical = canonicalUrl ?? new URL(Astro.url.pathname, SITE.siteUrl).href
 const image = new URL(ogImage ?? SITE.socialBanner, SITE.siteUrl).href
 const rssTitle = `${SITE.title} RSS feed`
-const umamiWebsiteId =
-  (import.meta.env.PUBLIC_UMAMI_WEBSITE_ID || process.env.PUBLIC_UMAMI_WEBSITE_ID)?.trim()
+const umamiWebsiteId = (
+  import.meta.env.PUBLIC_UMAMI_WEBSITE_ID || process.env.PUBLIC_UMAMI_WEBSITE_ID
+)?.trim()
 ---
 
 <!doctype html>
@@ -100,5 +100,14 @@ const umamiWebsiteId =
   </head>
   <body>
     <slot />
+    <script>
+      // Site-wide global hit counter. Counts every page load: the initial load and each SPA
+      // navigation both fire `astro:page-load`, so reload = 1 hit. Fire-and-forget against
+      // `/api/hits.json`; failures are silent. It's a vanity counter, not analytics — no
+      // throttle/dedup, since the JS-gated increment already skips non-JS crawlers.
+      import { incrementSiteHits } from '~/lib/stats'
+
+      document.addEventListener('astro:page-load', incrementSiteHits)
+    </script>
   </body>
 </html>

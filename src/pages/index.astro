@@ -1,9 +1,10 @@
 ---
 import { getCollection } from 'astro:content'
+import HugeIcon from '~/components/icons/HugeIcon.astro'
 import Twemoji from '~/components/mdx/Twemoji.astro'
 import CodeBlock from '~/components/studio/CodeBlock.astro'
 import StudioShell from '~/components/studio/StudioShell.astro'
-import HugeIcon from '~/components/icons/HugeIcon.astro'
+import SiteHits from '~/components/widgets/SiteHits'
 import BaseLayout from '~/layouts/BaseLayout.astro'
 
 const isPublished = (d: { data: { draft?: boolean } }) => d.data.draft !== true
@@ -17,8 +18,18 @@ const latest = posts.slice(0, 3)
 const exploreCards = [
   { href: '/gists', label: 'gists/', desc: 'reusable code bits', icon: 'code' },
   { href: '/builds', label: 'builds/', desc: 'things I built', icon: 'folder' },
-  { href: '/shelf#reading', label: 'shelf/reading', desc: 'what I read', icon: 'book' },
-  { href: '/shelf#watching', label: 'shelf/watching', desc: 'what I watch', icon: 'file' },
+  {
+    href: '/shelf#reading',
+    label: 'shelf/reading',
+    desc: 'what I read',
+    icon: 'book',
+  },
+  {
+    href: '/shelf#watching',
+    label: 'shelf/watching',
+    desc: 'what I watch',
+    icon: 'file',
+  },
 ] as const
 
 const dateFmt = new Intl.DateTimeFormat('en-CA') // YYYY-MM-DD
@@ -66,10 +77,10 @@ const dateFmt = new Intl.DateTimeFormat('en-CA') // YYYY-MM-DD
         </div>
         <div class="rounded-2xl border border-line bg-white p-3">
           <div class="flex items-center justify-between">
-            <b class="block text-[28px]">—</b>
+            <b class="block text-[28px]"><SiteHits client:idle /></b>
             <HugeIcon name="analytics" class="text-slate-400" />
           </div>
-          <span class="font-mono text-[11px] text-muted">views</span>
+          <span class="font-mono text-[11px] text-muted">hits</span>
         </div>
       </div>
     </div>
