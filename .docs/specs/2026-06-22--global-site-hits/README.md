@@ -2,7 +2,7 @@
 
 | Field            | Value                                   |
 | ---------------- | --------------------------------------- |
-| **Status**       | in-progress                             |
+| **Status**       | done                             |
 | **Owner**        | @hta218                                 |
 | **Issue**        | N/A                                     |
 | **Branch**       | `feat/global-site-hits`                 |

@@ -2,7 +2,7 @@
 
 | Field            | Value                         |
 | ---------------- | ----------------------------- |
-| **Status**       | in-progress                   |
+| **Status**       | done                   |
 | **Owner**        | @hta218                       |
 | **Issue**        | N/A                           |
 | **Branch**       | `spec/guestbook-2026-06-21`   |

@@ -2,7 +2,7 @@
 
 | Field            | Value                                          |
 | ---------------- | ---------------------------------------------- |
-| **Status**       | completed                                      |
+| **Status**       | done                                      |
 | **Owner**        | @hta218                                         |
 | **Issue**        | N/A                                            |
 | **Branch**       | `feat/legacy-version-deployments`              |
