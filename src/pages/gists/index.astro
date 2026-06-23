@@ -26,7 +26,7 @@ const dateFmt = new Intl.DateTimeFormat('en-CA')
             class="rounded-2xl border border-line bg-white p-4 no-underline transition-colors hover:border-code-blue"
           >
             <div class="grid grid-cols-[88px_1fr] gap-3">
-              <time class="pt-[4px] font-mono text-xs text-muted">{dateFmt.format(snippet.data.date)}</time>
+              <time class="pt-1 font-mono text-xs text-muted">{dateFmt.format(snippet.data.date)}</time>
               <div>
                 <div class="mb-1.5 font-mono text-[11px] text-muted">{snippet.data.icon}</div>
                 <h3 class="m-0 mb-1.5 text-[18px] tracking-[-0.03em] text-ink">{snippet.data.heading}</h3>

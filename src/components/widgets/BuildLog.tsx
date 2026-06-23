@@ -71,7 +71,7 @@ export default function BuildLog({
 
   return (
     <figure className="m-0 overflow-hidden rounded-xl border border-line bg-white shadow-[3px_3px_0_var(--color-line)]">
-      <figcaption className="flex items-center justify-between gap-3 border-b border-line bg-white px-3 py-[7px] font-mono text-[11px] text-muted">
+      <figcaption className="flex items-center justify-between gap-3 border-b border-line bg-white px-3 py-1.75 font-mono text-[11px] text-muted">
         <span className="inline-flex items-center gap-2">
           <span className="inline-flex gap-1" aria-hidden="true">
             <span className="h-2 w-2 rounded-full bg-[#f87171]" />
@@ -82,7 +82,7 @@ export default function BuildLog({
         </span>
       </figcaption>
       <pre
-        className="m-0 overflow-auto px-[18px] py-4 text-[13px] leading-[1.75] text-[#1f2328]"
+        className="m-0 overflow-auto px-4.5 py-4 text-[13px] leading-[1.75] text-[#1f2328]"
         style={{ background: '#f6f8fa', fontFamily: 'var(--code-font-family)' }}
       >
         <code>

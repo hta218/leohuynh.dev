@@ -64,7 +64,7 @@ const isAncestor = (path: string) =>
       <a
         href={fileHref(node.path)}
         class:list={[
-          'explorer-row group py-[6px] font-mono text-[13px] no-underline',
+          'explorer-row group py-1.5 font-mono text-[13px] no-underline',
           isFileActive(node.path)
             ? 'bg-slate-200 text-slate-950'
             : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950',

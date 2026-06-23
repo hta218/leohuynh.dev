@@ -374,7 +374,7 @@ const GIT_BRANCH_ICON =
                     target={item.external || isExternal(item.href) ? '_blank' : undefined}
                     rel={item.external || isExternal(item.href) ? 'noreferrer' : undefined}
                     class:list={[
-                      'explorer-row group py-[6px] font-mono text-[13px] no-underline',
+                      'explorer-row group py-1.5 font-mono text-[13px] no-underline',
                       isActive(item)
                         ? 'bg-slate-200 text-slate-950'
                         : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950',
@@ -420,7 +420,7 @@ const GIT_BRANCH_ICON =
               <a
                 href={l.href}
                 class:list={[
-                  'tab-row shrink-0 border-r border-line px-3.5 py-[10px] font-mono text-xs no-underline',
+                  'tab-row shrink-0 border-r border-line px-3.5 py-2.5 font-mono text-xs no-underline',
                   isActive(l)
                     ? 'bg-white text-slate-950 shadow-[inset_0_-2px_0_var(--color-ink)]'
                     : 'text-muted hover:text-slate-950',
@@ -438,7 +438,7 @@ const GIT_BRANCH_ICON =
         </div>
         <button
           type="button"
-          class="hidden shrink-0 border-l border-line bg-[#fbfcff] px-3.5 py-[10px] font-mono text-xs text-muted hover:bg-white hover:text-slate-950 lg:block"
+          class="hidden shrink-0 border-l border-line bg-[#fbfcff] px-3.5 py-2.5 font-mono text-xs text-muted hover:bg-white hover:text-slate-950 lg:block"
           data-toggle-rail
           aria-controls="runtime-rail"
           aria-expanded="true"
@@ -447,8 +447,8 @@ const GIT_BRANCH_ICON =
         </button>
       </nav>
 
-      <div class="thin-scrollbar min-h-0 flex-1 overflow-y-auto px-[clamp(22px,5vw,78px)] pt-[38px] pb-[70px]">
-        <div class="mb-[18px] font-mono text-xs text-slate-500">{crumb}</div>
+      <div class="thin-scrollbar min-h-0 flex-1 overflow-y-auto px-[clamp(22px,5vw,78px)] pt-9.5 pb-17.5">
+        <div class="mb-4.5 font-mono text-xs text-slate-500">{crumb}</div>
         <slot />
       </div>
     </main>

@@ -46,11 +46,11 @@ const rssHref = `${SITE.siteUrl}/topics/${tag}/feed.xml`
           {posts.map((post) => (
             <a
               href={`/log/${post.id}`}
-              class="grid grid-cols-1 items-start gap-[18px] border-t border-line py-[18px] no-underline first-of-type:border-t-0 md:grid-cols-[110px_1fr]"
+              class="grid grid-cols-1 items-start gap-4.5 border-t border-line py-4.5 no-underline first-of-type:border-t-0 md:grid-cols-[110px_1fr]"
             >
               <time class="font-mono text-xs text-muted">{dateFmt.format(post.data.date)}</time>
               <div>
-                <h4 class="mb-[7px] text-[20px] tracking-[-0.04em] text-ink">{post.data.title}</h4>
+                <h4 class="mb-1.75 text-[20px] tracking-[-0.04em] text-ink">{post.data.title}</h4>
                 <p class="m-0 leading-snug text-muted">{post.data.summary}</p>
               </div>
             </a>

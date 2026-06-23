@@ -22,15 +22,15 @@ const hasNext = currentPage < totalPages
     posts.map((post) => (
       <a
         href={`/log/${post.id}`}
-        class="grid grid-cols-1 items-start gap-[18px] border-t border-line py-[18px] no-underline first-of-type:border-t-0 md:grid-cols-[110px_1fr_auto]"
+        class="grid grid-cols-1 items-start gap-4.5 border-t border-line py-4.5 no-underline first-of-type:border-t-0 md:grid-cols-[110px_1fr_auto]"
       >
-        <time class="pt-[4px] font-mono text-xs text-muted">{dateFmt.format(post.data.date)}</time>
+        <time class="pt-1 font-mono text-xs text-muted">{dateFmt.format(post.data.date)}</time>
         <div>
-          <h3 class="mb-[7px] text-[21px] tracking-[-0.04em] text-ink">{post.data.title}</h3>
+          <h3 class="mb-1.75 text-[21px] tracking-[-0.04em] text-ink">{post.data.title}</h3>
           <p class="m-0 leading-snug text-muted">{post.data.summary}</p>
         </div>
         {post.data.tags[0] && (
-          <span class="rounded-full border border-line px-[7px] py-[5px] font-mono text-[11px] text-code-blue">
+          <span class="rounded-full border border-line px-1.75 py-1.25 font-mono text-[11px] text-code-blue">
             {tagSlug(post.data.tags[0])}
           </span>
         )}

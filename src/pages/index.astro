@@ -75,7 +75,7 @@ const codebase = {
         latest.map((post) => (
           <a
             href={`/log/${post.id}`}
-            class="grid grid-cols-1 items-start gap-4.5 border-t border-line py-[18px] no-underline first-of-type:border-t-0 md:grid-cols-[92px_1fr_auto]"
+            class="grid grid-cols-1 items-start gap-4.5 border-t border-line py-4.5 no-underline first-of-type:border-t-0 md:grid-cols-[92px_1fr_auto]"
           >
             <time class="font-mono text-xs text-muted">{dateFmt.format(post.data.date)}</time>
             <div>
@@ -83,7 +83,7 @@ const codebase = {
               <p class="m-0 leading-snug text-muted">{post.data.summary}</p>
             </div>
             {post.data.tags[0] && (
-              <span class="rounded-full border border-line px-[7px] py-[5px] font-mono text-[11px] text-code-blue">
+              <span class="rounded-full border border-line px-1.75 py-1.25 font-mono text-[11px] text-code-blue">
                 {post.data.tags[0]}
               </span>
             )}
@@ -93,9 +93,9 @@ const codebase = {
     </div>
 
     <!-- build log -->
-    <div class="py-[34px]">
+    <div class="py-8.5">
       <div class="mb-4 flex items-end justify-between">
-        <h2 class="m-0 text-[26px] tracking-[-0.05em]">build log</h2>
+        <h2 class="m-0 text-[26px] tracking-tighter">build log</h2>
         <span class="font-mono text-xs text-muted">api/site-stats.json</span>
       </div>
       <BuildLog
