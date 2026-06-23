@@ -100,14 +100,5 @@ const umamiWebsiteId = (
   </head>
   <body>
     <slot />
-    <script>
-      // Site-wide global hit counter. Counts every page load: the initial load and each SPA
-      // navigation both fire `astro:page-load`, so reload = 1 hit. Fire-and-forget against
-      // `/api/hits.json`; failures are silent. It's a vanity counter, not analytics — no
-      // throttle/dedup, since the JS-gated increment already skips non-JS crawlers.
-      import { incrementSiteHits } from '~/lib/stats'
-
-      document.addEventListener('astro:page-load', incrementSiteHits)
-    </script>
   </body>
 </html>

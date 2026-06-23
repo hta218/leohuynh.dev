@@ -10,10 +10,11 @@
  * In plain `astro preview`, the Vercel Function is absent; with `DATABASE_URL` on Vercel,
  * the same calls persist via `api/stats.ts`.
  */
+import type { SiteStatsPayload } from '~/types/integrations'
 import type { BlogStats, StatsType } from '~/types/stats'
 
 const STATS_ENDPOINT = '/api/stats'
-const HITS_ENDPOINT = '/api/hits.json'
+const SITE_STATS_ENDPOINT = '/api/site-stats.json'
 
 export function emptyStats(type: StatsType, slug: string): BlogStats {
   return {
@@ -78,24 +79,50 @@ export async function postStats(
   }
 }
 
-/** Read the site-wide global hit count. Returns `null` when the endpoint is unavailable. */
-export async function fetchSiteHits(): Promise<number | null> {
-  try {
-    const res = await fetch(HITS_ENDPOINT)
-    if (!res.ok) return null
-    const data = (await res.json()) as { ok?: boolean; hits?: number }
-    if (!data.ok || typeof data.hits !== 'number') return null
-    return data.hits
-  } catch {
-    return null
+const SITE_STATS_TTL_MS = 15_000
+let siteStatsCache: { at: number; data: SiteStatsPayload } | null = null
+let siteStatsInflight: Promise<SiteStatsPayload> | null = null
+
+function unavailableSiteStats(): SiteStatsPayload {
+  return {
+    ok: false,
+    hits: null,
+    online: null,
+    visitors: null,
+    reactions: null,
+    commits: null,
+    stars: null,
   }
 }
 
-/** Increment the site-wide hit count (fire-and-forget). Errors are swallowed. */
-export async function incrementSiteHits(): Promise<void> {
-  try {
-    await fetch(HITS_ENDPOINT, { method: 'POST', keepalive: true })
-  } catch {
-    // ignore — vanity counter, never block or surface failures
+/**
+ * Read live site-wide stats (traffic, reactions, repo) from `/api/site-stats.json`. Returns a
+ * `null`-field payload when the endpoint is unavailable so the UI shows `—`.
+ *
+ * The `SiteHits`, `LiveVisitors`, and `BuildLog` islands all call this, so a short TTL cache +
+ * in-flight dedup keeps their (near-simultaneous) reads to a single network request.
+ */
+export async function fetchSiteStats(): Promise<SiteStatsPayload> {
+  const now = Date.now()
+  if (siteStatsCache && now - siteStatsCache.at < SITE_STATS_TTL_MS) {
+    return siteStatsCache.data
   }
+  if (siteStatsInflight) return siteStatsInflight
+
+  siteStatsInflight = (async () => {
+    try {
+      const res = await fetch(SITE_STATS_ENDPOINT)
+      const data: SiteStatsPayload = res.ok
+        ? ((await res.json()) as SiteStatsPayload)
+        : unavailableSiteStats()
+      siteStatsCache = { at: Date.now(), data }
+      return data
+    } catch {
+      return unavailableSiteStats()
+    } finally {
+      siteStatsInflight = null
+    }
+  })()
+
+  return siteStatsInflight
 }

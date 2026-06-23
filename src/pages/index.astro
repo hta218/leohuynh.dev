@@ -1,9 +1,12 @@
 ---
 import { getCollection } from 'astro:content'
+import { readFileSync } from 'node:fs'
+import { glob } from 'tinyglobby'
 import HugeIcon from '~/components/icons/HugeIcon.astro'
 import Twemoji from '~/components/mdx/Twemoji.astro'
-import CodeBlock from '~/components/studio/CodeBlock.astro'
 import StudioShell from '~/components/studio/StudioShell.astro'
+import BuildLog from '~/components/widgets/BuildLog'
+import LiveVisitors from '~/components/widgets/LiveVisitors'
 import SiteHits from '~/components/widgets/SiteHits'
 import BaseLayout from '~/layouts/BaseLayout.astro'
 
@@ -15,24 +18,29 @@ const posts = (await getCollection('blog', isPublished)).sort(
 const snippets = await getCollection('snippets', isPublished)
 const latest = posts.slice(0, 3)
 
-const exploreCards = [
-  { href: '/gists', label: 'gists/', desc: 'reusable code bits', icon: 'code' },
-  { href: '/builds', label: 'builds/', desc: 'things I built', icon: 'folder' },
-  {
-    href: '/shelf#reading',
-    label: 'shelf/reading',
-    desc: 'what I read',
-    icon: 'book',
-  },
-  {
-    href: '/shelf#watching',
-    label: 'shelf/watching',
-    desc: 'what I watch',
-    icon: 'file',
-  },
-] as const
-
 const dateFmt = new Intl.DateTimeFormat('en-CA') // YYYY-MM-DD
+
+// Build-time codebase stats for the build-log manifest. This page is prerendered, so the glob +
+// line count run once per build (not per request). Covers source + content, skipping generated
+// dirs. `loc` is a true line count; `files` is the matched file count.
+const SOURCE_GLOBS = [
+  'src/**/*.{ts,tsx,astro,css,mjs}',
+  'content/**/*.{md,mdx}',
+]
+const sourceFiles = await glob(SOURCE_GLOBS, {
+  cwd: process.cwd(),
+  ignore: ['**/node_modules/**', '**/dist/**', '**/.astro/**'],
+})
+const loc = sourceFiles.reduce(
+  (total, file) => total + readFileSync(file, 'utf8').split('\n').length,
+  0,
+)
+const codebase = {
+  repo: 'hta218/leohuynh.dev',
+  loc,
+  files: sourceFiles.length,
+  stack: ['astro', 'bun', 'tailwind', 'typescript'],
+}
 ---
 
 <BaseLayout>
@@ -63,17 +71,10 @@ const dateFmt = new Intl.DateTimeFormat('en-CA') // YYYY-MM-DD
       <div class="grid w-[min(520px,100%)] grid-cols-3 gap-2">
         <div class="rounded-2xl border border-line bg-white p-3">
           <div class="flex items-center justify-between">
-            <b class="block text-[28px]">{posts.length}</b>
-            <HugeIcon name="folder" class="text-slate-400" />
+            <b class="block text-[28px]">{posts.length + snippets.length}</b>
+            <HugeIcon name="markdown" class="text-slate-400" />
           </div>
-          <span class="font-mono text-[11px] text-muted">posts</span>
-        </div>
-        <div class="rounded-2xl border border-line bg-white p-3">
-          <div class="flex items-center justify-between">
-            <b class="block text-[28px]">{snippets.length}</b>
-            <HugeIcon name="code" class="text-slate-400" />
-          </div>
-          <span class="font-mono text-[11px] text-muted">snippets</span>
+          <span class="font-mono text-[11px] text-muted">notes</span>
         </div>
         <div class="rounded-2xl border border-line bg-white p-3">
           <div class="flex items-center justify-between">
@@ -81,6 +82,20 @@ const dateFmt = new Intl.DateTimeFormat('en-CA') // YYYY-MM-DD
             <HugeIcon name="analytics" class="text-slate-400" />
           </div>
           <span class="font-mono text-[11px] text-muted">hits</span>
+        </div>
+        <div class="rounded-2xl border border-line bg-white p-3">
+          <div class="flex items-center justify-between">
+            <b class="block text-[28px]"><LiveVisitors client:idle /></b>
+            <span class="relative flex h-2.5 w-2.5" title="live visitors">
+              <span
+                class="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500 opacity-75"
+              ></span>
+              <span
+                class="relative inline-flex h-2.5 w-2.5 rounded-full bg-green-500"
+              ></span>
+            </span>
+          </div>
+          <span class="font-mono text-[11px] text-muted">live visitors</span>
         </div>
       </div>
     </div>
@@ -112,41 +127,21 @@ const dateFmt = new Intl.DateTimeFormat('en-CA') // YYYY-MM-DD
       }
     </div>
 
-    <!-- explore -->
-    <div class="border-b border-line py-[34px]">
-      <div class="mb-4 flex items-end justify-between">
-        <h2 class="m-0 text-[26px] tracking-[-0.05em]">explore</h2>
-        <span class="font-mono text-xs text-muted">cd ~/leohuynh.dev</span>
-      </div>
-      <div class="grid grid-cols-2 gap-3 md:grid-cols-4">
-        {
-          exploreCards.map((c) => (
-            <a
-              href={c.href}
-              class="rounded-2xl border border-line bg-white p-4 no-underline transition-shadow hover:shadow-[4px_4px_0_var(--color-line)]"
-            >
-              <div class="flex items-center gap-2 font-mono text-sm text-slate-900">
-                <HugeIcon name={c.icon} class="text-slate-500" /> {c.label}
-              </div>
-              <div class="mt-1 text-[13px] text-muted">{c.desc}</div>
-            </a>
-          ))
-        }
-      </div>
-    </div>
-
     <!-- build log -->
     <div class="py-[34px]">
       <div class="mb-4 flex items-end justify-between">
         <h2 class="m-0 text-[26px] tracking-[-0.05em]">build log</h2>
-        <span class="font-mono text-xs text-muted">api/activity.json</span>
+        <span class="font-mono text-xs text-muted">api/site-stats.json</span>
       </div>
-      <CodeBlock title="activity.json"><span class="text-[#94a3b8]">// generated at build time from content collections</span>
-{`{`}
-  <span class="text-[#93c5fd]">"site"</span>: {`{`} <span class="text-[#93c5fd]">"posts"</span>: <span class="text-[#86efac]">{posts.length}</span>, <span class="text-[#93c5fd]">"snippets"</span>: <span class="text-[#86efac]">{snippets.length}</span> {`}`},
-  <span class="text-[#93c5fd]">"stack"</span>: [<span class="text-[#86efac]">"astro"</span>, <span class="text-[#86efac]">"bun"</span>, <span class="text-[#86efac]">"tailwind"</span>, <span class="text-[#86efac]">"typescript"</span>],
-  <span class="text-[#93c5fd]">"status"</span>: <span class="text-[#86efac]">"documenting the work, one note at a time"</span>
-{`}`}</CodeBlock>
+      <BuildLog
+        client:idle
+        site="leohuynh.dev"
+        description="documenting the work, one note at a time"
+        repo={codebase.repo}
+        loc={codebase.loc}
+        files={codebase.files}
+        stack={codebase.stack}
+      />
     </div>
   </StudioShell>
 </BaseLayout>

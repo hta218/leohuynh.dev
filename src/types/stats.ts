@@ -19,8 +19,3 @@ export interface BlogStats {
   ideas: number
   bullseyes: number
 }
-
-/** Site-wide global hit counter (see `/api/hits.json`). */
-export interface SiteHits {
-  hits: number
-}

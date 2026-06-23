@@ -1,3 +1,4 @@
+import { getSql } from '~/lib/db'
 import { getCurrentlyReading, getLatestWatched } from '~/lib/media'
 import { SITE } from '~/lib/site'
 import type {
@@ -7,6 +8,7 @@ import type {
   GithubDayPayload,
   GithubStreakPayload,
   GithubTodayPayload,
+  SiteStatsPayload,
   SpotifyPayload,
   SpotifyTrack,
   TokenBurnPayload,
@@ -48,6 +50,206 @@ function timeoutSignal(ms = 8000): AbortSignal {
 
 export function getUmamiWebsiteId(): string | undefined {
   return env('PUBLIC_UMAMI_WEBSITE_ID')
+}
+
+/**
+ * Umami public share auth, derived entirely from the public share URL in `SITE.analytics`
+ * — no username/password or API key. Flow:
+ *   1. `GET {base}/api/share/{shareId}` → `{ websiteId, token }` (a read-only JWT).
+ *   2. Pass that token as `x-umami-share-token` on the website data endpoints.
+ * The share token carries no `exp`, so we cache it for a few hours and only re-resolve on a
+ * 401/403 (rotated share link) — see `umamiWebsiteFetch`.
+ */
+type UmamiShareAuth = { base: string; websiteId: string; token: string }
+
+const UMAMI_AUTH_TTL_MS = 6 * 60 * 60 * 1000
+let umamiAuthCache: { value: UmamiShareAuth; expiresAt: number } | null = null
+
+function parseUmamiShare(): { base: string; shareId: string } | null {
+  try {
+    const url = new URL(SITE.analytics.umamiShareUrl)
+    const parts = url.pathname.split('/').filter(Boolean)
+    const shareIdx = parts.indexOf('share')
+    const shareId = shareIdx >= 0 ? parts[shareIdx + 1] : undefined
+    return shareId ? { base: url.origin, shareId } : null
+  } catch {
+    return null
+  }
+}
+
+async function getUmamiShareAuth(): Promise<UmamiShareAuth | null> {
+  const now = Date.now()
+  if (umamiAuthCache && umamiAuthCache.expiresAt > now)
+    return umamiAuthCache.value
+
+  const parsed = parseUmamiShare()
+  if (!parsed) return null
+
+  const res = await fetch(`${parsed.base}/api/share/${parsed.shareId}`, {
+    signal: timeoutSignal(),
+  })
+  if (!res.ok) return null
+
+  const data = (await res.json()) as { token?: string; websiteId?: string }
+  if (!data.token || !data.websiteId) return null
+
+  const value: UmamiShareAuth = {
+    base: parsed.base,
+    websiteId: data.websiteId,
+    token: data.token,
+  }
+  umamiAuthCache = { value, expiresAt: now + UMAMI_AUTH_TTL_MS }
+  return value
+}
+
+/** Fetch a website data endpoint with the share token, re-resolving once on 401/403. */
+async function umamiWebsiteFetch(
+  path: string,
+  retry = true,
+): Promise<Response | null> {
+  const auth = await getUmamiShareAuth()
+  if (!auth) return null
+
+  const res = await fetch(
+    `${auth.base}/api/websites/${auth.websiteId}${path}`,
+    {
+      headers: { 'x-umami-share-token': auth.token },
+      signal: timeoutSignal(),
+    },
+  )
+
+  if ((res.status === 401 || res.status === 403) && retry) {
+    umamiAuthCache = null
+    return umamiWebsiteFetch(path, false)
+  }
+  return res
+}
+
+/** Umami traffic numbers: all-time pageviews + visitors, plus active visitors right now. */
+type UmamiTraffic = {
+  hits: number | null
+  online: number | null
+  visitors: number | null
+}
+
+async function fetchUmamiTraffic(): Promise<UmamiTraffic> {
+  const empty: UmamiTraffic = { hits: null, online: null, visitors: null }
+  try {
+    const auth = await getUmamiShareAuth()
+    if (!auth) return empty
+
+    const [activeRes, statsRes] = await Promise.all([
+      umamiWebsiteFetch('/active'),
+      umamiWebsiteFetch(`/stats?startAt=0&endAt=${Date.now()}`),
+    ])
+
+    let online: number | null = null
+    if (activeRes?.ok) {
+      // Umami v1 returns `{ x }`, v2 `{ visitors }`.
+      const data = (await activeRes.json()) as { x?: number; visitors?: number }
+      online =
+        typeof data.x === 'number'
+          ? data.x
+          : typeof data.visitors === 'number'
+            ? data.visitors
+            : null
+    }
+
+    let hits: number | null = null
+    let visitors: number | null = null
+    if (statsRes?.ok) {
+      const data = (await statsRes.json()) as {
+        pageviews?: { value?: number }
+        visitors?: { value?: number }
+      }
+      hits =
+        typeof data.pageviews?.value === 'number' ? data.pageviews.value : null
+      visitors =
+        typeof data.visitors?.value === 'number' ? data.visitors.value : null
+    }
+
+    return { hits, online, visitors }
+  } catch {
+    return empty
+  }
+}
+
+const REPO_OWNER = 'hta218'
+const REPO_NAME = 'leohuynh.dev'
+
+/** Repo stargazers + total commit count on the default branch, via GitHub GraphQL. */
+async function fetchGithubRepoStats(): Promise<{
+  commits: number | null
+  stars: number | null
+}> {
+  try {
+    const data = await githubGraphql<{
+      repository: {
+        stargazerCount: number
+        defaultBranchRef: {
+          target: { history: { totalCount: number } }
+        } | null
+      } | null
+    }>(
+      `query ($owner: String!, $name: String!) {
+        repository(owner: $owner, name: $name) {
+          stargazerCount
+          defaultBranchRef {
+            target { ... on Commit { history { totalCount } } }
+          }
+        }
+      }`,
+      { owner: REPO_OWNER, name: REPO_NAME },
+    )
+
+    const repo = data.repository
+    return {
+      commits: repo?.defaultBranchRef?.target.history.totalCount ?? null,
+      stars:
+        typeof repo?.stargazerCount === 'number' ? repo.stargazerCount : null,
+    }
+  } catch {
+    return { commits: null, stars: null }
+  }
+}
+
+/** Total reactions across the whole site: SUM of every reaction column in `stats`. */
+async function fetchTotalReactions(): Promise<number | null> {
+  try {
+    const db = getSql()
+    const [row] = await db<{ total: number }[]>`
+      select coalesce(sum(loves + applauses + ideas + bullseyes), 0)::int as total
+      from stats
+    `
+    return typeof row?.total === 'number' ? row.total : null
+  } catch {
+    return null
+  }
+}
+
+/**
+ * Live site-wide stats for the home cards + build-log manifest, fanned out across Umami, the
+ * GitHub repo, and the `stats` table. Each source degrades independently to `null`, so a partial
+ * outage still returns the rest. `ok` is true when at least one number resolved.
+ */
+export async function fetchSiteStats(): Promise<SiteStatsPayload> {
+  const [traffic, repo, reactions] = await Promise.all([
+    fetchUmamiTraffic(),
+    fetchGithubRepoStats(),
+    fetchTotalReactions(),
+  ])
+
+  const payload: Omit<SiteStatsPayload, 'ok'> = {
+    hits: traffic.hits,
+    online: traffic.online,
+    visitors: traffic.visitors,
+    reactions,
+    commits: repo.commits,
+    stars: repo.stars,
+  }
+
+  const ok = Object.values(payload).some((value) => value !== null)
+  return { ok, ...payload }
 }
 
 export function jsonHeaders(ttl = 60): HeadersInit {
