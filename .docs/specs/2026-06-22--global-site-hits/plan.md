@@ -1,159 +1,164 @@
-# Plan: Global Site Hits Counter
+# Plan: Site Stats — Hits, Live Visitors, Build-log Manifest
 
 ## Goal
 
-Replace the hardcoded `—` in the home page "views" card with a live, site-wide hit counter:
+Two surfaces on the home page, sharing one live endpoint:
 
-- One global number, incremented on **every** page load across the entire site.
-- **Seeded** once from `SUM(views)` of the existing `stats` table (post + snippet views) so it
-  doesn't start at 0.
-- Same graceful-degradation philosophy as the existing stats widgets: if the DB / endpoint is
-  unavailable (e.g. plain `astro preview`, missing `DATABASE_URL`), the card falls back to `—`
-  and never fakes a number.
+1. **Stat cards** (3-card grid): `notes` (posts+snippets, build-time), `hits` (Umami all-time
+   pageviews), `live visitors` (Umami active now, with a pulsing dot in the icon slot).
+2. **Build-log manifest** — the "build log" section renders a JSON `site.json` manifest mixing
+   build-time facts (content counts, LOC, files, stack) with live numbers (traffic, reactions,
+   repo commits/stars). Light-themed, self-framed code block.
 
-## Scope decision: what "global hits" means
+Same graceful-degradation rule everywhere: any unavailable source renders `—`/`…` and never
+fakes a number.
 
-`hits` = total page loads site-wide, an ever-growing counter. This is **different** from the
-per-post `stats.views` rows:
+## Why Umami (pivot from v1)
 
-- `stats.views` = views of a single blog/snippet (already tracked by `ViewsCounter.tsx`).
-- `hits` = every visit to every page (home, /log, /gists, /builds, /shelf, post pages…).
+The v1 plan built a custom `site_counters` Postgres row, seeded from `SUM(stats.views)` and
+incremented on every page load. We pivoted after verifying — with a live `curl` against the
+production Umami — that the **public share link already exposes everything we need, with no auth
+credentials**:
 
-We seed `hits` from `SUM(stats.views)` only to give it a sensible starting value, then it grows
-independently on its own.
+- `GET {base}/api/share/{shareId}` → `{ websiteId, token }` (a read-only share JWT, no `exp`).
+- `GET {base}/api/websites/{id}/active` + header `x-umami-share-token` → `{ x: <online> }`.
+- `GET {base}/api/websites/{id}/stats?startAt=0&endAt=<now>` → `{ pageviews: { value }, … }`
+  (all-time total, e.g. ~54k pageviews).
 
-> Alternative considered: just display `SUM(stats.views)` as a read-only derived number (no new
-> counter, no new tracking). Rejected because it only reflects blog/snippet traffic and wouldn't
-> count the many non-article pages — and seeding would be meaningless. Kept as a fallback option
-> if we decide we don't want a new write path.
->
-> Alternative considered: read total pageviews from **Umami** (already wired via
-> `PUBLIC_UMAMI_WEBSITE_ID`). Rejected as primary because it needs Umami API auth, can't be
-> seeded from our own post views, and couples the home card to an external service. Noted as a
-> possible future data source.
+The original spec had rejected Umami "because it needs API auth" — the share-token flow disproves
+that. Umami's numbers are also more accurate (bot filtering, dedup) than a raw page-load counter,
+and require **no DB write path, no client increment script, no migration**. So the custom counter
+is removed entirely.
 
-## Storage
+The share link lives in code already: `SITE.analytics.umamiShareUrl`
+(`https://analytics.leohuynh.dev/share/<shareId>/leohuynh.dev`). We parse the base + shareId from
+it — nothing new in env. `PUBLIC_UMAMI_WEBSITE_ID` stays as-is for the tracking script.
 
-Use the existing Supabase Postgres (`getSql()` from `src/lib/db.ts`). A single global counter.
+## Server — `src/lib/runtime.ts`
 
-**Primary approach — dedicated tiny table** (clean, no enum-constraint risk):
+Umami share auth + a `fetchSiteStats()` orchestrator, mirroring the existing integration fetchers
+(`fetchSpotifyStatus`, etc.): `try/catch`, `timeoutSignal()`, graceful per-source fallback.
 
-```sql
--- one-time migration, run in the Supabase SQL editor
-create table if not exists site_counters (
-  key   text primary key,
-  value bigint not null default 0
-);
+- `parseUmamiShare()` / `getUmamiShareAuth()` / `umamiWebsiteFetch()` — public share-token flow,
+  token cached ~6h in-module (share JWT has no `exp`), re-resolved once on 401/403.
+- `fetchUmamiTraffic()` → `{ hits, online, visitors }` from `/active` + `/stats?startAt=0`
+  (handles Umami v1 `{ x }` / v2 `{ visitors }` active shapes).
+- `fetchGithubRepoStats()` → `{ commits, stars }` via the existing `githubGraphql()` helper
+  (`repository.stargazerCount` + `defaultBranchRef…history.totalCount`).
+- `fetchTotalReactions()` → `SUM(loves+applauses+ideas+bullseyes)` over `stats` via `getSql()`.
+- `fetchSiteStats()` — `Promise.all` of the three; each source degrades to `null` independently;
+  `ok` is true if any number resolved.
 
--- seed the global hits counter from existing post + snippet views
-insert into site_counters (key, value)
-values ('hits', (select coalesce(sum(views), 0) from stats))
-on conflict (key) do nothing;
-```
+## Endpoint — `src/pages/api/site-stats.json.ts` (new)
 
-`on conflict do nothing` makes the seed idempotent — re-running never overwrites a live count.
+`prerender = false`, `GET` → `fetchSiteStats()`, `jsonHeaders(30)` (30s shared cache). One endpoint
+feeds all three islands.
 
-**Fallback approach (no DDL needed):** reuse the `stats` table with a sentinel row
-(`type='site', slug='global'`) and store the count in `views`. Only viable if the `stats.type`
-column is plain `text`/`varchar` (not a Postgres enum / CHECK limited to `blog|snippet`).
-**Verification step before coding:** inspect the column type — query
-`select data_type, udt_name from information_schema.columns where table_name='stats' and column_name='type'`.
-If it's an enum/constrained, use the dedicated `site_counters` table (primary approach).
-
-## API endpoint — `src/pages/api/hits.json.ts`
-
-Follows the existing `api/stats.ts` conventions (`prerender = false`, `getSql()`, JSON helper,
-try/catch → 503, graceful when `DATABASE_URL` missing).
-
-- **GET `/api/hits.json`** → `{ ok: true, hits: <number> }`
-  - Lazily seeds the `hits` row if absent (same seed query as the migration), so the feature
-    works even if the manual migration wasn't run.
-  - Read-only; cache-control short TTL (e.g. `s-maxage=30`) is fine since it's approximate.
-
-- **POST `/api/hits.json`** → increments and returns the new value:
-  ```sql
-  insert into site_counters (key, value)
-  values ('hits', (select coalesce(sum(views), 0) from stats) + 1)
-  on conflict (key) do update set value = site_counters.value + 1
-  returning value;
-  ```
-  The `insert … on conflict do update` means the very first hit also seeds correctly in one
-  statement (no separate migration strictly required, but the migration is still recommended so
-  the GET shows the seeded number before any POST happens).
-
-Abuse / refresh-spam mitigation (keep simple): client throttles increments to once per ~30s per
-session via `sessionStorage`; server stays dumb. Bot inflation is acceptable for a vanity
-counter — we are not trying to match Umami's accuracy.
-
-## Client increment — site-wide
-
-The counter must increment on every page, so the trigger lives in `BaseLayout.astro` (wraps all
-pages), not in a per-page island.
-
-Add a small `is:inline` script (or a tiny client module) that fires once per page load:
-
-- Fire on initial load **and** on `astro:page-load` (ClientRouter SPA navigations) so client-side
-  route changes also count.
-- `sessionStorage`-based throttle (skip if last increment < 30s ago) to avoid refresh spam.
-- `fetch('/api/hits.json', { method: 'POST', keepalive: true })`, fire-and-forget, errors ignored.
-
-## Display — home page card
-
-`src/pages/index.astro` lines 67–73 currently:
-
-```astro
-<b class="block text-[28px]">—</b>
-```
-
-Replace with a React island (mirrors `ViewsCounter.tsx` pattern) — a new
-`src/components/widgets/SiteHits.tsx`:
-
-- On mount, `GET /api/hits.json`; show `hits.toLocaleString()`, or `—` while loading / on failure.
-- Rendered with `client:idle` (or `client:visible`) in `index.astro`.
-- The home page itself also triggers the BaseLayout increment, so the number is live.
-
-A matching client fetch helper can go in `src/lib/stats.ts` (e.g. `fetchSiteHits()`,
-`incrementSiteHits()`) to keep the graceful-fallback pattern in one place — optional, can also
-inline in the component.
-
-## Types
-
-Add to `src/types/stats.ts`:
+## Types — `src/types/integrations.ts`
 
 ```ts
-export interface SiteHits {
-  hits: number
+export interface SiteStatsPayload {
+  ok: boolean
+  hits: number | null
+  online: number | null
+  visitors: number | null
+  reactions: number | null
+  commits: number | null
+  stars: number | null
+  error?: string
 }
 ```
+
+## Client helper — `src/lib/stats.ts`
+
+`fetchSiteStats(): Promise<SiteStatsPayload>` — GET `/api/site-stats.json` with a 15s TTL cache +
+in-flight dedup, so all three islands share one request.
+
+## Display
+
+### Stat grid (`index.astro`) — 3 cards
+
+1. **notes** — `posts.length + snippets.length` (static). Icon `markdown`.
+2. **hits** — `<SiteHits client:idle />`: all-time pageviews, fetched once. Icon `analytics`.
+3. **live visitors** — `<LiveVisitors client:idle />`: active visitors, polls ~30s. The pulsing
+   green dot sits in the **icon slot** (replacing an icon); the big number stays plain so it
+   aligns with the other two cards. Label `live visitors`.
+
+### Build-log manifest — `src/components/widgets/BuildLog.tsx` (new island)
+
+Self-framed light code block (header + traffic-light dots + `<pre>`, so no stray slot whitespace)
+rendering a **lean** `site.json` manifest. Deliberately scoped to facts NOT already shown elsewhere
+on the page — the rail covers spotify/github/activity, the footer covers branch/commit/clock — so
+it stays a codebase + traffic snapshot rather than restating the whole UI. Build-time facts arrive
+as props; live numbers hydrate from `/api/site-stats.json` (shared with the cards) and poll ~30s
+(`…` until resolved). GitHub-light syntax palette.
+
+```jsonc
+{
+  "site": "leohuynh.dev",
+  "description": "documenting the work, one note at a time",
+  "repo": "hta218/leohuynh.dev",                            // build-time
+  "stack": ["astro", "bun", "tailwind", "typescript"],      // build-time
+  "stats": { "loc": N, "files": N,                          // loc/files build-time (glob)
+             "commits": N, "stars": N,                      // commits/stars live (github)
+             "hits": N, "visitors": N,                      // live (umami)
+             "reactions": N }                               // live (db sum)
+}
+```
+
+`loc` / `files` are computed in `index.astro` frontmatter via `tinyglobby` + `readFileSync` over
+`src/**` + `content/**` (page is prerendered → once per build, not per request).
+
+> An earlier iteration mirrored the whole rail + footer into the manifest (branch, lastCommit,
+> localTime, madeIn, github contributions, tokensBurned, nowPlaying, reading, watching). It read as
+> repetitive — those are all already on-screen — so it was trimmed back to the lean snapshot above,
+> and the dedicated `/api/build-log.json` endpoint + `fetchBuildLog()` + `BuildLogPayload` it needed
+> were removed (`BuildLog` now reuses the lean `/api/site-stats.json`).
+
+## Removed (v1 cleanup)
+
+- `src/pages/api/hits.json.ts` — deleted (custom counter endpoint).
+- `src/components/widgets/SiteHits.tsx` — replaced by `SiteStats.tsx`.
+- `incrementSiteHits()` / `fetchSiteHits()` / `HITS_ENDPOINT` in `src/lib/stats.ts`.
+- The site-wide increment `<script>` in `src/layouts/BaseLayout.astro`.
+- `SiteHits` type in `src/types/stats.ts`.
+- `migration.sql` (the `site_counters` table). **DB note:** the `site_counters` table in Supabase
+  is now unused and can be dropped manually (`drop table if exists site_counters;`) — optional,
+  harmless if left.
 
 ## Files touched
 
 | File | Change |
 | --- | --- |
-| `.docs/specs/2026-06-22--global-site-hits/*` | this spec |
-| **DB (Supabase, manual)** | new `site_counters` table + seed (SQL above) — run once |
-| `src/pages/api/hits.json.ts` | **new** — GET (read+lazy-seed) / POST (increment) endpoint |
-| `src/components/widgets/SiteHits.tsx` | **new** — React island that displays the count |
-| `src/lib/stats.ts` | add `fetchSiteHits()` / `incrementSiteHits()` helpers (optional) |
-| `src/types/stats.ts` | add `SiteHits` type |
-| `src/layouts/BaseLayout.astro` | add site-wide increment script (initial load + `astro:page-load`) |
-| `src/pages/index.astro` | replace hardcoded `—` with `<SiteHits client:idle />` |
+| `.docs/specs/2026-06-22--global-site-hits/*` | repurposed spec; `migration.sql` deleted |
+| `src/lib/runtime.ts` | **add** Umami auth + `fetchUmamiTraffic`/`fetchGithubRepoStats`/`fetchTotalReactions`/`fetchSiteStats()` |
+| `src/pages/api/site-stats.json.ts` | **new** — GET endpoint (umami + github repo + db); feeds both cards + build log |
+| `src/types/integrations.ts` | **add** `SiteStatsPayload` |
+| `src/lib/stats.ts` | swap hits helpers → `fetchSiteStats()` (TTL cache + dedup) |
+| `src/components/widgets/SiteHits.tsx` | **new** island — all-time hits (fetch once) |
+| `src/components/widgets/LiveVisitors.tsx` | **new** island — active visitors (polls 30s) |
+| `src/components/widgets/BuildLog.tsx` | **new** island — lean `site.json` manifest (light, framed) |
+| `src/pages/index.astro` | 3 stat cards + glob LOC/files + `<BuildLog>`; explore section removed |
+| `src/components/studio/CodeToolbar.astro` | drop stale `CodeBlock.astro` mention |
+| `src/layouts/BaseLayout.astro` | **remove** increment script |
+| `src/types/stats.ts` | **remove** `SiteHits` type |
+| **deleted** | `api/hits.json.ts`, old `SiteHits.tsx`/`SiteStats.tsx`, `studio/CodeBlock.astro`, `migration.sql` |
 
-## Decisions (confirmed 2026-06-22)
+## Decisions
 
-1. **Increment scope** — ✅ every page load site-wide (counter lives in `BaseLayout.astro`).
-2. **Storage** — ✅ dedicated `site_counters` table (primary approach above). The `stats`
-   sentinel-row fallback is dropped.
-3. **Seed timing** — run the SQL migration manually in Supabase so GET shows the seeded value
-   immediately; the endpoint also lazy-seeds as a safety net.
-
-## Remaining open question
-
-- **Seed timing detail** — to confirm at implementation: run migration before or after deploying
-  the endpoint (either order is safe given idempotent seed).
+1. **Source** — ✅ Umami via public share token (no auth, no DB write). Custom counter dropped.
+2. **"hits"** = all-time Umami pageviews; **online** = Umami active now.
+3. **Live visitors** — own `live visitors` card (pulsing dot in the icon slot, plain number for
+   alignment), not merged into hits.
+4. **Card layout** — `posts` + `snippets` merged into one `notes` card → grid `notes | hits | live`.
+5. **Build log** — repurposed from a fake static snippet into a real `site.json` manifest. Codebase
+   `loc`/`files` via build-time glob (deploy-time facts); `commits`/`stars` via GitHub API +
+   `reactions` via DB sum, all in the live endpoint. Light theme to match Expressive Code.
+6. **Cache** — share token ~6h in-module; endpoint 30s shared; client reader 15s + in-flight dedup
+   (one request shared across SiteHits / LiveVisitors / BuildLog).
 
 ## Out of scope
 
-- Per-page or time-windowed analytics (today / week / month).
-- Trending posts, per-type breakdowns.
-- Replacing Umami; this is a vanity counter, not analytics.
+- Time-windowed analytics (today / week / month), trending posts, per-type breakdowns.
+- Replacing Umami; this is a vanity display, not full analytics.
+- Dropping the now-unused `site_counters` table (manual, optional).

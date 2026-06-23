@@ -1,8 +1,8 @@
-# Feature: Global Site Hits Counter
+# Feature: Site Stats — Hits + Live Visitors (Umami)
 
 | Field            | Value                                   |
 | ---------------- | --------------------------------------- |
-| **Status**       | done                             |
+| **Status**       | in-progress                             |
 | **Owner**        | @hta218                                 |
 | **Issue**        | N/A                                     |
 | **Branch**       | `feat/global-site-hits`                 |
@@ -15,9 +15,14 @@
 
 ## Summary
 
-The home page has a third stat card labelled "views" that currently renders a hardcoded `—`
-placeholder. This feature adds a real, site-wide **global hits** counter: a single persisted
-number that increments on every page load across the whole site (not just blog/snippet pages)
-and is displayed in that card. The counter is **seeded** once from the existing accumulated
-post + snippet views (`SUM(views)` in the `stats` table) so it starts from a meaningful number
-instead of zero.
+Two home-page surfaces share one live `/api/site-stats.json` endpoint:
+
+- **Stat cards** — `notes` (posts+snippets), `hits` (Umami all-time pageviews), `live visitors`
+  (Umami active now, pulsing dot).
+- **Build-log manifest** — the "build log" section renders a real `site.json` manifest: build-time
+  facts (content counts, LOC, files, stack) + live numbers (traffic, reactions, repo commits/stars).
+
+Live data is read from **Umami** (public share token — no API credentials), the **GitHub** repo,
+and the **`stats`** table. This replaces the original v1 approach (a custom `site_counters`
+Postgres counter incremented on every page load), dropped once we confirmed Umami's share link
+exposes pageviews + realtime visitors for free.
