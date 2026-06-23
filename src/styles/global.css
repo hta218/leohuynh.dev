@@ -171,12 +171,6 @@ body {
   font-size: 11px;
 }
 
-.vn-badge {
-  align-items: center;
-  gap: 5px;
-  color: #334155;
-}
-
 .version-menu {
   position: relative;
   display: inline-flex;

@@ -99,8 +99,8 @@ function unavailableSiteStats(): SiteStatsPayload {
  * Read live site-wide stats (traffic, reactions, repo) from `/api/site-stats.json`. Returns a
  * `null`-field payload when the endpoint is unavailable so the UI shows `—`.
  *
- * The `SiteHits`, `LiveVisitors`, and `BuildLog` islands all call this, so a short TTL cache +
- * in-flight dedup keeps their (near-simultaneous) reads to a single network request.
+ * The `BuildLog` island calls this for the manifest's live numbers; the short TTL cache +
+ * in-flight dedup keeps repeated/poll reads to a single network request.
  */
 export async function fetchSiteStats(): Promise<SiteStatsPayload> {
   const now = Date.now()
