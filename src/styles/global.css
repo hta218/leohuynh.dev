@@ -693,3 +693,38 @@ html[data-theme="github-dark-default"] .expressive-code figure.frame {
 .prose .twemoji {
   vertical-align: -0.1em;
 }
+
+/* ---------------------------------------------------------------------------
+ * View transitions — the main page heading (`transition:name="page-title"` on
+ * PageHeader, the home hero, and post/gist titles) rotates around its horizontal
+ * axis when navigating, like turning a Rubik's cube: the old title (front face)
+ * rolls down to the bottom while the new title rolls in from the top face down
+ * to the front. The shared name is what lets BOTH the leaving and entering title
+ * animate (the new page carries the rule for the old snapshot too). All these
+ * headings share a 720px max-width (= the prose column) so the group never has
+ * to scale the snapshot between routes. Motion-sensitive users opt out.
+ * ------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  /* Front face rolls down + away to the cube's bottom. */
+  @keyframes vt-title-out {
+    to {
+      transform: perspective(900px) translateY(50%) rotateX(90deg);
+      opacity: 0;
+    }
+  }
+  /* Top face rolls down from above into the front. */
+  @keyframes vt-title-in {
+    from {
+      transform: perspective(900px) translateY(-50%) rotateX(-90deg);
+      opacity: 0;
+    }
+  }
+  ::view-transition-old(page-title) {
+    transform-origin: center;
+    animation: vt-title-out 0.45s cubic-bezier(0.4, 0, 0.2, 1) both;
+  }
+  ::view-transition-new(page-title) {
+    transform-origin: center;
+    animation: vt-title-in 0.45s cubic-bezier(0.4, 0, 0.2, 1) both;
+  }
+}
