@@ -2,12 +2,12 @@
 import { getCollection, render } from 'astro:content'
 import Twemoji from '~/components/mdx/Twemoji.astro'
 import StudioShell from '~/components/studio/StudioShell.astro'
-import Comments from '~/components/widgets/Comments'
 import Reactions from '~/components/widgets/Reactions'
 import ViewsCounter from '~/components/widgets/ViewsCounter'
-import BaseLayout from '~/layouts/BaseLayout.astro'
+import Comments from '~/components/widgets/Comments'
 import { getGiscusConfig } from '~/lib/comments'
 import { isPublished, tagSlug } from '~/lib/content'
+import BaseLayout from '~/layouts/BaseLayout.astro'
 
 // Slug parity: id = filename (no nested dirs) → `/blog/<slug>` exactly as legacy.
 export async function getStaticPaths() {
@@ -37,7 +37,7 @@ const giscusConfig = getGiscusConfig()
 >
   <StudioShell active={`/log/${post.id}`} crumb={`~/leohuynh.dev/log/${post.id}`}>
     <article class="prose">
-      <h1 transition:name="page-title">{title}</h1>
+      <h1>{title}</h1>
       <div class="mb-8 flex flex-wrap items-center gap-3 font-mono text-xs text-muted not-prose">
         <time datetime={date.toISOString()}>{dateFmt.format(date)}</time>
         {
