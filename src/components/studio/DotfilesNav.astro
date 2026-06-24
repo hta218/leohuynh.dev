@@ -2,6 +2,12 @@
 import HugeIcon from '~/components/icons/HugeIcon.astro'
 import type { DotfileNode } from '~/lib/dotfiles'
 import DotfilesNav from './DotfilesNav.astro'
+import ClaudeIcon from '@icons/claude.svg?raw'
+import EditorConfigIcon from '@icons/editorconfig.svg?raw'
+import GitIcon from '@icons/git.svg?raw'
+import CopilotIcon from '@icons/githubcopilot.svg?raw'
+import MarkdownIcon from '@icons/markdown.svg?raw'
+import VSCodeIcon from '@icons/vscode.svg?raw'
 
 interface Props {
   nodes: DotfileNode[]
@@ -13,7 +19,29 @@ interface Props {
 
 const { nodes, depth = 0, currentPath } = Astro.props
 
-const fileIcon = (name: string) => (/\.mdx?$/.test(name) ? 'markdown' : 'code')
+// Brand SVG (inlined via `?raw`) for recognizable dotfiles entries; returns
+// null when the row should fall back to a generic HugeIcon glyph.
+const brandFor = (node: DotfileNode): string | null => {
+  const name = node.name.toLowerCase()
+  if (node.type === 'dir') {
+    if (name === '.vscode') return VSCodeIcon
+    if (name === '.claude') return ClaudeIcon
+    if (name === '.copilot') return CopilotIcon
+    return null
+  }
+  if (/\.mdx?$/.test(name)) return MarkdownIcon
+  if (name === '.editorconfig') return EditorConfigIcon
+  if (/^\.?git/.test(name)) return GitIcon
+  return null
+}
+// HugeIcon glyph for non-brand files: braces for JSON, a terminal for zsh
+// dotfiles, generic code otherwise.
+const fileIcon = (name: string) => {
+  const n = name.toLowerCase()
+  if (n.endsWith('.json')) return 'braces'
+  if (/^\.?z(sh|profile|login|logout|preztorc)/.test(n)) return 'terminal'
+  return 'code'
+}
 const indent = (d: number) => `padding-left:${12 + d * 16}px`
 // The root README routes to the hand-written `/dotfiles` landing page instead
 // of rendering the repo's own README content.
@@ -42,10 +70,14 @@ const isAncestor = (path: string) =>
           style={indent(depth)}
         >
           <HugeIcon name="caret-down" class="explorer-caret text-slate-500" />
-          <span class="explorer-icon text-slate-500">
-            <HugeIcon name="folder-open" class="folder-icon-open" />
-            <HugeIcon name="folder" class="folder-icon-closed" />
-          </span>
+          {brandFor(node) ? (
+            <span class="brand-icon explorer-icon text-slate-500" set:html={brandFor(node)} />
+          ) : (
+            <span class="explorer-icon text-slate-500">
+              <HugeIcon name="folder-open" class="folder-icon-open" />
+              <HugeIcon name="folder" class="folder-icon-closed" />
+            </span>
+          )}
           <span>{node.name}</span>
         </button>
         <div class="space-y-0.5" data-folder-children={`dot-${node.path}`} hidden={!isAncestor(node.path)}>
@@ -72,7 +104,11 @@ const isAncestor = (path: string) =>
         style={indent(depth)}
       >
         <span class="explorer-caret" aria-hidden="true" />
-        <HugeIcon name={fileIcon(node.name)} class="explorer-icon text-slate-500" />
+        {brandFor(node) ? (
+          <span class="brand-icon explorer-icon text-slate-500" set:html={brandFor(node)} />
+        ) : (
+          <HugeIcon name={fileIcon(node.name)} class="explorer-icon text-slate-500" />
+        )}
         <span>{node.name}</span>
       </a>
     ),
