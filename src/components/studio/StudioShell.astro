@@ -233,26 +233,55 @@ const activeDotfile =
       ? decodeURIComponent(currentPath.slice('/dotfiles/'.length))
       : undefined
 
-const tabLinks: TreeLeaf[] = [
-  explorerItems.find(
-    (item) => item.kind === 'leaf' && item.id === 'readme',
-  ) as TreeLeaf,
-  { ...postsIndex, file: 'log/index.astro' },
-  { ...snippetsIndex, file: 'gists/index.astro' },
-  explorerItems.find(
-    (item) => item.kind === 'leaf' && item.id === 'projects',
-  ) as TreeLeaf,
-  explorerItems.find(
-    (item) => item.kind === 'leaf' && item.id === 'about',
-  ) as TreeLeaf,
-]
-
 const shellId = `studio-${Math.random().toString(36).slice(2)}`
 const isActive = (item: {
   href: string
   activeWhen?: (path: string) => boolean
 }) =>
   item.activeWhen ? item.activeWhen(currentPath) : currentPath === item.href
+
+// The tab bar behaves like IDE editor tabs: it starts with just the README and
+// grows as the visitor navigates (managed client-side). Here we only compute the
+// descriptor for the README (always pinned) and the current page, which seed the
+// bar on the server and feed the client-side tab manager.
+const readmeTab = explorerItems.find(
+  (item) => item.kind === 'leaf' && item.id === 'readme',
+) as TreeLeaf
+const allTabLeaves: TreeLeaf[] = explorerItems.flatMap((item) =>
+  item.kind === 'folder' ? item.children : [item],
+)
+const resolveCurrentTab = (path: string): TreeLeaf => {
+  if (path === '/log' || path.startsWith('/log/page/')) {
+    return { ...postsIndex, id: 'current', href: '/log', file: 'log/index.astro' }
+  }
+  if (path === '/gists') {
+    return { ...snippetsIndex, id: 'current', href: '/gists', file: 'gists/index.astro' }
+  }
+  if (path.startsWith('/log/')) {
+    const slug = decodeURIComponent(path.slice('/log/'.length))
+    return { kind: 'leaf', id: 'current', href: path, file: `${slug}.mdx`, icon: { type: 'brand', name: 'astro' } }
+  }
+  if (path.startsWith('/gists/')) {
+    const slug = decodeURIComponent(path.slice('/gists/'.length))
+    return { kind: 'leaf', id: 'current', href: path, file: `${slug}.mdx`, icon: { type: 'brand', name: 'astro' } }
+  }
+  if (path.startsWith('/topics/')) {
+    const tag = decodeURIComponent(path.slice('/topics/'.length))
+    return { kind: 'leaf', id: 'current', href: path, file: tag || 'topics', icon: { type: 'huge', name: 'tag' } }
+  }
+  if (path.startsWith('/dotfiles/')) {
+    const rel = decodeURIComponent(path.slice('/dotfiles/'.length))
+    const base = rel.split('/').pop() || 'dotfiles'
+    return { kind: 'leaf', id: 'current', href: path, file: base, icon: { type: 'huge', name: 'markdown' } }
+  }
+  const match = allTabLeaves.find((leaf) => isActive(leaf))
+  if (match) return { ...match, id: 'current' }
+  const segment = path.replace(/^\//, '').split('/').pop() || 'index'
+  return { kind: 'leaf', id: 'current', href: path, file: segment, icon: { type: 'huge', name: 'file' } }
+}
+const currentTab = resolveCurrentTab(currentPath)
+const seedTabs: TreeLeaf[] =
+  currentTab.href === readmeTab.href ? [readmeTab] : [readmeTab, currentTab]
 const renderCommit = () => {
   const sha = process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 7)
   if (sha) return sha
@@ -414,14 +443,19 @@ const GIT_BRANCH_ICON =
 
     <main class="flex min-h-0 min-w-0 flex-col overflow-hidden bg-panel [background-image:linear-gradient(90deg,rgba(15,23,42,0.03)_1px,transparent_1px)] [background-size:64px_64px]">
       <nav class="flex shrink-0 items-stretch border-b border-line bg-[#fbfcff]">
-        <div class="thin-scrollbar flex min-w-0 flex-1 overflow-x-auto">
+        <div
+          class="thin-scrollbar flex min-w-0 flex-1 overflow-x-auto"
+          data-tab-bar
+          data-current-href={currentTab.href}
+        >
           {
-            tabLinks.map((l) => (
+            seedTabs.map((l) => (
               <a
                 href={l.href}
+                data-tab-href={l.href}
                 class:list={[
                   'tab-row shrink-0 border-r border-line px-3.5 py-2.5 font-mono text-xs no-underline',
-                  isActive(l)
+                  l.href === currentTab.href
                     ? 'bg-white text-slate-950 shadow-[inset_0_-2px_0_var(--color-ink)]'
                     : 'text-muted hover:text-slate-950',
                 ]}
@@ -534,6 +568,78 @@ const GIT_BRANCH_ICON =
     astro: `<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M8.358 20.162c-1.186-1.07-1.532-3.316-1.038-4.944.856 1.026 2.043 1.352 3.272 1.535 1.897.283 3.76.177 5.522-.678.202-.098.388-.229.608-.36.166.473.209.95.151 1.437-.14 1.185-.738 2.1-1.688 2.794-.38.277-.782.525-1.175.787-1.205.804-1.531 1.747-1.078 3.119l.044.148a3.158 3.158 0 01-1.407-1.188 3.31 3.31 0 01-.544-1.815c-.004-.32-.004-.642-.048-.958-.106-.769-.472-1.113-1.161-1.133-.707-.02-1.267.411-1.415 1.09-.012.053-.028.104-.045.165h.002zm-5.961-4.445s3.24-1.575 6.49-1.575l2.451-7.565c.092-.366.36-.614.662-.614.302 0 .57.248.662.614l2.45 7.565c3.85 0 6.491 1.575 6.491 1.575L16.088.727C15.93.285 15.663 0 15.303 0H8.697c-.36 0-.615.285-.784.727l-5.516 14.99z"/></svg>`,
   }
 
+  // IDE-like editor tabs: persist opened tabs in sessionStorage so navigating
+  // around the site keeps a running list. README is always pinned, the active
+  // tab is always kept, and the oldest evictable tab is dropped past the cap.
+  function initStudioTabs(shell) {
+    const bar = shell.querySelector('[data-tab-bar]')
+    if (!bar) return
+
+    const MAX = 5
+    const HOME = '/'
+    const KEY = 'leohuynh:open-tabs'
+    const BASE =
+      'tab-row shrink-0 border-r border-line px-3.5 py-2.5 font-mono text-xs no-underline'
+    const ACTIVE = 'bg-white text-slate-950 shadow-[inset_0_-2px_0_var(--color-ink)]'
+    const INACTIVE = 'text-muted hover:text-slate-950'
+
+    const currentHref = bar.getAttribute('data-current-href') || HOME
+
+    // Capture the markup (icon + label) of the server-rendered seed tabs so the
+    // README and the current page always have a fresh descriptor to render.
+    const seeds = {}
+    bar.querySelectorAll('a[data-tab-href]').forEach((a) => {
+      seeds[a.getAttribute('data-tab-href')] = a.innerHTML
+    })
+
+    let list = []
+    try {
+      const raw = sessionStorage.getItem(KEY)
+      if (raw) list = JSON.parse(raw)
+    } catch {}
+    if (!Array.isArray(list)) list = []
+
+    const findIdx = (href) => list.findIndex((t) => t && t.href === href)
+
+    // Always keep README pinned at the front.
+    if (findIdx(HOME) === -1 && seeds[HOME] != null) {
+      list.unshift({ href: HOME, inner: seeds[HOME] })
+    }
+
+    // Add (or refresh) the current page tab.
+    const curIdx = findIdx(currentHref)
+    if (curIdx === -1) {
+      list.push({ href: currentHref, inner: seeds[currentHref] || '' })
+    } else if (seeds[currentHref] != null) {
+      list[curIdx].inner = seeds[currentHref]
+    }
+
+    // Drop the oldest evictable tab (never README, never the active one).
+    while (list.length > MAX) {
+      const victim = list.findIndex(
+        (t) => t.href !== HOME && t.href !== currentHref,
+      )
+      if (victim === -1) break
+      list.splice(victim, 1)
+    }
+
+    list = list.filter((t) => t && typeof t.inner === 'string' && t.inner)
+
+    try {
+      sessionStorage.setItem(KEY, JSON.stringify(list))
+    } catch {}
+
+    bar.innerHTML = ''
+    list.forEach((t) => {
+      const a = document.createElement('a')
+      a.href = t.href
+      a.setAttribute('data-tab-href', t.href)
+      a.className = `${BASE} ${t.href === currentHref ? ACTIVE : INACTIVE}`
+      a.innerHTML = t.inner
+      bar.appendChild(a)
+    })
+  }
+
   function initStudioShell() {
     const root = document.documentElement
     const syncCodeControls = () => {
@@ -630,6 +736,8 @@ const GIT_BRANCH_ICON =
     }
 
     document.querySelectorAll('.studio-shell').forEach((shell) => {
+      initStudioTabs(shell)
+
       const toggle = shell.querySelector('[data-toggle-rail]')
       const saved = root.dataset.rail || localStorage.getItem('leohuynh:right-rail') || 'visible'
       const setRail = (state) => {
