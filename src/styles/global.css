@@ -160,17 +160,6 @@ body {
   gap: 8px;
 }
 
-.status-select {
-  height: 22px;
-  border: 1px solid var(--color-line);
-  border-radius: 5px;
-  background: #f8fafc;
-  padding: 0 20px 0 6px;
-  color: #334155;
-  font-family: var(--font-mono);
-  font-size: 11px;
-}
-
 .version-menu {
   position: relative;
   display: inline-flex;
@@ -337,17 +326,6 @@ body {
 html[data-code-font="ui-mono"] {
   --code-font-family:
     ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-}
-
-html[data-code-font="jetbrains"] {
-  --code-font-family:
-    "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    monospace;
-}
-
-html[data-code-font="sfmono"] {
-  --code-font-family:
-    SFMono-Regular, ui-monospace, Menlo, Monaco, Consolas, monospace;
 }
 
 .twemoji {
@@ -565,104 +543,6 @@ html[data-theme="github-dark-default"] .expressive-code figure.frame {
   box-shadow: none;
 }
 
-/*
- * Shared code-block toolbar — used by both the home build-log component and the
- * controls injected into every Expressive Code frame. Mirrors the legacy
- * codeblock header controls (theme + font selectors).
- */
-.code-toolbar {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--color-muted);
-}
-
-.code-toolbar label {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
-
-/* EC figcaption — match the home CodeBlock codeblock-header look.
- * :has(.ec-code-toolbar) activates after JS injection, also forces
- * empty figcaptions (untitled frames) to become visible. */
-.expressive-code figcaption.header:has(.ec-code-toolbar) {
-  display: flex !important;
-  align-items: center !important;
-  gap: 8px !important;
-  padding: 7px 10px 7px 12px !important;
-  background: var(--color-panel) !important;
-  border-bottom: 1px solid var(--color-line) !important;
-  font-family: var(--font-mono) !important;
-  font-size: 11px !important;
-  color: var(--color-muted) !important;
-  min-height: unset !important;
-  height: auto !important;
-}
-
-/* Title inside EC figcaption — strip the orange active-tab indicator */
-.expressive-code figcaption.header .title {
-  font-family: var(--font-mono) !important;
-  font-size: 11px !important;
-  color: var(--color-muted) !important;
-  border-top: none !important;
-  padding-top: 0 !important;
-}
-
-/* Push toolbar to the far right */
-.expressive-code figcaption.header .ec-code-toolbar {
-  margin-left: auto;
-  flex-shrink: 0;
-}
-
-/* Ensure select styles are not stomped by EC's own CSS */
-.expressive-code figcaption.header .status-select {
-  height: 22px;
-  border: 1px solid var(--color-line);
-  border-radius: 5px;
-  background: var(--color-panel2);
-  padding: 0 20px 0 6px;
-  color: var(--color-muted);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  appearance: auto;
-}
-
-/* Language text badge — compact monospace pill */
-.ec-lang-badge {
-  flex-shrink: 0;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: color-mix(in srgb, currentColor 50%, transparent);
-  border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
-  border-radius: 4px;
-  padding: 1px 5px;
-  line-height: 1.4;
-  white-space: nowrap;
-}
-
-/* Icon badge variant — raw SVG, no border/text styling */
-.ec-lang-icon {
-  width: 16px;
-  height: 16px;
-  display: inline-flex !important;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  padding: 0;
-  background: none;
-  color: var(--color-muted);
-}
-
-.ec-lang-icon svg {
-  display: block;
-  flex-shrink: 0;
-}
 /* Framed images — the plugin sizes them, we add the edge + radius. */
 .prose img:not(.twemoji) {
   border-radius: 12px;

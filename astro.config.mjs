@@ -20,6 +20,10 @@ export default defineConfig({
       // Default light, with a manually selectable dark variant via <html data-theme="...">.
       themes: ['github-light-default', 'github-dark-default'],
       useDarkModeMediaQuery: false,
+      frames: {
+        // Drop the copy-to-clipboard button.
+        showCopyToClipboardButton: false,
+      },
       styleOverrides: {
         borderRadius: '12px',
         borderColor: 'transparent',
@@ -32,6 +36,9 @@ export default defineConfig({
       },
       defaultProps: {
         wrap: true,
+        // No editor/terminal chrome: drop the filename header and the
+        // traffic-light dots, keep just the bare code box.
+        frame: 'none',
       },
     }),
     mdx(),

@@ -48,8 +48,8 @@ const umamiWebsiteId = (
     <script is:inline>
       ;(() => {
         const apply = (root) => {
-          root.dataset.theme = localStorage.getItem('leohuynh:code-theme') || 'github-light-default'
-          root.dataset.codeFont = localStorage.getItem('leohuynh:code-font') || 'ui-mono'
+          root.dataset.theme = 'github-light-default'
+          root.dataset.codeFont = 'ui-mono'
           root.dataset.rail = localStorage.getItem('leohuynh:right-rail') || 'visible'
         }
         // Run before first paint so the right rail never flashes visible→hidden.
