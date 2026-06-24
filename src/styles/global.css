@@ -484,31 +484,28 @@ html[data-code-font="sfmono"] {
   --tw-prose-td-borders: var(--color-line);
 
   max-width: 720px;
-  font-size: 17.5px;
   line-height: 1.78;
 }
 
 /* Brand headings — tighter tracking + the signature h2 underline. */
 .prose h1 {
+  /* Match the main page heading (PageHeader.astro) across routes. */
   font-size: clamp(40px, 6vw, 74px);
   line-height: 0.96;
   letter-spacing: -0.07em;
-  font-weight: 500;
+  font-weight: 400;
 }
 .prose h2 {
-  font-size: 27px;
   letter-spacing: -0.03em;
   padding-bottom: 0.3em;
   border-bottom: 1px solid var(--color-line);
   font-weight: 500;
 }
 .prose h3 {
-  font-size: 21px;
   letter-spacing: -0.02em;
   font-weight: 500;
 }
 .prose h4 {
-  font-size: 18px;
   font-weight: 500;
 }
 .prose strong {
@@ -537,7 +534,6 @@ html[data-code-font="sfmono"] {
 .prose :not(pre) > code {
   font-family: var(--font-mono);
   font-weight: 500;
-  font-size: 0.86em;
   background: var(--color-panel2);
   border: 1px solid var(--color-line);
   border-radius: 5px;
