@@ -1,0 +1,115 @@
+---
+import PageHeader from '~/components/PageHeader.astro'
+import StudioShell from '~/components/studio/StudioShell.astro'
+import BaseLayout from '~/layouts/BaseLayout.astro'
+
+const sections = [
+  {
+    title: 'Work',
+    beliefs: [
+      'Useful beats impressive.',
+      'Stay close to the work — the answers live there, not in the status call.',
+      'Small teams need clearer systems, not more meetings.',
+      'Speed matters, but panic is not speed.',
+    ],
+  },
+  {
+    title: 'Product',
+    beliefs: [
+      'Build for the people actually using the thing, not the demo.',
+      'Good developer experience is product work, not a nice-to-have.',
+      'A CMS should make a team faster, not make engineers feel trapped.',
+      'Hydrogen should feel powerful without becoming heavy.',
+      'Random design is technical debt with nicer colors.',
+    ],
+  },
+  {
+    title: 'Customers',
+    beliefs: [
+      'A blocked customer matters more than a clean internal plan.',
+      'During UAT, unblock the client first; tidy the code after.',
+      "Don't make customers guess: say what changed, what's blocked, and what happens next.",
+      'Silence makes small problems feel big.',
+    ],
+  },
+  {
+    title: 'Engineering',
+    beliefs: [
+      'Simple systems win because tired people have to maintain them.',
+      'APIs are promises. If people depend on an old path, keep the shim.',
+      'Deprecate first, delete later, maybe never.',
+      "Never delete something important because it looks unused — prove it first.",
+      'Compatibility is boring until customers lose trust.',
+    ],
+  },
+  {
+    title: 'AI',
+    beliefs: [
+      "AI is useful, but it doesn't own the outcome — you do.",
+      'Let AI draft, code, and review; don\'t let it decide what good looks like.',
+      'A bad spec just creates bad code faster now.',
+      'Complex SDK and adapter work still needs a plan and a review.',
+      "If you can't review it, you shouldn't ship it.",
+    ],
+  },
+  {
+    title: 'Communication',
+    beliefs: [
+      'A concise message is a form of respect.',
+      'If it matters, write it down.',
+      "Best update: what changed, what's blocked, what happens next.",
+      'Answer the obvious objection before you hit send.',
+    ],
+  },
+  {
+    title: 'Operating',
+    beliefs: [
+      'If it needs approval, get approval.',
+      'Production, releases, and databases deserve extra paranoia.',
+      "Don't force-push someone else's work without a very good reason.",
+      'History can be a little messy if it tells the truth.',
+    ],
+  },
+]
+---
+
+<BaseLayout
+  title="beliefs"
+  description="A few notes from building products, running Weaverse, and working with customers."
+>
+  <StudioShell active="/beliefs" crumb="~/leohuynh.dev/beliefs.md">
+    <PageHeader
+      title="Things I believe, for now"
+      description="A few notes from building products, running Weaverse, working with customers, and trying not to make the same mistake too many times."
+    />
+
+    <div class="space-y-10">
+      {
+        sections.map((section, i) => (
+          <section>
+            <div class="mb-4 flex items-baseline gap-3 border-b border-line pb-2">
+              <span class="font-mono text-xs text-code-blue">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <h2 class="m-0 text-xl font-semibold tracking-[-0.02em]">
+                {section.title}
+              </h2>
+            </div>
+            <ul class="space-y-2.5">
+              {section.beliefs.map((belief) => (
+                <li class="flex gap-3 text-[15px] leading-relaxed text-ink">
+                  <span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-line" />
+                  <span>{belief}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
+    </div>
+
+    <p class="mt-12 border-t border-line pt-6 font-mono text-xs text-muted">
+      Subject to change. That's the point.
+    </p>
+  </StudioShell>
+</BaseLayout>
