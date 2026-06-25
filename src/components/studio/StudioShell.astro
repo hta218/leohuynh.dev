@@ -374,7 +374,8 @@ const GIT_BRANCH_ICON =
                     <button
                       type="button"
                       data-folder-toggle={item.id}
-                      aria-expanded="true"
+                      data-folder-default="closed"
+                      aria-expanded="false"
                       class="explorer-row explorer-folder-row py-1.5 text-left font-mono text-[13px] text-slate-600 hover:bg-slate-100 hover:text-slate-950"
                     >
                       <HugeIcon name="caret-down" class="explorer-caret text-slate-500" />
@@ -438,7 +439,8 @@ const GIT_BRANCH_ICON =
         <button
           type="button"
           data-folder-toggle="section-dotfiles"
-          aria-expanded="true"
+          data-folder-default="closed"
+          aria-expanded="false"
           class="sidebar-section-header mb-2"
         >
           <span>dotfiles</span>
@@ -566,16 +568,13 @@ const GIT_BRANCH_ICON =
 </div>
 
 <script is:inline>
-  // IDE-like editor tabs: persist opened tabs in sessionStorage so navigating
-  // around the site keeps a running list. README is always pinned, the active
-  // tab is always kept, and the oldest evictable tab is dropped past the cap.
+  // IDE-like editor tabs, no persistence: README (home) is always pinned, and
+  // the current page is shown as a second tab when it isn't the home page.
   function initStudioTabs(shell) {
     const bar = shell.querySelector('[data-tab-bar]')
     if (!bar) return
 
-    const MAX = 5
     const HOME = '/'
-    const KEY = 'leohuynh:open-tabs'
     const BASE =
       'tab-row shrink-0 border-r border-line px-3.5 py-2.5 font-mono text-xs no-underline'
     const ACTIVE = 'bg-white text-slate-950 shadow-[inset_0_-2px_0_var(--color-ink)]'
@@ -590,42 +589,13 @@ const GIT_BRANCH_ICON =
       seeds[a.getAttribute('data-tab-href')] = a.innerHTML
     })
 
-    let list = []
-    try {
-      const raw = sessionStorage.getItem(KEY)
-      if (raw) list = JSON.parse(raw)
-    } catch {}
-    if (!Array.isArray(list)) list = []
-
-    const findIdx = (href) => list.findIndex((t) => t && t.href === href)
-
+    const list = []
     // Always keep README pinned at the front.
-    if (findIdx(HOME) === -1 && seeds[HOME] != null) {
-      list.unshift({ href: HOME, inner: seeds[HOME] })
+    if (seeds[HOME] != null) list.push({ href: HOME, inner: seeds[HOME] })
+    // Show the current page as its own tab when it isn't the home page.
+    if (currentHref !== HOME && seeds[currentHref]) {
+      list.push({ href: currentHref, inner: seeds[currentHref] })
     }
-
-    // Add (or refresh) the current page tab.
-    const curIdx = findIdx(currentHref)
-    if (curIdx === -1) {
-      list.push({ href: currentHref, inner: seeds[currentHref] || '' })
-    } else if (seeds[currentHref] != null) {
-      list[curIdx].inner = seeds[currentHref]
-    }
-
-    // Drop the oldest evictable tab (never README, never the active one).
-    while (list.length > MAX) {
-      const victim = list.findIndex(
-        (t) => t.href !== HOME && t.href !== currentHref,
-      )
-      if (victim === -1) break
-      list.splice(victim, 1)
-    }
-
-    list = list.filter((t) => t && typeof t.inner === 'string' && t.inner)
-
-    try {
-      sessionStorage.setItem(KEY, JSON.stringify(list))
-    } catch {}
 
     bar.innerHTML = ''
     list.forEach((t) => {
@@ -707,18 +677,15 @@ const GIT_BRANCH_ICON =
         const id = button.getAttribute('data-folder-toggle')
         const children = shell.querySelector(`[data-folder-children="${id}"]`)
         const caret = button.querySelector('.explorer-caret')
-        const storageKey = `leohuynh:folder:${id}`
         const setOpen = (open) => {
           button.setAttribute('aria-expanded', String(open))
           if (children) children.hidden = !open
           if (caret) caret.style.transform = open ? 'rotate(0deg)' : 'rotate(-90deg)'
         }
-        const saved = localStorage.getItem(storageKey)
         const defaultOpen = button.getAttribute('data-folder-default') !== 'closed'
-        setOpen(saved !== null ? saved !== 'false' : defaultOpen)
+        setOpen(defaultOpen)
         button.addEventListener('click', () => {
           const next = button.getAttribute('aria-expanded') !== 'true'
-          localStorage.setItem(storageKey, String(next))
           setOpen(next)
         })
       })
