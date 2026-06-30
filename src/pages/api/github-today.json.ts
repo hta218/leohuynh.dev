@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro'
-import { fetchGithubToday, jsonHeaders } from '~/lib/runtime'
+import { fetchGithubToday } from '~/lib/runtime/github/day'
+import { jsonHeaders } from '~/lib/runtime/shared'
 
 export const prerender = false
 

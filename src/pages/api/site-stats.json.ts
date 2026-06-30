@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro'
-import { fetchSiteStats, jsonHeaders } from '~/lib/runtime'
+import { jsonHeaders } from '~/lib/runtime/shared'
+import { fetchSiteStats } from '~/lib/runtime/site-stats'
 
 /**
  * Site-wide stats for the home page card: all-time pageviews (`hits`) + active visitors

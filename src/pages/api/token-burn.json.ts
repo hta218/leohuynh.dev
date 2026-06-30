@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro'
-import { fetchTokenBurn, jsonHeaders } from '~/lib/runtime'
+import { jsonHeaders } from '~/lib/runtime/shared'
+import { fetchTokenBurn } from '~/lib/runtime/token-burn'
 
 export const prerender = false
 

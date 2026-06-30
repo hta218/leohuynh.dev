@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro'
-import { fetchActivity, jsonHeaders } from '~/lib/runtime'
+import { fetchActivity } from '~/lib/runtime/activity'
+import { jsonHeaders } from '~/lib/runtime/shared'
 
 export const prerender = false
 

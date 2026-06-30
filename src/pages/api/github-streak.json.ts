@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro'
-import { fetchGithubStreak, jsonHeaders } from '~/lib/runtime'
+import { fetchGithubStreak } from '~/lib/runtime/github/streak'
+import { jsonHeaders } from '~/lib/runtime/shared'
 
 export const prerender = false
 

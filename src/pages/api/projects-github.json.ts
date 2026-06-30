@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro'
 import { fetchGithubRepository } from '~/lib/github'
 import { PROJECTS } from '~/lib/projects'
-import { jsonHeaders } from '~/lib/runtime'
+import { jsonHeaders } from '~/lib/runtime/shared'
 
 export const prerender = false
 

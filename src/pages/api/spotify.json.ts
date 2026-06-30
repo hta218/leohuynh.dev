@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro'
-import { fetchSpotifyStatus, jsonHeaders } from '~/lib/runtime'
+import { jsonHeaders } from '~/lib/runtime/shared'
+import { fetchSpotifyStatus } from '~/lib/runtime/spotify'
 
 export const prerender = false
 

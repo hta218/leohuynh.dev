@@ -1,9 +1,7 @@
 import type { APIRoute } from 'astro'
-import {
-  fetchGithubDay,
-  githubHeatmapDateWindow,
-  jsonHeaders,
-} from '~/lib/runtime'
+import { fetchGithubDay } from '~/lib/runtime/github/day'
+import { githubHeatmapDateWindow } from '~/lib/runtime/hanoi-date'
+import { jsonHeaders } from '~/lib/runtime/shared'
 
 export const prerender = false
 
