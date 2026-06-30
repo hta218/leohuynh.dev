@@ -1,16 +1,18 @@
 ---
 import { getCollection } from 'astro:content'
-import { execSync } from 'node:child_process'
-import AstroIcon from '@icons/astro.svg?raw'
-import GoodreadsIcon from '@icons/goodreads.svg?raw'
-import ImdbIcon from '@icons/imdb.svg?raw'
-import MarkdownIcon from '@icons/markdown.svg?raw'
-import UmamiIcon from '@icons/umami.svg?raw'
-import HugeIcon from '~/components/icons/HugeIcon.astro'
 import { getDotfilesTree } from '~/lib/dotfiles'
 import { SITE } from '~/lib/site'
-import DotfilesNav from './DotfilesNav.astro'
 import RuntimeRail from './runtime-rail/RuntimeRail.astro'
+import { buildExplorerTree } from './studio-shell/lib/explorer-tree'
+import { getCommitInfo } from './studio-shell/lib/meta'
+import {
+  getReadmeTab,
+  getSeedTabs,
+  resolveCurrentTab,
+} from './studio-shell/lib/tabs'
+import Sidebar from './studio-shell/Sidebar.astro'
+import StatusBar from './studio-shell/StatusBar.astro'
+import TabBar from './studio-shell/TabBar.astro'
 
 interface Props {
   /** path used to highlight the active explorer entry, e.g. "/blog" */
@@ -19,214 +21,28 @@ interface Props {
   crumb?: string
 }
 
-type BrandIconName = 'astro' | 'goodreads' | 'imdb' | 'markdown' | 'umami'
-type HugeIconName =
-  | 'analytics'
-  | 'book'
-  | 'caret-down'
-  | 'caret-right'
-  | 'comment'
-  | 'external'
-  | 'file'
-  | 'folder'
-  | 'folder-open'
-  | 'gallery'
-  | 'keyboard'
-  | 'markdown'
-  | 'project'
-  | 'quill'
-  | 'rocket'
-  | 'star'
-  | 'tag'
-  | 'user'
-  | 'code'
-type IconSpec =
-  | { type: 'brand'; name: BrandIconName }
-  | { type: 'huge'; name: HugeIconName }
-
-type TreeLeaf = {
-  kind: 'leaf'
-  id: string
-  href: string
-  file: string
-  title?: string
-  icon: IconSpec
-  external?: boolean
-  openHint?: boolean
-  activeWhen?: (path: string) => boolean
-}
-
-type TreeFolder = {
-  kind: 'folder'
-  id: string
-  href?: string
-  file: string
-  title?: string
-  icon: IconSpec
-  children: TreeLeaf[]
-  activeWhen?: (path: string) => boolean
-}
-
-type TreeItem = TreeLeaf | TreeFolder
-
 const { active, crumb = '~/leohuynh.dev/main' } = Astro.props
 const currentPath = (active ?? Astro.url.pathname.replace(/\/$/, '')) || '/'
-const isExternal = (href: string) => href.startsWith('http')
 const isPublished = (d: { data: { draft?: boolean } }) => d.data.draft !== true
-
-const BRAND_ICONS: Record<BrandIconName, string> = {
-  astro: AstroIcon,
-  goodreads: GoodreadsIcon,
-  imdb: ImdbIcon,
-  markdown: MarkdownIcon,
-  umami: UmamiIcon,
-}
 
 const [posts, snippets] = await Promise.all([
   getCollection('blog', isPublished),
   getCollection('snippets', isPublished),
 ])
-
 const latestPost = posts.sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 )[0]
 const latestSnippet = snippets.sort((a, b) => b.id.localeCompare(a.id))[0]
 
-const exact = (href: string) => (path: string) => path === href
-const startsWith = (prefix: string) => (path: string) =>
-  path === prefix || path.startsWith(`${prefix}/`)
-
-const postsIndex: TreeLeaf = {
-  kind: 'leaf',
-  id: 'posts-index',
-  href: '/log',
-  file: 'index.astro',
-  title: 'Posts index',
-  icon: { type: 'brand', name: 'astro' },
-  activeWhen: (path) => path === '/log' || path.startsWith('/log/page/'),
-}
-const postsSlug: TreeLeaf = {
-  kind: 'leaf',
-  id: 'posts-slug',
-  href: latestPost ? `/log/${latestPost.id}` : '/log',
-  file: '[...slug].astro',
-  title: 'Post detail template',
-  icon: { type: 'brand', name: 'astro' },
-  activeWhen: (path) =>
-    path.startsWith('/log/') && !path.startsWith('/log/page/'),
-}
-const snippetsIndex: TreeLeaf = {
-  kind: 'leaf',
-  id: 'snippets-index',
-  href: '/gists',
-  file: 'index.astro',
-  title: 'Snippets index',
-  icon: { type: 'brand', name: 'astro' },
-  activeWhen: exact('/gists'),
-}
-const snippetsSlug: TreeLeaf = {
-  kind: 'leaf',
-  id: 'snippets-slug',
-  href: latestSnippet ? `/gists/${latestSnippet.id}` : '/gists',
-  file: '[...slug].astro',
-  title: 'Snippet detail template',
-  icon: { type: 'brand', name: 'astro' },
-  activeWhen: (path) => path.startsWith('/gists/'),
-}
-
-const explorerItems: TreeItem[] = [
-  {
-    kind: 'leaf',
-    id: 'readme',
-    href: '/',
-    file: 'README.md',
-    title: 'Home',
-    icon: { type: 'brand', name: 'markdown' },
-    activeWhen: exact('/'),
-  },
-  {
-    kind: 'folder',
-    id: 'posts-folder',
-    file: 'logs',
-    title: 'Logs',
-    icon: { type: 'huge', name: 'folder' },
-    children: [postsIndex, postsSlug],
-    activeWhen: startsWith('/log'),
-  },
-  {
-    kind: 'folder',
-    id: 'snippets-folder',
-    file: 'gists',
-    title: 'Gists',
-    icon: { type: 'huge', name: 'folder' },
-    children: [snippetsIndex, snippetsSlug],
-    activeWhen: startsWith('/gists'),
-  },
-  {
-    kind: 'leaf',
-    id: 'projects',
-    href: '/builds',
-    file: 'builds.astro',
-    title: 'Builds',
-    icon: { type: 'huge', name: 'rocket' },
-    activeWhen: exact('/builds'),
-  },
-  {
-    kind: 'leaf',
-    id: 'about',
-    href: '/whoami',
-    file: 'whoami',
-    title: 'whoami',
-    icon: { type: 'brand', name: 'markdown' },
-    activeWhen: exact('/whoami'),
-  },
-  {
-    kind: 'leaf',
-    id: 'beliefs',
-    href: '/beliefs',
-    file: 'beliefs.md',
-    title: 'Beliefs',
-    icon: { type: 'brand', name: 'markdown' },
-    activeWhen: exact('/beliefs'),
-  },
-  {
-    kind: 'leaf',
-    id: 'shelf',
-    href: '/shelf',
-    file: 'shelf.astro',
-    title: 'Shelf',
-    icon: { type: 'huge', name: 'gallery' },
-    activeWhen: startsWith('/shelf'),
-  },
-  {
-    kind: 'leaf',
-    id: 'tags',
-    href: '/topics',
-    file: 'topics',
-    title: 'Topics',
-    icon: { type: 'huge', name: 'tag' },
-    activeWhen: startsWith('/topics'),
-  },
-  {
-    kind: 'leaf',
-    id: 'guestbook',
-    href: '/guestbook',
-    file: 'guestbook.astro',
-    title: 'Guestbook',
-    icon: { type: 'huge', name: 'quill' },
-    activeWhen: exact('/guestbook'),
-  },
-  {
-    kind: 'leaf',
-    id: 'stats',
-    href: SITE.analytics.umamiShareUrl,
-    file: 'stats',
-    title: 'Stats',
-    icon: { type: 'brand', name: 'umami' },
-    external: true,
-    openHint: true,
-  },
-]
+const {
+  items: explorerItems,
+  postsIndex,
+  snippetsIndex,
+} = buildExplorerTree({
+  latestPostId: latestPost?.id,
+  latestSnippetId: latestSnippet?.id,
+  statsUrl: SITE.analytics.umamiShareUrl,
+})
 
 const rawDotfilesTree = await getDotfilesTree()
 // Hoist the root README to the top of the group so it reads like a landing entry.
@@ -243,294 +59,32 @@ const activeDotfile =
       : undefined
 
 const shellId = `studio-${Math.random().toString(36).slice(2)}`
-const isActive = (item: {
-  href: string
-  activeWhen?: (path: string) => boolean
-}) =>
-  item.activeWhen ? item.activeWhen(currentPath) : currentPath === item.href
 
 // The tab bar behaves like IDE editor tabs: it starts with just the README and
 // grows as the visitor navigates (managed client-side). Here we only compute the
-// descriptor for the README (always pinned) and the current page, which seed the
-// bar on the server and feed the client-side tab manager.
-const readmeTab = explorerItems.find(
-  (item) => item.kind === 'leaf' && item.id === 'readme',
-) as TreeLeaf
-const allTabLeaves: TreeLeaf[] = explorerItems.flatMap((item) =>
-  item.kind === 'folder' ? item.children : [item],
-)
-const resolveCurrentTab = (path: string): TreeLeaf => {
-  if (path === '/log' || path.startsWith('/log/page/')) {
-    return {
-      ...postsIndex,
-      id: 'current',
-      href: '/log',
-      file: 'log/index.astro',
-    }
-  }
-  if (path === '/gists') {
-    return {
-      ...snippetsIndex,
-      id: 'current',
-      href: '/gists',
-      file: 'gists/index.astro',
-    }
-  }
-  if (path.startsWith('/log/')) {
-    const slug = decodeURIComponent(path.slice('/log/'.length))
-    return {
-      kind: 'leaf',
-      id: 'current',
-      href: path,
-      file: `${slug}.mdx`,
-      icon: { type: 'brand', name: 'astro' },
-    }
-  }
-  if (path.startsWith('/gists/')) {
-    const slug = decodeURIComponent(path.slice('/gists/'.length))
-    return {
-      kind: 'leaf',
-      id: 'current',
-      href: path,
-      file: `${slug}.mdx`,
-      icon: { type: 'brand', name: 'astro' },
-    }
-  }
-  if (path.startsWith('/topics/')) {
-    const tag = decodeURIComponent(path.slice('/topics/'.length))
-    return {
-      kind: 'leaf',
-      id: 'current',
-      href: path,
-      file: tag || 'topics',
-      icon: { type: 'huge', name: 'tag' },
-    }
-  }
-  if (path.startsWith('/dotfiles/')) {
-    const rel = decodeURIComponent(path.slice('/dotfiles/'.length))
-    const base = rel.split('/').pop() || 'dotfiles'
-    return {
-      kind: 'leaf',
-      id: 'current',
-      href: path,
-      file: base,
-      icon: { type: 'huge', name: 'markdown' },
-    }
-  }
-  const match = allTabLeaves.find((leaf) => isActive(leaf))
-  if (match) return { ...match, id: 'current' }
-  const segment = path.replace(/^\//, '').split('/').pop() || 'index'
-  return {
-    kind: 'leaf',
-    id: 'current',
-    href: path,
-    file: segment,
-    icon: { type: 'huge', name: 'file' },
-  }
-}
-const currentTab = resolveCurrentTab(currentPath)
-const seedTabs: TreeLeaf[] =
-  currentTab.href === readmeTab.href ? [readmeTab] : [readmeTab, currentTab]
-const renderCommit = () => {
-  const sha = process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 7)
-  if (sha) return sha
-  try {
-    return execSync('git rev-parse --short HEAD', { encoding: 'utf8' }).trim()
-  } catch {
-    return 'local'
-  }
-}
-const renderCommitDate = () => {
-  const envDate = process.env.VERCEL_GIT_COMMIT_AUTHOR_DATE
-  if (envDate) return envDate
-  try {
-    return execSync('git log -1 --format=%cI', { encoding: 'utf8' }).trim()
-  } catch {
-    return new Date().toISOString()
-  }
-}
-const lastCommit = renderCommit()
-const lastCommitDate = renderCommitDate()
-const lastCommitUrl =
-  lastCommit && lastCommit !== 'local'
-    ? `${SITE.siteRepo}/commit/${lastCommit}`
-    : SITE.siteRepo
-const SITE_VERSIONS = [
-  {
-    value: 'latest',
-    branch: 'main',
-    label: 'Astro × bun',
-    href: '/',
-    current: true,
-  },
-  {
-    value: 'v3',
-    branch: 'v3',
-    label: 'Next.js 15 × pnpm',
-    href: 'https://v3.leohuynh.dev/',
-  },
-  {
-    value: 'v2',
-    branch: 'v2',
-    label: 'Next.js 14 × npm',
-    href: 'https://v2.leohuynh.dev/',
-  },
-  {
-    value: 'v1',
-    branch: 'v1',
-    label: 'Gatsby × yarn',
-    href: 'https://v1.leohuynh.dev/',
-  },
-]
-const currentBranch = SITE_VERSIONS.find((v) => v.current)?.branch ?? 'main'
-const GIT_BRANCH_ICON =
-  '<svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M9.5 3.25a2.25 2.25 0 1 1 3 2.122V6A2.5 2.5 0 0 1 10 8.5H6a1 1 0 0 0-1 1v1.128a2.251 2.251 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.5 0v1.836A2.493 2.493 0 0 1 6 7h4a1 1 0 0 0 1-1v-.628A2.25 2.25 0 0 1 9.5 3.25Zm-6 0a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Zm8.25-.75a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5ZM4.25 12a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Z"></path></svg>'
+// descriptors that seed the bar on the server: README (always pinned) + current.
+const readmeTab = getReadmeTab(explorerItems)
+const currentTab = resolveCurrentTab(currentPath, {
+  items: explorerItems,
+  postsIndex,
+  snippetsIndex,
+})
+const seedTabs = getSeedTabs(readmeTab, currentTab)
+
+const { lastCommit, lastCommitDate, lastCommitUrl } = getCommitInfo()
 ---
 
 <div id={shellId} class="studio-shell grid h-screen grid-rows-[1fr_32px] overflow-hidden bg-bg" data-rail="visible">
   <div class="studio-workspace grid min-h-0 grid-cols-1 overflow-hidden lg:grid-cols-[260px_minmax(0,1fr)_360px]">
-    <aside class="thin-scrollbar hidden min-h-0 overflow-y-auto border-r border-line bg-[#f8fafc] px-3 py-3 lg:block">
-      <a href="/" class="mb-4 flex items-center gap-2.5 font-extrabold no-underline text-ink">
-        <span class="flex h-9 w-9 items-center justify-center rounded-xl border border-ink bg-white font-mono text-base shadow-[3px_3px_0_var(--color-ink)]">~/</span>
-        <span>leohuynh.dev</span>
-      </a>
-
-      <section class="mb-4" data-folder="section-explorer">
-        <button
-          type="button"
-          data-folder-toggle="section-explorer"
-          aria-expanded="true"
-          class="sidebar-section-header mb-2"
-        >
-          <span>explorer</span>
-          <span class="section-toggle" aria-hidden="true" />
-        </button>
-        <nav class="space-y-0.5" data-folder-children="section-explorer">
-          {
-            explorerItems.map((item) => (
-              <div data-folder={item.kind === 'folder' ? item.id : undefined}>
-                {item.kind === 'folder' ? (
-                  <>
-                    <button
-                      type="button"
-                      data-folder-toggle={item.id}
-                      data-folder-default="closed"
-                      aria-expanded="false"
-                      class="explorer-row explorer-folder-row py-1.5 text-left font-mono text-[13px] text-slate-600 hover:bg-slate-100 hover:text-slate-950"
-                    >
-                      <HugeIcon name="caret-down" class="explorer-caret text-slate-500" />
-                      <span class="explorer-icon text-slate-500">
-                        <HugeIcon name="folder-open" class="folder-icon-open" />
-                        <HugeIcon name="folder" class="folder-icon-closed" />
-                      </span>
-                      <span>{item.file}</span>
-                    </button>
-                    <div class="mt-0.5 space-y-0.5" data-folder-children={item.id}>
-                      {item.children.map((child) => (
-                        <a
-                          href={child.href}
-                          class:list={[
-                            'explorer-row explorer-row--child py-1.5 font-mono text-[13px] no-underline',
-                            isActive(child)
-                              ? 'bg-slate-200 text-slate-950'
-                              : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950',
-                          ]}
-                        >
-                          <span class="explorer-caret" aria-hidden="true" />
-                          {child.icon.type === 'brand' ? (
-                            <span class="brand-icon explorer-icon text-slate-500" set:html={BRAND_ICONS[child.icon.name]} />
-                          ) : (
-                            <HugeIcon name={child.icon.name} class="explorer-icon text-slate-500" />
-                          )}
-                          <span>{child.file}</span>
-                        </a>
-                      ))}
-                    </div>
-                  </>
-                ) : (
-                  <a
-                    href={item.href}
-                    target={item.external || isExternal(item.href) ? '_blank' : undefined}
-                    rel={item.external || isExternal(item.href) ? 'noreferrer' : undefined}
-                    class:list={[
-                      'explorer-row group py-1.5 font-mono text-[13px] no-underline',
-                      isActive(item)
-                        ? 'bg-slate-200 text-slate-950'
-                        : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950',
-                    ]}
-                  >
-                    <span class="explorer-caret" aria-hidden="true" />
-                    {item.icon.type === 'brand' ? (
-                      <span class="brand-icon explorer-icon text-slate-500" set:html={BRAND_ICONS[item.icon.name]} />
-                    ) : (
-                      <HugeIcon name={item.icon.name} class="explorer-icon text-slate-500" />
-                    )}
-                    <span>{item.file}</span>
-                    {item.openHint && <HugeIcon name="external" class="ml-auto opacity-0 transition-opacity group-hover:opacity-100" size={13} />}
-                  </a>
-                )}
-              </div>
-            ))
-          }
-        </nav>
-      </section>
-
-      <section class="mb-4" data-folder="section-dotfiles">
-        <button
-          type="button"
-          data-folder-toggle="section-dotfiles"
-          data-folder-default="closed"
-          aria-expanded="false"
-          class="sidebar-section-header mb-2"
-        >
-          <span>dotfiles</span>
-          <span class="section-toggle" aria-hidden="true" />
-        </button>
-        <nav class="space-y-0.5" data-folder-children="section-dotfiles">
-          <DotfilesNav nodes={dotfilesTree} currentPath={activeDotfile} />
-        </nav>
-      </section>
-    </aside>
+    <Sidebar
+      explorerItems={explorerItems}
+      currentPath={currentPath}
+      dotfilesTree={dotfilesTree}
+      activeDotfile={activeDotfile}
+    />
 
     <main class="flex min-h-0 min-w-0 flex-col overflow-hidden bg-panel [background-image:linear-gradient(90deg,rgba(15,23,42,0.03)_1px,transparent_1px)] [background-size:64px_64px]">
-      <nav class="flex shrink-0 items-stretch border-b border-line bg-[#fbfcff]">
-        <div
-          class="thin-scrollbar flex min-w-0 flex-1 overflow-x-auto"
-          data-tab-bar
-          data-current-href={currentTab.href}
-        >
-          {
-            seedTabs.map((l) => (
-              <a
-                href={l.href}
-                data-tab-href={l.href}
-                class:list={[
-                  'tab-row shrink-0 border-r border-line px-3.5 py-2.5 font-mono text-xs no-underline',
-                  l.href === currentTab.href
-                    ? 'bg-white text-slate-950 shadow-[inset_0_-2px_0_var(--color-ink)]'
-                    : 'text-muted hover:text-slate-950',
-                ]}
-              >
-                {l.icon.type === 'brand' ? (
-                  <span class="brand-icon tab-icon text-slate-500" set:html={BRAND_ICONS[l.icon.name]} />
-                ) : (
-                  <HugeIcon name={l.icon.name} class="tab-icon text-slate-500" />
-                )}
-                {l.file}
-              </a>
-            ))
-          }
-        </div>
-        <button
-          type="button"
-          class="hidden cursor-pointer shrink-0 border-l border-line bg-[#fbfcff] px-3.5 py-2.5 font-mono text-xs text-muted hover:bg-white hover:text-slate-950 lg:block"
-          data-toggle-rail
-          aria-controls="runtime-rail"
-          aria-expanded="true"
-        >
-          hide right rail
-        </button>
-      </nav>
+      <TabBar seedTabs={seedTabs} currentTab={currentTab} />
 
       <div class="thin-scrollbar min-h-0 flex-1 overflow-y-auto px-[clamp(22px,5vw,78px)] pt-9.5 pb-17.5">
         <div class="mb-4.5 font-mono text-xs text-slate-500">{crumb}</div>
@@ -541,279 +95,13 @@ const GIT_BRANCH_ICON =
     <RuntimeRail />
   </div>
 
-  <footer class="studio-statusbar flex min-w-0 items-center justify-between gap-3 border-t border-line bg-white px-3 font-mono text-[12px] text-slate-600">
-    <div class="flex min-w-0 items-center gap-3">
-      <div class="version-menu" data-version-menu>
-        <button
-          type="button"
-          class="version-trigger"
-          data-version-trigger
-          aria-haspopup="menu"
-          aria-expanded="false"
-          aria-label="Switch site version (git branch)"
-          title="Switch site version"
-        >
-          <span class="git-branch-icon" set:html={GIT_BRANCH_ICON} />
-          <span>{currentBranch}</span>
-          <svg class="version-caret" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M6 15l6-6 6 6" />
-          </svg>
-        </button>
-        <div class="version-popover" data-version-popover role="menu" hidden>
-          <div class="version-popover-title">Checkout version</div>
-          {
-            SITE_VERSIONS.map((version) => (
-              <a
-                href={version.href}
-                target={version.value === 'latest' ? '_self' : '_blank'}
-                rel="noreferrer"
-                class="version-item"
-                role="menuitem"
-                data-version-item
-                aria-current={version.current ? 'true' : undefined}
-              >
-                <span class="git-branch-icon" set:html={GIT_BRANCH_ICON} />
-                <span class="version-item-branch">{version.branch}</span>
-                <span class="version-item-label">{version.label}</span>
-                {version.current && <span class="version-item-check" aria-hidden="true">✓</span>}
-              </a>
-            ))
-          }
-        </div>
-      </div>
-      <a
-        href={lastCommitUrl}
-        target="_blank"
-        rel="noreferrer"
-        class="hidden whitespace-nowrap text-slate-950 underline decoration-slate-300 underline-offset-3 hover:decoration-slate-950 sm:inline"
-        title="View last commit on GitHub"
-        data-commit-time={lastCommitDate}
-      >
-        #{lastCommit}
-        <span class="text-slate-400" data-commit-ago>—</span>
-      </a>
-    </div>
-    <div class="flex shrink-0 items-center gap-3">
-      <a
-        href="https://time.is/Hanoi"
-        target="_blank"
-        rel="noreferrer"
-        class="whitespace-nowrap text-slate-700 underline decoration-slate-300 underline-offset-3 hover:text-slate-950"
-        data-local-time-link
-      >
-        Hanoi <span data-local-time>--:--</span> <span class="text-slate-400" data-local-time-diff></span>
-      </a>
-    </div>
-  </footer>
+  <StatusBar
+    lastCommit={lastCommit}
+    lastCommitDate={lastCommitDate}
+    lastCommitUrl={lastCommitUrl}
+  />
 </div>
 
-<script is:inline>
-  // IDE-like editor tabs: the open list lives on `window` so it survives SPA
-  // (view-transition) navigation but resets on a full page reload. README is
-  // always pinned, the active tab is always kept, and the oldest evictable tab
-  // is dropped past the cap.
-  function initStudioTabs(shell) {
-    const bar = shell.querySelector('[data-tab-bar]')
-    if (!bar) return
-
-    const MAX = 5
-    const HOME = '/'
-    const BASE =
-      'tab-row shrink-0 border-r border-line px-3.5 py-2.5 font-mono text-xs no-underline'
-    const ACTIVE = 'bg-white text-slate-950 shadow-[inset_0_-2px_0_var(--color-ink)]'
-    const INACTIVE = 'text-muted hover:text-slate-950'
-
-    const currentHref = bar.getAttribute('data-current-href') || HOME
-
-    // Capture the markup (icon + label) of the server-rendered seed tabs so the
-    // README and the current page always have a fresh descriptor to render.
-    const seeds = {}
-    bar.querySelectorAll('a[data-tab-href]').forEach((a) => {
-      seeds[a.getAttribute('data-tab-href')] = a.innerHTML
-    })
-
-    let list = Array.isArray(window.__leohuynhTabs) ? window.__leohuynhTabs : []
-
-    const findIdx = (href) => list.findIndex((t) => t && t.href === href)
-
-    // Always keep README pinned at the front.
-    if (findIdx(HOME) === -1 && seeds[HOME] != null) {
-      list.unshift({ href: HOME, inner: seeds[HOME] })
-    }
-
-    // Add (or refresh) the current page tab.
-    const curIdx = findIdx(currentHref)
-    if (curIdx === -1) {
-      list.push({ href: currentHref, inner: seeds[currentHref] || '' })
-    } else if (seeds[currentHref] != null) {
-      list[curIdx].inner = seeds[currentHref]
-    }
-
-    // Drop the oldest evictable tab (never README, never the active one).
-    while (list.length > MAX) {
-      const victim = list.findIndex(
-        (t) => t.href !== HOME && t.href !== currentHref,
-      )
-      if (victim === -1) break
-      list.splice(victim, 1)
-    }
-
-    list = list.filter((t) => t && typeof t.inner === 'string' && t.inner)
-    window.__leohuynhTabs = list
-
-    bar.innerHTML = ''
-    list.forEach((t) => {
-      const a = document.createElement('a')
-      a.href = t.href
-      a.setAttribute('data-tab-href', t.href)
-      a.className = `${BASE} ${t.href === currentHref ? ACTIVE : INACTIVE}`
-      a.innerHTML = t.inner
-      bar.appendChild(a)
-    })
-  }
-
-  function initStudioShell() {
-    const root = document.documentElement
-    // Code blocks render with a fixed light theme and the default mono font.
-    root.dataset.theme = 'github-light-default'
-    root.dataset.codeFont = 'ui-mono'
-
-    if (!window.__leohuynhVersionMenuBound) {
-      window.__leohuynhVersionMenuBound = true
-      const closeVersionMenus = () => {
-        document.querySelectorAll('[data-version-popover]').forEach((p) => {
-          p.hidden = true
-        })
-        document.querySelectorAll('[data-version-trigger]').forEach((t) => {
-          t.setAttribute('aria-expanded', 'false')
-        })
-      }
-      document.addEventListener('click', (event) => {
-        const trigger = event.target.closest('[data-version-trigger]')
-        if (trigger) {
-          const menu = trigger.closest('[data-version-menu]')
-          const popover = menu && menu.querySelector('[data-version-popover]')
-          const willOpen = popover && popover.hidden
-          closeVersionMenus()
-          if (willOpen) {
-            popover.hidden = false
-            trigger.setAttribute('aria-expanded', 'true')
-          }
-          return
-        }
-        // a menu item navigates natively; just close the popover
-        if (event.target.closest('[data-version-item]')) {
-          closeVersionMenus()
-          return
-        }
-        if (!event.target.closest('[data-version-popover]')) closeVersionMenus()
-      })
-      document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape') closeVersionMenus()
-      })
-    }
-
-    document.querySelectorAll('.studio-shell').forEach((shell) => {
-      initStudioTabs(shell)
-
-      const toggle = shell.querySelector('[data-toggle-rail]')
-      const saved = root.dataset.rail || localStorage.getItem('leohuynh:right-rail') || 'visible'
-      const setRail = (state) => {
-        shell.dataset.rail = state
-        root.dataset.rail = state
-        if (toggle) {
-          toggle.textContent = state === 'hidden' ? 'show right rail' : 'hide right rail'
-          toggle.setAttribute('aria-expanded', String(state !== 'hidden'))
-        }
-        localStorage.setItem('leohuynh:right-rail', state)
-      }
-      setRail(saved)
-      if (toggle && !toggle.dataset.bound) {
-        toggle.dataset.bound = 'true'
-        toggle.addEventListener('click', () => {
-          setRail((root.dataset.rail || shell.dataset.rail) === 'hidden' ? 'visible' : 'hidden')
-        })
-      }
-
-      shell.querySelectorAll('[data-folder-toggle]').forEach((button) => {
-        if (button.dataset.bound) return
-        button.dataset.bound = 'true'
-        const id = button.getAttribute('data-folder-toggle')
-        const children = shell.querySelector(`[data-folder-children="${id}"]`)
-        const caret = button.querySelector('.explorer-caret')
-        // Folder open/close lives on `window` so it survives SPA navigation but
-        // resets to the default on a full page reload.
-        const store = (window.__leohuynhFolders ||= {})
-        const setOpen = (open) => {
-          button.setAttribute('aria-expanded', String(open))
-          if (children) children.hidden = !open
-          if (caret) caret.style.transform = open ? 'rotate(0deg)' : 'rotate(-90deg)'
-          store[id] = open
-        }
-        const defaultOpen = button.getAttribute('data-folder-default') !== 'closed'
-        setOpen(id in store ? store[id] : defaultOpen)
-        button.addEventListener('click', () => {
-          setOpen(button.getAttribute('aria-expanded') !== 'true')
-        })
-      })
-
-      const timeEl = shell.querySelector('[data-local-time]')
-      const diffEl = shell.querySelector('[data-local-time-diff]')
-      const updateTime = () => {
-        if (!timeEl) return
-        const date = new Date()
-        const hanoiOffset = -420
-        const visitorOffset = date.getTimezoneOffset()
-        const hoursDiff = (visitorOffset - hanoiOffset) / 60
-        const diff = hoursDiff === 0 ? 'same time' : hoursDiff > 0 ? `${hoursDiff}h ahead` : `${Math.abs(hoursDiff)}h behind`
-        timeEl.textContent = new Intl.DateTimeFormat('en-US', {
-          timeZone: 'Asia/Ho_Chi_Minh',
-          hour: '2-digit',
-          minute: '2-digit',
-          hour12: true,
-          timeZoneName: 'short',
-        }).format(date)
-        if (diffEl) diffEl.textContent = `- ${diff}`
-      }
-      updateTime()
-      if (!shell.dataset.timeBound) {
-        shell.dataset.timeBound = 'true'
-        setInterval(updateTime, 30_000)
-      }
-
-      const commitLink = shell.querySelector('[data-commit-time]')
-      const commitAgoEl = shell.querySelector('[data-commit-ago]')
-      const updateCommitAgo = () => {
-        if (!commitLink || !commitAgoEl) return
-        const date = new Date(commitLink.getAttribute('data-commit-time') || '')
-        if (Number.isNaN(date.getTime())) return
-        const seconds = Math.floor((Date.now() - date.getTime()) / 1000)
-        const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' })
-        let value
-        let unit
-        if (seconds < 60) {
-          value = seconds
-          unit = 'second'
-        } else if (seconds < 3600) {
-          value = Math.floor(seconds / 60)
-          unit = 'minute'
-        } else if (seconds < 86400) {
-          value = Math.floor(seconds / 3600)
-          unit = 'hour'
-        } else {
-          value = Math.floor(seconds / 86400)
-          unit = 'day'
-        }
-        commitAgoEl.textContent = `· ${rtf.format(-value, unit)}`
-      }
-      updateCommitAgo()
-      if (!shell.dataset.commitBound) {
-        shell.dataset.commitBound = 'true'
-        setInterval(updateCommitAgo, 60_000)
-      }
-    })
-  }
-
-  initStudioShell()
-  document.addEventListener('astro:page-load', initStudioShell)
+<script>
+  import './studio-shell/client/boot'
 </script>

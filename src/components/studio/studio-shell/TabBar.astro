@@ -1,0 +1,51 @@
+---
+import HugeIcon from '~/components/icons/HugeIcon.astro'
+import { BRAND_ICONS } from './lib/brand-icons'
+import type { TreeLeaf } from './lib/types'
+
+interface Props {
+  seedTabs: TreeLeaf[]
+  currentTab: TreeLeaf
+}
+
+const { seedTabs, currentTab } = Astro.props
+---
+
+<nav class="flex shrink-0 items-stretch border-b border-line bg-[#fbfcff]">
+  <div
+    class="thin-scrollbar flex min-w-0 flex-1 overflow-x-auto"
+    data-tab-bar
+    data-current-href={currentTab.href}
+  >
+    {
+      seedTabs.map((l) => (
+        <a
+          href={l.href}
+          data-tab-href={l.href}
+          class:list={[
+            'tab-row shrink-0 border-r border-line px-3.5 py-2.5 font-mono text-xs no-underline',
+            l.href === currentTab.href
+              ? 'bg-white text-slate-950 shadow-[inset_0_-2px_0_var(--color-ink)]'
+              : 'text-muted hover:text-slate-950',
+          ]}
+        >
+          {l.icon.type === 'brand' ? (
+            <span class="brand-icon tab-icon text-slate-500" set:html={BRAND_ICONS[l.icon.name]} />
+          ) : (
+            <HugeIcon name={l.icon.name} class="tab-icon text-slate-500" />
+          )}
+          {l.file}
+        </a>
+      ))
+    }
+  </div>
+  <button
+    type="button"
+    class="hidden cursor-pointer shrink-0 border-l border-line bg-[#fbfcff] px-3.5 py-2.5 font-mono text-xs text-muted hover:bg-white hover:text-slate-950 lg:block"
+    data-toggle-rail
+    aria-controls="runtime-rail"
+    aria-expanded="true"
+  >
+    hide right rail
+  </button>
+</nav>

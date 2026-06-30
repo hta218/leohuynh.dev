@@ -1,0 +1,121 @@
+---
+import HugeIcon from '~/components/icons/HugeIcon.astro'
+import type { DotfileNode } from '~/lib/dotfiles'
+import DotfilesNav from '../DotfilesNav.astro'
+import { BRAND_ICONS } from './lib/brand-icons'
+import { isActive } from './lib/tabs'
+import type { TreeItem } from './lib/types'
+
+interface Props {
+  explorerItems: TreeItem[]
+  currentPath: string
+  dotfilesTree: DotfileNode[]
+  activeDotfile: string | undefined
+}
+
+const { explorerItems, currentPath, dotfilesTree, activeDotfile } = Astro.props
+const isExternal = (href: string) => href.startsWith('http')
+---
+
+<aside class="thin-scrollbar hidden min-h-0 overflow-y-auto border-r border-line bg-[#f8fafc] px-3 py-3 lg:block">
+  <a href="/" class="mb-4 flex items-center gap-2.5 font-extrabold no-underline text-ink">
+    <span class="flex h-9 w-9 items-center justify-center rounded-xl border border-ink bg-white font-mono text-base shadow-[3px_3px_0_var(--color-ink)]">~/</span>
+    <span>leohuynh.dev</span>
+  </a>
+
+  <section class="mb-4" data-folder="section-explorer">
+    <button
+      type="button"
+      data-folder-toggle="section-explorer"
+      aria-expanded="true"
+      class="sidebar-section-header mb-2"
+    >
+      <span>explorer</span>
+      <span class="section-toggle" aria-hidden="true" />
+    </button>
+    <nav class="space-y-0.5" data-folder-children="section-explorer">
+      {
+        explorerItems.map((item) => (
+          <div data-folder={item.kind === 'folder' ? item.id : undefined}>
+            {item.kind === 'folder' ? (
+              <>
+                <button
+                  type="button"
+                  data-folder-toggle={item.id}
+                  data-folder-default="closed"
+                  aria-expanded="false"
+                  class="explorer-row explorer-folder-row py-1.5 text-left font-mono text-[13px] text-slate-600 hover:bg-slate-100 hover:text-slate-950"
+                >
+                  <HugeIcon name="caret-down" class="explorer-caret text-slate-500" />
+                  <span class="explorer-icon text-slate-500">
+                    <HugeIcon name="folder-open" class="folder-icon-open" />
+                    <HugeIcon name="folder" class="folder-icon-closed" />
+                  </span>
+                  <span>{item.file}</span>
+                </button>
+                <div class="mt-0.5 space-y-0.5" data-folder-children={item.id}>
+                  {item.children.map((child) => (
+                    <a
+                      href={child.href}
+                      class:list={[
+                        'explorer-row explorer-row--child py-1.5 font-mono text-[13px] no-underline',
+                        isActive(child, currentPath)
+                          ? 'bg-slate-200 text-slate-950'
+                          : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950',
+                      ]}
+                    >
+                      <span class="explorer-caret" aria-hidden="true" />
+                      {child.icon.type === 'brand' ? (
+                        <span class="brand-icon explorer-icon text-slate-500" set:html={BRAND_ICONS[child.icon.name]} />
+                      ) : (
+                        <HugeIcon name={child.icon.name} class="explorer-icon text-slate-500" />
+                      )}
+                      <span>{child.file}</span>
+                    </a>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <a
+                href={item.href}
+                target={item.external || isExternal(item.href) ? '_blank' : undefined}
+                rel={item.external || isExternal(item.href) ? 'noreferrer' : undefined}
+                class:list={[
+                  'explorer-row group py-1.5 font-mono text-[13px] no-underline',
+                  isActive(item, currentPath)
+                    ? 'bg-slate-200 text-slate-950'
+                    : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950',
+                ]}
+              >
+                <span class="explorer-caret" aria-hidden="true" />
+                {item.icon.type === 'brand' ? (
+                  <span class="brand-icon explorer-icon text-slate-500" set:html={BRAND_ICONS[item.icon.name]} />
+                ) : (
+                  <HugeIcon name={item.icon.name} class="explorer-icon text-slate-500" />
+                )}
+                <span>{item.file}</span>
+                {item.openHint && <HugeIcon name="external" class="ml-auto opacity-0 transition-opacity group-hover:opacity-100" size={13} />}
+              </a>
+            )}
+          </div>
+        ))
+      }
+    </nav>
+  </section>
+
+  <section class="mb-4" data-folder="section-dotfiles">
+    <button
+      type="button"
+      data-folder-toggle="section-dotfiles"
+      data-folder-default="closed"
+      aria-expanded="false"
+      class="sidebar-section-header mb-2"
+    >
+      <span>dotfiles</span>
+      <span class="section-toggle" aria-hidden="true" />
+    </button>
+    <nav class="space-y-0.5" data-folder-children="section-dotfiles">
+      <DotfilesNav nodes={dotfilesTree} currentPath={activeDotfile} />
+    </nav>
+  </section>
+</aside>
