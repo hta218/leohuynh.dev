@@ -1,0 +1,50 @@
+<div class="rounded-2xl border border-line bg-white p-3.5">
+  <div class="mb-3 flex items-center justify-between gap-3">
+    <h3 class="font-mono text-[11px] uppercase tracking-[0.08em] text-muted">
+      git grass
+    </h3>
+    <span data-github-heat-meta class="font-mono text-[10px] uppercase tracking-[0.08em] text-muted">
+      last 28 days
+    </span>
+  </div>
+  <div
+    data-github-heat
+    class="grid [grid-template-columns:repeat(14,minmax(0,1fr))] gap-1"
+    aria-label="GitHub contribution heatmap"
+  >
+    {
+      Array.from({ length: 28 }).map(() => (
+        <span class="aspect-square w-full rounded-[3px] border border-line bg-[#eef3f7] animate-pulse" />
+      ))
+    }
+  </div>
+
+  <div class="mt-3 border-t border-line pt-3">
+    <div class="mb-2 flex items-center justify-between gap-3">
+      <h3 data-github-detail-title class="font-mono text-[11px] uppercase tracking-[0.08em] text-muted">
+        github today
+      </h3>
+      <button
+        data-github-clear
+        type="button"
+        class="hidden font-mono text-[10px] uppercase tracking-[0.08em] text-muted hover:text-code-blue"
+      >
+        clear
+      </button>
+    </div>
+    <div data-github-detail class="grid gap-1.5">
+      <div class="flex items-baseline justify-between gap-3 border-b border-dashed border-line/80 py-1 last:border-b-0">
+        <span class="font-mono text-[10px] uppercase tracking-[0.06em] text-muted">contribs</span>
+        <strong class="font-mono text-[12px]"><span class="inline-block h-2 w-10 align-middle rounded-full bg-line/70 animate-pulse"></span></strong>
+      </div>
+      <div class="flex items-baseline justify-between gap-3 border-b border-dashed border-line/80 py-1 last:border-b-0">
+        <span class="font-mono text-[10px] uppercase tracking-[0.06em] text-muted">LOCs</span>
+        <strong class="font-mono text-[12px]"><span class="inline-block h-2 w-16 align-middle rounded-full bg-line/70 animate-pulse"></span></strong>
+      </div>
+      <div class="flex items-baseline justify-between gap-3 border-b border-dashed border-line/80 py-1 last:border-b-0">
+        <span class="font-mono text-[10px] uppercase tracking-[0.06em] text-muted">commits / prs / issues</span>
+        <strong class="font-mono text-[12px]"><span class="inline-block h-2 w-16 align-middle rounded-full bg-line/70 animate-pulse"></span></strong>
+      </div>
+    </div>
+  </div>
+</div>

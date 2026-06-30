@@ -1,0 +1,45 @@
+---
+import SpotifyIcon from '@icons/spotify.svg?raw'
+---
+
+<div class="rounded-2xl border border-line bg-white p-3.5">
+  <div class="mb-3 flex items-center gap-1.5">
+    <span
+      class="flex h-3.5 w-3.5 shrink-0 items-center [&_svg]:h-full [&_svg]:w-full"
+      aria-hidden="true"
+      set:html={SpotifyIcon}
+    />
+    <h3 data-spotify-heading class="font-mono text-[11px] uppercase tracking-[0.08em] text-muted">
+      <span class="inline-block h-2.5 w-16 rounded-full bg-line/70 align-middle animate-pulse"></span>
+    </h3>
+  </div>
+  <div class="grid grid-cols-[48px_1fr] items-center gap-3">
+    <img
+      data-spotify-image
+      src=""
+      alt=""
+      class="hidden h-12 w-12 rounded-xl border border-line object-cover"
+    />
+    <div data-spotify-placeholder class="h-12 w-12 rounded-xl border border-line bg-[linear-gradient(135deg,#bbf7d0,#bfdbfe)]"></div>
+    <div class="min-w-0">
+      <a
+        data-spotify-title-link
+        href="#"
+        target="_blank"
+        rel="noreferrer"
+        class="hidden font-semibold text-ink no-underline hover:text-code-blue"
+      ></a>
+      <b data-spotify-empty>—</b>
+      <span data-spotify-artist class="block font-mono text-xs text-muted">loading…</span>
+      <span class="mt-1 flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.08em] text-code-green">
+        <span data-spotify-eq class="eq" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+        <span data-spotify-status class="min-w-0 truncate">loading</span>
+      </span>
+    </div>
+  </div>
+</div>
