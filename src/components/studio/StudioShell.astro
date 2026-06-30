@@ -1,14 +1,14 @@
 ---
 import { getCollection } from 'astro:content'
 import { execSync } from 'node:child_process'
-import HugeIcon from '~/components/icons/HugeIcon.astro'
-import { getDotfilesTree } from '~/lib/dotfiles'
-import { SITE } from '~/lib/site'
 import AstroIcon from '@icons/astro.svg?raw'
 import GoodreadsIcon from '@icons/goodreads.svg?raw'
 import ImdbIcon from '@icons/imdb.svg?raw'
 import MarkdownIcon from '@icons/markdown.svg?raw'
 import UmamiIcon from '@icons/umami.svg?raw'
+import HugeIcon from '~/components/icons/HugeIcon.astro'
+import { getDotfilesTree } from '~/lib/dotfiles'
+import { SITE } from '~/lib/site'
 import DotfilesNav from './DotfilesNav.astro'
 import RuntimeRail from './runtime-rail/RuntimeRail.astro'
 
@@ -261,32 +261,72 @@ const allTabLeaves: TreeLeaf[] = explorerItems.flatMap((item) =>
 )
 const resolveCurrentTab = (path: string): TreeLeaf => {
   if (path === '/log' || path.startsWith('/log/page/')) {
-    return { ...postsIndex, id: 'current', href: '/log', file: 'log/index.astro' }
+    return {
+      ...postsIndex,
+      id: 'current',
+      href: '/log',
+      file: 'log/index.astro',
+    }
   }
   if (path === '/gists') {
-    return { ...snippetsIndex, id: 'current', href: '/gists', file: 'gists/index.astro' }
+    return {
+      ...snippetsIndex,
+      id: 'current',
+      href: '/gists',
+      file: 'gists/index.astro',
+    }
   }
   if (path.startsWith('/log/')) {
     const slug = decodeURIComponent(path.slice('/log/'.length))
-    return { kind: 'leaf', id: 'current', href: path, file: `${slug}.mdx`, icon: { type: 'brand', name: 'astro' } }
+    return {
+      kind: 'leaf',
+      id: 'current',
+      href: path,
+      file: `${slug}.mdx`,
+      icon: { type: 'brand', name: 'astro' },
+    }
   }
   if (path.startsWith('/gists/')) {
     const slug = decodeURIComponent(path.slice('/gists/'.length))
-    return { kind: 'leaf', id: 'current', href: path, file: `${slug}.mdx`, icon: { type: 'brand', name: 'astro' } }
+    return {
+      kind: 'leaf',
+      id: 'current',
+      href: path,
+      file: `${slug}.mdx`,
+      icon: { type: 'brand', name: 'astro' },
+    }
   }
   if (path.startsWith('/topics/')) {
     const tag = decodeURIComponent(path.slice('/topics/'.length))
-    return { kind: 'leaf', id: 'current', href: path, file: tag || 'topics', icon: { type: 'huge', name: 'tag' } }
+    return {
+      kind: 'leaf',
+      id: 'current',
+      href: path,
+      file: tag || 'topics',
+      icon: { type: 'huge', name: 'tag' },
+    }
   }
   if (path.startsWith('/dotfiles/')) {
     const rel = decodeURIComponent(path.slice('/dotfiles/'.length))
     const base = rel.split('/').pop() || 'dotfiles'
-    return { kind: 'leaf', id: 'current', href: path, file: base, icon: { type: 'huge', name: 'markdown' } }
+    return {
+      kind: 'leaf',
+      id: 'current',
+      href: path,
+      file: base,
+      icon: { type: 'huge', name: 'markdown' },
+    }
   }
   const match = allTabLeaves.find((leaf) => isActive(leaf))
   if (match) return { ...match, id: 'current' }
   const segment = path.replace(/^\//, '').split('/').pop() || 'index'
-  return { kind: 'leaf', id: 'current', href: path, file: segment, icon: { type: 'huge', name: 'file' } }
+  return {
+    kind: 'leaf',
+    id: 'current',
+    href: path,
+    file: segment,
+    icon: { type: 'huge', name: 'file' },
+  }
 }
 const currentTab = resolveCurrentTab(currentPath)
 const seedTabs: TreeLeaf[] =
@@ -483,7 +523,7 @@ const GIT_BRANCH_ICON =
         </div>
         <button
           type="button"
-          class="hidden shrink-0 border-l border-line bg-[#fbfcff] px-3.5 py-2.5 font-mono text-xs text-muted hover:bg-white hover:text-slate-950 lg:block"
+          class="hidden cursor-pointer shrink-0 border-l border-line bg-[#fbfcff] px-3.5 py-2.5 font-mono text-xs text-muted hover:bg-white hover:text-slate-950 lg:block"
           data-toggle-rail
           aria-controls="runtime-rail"
           aria-expanded="true"
