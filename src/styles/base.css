@@ -1,0 +1,67 @@
+html,
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  letter-spacing: -0.015em;
+}
+
+body {
+  overflow: hidden;
+}
+
+.thin-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+.thin-scrollbar::-webkit-scrollbar {
+  width: 2px;
+  height: 2px;
+}
+
+.thin-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 999px;
+}
+
+.thin-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+html[data-code-font="ui-mono"] {
+  --code-font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.twemoji {
+  display: inline-block;
+  margin: 0 0.12em;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  vertical-align: -0.15em;
+}
+
+.twemoji-base {
+  height: 1em;
+  width: 1em;
+}
+
+.twemoji-lg {
+  height: 1.25em;
+  width: 1.25em;
+}
+
+.twemoji-2x {
+  height: 2em;
+  width: 2em;
+}
+
+.twemoji-heading {
+  height: 0.82em;
+  width: 0.82em;
+  margin-left: 0.02em;
+  vertical-align: -0.04em;
+}

@@ -1,0 +1,134 @@
+/*
+ * Article prose — the Tailwind Typography plugin owns the baseline rhythm
+ * (spacing, lists, tables, `not-prose`); the rules below only re-skin it to the
+ * site's brand. Code blocks are owned by Expressive Code, which applies
+ * `all: revert` to its own subtree — so the plugin never reaches them and the
+ * two never fight.
+ */
+.prose {
+  --tw-prose-body: #1f2937;
+  --tw-prose-headings: var(--color-ink);
+  --tw-prose-links: var(--color-code-blue);
+  --tw-prose-bold: var(--color-ink);
+  --tw-prose-counters: var(--color-muted);
+  --tw-prose-bullets: var(--color-muted);
+  --tw-prose-hr: var(--color-line);
+  --tw-prose-quotes: var(--color-muted);
+  --tw-prose-quote-borders: var(--color-code-blue);
+  --tw-prose-captions: var(--color-muted);
+  --tw-prose-code: var(--color-code-purple);
+  --tw-prose-th-borders: var(--color-line);
+  --tw-prose-td-borders: var(--color-line);
+
+  max-width: 720px;
+  line-height: 1.78;
+}
+
+/* Brand headings — tighter tracking + the signature h2 underline. */
+.prose h1 {
+  /* Match the main page heading (PageHeader.astro) across routes. */
+  font-size: clamp(40px, 6vw, 74px);
+  line-height: 0.96;
+  letter-spacing: -0.07em;
+  font-weight: 400;
+}
+.prose h2 {
+  letter-spacing: -0.03em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--color-line);
+  font-weight: 500;
+}
+.prose h3 {
+  letter-spacing: -0.02em;
+  font-weight: 500;
+}
+.prose h4 {
+  font-weight: 500;
+}
+.prose strong {
+  font-weight: 650;
+}
+
+/* Links — subtle underline that thickens on hover. */
+.prose a {
+  text-decoration-color: color-mix(
+    in srgb,
+    var(--color-code-blue) 35%,
+    transparent
+  );
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.15s ease;
+}
+.prose a:hover {
+  text-decoration-color: var(--color-code-blue);
+}
+
+/* Inline code pill — drop the plugin's backtick pseudo-elements. */
+.prose :not(pre) > code::before,
+.prose :not(pre) > code::after {
+  content: none;
+}
+.prose :not(pre) > code {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  background: var(--color-panel2);
+  border: 1px solid var(--color-line);
+  border-radius: 5px;
+  padding: 0.12em 0.36em;
+}
+
+/* Expressive Code frame spacing inside prose. */
+.prose .expressive-code {
+  margin: 0 0 1.3em;
+}
+
+.expressive-code {
+  --ec-codeFontFml: var(--code-font-family);
+}
+
+/* Give code blocks a visible edge + slightly tinted canvas so they no longer
+ * blend into the off-white site background. */
+.expressive-code figure.frame {
+  position: relative;
+  border: 1px solid var(--color-line);
+  border-radius: 12px;
+  background: var(--color-panel2);
+  box-shadow: 3px 3px 0 var(--color-line);
+}
+
+html[data-theme="github-dark-default"] .expressive-code figure.frame {
+  border-color: #1f2937;
+  background: #0d1117;
+  box-shadow: none;
+}
+
+/* Framed images — the plugin sizes them, we add the edge + radius. */
+.prose img:not(.twemoji) {
+  border-radius: 12px;
+  border: 1px solid var(--color-line);
+}
+
+/* Drop the plugin's auto quote glyphs — design uses a plain rule + italic. */
+.prose blockquote p:first-of-type::before,
+.prose blockquote p:last-of-type::after {
+  content: none;
+}
+
+/* Fully bordered tables — the plugin only draws header/row rules by default. */
+.prose table {
+  display: block;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+.prose th,
+.prose td {
+  border: 1px solid var(--color-line);
+  padding: 8px 11px;
+}
+.prose th {
+  background: var(--color-panel2);
+}
+.prose .twemoji {
+  vertical-align: -0.1em;
+}

@@ -1,0 +1,117 @@
+.explorer-row,
+.tab-row {
+  display: grid;
+  grid-template-columns: 16px 16px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 7px;
+}
+
+/*
+ * Full-bleed explorer rows: pull the hover/active background out to the sidebar
+ * edges (-12px = the aside's p-3 padding) while the caret in the first grid
+ * column lines up with the "EXPLORER" heading text (12px in from the edge).
+ */
+.explorer-row {
+  margin-left: -12px;
+  margin-right: -12px;
+  padding-left: 12px;
+  padding-right: 12px;
+  border-radius: 0;
+}
+
+/* Nested file rows sit one icon-step further in than their folder. */
+.explorer-row--child {
+  padding-left: 30px;
+}
+
+.explorer-folder-row {
+  width: calc(100% + 24px);
+  cursor: pointer;
+}
+
+/* Swap open/closed folder glyphs based on the toggle's expanded state. */
+.explorer-folder-row[aria-expanded="true"] .folder-icon-closed,
+.explorer-folder-row[aria-expanded="false"] .folder-icon-open {
+  display: none;
+}
+
+.explorer-caret,
+.explorer-icon,
+.tab-icon {
+  display: inline-grid;
+  height: 16px;
+  width: 16px;
+  place-items: center;
+}
+
+.explorer-caret {
+  flex: 0 0 16px;
+  transition: transform 0.12s ease;
+}
+
+.tab-row {
+  display: inline-grid;
+  grid-template-columns: 16px auto;
+  gap: 8px;
+}
+
+/* Collapsible sidebar section headers (Explorer, dotfiles, …). */
+.sidebar-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1px 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-muted);
+  transition: color 0.12s ease;
+}
+.sidebar-section-header:hover {
+  color: #334155;
+}
+.section-toggle {
+  display: inline-grid;
+  place-items: center;
+  height: 16px;
+  width: 16px;
+  font-size: 14px;
+  line-height: 1;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}
+.section-toggle::after {
+  content: "−";
+}
+.sidebar-section-header:hover .section-toggle {
+  opacity: 1;
+}
+.sidebar-section-header[aria-expanded="false"] .section-toggle {
+  opacity: 0.65;
+}
+.sidebar-section-header[aria-expanded="false"] .section-toggle::after {
+  content: "+";
+}
+
+@media (min-width: 1024px) {
+  .studio-workspace {
+    grid-template-columns: 260px minmax(0, 1fr) 360px;
+    transition: grid-template-columns 180ms ease;
+  }
+
+  html[data-rail="hidden"] .studio-workspace {
+    grid-template-columns: 260px minmax(0, 1fr) 0;
+  }
+
+  html[data-rail="hidden"] .runtime-rail {
+    border-left-width: 0;
+    padding-left: 0;
+    padding-right: 0;
+    overflow: hidden;
+  }
+}

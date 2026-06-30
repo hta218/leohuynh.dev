@@ -1,0 +1,44 @@
+.brand-icon {
+  display: inline-grid;
+  height: 16px;
+  width: 16px;
+  flex: 0 0 16px;
+  place-items: center;
+}
+
+.brand-icon svg {
+  display: block;
+  height: 16px;
+  width: 16px;
+  fill: currentColor;
+}
+
+.brand-icon svg * {
+  fill: currentColor;
+}
+
+/* Colored tech/brand icons for project cards — keep each icon's own fill
+ * (unlike .brand-icon which forces currentColor) to match the live site. */
+.tech-icon {
+  display: inline-grid;
+  place-items: center;
+}
+
+.tech-icon svg {
+  display: block;
+  height: 16px;
+  width: 16px;
+}
+
+.huge-icon {
+  display: inline-grid;
+  height: 16px;
+  width: 16px;
+  flex: 0 0 16px;
+  place-items: center;
+  color: currentColor;
+}
+
+.huge-icon svg {
+  display: block;
+}
