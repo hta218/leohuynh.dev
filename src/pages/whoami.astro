@@ -1,6 +1,6 @@
 ---
-import PageHeader from '~/components/PageHeader.astro'
 import Twemoji from '~/components/mdx/Twemoji.astro'
+import PageHeader from '~/components/PageHeader.astro'
 import StudioShell from '~/components/studio/StudioShell.astro'
 import BaseLayout from '~/layouts/BaseLayout.astro'
 import { CAREER, SITE, SUPPORT } from '~/lib/site'
@@ -15,12 +15,24 @@ const socials = [
 ]
 
 const features = [
-  { emoji: 'rocket', label: 'Astro 5 static-first + React islands for live widgets.' },
-  { emoji: 'artist-palette', label: 'Tailwind CSS v4 with a custom code-studio theme.' },
+  {
+    emoji: 'rocket',
+    label: 'Astro 5 static-first + React islands for live widgets.',
+  },
+  {
+    emoji: 'artist-palette',
+    label: 'Tailwind CSS v4 with a custom code-studio theme.',
+  },
   { emoji: 'safety-vest', label: 'TypeScript end to end for type safety.' },
-  { emoji: 'open-book', label: 'MDX + Astro Content Collections for blog & snippets.' },
+  {
+    emoji: 'open-book',
+    label: 'MDX + Astro Content Collections for blog & snippets.',
+  },
   { emoji: 'bar-chart', label: 'Umami for privacy-friendly analytics.' },
-  { emoji: 'card-file-box', label: 'Supabase Postgres + Drizzle for stats and lists.' },
+  {
+    emoji: 'card-file-box',
+    label: 'Supabase Postgres + Drizzle for stats and lists.',
+  },
 ]
 ---
 
@@ -116,7 +128,7 @@ const features = [
       <ul class="not-prose mt-6 space-y-2.5">
         {
           features.map((f) => (
-            <li class="flex items-start gap-2.5 text-[15px] leading-relaxed">
+            <li class="flex items-center gap-2.5 text-[15px] leading-relaxed">
               <Twemoji emoji={f.emoji} size="base" className="mt-1 m-0! shrink-0" />
               <span>{f.label}</span>
             </li>
