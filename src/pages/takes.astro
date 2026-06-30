@@ -5,6 +5,35 @@ import BaseLayout from '~/layouts/BaseLayout.astro'
 
 const sections = [
   {
+    title: 'Life',
+    beliefs: [
+      "Health is the one thing you can't refactor later.",
+      'Boring and consistent beats intense and gone by next month.',
+      "If you're always busy, that's a choice you keep making.",
+      'Most things are not as urgent as they feel.',
+      "You won't remember the late nights, only who you spent them with.",
+    ],
+  },
+  {
+    title: 'Family',
+    beliefs: [
+      'Be home for dinner more often than you think you can afford to.',
+      'Answer the people you love before the people who pay you.',
+      'Time with family is the one budget you never earn back.',
+      "Your kids won't remember a perfect dad, just a present one.",
+    ],
+  },
+  {
+    title: 'People',
+    beliefs: [
+      'Say the hard thing kindly — but say it.',
+      'Be the same person in the room and behind their back.',
+      'Apologize fast. Ego is expensive.',
+      "You can't fake respect; people can smell it.",
+      'Assume good intent, until they give you a reason not to.',
+    ],
+  },
+  {
     title: 'Work',
     beliefs: [
       'Useful beats impressive.',
@@ -38,7 +67,7 @@ const sections = [
       'Simple systems win because tired people have to maintain them.',
       'APIs are promises. If people depend on an old path, keep the shim.',
       'Deprecate first, delete later, maybe never.',
-      "Never delete something important because it looks unused — prove it first.",
+      'Never delete something important because it looks unused — prove it first.',
       'Compatibility is boring until customers lose trust.',
     ],
   },
@@ -46,7 +75,7 @@ const sections = [
     title: 'AI',
     beliefs: [
       "AI is useful, but it doesn't own the outcome — you do.",
-      'Let AI draft, code, and review; don\'t let it decide what good looks like.',
+      "Let AI draft, code, and review; don't let it decide what good looks like.",
       'A bad spec just creates bad code faster now.',
       'Complex SDK and adapter work still needs a plan and a review.',
       "If you can't review it, you shouldn't ship it.",
@@ -75,12 +104,12 @@ const sections = [
 
 <BaseLayout
   title="takes"
-  description="My takes on work, life, family, and not repeating the same mistakes."
+  description="My takes on building software, showing up for people, staying honest, and not repeating the same mistakes."
 >
   <StudioShell active="/takes" crumb="~/leohuynh.dev/takes.md">
     <PageHeader
       title="My takes"
-      description="On work, life, family, and not repeating the same mistakes."
+      description="On building software, showing up for people, staying honest, and not repeating the same mistakes."
     />
 
     <div class="space-y-10">
