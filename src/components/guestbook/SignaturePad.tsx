@@ -116,7 +116,11 @@ export function SignaturePad({
       >
         {!hasInk && (
           <span className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-2 text-slate-300">
-            <HugeiconsIcon icon={QuillWrite02Icon} size={30} strokeWidth={1.8} />
+            <HugeiconsIcon
+              icon={QuillWrite02Icon}
+              size={30}
+              strokeWidth={1.8}
+            />
             <span className="font-mono text-xs text-slate-400">draw here</span>
           </span>
         )}
