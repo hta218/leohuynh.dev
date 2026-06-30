@@ -45,9 +45,9 @@ export interface Project {
 export const PROJECTS: Project[] = [
   {
     type: 'work',
-    title: 'Weaverse Hydrogen Customizer',
+    title: 'Weaverse Hydrogen Studio',
     description:
-      'The visual page builder for Shopify Hydrogen. Weaverse is a Shopify sales channel that lets you design and ship headless storefronts visually — powered by AI, with no coding required.',
+      'The visual page builder & headless CMS dedicated for Shopify Hydrogen. Weaverse lets you design and ship enterprise-grade storefronts in minutes.',
     imgSrc: '/static/images/weaverse-logo.png',
     url: 'https://www.weaverse.io?ref=leohuynh.dev',
     builtWith: ['Shopify', 'Hydrogen', 'Remix', 'TailwindCSS', 'OpenAI'],
@@ -70,7 +70,7 @@ export const PROJECTS: Project[] = [
     title: 'Pilot - Shopify Hydrogen theme',
     description:
       'A fully-featured Shopify Hydrogen theme crafted to help you launch modern, high-performing headless storefronts in minutes.',
-    icon: 'rocket',
+    icon: 'land-plot',
     repo: 'Weaverse/pilot',
     url: 'https://pilot.weaverse.io/',
     builtWith: ['Hydrogen', 'Remix', 'TailwindCSS', 'HeadlessUI'],
