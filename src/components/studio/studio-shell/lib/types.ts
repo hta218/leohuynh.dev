@@ -11,6 +11,7 @@ export type HugeIconName =
   | 'caret-down'
   | 'caret-right'
   | 'comment'
+  | 'compass'
   | 'external'
   | 'file'
   | 'folder'

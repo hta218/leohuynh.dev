@@ -106,12 +106,12 @@ export function buildExplorerTree(opts: {
     },
     {
       kind: 'leaf',
-      id: 'beliefs',
-      href: '/beliefs',
-      file: 'beliefs.md',
-      title: 'Beliefs',
-      icon: { type: 'brand', name: 'markdown' },
-      activeWhen: exact('/beliefs'),
+      id: 'takes',
+      href: '/takes',
+      file: 'takes.md',
+      title: 'Takes',
+      icon: { type: 'huge', name: 'compass' },
+      activeWhen: exact('/takes'),
     },
     {
       kind: 'leaf',
