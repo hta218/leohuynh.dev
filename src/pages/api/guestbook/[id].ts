@@ -3,8 +3,8 @@ import { SESSION_COOKIE } from '~/lib/github-oauth'
 import {
   getGuestbookCurrentUser,
   isGuestbookAdmin,
-  moderateGuestbookEntry,
-} from '~/lib/guestbook'
+} from '~/lib/guestbook/config'
+import { moderateGuestbookEntry } from '~/lib/guestbook/queries'
 
 export const prerender = false
 

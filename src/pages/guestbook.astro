@@ -6,9 +6,9 @@ import BaseLayout from '~/layouts/BaseLayout.astro'
 import { SESSION_COOKIE } from '~/lib/github-oauth'
 import {
   getGuestbookCurrentUser,
-  getGuestbookEntries,
   isGuestbookAdmin,
-} from '~/lib/guestbook'
+} from '~/lib/guestbook/config'
+import { getGuestbookEntries } from '~/lib/guestbook/queries'
 import type { GuestbookEntry } from '~/types/guestbook'
 
 export const prerender = false

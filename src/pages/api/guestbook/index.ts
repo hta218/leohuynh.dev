@@ -1,13 +1,15 @@
 import type { APIRoute } from 'astro'
 import { SESSION_COOKIE } from '~/lib/github-oauth'
 import {
-  buildRequestMeta,
-  clampLimit,
-  createGuestbookEntry,
   getGuestbookCurrentUser,
-  getGuestbookEntries,
   isGuestbookAdmin,
-} from '~/lib/guestbook'
+} from '~/lib/guestbook/config'
+import { clampLimit } from '~/lib/guestbook/cursor'
+import {
+  createGuestbookEntry,
+  getGuestbookEntries,
+} from '~/lib/guestbook/queries'
+import { buildRequestMeta } from '~/lib/guestbook/request-meta'
 
 export const prerender = false
 
