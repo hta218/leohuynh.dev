@@ -2,7 +2,7 @@
 
 | Field            | Value                                  |
 | ---------------- | -------------------------------------- |
-| **Status**       | draft                                  |
+| **Status**       | in-progress (code complete, awaiting browser QA) |
 | **Owner**        | @hta218                                |
 | **Issue**        | N/A                                    |
 | **Branch**       | `feat/travel-egypt-game-port`          |

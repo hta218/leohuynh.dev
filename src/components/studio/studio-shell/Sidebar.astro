@@ -118,4 +118,32 @@ const isExternal = (href: string) => href.startsWith('http')
       <DotfilesNav nodes={dotfilesTree} currentPath={activeDotfile} />
     </nav>
   </section>
+
+  <section class="mb-4" data-folder="section-arcade">
+    <button
+      type="button"
+      data-folder-toggle="section-arcade"
+      data-folder-default="closed"
+      aria-expanded="false"
+      class="sidebar-section-header mb-2"
+    >
+      <span>arcade</span>
+      <span class="section-toggle" aria-hidden="true" />
+    </button>
+    <nav class="space-y-0.5" data-folder-children="section-arcade">
+      <a
+        href="/arcade/travel-egypt"
+        class:list={[
+          'explorer-row group py-1.5 font-mono text-[13px] no-underline',
+          currentPath.startsWith('/arcade')
+            ? 'bg-slate-200 text-slate-950'
+            : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950',
+        ]}
+      >
+        <span class="explorer-caret" aria-hidden="true" />
+        <HugeIcon name="puzzle" class="explorer-icon text-slate-500" />
+        <span>travel-egypt.tsx</span>
+      </a>
+    </nav>
+  </section>
 </aside>

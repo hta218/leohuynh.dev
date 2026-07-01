@@ -1,0 +1,79 @@
+---
+import HugeIcon from '~/components/icons/HugeIcon.astro'
+import PageHeader from '~/components/PageHeader.astro'
+import StudioShell from '~/components/studio/StudioShell.astro'
+import BaseLayout from '~/layouts/BaseLayout.astro'
+
+interface ArcadeGame {
+  title: string
+  tagline: string
+  href: string
+  cover: string
+  tags: string[]
+  status: 'live' | 'soon'
+}
+
+const GAMES: ArcadeGame[] = [
+  {
+    title: 'Travel Egypt',
+    tagline:
+      'Slide the tiles to rebuild each scene and meet the gods of Egypt.',
+    href: '/arcade/travel-egypt',
+    cover: '/arcade/travel-egypt/images/bg/welcome.jpg',
+    tags: ['Sliding puzzle', '8 levels', 'TypeScript'],
+    status: 'live',
+  },
+]
+---
+
+<BaseLayout
+  title="Arcade"
+  description="A little corner for playable things — small browser games I've built or ported."
+>
+  <StudioShell active="/arcade" crumb="~/leohuynh.dev/arcade/">
+    <PageHeader
+      title="Arcade"
+      description="A little corner for playable things — small browser games I've built or ported."
+    />
+
+    <div class="grid gap-5 sm:grid-cols-2">
+      {
+        GAMES.map((game) => (
+          <a
+            href={game.href}
+            class="group flex flex-col overflow-hidden rounded-2xl border border-line bg-white no-underline shadow-[0_1px_0_rgba(255,255,255,0.6)] transition-transform hover:-translate-y-0.5 hover:shadow-[0_18px_40px_-28px_rgba(15,23,42,0.5)]"
+          >
+            <div class="relative aspect-video overflow-hidden">
+              <img
+                src={game.cover}
+                alt={`${game.title} cover`}
+                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <span class="absolute left-3 top-3 rounded-full bg-ink/85 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-white backdrop-blur">
+                {game.status === 'live' ? 'Playable' : 'Coming soon'}
+              </span>
+            </div>
+            <div class="flex flex-1 flex-col p-5">
+              <div class="flex items-center gap-2">
+                <HugeIcon name="puzzle" class="text-amber-600" />
+                <h2 class="m-0 text-lg font-bold text-ink">{game.title}</h2>
+              </div>
+              <p class="mt-2 flex-1 text-sm text-muted">{game.tagline}</p>
+              <div class="mt-4 flex flex-wrap gap-2">
+                {game.tags.map((tag) => (
+                  <span class="rounded-full border border-line bg-panel2 px-2.5 py-1 font-mono text-[11px] text-slate-600">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <span class="mt-4 inline-flex items-center gap-1.5 font-mono text-sm font-semibold text-ink">
+                Play
+                <HugeIcon name="caret-right" class="transition-transform group-hover:translate-x-0.5" />
+              </span>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </StudioShell>
+</BaseLayout>

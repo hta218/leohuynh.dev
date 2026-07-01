@@ -20,6 +20,7 @@ export type ProjectIcon =
   | 'gallery'
   | 'globe'
   | 'keyboard'
+  | 'land-plot'
   | 'puzzle'
   | 'refresh'
   | 'robot'
@@ -173,10 +174,16 @@ export const PROJECTS: Project[] = [
   },
   {
     type: 'self',
-    title: 'Travel Egypt Picture Puzzle',
+    title: 'Travel Egypt',
+    description:
+      'A sliding-picture puzzle — rebuild each scene and meet the gods of Egypt. Ported from my old Python + Pygame game to a browser game you can play right here.',
     icon: 'puzzle',
-    repo: 'hta218/Travel_Egypt',
-    builtWith: ['Python', 'Pygame'],
+    url: '/arcade/travel-egypt',
+    builtWith: ['Typescript', 'React', 'Astro'],
+    links: [
+      { title: 'Play', url: '/arcade/travel-egypt' },
+      { title: 'Source', url: 'https://github.com/hta218/Travel_Egypt' },
+    ],
   },
   {
     type: 'self',
