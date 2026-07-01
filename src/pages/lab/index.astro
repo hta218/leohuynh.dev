@@ -1,0 +1,65 @@
+---
+import HugeIcon from '~/components/icons/HugeIcon.astro'
+import PageHeader from '~/components/PageHeader.astro'
+import StudioShell from '~/components/studio/StudioShell.astro'
+import BaseLayout from '~/layouts/BaseLayout.astro'
+
+interface LabItem {
+  title: string
+  tagline: string
+  href: string
+  status: 'live' | 'soon'
+}
+
+const ITEMS: LabItem[] = [
+  {
+    title: 'Travel Egypt',
+    tagline:
+      'Sliding-picture puzzle — rebuild each scene, meet the gods of Egypt.',
+    href: '/lab/travel-egypt',
+    status: 'live',
+  },
+]
+---
+
+<BaseLayout
+  title="Lab"
+  description="A little corner for playable things — small browser games and experiments I've built or ported."
+>
+  <StudioShell active="/lab" crumb="~/leohuynh.dev/lab/">
+    <PageHeader
+      title="Lab"
+      description="A little corner for playable things — small browser games and experiments I've built or ported."
+    />
+
+    <ul class="divide-y divide-line overflow-hidden rounded-xl border border-line">
+      {
+        ITEMS.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="group flex items-center gap-4 bg-white px-4 py-4 no-underline transition-colors hover:bg-panel2"
+            >
+              <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-line bg-panel2 text-amber-600">
+                <HugeIcon name="puzzle" size={20} />
+              </span>
+              <div class="min-w-0 flex-1">
+                <div class="flex items-center gap-2">
+                  <span class="font-semibold text-ink">{item.title}</span>
+                  <span class="font-mono text-[10px] uppercase tracking-wider text-muted">
+                    {item.status === 'live' ? 'Playable' : 'Soon'}
+                  </span>
+                </div>
+                <p class="mt-0.5 truncate text-sm text-muted">{item.tagline}</p>
+              </div>
+              <HugeIcon
+                name="caret-right"
+                class="shrink-0 text-slate-400 transition-transform group-hover:translate-x-0.5"
+              />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </StudioShell>
+</BaseLayout>

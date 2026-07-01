@@ -41,7 +41,7 @@ welcome → mode-select → playing → level-cleared → (next) → playing →
 - **level-cleared** — show level win image, play "level pass" sound, unlock next.
 - **ending** — after level 8 (index 7): victory image + cheer → "Heaven" track +
   final 01–08 slideshow → **ending card** with run stats (total moves, elapsed
-  time), "Play again", "Back to /arcade", and a link to the source GitHub repo.
+  time), "Play again", "Back to /lab", and a link to the source GitHub repo.
   The original "John Cena" troll flashing loop is **dropped** (photosensitivity
   risk + off-tone for the portfolio).
 
@@ -62,25 +62,25 @@ welcome → mode-select → playing → level-cleared → (next) → playing →
 
 ### Pages (Astro)
 
-- `src/pages/arcade/index.astro` — `/arcade` landing; lists available games as
+- `src/pages/lab/index.astro` — `/lab` landing; lists available games as
   cards (start with Travel Egypt). Uses existing site layout/components.
-- `src/pages/arcade/travel-egypt.astro` — hosts the React game island via
+- `src/pages/lab/travel-egypt.astro` — hosts the React game island via
   `client:only="react"`; sets page title/meta/OG.
 
 ### React island
 
-- `src/components/arcade/travel-egypt/travel-egypt-game.tsx` — top-level island.
+- `src/components/lab/travel-egypt/travel-egypt-game.tsx` — top-level island.
   Holds game state, renders the board + HUD, bridges engine ↔ React.
-- `src/components/arcade/travel-egypt/puzzle-board.tsx` — the grid: renders tiles
+- `src/components/lab/travel-egypt/puzzle-board.tsx` — the grid: renders tiles
   as `<div>`s with CSS-sprite backgrounds; handles tile clicks + slide animation.
-- `src/components/arcade/travel-egypt/game-hud.tsx` — move counter, level x/8,
+- `src/components/lab/travel-egypt/game-hud.tsx` — move counter, level x/8,
   Next/Back/Quit, mode-select, welcome overlay (DOM + Tailwind + `cn()`).
-- `src/components/arcade/travel-egypt/use-travel-egypt.ts` — hook wiring the
+- `src/components/lab/travel-egypt/use-travel-egypt.ts` — hook wiring the
   engine lifecycle to the React component (init, level changes, teardown).
 
 ### Engine (framework-agnostic vanilla TS)
 
-Under `src/lib/arcade/travel-egypt/`:
+Under `src/lib/lab/travel-egypt/`:
 
 - `engine.ts` — state machine + render/update loop, input dispatch.
 - `board.ts` — board model, blank tracking, `slide`, `shuffle`, `isWin`.
@@ -94,7 +94,7 @@ Under `src/lib/arcade/travel-egypt/`:
 
 ### Assets (optimized, committed under `public/`)
 
-`public/arcade/travel-egypt/`
+`public/lab/travel-egypt/`
 
 - `images/levels/{1..8}/full.jpg` — full board image; tiles cut via CSS sprite.
 - `images/levels/{1..8}/{win,hint}.jpg` — per-level win + hint art.
@@ -110,26 +110,26 @@ shipped) pulls from the old repo, slices/compresses, and writes to `public/`.
 ### Cross-links
 
 - Add a Travel Egypt card to `src/pages/builds.astro` (or its data source)
-  linking to `/arcade/travel-egypt`, so the game shows in the project list too.
+  linking to `/lab/travel-egypt`, so the game shows in the project list too.
 - Add a **new sidebar/explorer group placed directly below the `dotfiles`
-  group**, containing the `/arcade` entry (and room for future games).
+  group**, containing the `/lab` entry (and room for future games).
 
 ## Files & folders this feature touches
 
 **New:**
-- `src/pages/arcade/index.astro`
-- `src/pages/arcade/travel-egypt.astro`
-- `src/components/arcade/travel-egypt/travel-egypt-game.tsx`
-- `src/components/arcade/travel-egypt/puzzle-board.tsx`
-- `src/components/arcade/travel-egypt/game-hud.tsx`
-- `src/components/arcade/travel-egypt/use-travel-egypt.ts`
-- `src/lib/arcade/travel-egypt/{engine,board,levels,assets,audio,constants,types}.ts`
-- `public/arcade/travel-egypt/**` (images + audio)
+- `src/pages/lab/index.astro`
+- `src/pages/lab/travel-egypt.astro`
+- `src/components/lab/travel-egypt/travel-egypt-game.tsx`
+- `src/components/lab/travel-egypt/puzzle-board.tsx`
+- `src/components/lab/travel-egypt/game-hud.tsx`
+- `src/components/lab/travel-egypt/use-travel-egypt.ts`
+- `src/lib/lab/travel-egypt/{engine,board,levels,assets,audio,constants,types}.ts`
+- `public/lab/travel-egypt/**` (images + audio)
 - `scripts/build-travel-egypt-assets.*` (one-off asset pipeline; not shipped)
 
 **Modified (likely):**
 - `src/pages/builds.astro` or its data source — add the game card/link.
-- Sidebar/explorer config — add a new group below `dotfiles` with the `/arcade`
+- Sidebar/explorer config — add a new group below `dotfiles` with the `/lab`
   entry (exact file TBD — locate the current sidebar group definition).
 - `astro.config.*` — only if a redirect or integration tweak is needed (unlikely).
 
@@ -151,9 +151,9 @@ shipped) pulls from the old repo, slices/compresses, and writes to `public/`.
    transform, responsive scaling.
 5. **React island + HUD** — mount, welcome/mode-select, move/level chrome.
 6. **Audio** — background loop, per-level tracks, SFX, gesture unlock, mute toggle.
-7. **Routes** — `/arcade` index + `/arcade/travel-egypt`.
+7. **Routes** — `/lab` index + `/lab/travel-egypt`.
 8. **Ending sequence** — victory slideshow + ending card (stats, Play again,
-   back to /arcade, source repo link). No troll flashing.
+   back to /lab, source repo link). No troll flashing.
 9. **Mobile + a11y** — tap input, scaling, keyboard arrow controls, focus.
 10. **Cross-links + polish** — `/builds` card, new sidebar group, QA.
 
@@ -161,11 +161,11 @@ shipped) pulls from the old repo, slices/compresses, and writes to `public/`.
 
 - **Rendering:** DOM-based React (CSS sprite + transform), not canvas.
 - **No dark mode:** the site has no dark mode — build light-theme only.
-- **Sidebar:** new group directly below the `dotfiles` group, holding `/arcade`.
+- **Sidebar:** new group directly below the `dotfiles` group, holding `/lab`.
 - **Mute toggle:** yes — include a mute/volume toggle (autoplay-friendly).
 - **Keyboard controls:** yes — arrow keys slide tiles, in addition to tap/click.
 - **Ending:** drop the troll flashing loop; end with victory slideshow + an
-  ending card (run stats, Play again, back to /arcade, source repo link).
+  ending card (run stats, Play again, back to /lab, source repo link).
 - **Asset hosting:** commit optimized assets under `public/` (~few MB).
 
 Spec is closed — ready to implement.

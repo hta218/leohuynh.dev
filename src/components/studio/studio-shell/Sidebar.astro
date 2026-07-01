@@ -118,4 +118,45 @@ const isExternal = (href: string) => href.startsWith('http')
       <DotfilesNav nodes={dotfilesTree} currentPath={activeDotfile} />
     </nav>
   </section>
+
+  <section class="mb-4" data-folder="section-lab">
+    <button
+      type="button"
+      data-folder-toggle="section-lab"
+      data-folder-default="closed"
+      aria-expanded="false"
+      class="sidebar-section-header mb-2"
+    >
+      <span>lab</span>
+      <span class="section-toggle" aria-hidden="true" />
+    </button>
+    <nav class="space-y-0.5" data-folder-children="section-lab">
+      <a
+        href="/lab"
+        class:list={[
+          'explorer-row group py-1.5 font-mono text-[13px] no-underline',
+          currentPath === '/lab'
+            ? 'bg-slate-200 text-slate-950'
+            : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950',
+        ]}
+      >
+        <span class="explorer-caret" aria-hidden="true" />
+        <span class="brand-icon explorer-icon text-slate-500" set:html={BRAND_ICONS.markdown} />
+        <span>README.md</span>
+      </a>
+      <a
+        href="/lab/travel-egypt"
+        class:list={[
+          'explorer-row group py-1.5 font-mono text-[13px] no-underline',
+          currentPath.startsWith('/lab/travel-egypt')
+            ? 'bg-slate-200 text-slate-950'
+            : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950',
+        ]}
+      >
+        <span class="explorer-caret" aria-hidden="true" />
+        <HugeIcon name="puzzle" class="explorer-icon text-slate-500" />
+        <span>travel-egypt.tsx</span>
+      </a>
+    </nav>
+  </section>
 </aside>

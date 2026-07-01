@@ -2,7 +2,7 @@
 
 | Field            | Value                                  |
 | ---------------- | -------------------------------------- |
-| **Status**       | draft                                  |
+| **Status**       | in-progress (code complete, awaiting browser QA) |
 | **Owner**        | @hta218                                |
 | **Issue**        | N/A                                    |
 | **Branch**       | `feat/travel-egypt-game-port`          |
@@ -24,8 +24,9 @@
 Python + Pygame: 8 levels (4×4 then 5×5), 3 difficulty modes, per-level music,
 and a scripted victory/ending sequence. This feature ports it **fully** to
 leohuynh.dev by rewriting the game as a DOM-based React island (CSS sprite +
-transform, no canvas), served from a new `/arcade` section (`/arcade` index +
-`/arcade/travel-egypt`). The rewrite is theme-native (light only — the site has
+transform, no canvas), served from a new `/lab` section (`/lab` index +
+`/lab/travel-egypt`; originally proposed as `/arcade`). The rewrite is
+theme-native (light only — the site has
 no dark mode), responsive, and ships optimized assets instead of the original
 53.6MB of pre-sliced images and uncompressed audio.
 
