@@ -13,6 +13,27 @@ const isRepo = Boolean(p.repo)
 // Repo cards are a single anchor to GitHub. Non-repo cards stay a <div> so the
 // title and each link can be their own anchors.
 const Tag = isRepo && href ? 'a' : 'div'
+
+// Some tools share the same brand icon (e.g. "Shell" and "Bash" both render the
+// Bash logo) — merge those into a single badge instead of showing it twice.
+interface StackItem {
+  title: string
+  icon?: string
+}
+const stackItems: StackItem[] = []
+const stackByKey = new Map<string, StackItem>()
+for (const tool of p.builtWith) {
+  const icon = brandIcon(tool)
+  const key = icon ?? tool
+  const existing = stackByKey.get(key)
+  if (existing) {
+    existing.title += `, ${tool}`
+    continue
+  }
+  const item: StackItem = { title: tool, icon }
+  stackByKey.set(key, item)
+  stackItems.push(item)
+}
 ---
 
 <Tag
@@ -105,14 +126,13 @@ const Tag = isRepo && href ? 'a' : 'div'
     <div>
       <div class="text-[10px] uppercase tracking-[0.08em] text-slate-400">Stack</div>
       <div class="mt-1 flex min-h-5 flex-wrap items-center gap-1.5 text-slate-900">
-        {p.builtWith.map((tool) => {
-          const icon = brandIcon(tool)
-          return icon ? (
-            <span class="tech-icon" title={tool} set:html={icon} />
+        {stackItems.map((item) =>
+          item.icon ? (
+            <span class="tech-icon" title={item.title} set:html={item.icon} />
           ) : (
-            <span class="text-[11px] text-slate-500">{tool}</span>
-          )
-        })}
+            <span class="text-[11px] text-slate-500">{item.title}</span>
+          ),
+        )}
       </div>
     </div>
 

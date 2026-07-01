@@ -78,7 +78,7 @@ export const PROJECTS: Project[] = [
   },
   {
     type: 'work',
-    title: 'Weaverse Agents Toolkit',
+    title: '.agents',
     description:
       'Agents, skills, commands, and rules for AI-powered coding tools — used daily to supercharge development productivity.',
     icon: 'robot',
@@ -114,7 +114,7 @@ export const PROJECTS: Project[] = [
     type: 'work',
     title: 'FoxKit AIO Upsell Cross‑sell',
     description:
-      'The upsells and boost conversion tools that is built to support Minimog theme.',
+      'Upsell and cross-sell tools that boost conversion for Shopify merchants, built as an add-on to power up the Minimog theme.',
     icon: 'tag',
     url: 'https://apps.shopify.com/foxkit?ref=leohuynh.dev',
     builtWith: ['KoaJS', 'JWT', 'MongoDB', 'Polaris'],
@@ -129,6 +129,8 @@ export const PROJECTS: Project[] = [
   {
     type: 'self',
     title: 'leohuynh.dev',
+    description:
+      'My personal space on the cloud where I document my programming journey, sharing lessons, insights, and resources for fellow developers.',
     icon: 'globe',
     repo: 'hta218/leohuynh.dev',
     builtWith: ['NextJS', 'TailwindCSS', 'Typescript', 'Drizzle', 'Umami'],
@@ -145,6 +147,8 @@ export const PROJECTS: Project[] = [
   {
     type: 'self',
     title: 'Shopify theme starter',
+    description:
+      'A batteries-included starter kit for building a Shopify theme from scratch — Webpack build, TailwindCSS, and the ThemeKit workflow already wired up.',
     icon: 'code',
     repo: 'hta218/shopify-theme-starter',
     builtWith: ['ThemeKit', 'Liquid', 'Webpack', 'TailwindCSS'],
@@ -152,6 +156,8 @@ export const PROJECTS: Project[] = [
   {
     type: 'self',
     title: 'Exercism solutions',
+    description:
+      'My solutions to exercises on Exercism — the fantastic learning platform that helps me learn and improve my skills through practice 👨‍💻',
     icon: 'analytics',
     repo: 'hta218/exercism-solutions',
     builtWith: ['Exercism', 'Javascript', 'Bash'],
@@ -160,7 +166,7 @@ export const PROJECTS: Project[] = [
     type: 'self',
     title: 'Animate loading bar',
     description:
-      '1kb loading bar like Shopify, Github, JSFiddle… that just works.',
+      'A 1kb, dependency-free loading bar — like the ones on Shopify, GitHub, and JSFiddle — that just works out of the box.',
     icon: 'refresh',
     repo: 'Weaverse/animate-loading',
     builtWith: ['Typescript', 'CSS'],
@@ -168,6 +174,8 @@ export const PROJECTS: Project[] = [
   {
     type: 'self',
     title: 'Shopify KoaJS React boilerplate',
+    description:
+      'A production-ready boilerplate for building embedded Shopify apps — KoaJS backend, React frontend, JWT session auth, and Polaris UI out of the box.',
     icon: 'code',
     repo: 'hta218/shopify-koajs-react-boilerplate',
     builtWith: ['KoaJS', 'JWT', 'MongoDB', 'Polaris'],
@@ -176,18 +184,16 @@ export const PROJECTS: Project[] = [
     type: 'self',
     title: 'Travel Egypt',
     description:
-      'A sliding-picture puzzle — rebuild each scene and meet the gods of Egypt. Ported from my old Python + Pygame game to a browser game you can play right here.',
+      'Solve sliding-picture puzzles and meet the gods of Egypt — a Python + Pygame game I later ported to the browser as a React/TypeScript mini-game, playable in this site’s Lab section.',
     icon: 'puzzle',
-    url: '/lab/travel-egypt',
+    repo: 'hta218/Travel_Egypt',
     builtWith: ['Typescript', 'React', 'Astro'],
-    links: [
-      { title: 'Play', url: '/lab/travel-egypt' },
-      { title: 'Source', url: 'https://github.com/hta218/Travel_Egypt' },
-    ],
   },
   {
     type: 'self',
     title: 'Infinite Loading Gallery',
+    description:
+      'An infinite-scrolling image gallery that lazily loads photos from Picsum as you scroll, built with React and Semantic UI. 🚿',
     icon: 'gallery',
     repo: 'hta218/infinite-gallery',
     builtWith: ['React', 'SemanticUI', 'Picsum'],
@@ -195,6 +201,8 @@ export const PROJECTS: Project[] = [
   {
     type: 'self',
     title: 'Store Manager',
+    description:
+      'A simple desktop application for managing store inventory, sales, and customers, built with Java and backed by a MySQL database.',
     icon: 'store',
     repo: 'hta218/StoreManager',
     builtWith: ['Java', 'MySQL'],
@@ -202,7 +210,8 @@ export const PROJECTS: Project[] = [
   {
     type: 'self',
     title: 'Dotfiles',
-    description: 'My personal macOS development configuration files.',
+    description:
+      'My personal macOS development environment — shell config, Git aliases, editor settings, and the tools I install on every new machine.',
     icon: 'keyboard',
     repo: 'hta218/dotfiles',
     builtWith: ['Shell', 'Bash'],
