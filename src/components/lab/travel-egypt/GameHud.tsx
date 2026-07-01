@@ -9,7 +9,7 @@ import {
 } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
 import type { ReactNode } from 'react'
-import { cx } from '~/lib/arcade/travel-egypt/cx'
+import { cx } from '~/lib/lab/travel-egypt/cx'
 
 interface HudButtonProps {
   label: string

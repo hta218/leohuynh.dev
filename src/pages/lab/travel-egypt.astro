@@ -1,5 +1,5 @@
 ---
-import TravelEgyptGame from '~/components/arcade/travel-egypt/TravelEgyptGame'
+import TravelEgyptGame from '~/components/lab/travel-egypt/TravelEgyptGame'
 import PageHeader from '~/components/PageHeader.astro'
 import StudioShell from '~/components/studio/StudioShell.astro'
 import BaseLayout from '~/layouts/BaseLayout.astro'
@@ -10,15 +10,15 @@ import BaseLayout from '~/layouts/BaseLayout.astro'
   description="A sliding-picture puzzle — rebuild each scene and meet the gods of Egypt. A web port of my old Python + Pygame game."
 >
   <StudioShell
-    active="/arcade/travel-egypt"
-    crumb="~/leohuynh.dev/arcade/travel-egypt/"
+    active="/lab/travel-egypt"
+    crumb="~/leohuynh.dev/lab/travel-egypt/"
   >
     <PageHeader
       title="Travel Egypt"
       description="Solve the puzzle, meet the gods of Egypt."
     />
 
-    <div class="mx-auto w-full max-w-3xl">
+    <div class="w-full max-w-3xl">
       <TravelEgyptGame client:only="react" />
     </div>
   </StudioShell>

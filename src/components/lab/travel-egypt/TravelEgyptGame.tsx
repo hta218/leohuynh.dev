@@ -12,12 +12,12 @@ import {
   MODES,
   SOURCE_REPO,
   TOTAL_LEVELS,
-} from '~/lib/arcade/travel-egypt/constants'
+} from '~/lib/lab/travel-egypt/constants'
 import type {
   Mode,
   RunStats,
   SlideDirection,
-} from '~/lib/arcade/travel-egypt/types'
+} from '~/lib/lab/travel-egypt/types'
 import { EndingSequence } from './EndingSequence'
 import { GameHud, GameStats } from './GameHud'
 import { PuzzleBoard } from './PuzzleBoard'
@@ -284,11 +284,11 @@ function EndingCard({ stats, onPlayAgain }: EndingCardProps) {
           Play again
         </button>
         <a
-          href="/arcade"
+          href="/lab"
           className="inline-flex items-center gap-2 rounded-xl border border-line px-5 py-2.5 font-semibold text-ink no-underline transition-colors hover:border-ink"
         >
           <HugeiconsIcon icon={Home01Icon} size={16} strokeWidth={1.9} />
-          Back to arcade
+          Back to lab
         </a>
       </div>
 

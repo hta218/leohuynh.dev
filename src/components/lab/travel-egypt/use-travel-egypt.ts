@@ -1,17 +1,14 @@
 import { useEffect, useReducer, useRef, useState } from 'react'
-import { GameAudio, MUSIC } from '~/lib/arcade/travel-egypt/audio'
+import { GameAudio, MUSIC } from '~/lib/lab/travel-egypt/audio'
 import {
   canMove,
   isWin,
   shuffleBoard,
   slide,
   tileForDirection,
-} from '~/lib/arcade/travel-egypt/board'
-import {
-  SHUFFLE_MOVES,
-  TOTAL_LEVELS,
-} from '~/lib/arcade/travel-egypt/constants'
-import { getLevel } from '~/lib/arcade/travel-egypt/levels'
+} from '~/lib/lab/travel-egypt/board'
+import { SHUFFLE_MOVES, TOTAL_LEVELS } from '~/lib/lab/travel-egypt/constants'
+import { getLevel } from '~/lib/lab/travel-egypt/levels'
 import type {
   Board,
   LevelConfig,
@@ -19,7 +16,7 @@ import type {
   Phase,
   RunStats,
   SlideDirection,
-} from '~/lib/arcade/travel-egypt/types'
+} from '~/lib/lab/travel-egypt/types'
 
 interface State {
   phase: Phase

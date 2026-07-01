@@ -178,10 +178,10 @@ export const PROJECTS: Project[] = [
     description:
       'A sliding-picture puzzle — rebuild each scene and meet the gods of Egypt. Ported from my old Python + Pygame game to a browser game you can play right here.',
     icon: 'puzzle',
-    url: '/arcade/travel-egypt',
+    url: '/lab/travel-egypt',
     builtWith: ['Typescript', 'React', 'Astro'],
     links: [
-      { title: 'Play', url: '/arcade/travel-egypt' },
+      { title: 'Play', url: '/lab/travel-egypt' },
       { title: 'Source', url: 'https://github.com/hta218/Travel_Egypt' },
     ],
   },

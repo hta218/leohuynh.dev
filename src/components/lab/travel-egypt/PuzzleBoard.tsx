@@ -2,11 +2,11 @@ import {
   blankHomeIndex,
   findBlank,
   neighbors,
-} from '~/lib/arcade/travel-egypt/board'
-import { SLIDE_MS } from '~/lib/arcade/travel-egypt/constants'
-import { cx } from '~/lib/arcade/travel-egypt/cx'
-import { tileSprite, tileTransform } from '~/lib/arcade/travel-egypt/sprite'
-import type { Board } from '~/lib/arcade/travel-egypt/types'
+} from '~/lib/lab/travel-egypt/board'
+import { SLIDE_MS } from '~/lib/lab/travel-egypt/constants'
+import { cx } from '~/lib/lab/travel-egypt/cx'
+import { tileSprite, tileTransform } from '~/lib/lab/travel-egypt/sprite'
+import type { Board } from '~/lib/lab/travel-egypt/types'
 
 interface PuzzleBoardProps {
   board: Board

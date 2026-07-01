@@ -1,7 +1,7 @@
 import type { Mode } from './types'
 
 /** Public base path for every Travel Egypt asset. */
-export const ASSET_BASE = '/arcade/travel-egypt'
+export const ASSET_BASE = '/lab/travel-egypt'
 
 export const TOTAL_LEVELS = 8
 

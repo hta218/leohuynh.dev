@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import { type GameAudio, MUSIC } from '~/lib/arcade/travel-egypt/audio'
-import { ASSET_BASE } from '~/lib/arcade/travel-egypt/constants'
+import { type GameAudio, MUSIC } from '~/lib/lab/travel-egypt/audio'
+import { ASSET_BASE } from '~/lib/lab/travel-egypt/constants'
 
 const FINALS = Array.from(
   { length: 8 },
