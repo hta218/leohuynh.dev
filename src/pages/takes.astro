@@ -3,10 +3,10 @@ import PageHeader from '~/components/PageHeader.astro'
 import StudioShell from '~/components/studio/StudioShell.astro'
 import BaseLayout from '~/layouts/BaseLayout.astro'
 
-const sections = [
+const SECTIONS = [
   {
     title: 'Life',
-    beliefs: [
+    takes: [
       "Health is the one thing you can't refactor later.",
       'Boring and consistent beats intense and gone by next month.',
       "If you're always busy, that's a choice you keep making.",
@@ -16,7 +16,7 @@ const sections = [
   },
   {
     title: 'Family',
-    beliefs: [
+    takes: [
       'Be home for dinner more often than you think you can afford to.',
       'Answer the people you love before the people who pay you.',
       'Time with family is the one budget you never earn back.',
@@ -25,7 +25,7 @@ const sections = [
   },
   {
     title: 'People',
-    beliefs: [
+    takes: [
       'Say the hard thing kindly — but say it.',
       'Be the same person in the room and behind their back.',
       'Apologize fast. Ego is expensive.',
@@ -35,7 +35,7 @@ const sections = [
   },
   {
     title: 'Work',
-    beliefs: [
+    takes: [
       'Useful beats impressive.',
       'Stay close to the work — the answers live there, not in the status call.',
       'Small teams need clearer systems, not more meetings.',
@@ -44,7 +44,7 @@ const sections = [
   },
   {
     title: 'Product',
-    beliefs: [
+    takes: [
       'Build for the people actually using the thing, not the demo.',
       'Good developer experience is product work, not a nice-to-have.',
       'A CMS should make a team faster, not make engineers feel trapped.',
@@ -54,7 +54,7 @@ const sections = [
   },
   {
     title: 'Customers',
-    beliefs: [
+    takes: [
       'A blocked customer matters more than a clean internal plan.',
       'During UAT, unblock the client first; tidy the code after.',
       "Don't make customers guess: say what changed, what's blocked, and what happens next.",
@@ -63,7 +63,7 @@ const sections = [
   },
   {
     title: 'Engineering',
-    beliefs: [
+    takes: [
       'Simple systems win because tired people have to maintain them.',
       'APIs are promises. If people depend on an old path, keep the shim.',
       'Deprecate first, delete later, maybe never.',
@@ -73,7 +73,7 @@ const sections = [
   },
   {
     title: 'AI',
-    beliefs: [
+    takes: [
       "AI is useful, but it doesn't own the outcome — you do.",
       "Let AI draft, code, and review; don't let it decide what good looks like.",
       'A bad spec just creates bad code faster now.',
@@ -83,7 +83,7 @@ const sections = [
   },
   {
     title: 'Communication',
-    beliefs: [
+    takes: [
       'A concise message is a form of respect.',
       'If it matters, write it down.',
       "Best update: what changed, what's blocked, what happens next.",
@@ -92,7 +92,7 @@ const sections = [
   },
   {
     title: 'Operating',
-    beliefs: [
+    takes: [
       'If it needs approval, get approval.',
       'Production, releases, and databases deserve extra paranoia.',
       "Don't force-push someone else's work without a very good reason.",
@@ -114,7 +114,7 @@ const sections = [
 
     <div class="space-y-10">
       {
-        sections.map((section, i) => (
+        SECTIONS.map((section, i) => (
           <section>
             <div class="mb-4 flex items-baseline gap-3 border-b border-line pb-2">
               <span class="font-mono text-xs text-code-blue">
@@ -125,10 +125,10 @@ const sections = [
               </h2>
             </div>
             <ul class="space-y-2.5">
-              {section.beliefs.map((belief) => (
+              {section.takes.map((take) => (
                 <li class="flex gap-3 text-[15px] leading-relaxed text-ink">
                   <span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-line" />
-                  <span>{belief}</span>
+                  <span>{take}</span>
                 </li>
               ))}
             </ul>
