@@ -23,8 +23,10 @@ export async function getStaticPaths() {
 
 const { snippet } = Astro.props
 const { Content } = await render(snippet)
-const { title, heading, summary, date, lastmod, tags, images, canonicalUrl } =
+const { title, heading, summary, seoTitle, seoDescription, date, lastmod, tags, images, canonicalUrl } =
   snippet.data
+const metaTitle = seoTitle ?? title
+const metaDescription = seoDescription ?? summary
 const ogImage = Array.isArray(images) ? images[0] : images
 const dateFmt = new Intl.DateTimeFormat('en-US', {
   year: 'numeric',
@@ -37,7 +39,7 @@ const canonical = canonicalUrl ?? new URL(`/gists/${snippet.id}`, SITE.siteUrl).
 const jsonLd = [
   articleJsonLd({
     title: heading,
-    description: summary,
+    description: metaDescription,
     url: canonical,
     image: new URL(ogImage ?? SITE.socialBanner, SITE.siteUrl).href,
     datePublished: date.toISOString(),
@@ -54,8 +56,8 @@ const jsonLd = [
 ---
 
 <BaseLayout
-  title={title}
-  description={summary}
+  title={metaTitle}
+  description={metaDescription}
   canonicalUrl={canonicalUrl}
   ogImage={ogImage}
   ogType="article"

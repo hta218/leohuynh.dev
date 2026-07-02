@@ -20,7 +20,10 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props
 const { Content } = await render(post)
-const { title, summary, date, lastmod, tags, images, canonicalUrl } = post.data
+const { title, summary, seoTitle, seoDescription, date, lastmod, tags, images, canonicalUrl } =
+  post.data
+const metaTitle = seoTitle ?? title
+const metaDescription = seoDescription ?? summary
 const ogImage = Array.isArray(images) ? images[0] : images
 const dateFmt = new Intl.DateTimeFormat('en-US', {
   year: 'numeric',
@@ -33,7 +36,7 @@ const canonical = canonicalUrl ?? new URL(`/log/${post.id}`, SITE.siteUrl).href
 const jsonLd = [
   articleJsonLd({
     title,
-    description: summary,
+    description: metaDescription,
     url: canonical,
     image: new URL(ogImage ?? SITE.socialBanner, SITE.siteUrl).href,
     datePublished: date.toISOString(),
@@ -50,8 +53,8 @@ const jsonLd = [
 ---
 
 <BaseLayout
-  title={title}
-  description={summary}
+  title={metaTitle}
+  description={metaDescription}
   canonicalUrl={canonicalUrl}
   ogImage={ogImage}
   ogType="article"

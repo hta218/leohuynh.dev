@@ -20,6 +20,11 @@ const sharedFields = {
   tags: z.array(z.string()).default([]),
   draft: z.boolean().optional(),
   summary: z.string().optional(),
+  // Optional SEO overrides: keep expressive on-page titles/summaries while
+  // sending concise, SERP-friendly metadata. Routes prefer these over
+  // `title`/`heading`/`summary` for `<title>`, meta + OG description.
+  seoTitle: z.string().optional(),
+  seoDescription: z.string().optional(),
   images,
   authors: z.array(z.string()).optional(),
   layout: z.string().optional(),

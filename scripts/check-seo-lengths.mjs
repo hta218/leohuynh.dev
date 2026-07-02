@@ -26,9 +26,15 @@ const files = CONTENT_DIRS.flatMap((dir) =>
 let warnings = 0
 for (const file of files) {
   const content = readFileSync(file, 'utf8')
-  // Snippets use `heading` as the on-page/SEO title; everything else uses `title`.
-  const displayTitle = frontmatterField(content, 'heading') ?? frontmatterField(content, 'title')
-  const summary = frontmatterField(content, 'summary')
+  // Effective SEO metadata: an explicit `seoTitle`/`seoDescription` overrides
+  // the on-page title/summary (mirrors the detail-route rendering). Snippets
+  // use `heading` as the on-page/SEO title; everything else uses `title`.
+  const displayTitle =
+    frontmatterField(content, 'seoTitle') ??
+    frontmatterField(content, 'heading') ??
+    frontmatterField(content, 'title')
+  const summary =
+    frontmatterField(content, 'seoDescription') ?? frontmatterField(content, 'summary')
 
   if (displayTitle) {
     const full = `${displayTitle}${AUTHOR_SUFFIX}`

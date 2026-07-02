@@ -24,7 +24,10 @@ export async function getStaticPaths() {
 
 const { note, translations } = Astro.props
 const { Content } = await render(note)
-const { title, topic, lang, summary, date, lastmod, canonicalUrl } = note.data
+const { title, topic, lang, summary, seoTitle, seoDescription, date, lastmod, canonicalUrl } =
+  note.data
+const metaTitle = seoTitle ?? title
+const metaDescription = seoDescription ?? summary
 const dateFmt = new Intl.DateTimeFormat('en-US', {
   year: 'numeric',
   month: 'long',
@@ -35,7 +38,7 @@ const canonical = canonicalUrl ?? new URL(`/misc/${note.id}`, SITE.siteUrl).href
 const jsonLd = [
   articleJsonLd({
     title,
-    description: summary,
+    description: metaDescription,
     url: canonical,
     image: new URL(SITE.socialBanner, SITE.siteUrl).href,
     datePublished: date.toISOString(),
@@ -72,8 +75,8 @@ const alternates =
 ---
 
 <BaseLayout
-  title={title}
-  description={summary}
+  title={metaTitle}
+  description={metaDescription}
   canonicalUrl={canonicalUrl}
   ogType="article"
   publishedTime={date.toISOString()}
