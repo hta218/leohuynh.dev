@@ -22,6 +22,10 @@ export function articleJsonLd(opts: {
   image: string
   datePublished: string
   dateModified?: string
+  /** Content tags → `keywords`, aids topical/entity understanding. */
+  keywords?: string[]
+  /** BCP-47 language, e.g. `en` / `vi`. */
+  inLanguage?: string
 }) {
   return {
     '@context': 'https://schema.org',
@@ -32,9 +36,37 @@ export function articleJsonLd(opts: {
     image: opts.image,
     datePublished: opts.datePublished,
     dateModified: opts.dateModified ?? opts.datePublished,
+    ...(opts.keywords?.length ? { keywords: opts.keywords } : {}),
+    ...(opts.inLanguage ? { inLanguage: opts.inLanguage } : {}),
     author: { '@type': 'Person', name: SITE.author, url: `${SITE.siteUrl}/whoami` },
     publisher: { '@type': 'Person', name: SITE.author },
     mainEntityOfPage: { '@type': 'WebPage', '@id': opts.url },
+  }
+}
+
+/** `ProfilePage` + `Person` schema for `/whoami` — strengthens entity/EEAT signals. */
+export function profileJsonLd(opts: { url: string; image: string }) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ProfilePage',
+    url: opts.url,
+    mainEntity: {
+      '@type': 'Person',
+      name: SITE.author,
+      alternateName: 'Tuan Anh Huynh',
+      url: `${SITE.siteUrl}/whoami`,
+      image: opts.image,
+      jobTitle: 'Software Engineer',
+      sameAs: [
+        SITE.github,
+        SITE.x,
+        SITE.linkedin,
+        SITE.instagram,
+        SITE.threads,
+        SITE.youtube,
+        SITE.facebook,
+      ],
+    },
   }
 }
 

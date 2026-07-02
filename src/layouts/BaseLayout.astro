@@ -14,6 +14,8 @@ interface Props {
   ogType?: 'website' | 'article'
   /** ISO published date, emitted as `article:published_time`. */
   publishedTime?: string
+  /** ISO last-modified date, emitted as `article:modified_time`. */
+  modifiedTime?: string
   /** Page content language, drives `<html lang>` and `og:locale`. */
   lang?: 'en' | 'vi'
   /** `hreflang` alternates for pages with translated counterparts. */
@@ -29,6 +31,7 @@ const {
   ogImage,
   ogType = 'website',
   publishedTime,
+  modifiedTime,
   lang = 'en',
   alternates = [],
   noindex = false,
@@ -87,6 +90,9 @@ const umamiWebsiteId = (
     <meta property="og:image" content={image} />
     {publishedTime && (
       <meta property="article:published_time" content={publishedTime} />
+    )}
+    {modifiedTime && (
+      <meta property="article:modified_time" content={modifiedTime} />
     )}
 
     <meta name="twitter:card" content="summary_large_image" />

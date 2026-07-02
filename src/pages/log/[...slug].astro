@@ -38,6 +38,8 @@ const jsonLd = [
     image: new URL(ogImage ?? SITE.socialBanner, SITE.siteUrl).href,
     datePublished: date.toISOString(),
     dateModified: lastmod ? new Date(lastmod).toISOString() : undefined,
+    keywords: tags,
+    inLanguage: 'en',
   }),
   breadcrumbJsonLd([
     { name: 'Home', url: SITE.siteUrl },
@@ -54,6 +56,7 @@ const jsonLd = [
   ogImage={ogImage}
   ogType="article"
   publishedTime={date.toISOString()}
+  modifiedTime={lastmod ? new Date(lastmod).toISOString() : undefined}
 >
   <Fragment slot="head">
     {jsonLd.map((data) => <JsonLd data={data} />)}

@@ -40,6 +40,8 @@ const jsonLd = [
     image: new URL(SITE.socialBanner, SITE.siteUrl).href,
     datePublished: date.toISOString(),
     dateModified: lastmod ? new Date(lastmod).toISOString() : undefined,
+    keywords: [topic],
+    inLanguage: lang,
   }),
   breadcrumbJsonLd([
     { name: 'Home', url: SITE.siteUrl },
@@ -75,6 +77,7 @@ const alternates =
   canonicalUrl={canonicalUrl}
   ogType="article"
   publishedTime={date.toISOString()}
+  modifiedTime={lastmod ? new Date(lastmod).toISOString() : undefined}
   lang={lang}
   alternates={alternates}
 >
