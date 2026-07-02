@@ -35,6 +35,11 @@
     { "source": "/movies", "destination": "/shelf", "permanent": true },
     { "source": "/tags", "destination": "/topics", "permanent": true },
     {
+      "source": "/tags/:tag/feed.xml",
+      "destination": "/topics/:tag/feed.xml",
+      "permanent": true
+    },
+    {
       "source": "/tags/:tag",
       "destination": "/topics/:tag",
       "permanent": true

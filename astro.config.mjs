@@ -49,6 +49,13 @@ export default defineConfig({
       // just the landing page — individual files stay crawlable via the
       // sidebar without pulling GitHub into the build.
       customPages: ['https://www.leohuynh.dev/dotfiles'],
+      // Tag archive pages (`/topics/<tag>`) are low-value aggregation pages,
+      // and thin single-item ones render `noindex` — so submitting them mixes
+      // "index this" (sitemap) with "don't index this" (page). Keep the
+      // `/topics` index in the sitemap but drop the per-tag detail pages; they
+      // stay browsable/crawlable via in-app links.
+      filter: (page) =>
+        !/\/topics\/[^/]+$/.test(new URL(page).pathname.replace(/\/$/, '')),
     }),
   ],
   markdown: {
@@ -78,6 +85,11 @@ export default defineConfig({
     '/books': { status: 301, destination: '/shelf' },
     '/movies': { status: 301, destination: '/shelf' },
     '/tags': { status: 301, destination: '/topics' },
+    // Legacy tag RSS feeds — must precede `/tags/[tag]` so it wins the match.
+    '/tags/[tag]/feed.xml': {
+      status: 301,
+      destination: '/topics/[tag]/feed.xml',
+    },
     '/tags/[tag]': { status: 301, destination: '/topics/[tag]' },
   },
   vite: {
