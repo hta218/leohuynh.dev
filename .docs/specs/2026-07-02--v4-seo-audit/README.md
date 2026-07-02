@@ -1,8 +1,9 @@
 # v4 SEO audit
 
-Status: audit completed / implementation backlog ready
+Status: implemented (2026-07-02) — ready for re-audit
 Owner: @hta218
 Created: 2026-07-02
+Last Updated: 2026-07-02
 Branch: `v4`
 
 ## Original prompt
@@ -84,6 +85,45 @@ Representative Lighthouse SEO scores:
 - `src/pages/whoami.astro`
 - `scripts/check-seo-lengths.mjs`
 - Selected MDX files in `data/blog/` and `data/snippets/`
+
+## Implementation status (2026-07-02)
+
+All findings from `report.md` have been addressed. Work landed on branch `v4`.
+Please re-audit against the current build to confirm.
+
+| # | Finding | Status | What changed |
+| --- | --- | --- | --- |
+| 1 | `noindex` topic pages in sitemap | ✅ Done | `astro.config.mjs` sitemap `filter` drops `/topics/<tag>` detail pages; `/topics` index stays. Verified: sitemap `241 → 71` URLs, `0` render `noindex`. |
+| 2 | Long titles/descriptions | ⚠️ Infra only (by decision) | Added optional `seoTitle`/`seoDescription` schema fields + route rendering (`seoTitle ?? title`, `seoDescription ?? summary`) + updated `check-seo-lengths.mjs`. **Existing posts were intentionally NOT edited** — see decision below. New posts can opt in. `seo:check` still reports `39` (unchanged, expected). |
+| 3 | Legacy tag feed redirects | ✅ Done | Added `/tags/:tag/feed.xml → /topics/:tag/feed.xml` (301) in both `vercel.json` and `astro.config.mjs` (ordered before `/tags/:tag`). |
+| 4 | Missing image `alt` | ✅ Done | Added descriptive `alt` to the 3 LinkedIn screenshots in `how-should-developers-looking-for-a-job-part-1.mdx`. Source missing-alt scan → `0`. |
+| 5 | Richer structured data | ✅ Done | `articleJsonLd` now emits `keywords` (tags) + `inLanguage`; `BaseLayout` emits `article:modified_time` when `lastmod` exists; `/whoami` emits `ProfilePage` + `Person` via new `profileJsonLd`. `headline` still uses the real on-page title. |
+| 6 | Stale `/whoami` stack | ✅ Done | Updated to Astro 6 + React 19 islands and raw `postgres` client (removed Astro 5 / Drizzle). |
+| 7 | Index policy for utility routes | ✅ Done (decision) | `/guestbook` → `noindex,follow` + excluded from sitemap (UGC, no search value). `/dotfiles` → kept indexable + in sitemap (useful config mirror). |
+
+### Decisions worth noting for the re-audit
+
+- **Finding 2 — deliberately infra-only.** The owner chose to keep the mechanism
+  (`seoTitle`/`seoDescription`) for **new posts only** and NOT retrofit existing
+  posts. Rationale: for pages already ranking well, changing `<title>` risks
+  ranking/CTR and can drop keywords (e.g. the top-traffic
+  `does-promise-all-run-in-parallel-or-sequential` post: shortening its title
+  would have dropped "JavaScript" / "sequential"). Long titles are only
+  truncated in display, still fully indexed — "if it ranks, don't touch the
+  title". So `seo:check` warnings remaining is expected, not a regression.
+- **Finding 7 — explicit owner decision** (guestbook noindex, dotfiles indexed).
+
+### Verification run after implementation
+
+- `bun run check` → `0 errors, 0 warnings, 0 hints`
+- `bun run build` → success
+- Parsed `dist/client/sitemap-0.xml` → `0` URLs render `noindex`; `/guestbook`
+  excluded; `/dotfiles` present; `/topics` index present, `/topics/<tag>` absent.
+- Confirmed in built HTML: article JSON-LD carries `keywords` + `inLanguage`,
+  `article:modified_time` present, `/whoami` has `ProfilePage`.
+
+Note: `/guestbook` is SSR (`prerender = false`), so its `noindex` meta renders
+at request time (not in static `dist/client`) — confirm on a Vercel preview.
 
 ## Report
 
