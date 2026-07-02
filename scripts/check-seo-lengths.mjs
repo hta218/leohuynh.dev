@@ -26,13 +26,12 @@ const files = CONTENT_DIRS.flatMap((dir) =>
 let warnings = 0
 for (const file of files) {
   const content = readFileSync(file, 'utf8')
-  // Effective SEO metadata: an explicit `seoTitle`/`seoDescription` overrides
-  // the on-page title/summary (mirrors the detail-route rendering). Snippets
-  // use `heading` as the on-page/SEO title; everything else uses `title`.
+  // Effective SEO metadata — must mirror what the detail routes render as the
+  // `<title>`/meta description. All three routes (blog/gists/misc) use
+  // `seoTitle ?? title` and `seoDescription ?? summary`. For snippets, `heading`
+  // is the on-page H1 only (NOT the rendered `<title>`), so it's excluded here.
   const displayTitle =
-    frontmatterField(content, 'seoTitle') ??
-    frontmatterField(content, 'heading') ??
-    frontmatterField(content, 'title')
+    frontmatterField(content, 'seoTitle') ?? frontmatterField(content, 'title')
   const summary =
     frontmatterField(content, 'seoDescription') ?? frontmatterField(content, 'summary')
 

@@ -31,10 +31,13 @@ const title = isIndex
   : entry?.kind === 'missing'
     ? 'Not found'
     : slug
+// The index page's title is already "dotfiles" — don't append the section
+// suffix again (it produced "dotfiles — dotfiles"). Nested files keep it.
+const pageTitle = isIndex ? 'dotfiles' : `${title} — dotfiles`
 const crumb = isIndex ? '~/dotfiles' : `~/dotfiles/${slug}`
 ---
 
-<BaseLayout title={`${title} — dotfiles`} description="Shared personal config & dev setup from my dotfiles repo.">
+<BaseLayout title={pageTitle} description="Shared personal config & dev setup from my dotfiles repo.">
   <StudioShell active={isIndex ? '/dotfiles' : `/dotfiles/${slug}`} crumb={crumb}>
     {
       isIndex && (
