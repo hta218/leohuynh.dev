@@ -14,6 +14,10 @@ interface Props {
   ogType?: 'website' | 'article'
   /** ISO published date, emitted as `article:published_time`. */
   publishedTime?: string
+  /** Page content language, drives `<html lang>` and `og:locale`. */
+  lang?: 'en' | 'vi'
+  /** `hreflang` alternates for pages with translated counterparts. */
+  alternates?: { hreflang: string; href: string }[]
 }
 
 const {
@@ -23,23 +27,31 @@ const {
   ogImage,
   ogType = 'website',
   publishedTime,
+  lang = 'en',
+  alternates = [],
 } = Astro.props
 
 const pageTitle = title ? `${title} — ${SITE.author}` : SITE.title
 const canonical = canonicalUrl ?? new URL(Astro.url.pathname, SITE.siteUrl).href
 const image = new URL(ogImage ?? SITE.socialBanner, SITE.siteUrl).href
 const rssTitle = `${SITE.title} RSS feed`
+const ogLocale = lang === 'vi' ? 'vi-VN' : SITE.locale
 const umamiWebsiteId = (
   import.meta.env.PUBLIC_UMAMI_WEBSITE_ID || process.env.PUBLIC_UMAMI_WEBSITE_ID
 )?.trim()
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="canonical" href={canonical} />
+    {
+      alternates.map((alt) => (
+        <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />
+      ))
+    }
     <link rel="icon" type="image/svg+xml" href="/static/twemoji/2328-fe0f.svg" />
     <link rel="apple-touch-icon" href="/static/images/avatar.jpg" />
     <title>{pageTitle}</title>
@@ -67,7 +79,7 @@ const umamiWebsiteId = (
     <meta property="og:url" content={canonical} />
     <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content={SITE.headerTitle} />
-    <meta property="og:locale" content={SITE.locale} />
+    <meta property="og:locale" content={ogLocale} />
     <meta property="og:image" content={image} />
     {publishedTime && (
       <meta property="article:published_time" content={publishedTime} />

@@ -3,22 +3,51 @@ import { getCollection, render } from 'astro:content'
 import Twemoji from '~/components/mdx/Twemoji.astro'
 import StudioShell from '~/components/studio/StudioShell.astro'
 import { isPublished } from '~/lib/content'
+import { SITE } from '~/lib/site'
 import BaseLayout from '~/layouts/BaseLayout.astro'
 
 // Slug parity with blog/snippets: id = filename → `/misc/<slug>`.
 export async function getStaticPaths() {
   const notes = await getCollection('misc', isPublished)
-  return notes.map((note) => ({ params: { slug: note.id }, props: { note } }))
+  return notes.map((note) => {
+    const primaryId = note.data.translationOf ?? note.id
+    // Every language variant of the same note: the primary + anything that
+    // points back to it via `translationOf`.
+    const translations = notes
+      .filter((n) => n.id === primaryId || n.data.translationOf === primaryId)
+      .sort((a, b) => a.data.lang.localeCompare(b.data.lang))
+    return { params: { slug: note.id }, props: { note, translations } }
+  })
 }
 
-const { note } = Astro.props
+const { note, translations } = Astro.props
 const { Content } = await render(note)
-const { title, topic, summary, date, lastmod, canonicalUrl } = note.data
+const { title, topic, lang, summary, date, lastmod, canonicalUrl } = note.data
 const dateFmt = new Intl.DateTimeFormat('en-US', {
   year: 'numeric',
   month: 'long',
   day: 'numeric',
 })
+
+// hreflang alternates so search engines know these pages are translations
+// of each other, not unrelated/duplicate content. `x-default` falls back to
+// the primary (non-translated) note.
+const alternates =
+  translations.length > 1
+    ? [
+        ...translations.map((t) => ({
+          hreflang: t.data.lang,
+          href: new URL(`/misc/${t.id}`, SITE.siteUrl).href,
+        })),
+        {
+          hreflang: 'x-default',
+          href: new URL(
+            `/misc/${translations.find((t) => !t.data.translationOf)?.id ?? note.id}`,
+            SITE.siteUrl,
+          ).href,
+        },
+      ]
+    : []
 ---
 
 <BaseLayout
@@ -27,6 +56,8 @@ const dateFmt = new Intl.DateTimeFormat('en-US', {
   canonicalUrl={canonicalUrl}
   ogType="article"
   publishedTime={date.toISOString()}
+  lang={lang}
+  alternates={alternates}
 >
   <StudioShell active={`/misc/${note.id}`} crumb={`~/leohuynh.dev/misc/${note.id}`}>
     <article class="prose">
@@ -42,6 +73,26 @@ const dateFmt = new Intl.DateTimeFormat('en-US', {
         <span class="rounded-full border border-line px-2 py-0.5 text-code-blue">
           {topic}
         </span>
+        {
+          translations.length > 1 && (
+            <span class="ml-auto flex gap-1.5">
+              {translations.map((t) =>
+                t.id === note.id ? (
+                  <span class="rounded-full bg-ink px-2 py-0.5 uppercase text-bg">
+                    {t.data.lang}
+                  </span>
+                ) : (
+                  <a
+                    href={`/misc/${t.id}`}
+                    class="rounded-full border border-line px-2 py-0.5 uppercase text-muted no-underline hover:border-code-blue hover:text-code-blue"
+                  >
+                    {t.data.lang}
+                  </a>
+                ),
+              )}
+            </span>
+          )
+        }
       </div>
       <Content components={{ Twemoji }} />
     </article>

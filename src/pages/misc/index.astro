@@ -4,7 +4,9 @@ import StudioShell from '~/components/studio/StudioShell.astro'
 import { getPublishedMisc } from '~/lib/content'
 import BaseLayout from '~/layouts/BaseLayout.astro'
 
-const notes = await getPublishedMisc()
+// Index lists primary notes only; translations are reachable via the
+// language switcher on the primary note's detail page.
+const notes = (await getPublishedMisc()).filter((note) => !note.data.translationOf)
 const dateFmt = new Intl.DateTimeFormat('en-CA')
 ---
 

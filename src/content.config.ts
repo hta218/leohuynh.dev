@@ -50,6 +50,10 @@ const misc = defineCollection({
   schema: z.object({
     title: z.string(),
     topic: z.string(),
+    lang: z.enum(['en', 'vi']).default('en'),
+    // Id of the primary-language note this is a translation of. Unset on the
+    // canonical note; the index lists only notes where this is unset.
+    translationOf: z.string().optional(),
     ...sharedFields,
   }),
 })
