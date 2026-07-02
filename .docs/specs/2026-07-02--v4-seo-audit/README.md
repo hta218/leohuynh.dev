@@ -94,7 +94,7 @@ Please re-audit against the current build to confirm.
 | # | Finding | Status | What changed |
 | --- | --- | --- | --- |
 | 1 | `noindex` topic pages in sitemap | ✅ Done | `astro.config.mjs` sitemap `filter` drops `/topics/<tag>` detail pages; `/topics` index stays. Verified: sitemap `241 → 71` URLs, `0` render `noindex`. |
-| 2 | Long titles/descriptions | ⚠️ Infra only (by decision) | Added optional `seoTitle`/`seoDescription` schema fields + route rendering (`seoTitle ?? title`, `seoDescription ?? summary`) + updated `check-seo-lengths.mjs`. **Existing posts were intentionally NOT edited** — see decision below. New posts can opt in. `seo:check` still reports `39` (unchanged, expected). |
+| 2 | Long titles/descriptions | ⚠️ Infra only (by decision) | Added optional `seoTitle`/`seoDescription` schema fields + route rendering (`seoTitle ?? title`, `seoDescription ?? summary`) + updated `check-seo-lengths.mjs`. **Existing posts were intentionally NOT edited** — see decision below. New posts can opt in. `seo:check` reports `53` (was `39`; the increase is the script now correctly counting gist titles — see re-audit follow-up F1). |
 | 3 | Legacy tag feed redirects | ✅ Done | Added `/tags/:tag/feed.xml → /topics/:tag/feed.xml` (301) in both `vercel.json` and `astro.config.mjs` (ordered before `/tags/:tag`). |
 | 4 | Missing image `alt` | ✅ Done | Added descriptive `alt` to the 3 LinkedIn screenshots in `how-should-developers-looking-for-a-job-part-1.mdx`. Source missing-alt scan → `0`. |
 | 5 | Richer structured data | ✅ Done | `articleJsonLd` now emits `keywords` (tags) + `inLanguage`; `BaseLayout` emits `article:modified_time` when `lastmod` exists; `/whoami` emits `ProfilePage` + `Person` via new `profileJsonLd`. `headline` still uses the real on-page title. |
@@ -125,6 +125,24 @@ Please re-audit against the current build to confirm.
 Note: `/guestbook` is SSR (`prerender = false`), so its `noindex` meta renders
 at request time (not in static `dist/client`) — confirm on a Vercel preview.
 
+## Re-audit follow-ups (2026-07-02)
+
+Codex re-audited post-implementation (`re-audit-2026-07-02.md`): base backlog all
+confirmed fixed. It raised two follow-ups, both now resolved:
+
+- **F1 (Medium) — `seo:check` mismatched gist titles.** The script used
+  `seoTitle ?? heading ?? title` for snippets, but the gists route renders
+  `seoTitle ?? title` as `<title>` (`heading` is the H1 only). Fixed
+  `check-seo-lengths.mjs` to `seoTitle ?? title` for all collections. The script
+  now agrees with rendered output (gist title mismatch scan → `0`); `seo:check`
+  rose `39 → 53` because it now correctly counts the 14 long gist titles it
+  previously hid. Existing titles still intentionally not retrofitted.
+- **F2 (Low) — `/dotfiles` duplicate title.** Index page rendered
+  `dotfiles — dotfiles — Leo Huynh`. Fixed `dotfiles/[...slug].astro` to emit
+  `dotfiles` for the index (→ `dotfiles — Leo Huynh`); nested files keep
+  `<file> — dotfiles`. `/dotfiles` is SSR — confirm on a Vercel preview.
+
 ## Report
 
 See `report.md` for detailed findings, evidence, and implementation-ready tasks.
+See `re-audit-2026-07-02.md` for the post-implementation re-audit.

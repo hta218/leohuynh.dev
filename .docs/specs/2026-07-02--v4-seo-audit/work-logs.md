@@ -35,3 +35,19 @@ Implemented the full SEO audit backlog from `report.md` on branch `v4`.
 ### Not done (out of scope / by decision)
 
 - Retrofitting existing posts with `seoTitle`/`seoDescription` (Finding 2 content).
+
+## 2026-07-02 (later) — @hta218
+
+Addressed the two follow-ups from Codex's post-implementation re-audit
+(`re-audit-2026-07-02.md`).
+
+- **F1**: aligned `scripts/check-seo-lengths.mjs` with the routes — snippets now
+  use `seoTitle ?? title` (not `heading`, which is display-only). Gist
+  title mismatch scan (script vs rendered `<title>`) → `0`. `seo:check`
+  `39 → 53`, the extra 14 being long gist titles the script previously hid;
+  existing titles intentionally left as-is.
+- **F2**: fixed `/dotfiles` index title duplication in
+  `src/pages/dotfiles/[...slug].astro` (`dotfiles — dotfiles` → `dotfiles`);
+  nested dotfile titles unchanged.
+- Verify: `bun run check` 0/0/0, `bun run build` success, gist mismatch scan `0`.
+
