@@ -1,0 +1,50 @@
+---
+import PageHeader from '~/components/PageHeader.astro'
+import StudioShell from '~/components/studio/StudioShell.astro'
+import { getPublishedMisc } from '~/lib/content'
+import BaseLayout from '~/layouts/BaseLayout.astro'
+
+const notes = await getPublishedMisc()
+const dateFmt = new Intl.DateTimeFormat('en-CA')
+---
+
+<BaseLayout
+  title="Misc"
+  description="Notes on things I'm learning outside of code — business, finance, parenting, language, and whatever else sticks."
+>
+  <StudioShell active="/misc" crumb="~/leohuynh.dev/misc">
+    <PageHeader
+      title="Misc"
+      description="Notes on things I'm learning outside of code — business, finance, parenting, language, and whatever else sticks."
+    >
+      <p class="mt-2 font-mono text-xs text-muted">{notes.length} notes</p>
+    </PageHeader>
+    <div class="grid gap-3 md:grid-cols-2">
+      {
+        notes.map((note) => (
+          <a
+            href={`/misc/${note.id}`}
+            class="rounded-2xl border border-line bg-white p-4 no-underline transition-colors hover:border-code-blue"
+          >
+            <div class="grid grid-cols-[88px_1fr] gap-3">
+              <time class="pt-1 font-mono text-xs text-muted">
+                {dateFmt.format(note.data.date)}
+              </time>
+              <div>
+                <div class="mb-1.5 font-mono text-[11px] uppercase tracking-[0.08em] text-code-blue">
+                  {note.data.topic}
+                </div>
+                <h3 class="m-0 mb-1.5 text-[18px] tracking-[-0.03em] text-ink">
+                  {note.data.title}
+                </h3>
+                <p class="m-0 text-sm leading-snug text-muted">
+                  {note.data.summary}
+                </p>
+              </div>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </StudioShell>
+</BaseLayout>

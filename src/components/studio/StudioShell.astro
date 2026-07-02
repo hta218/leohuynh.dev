@@ -25,22 +25,28 @@ const { active, crumb = '~/leohuynh.dev/main' } = Astro.props
 const currentPath = (active ?? Astro.url.pathname.replace(/\/$/, '')) || '/'
 const isPublished = (d: { data: { draft?: boolean } }) => d.data.draft !== true
 
-const [posts, snippets] = await Promise.all([
+const [posts, snippets, miscNotes] = await Promise.all([
   getCollection('blog', isPublished),
   getCollection('snippets', isPublished),
+  getCollection('misc', isPublished),
 ])
 const latestPost = posts.sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 )[0]
 const latestSnippet = snippets.sort((a, b) => b.id.localeCompare(a.id))[0]
+const latestMisc = miscNotes.sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+)[0]
 
 const {
   items: explorerItems,
   postsIndex,
   snippetsIndex,
+  miscIndex,
 } = buildExplorerTree({
   latestPostId: latestPost?.id,
   latestSnippetId: latestSnippet?.id,
+  latestMiscId: latestMisc?.id,
   statsUrl: SITE.analytics.umamiShareUrl,
 })
 
@@ -68,6 +74,7 @@ const currentTab = resolveCurrentTab(currentPath, {
   items: explorerItems,
   postsIndex,
   snippetsIndex,
+  miscIndex,
 })
 const seedTabs = getSeedTabs(readmeTab, currentTab)
 

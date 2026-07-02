@@ -1,0 +1,49 @@
+---
+import { getCollection, render } from 'astro:content'
+import Twemoji from '~/components/mdx/Twemoji.astro'
+import StudioShell from '~/components/studio/StudioShell.astro'
+import { isPublished } from '~/lib/content'
+import BaseLayout from '~/layouts/BaseLayout.astro'
+
+// Slug parity with blog/snippets: id = filename → `/misc/<slug>`.
+export async function getStaticPaths() {
+  const notes = await getCollection('misc', isPublished)
+  return notes.map((note) => ({ params: { slug: note.id }, props: { note } }))
+}
+
+const { note } = Astro.props
+const { Content } = await render(note)
+const { title, topic, summary, date, lastmod, canonicalUrl } = note.data
+const dateFmt = new Intl.DateTimeFormat('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+})
+---
+
+<BaseLayout
+  title={title}
+  description={summary}
+  canonicalUrl={canonicalUrl}
+  ogType="article"
+  publishedTime={date.toISOString()}
+>
+  <StudioShell active={`/misc/${note.id}`} crumb={`~/leohuynh.dev/misc/${note.id}`}>
+    <article class="prose">
+      <h1>{title}</h1>
+      <div class="mb-8 flex flex-wrap items-center gap-3 font-mono text-xs text-muted not-prose">
+        <time datetime={date.toISOString()}>{dateFmt.format(date)}</time>
+        {
+          lastmod && (
+            <span>· updated {dateFmt.format(new Date(lastmod))}</span>
+          )
+        }
+        <span>·</span>
+        <span class="rounded-full border border-line px-2 py-0.5 text-code-blue">
+          {topic}
+        </span>
+      </div>
+      <Content components={{ Twemoji }} />
+    </article>
+  </StudioShell>
+</BaseLayout>

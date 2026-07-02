@@ -45,4 +45,13 @@ const snippets = defineCollection({
   }),
 })
 
-export const collections = { blog, snippets }
+const misc = defineCollection({
+  loader: glob({ pattern: '**/*.mdx', base: './data/misc' }),
+  schema: z.object({
+    title: z.string(),
+    topic: z.string(),
+    ...sharedFields,
+  }),
+})
+
+export const collections = { blog, snippets, misc }

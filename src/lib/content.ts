@@ -34,6 +34,11 @@ export async function getPublishedSnippets() {
   return snippets.sort(byDateDesc)
 }
 
+export async function getPublishedMisc() {
+  const notes = await getCollection('misc', isPublished)
+  return notes.sort(byDateDesc)
+}
+
 /** Slug a human tag string the same way the legacy site does. */
 export function tagSlug(tag: string): string {
   return ghSlug(tag)

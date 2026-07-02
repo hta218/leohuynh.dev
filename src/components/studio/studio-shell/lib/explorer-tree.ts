@@ -8,6 +8,7 @@ export type ExplorerTree = {
   items: TreeItem[]
   postsIndex: TreeLeaf
   snippetsIndex: TreeLeaf
+  miscIndex: TreeLeaf
 }
 
 /**
@@ -18,6 +19,7 @@ export type ExplorerTree = {
 export function buildExplorerTree(opts: {
   latestPostId?: string
   latestSnippetId?: string
+  latestMiscId?: string
   statsUrl: string
 }): ExplorerTree {
   const postsIndex: TreeLeaf = {
@@ -57,6 +59,24 @@ export function buildExplorerTree(opts: {
     icon: { type: 'brand', name: 'astro' },
     activeWhen: (path) => path.startsWith('/gists/'),
   }
+  const miscIndex: TreeLeaf = {
+    kind: 'leaf',
+    id: 'misc-index',
+    href: '/misc',
+    file: 'index.astro',
+    title: 'Misc index',
+    icon: { type: 'brand', name: 'astro' },
+    activeWhen: exact('/misc'),
+  }
+  const miscSlug: TreeLeaf = {
+    kind: 'leaf',
+    id: 'misc-slug',
+    href: opts.latestMiscId ? `/misc/${opts.latestMiscId}` : '/misc',
+    file: '[...slug].astro',
+    title: 'Misc note detail template',
+    icon: { type: 'brand', name: 'astro' },
+    activeWhen: (path) => path.startsWith('/misc/'),
+  }
 
   const items: TreeItem[] = [
     {
@@ -85,6 +105,15 @@ export function buildExplorerTree(opts: {
       icon: { type: 'huge', name: 'folder' },
       children: [snippetsIndex, snippetsSlug],
       activeWhen: startsWith('/gists'),
+    },
+    {
+      kind: 'folder',
+      id: 'misc-folder',
+      file: 'misc',
+      title: 'Misc',
+      icon: { type: 'huge', name: 'book' },
+      children: [miscIndex, miscSlug],
+      activeWhen: startsWith('/misc'),
     },
     {
       kind: 'leaf',
@@ -152,5 +181,5 @@ export function buildExplorerTree(opts: {
     },
   ]
 
-  return { items, postsIndex, snippetsIndex }
+  return { items, postsIndex, snippetsIndex, miscIndex }
 }

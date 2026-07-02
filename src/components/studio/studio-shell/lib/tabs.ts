@@ -20,6 +20,7 @@ type TabContext = {
   items: TreeItem[]
   postsIndex: TreeLeaf
   snippetsIndex: TreeLeaf
+  miscIndex: TreeLeaf
 }
 
 /**
@@ -28,7 +29,7 @@ type TabContext = {
  * reads like the opened source file (e.g. `my-post.mdx`).
  */
 export function resolveCurrentTab(path: string, ctx: TabContext): TreeLeaf {
-  const { items, postsIndex, snippetsIndex } = ctx
+  const { items, postsIndex, snippetsIndex, miscIndex } = ctx
 
   if (path === '/log' || path.startsWith('/log/page/')) {
     return {
@@ -58,6 +59,24 @@ export function resolveCurrentTab(path: string, ctx: TabContext): TreeLeaf {
   }
   if (path.startsWith('/gists/')) {
     const slug = decodeURIComponent(path.slice('/gists/'.length))
+    return {
+      kind: 'leaf',
+      id: 'current',
+      href: path,
+      file: `${slug}.mdx`,
+      icon: { type: 'brand', name: 'astro' },
+    }
+  }
+  if (path === '/misc') {
+    return {
+      ...miscIndex,
+      id: 'current',
+      href: '/misc',
+      file: 'misc/index.astro',
+    }
+  }
+  if (path.startsWith('/misc/')) {
+    const slug = decodeURIComponent(path.slice('/misc/'.length))
     return {
       kind: 'leaf',
       id: 'current',
