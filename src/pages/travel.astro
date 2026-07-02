@@ -1,0 +1,106 @@
+---
+import PageHeader from '~/components/PageHeader.astro'
+import StudioShell from '~/components/studio/StudioShell.astro'
+import VietnamMap from '~/components/travel/VietnamMap'
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import { getPlaces, getTravelStats } from '~/lib/places'
+import { SITE } from '~/lib/site'
+
+const units = getPlaces()
+const stats = getTravelStats(units)
+const visitedUnits = units.filter((unit) => unit.visited)
+
+const STAT_TILES = [
+  { value: `${stats.visited} / ${stats.total}`, label: 'provinces' },
+  { value: `${stats.percent}%`, label: 'of Vietnam' },
+  { value: `${stats.totalPlaces}`, label: 'places' },
+]
+---
+
+<BaseLayout
+  title="Travel map"
+  description="Places I've been across Vietnam — a checked-in map of the provinces I've explored, seeded from my gody.vn travel profile."
+>
+  <StudioShell active="/travel" crumb="~/leohuynh.dev/travel/">
+    <PageHeader
+      title="Travel map"
+      description="Every province of Vietnam I've set foot in, mapped onto the new 2025 administrative units."
+    />
+
+    <section class="mb-10">
+      <dl class="grid grid-cols-3 gap-3 sm:max-w-md">
+        {
+          STAT_TILES.map((tile) => (
+            <div class="rounded-2xl border border-line bg-white p-4 text-center">
+              <dt class="m-0 font-mono text-[11px] tracking-wide text-muted uppercase">
+                {tile.label}
+              </dt>
+              <dd class="m-0 mt-1 text-[26px] tracking-[-0.04em] text-ink">
+                {tile.value}
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </section>
+
+    <section class="mb-14">
+      <VietnamMap provinces={units} client:visible />
+    </section>
+
+    <section id="provinces" class="scroll-mt-24">
+      <div
+        class="mb-5 flex items-end justify-between gap-3 border-b border-line pb-2"
+      >
+        <h2 class="m-0 text-[22px] tracking-[-0.04em]">Where I've been</h2>
+        <a
+          href={SITE.godyProfileUrl}
+          target="_blank"
+          rel="noreferrer"
+          class="font-mono text-xs text-code-blue no-underline">gody.vn ↗</a
+        >
+      </div>
+
+      <ul class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        {
+          visitedUnits.map((unit) => (
+            <li>
+              <div class="h-full rounded-2xl border border-line bg-white p-4">
+                <div class="flex items-baseline justify-between gap-3">
+                  <h3 class="m-0 text-[17px] tracking-[-0.02em] text-ink">
+                    {unit.name}
+                  </h3>
+                  <span class="flex-none font-mono text-xs text-muted">
+                    {unit.count > 0 ? `${unit.count} places` : 'visited'}
+                  </span>
+                </div>
+                {unit.mergedFrom.length > 0 && (
+                  <p class="mt-1 mb-0 font-mono text-[11px] text-muted">
+                    incl. {unit.mergedFrom.join(', ')}
+                  </p>
+                )}
+                {unit.places.length > 0 && (
+                  <ul class="mt-3 grid gap-1.5 p-0">
+                    {unit.places.map((place) => (
+                      <li class="flex items-baseline gap-2 text-[14px] text-ink">
+                        <span aria-hidden="true" class="text-muted">
+                          —
+                        </span>
+                        <span>{place.name}</span>
+                      </li>
+                    ))}
+                    {unit.count > unit.places.length && (
+                      <li class="font-mono text-[11px] text-muted">
+                        + {unit.count - unit.places.length} more not listed
+                      </li>
+                    )}
+                  </ul>
+                )}
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </StudioShell>
+</BaseLayout>

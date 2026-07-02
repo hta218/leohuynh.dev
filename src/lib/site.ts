@@ -23,6 +23,7 @@ export const SITE = {
   goodreadsBookshelfUrl:
     'https://www.goodreads.com/review/list/179720035-leo-huynh',
   imdbRatingsList: 'https://www.imdb.com/user/ur154483197/ratings/?view=grid',
+  godyProfileUrl: 'https://gody.vn/blog/huynhtuananh218951440',
   // OG/Twitter fallback banner generated from the current profile photo.
   socialBanner: '/static/images/og.jpg',
   analytics: {
@@ -40,7 +41,8 @@ export const SUPPORT = {
 
 /** Career timeline shown on `/about`, ported from `data/authors/default.mdx`. */
 /** Shared class for inline links rendered inside career note HTML. */
-const NOTE_LINK = 'text-code-blue underline underline-offset-2 hover:decoration-2'
+const NOTE_LINK =
+  'text-code-blue underline underline-offset-2 hover:decoration-2'
 
 export const CAREER = [
   {
@@ -126,6 +128,7 @@ export const NAV_LINKS = [
 
 export const MORE_LINKS = [
   { href: '/shelf', title: 'Shelf' },
+  { href: '/travel', title: 'Travel' },
   { href: '/topics', title: 'Topics' },
   { href: SITE.analytics.umamiShareUrl, title: 'Analytics' },
 ] as const
