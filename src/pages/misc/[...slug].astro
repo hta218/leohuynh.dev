@@ -75,16 +75,16 @@ const alternates =
         </span>
         {
           translations.length > 1 && (
-            <span class="ml-auto flex gap-1.5">
+            <span class="ml-auto flex items-center gap-0.5 rounded-full border border-line bg-panel2 p-0.5">
               {translations.map((t) =>
                 t.id === note.id ? (
-                  <span class="rounded-full bg-ink px-2 py-0.5 uppercase text-bg">
+                  <span class="rounded-full bg-ink px-2.5 py-1 uppercase tracking-wide text-bg">
                     {t.data.lang}
                   </span>
                 ) : (
                   <a
                     href={`/misc/${t.id}`}
-                    class="rounded-full border border-line px-2 py-0.5 uppercase text-muted no-underline hover:border-code-blue hover:text-code-blue"
+                    class="rounded-full px-2.5 py-1 uppercase tracking-wide text-muted no-underline transition-colors hover:text-ink"
                   >
                     {t.data.lang}
                   </a>
