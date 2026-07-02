@@ -3,7 +3,7 @@ import StudioShell from '~/components/studio/StudioShell.astro'
 import BaseLayout from '~/layouts/BaseLayout.astro'
 ---
 
-<BaseLayout title="404 — Not found" description="This page could not be found.">
+<BaseLayout title="404 — Not found" description="This page could not be found." noindex>
   <StudioShell active="/" crumb="~/leohuynh.dev/404">
     <div class="prose">
       <p class="font-mono text-sm text-code-red">Error: ENOENT — no such file or directory</p>

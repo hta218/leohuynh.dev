@@ -66,6 +66,9 @@ export default defineConfig({
     '/about': { status: 301, destination: '/whoami' },
     '/blog': { status: 301, destination: '/log' },
     // Page 1 duplicated `/log`'s own content — dropped, redirect any old links.
+    // Must precede `/blog/page/[page]` so it doesn't chain through
+    // `/log/page/1` first.
+    '/blog/page/1': { status: 301, destination: '/log' },
     '/log/page/1': { status: 301, destination: '/log' },
     '/blog/page/[page]': { status: 301, destination: '/log/page/[page]' },
     '/blog/[...slug]': { status: 301, destination: '/log/[...slug]' },
