@@ -66,7 +66,11 @@ async function umamiWebsiteFetch(
   const res = await fetch(
     `${auth.base}/api/websites/${auth.websiteId}${path}`,
     {
-      headers: { 'x-umami-share-token': auth.token },
+      headers: {
+        'x-umami-share-token': auth.token,
+        // v3 requires this alongside the share token, else every request 401s.
+        'x-umami-share-context': '1',
+      },
       signal: timeoutSignal(),
     },
   )
@@ -78,22 +82,54 @@ async function umamiWebsiteFetch(
   return res
 }
 
-/** Umami traffic numbers: all-time pageviews + visitors, plus active visitors right now. */
+/**
+ * Umami traffic numbers: all-time pageviews + visitors, the same for the last 24h, plus active
+ * visitors right now.
+ */
 export type UmamiTraffic = {
   hits: number | null
   online: number | null
   visitors: number | null
+  hits24h: number | null
+  visitors24h: number | null
+}
+
+const DAY_MS = 24 * 60 * 60 * 1000
+
+/**
+ * Parse a v3 `/stats` response into flat pageviews + visitors.
+ * v3 returns flat numbers (`{ pageviews: N, visitors: N, ... }`); v2 wrapped them as
+ * `{ pageviews: { value: N } }` — we only support v3 now, so read the plain numbers.
+ */
+async function parseUmamiStats(
+  res: Response | null,
+): Promise<{ hits: number | null; visitors: number | null }> {
+  if (!res?.ok) return { hits: null, visitors: null }
+  const data = (await res.json()) as { pageviews?: number; visitors?: number }
+  return {
+    hits: typeof data.pageviews === 'number' ? data.pageviews : null,
+    visitors: typeof data.visitors === 'number' ? data.visitors : null,
+  }
 }
 
 export async function fetchUmamiTraffic(): Promise<UmamiTraffic> {
-  const empty: UmamiTraffic = { hits: null, online: null, visitors: null }
+  const empty: UmamiTraffic = {
+    hits: null,
+    online: null,
+    visitors: null,
+    hits24h: null,
+    visitors24h: null,
+  }
   try {
     const auth = await getUmamiShareAuth()
     if (!auth) return empty
 
-    const [activeRes, statsRes] = await Promise.all([
+    const now = Date.now()
+    const dayAgo = now - DAY_MS
+    const [activeRes, statsRes, stats24hRes] = await Promise.all([
       umamiWebsiteFetch('/active'),
-      umamiWebsiteFetch(`/stats?startAt=0&endAt=${Date.now()}`),
+      umamiWebsiteFetch(`/stats?startAt=0&endAt=${now}`),
+      umamiWebsiteFetch(`/stats?startAt=${dayAgo}&endAt=${now}`),
     ])
 
     let online: number | null = null
@@ -108,20 +144,16 @@ export async function fetchUmamiTraffic(): Promise<UmamiTraffic> {
             : null
     }
 
-    let hits: number | null = null
-    let visitors: number | null = null
-    if (statsRes?.ok) {
-      const data = (await statsRes.json()) as {
-        pageviews?: { value?: number }
-        visitors?: { value?: number }
-      }
-      hits =
-        typeof data.pageviews?.value === 'number' ? data.pageviews.value : null
-      visitors =
-        typeof data.visitors?.value === 'number' ? data.visitors.value : null
-    }
+    const allTime = await parseUmamiStats(statsRes)
+    const last24h = await parseUmamiStats(stats24hRes)
 
-    return { hits, online, visitors }
+    return {
+      hits: allTime.hits,
+      online,
+      visitors: allTime.visitors,
+      hits24h: last24h.hits,
+      visitors24h: last24h.visitors,
+    }
   } catch {
     return empty
   }

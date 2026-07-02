@@ -89,6 +89,8 @@ function unavailableSiteStats(): SiteStatsPayload {
     hits: null,
     online: null,
     visitors: null,
+    hits24h: null,
+    visitors24h: null,
     reactions: null,
     commits: null,
     stars: null,

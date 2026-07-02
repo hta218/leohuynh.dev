@@ -38,8 +38,9 @@ function P({ children }: { children: ReactNode }) {
  * Deliberately only carries facts NOT already shown elsewhere on the page (the rail shows
  * spotify/github/activity, the footer shows branch/commit/clock) — so it stays a codebase +
  * traffic snapshot. Build-time facts (repo, LOC, files, stack) arrive as props; live numbers
- * (commits, stars, hits, visitors, reactions) hydrate from `/api/site-stats.json` and poll ~30s,
- * rendering `…` until resolved.
+ * (commits, stars, all-time + last-24h hits/visitors, reactions) hydrate from
+ * `/api/site-stats.json` and poll ~30s, rendering `…` until resolved. The header shows a live
+ * `● N online` badge (hidden when zero/unavailable).
  */
 export default function BuildLog({
   site,
@@ -80,6 +81,15 @@ export default function BuildLog({
           </span>
           site.json
         </span>
+        {ok?.online ? (
+          <span className="inline-flex items-center gap-1.5 text-[#116329]">
+            <span className="relative flex h-1.75 w-1.75">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#34d399] opacity-75" />
+              <span className="relative inline-flex h-1.75 w-1.75 rounded-full bg-[#34d399]" />
+            </span>
+            {ok.online.toLocaleString()} online
+          </span>
+        ) : null}
       </figcaption>
       <pre
         className="m-0 overflow-auto px-4.5 py-4 text-[13px] leading-[1.75] text-[#1f2328]"
@@ -102,11 +112,6 @@ export default function BuildLog({
           <Str>{description}</Str>
           <P>,</P>
           {'\n  '}
-          <Key name="repo" />
-          <P>: </P>
-          <Str>{repo}</Str>
-          <P>,</P>
-          {'\n  '}
           <Key name="stack" />
           <P>: [</P>
           {stack.map((tech, i) => (
@@ -117,8 +122,13 @@ export default function BuildLog({
           ))}
           <P>],</P>
           {'\n  '}
-          <Key name="stats" />
+          <Key name="git" />
           <P>: {'{'}</P>
+          {'\n    '}
+          <Key name="repo" />
+          <P>: </P>
+          <Str>{repo}</Str>
+          <P>,</P>
           {'\n    '}
           <Key name="loc" />
           <P>: </P>
@@ -135,8 +145,14 @@ export default function BuildLog({
           <Key name="stars" />
           <P>: </P>
           <Num value={ok?.stars ?? null} />
-          <P>,</P>
+          {'\n  '}
+          <P>{'}'},</P>
+          {'\n  '}
+          <Key name="stats" />
+          <P>: {'{'}</P>
           {'\n    '}
+          <Key name="allTime" />
+          <P>: {'{ '}</P>
           <Key name="hits" />
           <P>: </P>
           <Num value={ok?.hits ?? null} />
@@ -148,6 +164,18 @@ export default function BuildLog({
           <Key name="reactions" />
           <P>: </P>
           <Num value={ok?.reactions ?? null} />
+          <P>{' }'},</P>
+          {'\n    '}
+          <Key name="last24h" />
+          <P>: {'{ '}</P>
+          <Key name="hits" />
+          <P>: </P>
+          <Num value={ok?.hits24h ?? null} />
+          <P>, </P>
+          <Key name="visitors" />
+          <P>: </P>
+          <Num value={ok?.visitors24h ?? null} />
+          <P>{' }'}</P>
           {'\n  '}
           <P>{'}'}</P>
           {'\n'}

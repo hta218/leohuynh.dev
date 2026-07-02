@@ -72,6 +72,8 @@ export async function fetchSiteStats(): Promise<SiteStatsPayload> {
     hits: traffic.hits,
     online: traffic.online,
     visitors: traffic.visitors,
+    hits24h: traffic.hits24h,
+    visitors24h: traffic.visitors24h,
     reactions,
     commits: repo.commits,
     stars: repo.stars,

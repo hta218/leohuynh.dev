@@ -19,7 +19,8 @@ export interface SpotifyPayload {
  * Live site-wide stats for the home cards + build-log manifest. Each field comes from a
  * different source and degrades independently to `null` (so a partial outage still shows the
  * rest, and the UI renders `—` for the missing one instead of faking it):
- *   - `hits` / `online` / `visitors` — Umami via its public share token (no auth credentials).
+ *   - `hits` / `online` / `visitors` — Umami via its public share token (no auth credentials);
+ *     `hits24h` / `visitors24h` are the same metrics for the last 24 hours.
  *   - `reactions` — `SUM(loves+applauses+ideas+bullseyes)` across the `stats` table.
  *   - `commits` / `stars` — the GitHub repo via GraphQL.
  */
@@ -28,6 +29,8 @@ export interface SiteStatsPayload {
   hits: number | null
   online: number | null
   visitors: number | null
+  hits24h: number | null
+  visitors24h: number | null
   reactions: number | null
   commits: number | null
   stars: number | null
