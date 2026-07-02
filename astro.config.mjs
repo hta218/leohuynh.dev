@@ -49,13 +49,17 @@ export default defineConfig({
       // just the landing page — individual files stay crawlable via the
       // sidebar without pulling GitHub into the build.
       customPages: ['https://www.leohuynh.dev/dotfiles'],
-      // Tag archive pages (`/topics/<tag>`) are low-value aggregation pages,
-      // and thin single-item ones render `noindex` — so submitting them mixes
-      // "index this" (sitemap) with "don't index this" (page). Keep the
-      // `/topics` index in the sitemap but drop the per-tag detail pages; they
-      // stay browsable/crawlable via in-app links.
-      filter: (page) =>
-        !/\/topics\/[^/]+$/.test(new URL(page).pathname.replace(/\/$/, '')),
+      // Keep out of the sitemap (still browsable/crawlable via in-app links):
+      //  - tag archive pages (`/topics/<tag>`) — low-value aggregation, thin
+      //    single-item ones render `noindex`, so submitting them mixes "index
+      //    this" (sitemap) with "don't index this" (page). The `/topics` index
+      //    itself stays in.
+      //  - `/guestbook` — UGC (`noindex`), no search value.
+      filter: (page) => {
+        const path = new URL(page).pathname.replace(/\/$/, '')
+        if (path === '/guestbook') return false
+        return !/\/topics\/[^/]+$/.test(path)
+      },
     }),
   ],
   markdown: {
