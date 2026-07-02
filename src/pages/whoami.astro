@@ -1,8 +1,10 @@
 ---
+import JsonLd from '~/components/JsonLd.astro'
 import Twemoji from '~/components/mdx/Twemoji.astro'
 import PageHeader from '~/components/PageHeader.astro'
 import StudioShell from '~/components/studio/StudioShell.astro'
 import BaseLayout from '~/layouts/BaseLayout.astro'
+import { profileJsonLd } from '~/lib/seo'
 import { CAREER, SITE, SUPPORT } from '~/lib/site'
 
 const socials = [
@@ -17,7 +19,7 @@ const socials = [
 const features = [
   {
     emoji: 'rocket',
-    label: 'Astro 5 static-first + React islands for live widgets.',
+    label: 'Astro 6 static-first + React 19 islands for live widgets.',
   },
   {
     emoji: 'artist-palette',
@@ -31,12 +33,20 @@ const features = [
   { emoji: 'bar-chart', label: 'Umami for privacy-friendly analytics.' },
   {
     emoji: 'card-file-box',
-    label: 'Supabase Postgres + Drizzle for stats and lists.',
+    label: 'Supabase Postgres via the raw `postgres` client for stats and lists.',
   },
 ]
+
+const profile = profileJsonLd({
+  url: new URL('/whoami', SITE.siteUrl).href,
+  image: new URL('/static/images/leo.jpg', SITE.siteUrl).href,
+})
 ---
 
 <BaseLayout title="whoami" description="A bit about who I am, what I do, and why I write here.">
+  <Fragment slot="head">
+    <JsonLd data={profile} />
+  </Fragment>
   <StudioShell active="/whoami" crumb="~/leohuynh.dev/whoami.md">
     <PageHeader
       title="whoami"
