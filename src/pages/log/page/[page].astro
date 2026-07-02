@@ -6,12 +6,14 @@ import { getPublishedBlog } from '~/lib/content'
 import BaseLayout from '~/layouts/BaseLayout.astro'
 import { POSTS_PER_PAGE } from '~/lib/site'
 
-// Parity with legacy `/blog/page/[page]`: generate pages 1..N (page 1 included).
+// Page 1 is `/log` itself (see `PostList`'s `pageHref`) — generating it here
+// too would duplicate that page's content under a second URL, so pages start
+// at 2.
 export async function getStaticPaths() {
   const posts = await getPublishedBlog()
   const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE)
-  return Array.from({ length: totalPages }, (_, i) => {
-    const page = i + 1
+  return Array.from({ length: Math.max(0, totalPages - 1) }, (_, i) => {
+    const page = i + 2
     return {
       params: { page: String(page) },
       props: {

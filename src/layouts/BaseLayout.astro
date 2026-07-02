@@ -18,6 +18,8 @@ interface Props {
   lang?: 'en' | 'vi'
   /** `hreflang` alternates for pages with translated counterparts. */
   alternates?: { hreflang: string; href: string }[]
+  /** Set on thin/low-value pages (e.g. single-item tag pages) to keep them out of search results. */
+  noindex?: boolean
 }
 
 const {
@@ -29,6 +31,7 @@ const {
   publishedTime,
   lang = 'en',
   alternates = [],
+  noindex = false,
 } = Astro.props
 
 const pageTitle = title ? `${title} — ${SITE.author}` : SITE.title
@@ -57,6 +60,7 @@ const umamiWebsiteId = (
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <meta name="author" content={SITE.author} />
+    {noindex && <meta name="robots" content="noindex,follow" />}
     <script is:inline>
       ;(() => {
         const apply = (root) => {

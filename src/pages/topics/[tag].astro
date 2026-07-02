@@ -20,11 +20,15 @@ export async function getStaticPaths() {
 const { tag, posts, snippets } = Astro.props
 const dateFmt = new Intl.DateTimeFormat('en-CA')
 const rssHref = `${SITE.siteUrl}/topics/${tag}/feed.xml`
+// Single-item tag pages are thin content — keep them off search results,
+// they're still browsable in-app.
+const isThin = posts.length + snippets.length <= 1
 ---
 
 <BaseLayout
   title={`#${tag}`}
   description={`${SITE.title} ${tag} tagged content`}
+  noindex={isThin}
 >
   <Fragment slot="head">
     <link rel="alternate" type="application/rss+xml" title={`#${tag} RSS`} href={rssHref} />

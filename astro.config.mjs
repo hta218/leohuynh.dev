@@ -43,7 +43,13 @@ export default defineConfig({
     }),
     mdx(),
     react(),
-    sitemap(),
+    sitemap({
+      // `/dotfiles/*` is a GitHub-backed SSR mirror (prerender: false), so it
+      // never shows up in the static build output the sitemap scans. List
+      // just the landing page — individual files stay crawlable via the
+      // sidebar without pulling GitHub into the build.
+      customPages: ['https://www.leohuynh.dev/dotfiles'],
+    }),
   ],
   markdown: {
     processor: unified({
@@ -59,6 +65,8 @@ export default defineConfig({
     },
     '/about': { status: 301, destination: '/whoami' },
     '/blog': { status: 301, destination: '/log' },
+    // Page 1 duplicated `/log`'s own content — dropped, redirect any old links.
+    '/log/page/1': { status: 301, destination: '/log' },
     '/blog/page/[page]': { status: 301, destination: '/log/page/[page]' },
     '/blog/[...slug]': { status: 301, destination: '/log/[...slug]' },
     '/snippets': { status: 301, destination: '/gists' },
