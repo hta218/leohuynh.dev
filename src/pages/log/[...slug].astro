@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content'
+import JsonLd from '~/components/JsonLd.astro'
 import Twemoji from '~/components/mdx/Twemoji.astro'
 import StudioShell from '~/components/studio/StudioShell.astro'
 import Reactions from '~/components/widgets/Reactions'
@@ -7,6 +8,8 @@ import ViewsCounter from '~/components/widgets/ViewsCounter'
 import Comments from '~/components/widgets/Comments'
 import { getGiscusConfig } from '~/lib/comments'
 import { isPublished, tagSlug } from '~/lib/content'
+import { articleJsonLd, breadcrumbJsonLd } from '~/lib/seo'
+import { SITE } from '~/lib/site'
 import BaseLayout from '~/layouts/BaseLayout.astro'
 
 // Slug parity: id = filename (no nested dirs) → `/blog/<slug>` exactly as legacy.
@@ -25,6 +28,23 @@ const dateFmt = new Intl.DateTimeFormat('en-US', {
   day: 'numeric',
 })
 const giscusConfig = getGiscusConfig()
+
+const canonical = canonicalUrl ?? new URL(`/log/${post.id}`, SITE.siteUrl).href
+const jsonLd = [
+  articleJsonLd({
+    title,
+    description: summary,
+    url: canonical,
+    image: new URL(ogImage ?? SITE.socialBanner, SITE.siteUrl).href,
+    datePublished: date.toISOString(),
+    dateModified: lastmod ? new Date(lastmod).toISOString() : undefined,
+  }),
+  breadcrumbJsonLd([
+    { name: 'Home', url: SITE.siteUrl },
+    { name: 'Log', url: `${SITE.siteUrl}/log` },
+    { name: title, url: canonical },
+  ]),
+]
 ---
 
 <BaseLayout
@@ -35,6 +55,9 @@ const giscusConfig = getGiscusConfig()
   ogType="article"
   publishedTime={date.toISOString()}
 >
+  <Fragment slot="head">
+    {jsonLd.map((data) => <JsonLd data={data} />)}
+  </Fragment>
   <StudioShell active={`/log/${post.id}`} crumb={`~/leohuynh.dev/log/${post.id}`}>
     <article class="prose">
       <h1>{title}</h1>

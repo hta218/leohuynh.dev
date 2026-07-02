@@ -2,10 +2,12 @@
 import { getCollection } from 'astro:content'
 import { readFileSync } from 'node:fs'
 import { glob } from 'tinyglobby'
+import JsonLd from '~/components/JsonLd.astro'
 import Twemoji from '~/components/mdx/Twemoji.astro'
 import StudioShell from '~/components/studio/StudioShell.astro'
 import BuildLog from '~/components/widgets/BuildLog'
 import BaseLayout from '~/layouts/BaseLayout.astro'
+import { siteJsonLd } from '~/lib/seo'
 
 const isPublished = (d: { data: { draft?: boolean } }) => d.data.draft !== true
 
@@ -40,6 +42,9 @@ const codebase = {
 ---
 
 <BaseLayout>
+  <Fragment slot="head">
+    {siteJsonLd().map((data) => <JsonLd data={data} />)}
+  </Fragment>
   <StudioShell active="/" crumb="~/leohuynh.dev/main">
     <!-- hero -->
     <div class="grid items-end gap-6 border-b border-line pb-9">

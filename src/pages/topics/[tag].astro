@@ -1,7 +1,9 @@
 ---
+import JsonLd from '~/components/JsonLd.astro'
 import PageHeader from '~/components/PageHeader.astro'
 import StudioShell from '~/components/studio/StudioShell.astro'
 import { getContentByTag, getTagCounts } from '~/lib/content'
+import { breadcrumbJsonLd } from '~/lib/seo'
 import BaseLayout from '~/layouts/BaseLayout.astro'
 import { SITE } from '~/lib/site'
 
@@ -23,6 +25,11 @@ const rssHref = `${SITE.siteUrl}/topics/${tag}/feed.xml`
 // Single-item tag pages are thin content — keep them off search results,
 // they're still browsable in-app.
 const isThin = posts.length + snippets.length <= 1
+const breadcrumb = breadcrumbJsonLd([
+  { name: 'Home', url: SITE.siteUrl },
+  { name: 'Topics', url: `${SITE.siteUrl}/topics` },
+  { name: `#${tag}`, url: `${SITE.siteUrl}/topics/${tag}` },
+])
 ---
 
 <BaseLayout
@@ -32,6 +39,7 @@ const isThin = posts.length + snippets.length <= 1
 >
   <Fragment slot="head">
     <link rel="alternate" type="application/rss+xml" title={`#${tag} RSS`} href={rssHref} />
+    <JsonLd data={breadcrumb} />
   </Fragment>
   <StudioShell active="/topics" crumb={`~/leohuynh.dev/topics/${tag}`}>
     <PageHeader title={`#${tag}`} description={`Posts and snippets tagged #${tag}.`}>

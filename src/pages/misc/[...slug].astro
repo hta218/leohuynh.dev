@@ -1,8 +1,10 @@
 ---
 import { getCollection, render } from 'astro:content'
+import JsonLd from '~/components/JsonLd.astro'
 import Twemoji from '~/components/mdx/Twemoji.astro'
 import StudioShell from '~/components/studio/StudioShell.astro'
 import { isPublished } from '~/lib/content'
+import { articleJsonLd, breadcrumbJsonLd } from '~/lib/seo'
 import { SITE } from '~/lib/site'
 import BaseLayout from '~/layouts/BaseLayout.astro'
 
@@ -28,6 +30,23 @@ const dateFmt = new Intl.DateTimeFormat('en-US', {
   month: 'long',
   day: 'numeric',
 })
+
+const canonical = canonicalUrl ?? new URL(`/misc/${note.id}`, SITE.siteUrl).href
+const jsonLd = [
+  articleJsonLd({
+    title,
+    description: summary,
+    url: canonical,
+    image: new URL(SITE.socialBanner, SITE.siteUrl).href,
+    datePublished: date.toISOString(),
+    dateModified: lastmod ? new Date(lastmod).toISOString() : undefined,
+  }),
+  breadcrumbJsonLd([
+    { name: 'Home', url: SITE.siteUrl },
+    { name: 'Misc', url: `${SITE.siteUrl}/misc` },
+    { name: title, url: canonical },
+  ]),
+]
 
 // hreflang alternates so search engines know these pages are translations
 // of each other, not unrelated/duplicate content. `x-default` falls back to
@@ -59,6 +78,9 @@ const alternates =
   lang={lang}
   alternates={alternates}
 >
+  <Fragment slot="head">
+    {jsonLd.map((data) => <JsonLd data={data} />)}
+  </Fragment>
   <StudioShell active={`/misc/${note.id}`} crumb={`~/leohuynh.dev/misc/${note.id}`}>
     <article class="prose">
       <h1>{title}</h1>

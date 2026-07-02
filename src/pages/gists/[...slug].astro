@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content'
+import JsonLd from '~/components/JsonLd.astro'
 import Twemoji from '~/components/mdx/Twemoji.astro'
 import StudioShell from '~/components/studio/StudioShell.astro'
 import Reactions from '~/components/widgets/Reactions'
@@ -7,6 +8,8 @@ import ViewsCounter from '~/components/widgets/ViewsCounter'
 import Comments from '~/components/widgets/Comments'
 import { getGiscusConfig } from '~/lib/comments'
 import { isPublished, tagSlug } from '~/lib/content'
+import { articleJsonLd, breadcrumbJsonLd } from '~/lib/seo'
+import { SITE } from '~/lib/site'
 import BaseLayout from '~/layouts/BaseLayout.astro'
 
 // Slug parity: id = filename → `/snippets/<slug>` exactly as legacy.
@@ -20,7 +23,7 @@ export async function getStaticPaths() {
 
 const { snippet } = Astro.props
 const { Content } = await render(snippet)
-const { title, heading, summary, date, tags, images, canonicalUrl } =
+const { title, heading, summary, date, lastmod, tags, images, canonicalUrl } =
   snippet.data
 const ogImage = Array.isArray(images) ? images[0] : images
 const dateFmt = new Intl.DateTimeFormat('en-US', {
@@ -29,6 +32,23 @@ const dateFmt = new Intl.DateTimeFormat('en-US', {
   day: 'numeric',
 })
 const giscusConfig = getGiscusConfig()
+
+const canonical = canonicalUrl ?? new URL(`/gists/${snippet.id}`, SITE.siteUrl).href
+const jsonLd = [
+  articleJsonLd({
+    title: heading,
+    description: summary,
+    url: canonical,
+    image: new URL(ogImage ?? SITE.socialBanner, SITE.siteUrl).href,
+    datePublished: date.toISOString(),
+    dateModified: lastmod ? new Date(lastmod).toISOString() : undefined,
+  }),
+  breadcrumbJsonLd([
+    { name: 'Home', url: SITE.siteUrl },
+    { name: 'Gists', url: `${SITE.siteUrl}/gists` },
+    { name: heading, url: canonical },
+  ]),
+]
 ---
 
 <BaseLayout
@@ -39,6 +59,9 @@ const giscusConfig = getGiscusConfig()
   ogType="article"
   publishedTime={date.toISOString()}
 >
+  <Fragment slot="head">
+    {jsonLd.map((data) => <JsonLd data={data} />)}
+  </Fragment>
   <StudioShell active={`/gists/${snippet.id}`} crumb={`~/leohuynh.dev/gists/${snippet.id}`}>
     <article class="prose">
       <h1>{heading}</h1>
