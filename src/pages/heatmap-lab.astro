@@ -1,0 +1,125 @@
+---
+import { readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
+import { geoMercator, geoPath } from 'd3-geo'
+import PageHeader from '~/components/PageHeader.astro'
+import StudioShell from '~/components/studio/StudioShell.astro'
+import ProvinceList from '~/components/travel/ProvinceList'
+import VietnamMapLib from '~/components/travel/VietnamMapLib'
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import { getPlaces, getTravelStats, type ProvinceUnit } from '~/lib/places'
+import { SITE } from '~/lib/site'
+
+/**
+ * Experimental heatmap projected with d3-geo (geoMercator) over a real GeoJSON
+ * that keeps the Hoàng Sa / Trường Sa geometry, so the archipelagos land at
+ * their true positions. Feature-parity with the live `/heatmap` for side-by-side
+ * comparison. Isolated on purpose — once adopted, this replaces `/heatmap` and
+ * VietnamMap.tsx / vietnam-provinces.ts get removed.
+ */
+
+interface GeoFeature {
+  type: 'Feature'
+  properties: { id: string; code: string; name: string; mergedFrom: string[] }
+  geometry: { type: 'MultiPolygon'; coordinates: number[][][][] }
+}
+interface GeoJson {
+  type: 'FeatureCollection'
+  features: GeoFeature[]
+}
+
+const geojson = JSON.parse(
+  readFileSync(
+    resolve(process.cwd(), 'json/vietnam-provinces.geojson'),
+    'utf-8',
+  ),
+) as GeoJson
+
+const byCode = new Map(getPlaces().map((unit) => [unit.code, unit]))
+
+// Fit a standard Mercator to a 1000-wide canvas, then read back the exact bounds
+// so the viewBox frames the mainland + archipelagos tightly.
+const WIDTH = 1000
+const projection = geoMercator().fitWidth(WIDTH, geojson as never)
+const pathGen = geoPath(projection)
+const [[x0, y0], [x1, y1]] = pathGen.bounds(geojson as never)
+const viewBox = `${Math.floor(x0)} ${Math.floor(y0)} ${Math.ceil(x1 - x0)} ${Math.ceil(y1 - y0)}`
+
+const provinces: ProvinceUnit[] = geojson.features.map((feature) => {
+  const unit = byCode.get(feature.properties.code)
+  const [cx, cy] = pathGen.centroid(feature as never)
+  return {
+    code: feature.properties.code,
+    id: feature.properties.id,
+    name: feature.properties.name,
+    mergedFrom: feature.properties.mergedFrom,
+    cx,
+    cy,
+    d: pathGen(feature as never) ?? '',
+    count: unit?.count ?? 0,
+    visited: unit?.visited ?? false,
+    placesPartial: unit?.placesPartial ?? false,
+    places: unit?.places ?? [],
+  }
+})
+
+const stats = getTravelStats(provinces)
+const visitedUnits = provinces
+  .filter((province) => province.visited)
+  .sort((a, b) => b.count - a.count)
+
+const STAT_TILES = [
+  { value: `${stats.visited} / ${stats.total}`, label: 'provinces' },
+  { value: `${stats.percent}%`, label: 'of Vietnam' },
+  { value: `${stats.totalPlaces}`, label: 'places' },
+]
+---
+
+<BaseLayout
+  title="Travel heatmap"
+  description="I love to travel — a green heatmap of every province of Vietnam I've explored so far, the more places I've checked into, the deeper the green."
+>
+  <StudioShell active="/heatmap" crumb="~/leohuynh.dev/heatmap-lab/">
+    <PageHeader
+      title="Travel heatmap"
+      description="I really love to travel and wander around. This is my heatmap of Vietnam — every province I've set foot in, shaded deeper green the more places I've checked into along the way."
+    />
+
+    <section class="mb-10">
+      <dl class="grid grid-cols-3 gap-3 sm:max-w-md">
+        {
+          STAT_TILES.map((tile) => (
+            <div class="rounded-2xl border border-line bg-white p-4 text-center">
+              <dt class="m-0 font-mono text-[11px] tracking-wide text-muted uppercase">
+                {tile.label}
+              </dt>
+              <dd class="m-0 mt-1 text-[26px] tracking-[-0.04em] text-ink">
+                {tile.value}
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </section>
+
+    <section class="mb-14">
+      <VietnamMapLib provinces={provinces} viewBox={viewBox} client:visible />
+    </section>
+
+    <section id="provinces" class="scroll-mt-24">
+      <div
+        class="mb-5 flex items-end justify-between gap-3 border-b border-line pb-2"
+      >
+        <h2 class="m-0 text-[22px] tracking-[-0.04em]">Hotspots</h2>
+        <a
+          href={SITE.godyProfileUrl}
+          target="_blank"
+          rel="noreferrer"
+          class="font-mono text-xs text-code-blue no-underline">gody.vn ↗</a
+        >
+      </div>
+
+      <ProvinceList provinces={visitedUnits} />
+    </section>
+  </StudioShell>
+</BaseLayout>
