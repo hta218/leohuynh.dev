@@ -5,17 +5,19 @@ import { geoMercator, geoPath } from 'd3-geo'
 import PageHeader from '~/components/PageHeader.astro'
 import StudioShell from '~/components/studio/StudioShell.astro'
 import ProvinceList from '~/components/travel/ProvinceList'
-import VietnamMapLib from '~/components/travel/VietnamMapLib'
+import VietnamMapLib, {
+  type Neighbour,
+} from '~/components/travel/VietnamMapLib'
 import BaseLayout from '~/layouts/BaseLayout.astro'
 import { getPlaces, getTravelStats, type ProvinceUnit } from '~/lib/places'
 import { SITE } from '~/lib/site'
 
 /**
- * Experimental heatmap projected with d3-geo (geoMercator) over a real GeoJSON
- * that keeps the Hoàng Sa / Trường Sa geometry, so the archipelagos land at
- * their true positions. Feature-parity with the live `/heatmap` for side-by-side
- * comparison. Isolated on purpose — once adopted, this replaces `/heatmap` and
- * VietnamMap.tsx / vietnam-provinces.ts get removed.
+ * Experimental heatmap projected with d3-geo (geoMercator) over real GeoJSON.
+ * The map is framed as a full-width rectangle of the region: neighbouring
+ * countries and the sea sit behind, with Vietnam's provinces coloured on top so
+ * the country stands out. Feature-parity with the live `/heatmap`; isolated on
+ * purpose — once adopted this replaces `/heatmap`.
  */
 
 interface GeoFeature {
@@ -23,29 +25,48 @@ interface GeoFeature {
   properties: { id: string; code: string; name: string; mergedFrom: string[] }
   geometry: { type: 'MultiPolygon'; coordinates: number[][][][] }
 }
-interface GeoJson {
-  type: 'FeatureCollection'
-  features: GeoFeature[]
+interface NeighbourFeature {
+  type: 'Feature'
+  properties: { name: string; iso: string }
+  geometry: { type: 'MultiPolygon'; coordinates: number[][][][] }
 }
 
-const geojson = JSON.parse(
-  readFileSync(
-    resolve(process.cwd(), 'json/vietnam-provinces.geojson'),
-    'utf-8',
-  ),
-) as GeoJson
+function readGeo<T>(file: string): { features: T[] } {
+  return JSON.parse(readFileSync(resolve(process.cwd(), file), 'utf-8')) as {
+    features: T[]
+  }
+}
+
+const provincesGeo = readGeo<GeoFeature>('json/vietnam-provinces.geojson')
+const neighboursGeo = readGeo<NeighbourFeature>('json/neighbours.geojson')
+
+// Frame the region as a rectangle (lng/lat box). Vietnam sits centred; the box
+// maps 1:1 onto the viewBox so the sea fills the rest of the rectangle.
+const FRAME = { west: 98.5, south: 5.5, east: 119.5, north: 24 }
+// Two opposite corners as a MultiPoint — fitting to a Polygon hits d3-geo's
+// spherical winding rule (it reads the rectangle as the whole-globe complement).
+const frameCorners = {
+  type: 'MultiPoint',
+  coordinates: [
+    [FRAME.west, FRAME.south],
+    [FRAME.east, FRAME.north],
+  ],
+}
+const mercY = (lat: number) =>
+  Math.log(Math.tan(Math.PI / 4 + (lat * Math.PI) / 360))
+const WIDTH = 1200
+const HEIGHT = Math.round(
+  (WIDTH * (mercY(FRAME.north) - mercY(FRAME.south))) /
+    (((FRAME.east - FRAME.west) * Math.PI) / 180),
+)
+const viewBox = `0 0 ${WIDTH} ${HEIGHT}`
+
+const projection = geoMercator().fitSize([WIDTH, HEIGHT], frameCorners as never)
+const pathGen = geoPath(projection)
 
 const byCode = new Map(getPlaces().map((unit) => [unit.code, unit]))
 
-// Fit a standard Mercator to a 1000-wide canvas, then read back the exact bounds
-// so the viewBox frames the mainland + archipelagos tightly.
-const WIDTH = 1000
-const projection = geoMercator().fitWidth(WIDTH, geojson as never)
-const pathGen = geoPath(projection)
-const [[x0, y0], [x1, y1]] = pathGen.bounds(geojson as never)
-const viewBox = `${Math.floor(x0)} ${Math.floor(y0)} ${Math.ceil(x1 - x0)} ${Math.ceil(y1 - y0)}`
-
-const provinces: ProvinceUnit[] = geojson.features.map((feature) => {
+const provinces: ProvinceUnit[] = provincesGeo.features.map((feature) => {
   const unit = byCode.get(feature.properties.code)
   const [cx, cy] = pathGen.centroid(feature as never)
   return {
@@ -62,6 +83,13 @@ const provinces: ProvinceUnit[] = geojson.features.map((feature) => {
     places: unit?.places ?? [],
   }
 })
+
+const neighbours: Neighbour[] = neighboursGeo.features
+  .map((feature) => ({
+    name: feature.properties.name,
+    d: pathGen(feature as never) ?? '',
+  }))
+  .filter((neighbour) => neighbour.d)
 
 const stats = getTravelStats(provinces)
 const visitedUnits = provinces
@@ -102,8 +130,13 @@ const STAT_TILES = [
       </dl>
     </section>
 
-    <section class="mb-14">
-      <VietnamMapLib provinces={provinces} viewBox={viewBox} client:visible />
+    <section class="mb-14 -mx-[clamp(22px,5vw,78px)]">
+      <VietnamMapLib
+        provinces={provinces}
+        neighbours={neighbours}
+        viewBox={viewBox}
+        client:visible
+      />
     </section>
 
     <section id="provinces" class="scroll-mt-24">
