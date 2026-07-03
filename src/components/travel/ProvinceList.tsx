@@ -29,7 +29,7 @@ function ProvinceCard({ unit }: { unit: ProvinceUnit }) {
 
   return (
     <li className="list-none">
-      <div className="h-full rounded-2xl border border-line bg-white p-4">
+      <div className="flex h-full flex-col rounded-2xl border border-line bg-white p-4">
         <div className="flex items-baseline justify-between gap-3">
           <h3 className="m-0 text-[17px] tracking-[-0.02em] text-ink">
             {unit.name}
@@ -62,7 +62,7 @@ function ProvinceCard({ unit }: { unit: ProvinceUnit }) {
         )}
 
         {remaining > 0 && (
-          <p className="mt-2.5 mb-0 font-mono text-[11px] text-muted">
+          <p className="mt-auto pt-2.5 mb-0 font-mono text-[11px] text-muted">
             {`${remaining} more listed on gody`}
           </p>
         )}
