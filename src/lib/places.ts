@@ -7,7 +7,7 @@ import {
 } from '~/components/travel/vietnam-provinces'
 
 /**
- * Loader for `/travel`. Merges the static 2025 34-unit province geometry
+ * Loader for `/heatmap`. Merges the static 2025 34-unit province geometry
  * (`vietnam-provinces.ts`) with the owner's visited snapshot (`json/places.json`,
  * seeded from the gody.vn My Travel Map profile). Mirrors the `lib/media`
  * shelf pattern: a local JSON snapshot is the source of truth, hand-editable,

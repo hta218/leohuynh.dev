@@ -1,0 +1,68 @@
+---
+import PageHeader from '~/components/PageHeader.astro'
+import StudioShell from '~/components/studio/StudioShell.astro'
+import ProvinceList from '~/components/travel/ProvinceList'
+import VietnamMap from '~/components/travel/VietnamMap'
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import { getPlaces, getTravelStats } from '~/lib/places'
+import { SITE } from '~/lib/site'
+
+const units = getPlaces()
+const stats = getTravelStats(units)
+const visitedUnits = units.filter((unit) => unit.visited)
+
+const STAT_TILES = [
+  { value: `${stats.visited} / ${stats.total}`, label: 'provinces' },
+  { value: `${stats.percent}%`, label: 'of Vietnam' },
+  { value: `${stats.totalPlaces}`, label: 'places' },
+]
+---
+
+<BaseLayout
+  title="Travel heatmap"
+  description="I love to travel — a green heatmap of every province of Vietnam I've explored so far, the more places I've checked into, the deeper the green."
+>
+  <StudioShell active="/heatmap" crumb="~/leohuynh.dev/heatmap/">
+    <PageHeader
+      title="Travel heatmap"
+      description="I really love to travel and wander around. This is my heatmap of Vietnam — every province I've set foot in, shaded deeper green the more places I've checked into along the way."
+    />
+
+    <section class="mb-10">
+      <dl class="grid grid-cols-3 gap-3 sm:max-w-md">
+        {
+          STAT_TILES.map((tile) => (
+            <div class="rounded-2xl border border-line bg-white p-4 text-center">
+              <dt class="m-0 font-mono text-[11px] tracking-wide text-muted uppercase">
+                {tile.label}
+              </dt>
+              <dd class="m-0 mt-1 text-[26px] tracking-[-0.04em] text-ink">
+                {tile.value}
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </section>
+
+    <section class="mb-14">
+      <VietnamMap provinces={units} client:visible />
+    </section>
+
+    <section id="provinces" class="scroll-mt-24">
+      <div
+        class="mb-5 flex items-end justify-between gap-3 border-b border-line pb-2"
+      >
+        <h2 class="m-0 text-[22px] tracking-[-0.04em]">Hotspots</h2>
+        <a
+          href={SITE.godyProfileUrl}
+          target="_blank"
+          rel="noreferrer"
+          class="font-mono text-xs text-code-blue no-underline">gody.vn ↗</a
+        >
+      </div>
+
+      <ProvinceList provinces={visitedUnits} client:visible />
+    </section>
+  </StudioShell>
+</BaseLayout>

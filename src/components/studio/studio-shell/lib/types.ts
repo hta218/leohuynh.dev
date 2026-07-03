@@ -18,6 +18,7 @@ export type HugeIconName =
   | 'folder-open'
   | 'gallery'
   | 'keyboard'
+  | 'land-plot'
   | 'markdown'
   | 'project'
   | 'quill'

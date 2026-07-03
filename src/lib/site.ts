@@ -128,7 +128,7 @@ export const NAV_LINKS = [
 
 export const MORE_LINKS = [
   { href: '/shelf', title: 'Shelf' },
-  { href: '/travel', title: 'Travel' },
+  { href: '/heatmap', title: 'Heatmap' },
   { href: '/topics', title: 'Topics' },
   { href: SITE.analytics.umamiShareUrl, title: 'Analytics' },
 ] as const
