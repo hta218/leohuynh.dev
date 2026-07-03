@@ -37,36 +37,48 @@ const LEGEND = [
 ] as const
 
 /**
- * Hoàng Sa & Trường Sa archipelagos, drawn as labelled inset markers in the
- * East Sea (the source geometry clips far-offshore features). Positions are
- * cartographic convention, not exact projection.
+ * Hoàng Sa & Trường Sa archipelagos, drawn at their real projected positions
+ * (each dot is one of the larger islands, from the source GeoJSON via the same
+ * Mercator projection as the mainland). They're offshore parts of Đà Nẵng and
+ * Khánh Hòa, so each cluster is shaded with its parent province's heat colour.
  */
 const ARCHIPELAGOS = [
   {
     name: 'Hoàng Sa',
-    box: { x: 715, y: 690, w: 220, h: 150 },
-    label: { x: 825, y: 825 },
+    parentCode: '21', // Đà Nẵng
     dots: [
-      [770, 738],
-      [810, 728],
-      [850, 742],
-      [798, 762],
-      [840, 766],
-      [878, 750],
+      [1130.2, 901.1],
+      [1229.4, 925.0],
+      [1108.5, 796.0],
+      [1170.4, 888.7],
+      [1142.0, 923.5],
+      [1196.0, 809.8],
+      [1138.2, 870.7],
+      [1094.1, 841.3],
+      [1120.0, 874.1],
+      [1134.4, 861.8],
     ],
   },
   {
     name: 'Trường Sa',
-    box: { x: 820, y: 900, w: 170, h: 148 },
-    label: { x: 905, y: 1033 },
+    parentCode: '23', // Khánh Hòa
     dots: [
-      [858, 930],
-      [898, 922],
-      [938, 934],
-      [876, 956],
-      [916, 962],
-      [956, 948],
-      [902, 988],
+      [1670.0, 1453.7],
+      [1216.9, 1719.4],
+      [1675.2, 1488.7],
+      [1358.7, 1628.7],
+      [1486.2, 1499.6],
+      [1792.2, 1531.4],
+      [1427.3, 1735.0],
+      [1485.0, 1885.3],
+      [1685.2, 1717.3],
+      [1852.7, 1556.5],
+      [1798.0, 1620.1],
+      [1103.4, 1832.8],
+      [1168.1, 1880.7],
+      [1471.0, 1503.9],
+      [1623.2, 1571.0],
+      [1415.2, 1935.4],
     ],
   },
 ] as const
@@ -98,7 +110,7 @@ export default function VietnamMap({ provinces }: Props) {
           role="img"
           aria-label="Map of Vietnam's provinces, shaded by places I've visited"
           className="mx-auto block h-auto w-auto max-h-[78vh] max-w-full select-none"
-          style={{ aspectRatio: '1000 / 1925' }}
+          style={{ aspectRatio: '1880 / 1945' }}
           onMouseLeave={() => setHoverCode(null)}
         >
           {provinces.map((province) => (
@@ -145,40 +157,27 @@ export default function VietnamMap({ provinces }: Props) {
             />
           )}
 
-          {ARCHIPELAGOS.map((group) => (
-            <g key={group.name}>
-              <rect
-                x={group.box.x}
-                y={group.box.y}
-                width={group.box.w}
-                height={group.box.h}
-                rx={14}
-                fill="none"
-                stroke="#cbd5e1"
-                strokeWidth={1.6}
-                strokeDasharray="7 7"
-              />
-              {group.dots.map(([cx, cy]) => (
-                <circle
-                  key={`${cx}-${cy}`}
-                  cx={cx}
-                  cy={cy}
-                  r={5.5}
-                  fill="#94a3b8"
-                />
-              ))}
-              <text
-                x={group.label.x}
-                y={group.label.y}
-                textAnchor="middle"
-                fontSize={30}
-                fill="#475569"
-                style={{ fontFamily: 'monospace' }}
-              >
-                {group.name}
-              </text>
-            </g>
-          ))}
+          {ARCHIPELAGOS.map((group) => {
+            const parent = provinces.find(
+              (province) => province.code === group.parentCode,
+            )
+            const fill = parent ? fillFor(parent) : VISITED_ZERO_FILL
+            return (
+              <g key={group.name} aria-label={group.name}>
+                {group.dots.map(([cx, cy]) => (
+                  <circle
+                    key={`${cx}-${cy}`}
+                    cx={cx}
+                    cy={cy}
+                    r={11}
+                    fill={fill}
+                    stroke="#ffffff"
+                    strokeWidth={1.2}
+                  />
+                ))}
+              </g>
+            )
+          })}
         </svg>
 
         <ul className="mt-4 flex flex-wrap justify-center gap-x-4 gap-y-2 p-0 font-mono text-[11px] text-muted">

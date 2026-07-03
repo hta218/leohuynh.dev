@@ -19,7 +19,9 @@ export interface ProvinceGeometry {
   d: string
 }
 
-export const VIEWBOX = '0 0 1000.0 1925.0'
+// Mainland occupies x 0–1000; the viewBox extends east/south to fit the real
+// projected positions of the Hoàng Sa & Trường Sa archipelagos (see VietnamMap).
+export const VIEWBOX = '0 0 1880 1945'
 
 export const PROVINCE_GEOMETRY: ProvinceGeometry[] = [
   {

@@ -1,14 +1,13 @@
-import { useState } from 'react'
 import type { ProvinceUnit } from '~/lib/places'
 
 /**
- * Server-rendered province cards with a per-card "show more" toggle. Each card
- * lists up to `INITIAL_PLACES` checked-in spots; cards with more collapse the
- * rest behind a button. The `not listed` count are spots gody counted but never
- * exposed publicly — no names to reveal, so it stays an informational note.
+ * Province cards for the heatmap page. Each card lists up to `MAX_PLACES` of the
+ * checked-in spots; when a province has more, a plain note points to gody (which
+ * lists them all) rather than expanding inline. Fully static — no interactivity,
+ * so it renders to HTML with no client JS.
  */
 
-const INITIAL_PLACES = 4
+const MAX_PLACES = 5
 
 interface Props {
   provinces: ProvinceUnit[]
@@ -25,11 +24,8 @@ export default function ProvinceList({ provinces }: Props) {
 }
 
 function ProvinceCard({ unit }: { unit: ProvinceUnit }) {
-  const [expanded, setExpanded] = useState(false)
-  const canExpand = unit.places.length > INITIAL_PLACES
-  const shown = expanded ? unit.places : unit.places.slice(0, INITIAL_PLACES)
-  const hiddenKnown = unit.places.length - INITIAL_PLACES
-  const notListed = unit.count - unit.places.length
+  const shown = unit.places.slice(0, MAX_PLACES)
+  const remaining = unit.count - shown.length
 
   return (
     <li className="list-none">
@@ -49,7 +45,7 @@ function ProvinceCard({ unit }: { unit: ProvinceUnit }) {
           </p>
         )}
 
-        {unit.places.length > 0 && (
+        {shown.length > 0 && (
           <ul className="mt-3 grid gap-1.5 p-0">
             {shown.map((place) => (
               <li
@@ -65,24 +61,10 @@ function ProvinceCard({ unit }: { unit: ProvinceUnit }) {
           </ul>
         )}
 
-        {(canExpand || notListed > 0) && (
-          <div className="mt-2.5 flex flex-wrap items-center gap-x-3 gap-y-1">
-            {canExpand && (
-              <button
-                type="button"
-                onClick={() => setExpanded((value) => !value)}
-                className="font-mono text-[11px] text-code-blue hover:underline"
-                aria-expanded={expanded}
-              >
-                {expanded ? 'Show less' : `+ ${hiddenKnown} more`}
-              </button>
-            )}
-            {notListed > 0 && (
-              <span className="font-mono text-[11px] text-muted">
-                {notListed} not listed on gody
-              </span>
-            )}
-          </div>
+        {remaining > 0 && (
+          <p className="mt-2.5 mb-0 font-mono text-[11px] text-muted">
+            {`${remaining} more listed on gody`}
+          </p>
         )}
       </div>
     </li>
