@@ -215,7 +215,7 @@ export default function VietnamMap({ provinces, neighbours, viewBox }: Props) {
 function ProvinceDetail({ active }: { active: ProvinceUnit | null }) {
   if (!active) {
     return (
-      <div className="flex min-h-45 flex-col justify-center rounded-2xl border border-dashed border-line bg-white/95 p-6 text-center font-mono text-sm text-muted shadow-[4px_4px_0_var(--color-line)] backdrop-blur-sm">
+      <div className="flex min-h-45 flex-col justify-center rounded-2xl border border-dashed border-line bg-white/95 p-6 text-center font-mono text-sm text-muted shadow-[4px_4px_0_var(--color-line)] backdrop-blur-sm md:pointer-events-auto">
         Click a province to see the places I've been.
       </div>
     )
@@ -225,7 +225,7 @@ function ProvinceDetail({ active }: { active: ProvinceUnit | null }) {
   const remaining = active.count - active.places.length
 
   return (
-    <div className="max-h-[70vh] overflow-auto rounded-2xl border border-line bg-white/95 p-5 shadow-[4px_4px_0_var(--color-line)] backdrop-blur-sm">
+    <div className="max-h-[70vh] overflow-auto rounded-2xl border border-line bg-white/95 p-5 shadow-[4px_4px_0_var(--color-line)] backdrop-blur-sm md:pointer-events-auto">
       <div className="flex items-start justify-between gap-3 border-b border-line pb-3">
         <div className="min-w-0">
           <h3 className="m-0 text-[20px] tracking-[-0.03em] text-ink">
