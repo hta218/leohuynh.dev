@@ -1,15 +1,97 @@
 ---
+import { readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
+import { geoMercator, geoPath } from 'd3-geo'
 import PageHeader from '~/components/PageHeader.astro'
 import StudioShell from '~/components/studio/StudioShell.astro'
 import ProvinceList from '~/components/travel/ProvinceList'
-import VietnamMap from '~/components/travel/VietnamMap'
+import VietnamMap, { type Neighbour } from '~/components/travel/VietnamMap'
 import BaseLayout from '~/layouts/BaseLayout.astro'
-import { getPlaces, getTravelStats } from '~/lib/places'
+import { getPlaces, getTravelStats, type ProvinceUnit } from '~/lib/places'
 import { SITE } from '~/lib/site'
 
-const units = getPlaces()
-const stats = getTravelStats(units)
-const visitedUnits = units.filter((unit) => unit.visited)
+/**
+ * Travel heatmap projected with d3-geo (geoMercator) over real GeoJSON. The map
+ * is framed as a full-width rectangle of the region: neighbouring countries and
+ * the sea sit behind, with Vietnam's provinces coloured on top so the country
+ * stands out. The visit snapshot (`json/places.json`) is merged on by `id`.
+ */
+
+interface GeoFeature {
+  type: 'Feature'
+  properties: { id: string; code: string; name: string; mergedFrom: string[] }
+  geometry: { type: 'MultiPolygon'; coordinates: number[][][][] }
+}
+interface NeighbourFeature {
+  type: 'Feature'
+  properties: { name: string; iso: string }
+  geometry: { type: 'MultiPolygon'; coordinates: number[][][][] }
+}
+
+function readGeo<T>(file: string): { features: T[] } {
+  return JSON.parse(readFileSync(resolve(process.cwd(), file), 'utf-8')) as {
+    features: T[]
+  }
+}
+
+const provincesGeo = readGeo<GeoFeature>('json/vietnam-provinces.geojson')
+const neighboursGeo = readGeo<NeighbourFeature>('json/neighbours.geojson')
+
+// Frame the region as a rectangle (lng/lat box). Vietnam sits centred; the box
+// maps 1:1 onto the viewBox so the sea fills the rest of the rectangle.
+const FRAME = { west: 98.5, south: 5.5, east: 119.5, north: 24 }
+// Two opposite corners as a MultiPoint — fitting to a Polygon hits d3-geo's
+// spherical winding rule (it reads the rectangle as the whole-globe complement).
+const frameCorners = {
+  type: 'MultiPoint',
+  coordinates: [
+    [FRAME.west, FRAME.south],
+    [FRAME.east, FRAME.north],
+  ],
+}
+const mercY = (lat: number) =>
+  Math.log(Math.tan(Math.PI / 4 + (lat * Math.PI) / 360))
+const WIDTH = 1200
+const HEIGHT = Math.round(
+  (WIDTH * (mercY(FRAME.north) - mercY(FRAME.south))) /
+    (((FRAME.east - FRAME.west) * Math.PI) / 180),
+)
+const viewBox = `0 0 ${WIDTH} ${HEIGHT}`
+
+const projection = geoMercator().fitSize([WIDTH, HEIGHT], frameCorners as never)
+const pathGen = geoPath(projection)
+
+const byId = new Map(getPlaces().map((snapshot) => [snapshot.id, snapshot]))
+
+const provinces: ProvinceUnit[] = provincesGeo.features.map((feature) => {
+  const snapshot = byId.get(feature.properties.id)
+  const [cx, cy] = pathGen.centroid(feature as never)
+  return {
+    code: feature.properties.code,
+    id: feature.properties.id,
+    name: feature.properties.name,
+    mergedFrom: feature.properties.mergedFrom,
+    cx,
+    cy,
+    d: pathGen(feature as never) ?? '',
+    count: snapshot?.count ?? 0,
+    visited: snapshot != null,
+    placesPartial: snapshot?.placesPartial ?? false,
+    places: snapshot?.places ?? [],
+  }
+})
+
+const neighbours: Neighbour[] = neighboursGeo.features
+  .map((feature) => ({
+    name: feature.properties.name,
+    d: pathGen(feature as never) ?? '',
+  }))
+  .filter((neighbour) => neighbour.d)
+
+const stats = getTravelStats(provinces)
+const visitedUnits = provinces
+  .filter((province) => province.visited)
+  .sort((a, b) => b.count - a.count)
 
 const STAT_TILES = [
   { value: `${stats.visited} / ${stats.total}`, label: 'provinces' },
@@ -45,8 +127,13 @@ const STAT_TILES = [
       </dl>
     </section>
 
-    <section class="mb-14">
-      <VietnamMap provinces={units} client:visible />
+    <section class="mb-14 -mx-[clamp(22px,5vw,78px)]">
+      <VietnamMap
+        provinces={provinces}
+        neighbours={neighbours}
+        viewBox={viewBox}
+        client:visible
+      />
     </section>
 
     <section id="provinces" class="scroll-mt-24">
