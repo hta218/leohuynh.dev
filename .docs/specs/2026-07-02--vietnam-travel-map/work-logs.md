@@ -86,3 +86,32 @@ expand buttons. `biome check` + `astro check` clean.
    explicit `aspect-ratio: 1000 / 1925`, centred in its column — fits within the desktop
    viewport, still full-width on mobile.
 6. Owner will revisit the underlying place data (Hà Nội / Sơn La unlisted names) later.
+
+## 2026-07-04 — @hta218 — adopt the d3-geo map, remove the old variant
+
+Owner reworked the map (commits `50358ee`, `2b3ab9c`, `444b5c2`, `799b78c`): an
+experimental `/heatmap-lab` projecting real GeoJSON with **d3-geo** (`geoMercator`,
+`geoPath`) at build time instead of pre-baked SVG paths. It frames the region as a
+full-bleed rectangle — sea + neighbouring countries behind, Vietnam lifted on top with a
+drop-shadow — and the Hoàng Sa / Trường Sa archipelagos now render at their true projected
+positions (the GeoJSON keeps them). Interaction: cursor-following tooltip on hover, click to
+pin a floating detail card over the sea. The province list (`ProvinceList`) went fully
+static (5 spots + a "N more listed on gody" note pinned to the card bottom).
+
+Adopted it as the real `/heatmap` and cleaned up the old approach:
+
+- Deleted the old `src/pages/heatmap.astro` and promoted the lab page in its place
+  (`heatmap-lab.astro` → `heatmap.astro`, crumb fixed).
+- Deleted the old `VietnamMap.tsx`; renamed `VietnamMapLib.tsx` → `VietnamMap.tsx` (dropped
+  the "Lib" experiment name and its doc caveats).
+- Deleted `src/components/travel/vietnam-provinces.ts` — the 82 KB of pre-baked SVG paths
+  the d3-geo approach makes obsolete.
+- Refactored `src/lib/places.ts` into a pure visit-snapshot loader: it now reads only
+  `json/places.json` (returns `PlacesSnapshot[]` keyed by `id`); geometry is projected in
+  the page from `json/vietnam-provinces.geojson`. The page merges the snapshot by `id`
+  (was `code`), deriving `visited` from snapshot presence.
+
+Data sources now: `json/vietnam-provinces.geojson` (34 units incl. archipelagos),
+`json/neighbours.geojson` (region countries). `d3-geo` + `@types/d3-geo` are deps.
+`astro check` + `biome check` clean; `astro build` OK — `/heatmap` SSRs the framed map,
+neighbours, sea, and the static province list. `/heatmap-lab` no longer exists.
