@@ -1,0 +1,191 @@
+---
+import PageHeader from '~/components/PageHeader.astro'
+import StudioShell from '~/components/studio/StudioShell.astro'
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import {
+  formatApproxUsd,
+  formatTokens,
+  INLINE_MODEL_ICONS,
+  modelBrandIcon,
+  shortModelName,
+} from '~/lib/runtime/llm-format'
+import { fetchTokenBurnFull } from '~/lib/runtime/token-burn'
+
+// SSR so the numbers stay fresh (the summary changes ~once/day per machine).
+// Cache at the edge to keep it cheap without going stale for long.
+export const prerender = false
+Astro.response.headers.set(
+  'cache-control',
+  'public, s-maxage=600, stale-while-revalidate=6000',
+)
+
+const tb = await fetchTokenBurnFull()
+
+const STAT_TILES = [
+  { value: tb.allTime.tokens.toLocaleString(), label: 'tokens all-time' },
+  { value: formatApproxUsd(tb.allTime.cost), label: 'spend all-time' },
+  { value: tb.allTime.sessions.toLocaleString(), label: 'sessions' },
+  { value: `${tb.machines.length || '—'}`, label: 'machines' },
+]
+
+const WINDOWS = [
+  { label: 'today', window: tb.today },
+  { label: 'last 7 days', window: tb.last7Days },
+  { label: 'last 30 days', window: tb.last30Days },
+  { label: 'all-time', window: tb.allTime },
+]
+
+// Daily burn chart — cap to the most recent stretch so the bars stay legible.
+const CHART_DAYS = 90
+const series = tb.daily.slice(-CHART_DAYS)
+const maxDailyTokens = Math.max(1, ...series.map((d) => d.tokens))
+const firstDay = series[0]?.date
+const lastDay = series[series.length - 1]?.date
+
+// All-time per-model breakdown, scaled against the biggest model for the bars.
+const models = tb.allTimeModels
+const maxModelTokens = Math.max(1, ...models.map((m) => m.tokens))
+
+function modelIcon(model: string): { cdn?: string; svg?: string } {
+  const brand = modelBrandIcon(model)
+  return brand.type === 'cdn'
+    ? { cdn: `https://cdn.simpleicons.org/${brand.slug}` }
+    : { svg: INLINE_MODEL_ICONS[brand.key] ?? '' }
+}
+---
+
+<BaseLayout
+  title="LLM token burn"
+  description="How many tokens I burn coding with AI — all-time spend, sessions, a daily burn chart, and the breakdown by model, read live from my private token-burn telemetry."
+>
+  <StudioShell active="/llms" crumb="~/leohuynh.dev/llms/">
+    <PageHeader
+      title="LLM token burn"
+      description="Every token I've burned pair-coding with AI agents. Pulled live from my private token-burn telemetry — all-time totals, a daily burn chart, and where the tokens actually go, model by model."
+    />
+
+    {
+      tb.ok === false && (
+        <p class="mb-8 rounded-2xl border border-line bg-white p-4 font-mono text-[13px] text-muted">
+          token-burn data is unavailable right now.
+          {tb.error ? ` (${tb.error})` : ''}
+        </p>
+      )
+    }
+
+    <section class="mb-10">
+      <dl class="grid grid-cols-2 gap-3 sm:grid-cols-4">
+        {
+          STAT_TILES.map((tile) => (
+            <div class="rounded-2xl border border-line bg-white p-4 text-center">
+              <dt class="m-0 font-mono text-[11px] tracking-wide text-muted uppercase">
+                {tile.label}
+              </dt>
+              <dd class="m-0 mt-1 text-[24px] tracking-[-0.04em] text-ink tabular-nums">
+                {tile.value}
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </section>
+
+    <section class="mb-12">
+      <h2 class="mb-4 text-[22px] tracking-[-0.04em]">By window</h2>
+      <div class="grid grid-cols-2 gap-3 lg:grid-cols-4">
+        {
+          WINDOWS.map(({ label, window }) => (
+            <div class="rounded-2xl border border-line bg-white p-4">
+              <span class="font-mono text-[11px] tracking-[0.06em] text-muted uppercase">
+                {label}
+              </span>
+              <p class="m-0 mt-2 text-[20px] tracking-[-0.03em] text-ink tabular-nums">
+                {formatTokens(window.tokens)}
+                <span class="ml-1 font-mono text-[11px] text-muted">tokens</span>
+              </p>
+              <p class="m-0 mt-1 font-mono text-[11px] text-muted">
+                {window.sessions.toLocaleString()} sess ·{' '}
+                {formatApproxUsd(window.cost)}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    {
+      series.length > 0 && (
+        <section class="mb-12">
+          <div class="mb-4 flex items-end justify-between gap-3">
+            <h2 class="m-0 text-[22px] tracking-[-0.04em]">Daily burn</h2>
+            <span class="font-mono text-[11px] text-muted">
+              {series.length} days · peak {formatTokens(maxDailyTokens)}
+            </span>
+          </div>
+          <div class="rounded-2xl border border-line bg-white p-4">
+            <div class="flex h-40 items-end gap-0.5">
+              {series.map((day) => (
+                <div
+                  class="group relative flex-1"
+                  style={`height:${Math.max(2, (day.tokens / maxDailyTokens) * 100)}%`}
+                >
+                  <div class="h-full w-full rounded-t-xs bg-code-blue/70 transition-colors group-hover:bg-code-blue" />
+                  <span class="pointer-events-none absolute bottom-full left-1/2 z-10 mb-1 hidden -translate-x-1/2 whitespace-nowrap rounded-md border border-line bg-white px-2 py-1 font-mono text-[10px] text-ink shadow-sm group-hover:block">
+                    {day.date} · {formatTokens(day.tokens)} ·{' '}
+                    {formatApproxUsd(day.cost)}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <div class="mt-2 flex justify-between font-mono text-[10px] text-muted">
+              <span>{firstDay}</span>
+              <span>{lastDay}</span>
+            </div>
+          </div>
+        </section>
+      )
+    }
+
+    {
+      models.length > 0 && (
+        <section class="mb-10">
+          <h2 class="mb-4 text-[22px] tracking-[-0.04em]">By model</h2>
+          <div class="grid gap-2">
+            {models.map((model) => {
+              const icon = modelIcon(model.model)
+              return (
+                <div class="flex items-center gap-3 rounded-xl border border-line bg-white px-3 py-2.5">
+                  {icon.cdn ? (
+                    <img
+                      src={icon.cdn}
+                      alt=""
+                      loading="lazy"
+                      class="h-4 w-4 shrink-0"
+                    />
+                  ) : (
+                    <span
+                      class="inline-flex h-4 w-4 shrink-0 items-center justify-center text-ink"
+                      set:html={icon.svg}
+                    />
+                  )}
+                  <span class="w-40 shrink-0 truncate font-mono text-[13px] text-ink">
+                    {shortModelName(model.model)}
+                  </span>
+                  <span class="hidden h-1.5 flex-1 overflow-hidden rounded-full bg-line/60 sm:block">
+                    <span
+                      class="block h-full rounded-full bg-code-blue/70"
+                      style={`width:${Math.max(2, (model.tokens / maxModelTokens) * 100)}%`}
+                    />
+                  </span>
+                  <span class="ml-auto shrink-0 font-mono text-[12px] text-muted tabular-nums">
+                    {formatTokens(model.tokens)} · {formatApproxUsd(model.cost)}
+                  </span>
+                </div>
+              )
+            })}
+          </div>
+        </section>
+      )
+    }
+  </StudioShell>
+</BaseLayout>

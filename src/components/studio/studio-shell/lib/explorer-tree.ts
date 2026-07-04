@@ -180,6 +180,15 @@ export function buildExplorerTree(opts: {
     },
     {
       kind: 'leaf',
+      id: 'llms',
+      href: '/llms',
+      file: 'llms.json',
+      title: 'LLM token burn',
+      icon: { type: 'huge', name: 'braces' },
+      activeWhen: exact('/llms'),
+    },
+    {
+      kind: 'leaf',
       id: 'stats',
       href: opts.statsUrl,
       file: 'stats.umami',

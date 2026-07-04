@@ -8,6 +8,7 @@ export type BrandIconName =
 export type HugeIconName =
   | 'analytics'
   | 'book'
+  | 'braces'
   | 'caret-down'
   | 'caret-right'
   | 'comment'
