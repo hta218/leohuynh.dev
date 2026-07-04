@@ -114,3 +114,29 @@ export interface TokenBurnPayload {
   lastActivity?: string
   error?: string
 }
+
+export interface TokenBurnDailyPoint {
+  date: string
+  tokens: number
+  cost: number
+  sessions: number
+}
+
+/**
+ * The `/llms` page's richer view. Same time windows as `TokenBurnPayload`, plus
+ * the all-time per-model breakdown and the full `daily[]` time series that the
+ * compact rail widget drops.
+ */
+export interface TokenBurnFullPayload {
+  ok: boolean
+  allTime: TokenBurnWindow
+  today: TokenBurnWindow
+  last7Days: TokenBurnWindow
+  last30Days: TokenBurnWindow
+  allTimeModels: TokenBurnModelSlice[]
+  todayModels: TokenBurnModelSlice[]
+  daily: TokenBurnDailyPoint[]
+  machines: string[]
+  lastActivity?: string
+  error?: string
+}
