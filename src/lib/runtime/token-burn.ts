@@ -7,14 +7,12 @@ import type {
 import { hanoiDateRangeOffset, todayInHanoi } from './hanoi-date'
 import { env, timeoutSignal } from './shared'
 
-const TOKEN_BURN_SUMMARY_ENDPOINT =
-  'https://api.github.com/repos/hta218/token-burn/contents/public/summary.json'
-
-// token-burn: AI coding token spend, read from the private repo's pre-aggregated
-// `public/summary.json` via the GitHub Contents API. The PAT lives in env and is
-// only used server-side, so it never reaches the client. The committed file holds
-// only time-absolute data — `today` / `last7Days` / `last30Days` are derived here
-// from `daily[]` using the same Hanoi calendar the GitHub rail uses.
+// AI coding token spend, read from a private, pre-aggregated summary JSON via
+// the GitHub Contents API. The source URL and PAT both live in env and are only
+// used server-side, so neither the endpoint nor the credential reaches the
+// client. The summary holds only time-absolute data — `today` / `last7Days` /
+// `last30Days` are derived here from `daily[]` using the same Hanoi calendar the
+// GitHub rail uses.
 type TokenBurnTotals = {
   tokens?: number
   cost?: number
@@ -150,16 +148,19 @@ function buildTokenBurnFullPayload(
   }
 }
 
-// Fetches the pre-aggregated summary from the private token-burn repo. Reuses
-// GITHUB_API_TOKEN — it already has read access, so no separate PAT is needed.
+// Fetches the pre-aggregated summary. Both the source URL and the token live in
+// env (`TOKEN_BURN_SUMMARY_URL` + `GITHUB_API_TOKEN`) so the private source is
+// never hardcoded here; the token already has read access, so no separate PAT.
 async function fetchTokenBurnSummary(): Promise<
   { summary: TokenBurnSummary } | { error: string }
 > {
+  const endpoint = env('TOKEN_BURN_SUMMARY_URL')
+  if (!endpoint) return { error: 'TOKEN_BURN_SUMMARY_URL is not configured.' }
   const token = env('GITHUB_API_TOKEN')
   if (!token) return { error: 'GITHUB_API_TOKEN is not configured.' }
 
   try {
-    const response = await fetch(TOKEN_BURN_SUMMARY_ENDPOINT, {
+    const response = await fetch(endpoint, {
       headers: {
         Authorization: `Bearer ${token}`,
         Accept: 'application/vnd.github.raw+json',
@@ -169,14 +170,13 @@ async function fetchTokenBurnSummary(): Promise<
     })
 
     if (!response.ok) {
-      return { error: `token-burn fetch failed with HTTP ${response.status}.` }
+      return { error: `summary fetch failed with HTTP ${response.status}.` }
     }
 
     return { summary: (await response.json()) as TokenBurnSummary }
   } catch (error) {
     return {
-      error:
-        error instanceof Error ? error.message : 'token-burn request failed.',
+      error: error instanceof Error ? error.message : 'summary request failed.',
     }
   }
 }
