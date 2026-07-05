@@ -1,14 +1,9 @@
 ---
 import PageHeader from '~/components/PageHeader.astro'
+import ModelRow from '~/components/studio/llms/ModelRow.astro'
 import StudioShell from '~/components/studio/StudioShell.astro'
 import BaseLayout from '~/layouts/BaseLayout.astro'
-import {
-  formatApproxUsd,
-  formatTokens,
-  INLINE_MODEL_ICONS,
-  modelBrandIcon,
-  shortModelName,
-} from '~/lib/runtime/llm-format'
+import { formatApproxUsd, formatTokens } from '~/lib/runtime/llm-format'
 import { fetchTokenBurnFull } from '~/lib/runtime/token-burn'
 
 // SSR so the numbers stay fresh (the summary changes ~once/day per machine).
@@ -21,91 +16,121 @@ Astro.response.headers.set(
 
 const tb = await fetchTokenBurnFull()
 
-const STAT_TILES = [
-  { value: tb.allTime.tokens.toLocaleString(), label: 'tokens all-time' },
-  { value: formatApproxUsd(tb.allTime.cost), label: 'spend all-time' },
+// Secondary all-time figures shown beneath the headline token count.
+const HERO_META = [
+  { value: formatApproxUsd(tb.allTime.cost), label: 'spend' },
   { value: tb.allTime.sessions.toLocaleString(), label: 'sessions' },
   { value: `${tb.machines.length || '—'}`, label: 'machines' },
 ]
 
+// Headline is all-time, so the strip only carries the recent windows.
 const WINDOWS = [
   { label: 'today', window: tb.today },
   { label: 'last 7 days', window: tb.last7Days },
   { label: 'last 30 days', window: tb.last30Days },
-  { label: 'all-time', window: tb.allTime },
 ]
 
 // Daily burn chart — cap to the most recent stretch so the bars stay legible.
 const CHART_DAYS = 90
 const series = tb.daily.slice(-CHART_DAYS)
 const maxDailyTokens = Math.max(1, ...series.map((d) => d.tokens))
+const peakIndex = series.reduce(
+  (best, day, i) => (day.tokens > series[best].tokens ? i : best),
+  0,
+)
 const firstDay = series[0]?.date
 const lastDay = series[series.length - 1]?.date
 
-// All-time per-model breakdown, scaled against the biggest model for the bars.
+// All-time per-model breakdown. Bars scale against the biggest model; the
+// share (in ModelRow) is against the grand total. The long tail collapses.
 const models = tb.allTimeModels
 const maxModelTokens = Math.max(1, ...models.map((m) => m.tokens))
+const totalModelTokens = models.reduce((sum, m) => sum + m.tokens, 0) || 1
+const VISIBLE_MODELS = 8
+const topModels = models.slice(0, VISIBLE_MODELS)
+const restModels = models.slice(VISIBLE_MODELS)
 
-function modelIcon(model: string): { cdn?: string; svg?: string } {
-  const brand = modelBrandIcon(model)
-  return brand.type === 'cdn'
-    ? { cdn: `https://cdn.simpleicons.org/${brand.slug}` }
-    : { svg: INLINE_MODEL_ICONS[brand.key] ?? '' }
+function costLabel(cost: number): string {
+  return cost > 0 ? formatApproxUsd(cost) : '—'
 }
+
+const lastActivity = tb.lastActivity?.slice(0, 10)
+const machinesLabel = tb.machines.length ? tb.machines.join(', ') : '—'
 ---
 
 <BaseLayout
   title="LLM token burn"
-  description="How many tokens I burn coding with AI — all-time spend, sessions, a daily burn chart, and the breakdown by model, read live from my private token-burn telemetry."
+  description="How many tokens I burn coding with AI — all-time spend, sessions, a daily burn chart, and the breakdown by model, read live from my own private usage telemetry."
 >
   <StudioShell active="/llms" crumb="~/leohuynh.dev/llms/">
     <PageHeader
       title="LLM token burn"
-      description="Every token I've burned pair-coding with AI agents. Pulled live from my private token-burn telemetry — all-time totals, a daily burn chart, and where the tokens actually go, model by model."
+      description="Every token I've burned pair-coding with AI agents. Pulled live from my own private usage telemetry — all-time totals, a daily burn chart, and where the tokens actually go, model by model."
     />
 
     {
       tb.ok === false && (
         <p class="mb-8 rounded-2xl border border-line bg-white p-4 font-mono text-[13px] text-muted">
-          token-burn data is unavailable right now.
-          {tb.error ? ` (${tb.error})` : ''}
+          telemetry is unavailable right now.
         </p>
       )
     }
 
-    <section class="mb-10">
-      <dl class="grid grid-cols-2 gap-3 sm:grid-cols-4">
-        {
-          STAT_TILES.map((tile) => (
-            <div class="rounded-2xl border border-line bg-white p-4 text-center">
-              <dt class="m-0 font-mono text-[11px] tracking-wide text-muted uppercase">
-                {tile.label}
-              </dt>
-              <dd class="m-0 mt-1 text-[24px] tracking-[-0.04em] text-ink tabular-nums">
-                {tile.value}
-              </dd>
-            </div>
-          ))
-        }
-      </dl>
+    {/* ── Hero: all-time headline ────────────────────────────── */}
+    <section class="llms-sec mb-8" style="animation-delay:40ms">
+      <div class="relative overflow-hidden rounded-2xl border border-ink bg-white p-6 shadow-[5px_5px_0_var(--color-ink)] sm:p-8">
+        <span
+          class="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(15,23,42,0.045)_1px,transparent_1px)] bg-size-[26px_100%] opacity-70"
+          aria-hidden="true"></span>
+        <span
+          class="pointer-events-none absolute top-1/2 right-4 hidden -translate-y-1/2 -rotate-6 font-mono text-[180px] leading-none font-bold text-ink/4 select-none sm:block"
+          aria-hidden="true">{'{ }'}</span>
+        <div class="relative">
+          <span class="flex items-center gap-2 font-mono text-[11px] tracking-widest text-muted uppercase">
+            <span class="inline-block h-1.5 w-1.5 rounded-full bg-ink"></span>
+            tokens burned · all-time
+          </span>
+          <p class="m-0 mt-3 text-[clamp(34px,6.4vw,66px)] leading-[0.92] font-semibold tracking-tighter text-ink tabular-nums">
+            {tb.allTime.tokens.toLocaleString()}
+          </p>
+          <dl class="mt-6 grid max-w-md grid-cols-3 gap-px overflow-hidden rounded-xl border border-line bg-line">
+            {
+              HERO_META.map((m) => (
+                <div class="bg-white px-4 py-3">
+                  <dt class="m-0 font-mono text-[10px] tracking-[0.08em] text-muted uppercase">
+                    {m.label}
+                  </dt>
+                  <dd class="m-0 mt-1 text-[19px] tracking-[-0.03em] text-ink tabular-nums">
+                    {m.value}
+                  </dd>
+                </div>
+              ))
+            }
+          </dl>
+        </div>
+      </div>
     </section>
 
-    <section class="mb-12">
-      <h2 class="mb-4 text-[22px] tracking-[-0.04em]">By window</h2>
-      <div class="grid grid-cols-2 gap-3 lg:grid-cols-4">
+    {/* ── Recent windows ─────────────────────────────────────── */}
+    <section class="llms-sec mb-12" style="animation-delay:100ms">
+      <div class="mb-3 flex items-center gap-3">
+        <h2 class="m-0 font-mono text-[13px] tracking-widest text-muted uppercase">
+          recent
+        </h2>
+        <span class="h-px flex-1 bg-line" aria-hidden="true"></span>
+      </div>
+      <div class="grid grid-cols-3 gap-px overflow-hidden rounded-2xl border border-line bg-line">
         {
           WINDOWS.map(({ label, window }) => (
-            <div class="rounded-2xl border border-line bg-white p-4">
-              <span class="font-mono text-[11px] tracking-[0.06em] text-muted uppercase">
+            <div class="bg-white p-4">
+              <span class="font-mono text-[10px] tracking-[0.08em] text-muted uppercase">
                 {label}
               </span>
-              <p class="m-0 mt-2 text-[20px] tracking-[-0.03em] text-ink tabular-nums">
+              <p class="m-0 mt-2 text-[clamp(18px,2.4vw,22px)] tracking-[-0.03em] text-ink tabular-nums">
                 {formatTokens(window.tokens)}
-                <span class="ml-1 font-mono text-[11px] text-muted">tokens</span>
               </p>
               <p class="m-0 mt-1 font-mono text-[11px] text-muted">
-                {window.sessions.toLocaleString()} sess ·{' '}
-                {formatApproxUsd(window.cost)}
+                {window.sessions.toLocaleString()} sess · {costLabel(window.cost)}
               </p>
             </div>
           ))
@@ -113,31 +138,62 @@ function modelIcon(model: string): { cdn?: string; svg?: string } {
       </div>
     </section>
 
+    {/* ── Daily burn chart ───────────────────────────────────── */}
     {
       series.length > 0 && (
-        <section class="mb-12">
-          <div class="mb-4 flex items-end justify-between gap-3">
-            <h2 class="m-0 text-[22px] tracking-[-0.04em]">Daily burn</h2>
+        <section class="llms-sec mb-12" style="animation-delay:160ms">
+          <div class="mb-3 flex items-center gap-3">
+            <h2 class="m-0 font-mono text-[13px] tracking-widest text-muted uppercase">
+              daily burn
+            </h2>
+            <span class="h-px flex-1 bg-line" aria-hidden="true" />
             <span class="font-mono text-[11px] text-muted">
-              {series.length} days · peak {formatTokens(maxDailyTokens)}
+              {series.length}d · peak {formatTokens(maxDailyTokens)}
             </span>
           </div>
-          <div class="rounded-2xl border border-line bg-white p-4">
-            <div class="flex h-40 items-end gap-0.5">
-              {series.map((day) => (
+          <div class="rounded-2xl border border-line bg-white p-4 shadow-[4px_4px_0_var(--color-line)]">
+            <div class="relative h-44 pl-11">
+              {[1, 0.5, 0].map((t) => (
                 <div
-                  class="group relative flex-1"
-                  style={`height:${Math.max(2, (day.tokens / maxDailyTokens) * 100)}%`}
+                  class="absolute right-0 left-11"
+                  style={`top:${(1 - t) * 100}%`}
                 >
-                  <div class="h-full w-full rounded-t-xs bg-code-blue/70 transition-colors group-hover:bg-code-blue" />
-                  <span class="pointer-events-none absolute bottom-full left-1/2 z-10 mb-1 hidden -translate-x-1/2 whitespace-nowrap rounded-md border border-line bg-white px-2 py-1 font-mono text-[10px] text-ink shadow-sm group-hover:block">
-                    {day.date} · {formatTokens(day.tokens)} ·{' '}
-                    {formatApproxUsd(day.cost)}
+                  <span class="absolute right-full mr-2 -translate-y-1/2 font-mono text-[9px] text-muted tabular-nums">
+                    {t === 0 ? '0' : formatTokens(maxDailyTokens * t)}
                   </span>
+                  <span
+                    class="block h-px w-full"
+                    style={
+                      t === 0
+                        ? 'background:var(--color-line)'
+                        : 'border-top:1px dashed var(--color-line)'
+                    }
+                  />
                 </div>
               ))}
+              <div class="absolute inset-0 left-11 flex items-end gap-px">
+                {series.map((day, i) => {
+                  const h = Math.max(1.5, (day.tokens / maxDailyTokens) * 100)
+                  const isPeak = i === peakIndex
+                  return (
+                    <div class="group relative flex h-full flex-1 items-end">
+                      <div
+                        class:list={[
+                          'llms-bar w-full rounded-t-xs transition-colors',
+                          isPeak ? 'bg-ink' : 'bg-ink/45 group-hover:bg-ink/80',
+                        ]}
+                        style={`height:${h}%;animation-delay:${200 + i * 9}ms`}
+                      />
+                      <span class="pointer-events-none absolute bottom-full left-1/2 z-10 mb-1 hidden -translate-x-1/2 rounded-md border border-ink/15 bg-white px-2 py-1 font-mono text-[10px] whitespace-nowrap text-ink shadow-[2px_2px_0_var(--color-line)] group-hover:block">
+                        {day.date} · {formatTokens(day.tokens)} ·{' '}
+                        {costLabel(day.cost)}
+                      </span>
+                    </div>
+                  )
+                })}
+              </div>
             </div>
-            <div class="mt-2 flex justify-between font-mono text-[10px] text-muted">
+            <div class="mt-2 flex justify-between pl-11 font-mono text-[10px] text-muted">
               <span>{firstDay}</span>
               <span>{lastDay}</span>
             </div>
@@ -146,46 +202,104 @@ function modelIcon(model: string): { cdn?: string; svg?: string } {
       )
     }
 
+    {/* ── By model ───────────────────────────────────────────── */}
     {
       models.length > 0 && (
-        <section class="mb-10">
-          <h2 class="mb-4 text-[22px] tracking-[-0.04em]">By model</h2>
-          <div class="grid gap-2">
-            {models.map((model) => {
-              const icon = modelIcon(model.model)
-              return (
-                <div class="flex items-center gap-3 rounded-xl border border-line bg-white px-3 py-2.5">
-                  {icon.cdn ? (
-                    <img
-                      src={icon.cdn}
-                      alt=""
-                      loading="lazy"
-                      class="h-4 w-4 shrink-0"
-                    />
-                  ) : (
-                    <span
-                      class="inline-flex h-4 w-4 shrink-0 items-center justify-center text-ink"
-                      set:html={icon.svg}
-                    />
-                  )}
-                  <span class="w-40 shrink-0 truncate font-mono text-[13px] text-ink">
-                    {shortModelName(model.model)}
+        <section class="llms-sec mb-10" style="animation-delay:220ms">
+          <div class="mb-3 flex items-center gap-3">
+            <h2 class="m-0 font-mono text-[13px] tracking-widest text-muted uppercase">
+              by model
+            </h2>
+            <span class="h-px flex-1 bg-line" aria-hidden="true" />
+            <span class="font-mono text-[11px] text-muted">
+              {models.length} models
+            </span>
+          </div>
+
+          <div class="overflow-hidden rounded-2xl border border-line bg-white shadow-[4px_4px_0_var(--color-line)]">
+            {topModels.map((model, i) => (
+              <ModelRow
+                model={model}
+                rank={i + 1}
+                maxTokens={maxModelTokens}
+                totalTokens={totalModelTokens}
+              />
+            ))}
+
+            {restModels.length > 0 && (
+              <details class="group/details">
+                <summary class="flex cursor-pointer list-none items-center gap-2 border-t border-line px-4 py-2.5 font-mono text-[11px] tracking-[0.06em] text-muted uppercase transition-colors hover:text-ink">
+                  <span class="transition-transform group-open/details:rotate-90">
+                    ▸
                   </span>
-                  <span class="hidden h-1.5 flex-1 overflow-hidden rounded-full bg-line/60 sm:block">
-                    <span
-                      class="block h-full rounded-full bg-code-blue/70"
-                      style={`width:${Math.max(2, (model.tokens / maxModelTokens) * 100)}%`}
-                    />
+                  <span class="group-open/details:hidden">
+                    show {restModels.length} more
                   </span>
-                  <span class="ml-auto shrink-0 font-mono text-[12px] text-muted tabular-nums">
-                    {formatTokens(model.tokens)} · {formatApproxUsd(model.cost)}
-                  </span>
-                </div>
-              )
-            })}
+                  <span class="hidden group-open/details:inline">show less</span>
+                </summary>
+                {restModels.map((model, i) => (
+                  <ModelRow
+                    model={model}
+                    rank={VISIBLE_MODELS + i + 1}
+                    maxTokens={maxModelTokens}
+                    totalTokens={totalModelTokens}
+                  />
+                ))}
+              </details>
+            )}
           </div>
         </section>
       )
     }
+
+    {/* ── Provenance ─────────────────────────────────────────── */}
+    <p
+      class="llms-sec font-mono text-[11px] leading-relaxed text-muted"
+      style="animation-delay:280ms"
+    >
+      <span class="text-ink/70">machines</span> {machinesLabel}
+      {
+        lastActivity && (
+          <>
+            {' '}
+            · <span class="text-ink/70">last activity</span> {lastActivity}
+          </>
+        )
+      }
+    </p>
   </StudioShell>
 </BaseLayout>
+
+<style>
+  @keyframes llms-rise {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes llms-grow {
+    from {
+      transform: scaleY(0);
+    }
+    to {
+      transform: scaleY(1);
+    }
+  }
+  .llms-sec {
+    animation: llms-rise 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .llms-bar {
+    transform-origin: bottom;
+    animation: llms-grow 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .llms-sec,
+    .llms-bar {
+      animation: none;
+    }
+  }
+</style>
