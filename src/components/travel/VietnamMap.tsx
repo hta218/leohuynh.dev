@@ -154,29 +154,51 @@ export default function VietnamMap({ provinces, neighbours, viewBox }: Props) {
               ))}
             </g>
 
-            {/* Selected province: persistent bold outline, redrawn on top so it
-              stays marked even while hovering another province. */}
+            {/* Selected province: outline-only (no fill repaint, so the white
+              borders separating same-coloured neighbours stay intact) with a
+              white halo under a dark core, visible on any fill shade. */}
             {selected && (
-              <path
-                d={selected.d}
-                fill={fillFor(selected)}
-                stroke={ACTIVE_STROKE}
-                strokeWidth={2}
-                strokeLinejoin="round"
-                style={{ pointerEvents: 'none' }}
-              />
+              <>
+                <path
+                  d={selected.d}
+                  fill="none"
+                  stroke="#ffffff"
+                  strokeWidth={3.6}
+                  strokeLinejoin="round"
+                  style={{ pointerEvents: 'none' }}
+                />
+                <path
+                  d={selected.d}
+                  fill="none"
+                  stroke={ACTIVE_STROKE}
+                  strokeWidth={1.8}
+                  strokeLinejoin="round"
+                  style={{ pointerEvents: 'none' }}
+                />
+              </>
             )}
 
-            {/* Hover preview: lighter outline, only when it isn't the selection. */}
+            {/* Hover preview: same cased outline, lighter, only when it isn't
+              the current selection. */}
             {hovered && hovered.code !== selectedCode && (
-              <path
-                d={hovered.d}
-                fill={fillFor(hovered)}
-                stroke={ACTIVE_STROKE}
-                strokeWidth={1.2}
-                strokeLinejoin="round"
-                style={{ pointerEvents: 'none', opacity: 0.75 }}
-              />
+              <>
+                <path
+                  d={hovered.d}
+                  fill="none"
+                  stroke="#ffffff"
+                  strokeWidth={2.6}
+                  strokeLinejoin="round"
+                  style={{ pointerEvents: 'none', opacity: 0.9 }}
+                />
+                <path
+                  d={hovered.d}
+                  fill="none"
+                  stroke={ACTIVE_STROKE}
+                  strokeWidth={1.2}
+                  strokeLinejoin="round"
+                  style={{ pointerEvents: 'none', opacity: 0.9 }}
+                />
+              </>
             )}
           </svg>
         </div>
