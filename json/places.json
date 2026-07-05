@@ -2,9 +2,12 @@
   {
     "unit": "Hà Nội",
     "id": "ha-noi",
-    "count": 27,
+    "count": 32,
     "mergedFrom": [],
     "places": [
+      {
+        "name": "Công viên Thống Nhất"
+      },
       {
         "name": "Hồ Hoàn Kiếm"
       },
@@ -15,34 +18,60 @@
         "name": "Lăng Chủ Tịch Hồ Chí Minh"
       },
       {
-        "name": "Công viên Thống Nhất"
-      },
-      {
         "name": "Royal City"
       }
     ],
     "placesPartial": true
   },
   {
-    "unit": "Sơn La",
-    "id": "son-la",
-    "count": 6,
-    "mergedFrom": [],
+    "unit": "Phú Thọ",
+    "id": "phu-tho",
+    "count": 13,
+    "mergedFrom": [
+      "Vĩnh Phúc",
+      "Hòa Bình"
+    ],
     "places": [
       {
-        "name": "Thác Dải Yếm - Mộc Châu"
+        "name": "Tam Đảo",
+        "origProvince": "Vĩnh Phúc"
       },
       {
-        "name": "Ngũ động bản Ôn - Mộc Châu"
+        "name": "Đại Lải Vĩnh Phúc",
+        "origProvince": "Vĩnh Phúc"
       },
       {
-        "name": "Đồi chè trái tim - Mộc Châu"
+        "name": "Vườn Quốc Gia Tam Đảo",
+        "origProvince": "Vĩnh Phúc"
       },
       {
-        "name": "Vườn hoa mận, cải vàng, cải trắng - Mộc Châu"
+        "name": "Khu di tích đền Hùng (Relic area of Hung Emperor)"
       },
       {
-        "name": "Rừng thông Bản Áng - Mộc Châu"
+        "name": "Khu du lịch suối khoáng nóng Thanh Thủy"
+      },
+      {
+        "name": "Khu phố cổ Vườn Vua"
+      },
+      {
+        "name": "Suối nước nóng Kim Bôi",
+        "origProvince": "Hòa Bình"
+      },
+      {
+        "name": "Thung lũng Mai Châu",
+        "origProvince": "Hòa Bình"
+      },
+      {
+        "name": "Đèo Thung Khe",
+        "origProvince": "Hòa Bình"
+      },
+      {
+        "name": "Nhà máy thuỷ điện Hoà Bình (Hoa Binh Hydropower Plant)",
+        "origProvince": "Hòa Bình"
+      },
+      {
+        "name": "Đặc sản Cam Cao Phong - Vườn cam Bà Sen",
+        "origProvince": "Hòa Bình"
       }
     ],
     "placesPartial": true
@@ -50,8 +79,10 @@
   {
     "unit": "Đà Nẵng",
     "id": "da-nang",
-    "count": 6,
-    "mergedFrom": ["Quảng Nam"],
+    "count": 10,
+    "mergedFrom": [
+      "Quảng Nam"
+    ],
     "places": [
       {
         "name": "Rừng dừa Bảy Mẫu - Hội An",
@@ -69,17 +100,103 @@
         "name": "Bà Nà Hills"
       },
       {
+        "name": "Sông Hàn và 4 cây cầu kỉ lục"
+      },
+      {
         "name": "Đèo Hải Vân"
       },
       {
-        "name": "Cầu Rồng Đà Nẵng"
+        "name": "Cầu tình yêu"
+      },
+      {
+        "name": "Cầu Vàng Bà Nà Hills ( Golden Bridge )"
       }
-    ]
+    ],
+    "placesPartial": true
+  },
+  {
+    "unit": "An Giang",
+    "id": "an-giang",
+    "count": 9,
+    "mergedFrom": [
+      "Kiên Giang"
+    ],
+    "places": [
+      {
+        "name": "Đảo Hòn Thơm - Phú Quốc",
+        "origProvince": "Kiên Giang"
+      },
+      {
+        "name": "Vinpearl Safari Phú Quốc",
+        "origProvince": "Kiên Giang"
+      },
+      {
+        "name": "Bún quậy Kiến Xây - Phú Quốc",
+        "origProvince": "Kiên Giang"
+      },
+      {
+        "name": "VinWonders Phú Quốc",
+        "origProvince": "Kiên Giang"
+      },
+      {
+        "name": "Quần đảo An Thới",
+        "origProvince": "Kiên Giang"
+      }
+    ],
+    "placesPartial": true
+  },
+  {
+    "unit": "Quảng Ninh",
+    "id": "quang-ninh",
+    "count": 9,
+    "mergedFrom": [],
+    "places": [
+      {
+        "name": "Khu vui chơi Tuần Châu"
+      },
+      {
+        "name": "Cầu Bãi Cháy Hạ Long"
+      },
+      {
+        "name": "Bảo tàng và thư viện Quảng Ninh"
+      },
+      {
+        "name": "Cung cá heo Hạ Long"
+      },
+      {
+        "name": "Quảng trường Hạ Long"
+      }
+    ],
+    "placesPartial": true
+  },
+  {
+    "unit": "Sơn La",
+    "id": "son-la",
+    "count": 7,
+    "mergedFrom": [],
+    "places": [
+      {
+        "name": "Thác Dải Yếm - Mộc Châu"
+      },
+      {
+        "name": "Cao nguyên Mộc Châu"
+      },
+      {
+        "name": "Ngũ động bản Ôn - Mộc Châu"
+      },
+      {
+        "name": "Đồi chè trái tim - Mộc Châu"
+      },
+      {
+        "name": "Vườn hoa mận, cải vàng, cải trắng - Mộc Châu"
+      }
+    ],
+    "placesPartial": true
   },
   {
     "unit": "Ninh Bình",
     "id": "ninh-binh",
-    "count": 4,
+    "count": 5,
     "mergedFrom": [],
     "places": [
       {
@@ -93,58 +210,26 @@
       },
       {
         "name": "Vườn chim Thung Nham"
-      }
-    ]
-  },
-  {
-    "unit": "Phú Thọ",
-    "id": "phu-tho",
-    "count": 4,
-    "mergedFrom": ["Hòa Bình", "Vĩnh Phúc"],
-    "places": [
-      {
-        "name": "Tam Đảo",
-        "origProvince": "Vĩnh Phúc"
       },
       {
-        "name": "Vườn Quốc Gia Tam Đảo",
-        "origProvince": "Vĩnh Phúc"
-      },
-      {
-        "name": "Khu di tích đền Hùng (Relic area of Hung Emperor)"
-      },
-      {
-        "name": "Thung lũng Mai Châu",
-        "origProvince": "Hòa Bình"
-      }
-    ]
-  },
-  {
-    "unit": "An Giang",
-    "id": "an-giang",
-    "count": 3,
-    "mergedFrom": ["Kiên Giang"],
-    "places": [
-      {
-        "name": "Đảo Hòn Thơm - Phú Quốc",
-        "origProvince": "Kiên Giang"
-      },
-      {
-        "name": "Quần đảo An Thới",
-        "origProvince": "Kiên Giang"
-      },
-      {
-        "name": "Sun World Hòn Thơm Phú Quốc",
-        "origProvince": "Kiên Giang"
+        "name": "Cố đô Hoa Lư (Hoa Lu monument)"
       }
     ]
   },
   {
     "unit": "Hải Phòng",
     "id": "hai-phong",
-    "count": 2,
-    "mergedFrom": ["Hải Dương"],
+    "count": 4,
+    "mergedFrom": [
+      "Hải Dương"
+    ],
     "places": [
+      {
+        "name": "Đảo Cát Bà (Cat Ba Island)"
+      },
+      {
+        "name": "Bún cá cay (Speciality: Spicy fish noodle)"
+      },
       {
         "name": "Vườn quốc gia Cát Bà (Cat Ba National Park)"
       },
@@ -154,27 +239,81 @@
     ]
   },
   {
-    "unit": "Quảng Ninh",
-    "id": "quang-ninh",
+    "unit": "Gia Lai",
+    "id": "gia-lai",
+    "count": 3,
+    "mergedFrom": [
+      "Bình Định"
+    ],
+    "places": [
+      {
+        "name": "Eo Gió - Quy Nhơn",
+        "origProvince": "Bình Định"
+      },
+      {
+        "name": "Kỳ Co - Quy Nhơn",
+        "origProvince": "Bình Định"
+      },
+      {
+        "name": "Làng chài Hải Minh - Quy Nhơn",
+        "origProvince": "Bình Định"
+      }
+    ]
+  },
+  {
+    "unit": "Lào Cai",
+    "id": "lao-cai",
     "count": 2,
     "mergedFrom": [],
     "places": [
       {
-        "name": "Cầu Bãi Cháy Hạ Long"
+        "name": "Nóc nhà Đông Dương Fansipan - Sapa"
       },
       {
-        "name": "Vịnh Hạ Long"
+        "name": "Quảng Trường Sapa (Sapa Square )"
+      }
+    ]
+  },
+  {
+    "unit": "Đắk Lắk",
+    "id": "dak-lak",
+    "count": 2,
+    "mergedFrom": [
+      "Phú Yên"
+    ],
+    "places": [
+      {
+        "name": "Ghềnh Đá Đĩa",
+        "origProvince": "Phú Yên"
+      },
+      {
+        "name": "Tháp Nhạn",
+        "origProvince": "Phú Yên"
       }
     ]
   },
   {
     "unit": "Cao Bằng",
     "id": "cao-bang",
-    "count": 1,
+    "count": 2,
     "mergedFrom": [],
     "places": [
       {
         "name": "Thác Bản Giốc"
+      },
+      {
+        "name": "Núi Các Mác"
+      }
+    ]
+  },
+  {
+    "unit": "Thanh Hóa",
+    "id": "thanh-hoa",
+    "count": 1,
+    "mergedFrom": [],
+    "places": [
+      {
+        "name": "Biển Hải Tiến (Hai Tien sea)"
       }
     ]
   },
@@ -190,52 +329,33 @@
     ]
   },
   {
-    "unit": "Lào Cai",
-    "id": "lao-cai",
-    "count": 1,
+    "unit": "Huế",
+    "id": "hue",
+    "count": 0,
     "mergedFrom": [],
-    "places": [
-      {
-        "name": "Nóc nhà Đông Dương Fansipan - Sapa"
-      }
-    ]
-  },
-  {
-    "unit": "Đắk Lắk",
-    "id": "dak-lak",
-    "count": 1,
-    "mergedFrom": ["Phú Yên"],
-    "places": [
-      {
-        "name": "Tháp Nhạn",
-        "origProvince": "Phú Yên"
-      }
-    ]
+    "places": []
   },
   {
     "unit": "Bắc Ninh",
     "id": "bac-ninh",
     "count": 0,
-    "mergedFrom": ["Bắc Giang"],
+    "mergedFrom": [
+      "Bắc Giang"
+    ],
     "places": []
   },
   {
     "unit": "Hưng Yên",
     "id": "hung-yen",
     "count": 0,
-    "mergedFrom": ["Thái Bình"],
+    "mergedFrom": [
+      "Thái Bình"
+    ],
     "places": []
   },
   {
     "unit": "Nghệ An",
     "id": "nghe-an",
-    "count": 0,
-    "mergedFrom": [],
-    "places": []
-  },
-  {
-    "unit": "Thanh Hóa",
-    "id": "thanh-hoa",
     "count": 0,
     "mergedFrom": [],
     "places": []

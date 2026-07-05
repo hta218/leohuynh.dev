@@ -19,7 +19,8 @@
 
 A new `/travel` page that visualizes the provinces of Vietnam the owner has visited
 as an interactive SVG choropleth map (provinces shaded by how many places were checked
-in), plus a stat tile ("16/34 units · 47% Vietnam") and a per-unit place list.
+in), plus a stat tile ("18/34 units · 53% Vietnam", 100 places as of the 2026-07-04
+re-crawl) and a per-unit place list.
 The data is a static JSON snapshot seeded from the owner's gody.vn My Travel Map profile,
 mirroring the existing book/movie "shelf" pattern (local data → typed loader → page).
 

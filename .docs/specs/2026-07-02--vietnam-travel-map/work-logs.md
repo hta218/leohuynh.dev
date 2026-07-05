@@ -115,3 +115,25 @@ Data sources now: `json/vietnam-provinces.geojson` (34 units incl. archipelagos)
 `json/neighbours.geojson` (region countries). `d3-geo` + `@types/d3-geo` are deps.
 `astro check` + `biome check` clean; `astro build` OK — `/heatmap` SSRs the framed map,
 neighbours, sea, and the static province list. `/heatmap-lab` no longer exists.
+
+## 2026-07-04 (2) — @hta218 — re-crawl gody after owner added more check-ins
+
+Owner added more places on gody, so re-scraped `json/places.json`. Crawl flow (no saved
+script — documented here):
+
+1. `GET https://gody.vn/blog/huynhtuananh218951440` → a JS loader page carrying a `_token`
+   (CSRF) + session cookie. The real My-Travel-Map view lives behind the hash
+   `#ban-do-viet-nam` (found in the profile's "My Travel Map" link).
+2. `POST` the same URL with `_token` + `hash=#ban-do-viet-nam` (cookie jar from step 1) →
+   the ~469 KB SSR map page. Each place is a `data-province` / `data-place-title` /
+   `data-total-place` triple; each province a `<h3>` header + `Đã đến: <span>N</span>
+   địa điểm` (the true count, even though only 5 names show per province).
+3. Parsed 24 old-63 provinces (100 places total), mapped old→new via the GeoJSON's
+   `mergedFrom`, aggregated counts, tagged merged-in places with `origProvince`.
+
+Result: **18/34 units, 52.94%, 100 places** (was 16/34, 47%, 58). New units this round:
+**Gia Lai** (from Bình Định) and **Huế**. gody still caps each province's public name list
+at 5, so high-count units stay `placesPartial` (e.g. Hà Nội 32 → 5 listed). `astro build`
+OK; `/heatmap` shows the updated stats + list. The whole flow (fetch → parse → map →
+write `json/places.json`) is saved as `crawl-places.mjs` in this spec folder — re-run it
+next time the owner updates gody.
