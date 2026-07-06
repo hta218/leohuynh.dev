@@ -275,12 +275,24 @@ function ProvinceDetail({ active }: { active: ProvinceUnit | null }) {
           {active.places.map((place) => (
             <li
               key={place.name}
-              className="flex items-baseline gap-2 list-none text-[14px] text-ink"
+              className="flex items-center gap-2.5 list-none text-[14px] text-ink"
             >
-              <span aria-hidden="true" className="text-muted">
-                —
-              </span>
-              <span className="min-w-0">
+              {place.photo ? (
+                <img
+                  src={place.photo}
+                  alt=""
+                  loading="lazy"
+                  className="h-10 w-10 flex-none rounded-md border border-line bg-panel object-cover"
+                />
+              ) : (
+                <span
+                  aria-hidden="true"
+                  className="flex h-10 w-10 flex-none items-center justify-center rounded-md border border-dashed border-line text-muted"
+                >
+                  —
+                </span>
+              )}
+              <span className="min-w-0 leading-tight">
                 {place.name}
                 {place.origProvince && (
                   <span className="ml-1.5 font-mono text-[11px] text-muted">

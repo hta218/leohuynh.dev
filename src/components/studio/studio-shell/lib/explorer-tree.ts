@@ -153,6 +153,15 @@ export function buildExplorerTree(opts: {
     },
     {
       kind: 'leaf',
+      id: 'uses',
+      href: '/uses',
+      file: 'uses.astro',
+      title: 'Uses',
+      icon: { type: 'huge', name: 'keyboard' },
+      activeWhen: exact('/uses'),
+    },
+    {
+      kind: 'leaf',
       id: 'heatmap',
       href: '/heatmap',
       file: 'heatmap.astro',

@@ -29,8 +29,8 @@ const share = pct >= 1 ? `${Math.round(pct)}%` : '<1%'
 const cost = model.cost > 0 ? formatApproxUsd(model.cost) : '—'
 ---
 
-<div class="flex items-center gap-3 border-b border-line px-4 py-2.5 transition-colors last:border-b-0 hover:bg-panel2">
-  <span class="w-5 shrink-0 font-mono text-[11px] text-muted tabular-nums">
+<div class="flex items-center gap-3 border-b border-line px-4 py-2.5 font-mono text-[12px] tabular-nums transition-colors last:border-b-0 hover:bg-panel2">
+  <span class="w-5 shrink-0 text-[11px] text-muted">
     {String(rank).padStart(2, '0')}
   </span>
   {
@@ -43,7 +43,7 @@ const cost = model.cost > 0 ? formatApproxUsd(model.cost) : '—'
       />
     )
   }
-  <span class="w-36 shrink-0 truncate font-mono text-[13px] text-ink sm:w-44">
+  <span class="min-w-0 flex-1 truncate text-[13px] text-ink sm:flex-none sm:w-60">
     {shortModelName(model.model)}
   </span>
   <span class="hidden h-1.5 flex-1 overflow-hidden rounded-full bg-line/60 sm:block">
@@ -51,8 +51,7 @@ const cost = model.cost > 0 ? formatApproxUsd(model.cost) : '—'
       class:list={['block h-full rounded-full', rank === 1 ? 'bg-ink' : 'bg-ink/55']}
       style={`width:${barWidth}%`}></span>
   </span>
-  <span class="ml-auto shrink-0 text-right font-mono text-[12px] tabular-nums">
-    <span class="text-ink">{formatTokens(model.tokens)}</span>
-    <span class="text-muted"> · {share} · {cost}</span>
-  </span>
+  <span class="w-18 shrink-0 text-right text-ink">{formatTokens(model.tokens)}</span>
+  <span class="w-10 shrink-0 text-right text-muted">{share}</span>
+  <span class="w-20 shrink-0 text-right text-muted">{cost}</span>
 </div>

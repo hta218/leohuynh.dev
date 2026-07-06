@@ -58,31 +58,43 @@ function buildPlaces(html) {
   for (const f of geo.features) {
     const u = { id: f.properties.id, name: f.properties.name }
     nameToUnit.set(fold(u.name), u)
-    for (const old of f.properties.mergedFrom ?? []) nameToUnit.set(fold(old), u)
+    for (const old of f.properties.mergedFrom ?? [])
+      nameToUnit.set(fold(old), u)
   }
 
   // province headers: slug, display name, true "Đã đến" count
   const oldProv = new Map()
   const headerRe =
     /<h3[^>]*>([^<]+)<\/h3>[\s\S]{0,400}?province\?province=([a-z0-9-]+)&country=viet-nam[\s\S]{0,200}?Đã đến:\s*<span[^>]*>(\d+)<\/span>/g
-  for (let m; (m = headerRe.exec(html)); ) {
+  for (const m of html.matchAll(headerRe)) {
     const [, name, slug, count] = m
     const cur = oldProv.get(slug)
     if (!cur || +count > cur.count)
       oldProv.set(slug, { slug, name: name.trim(), count: +count, places: [] })
   }
 
-  // up-to-5 shown place titles per province
+  // hotlinked place photo (gody CDN), keyed by `${slug}::${title}` — the image
+  // sits in the same place block as the title link that carries slug + province
+  const photoRe =
+    /data-src="(https:\/\/media\.gody\.vn[^"]+)"[\s\S]{0,600}?place=[a-z0-9-]+&province=([a-z0-9-]+)"[^>]*>([^<]+)<\/a>/g
+  const photoByKey = new Map()
+  for (const m of html.matchAll(photoRe)) {
+    const url = m[1].replace(/([^:])\/\/+/g, '$1/') // collapse //images → /images
+    const key = `${m[2]}::${m[3].replace(/&amp;/g, '&').trim()}`
+    if (!photoByKey.has(key)) photoByKey.set(key, url)
+  }
+
+  // up-to-5 shown place titles per province (+ photo when available)
   const placeRe =
     /data-poi_id="[^"]*"\s+data-province="([^"]+)"[\s\S]{0,600}?data-place-title\s*=\s*"([^"]+)"/g
   const seen = new Set()
-  for (let m; (m = placeRe.exec(html)); ) {
+  for (const m of html.matchAll(placeRe)) {
     const slug = m[1]
     const title = m[2].replace(/&amp;/g, '&').trim()
     const key = `${slug}::${title}`
     if (seen.has(key)) continue
     seen.add(key)
-    oldProv.get(slug)?.places.push(title)
+    oldProv.get(slug)?.places.push({ name: title, photo: photoByKey.get(key) })
   }
 
   // aggregate old provinces onto new units
@@ -96,16 +108,27 @@ function buildPlaces(html) {
     }
     let rec = units.get(unit.id)
     if (!rec) {
-      rec = { unit: unit.name, id: unit.id, count: 0, mergedFrom: [], places: [] }
+      rec = {
+        unit: unit.name,
+        id: unit.id,
+        count: 0,
+        mergedFrom: [],
+        places: [],
+      }
       units.set(unit.id, rec)
     }
     rec.count += p.count
     const isBase = fold(p.name) === fold(rec.unit)
     if (!isBase) rec.mergedFrom.push(p.name)
-    for (const name of p.places)
-      rec.places.push(isBase ? { name } : { name, origProvince: p.name })
+    for (const pl of p.places) {
+      const place = { name: pl.name }
+      if (pl.photo) place.photo = pl.photo
+      if (!isBase) place.origProvince = p.name
+      rec.places.push(place)
+    }
   }
-  if (unmapped.length) throw new Error(`unmapped provinces: ${unmapped.join(', ')}`)
+  if (unmapped.length)
+    throw new Error(`unmapped provinces: ${unmapped.join(', ')}`)
 
   return [...units.values()]
     .sort((a, b) => b.count - a.count)

@@ -9,16 +9,20 @@
         "name": "Công viên Thống Nhất"
       },
       {
-        "name": "Hồ Hoàn Kiếm"
+        "name": "Hồ Hoàn Kiếm",
+        "photo": "https://media.gody.vn/images/ha-noi/ho-hoan-kiem/12-2016/20161201033204-ho-hoan-kiem-gody(10).jpg"
       },
       {
-        "name": "Chùa Một Cột"
+        "name": "Chùa Một Cột",
+        "photo": "https://media.gody.vn/images/ha-noi/chua-mot-cot/12-2016/20161201033327-chua-mot-cot-gody(3).jpg"
       },
       {
-        "name": "Lăng Chủ Tịch Hồ Chí Minh"
+        "name": "Lăng Chủ Tịch Hồ Chí Minh",
+        "photo": "https://media.gody.vn/images/ha-noi/lang-chu-tich-ho-chi-minh/12-2016/20161201033407-lang-chu-tich-ho-chi-minh-gody(14).jpg"
       },
       {
-        "name": "Royal City"
+        "name": "Royal City",
+        "photo": "https://media.gody.vn/images/ha-noi/royal-city/12-2016/20161201033518-royal-city-gody(3).jpg"
       }
     ],
     "placesPartial": true
@@ -34,43 +38,54 @@
     "places": [
       {
         "name": "Tam Đảo",
+        "photo": "https://media.gody.vn/images/vinh-phuc/tam-dao/11-2016/20161108044318-tam-dao-gody(33).jpg",
         "origProvince": "Vĩnh Phúc"
       },
       {
         "name": "Đại Lải Vĩnh Phúc",
+        "photo": "https://media.gody.vn/images/vinh-phuc/dai-lai-vinh-phuc/b6092b74dc87978c1170bf694f5d461cc1842d9b.jpg",
         "origProvince": "Vĩnh Phúc"
       },
       {
         "name": "Vườn Quốc Gia Tam Đảo",
+        "photo": "https://media.gody.vn/images/vinh-phuc/vuon-quoc-gia-tam-dao/8bf0e9a511ed517bdeffdd813151aed2644312ce.jpg",
         "origProvince": "Vĩnh Phúc"
       },
       {
-        "name": "Khu di tích đền Hùng (Relic area of Hung Emperor)"
+        "name": "Khu di tích đền Hùng (Relic area of Hung Emperor)",
+        "photo": "https://media.gody.vn/images/phu-tho/khu-di-tich-den-hung-relic-area-of-hung-emperor/ac48a9ed090e863e7a908674e18597cb02e843f4.jpg"
       },
       {
-        "name": "Khu du lịch suối khoáng nóng Thanh Thủy"
+        "name": "Khu du lịch suối khoáng nóng Thanh Thủy",
+        "photo": "https://media.gody.vn/images/phu-tho/khu-du-lich-suoi-khoang-nong-thanh-thuy/acaf8acb5646c03c027243544da0fed2efafe06b.jpg"
       },
       {
-        "name": "Khu phố cổ Vườn Vua"
+        "name": "Khu phố cổ Vườn Vua",
+        "photo": "https://media.gody.vn/images/phu-tho/khu-pho-co-vuon-vua/b7331062a03e78653500ef9b626ca04cbdf0227a.jpg"
       },
       {
         "name": "Suối nước nóng Kim Bôi",
+        "photo": "https://media.gody.vn/images/hoa-binh/suoi-nuoc-nong-kim-boi/10-2016/20161021094526-suoi-nuoc-nong-kim-boi-gody(3).jpg",
         "origProvince": "Hòa Bình"
       },
       {
         "name": "Thung lũng Mai Châu",
+        "photo": "https://media.gody.vn/images/hoa-binh/thung-lung-mai-chau/10-2016/20161022033402-thung-lung-mai-chau-gody(22).jpg",
         "origProvince": "Hòa Bình"
       },
       {
         "name": "Đèo Thung Khe",
+        "photo": "https://media.gody.vn/images/hoa-binh/deo-thung-khe/2-2017/20170215081743-deo-thung-khe-gody(9).jpg",
         "origProvince": "Hòa Bình"
       },
       {
         "name": "Nhà máy thuỷ điện Hoà Bình (Hoa Binh Hydropower Plant)",
+        "photo": "https://media.gody.vn/images/hoa-binh/nha-may-thuy-dien-hoa-binh-hoa-binh-hydropower-plant/7c27d8f59090ab83aa3b8c00c37743c41a5cfbd5.jpg",
         "origProvince": "Hòa Bình"
       },
       {
         "name": "Đặc sản Cam Cao Phong - Vườn cam Bà Sen",
+        "photo": "https://media.gody.vn/images/hoa-binh/dac-san-cam-cao-phong-vuon-cam-ba-sen/39c0b94c549666108f49a9f4c729ca71efcdcd0e.jpg",
         "origProvince": "Hòa Bình"
       }
     ],
@@ -86,30 +101,38 @@
     "places": [
       {
         "name": "Rừng dừa Bảy Mẫu - Hội An",
+        "photo": "https://media.gody.vn/images/quang-nam/rung-dua-bay-mau/cb4300c5e0b31b50c009cc27b997fe6b05ab3b2b.jpg",
         "origProvince": "Quảng Nam"
       },
       {
         "name": "Cơm gà Bà Buội - Hội An",
+        "photo": "https://media.gody.vn/images/quang-nam/com-ga-ba-buoi/aad6695ee4c44881f06c33f21fed8b38d6dca005.jpg",
         "origProvince": "Quảng Nam"
       },
       {
         "name": "Mót Hội An",
+        "photo": "https://media.gody.vn/images/quang-nam/mot-hoi-an-tra-thao-moc-sa-chanh/6069a4d179a8bbf57d9e875c1cebde720daf8b64.jpg",
         "origProvince": "Quảng Nam"
       },
       {
-        "name": "Bà Nà Hills"
+        "name": "Bà Nà Hills",
+        "photo": "https://media.gody.vn/images/da-nang/ba-na-hills/10-2016/20161017073018-ba-ba-hills-da-nang-gody%20(2).jpg"
       },
       {
-        "name": "Sông Hàn và 4 cây cầu kỉ lục"
+        "name": "Sông Hàn và 4 cây cầu kỉ lục",
+        "photo": "https://media.gody.vn/images/da-nang/song-han-va-4-cau-ki-luc/10-2016/20161017075448-song-han-gody%20(10).jpg"
       },
       {
-        "name": "Đèo Hải Vân"
+        "name": "Đèo Hải Vân",
+        "photo": "https://media.gody.vn/images/da-nang/deo-hai-van/a54a9958f948c04a511bfe2aefefb3f5e8888e1e.jpg"
       },
       {
-        "name": "Cầu tình yêu"
+        "name": "Cầu tình yêu",
+        "photo": "https://media.gody.vn/images/da-nang/cau-tinh-yeu/3859f3fb843420d350d87303d4f9abdf701588a0.png"
       },
       {
-        "name": "Cầu Vàng Bà Nà Hills ( Golden Bridge )"
+        "name": "Cầu Vàng Bà Nà Hills ( Golden Bridge )",
+        "photo": "https://media.gody.vn/images/da-nang/cau-vang-ba-na-hills-golden-bridge/a1f8843f3ecb21d653564bb48003bbd2f3b7fa95.jpg"
       }
     ],
     "placesPartial": true
@@ -128,10 +151,12 @@
       },
       {
         "name": "Vinpearl Safari Phú Quốc",
+        "photo": "https://media.gody.vn/images/kien-giang/vinpearl-safari-phu-quoc/11-2016/20161101092722-safari-phuquoc-gody%20(17).jpg",
         "origProvince": "Kiên Giang"
       },
       {
         "name": "Bún quậy Kiến Xây - Phú Quốc",
+        "photo": "https://media.gody.vn/images/kien-giang/bun-quay-kien-xay/727a659343500fb9cbd088320e5a60f8eccedf93.jpg",
         "origProvince": "Kiên Giang"
       },
       {
@@ -176,19 +201,24 @@
     "mergedFrom": [],
     "places": [
       {
-        "name": "Thác Dải Yếm - Mộc Châu"
+        "name": "Thác Dải Yếm - Mộc Châu",
+        "photo": "https://media.gody.vn/images/son-la/thac-dai-yem/12-2016/20161223083240-thac-dai-yem-gody(13).jpg"
       },
       {
-        "name": "Cao nguyên Mộc Châu"
+        "name": "Cao nguyên Mộc Châu",
+        "photo": "https://media.gody.vn/images/son-la/cao-nguyen-moc-chau/3-2018/54850914-20180308090450-son-la-cao-nguyen-moc-chau.jpg"
       },
       {
-        "name": "Ngũ động bản Ôn - Mộc Châu"
+        "name": "Ngũ động bản Ôn - Mộc Châu",
+        "photo": "https://media.gody.vn/images/son-la/ngu-dong-ban-on/12-2016/20161224042331-ngu-dong-ban-on-gody(3).jpg"
       },
       {
-        "name": "Đồi chè trái tim - Mộc Châu"
+        "name": "Đồi chè trái tim - Mộc Châu",
+        "photo": "https://media.gody.vn/images/son-la/doi-che-trai-tim/eedc70d291d69e575e28da94603f6ddcfa3a48dc.jpg"
       },
       {
-        "name": "Vườn hoa mận, cải vàng, cải trắng - Mộc Châu"
+        "name": "Vườn hoa mận, cải vàng, cải trắng - Mộc Châu",
+        "photo": "https://media.gody.vn/images/son-la/vuon-hoa-man-cai-vang-cai-trang/35c060a510aa34d91b5905cd0d3ef4738ddb69da.jpg"
       }
     ],
     "placesPartial": true
@@ -200,19 +230,24 @@
     "mergedFrom": [],
     "places": [
       {
-        "name": "Tràng An"
+        "name": "Tràng An",
+        "photo": "https://media.gody.vn/images/ninh-binh/trang-an/12-2016/20161213071021-chanh-huynh.jpg"
       },
       {
-        "name": "Tam Cốc - Bích Động"
+        "name": "Tam Cốc - Bích Động",
+        "photo": "https://media.gody.vn/images/ninh-binh/tam-coc-bich-dong/12-2016/20161213092159-tam-coc-bich-dong-gody%20(2).jpg"
       },
       {
-        "name": "Vườn quốc gia Cúc Phương"
+        "name": "Vườn quốc gia Cúc Phương",
+        "photo": "https://media.gody.vn/images/ninh-binh/vuon-quoc-gia-cuc-phuong/12-2016/20161214034049-vuon-cuc-phuong-gody%20(17).jpg"
       },
       {
-        "name": "Vườn chim Thung Nham"
+        "name": "Vườn chim Thung Nham",
+        "photo": "https://media.gody.vn/images/ninh-binh/vuon-chim-thung-nham/12-2016/20161216035017-thung-nham-ninh-binh-gody%20(1).jpg"
       },
       {
-        "name": "Cố đô Hoa Lư (Hoa Lu monument)"
+        "name": "Cố đô Hoa Lư (Hoa Lu monument)",
+        "photo": "https://media.gody.vn/images/ninh-binh/co-do-hoa-lu-hoa-lu-monument/37665736fb6e4699f4a2f72944fe46081a1a2498.jpg"
       }
     ]
   },
@@ -225,16 +260,20 @@
     ],
     "places": [
       {
-        "name": "Đảo Cát Bà (Cat Ba Island)"
+        "name": "Đảo Cát Bà (Cat Ba Island)",
+        "photo": "https://media.gody.vn/images/hai-phong/dao-cat-ba-cat-ba-island/80808484feb737bbefd3f89128378f9db7a46118.jpg"
       },
       {
-        "name": "Bún cá cay (Speciality: Spicy fish noodle)"
+        "name": "Bún cá cay (Speciality: Spicy fish noodle)",
+        "photo": "https://media.gody.vn/images/hai-phong/bun-ca-cay-speciality-spicy-fish-noodle/12708097d532e4d99655a7ccae71e491ca3e3071.jpg"
       },
       {
-        "name": "Vườn quốc gia Cát Bà (Cat Ba National Park)"
+        "name": "Vườn quốc gia Cát Bà (Cat Ba National Park)",
+        "photo": "https://media.gody.vn/images/hai-phong/vuon-quoc-gia-cat-ba-cat-ba-national-park/261c16c309c347f1561dcf7fdc91b7a1c6e5bf7e.jpg"
       },
       {
-        "name": "Vịnh Lan Hạ (Lan Ha Bay)"
+        "name": "Vịnh Lan Hạ (Lan Ha Bay)",
+        "photo": "https://media.gody.vn/images/hai-phong/vinh-lan-ha-lan-ha-bay/b5ef895abf8a0edcc1d92a9ae3cd1113fd34ee47.jpg"
       }
     ]
   },
@@ -248,14 +287,17 @@
     "places": [
       {
         "name": "Eo Gió - Quy Nhơn",
+        "photo": "https://media.gody.vn/images/binh-dinh/eo-gio/11-2016/20161111080624-eo-gio-quy-nhon-gody%20(2).jpg",
         "origProvince": "Bình Định"
       },
       {
         "name": "Kỳ Co - Quy Nhơn",
+        "photo": "https://media.gody.vn/images/binh-dinh/ky-co/4-2017/102242509-20170425085824-binh-dinh-ky-co.jpg",
         "origProvince": "Bình Định"
       },
       {
         "name": "Làng chài Hải Minh - Quy Nhơn",
+        "photo": "https://media.gody.vn/images/binh-dinh/lang-chai-hai-minh-quy-nhon/5877cdbeb0722c29f1318e9fe7effa578ee11cb7.jpg",
         "origProvince": "Bình Định"
       }
     ]
@@ -267,10 +309,12 @@
     "mergedFrom": [],
     "places": [
       {
-        "name": "Nóc nhà Đông Dương Fansipan - Sapa"
+        "name": "Nóc nhà Đông Dương Fansipan - Sapa",
+        "photo": "https://media.gody.vn/images/lao-cai/noc-nha-dong-duong-fansipa/4-2018/69645957-20180419100120-lao-cai-noc-nha-dong-duong-fansipa.jpg"
       },
       {
-        "name": "Quảng Trường Sapa (Sapa Square )"
+        "name": "Quảng Trường Sapa (Sapa Square )",
+        "photo": "https://media.gody.vn/images/lao-cai/quang-truong-sa-pa-sapa-square/8077df31109e63b666acac58db61d59ec977b250.jpg"
       }
     ]
   },
@@ -284,10 +328,12 @@
     "places": [
       {
         "name": "Ghềnh Đá Đĩa",
+        "photo": "https://media.gody.vn/images/phu-yen/ghenh-da-dia/2-2018/111225000-20180226042442-phu-yen-ghenh-da-dia.jpg",
         "origProvince": "Phú Yên"
       },
       {
         "name": "Tháp Nhạn",
+        "photo": "https://media.gody.vn/images/phu-yen/thap-nhan/2-2018/89564725-20180226034527-phu-yen-thap-nhan.jpg",
         "origProvince": "Phú Yên"
       }
     ]
@@ -299,10 +345,12 @@
     "mergedFrom": [],
     "places": [
       {
-        "name": "Thác Bản Giốc"
+        "name": "Thác Bản Giốc",
+        "photo": "https://media.gody.vn/images/cao-bang/thac-ban-gioc/12-2016/20161214031815-thac-ban-gioc-gody(13).jpg"
       },
       {
-        "name": "Núi Các Mác"
+        "name": "Núi Các Mác",
+        "photo": "https://media.gody.vn/images/cao-bang/nui-cac-mac/c3cdc15caf765f9d34683cdc29e142b75dc91863.jpg"
       }
     ]
   },
@@ -313,7 +361,8 @@
     "mergedFrom": [],
     "places": [
       {
-        "name": "Biển Hải Tiến (Hai Tien sea)"
+        "name": "Biển Hải Tiến (Hai Tien sea)",
+        "photo": "https://media.gody.vn/images/iranthanh-hoa/bien-hai-tien-hai-tien-sea/be1f1ee2e8966b76d32ab669bf89e2ffa698c8e3.jpg"
       }
     ]
   },
