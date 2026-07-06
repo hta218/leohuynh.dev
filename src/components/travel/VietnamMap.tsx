@@ -271,37 +271,51 @@ function ProvinceDetail({ active }: { active: ProvinceUnit | null }) {
       )}
 
       {hasPlaces && (
-        <ul className="mt-3 grid gap-2 p-0">
-          {active.places.map((place) => (
-            <li
-              key={place.name}
-              className="flex items-center gap-2.5 list-none text-[14px] text-ink"
-            >
-              {place.photo ? (
-                <img
-                  src={place.photo}
-                  alt=""
-                  loading="lazy"
-                  className="h-10 w-10 flex-none rounded-md border border-line bg-panel object-cover"
-                />
-              ) : (
-                <span
-                  aria-hidden="true"
-                  className="flex h-10 w-10 flex-none items-center justify-center rounded-md border border-dashed border-line text-muted"
-                >
+        <ul className="mt-3 grid gap-2.5 p-0">
+          {active.places.map((place) =>
+            place.photo ? (
+              // Image-forward card: photo fills the width, name overlaid on a
+              // dark scrim at the bottom so it reads on any picture.
+              <li key={place.name} className="list-none">
+                <div className="relative overflow-hidden rounded-lg border border-line">
+                  <img
+                    src={place.photo}
+                    alt={place.name}
+                    loading="lazy"
+                    className="block aspect-16/10 w-full object-cover"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/75 via-black/25 to-transparent px-2.5 pt-6 pb-2">
+                    <p className="m-0 text-[13px] font-medium leading-tight text-white">
+                      {place.name}
+                      {place.origProvince && (
+                        <span className="ml-1.5 font-mono text-[10px] text-white/70">
+                          ({place.origProvince})
+                        </span>
+                      )}
+                    </p>
+                  </div>
+                </div>
+              </li>
+            ) : (
+              // No photo — keep a slim text row instead of an empty box.
+              <li
+                key={place.name}
+                className="flex items-baseline gap-2 list-none text-[14px] text-ink"
+              >
+                <span aria-hidden="true" className="text-muted">
                   —
                 </span>
-              )}
-              <span className="min-w-0 leading-tight">
-                {place.name}
-                {place.origProvince && (
-                  <span className="ml-1.5 font-mono text-[11px] text-muted">
-                    ({place.origProvince})
-                  </span>
-                )}
-              </span>
-            </li>
-          ))}
+                <span className="min-w-0 leading-tight">
+                  {place.name}
+                  {place.origProvince && (
+                    <span className="ml-1.5 font-mono text-[11px] text-muted">
+                      ({place.origProvince})
+                    </span>
+                  )}
+                </span>
+              </li>
+            ),
+          )}
           {remaining > 0 && (
             <li className="list-none font-mono text-[11px] text-muted">
               {remaining} more listed on gody
