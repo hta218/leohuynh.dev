@@ -4,6 +4,7 @@
  * studio matches the live site. SVGs are inlined via Vite `?raw` imports and
  * rendered with `set:html`; each keeps its own brand colors.
  */
+import Astro from '@icons/astro.svg?raw'
 import Bash from '@icons/bash.svg?raw'
 import Biome from '@icons/biome.svg?raw'
 import Claude from '@icons/claude.svg?raw'
@@ -50,6 +51,7 @@ import Webpack from '@icons/webpack.svg?raw'
 
 /** Maps a stack tool or GitHub language name to its inline SVG markup. */
 export const BRAND_ICONS: Record<string, string> = {
+  Astro,
   Bash,
   Shell: Bash,
   Biome,

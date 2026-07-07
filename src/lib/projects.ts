@@ -133,7 +133,7 @@ export const PROJECTS: Project[] = [
       'My personal space on the cloud where I document my programming journey, sharing lessons, insights, and resources for fellow developers.',
     icon: 'globe',
     repo: 'hta218/leohuynh.dev',
-    builtWith: ['NextJS', 'TailwindCSS', 'Typescript', 'Drizzle', 'Umami'],
+    builtWith: ['Astro', 'TailwindCSS', 'Typescript', 'Supabase', 'Umami'],
   },
   {
     type: 'self',
