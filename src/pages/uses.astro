@@ -9,7 +9,7 @@ type UseItem = {
   description?: string
   meta?: string
   href?: string
-  /** Local image, e.g. '/uses/macbook.webp'. Falls back to the href favicon, then a monogram. */
+  /** Local image, e.g. '/uses/macbook.webp'. Falls back to the href favicon. */
   image?: string
 }
 
@@ -37,54 +37,72 @@ const SECTIONS: UseSection[] = [
         meta: 'M5 · 10-core CPU · 8-core GPU · 16GB · 512GB',
         description: 'Main machine for everything, on the go.',
         href: 'https://uscom.com.vn/macbook-air-m5-13-inch-10-core-cpu-8-core-gpu-16gb-ram-512gb-chinh-hang-apple-viet-nam',
+        image:
+          'https://cdn.shopify.com/s/files/1/0669/0262/2504/files/macbook-air-m5.webp?v=1783413587',
       },
       {
         name: 'Mac mini M2',
         meta: 'M2 · 8-core CPU · 10-core GPU · 16GB · 256GB',
         description: 'Quiet always-on machine, tucked under the monitor.',
         href: 'https://cellphones.com.vn/mac-mini-m2-16gb-2023.html',
+        image:
+          'https://cdn.shopify.com/s/files/1/0669/0262/2504/files/mac-mini-m2.jpg?v=1783413586',
       },
       {
         name: 'LG UltraGear 27G640A-B',
         meta: '27" QHD · 300Hz · IPS',
         description: 'Main display — high refresh rate for everyday use.',
         href: 'https://www.lg.com/vn/man-hinh-may-tinh/man-hinh-gaming-ultragear/27g640a-b/',
+        image:
+          'https://cdn.shopify.com/s/files/1/0669/0262/2504/files/lg-ultragear-27g640a.avif?v=1783413585',
       },
       {
         name: 'Lenovo Q27Q-1L',
         meta: '27" QHD · 75Hz · IPS',
         description: 'Second display for extra screen real estate.',
         href: 'https://hacom.vn/man-hinh-lenovo-q27q-1l',
+        image:
+          'https://cdn.shopify.com/s/files/1/0669/0262/2504/files/lenovo-q27q-1l.jpg?v=1783413586',
       },
       {
         name: 'Asus ProArt PA248QFV',
         meta: '24" WUXGA · 100Hz · IPS',
         description: 'Color-accurate third display for design work.',
         href: 'https://cellphones.com.vn/man-hinh-asus-proart-pa248qfv-24-inch.html',
+        image:
+          'https://cdn.shopify.com/s/files/1/0669/0262/2504/files/asus-proart-pa248qfv-24-inch.webp?v=1783413586',
       },
       {
         name: 'Logitech K380',
         meta: 'Bluetooth · Multi-device',
         description: 'Compact keyboard, pairs with everything.',
         href: 'https://www.logitech.com/vi-vn/shop/p/k380-multi-device.920-011145',
+        image:
+          'https://cdn.shopify.com/s/files/1/0669/0262/2504/files/logitech-k380.jpg?v=1783413586',
       },
       {
         name: 'Apple Magic Mouse',
         meta: 'USB-C · White',
         description: 'Simple, no-fuss mouse.',
         href: 'https://www.apple.com/vn/shop/product/mxk53za/a/magic-mouse-usb%E2%80%91c-b%E1%BB%81-m%E1%BA%B7t-multi-touch-m%C3%A0u-tr%E1%BA%AFng',
+        image:
+          'https://cdn.shopify.com/s/files/1/0669/0262/2504/files/magic-mouse-2.webp?v=1783413586',
       },
       {
         name: 'Logitech C505e',
         meta: '720p HD',
         description: 'Webcam for calls, nothing fancy.',
         href: 'https://www.logitech.com/vi-vn/products/webcams/c505e-business-webcam.960-001372.html',
+        image:
+          'https://cdn.shopify.com/s/files/1/0669/0262/2504/files/c505-webcam.webp?v=1783413585',
       },
       {
         name: 'Baseus i-Wok light bar',
         meta: 'USB-C · 3 color temps',
         description: 'Clips onto the monitor, keeps the desk lit without glare.',
         href: 'https://cellphones.com.vn/den-treo-man-hinh-baseus-i-wok-series-work-youth-edition.html',
+        image:
+          'https://cdn.shopify.com/s/files/1/0669/0262/2504/files/den-treo-man-hinh-lymax.webp?v=1783413586',
       },
     ],
   },
@@ -97,12 +115,16 @@ const SECTIONS: UseSection[] = [
         meta: '5G · Snapdragon 888',
         description: 'Daily driver phone.',
         href: 'https://mobilecity.vn/xiaomi/xiaomi-redmi-k40-pro.html',
+        image:
+          'https://cdn.shopify.com/s/files/1/0669/0262/2504/files/xiaomi-redmi-k40-pro.webp?v=1783413585',
       },
       {
         name: 'Lock&Lock Energetic One Touch',
         meta: '550ml',
         description: 'Keeps water cold at the desk all day.',
         href: 'https://ecodeals.vn/binh-giu-nhiet-lock-lock-energetic-one-touch-lhc3249-550ml',
+        image:
+          'https://cdn.shopify.com/s/files/1/0669/0262/2504/files/locknlock-lhc3249.png?v=1783413586',
       },
     ],
   },
@@ -209,6 +231,8 @@ const SECTIONS: UseSection[] = [
         meta: '88-key · SuperNATURAL Piano',
         description: 'Digital piano for winding down after work.',
         href: 'https://vietthuong.vn/piano-dien-roland-rp-102.html',
+        image:
+          'https://cdn.shopify.com/s/files/1/0669/0262/2504/files/roland-rp-102.jpg?v=1783413747',
       },
     ],
   },
@@ -281,16 +305,13 @@ function thumbFor(item: UseItem): string | undefined {
                     ]}
                   >
                     <span class="relative grid h-12 w-12 flex-none place-items-center overflow-hidden rounded-xl border border-line bg-panel2">
-                      <span class="font-mono text-base font-semibold text-muted">
-                        {item.name.charAt(0)}
-                      </span>
                       {thumb && (
                         <img
                           src={thumb}
                           alt={item.name}
                           loading="lazy"
                           onerror="this.remove()"
-                          class="absolute inset-0 h-full w-full object-contain p-2"
+                          class="h-full w-full object-contain p-2"
                         />
                       )}
                     </span>
