@@ -13,7 +13,9 @@
   fill: currentColor;
 }
 
-.brand-icon svg * {
+/* Force currentColor on fills, but leave `fill="none"` shapes alone so
+ * stroke-only outlines (e.g. the umami ring) don't get filled into a blob. */
+.brand-icon svg *:not([fill="none"]) {
   fill: currentColor;
 }
 

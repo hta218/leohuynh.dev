@@ -24,6 +24,7 @@
     "@tailwindcss/vite": "^4.3.1",
     "astro": "^6.4.7",
     "astro-expressive-code": "^0.43.1",
+    "d3-geo": "^3.1.1",
     "github-slugger": "^2.0.0",
     "postgres": "^3.4.9",
     "react": "^19.1.0",
@@ -34,6 +35,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
     "@tailwindcss/typography": "^0.5.20",
+    "@types/d3-geo": "^3.1.0",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",
     "typescript": "^6.0.3"

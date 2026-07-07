@@ -1,0 +1,276 @@
+---
+import HugeIcon from '~/components/icons/HugeIcon.astro'
+import PageHeader from '~/components/PageHeader.astro'
+import StudioShell from '~/components/studio/StudioShell.astro'
+import BaseLayout from '~/layouts/BaseLayout.astro'
+
+type UseItem = {
+  name: string
+  description?: string
+  meta?: string
+  href?: string
+  /** Local image, e.g. '/uses/macbook.webp'. Falls back to the href favicon, then a monogram. */
+  image?: string
+}
+
+type IconName = 'keyboard' | 'briefcase' | 'terminal' | 'globe' | 'robot'
+
+type UseSection = {
+  title: string
+  icon: IconName
+  items: UseItem[]
+}
+
+// Placeholder seed — edit these into the real setup. Drop product photos in
+// `public/uses/` and set `image` to override the auto favicon.
+const SECTIONS: UseSection[] = [
+  {
+    title: 'Hardware',
+    icon: 'keyboard',
+    items: [
+      {
+        name: 'MacBook Pro 14"',
+        meta: 'M4 Pro · 24GB · 1TB',
+        description: 'Main machine for everything.',
+        href: 'https://www.apple.com/macbook-pro',
+      },
+      {
+        name: 'External monitor',
+        meta: '32" 4K',
+        description: 'Docked setup at the desk.',
+        href: 'https://www.lg.com',
+      },
+      {
+        name: 'Mechanical keyboard',
+        description: 'Tactile switches, kept it simple.',
+        href: 'https://nuphy.com',
+      },
+      {
+        name: 'Headphones',
+        description: 'Noise cancelling for deep-work blocks.',
+        href: 'https://www.sony.com',
+      },
+    ],
+  },
+  {
+    title: 'Everyday carry',
+    icon: 'briefcase',
+    items: [
+      {
+        name: 'iPhone',
+        description: 'Camera, wallet, everything.',
+        href: 'https://www.apple.com/iphone',
+      },
+      {
+        name: 'AirPods Pro',
+        description: 'On the move.',
+        href: 'https://www.apple.com/airpods-pro',
+      },
+      {
+        name: 'Notebook & pen',
+        description: 'Still faster than any app for a quick sketch.',
+      },
+    ],
+  },
+  {
+    title: 'Editor & Terminal',
+    icon: 'terminal',
+    items: [
+      {
+        name: 'VS Code',
+        description:
+          'Daily driver. Vesper theme, running the fewest extensions I can get away with.',
+        href: 'https://code.visualstudio.com',
+      },
+      {
+        name: 'Ghostty',
+        description:
+          'Fast, GPU-accelerated terminal that stays out of the way.',
+        href: 'https://ghostty.org',
+      },
+      {
+        name: 'zsh + Starship',
+        description:
+          'Minimal prompt, a handful of aliases, no framework bloat.',
+        href: 'https://starship.rs',
+      },
+      {
+        name: 'JetBrains Mono',
+        description: 'Editor + terminal font. Ligatures on.',
+        href: 'https://www.jetbrains.com/lp/mono',
+      },
+    ],
+  },
+  {
+    title: 'Desktop apps',
+    icon: 'globe',
+    items: [
+      {
+        name: 'Arc',
+        description: 'Primary browser.',
+        href: 'https://arc.net',
+      },
+      {
+        name: 'Raycast',
+        description:
+          'Launcher, clipboard history, window management, snippets.',
+        href: 'https://raycast.com',
+      },
+      {
+        name: 'Obsidian',
+        description: 'Notes and long-form thinking, all local markdown.',
+        href: 'https://obsidian.md',
+      },
+      {
+        name: '1Password',
+        description: 'Passwords and secrets.',
+        href: 'https://1password.com',
+      },
+    ],
+  },
+  {
+    title: 'Dev tools',
+    icon: 'robot',
+    items: [
+      {
+        name: 'Claude Code',
+        description:
+          'Pair-programmer in the terminal. Drafts, reviews, and does the boring parts.',
+        href: 'https://claude.com/claude-code',
+      },
+      {
+        name: 'Bun',
+        description: 'Package manager + runtime for this site.',
+        href: 'https://bun.sh',
+      },
+      {
+        name: 'Biome',
+        description: 'Formatter and linter — one tool, fast.',
+        href: 'https://biomejs.dev',
+      },
+      {
+        name: 'Astro',
+        description: 'Framework behind leohuynh.dev.',
+        href: 'https://astro.build',
+      },
+    ],
+  },
+]
+
+const sectionId = (title: string) =>
+  title.toLowerCase().replace(/[^a-z0-9]+/g, '-')
+
+/** Auto logo from a link's domain when no local image is provided. */
+function thumbFor(item: UseItem): string | undefined {
+  if (item.image) return item.image
+  if (!item.href) return undefined
+  try {
+    const { hostname } = new URL(item.href)
+    return `https://www.google.com/s2/favicons?domain=${hostname}&sz=128`
+  } catch {
+    return undefined
+  }
+}
+---
+
+<BaseLayout
+  title="uses"
+  description="The hardware, editor setup, apps, and dev tools I use every day."
+>
+  <StudioShell active="/uses" crumb="~/leohuynh.dev/uses.md">
+    <PageHeader
+      title="Uses"
+      description="The gear, editor setup, apps, and tools I reach for every day. Inspired by uses.tech — a living list, subject to change."
+    >
+      <nav class="mt-4 flex flex-wrap gap-4 font-mono text-xs">
+        {
+          SECTIONS.map((section) => (
+            <a
+              href={`#${sectionId(section.title)}`}
+              class="text-code-blue no-underline"
+            >
+              → {section.title.toLowerCase()}
+            </a>
+          ))
+        }
+      </nav>
+    </PageHeader>
+
+    <div class="space-y-12">
+      {
+        SECTIONS.map((section) => (
+          <section id={sectionId(section.title)} class="scroll-mt-24">
+            <div class="mb-5 flex items-center gap-2.5 border-b border-line pb-2">
+              <HugeIcon name={section.icon} size={18} class="text-code-blue" />
+              <h2 class="m-0 text-[22px] tracking-[-0.04em]">{section.title}</h2>
+              <span class="ml-auto font-mono text-xs text-muted">
+                {section.items.length} items
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
+              {section.items.map((item) => {
+                const thumb = thumbFor(item)
+                const Tag = item.href ? 'a' : 'div'
+                return (
+                  <Tag
+                    href={item.href}
+                    target={item.href ? '_blank' : undefined}
+                    rel={item.href ? 'noreferrer' : undefined}
+                    class:list={[
+                      'group flex items-center gap-4 rounded-2xl border border-line bg-white p-4 no-underline',
+                      item.href &&
+                        'hover:border-code-blue hover:shadow-[4px_4px_0_var(--color-line)]',
+                    ]}
+                  >
+                    <span class="relative grid h-12 w-12 flex-none place-items-center overflow-hidden rounded-xl border border-line bg-panel2">
+                      <span class="font-mono text-base font-semibold text-muted">
+                        {item.name.charAt(0)}
+                      </span>
+                      {thumb && (
+                        <img
+                          src={thumb}
+                          alt={item.name}
+                          loading="lazy"
+                          onerror="this.remove()"
+                          class="absolute inset-0 h-full w-full object-contain p-2"
+                        />
+                      )}
+                    </span>
+
+                    <div class="min-w-0 flex-1">
+                      <div class="flex items-baseline gap-2">
+                        <h3 class="m-0 truncate text-[16px] font-semibold tracking-[-0.02em] text-ink group-hover:text-code-blue">
+                          {item.name}
+                        </h3>
+                        {item.meta && (
+                          <span class="flex-none font-mono text-[11px] text-muted">
+                            {item.meta}
+                          </span>
+                        )}
+                        {item.href && (
+                          <span class="ml-auto flex-none font-mono text-xs text-muted group-hover:text-code-blue">
+                            ↗
+                          </span>
+                        )}
+                      </div>
+                      {item.description && (
+                        <p class="mt-1 mb-0 text-[14px] leading-relaxed text-muted">
+                          {item.description}
+                        </p>
+                      )}
+                    </div>
+                  </Tag>
+                )
+              })}
+            </div>
+          </section>
+        ))
+      }
+    </div>
+
+    <p class="mt-12 border-t border-line pt-6 font-mono text-xs text-muted">
+      A living list. Last shuffled when the setup changed.
+    </p>
+  </StudioShell>
+</BaseLayout>

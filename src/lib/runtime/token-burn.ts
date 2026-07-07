@@ -1,15 +1,18 @@
-import type { TokenBurnPayload, TokenBurnWindow } from '~/types/integrations'
+import type {
+  TokenBurnFullPayload,
+  TokenBurnModelSlice,
+  TokenBurnPayload,
+  TokenBurnWindow,
+} from '~/types/integrations'
 import { hanoiDateRangeOffset, todayInHanoi } from './hanoi-date'
 import { env, timeoutSignal } from './shared'
 
-const TOKEN_BURN_SUMMARY_ENDPOINT =
-  'https://api.github.com/repos/hta218/token-burn/contents/public/summary.json'
-
-// token-burn: AI coding token spend, read from the private repo's pre-aggregated
-// `public/summary.json` via the GitHub Contents API. The PAT lives in env and is
-// only used server-side, so it never reaches the client. The committed file holds
-// only time-absolute data — `today` / `last7Days` / `last30Days` are derived here
-// from `daily[]` using the same Hanoi calendar the GitHub rail uses.
+// AI coding token spend, read from a private, pre-aggregated summary JSON via
+// the GitHub Contents API. The source URL and PAT both live in env and are only
+// used server-side, so neither the endpoint nor the credential reaches the
+// client. The summary holds only time-absolute data — `today` / `last7Days` /
+// `last30Days` are derived here from `daily[]` using the same Hanoi calendar the
+// GitHub rail uses.
 type TokenBurnTotals = {
   tokens?: number
   cost?: number
@@ -62,6 +65,21 @@ function tokenBurnWindow(rows: TokenBurnTotals[]): TokenBurnWindow {
   )
 }
 
+// Turn a `byModel` map into token-sorted slices (tokens lead; cost is secondary).
+function modelSlices(
+  byModel: Record<string, TokenBurnTotals> | undefined,
+  limit?: number,
+): TokenBurnModelSlice[] {
+  const slices = Object.entries(byModel ?? {})
+    .map(([model, totals]) => ({
+      model,
+      cost: totals.cost ?? 0,
+      tokens: totals.tokens ?? 0,
+    }))
+    .sort((a, b) => b.tokens - a.tokens)
+  return limit ? slices.slice(0, limit) : slices
+}
+
 function buildTokenBurnPayload(summary: TokenBurnSummary): TokenBurnPayload {
   const today = todayInHanoi()
   const from7 = hanoiDateRangeOffset(today.startMs, -6).date
@@ -69,17 +87,43 @@ function buildTokenBurnPayload(summary: TokenBurnSummary): TokenBurnPayload {
   const daily = summary.daily ?? []
 
   const todayRow = daily.find((row) => row.date === today.date)
-  // Top models for *today* by token count (tokens lead the widget; cost is
-  // secondary). Sourced from todayRow.byModel so it tracks the same Hanoi day as
-  // the rest of the widget. The UI shows a few and expands the rest via "+n more".
-  const topModels = Object.entries(todayRow?.byModel ?? {})
-    .map(([model, totals]) => ({
-      model,
-      cost: totals.cost ?? 0,
-      tokens: totals.tokens ?? 0,
-    }))
-    .sort((a, b) => b.tokens - a.tokens)
-    .slice(0, 10)
+  // Top models for *today*, tracking the same Hanoi day as the rest of the
+  // widget. The UI shows a few and expands the rest via "+n more".
+  return {
+    ok: true,
+    allTime: tokenBurnWindow([summary.allTime ?? {}]),
+    today: tokenBurnWindow(todayRow ? [todayRow] : []),
+    last7Days: tokenBurnWindow(daily.filter((row) => row.date >= from7)),
+    last30Days: tokenBurnWindow(daily.filter((row) => row.date >= from30)),
+    topModels: modelSlices(todayRow?.byModel, 10),
+    machines: summary.machines ?? [],
+    lastActivity: summary.lastActivity,
+  }
+}
+
+function unavailableTokenBurnFull(error: string): TokenBurnFullPayload {
+  return {
+    ok: false,
+    allTime: EMPTY_TOKEN_BURN_WINDOW,
+    today: EMPTY_TOKEN_BURN_WINDOW,
+    last7Days: EMPTY_TOKEN_BURN_WINDOW,
+    last30Days: EMPTY_TOKEN_BURN_WINDOW,
+    allTimeModels: [],
+    todayModels: [],
+    daily: [],
+    machines: [],
+    error,
+  }
+}
+
+function buildTokenBurnFullPayload(
+  summary: TokenBurnSummary,
+): TokenBurnFullPayload {
+  const today = todayInHanoi()
+  const from7 = hanoiDateRangeOffset(today.startMs, -6).date
+  const from30 = hanoiDateRangeOffset(today.startMs, -29).date
+  const daily = summary.daily ?? []
+  const todayRow = daily.find((row) => row.date === today.date)
 
   return {
     ok: true,
@@ -87,22 +131,36 @@ function buildTokenBurnPayload(summary: TokenBurnSummary): TokenBurnPayload {
     today: tokenBurnWindow(todayRow ? [todayRow] : []),
     last7Days: tokenBurnWindow(daily.filter((row) => row.date >= from7)),
     last30Days: tokenBurnWindow(daily.filter((row) => row.date >= from30)),
-    topModels,
+    // All-time breakdown lives at the top level of the summary; today's is
+    // derived from the matching daily row.
+    allTimeModels: modelSlices(summary.byModel),
+    todayModels: modelSlices(todayRow?.byModel),
+    daily: [...daily]
+      .sort((a, b) => a.date.localeCompare(b.date))
+      .map((row) => ({
+        date: row.date,
+        tokens: row.tokens ?? 0,
+        cost: row.cost ?? 0,
+        sessions: row.sessions ?? 0,
+      })),
     machines: summary.machines ?? [],
     lastActivity: summary.lastActivity,
   }
 }
 
-export async function fetchTokenBurn(): Promise<TokenBurnPayload> {
-  // Reuses GITHUB_API_TOKEN — it already has read access to the private
-  // token-burn repo, so no separate PAT is needed.
+// Fetches the pre-aggregated summary. Both the source URL and the token live in
+// env (`TOKEN_BURN_SUMMARY_URL` + `GITHUB_API_TOKEN`) so the private source is
+// never hardcoded here; the token already has read access, so no separate PAT.
+async function fetchTokenBurnSummary(): Promise<
+  { summary: TokenBurnSummary } | { error: string }
+> {
+  const endpoint = env('TOKEN_BURN_SUMMARY_URL')
+  if (!endpoint) return { error: 'TOKEN_BURN_SUMMARY_URL is not configured.' }
   const token = env('GITHUB_API_TOKEN')
-  if (!token) {
-    return unavailableTokenBurn('GITHUB_API_TOKEN is not configured.')
-  }
+  if (!token) return { error: 'GITHUB_API_TOKEN is not configured.' }
 
   try {
-    const response = await fetch(TOKEN_BURN_SUMMARY_ENDPOINT, {
+    const response = await fetch(endpoint, {
       headers: {
         Authorization: `Bearer ${token}`,
         Accept: 'application/vnd.github.raw+json',
@@ -112,16 +170,25 @@ export async function fetchTokenBurn(): Promise<TokenBurnPayload> {
     })
 
     if (!response.ok) {
-      return unavailableTokenBurn(
-        `token-burn fetch failed with HTTP ${response.status}.`,
-      )
+      return { error: `summary fetch failed with HTTP ${response.status}.` }
     }
 
-    const summary = (await response.json()) as TokenBurnSummary
-    return buildTokenBurnPayload(summary)
+    return { summary: (await response.json()) as TokenBurnSummary }
   } catch (error) {
-    return unavailableTokenBurn(
-      error instanceof Error ? error.message : 'token-burn request failed.',
-    )
+    return {
+      error: error instanceof Error ? error.message : 'summary request failed.',
+    }
   }
+}
+
+export async function fetchTokenBurn(): Promise<TokenBurnPayload> {
+  const result = await fetchTokenBurnSummary()
+  if ('error' in result) return unavailableTokenBurn(result.error)
+  return buildTokenBurnPayload(result.summary)
+}
+
+export async function fetchTokenBurnFull(): Promise<TokenBurnFullPayload> {
+  const result = await fetchTokenBurnSummary()
+  if ('error' in result) return unavailableTokenBurnFull(result.error)
+  return buildTokenBurnFullPayload(result.summary)
 }
