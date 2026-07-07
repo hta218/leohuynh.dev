@@ -1,5 +1,6 @@
 import { type MouseEvent, useRef, useState } from 'react'
 import type { ProvinceUnit } from '~/lib/places'
+import { PROVINCE_NOTES } from './province-notes'
 
 /**
  * Interactive heatmap of Vietnam's provinces (route `/heatmap`). Province paths
@@ -245,6 +246,10 @@ function ProvinceDetail({ active }: { active: ProvinceUnit | null }) {
 
   const hasPlaces = active.places.length > 0
   const remaining = active.count - active.places.length
+  // Photos first, text-only spots after (stable within each group).
+  const orderedPlaces = [...active.places].sort(
+    (a, b) => Number(Boolean(b.photo)) - Number(Boolean(a.photo)),
+  )
 
   return (
     <div className="max-h-[70vh] overflow-auto rounded-2xl border border-line bg-white/95 p-5 shadow-[4px_4px_0_var(--color-line)] backdrop-blur-sm md:pointer-events-auto">
@@ -253,6 +258,14 @@ function ProvinceDetail({ active }: { active: ProvinceUnit | null }) {
           <h3 className="m-0 text-[20px] tracking-[-0.03em] text-ink">
             {active.name}
           </h3>
+          {PROVINCE_NOTES[active.id] && (
+            <p
+              className="mt-1 mb-0 text-[12px] font-medium"
+              style={{ color: '#15803d' }}
+            >
+              {PROVINCE_NOTES[active.id]}
+            </p>
+          )}
           {active.mergedFrom.length > 0 && (
             <p className="mt-1 mb-0 font-mono text-[11px] text-muted">
               incl. {active.mergedFrom.join(', ')}
@@ -272,7 +285,7 @@ function ProvinceDetail({ active }: { active: ProvinceUnit | null }) {
 
       {hasPlaces && (
         <ul className="mt-3 grid gap-2.5 p-0">
-          {active.places.map((place) =>
+          {orderedPlaces.map((place) =>
             place.photo ? (
               // Image-forward card: photo fills the width, name overlaid on a
               // dark scrim at the bottom so it reads on any picture.

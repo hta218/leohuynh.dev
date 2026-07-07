@@ -1,4 +1,5 @@
 import type { ProvinceUnit } from '~/lib/places'
+import { PROVINCE_NOTES } from './province-notes'
 
 /**
  * Province cards for the heatmap page. Each card lists up to `MAX_PLACES` of the
@@ -13,10 +14,17 @@ interface Props {
   provinces: ProvinceUnit[]
 }
 
+const hasPhoto = (unit: ProvinceUnit) =>
+  unit.places.some((place) => place.photo)
+
 export default function ProvinceList({ provinces }: Props) {
+  // Provinces with a cover photo first; count order preserved within each group.
+  const ordered = [...provinces].sort(
+    (a, b) => Number(hasPhoto(b)) - Number(hasPhoto(a)),
+  )
   return (
     <ul className="grid grid-cols-1 gap-3 p-0 sm:grid-cols-2">
-      {provinces.map((unit) => (
+      {ordered.map((unit) => (
         <ProvinceCard key={unit.code} unit={unit} />
       ))}
     </ul>
@@ -50,6 +58,15 @@ function ProvinceCard({ unit }: { unit: ProvinceUnit }) {
               {unit.count > 0 ? `${unit.count} places` : 'visited'}
             </span>
           </div>
+
+          {PROVINCE_NOTES[unit.id] && (
+            <p
+              className="mt-1 mb-0 text-[12px] font-medium"
+              style={{ color: '#15803d' }}
+            >
+              {PROVINCE_NOTES[unit.id]}
+            </p>
+          )}
 
           {unit.mergedFrom.length > 0 && (
             <p className="mt-1 mb-0 font-mono text-[11px] text-muted">
