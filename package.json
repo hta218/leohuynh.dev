@@ -1,8 +1,34 @@
 {
-  "name": "leohuynh-dev-v4",
+  "name": "leohuynh.dev",
   "type": "module",
   "version": "4.0.0-alpha.0",
   "private": true,
+  "description": "A personal space on the cloud where I document my programming journey, sharing lessons, insights, and resources for fellow developers.",
+  "author": {
+    "name": "Leo Huynh",
+    "email": "contact@leohuynh.dev",
+    "url": "https://github.com/hta218"
+  },
+  "license": "MIT",
+  "homepage": "https://leohuynh.dev",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hta218/leohuynh.dev.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hta218/leohuynh.dev/issues"
+  },
+  "keywords": [
+    "astro",
+    "blog",
+    "personal-website",
+    "portfolio",
+    "typescript",
+    "tailwindcss",
+    "mdx",
+    "react"
+  ],
+  "packageManager": "bun@1.3.14",
   "scripts": {
     "dev": "astro dev --port 3434",
     "build": "astro build",
