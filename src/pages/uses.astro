@@ -13,7 +13,13 @@ type UseItem = {
   image?: string
 }
 
-type IconName = 'keyboard' | 'briefcase' | 'terminal' | 'globe' | 'robot'
+type IconName =
+  | 'keyboard'
+  | 'briefcase'
+  | 'terminal'
+  | 'globe'
+  | 'robot'
+  | 'star'
 
 type UseSection = {
   title: string
@@ -21,34 +27,64 @@ type UseSection = {
   items: UseItem[]
 }
 
-// Placeholder seed — edit these into the real setup. Drop product photos in
-// `public/uses/` and set `image` to override the auto favicon.
 const SECTIONS: UseSection[] = [
   {
     title: 'Hardware',
     icon: 'keyboard',
     items: [
       {
-        name: 'MacBook Pro 14"',
-        meta: 'M4 Pro · 24GB · 1TB',
-        description: 'Main machine for everything.',
-        href: 'https://www.apple.com/macbook-pro',
+        name: 'MacBook Air 13" M5',
+        meta: 'M5 · 10-core CPU · 8-core GPU · 16GB · 512GB',
+        description: 'Main machine for everything, on the go.',
+        href: 'https://uscom.com.vn/macbook-air-m5-13-inch-10-core-cpu-8-core-gpu-16gb-ram-512gb-chinh-hang-apple-viet-nam',
       },
       {
-        name: 'External monitor',
-        meta: '32" 4K',
-        description: 'Docked setup at the desk.',
-        href: 'https://www.lg.com',
+        name: 'Mac mini M2',
+        meta: 'M2 · 8-core CPU · 10-core GPU · 16GB · 256GB',
+        description: 'Quiet always-on machine, tucked under the monitor.',
+        href: 'https://cellphones.com.vn/mac-mini-m2-16gb-2023.html',
       },
       {
-        name: 'Mechanical keyboard',
-        description: 'Tactile switches, kept it simple.',
-        href: 'https://nuphy.com',
+        name: 'LG UltraGear 27G640A-B',
+        meta: '27" QHD · 300Hz · IPS',
+        description: 'Main display — high refresh rate for everyday use.',
+        href: 'https://www.lg.com/vn/man-hinh-may-tinh/man-hinh-gaming-ultragear/27g640a-b/',
       },
       {
-        name: 'Headphones',
-        description: 'Noise cancelling for deep-work blocks.',
-        href: 'https://www.sony.com',
+        name: 'Lenovo Q27Q-1L',
+        meta: '27" QHD · 75Hz · IPS',
+        description: 'Second display for extra screen real estate.',
+        href: 'https://hacom.vn/man-hinh-lenovo-q27q-1l',
+      },
+      {
+        name: 'Asus ProArt PA248QFV',
+        meta: '24" WUXGA · 100Hz · IPS',
+        description: 'Color-accurate third display for design work.',
+        href: 'https://cellphones.com.vn/man-hinh-asus-proart-pa248qfv-24-inch.html',
+      },
+      {
+        name: 'Logitech K380',
+        meta: 'Bluetooth · Multi-device',
+        description: 'Compact keyboard, pairs with everything.',
+        href: 'https://www.logitech.com/vi-vn/shop/p/k380-multi-device.920-011145',
+      },
+      {
+        name: 'Apple Magic Mouse',
+        meta: 'USB-C · White',
+        description: 'Simple, no-fuss mouse.',
+        href: 'https://www.apple.com/vn/shop/product/mxk53za/a/magic-mouse-usb%E2%80%91c-b%E1%BB%81-m%E1%BA%B7t-multi-touch-m%C3%A0u-tr%E1%BA%AFng',
+      },
+      {
+        name: 'Logitech C505e',
+        meta: '720p HD',
+        description: 'Webcam for calls, nothing fancy.',
+        href: 'https://www.logitech.com/vi-vn/products/webcams/c505e-business-webcam.960-001372.html',
+      },
+      {
+        name: 'Baseus i-Wok light bar',
+        meta: 'USB-C · 3 color temps',
+        description: 'Clips onto the monitor, keeps the desk lit without glare.',
+        href: 'https://cellphones.com.vn/den-treo-man-hinh-baseus-i-wok-series-work-youth-edition.html',
       },
     ],
   },
@@ -57,18 +93,16 @@ const SECTIONS: UseSection[] = [
     icon: 'briefcase',
     items: [
       {
-        name: 'iPhone',
-        description: 'Camera, wallet, everything.',
-        href: 'https://www.apple.com/iphone',
+        name: 'Xiaomi Redmi K40 Pro',
+        meta: '5G · Snapdragon 888',
+        description: 'Daily driver phone.',
+        href: 'https://mobilecity.vn/xiaomi/xiaomi-redmi-k40-pro.html',
       },
       {
-        name: 'AirPods Pro',
-        description: 'On the move.',
-        href: 'https://www.apple.com/airpods-pro',
-      },
-      {
-        name: 'Notebook & pen',
-        description: 'Still faster than any app for a quick sketch.',
+        name: 'Lock&Lock Energetic One Touch',
+        meta: '550ml',
+        description: 'Keeps water cold at the desk all day.',
+        href: 'https://ecodeals.vn/binh-giu-nhiet-lock-lock-energetic-one-touch-lhc3249-550ml',
       },
     ],
   },
@@ -78,25 +112,22 @@ const SECTIONS: UseSection[] = [
     items: [
       {
         name: 'VS Code',
-        description:
-          'Daily driver. Vesper theme, running the fewest extensions I can get away with.',
+        description: 'Daily driver. Solarized Light theme, Monaco font.',
         href: 'https://code.visualstudio.com',
       },
       {
-        name: 'Ghostty',
-        description:
-          'Fast, GPU-accelerated terminal that stays out of the way.',
-        href: 'https://ghostty.org',
+        name: 'iTerm2',
+        description: 'Terminal of choice, JetBrains Mono for the font.',
+        href: 'https://iterm2.com',
       },
       {
-        name: 'zsh + Starship',
-        description:
-          'Minimal prompt, a handful of aliases, no framework bloat.',
-        href: 'https://starship.rs',
+        name: 'zsh + Oh My Zsh',
+        description: 'Shell setup, kept mostly stock.',
+        href: 'https://ohmyz.sh',
       },
       {
         name: 'JetBrains Mono',
-        description: 'Editor + terminal font. Ligatures on.',
+        description: 'Editor + terminal font.',
         href: 'https://www.jetbrains.com/lp/mono',
       },
     ],
@@ -106,15 +137,9 @@ const SECTIONS: UseSection[] = [
     icon: 'globe',
     items: [
       {
-        name: 'Arc',
+        name: 'Brave Browser',
         description: 'Primary browser.',
-        href: 'https://arc.net',
-      },
-      {
-        name: 'Raycast',
-        description:
-          'Launcher, clipboard history, window management, snippets.',
-        href: 'https://raycast.com',
+        href: 'https://brave.com',
       },
       {
         name: 'Obsidian',
@@ -122,9 +147,24 @@ const SECTIONS: UseSection[] = [
         href: 'https://obsidian.md',
       },
       {
-        name: '1Password',
-        description: 'Passwords and secrets.',
-        href: 'https://1password.com',
+        name: 'Slack',
+        description: 'Team chat.',
+        href: 'https://slack.com',
+      },
+      {
+        name: 'Docker',
+        description: 'Local containers and services.',
+        href: 'https://www.docker.com',
+      },
+      {
+        name: 'Bruno',
+        description: 'API client for testing requests.',
+        href: 'https://www.usebruno.com',
+      },
+      {
+        name: 'OpenKey',
+        description: 'Vietnamese input method, open source.',
+        href: 'https://open-key.org',
       },
     ],
   },
@@ -137,6 +177,11 @@ const SECTIONS: UseSection[] = [
         description:
           'Pair-programmer in the terminal. Drafts, reviews, and does the boring parts.',
         href: 'https://claude.com/claude-code',
+      },
+      {
+        name: 'GitHub CLI',
+        description: 'PRs, issues, and reviews without leaving the terminal.',
+        href: 'https://cli.github.com',
       },
       {
         name: 'Bun',
@@ -152,6 +197,18 @@ const SECTIONS: UseSection[] = [
         name: 'Astro',
         description: 'Framework behind leohuynh.dev.',
         href: 'https://astro.build',
+      },
+    ],
+  },
+  {
+    title: 'Home & hobby',
+    icon: 'star',
+    items: [
+      {
+        name: 'Roland RP-102',
+        meta: '88-key · SuperNATURAL Piano',
+        description: 'Digital piano for winding down after work.',
+        href: 'https://vietthuong.vn/piano-dien-roland-rp-102.html',
       },
     ],
   },
