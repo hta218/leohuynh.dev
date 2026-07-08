@@ -160,7 +160,7 @@ function Reaction({
       onClick={handleReact}
       onMouseLeave={handleMouseLeave}
       aria-label={`React with ${label}`}
-      className="relative flex flex-col items-center justify-center gap-1.5"
+      className="relative flex cursor-pointer flex-col items-center justify-center gap-1.5"
       data-umami-event="post-reaction"
       data-umami-event-post={path}
       data-umami-event-react={reactionKey}
