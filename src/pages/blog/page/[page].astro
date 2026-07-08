@@ -6,7 +6,7 @@ import { getPublishedBlog } from '~/lib/content'
 import BaseLayout from '~/layouts/BaseLayout.astro'
 import { POSTS_PER_PAGE } from '~/lib/site'
 
-// Page 1 is `/log` itself (see `PostList`'s `pageHref`) — generating it here
+// Page 1 is `/blog` itself (see `PostList`'s `pageHref`) — generating it here
 // too would duplicate that page's content under a second URL, so pages start
 // at 2.
 export async function getStaticPaths() {
@@ -36,7 +36,7 @@ const { display, currentPage, totalPages, totalPosts } = Astro.props
   title={`Log — page ${currentPage}`}
   description="Writing on web development, Shopify Hydrogen, TypeScript, and AI workflows."
 >
-  <StudioShell active="/log" crumb={`~/leohuynh.dev/log/page/${currentPage}`}>
+  <StudioShell active="/blog" crumb={`~/leohuynh.dev/logs/page/${currentPage}`}>
     <PageHeader
       title="Log"
       description="Writing on web development, Shopify Hydrogen, TypeScript, and AI workflows."

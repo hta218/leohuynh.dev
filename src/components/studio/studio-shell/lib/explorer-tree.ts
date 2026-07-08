@@ -25,21 +25,21 @@ export function buildExplorerTree(opts: {
   const postsIndex: TreeLeaf = {
     kind: 'leaf',
     id: 'posts-index',
-    href: '/log',
+    href: '/blog',
     file: 'index.astro',
     title: 'Posts index',
     icon: { type: 'brand', name: 'astro' },
-    activeWhen: (path) => path === '/log' || path.startsWith('/log/page/'),
+    activeWhen: (path) => path === '/blog' || path.startsWith('/blog/page/'),
   }
   const postsSlug: TreeLeaf = {
     kind: 'leaf',
     id: 'posts-slug',
-    href: opts.latestPostId ? `/log/${opts.latestPostId}` : '/log',
+    href: opts.latestPostId ? `/blog/${opts.latestPostId}` : '/blog',
     file: '[...slug].astro',
     title: 'Post detail template',
     icon: { type: 'brand', name: 'astro' },
     activeWhen: (path) =>
-      path.startsWith('/log/') && !path.startsWith('/log/page/'),
+      path.startsWith('/blog/') && !path.startsWith('/blog/page/'),
   }
   const snippetsIndex: TreeLeaf = {
     kind: 'leaf',
@@ -95,7 +95,7 @@ export function buildExplorerTree(opts: {
       title: 'Logs',
       icon: { type: 'huge', name: 'folder' },
       children: [postsIndex, postsSlug],
-      activeWhen: startsWith('/log'),
+      activeWhen: startsWith('/blog'),
     },
     {
       kind: 'folder',

@@ -57,7 +57,7 @@ const breadcrumb = breadcrumbJsonLd([
           <h3 class="mb-3 font-mono text-[11px] uppercase tracking-[0.08em] text-muted">posts</h3>
           {posts.map((post) => (
             <a
-              href={`/log/${post.id}`}
+              href={`/blog/${post.id}`}
               class="grid grid-cols-1 items-start gap-4.5 border-t border-line py-4.5 no-underline first-of-type:border-t-0 md:grid-cols-[110px_1fr]"
             >
               <time class="font-mono text-xs text-muted">{dateFmt.format(post.data.date)}</time>

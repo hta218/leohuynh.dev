@@ -6,6 +6,13 @@ Replace v4's generic routes with workspace/terminal-flavored ones, matching the
 "code studio" identity, **without breaking SEO or deep links**. Home stays the
 workspace README.
 
+2026-07-08 SEO rollback: keep the developer-flavored UI label for the writing
+section (`logs` / `Log`) but restore blog content's public/canonical URL pattern
+to the legacy `/blog` prefix. This avoids an unnecessary Google re-indexing
+migration for established blog URLs. See
+`handoff--2026-07-08--restore-blog-url-canonical.md` for the implementation
+scope.
+
 ## 2. Route map
 
 | Old route | New route | Notes |
