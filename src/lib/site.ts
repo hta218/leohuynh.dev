@@ -120,7 +120,7 @@ export const CAREER = [
 export const POSTS_PER_PAGE = 9
 
 export const NAV_LINKS = [
-  { href: '/log', title: 'Log' },
+  { href: '/blog', title: 'Log' },
   { href: '/gists', title: 'Gists' },
   { href: '/builds', title: 'Builds' },
   { href: '/whoami', title: 'whoami' },

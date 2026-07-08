@@ -72,17 +72,17 @@ export default defineConfig({
   redirects: {
     '/snippets/crawling-goodreads-books-data': {
       status: 301,
-      destination: '/log/crawling-goodreads-books-data',
+      destination: '/blog/crawling-goodreads-books-data',
     },
     '/about': { status: 301, destination: '/whoami' },
-    '/blog': { status: 301, destination: '/log' },
-    // Page 1 duplicated `/log`'s own content — dropped, redirect any old links.
-    // Must precede `/blog/page/[page]` so it doesn't chain through
-    // `/log/page/1` first.
-    '/blog/page/1': { status: 301, destination: '/log' },
-    '/log/page/1': { status: 301, destination: '/log' },
-    '/blog/page/[page]': { status: 301, destination: '/log/page/[page]' },
-    '/blog/[...slug]': { status: 301, destination: '/log/[...slug]' },
+    // `/log*` is the old v4-only prefix — 301 back to the canonical `/blog*`.
+    // Page 1 must precede `/log/page/[page]` so it doesn't chain through
+    // `/blog/page/1` first.
+    '/log': { status: 301, destination: '/blog' },
+    '/log/page/1': { status: 301, destination: '/blog' },
+    '/blog/page/1': { status: 301, destination: '/blog' },
+    '/log/page/[page]': { status: 301, destination: '/blog/page/[page]' },
+    '/log/[...slug]': { status: 301, destination: '/blog/[...slug]' },
     '/snippets': { status: 301, destination: '/gists' },
     '/snippets/[...slug]': { status: 301, destination: '/gists/[...slug]' },
     '/projects': { status: 301, destination: '/builds' },

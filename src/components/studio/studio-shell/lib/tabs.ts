@@ -31,12 +31,12 @@ type TabContext = {
 export function resolveCurrentTab(path: string, ctx: TabContext): TreeLeaf {
   const { items, postsIndex, snippetsIndex, miscIndex } = ctx
 
-  if (path === '/log' || path.startsWith('/log/page/')) {
+  if (path === '/blog' || path.startsWith('/blog/page/')) {
     return {
       ...postsIndex,
       id: 'current',
-      href: '/log',
-      file: 'log/index.astro',
+      href: '/blog',
+      file: 'blog/index.astro',
     }
   }
   if (path === '/gists') {
@@ -47,8 +47,8 @@ export function resolveCurrentTab(path: string, ctx: TabContext): TreeLeaf {
       file: 'gists/index.astro',
     }
   }
-  if (path.startsWith('/log/')) {
-    const slug = decodeURIComponent(path.slice('/log/'.length))
+  if (path.startsWith('/blog/')) {
+    const slug = decodeURIComponent(path.slice('/blog/'.length))
     return {
       kind: 'leaf',
       id: 'current',

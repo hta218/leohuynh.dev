@@ -14,7 +14,7 @@ export async function GET(context: APIContext) {
   const { posts, snippets } = await getContentByTag(tag)
 
   const items = [
-    ...posts.map((p) => ({ entry: p, link: `/log/${p.id}` })),
+    ...posts.map((p) => ({ entry: p, link: `/blog/${p.id}` })),
     ...snippets.map((s) => ({ entry: s, link: `/gists/${s.id}` })),
   ].sort((a, b) => b.entry.data.date.valueOf() - a.entry.data.date.valueOf())
 

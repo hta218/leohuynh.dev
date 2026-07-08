@@ -32,7 +32,7 @@ const dateFmt = new Intl.DateTimeFormat('en-US', {
 })
 const giscusConfig = getGiscusConfig()
 
-const canonical = canonicalUrl ?? new URL(`/log/${post.id}`, SITE.siteUrl).href
+const canonical = canonicalUrl ?? new URL(`/blog/${post.id}`, SITE.siteUrl).href
 const jsonLd = [
   articleJsonLd({
     title,
@@ -46,7 +46,7 @@ const jsonLd = [
   }),
   breadcrumbJsonLd([
     { name: 'Home', url: SITE.siteUrl },
-    { name: 'Log', url: `${SITE.siteUrl}/log` },
+    { name: 'Log', url: `${SITE.siteUrl}/blog` },
     { name: title, url: canonical },
   ]),
 ]
@@ -64,7 +64,7 @@ const jsonLd = [
   <Fragment slot="head">
     {jsonLd.map((data) => <JsonLd data={data} />)}
   </Fragment>
-  <StudioShell active={`/log/${post.id}`} crumb={`~/leohuynh.dev/log/${post.id}`}>
+  <StudioShell active={`/blog/${post.id}`} crumb={`~/leohuynh.dev/logs/${post.id}`}>
     <article class="prose">
       <h1>{title}</h1>
       <div class="mb-8 flex flex-wrap items-center gap-3 font-mono text-xs text-muted not-prose">
