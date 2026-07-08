@@ -14,7 +14,7 @@ export const GET: APIRoute = async () => {
     .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
     .map((entry) => {
       const kind = entry.collection === 'blog' ? 'blog' : 'snippet'
-      const url = `/${kind === 'blog' ? 'blog' : 'snippets'}/${entry.id}`
+      const url = `/${kind === 'blog' ? 'blog' : 'gists'}/${entry.id}`
       return {
         id: `${kind}:${entry.id}`,
         kind,
