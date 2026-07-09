@@ -1,6 +1,7 @@
 import './globals'
 import { setupClock, setupCommitAgo } from './clock'
 import { bindVersionMenu, setupFolders, setupRail } from './interactions'
+import { setupNavPending } from './nav-pending'
 import { initStudioTabs } from './tabs'
 
 function initStudioShell() {
@@ -11,6 +12,7 @@ function initStudioShell() {
   root.dataset.codeFont = 'ui-mono'
 
   bindVersionMenu()
+  setupNavPending()
 
   document.querySelectorAll<HTMLElement>('.studio-shell').forEach((shell) => {
     initStudioTabs(shell)

@@ -3,6 +3,7 @@ import HugeIcon from '~/components/icons/HugeIcon.astro'
 import type { DotfileNode } from '~/lib/dotfiles'
 import DotfilesNav from '../DotfilesNav.astro'
 import { BRAND_ICONS } from './lib/brand-icons'
+import { getPrefetchStrategy } from './lib/explorer-tree'
 import { isActive } from './lib/tabs'
 import type { TreeItem } from './lib/types'
 
@@ -57,6 +58,7 @@ const isExternal = (href: string) => href.startsWith('http')
                   {item.children.map((child) => (
                     <a
                       href={child.href}
+                      data-astro-prefetch={getPrefetchStrategy(child.href)}
                       class:list={[
                         'explorer-row explorer-row--child py-1.5 font-mono text-[13px] no-underline',
                         isActive(child, currentPath)
@@ -80,6 +82,7 @@ const isExternal = (href: string) => href.startsWith('http')
                 href={item.href}
                 target={item.external || isExternal(item.href) ? '_blank' : undefined}
                 rel={item.external || isExternal(item.href) ? 'noreferrer' : undefined}
+                data-astro-prefetch={getPrefetchStrategy(item.href)}
                 class:list={[
                   'explorer-row group py-1.5 font-mono text-[13px] no-underline',
                   isActive(item, currentPath)

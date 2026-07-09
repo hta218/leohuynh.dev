@@ -11,6 +11,40 @@ export type ExplorerTree = {
   miscIndex: TreeLeaf
 }
 
+export type PrefetchStrategy = 'viewport' | 'hover' | 'false'
+
+// Heavy static/prerendered routes: safe to prefetch as soon as the sidebar
+// link scrolls into view.
+const VIEWPORT_PREFETCH_ROUTES = new Set([
+  '/shelf',
+  '/heatmap',
+  '/builds',
+  '/topics',
+  '/uses',
+])
+
+// Routes still gated on a live SSR data fetch (Supabase guestbook, private
+// GitHub-backed token burn). The sidebar is persistent and visible on every
+// page, so `viewport` prefetch there behaves like eager prefetch-on-load —
+// only prefetch these on explicit hover/tap until the underlying blocker is
+// removed.
+const HOVER_ONLY_PREFETCH_ROUTES = new Set(['/guestbook', '/llms'])
+
+/**
+ * Classifies a sidebar link's `href` into an explicit Astro prefetch
+ * strategy. Returns `undefined` for routes that should keep Astro's default
+ * behavior (hover). External links always get `'false'` so they never pick
+ * up an internal prefetch hint.
+ */
+export function getPrefetchStrategy(
+  href: string,
+): PrefetchStrategy | undefined {
+  if (/^https?:\/\//.test(href)) return 'false'
+  if (VIEWPORT_PREFETCH_ROUTES.has(href)) return 'viewport'
+  if (HOVER_ONLY_PREFETCH_ROUTES.has(href)) return 'hover'
+  return undefined
+}
+
 /**
  * Builds the left-sidebar file tree. The post/snippet "detail template" leaves
  * deep-link to the latest entry so the tab seeds to a real page; `statsUrl` is
