@@ -1,12 +1,16 @@
 /**
- * On-demand reader for the public `hta218/dotfiles` repo.
+ * Reader for the public `hta218/dotfiles` repo.
  *
- * The sidebar shows the repo's file tree and each file is rendered in-app at
- * `/dotfiles/[...slug]`. Content is fetched from the GitHub API on demand and
- * cached two ways: a short-lived in-memory cache here (per lambda) plus
- * `Cache-Control` headers set by the consumers (CDN). Dotfiles change rarely,
- * so TTLs are generous.
+ * The sidebar's file tree comes from a checked-in snapshot
+ * (`json/dotfiles-tree.json`, refreshed via `bun run dotfiles:refresh`) so no
+ * page render — build- or request-time — depends on a live GitHub call. Each
+ * individual file is still fetched from the GitHub API on demand when rendered
+ * in-app at `/dotfiles/[...slug]`, and cached two ways: a short-lived in-memory
+ * cache here (per lambda) plus `Cache-Control` headers set by the consumers
+ * (CDN). Dotfiles change rarely, so TTLs are generous.
  */
+
+import dotfilesTreeSnapshot from '../../json/dotfiles-tree.json'
 
 const OWNER = 'hta218'
 const REPO = 'dotfiles'
@@ -18,9 +22,7 @@ const RAW = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}`
 const DENY = new Set(['.DS_Store', '.git', 'node_modules'])
 /** Skip rendering content for anything larger than this (bytes). */
 const MAX_CONTENT_BYTES = 512 * 1024
-const TREE_TTL_MS = 60 * 60 * 1000
 const ENTRY_TTL_MS = 60 * 60 * 1000
-
 export interface DotfileNode {
   name: string
   /** Repo-relative path, e.g. `.vscode/settings.json`. */
@@ -162,7 +164,15 @@ function sortNodes(nodes: DotfileNode[]): void {
   for (const node of nodes) if (node.children) sortNodes(node.children)
 }
 
-function buildTree(entries: { path: string; type: string }[]): DotfileNode[] {
+/**
+ * Turn a flat GitHub tree listing (`{ path, type }[]`) into the nested,
+ * deny-filtered, folders-first/alphabetical structure the sidebar renders.
+ * Exported so `scripts/refresh-dotfiles-tree.ts` produces a snapshot shaped by
+ * the exact same rules this module reads back.
+ */
+export function buildTree(
+  entries: { path: string; type: string }[],
+): DotfileNode[] {
   const root: DotfileNode[] = []
   const dirs = new Map<string, DotfileNode>()
   // Shallow paths first so a parent folder always exists before its children.
@@ -189,25 +199,15 @@ function buildTree(entries: { path: string; type: string }[]): DotfileNode[] {
   return root
 }
 
+/**
+ * Sidebar tree. Reads the checked-in snapshot instead of hitting the GitHub API
+ * so no page render (build- or request-time, warm or cold) depends on a live
+ * GitHub call. Falls back to a minimal hard-coded tree if the snapshot is
+ * missing or empty. Kept `async` so existing `await` call sites are unchanged.
+ */
 export async function getDotfilesTree(): Promise<DotfileNode[]> {
-  const cached = getCached<DotfileNode[]>('tree')
-  if (cached) return cached
-  try {
-    const res = await fetch(
-      `${API}/repos/${OWNER}/${REPO}/git/trees/${BRANCH}?recursive=1`,
-      { headers: headers(), signal: AbortSignal.timeout(8000) },
-    )
-    if (!res.ok) throw new Error(`GitHub tree ${res.status}`)
-    const data = (await res.json()) as {
-      tree?: { path: string; type: string }[]
-    }
-    const tree = buildTree(data.tree ?? [])
-    const value = tree.length ? tree : FALLBACK_TREE
-    setCached('tree', value, TREE_TTL_MS)
-    return value
-  } catch {
-    return FALLBACK_TREE
-  }
+  const nodes = dotfilesTreeSnapshot as DotfileNode[]
+  return Array.isArray(nodes) && nodes.length ? nodes : FALLBACK_TREE
 }
 
 function decodeBase64(content: string): string {
