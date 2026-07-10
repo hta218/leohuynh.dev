@@ -317,21 +317,21 @@ function thumbFor(item: UseItem): string | undefined {
                     </span>
 
                     <div class="min-w-0 flex-1">
-                      <div class="flex items-baseline gap-2">
-                        <h3 class="m-0 truncate text-[16px] font-semibold tracking-[-0.02em] text-ink group-hover:text-code-blue">
+                      <div class="flex items-start gap-2">
+                        <h3 class="m-0 min-w-0 flex-1 text-[16px] leading-snug font-semibold tracking-[-0.02em] text-ink group-hover:text-code-blue">
                           {item.name}
                         </h3>
-                        {item.meta && (
-                          <span class="flex-none font-mono text-[11px] text-muted">
-                            {item.meta}
-                          </span>
-                        )}
                         {item.href && (
-                          <span class="ml-auto flex-none font-mono text-xs text-muted group-hover:text-code-blue">
+                          <span class="flex-none font-mono text-xs text-muted group-hover:text-code-blue">
                             ↗
                           </span>
                         )}
                       </div>
+                      {item.meta && (
+                        <p class="mt-1 mb-0 font-mono text-[11px] leading-snug text-muted">
+                          {item.meta}
+                        </p>
+                      )}
                       {item.description && (
                         <p class="mt-1 mb-0 text-[14px] leading-relaxed text-muted">
                           {item.description}

@@ -21,6 +21,7 @@ export function decodeCursor(raw: string | null | undefined): Cursor | null {
 }
 
 export function clampLimit(raw: string | null | undefined): number {
+  if (raw == null || raw.trim() === '') return DEFAULT_LIMIT
   const parsed = Number(raw)
   if (!Number.isFinite(parsed)) return DEFAULT_LIMIT
   return Math.min(MAX_LIMIT, Math.max(1, Math.floor(parsed)))

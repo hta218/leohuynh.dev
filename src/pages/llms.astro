@@ -9,16 +9,18 @@ import BaseLayout from '~/layouts/BaseLayout.astro'
 export const prerender = true
 
 const HERO_META = [
-  { key: 'spend', value: 'loading…', label: 'spend' },
-  { key: 'sessions', value: 'loading…', label: 'sessions' },
-  { key: 'machines', value: 'loading…', label: 'machines' },
+  { key: 'spend', width: 'w-14', label: 'spend' },
+  { key: 'sessions', width: 'w-16', label: 'sessions' },
+  { key: 'machines', width: 'w-8', label: 'machines' },
 ]
 
 const WINDOWS = [
-  { key: 'today', label: 'today' },
-  { key: 'last7Days', label: 'last 7 days' },
-  { key: 'last30Days', label: 'last 30 days' },
+  { key: 'today', label: 'today', width: 'w-14' },
+  { key: 'last7Days', label: 'last 7 days', width: 'w-14' },
+  { key: 'last30Days', label: 'last 30 days', width: 'w-14' },
 ]
+
+const MODEL_SKELETON_ROWS = Array.from({ length: 6 }, (_, index) => index)
 ---
 
 <BaseLayout
@@ -56,9 +58,12 @@ const WINDOWS = [
             </span>
             <p
               data-llms-all-time-tokens
-              class="m-0 mt-3 text-[clamp(34px,6.4vw,66px)] leading-[0.92] font-semibold tracking-tighter text-ink tabular-nums"
+              class="m-0 mt-3 min-h-[0.92em] min-w-[10ch] text-[clamp(34px,6.4vw,66px)] leading-[0.92] font-semibold tracking-tighter text-ink tabular-nums"
             >
-              loading…
+              <span
+                class="llms-skeleton inline-block h-[0.72em] w-[10ch] rounded-lg align-baseline"
+                aria-hidden="true"></span>
+              <span class="sr-only">Loading all-time tokens…</span>
             </p>
             <dl class="mt-6 grid max-w-md grid-cols-3 gap-px overflow-hidden rounded-xl border border-line bg-line">
               {
@@ -69,9 +74,15 @@ const WINDOWS = [
                     </dt>
                     <dd
                       data-llms-hero-meta={m.key}
-                      class="m-0 mt-1 text-[19px] tracking-[-0.03em] text-ink tabular-nums"
+                      class="m-0 mt-1 min-h-[1.25em] text-[19px] tracking-[-0.03em] text-ink tabular-nums"
                     >
-                      {m.value}
+                      <span
+                        class:list={[
+                          'llms-skeleton inline-block h-[0.9em] rounded align-baseline',
+                          m.width,
+                        ]}
+                        aria-hidden="true"></span>
+                      <span class="sr-only">Loading {m.label}…</span>
                     </dd>
                   </div>
                 ))
@@ -91,22 +102,30 @@ const WINDOWS = [
         </div>
         <div class="grid grid-cols-3 gap-px overflow-hidden rounded-2xl border border-line bg-line">
           {
-            WINDOWS.map(({ key, label }) => (
+            WINDOWS.map(({ key, label, width }) => (
               <div class="bg-white p-4">
                 <span class="font-mono text-[10px] tracking-[0.08em] text-muted uppercase">
                   {label}
                 </span>
                 <p
                   data-llms-window-value={key}
-                  class="m-0 mt-2 text-[clamp(18px,2.4vw,22px)] tracking-[-0.03em] text-ink tabular-nums"
+                  class="m-0 mt-2 min-h-[1.2em] text-[clamp(18px,2.4vw,22px)] tracking-[-0.03em] text-ink tabular-nums"
                 >
-                  loading…
+                  <span
+                    class:list={[
+                      'llms-skeleton inline-block h-[0.85em] rounded align-baseline',
+                      width,
+                    ]}
+                    aria-hidden="true"></span>
+                  <span class="sr-only">Loading {label} tokens…</span>
                 </p>
                 <p
                   data-llms-window-meta={key}
-                  class="m-0 mt-1 font-mono text-[11px] text-muted"
+                  class="m-0 mt-1 min-h-[1.25em] font-mono text-[11px] text-muted"
                 >
-                  —
+                  <span
+                    class="llms-skeleton inline-block h-[0.9em] w-24 rounded align-baseline"
+                    aria-hidden="true"></span>
                 </p>
               </div>
             ))
@@ -126,8 +145,17 @@ const WINDOWS = [
           </h2>
           <span class="h-px flex-1 bg-line" aria-hidden="true"></span>
           <span class="font-mono text-[11px] text-muted">
-            <span data-llms-chart-count>loading</span> ·{' '}
-            <span data-llms-chart-peak>peak —</span>
+            <span data-llms-chart-count class="inline-block min-w-7">
+              <span
+                class="llms-skeleton inline-block h-[0.9em] w-7 rounded align-baseline"
+                aria-hidden="true"></span>
+            </span>{' '}
+            ·{' '}
+            <span data-llms-chart-peak class="inline-block min-w-16">
+              <span
+                class="llms-skeleton inline-block h-[0.9em] w-16 rounded align-baseline"
+                aria-hidden="true"></span>
+            </span>
           </span>
         </div>
         <div class="rounded-2xl border border-line bg-white p-4 shadow-[4px_4px_0_var(--color-line)]">
@@ -187,7 +215,9 @@ const WINDOWS = [
           </h2>
           <span class="h-px flex-1 bg-line" aria-hidden="true"></span>
           <span data-llms-model-count class="font-mono text-[11px] text-muted">
-            loading
+            <span
+              class="llms-skeleton inline-block h-[0.9em] w-16 rounded align-baseline"
+              aria-hidden="true"></span>
           </span>
         </div>
 
@@ -195,9 +225,30 @@ const WINDOWS = [
           data-llms-models
           class="overflow-hidden rounded-2xl border border-line bg-white shadow-[4px_4px_0_var(--color-line)]"
         >
-          <div class="px-4 py-3 font-mono text-[12px] text-muted">
-            loading model breakdown…
-          </div>
+          {
+            MODEL_SKELETON_ROWS.map((row) => (
+              <div class="flex items-center gap-3 border-b border-line px-4 py-2.5 last:border-b-0">
+                <span class="llms-skeleton h-3 w-5 shrink-0 rounded" />
+                <span class="llms-skeleton h-4 w-4 shrink-0 rounded-full" />
+                <span
+                  class:list={[
+                    'llms-skeleton h-4 shrink-0 rounded',
+                    row % 3 === 0 ? 'w-36' : row % 3 === 1 ? 'w-28' : 'w-32',
+                  ]}
+                />
+                <span class="hidden h-1.5 flex-1 overflow-hidden rounded-full bg-line/60 sm:block">
+                  <span
+                    class:list={[
+                      'llms-skeleton block h-full rounded-full',
+                      row === 0 ? 'w-10/12' : row === 1 ? 'w-7/12' : 'w-5/12',
+                    ]}></span>
+                </span>
+                <span class="llms-skeleton ml-auto h-4 w-14 shrink-0 rounded" />
+                <span class="llms-skeleton h-4 w-8 shrink-0 rounded" />
+                <span class="llms-skeleton h-4 w-12 shrink-0 rounded" />
+              </div>
+            ))
+          }
         </div>
       </section>
 
@@ -207,7 +258,11 @@ const WINDOWS = [
         style="animation-delay:280ms"
       >
         <span class="text-ink/70">machines</span>{' '}
-        <span data-llms-machines>loading…</span>
+        <span data-llms-machines class="inline-block min-h-[1em] min-w-24">
+          <span
+            class="llms-skeleton inline-block h-[0.9em] w-24 rounded align-baseline"
+            aria-hidden="true"></span>
+        </span>
         <span data-llms-last-activity-wrap hidden>
           {' '}· <span class="text-ink/70">last activity</span>{' '}
           <span data-llms-last-activity></span>
@@ -240,8 +295,26 @@ const WINDOWS = [
       transform: scaleY(1);
     }
   }
+  @keyframes llms-skeleton-pulse {
+    0%,
+    100% {
+      opacity: 0.45;
+    }
+    50% {
+      opacity: 0.85;
+    }
+  }
   .llms-sec {
     animation: llms-rise 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .llms-skeleton {
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--color-line) 82%, white),
+      color-mix(in srgb, var(--color-line) 45%, white),
+      color-mix(in srgb, var(--color-line) 82%, white)
+    );
+    animation: llms-skeleton-pulse 1.2s ease-in-out infinite;
   }
   .llms-bar {
     transform-origin: bottom;
@@ -249,7 +322,8 @@ const WINDOWS = [
   }
   @media (prefers-reduced-motion: reduce) {
     .llms-sec,
-    .llms-bar {
+    .llms-bar,
+    .llms-skeleton {
       animation: none;
     }
   }

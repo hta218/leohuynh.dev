@@ -8,6 +8,13 @@ import type {
 } from '~/types/guestbook'
 
 export const MESSAGE_MAX_LENGTH = 500
+const GUESTBOOK_PAGE_SIZE = 20
+
+function guestbookListUrl(cursor?: string | null): string {
+  const params = new URLSearchParams({ limit: String(GUESTBOOK_PAGE_SIZE) })
+  if (cursor) params.set('cursor', cursor)
+  return `/api/guestbook?${params.toString()}`
+}
 
 export interface GuestbookViewProps {
   currentUser: GuestbookUser | null
@@ -62,7 +69,7 @@ export function useGuestbook({
 
     async function loadInitial() {
       try {
-        const response = await fetch('/api/guestbook')
+        const response = await fetch(guestbookListUrl())
         if (!response.ok) throw new Error(`Load failed: ${response.status}`)
         const data = (await response.json()) as GuestbookListResponse
         if (cancelled) return
@@ -135,9 +142,7 @@ export function useGuestbook({
     if (!nextCursor || loadingMore) return
     setLoadingMore(true)
     try {
-      const response = await fetch(
-        `/api/guestbook?cursor=${encodeURIComponent(nextCursor)}`,
-      )
+      const response = await fetch(guestbookListUrl(nextCursor))
       if (!response.ok) throw new Error(`Load more failed: ${response.status}`)
       const data = (await response.json()) as GuestbookListResponse
       setEntries((prev) => [...prev, ...data.entries])
