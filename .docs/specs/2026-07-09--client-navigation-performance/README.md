@@ -2,7 +2,8 @@
 
 ## Status
 
-Spec draft — no implementation started.
+In progress — P0 (pending state + targeted prefetch) and P1.1 (guestbook
+non-blocking first paint) implemented. P1.2, P1.3, and P2 not started.
 
 ## Owner
 
@@ -21,6 +22,8 @@ This spec covers perceived slowness during Astro client-side navigation in the v
 - `findings.md` — measured route performance, source-level findings, and route classification.
 - `plan.md` — proposed P0-P2 optimization plan and verification strategy.
 - `claude-audit.md` — Claude Code audit/review output after the draft spec is written.
+- `p0-implementation.md` — P0 implementation notes (pending state + prefetch).
+- `p1-implementation.md` — P1.1 implementation notes (guestbook non-blocking first paint).
 
 ## Current branch
 

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type {
   CreateGuestbookResponse,
   GuestbookEntry,
@@ -14,6 +14,13 @@ export interface GuestbookViewProps {
   isAdmin: boolean
   initialEntries: GuestbookEntry[]
   initialNextCursor: string | null
+  /**
+   * When true, the wall renders a loading state and fetches the first page
+   * client-side on mount via GET /api/guestbook instead of relying on
+   * server-rendered entries. This lets the `/guestbook` document paint without
+   * blocking on the Supabase-backed entries query.
+   */
+  deferInitialLoad?: boolean
 }
 
 /**
@@ -26,6 +33,7 @@ export function useGuestbook({
   initialEntries,
   initialNextCursor,
   isAdmin,
+  deferInitialLoad,
 }: GuestbookViewProps) {
   const [entries, setEntries] = useState<GuestbookEntry[]>(initialEntries)
   const [nextCursor, setNextCursor] = useState<string | null>(initialNextCursor)
@@ -40,6 +48,38 @@ export function useGuestbook({
   const [error, setError] = useState<string | null>(null)
   const [pendingNotice, setPendingNotice] = useState(false)
   const [busyId, setBusyId] = useState<string | null>(null)
+  // True until the deferred first page resolves, so the wall can show a
+  // skeleton instead of prematurely flashing the empty state.
+  const [loading, setLoading] = useState(deferInitialLoad ?? false)
+
+  // Fetch the first page client-side when the server chose not to render
+  // entries. The API reads the same session cookie, so admins still get their
+  // moderation view. On failure we fall back to the empty state, mirroring the
+  // previous server-side catch that rendered an empty wall.
+  useEffect(() => {
+    if (!deferInitialLoad) return
+    let cancelled = false
+
+    async function loadInitial() {
+      try {
+        const response = await fetch('/api/guestbook')
+        if (!response.ok) throw new Error(`Load failed: ${response.status}`)
+        const data = (await response.json()) as GuestbookListResponse
+        if (cancelled) return
+        setEntries(data.entries)
+        setNextCursor(data.nextCursor)
+      } catch (loadError) {
+        if (!cancelled) console.error('[guestbook] initial load failed', loadError)
+      } finally {
+        if (!cancelled) setLoading(false)
+      }
+    }
+
+    loadInitial()
+    return () => {
+      cancelled = true
+    }
+  }, [deferInitialLoad])
 
   async function handleSubmit(event: React.SyntheticEvent) {
     event.preventDefault()
@@ -141,6 +181,7 @@ export function useGuestbook({
     signature,
     setSignature,
     submitting,
+    loading,
     loadingMore,
     error,
     pendingNotice,
