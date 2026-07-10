@@ -58,6 +58,21 @@ json/                    # generated/static JSON (e.g. tag data)
 
 Path alias: **`~/*` → `src/*`** (e.g. `import { SITE } from '~/lib/site'`).
 
+## Generated JSON snapshots
+
+Some UI data is checked in as generated JSON so page render does not depend on
+live third-party APIs. When the source data changes, refresh the snapshot and
+commit the generated JSON with the code change:
+
+```bash
+bun run dotfiles:refresh  # refresh json/dotfiles-tree.json from hta218/dotfiles
+bun run heatmap:refresh   # refresh json/heatmap-map.json from GeoJSON + places
+```
+
+- `json/dotfiles-tree.json` powers the DOTFILES sidebar tree. Individual
+  `/dotfiles/*` file content still fetches GitHub on demand.
+- `json/heatmap-map.json` powers the interactive travel map geometry.
+
 ## Content
 
 - Posts/snippets are MDX in `data/` and loaded by collections via `glob({ base: './data/... })`.
