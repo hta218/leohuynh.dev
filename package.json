@@ -36,7 +36,8 @@
     "check": "astro check",
     "typecheck": "astro check",
     "seo:check": "node scripts/check-seo-lengths.mjs",
-    "dotfiles:refresh": "bun scripts/refresh-dotfiles-tree.ts"
+    "dotfiles:refresh": "bun scripts/refresh-dotfiles-tree.ts",
+    "heatmap:refresh": "bun scripts/refresh-heatmap-map.ts"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^7.2.1",
