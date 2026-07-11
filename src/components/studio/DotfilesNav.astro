@@ -95,6 +95,7 @@ const isAncestor = (path: string) =>
     ) : (
       <a
         href={fileHref(node.path)}
+        data-astro-prefetch="false"
         class:list={[
           'explorer-row group py-1.5 font-mono text-[13px] no-underline',
           isFileActive(node.path)

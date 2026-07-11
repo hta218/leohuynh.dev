@@ -8,5 +8,7 @@ declare global {
     __leohuynhFolders?: Record<string, boolean>
     // Guards the document-level version-menu listeners to bind only once.
     __leohuynhVersionMenuBound?: boolean
+    // Guards the document-level nav-pending transition listeners to bind only once.
+    __leohuynhNavPendingBound?: boolean
   }
 }

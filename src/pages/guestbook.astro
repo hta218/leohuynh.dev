@@ -8,29 +8,19 @@ import {
   getGuestbookCurrentUser,
   isGuestbookAdmin,
 } from '~/lib/guestbook/config'
-import { getGuestbookEntries } from '~/lib/guestbook/queries'
-import type { GuestbookEntry } from '~/types/guestbook'
 
 export const prerender = false
 
+// Keep SSR only for the cheap cookie-based session/admin detection. The entries
+// query (Supabase-backed) is intentionally NOT awaited here so the document
+// paints without blocking on it; `GuestbookWall` loads the first page
+// client-side via GET /api/guestbook, which reads the same session cookie.
 const nowSeconds = Math.floor(Date.now() / 1000)
 const currentUser = getGuestbookCurrentUser(
   Astro.cookies.get(SESSION_COOKIE)?.value,
   nowSeconds,
 )
 const isAdmin = isGuestbookAdmin(currentUser?.login)
-
-// Server-render the first page for fast first paint and SEO. If the database
-// or env is not configured yet, fall back to an empty wall instead of 500ing.
-let entries: GuestbookEntry[] = []
-let nextCursor: string | null = null
-try {
-  const result = await getGuestbookEntries({ viewer: currentUser, isAdmin })
-  entries = result.entries
-  nextCursor = result.nextCursor
-} catch (error) {
-  console.error('[guestbook] SSR load failed', error)
-}
 ---
 
 <BaseLayout
@@ -48,8 +38,9 @@ try {
       client:load
       currentUser={currentUser}
       isAdmin={isAdmin}
-      initialEntries={entries}
-      initialNextCursor={nextCursor}
+      initialEntries={[]}
+      initialNextCursor={null}
+      deferInitialLoad={true}
     />
   </StudioShell>
 </BaseLayout>

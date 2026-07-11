@@ -1,4 +1,5 @@
 import { type MouseEvent, useRef, useState } from 'react'
+import heatmapMap from '../../../json/heatmap-map.json'
 import type { ProvinceUnit } from '~/lib/places'
 import { PROVINCE_NOTES } from './province-notes'
 
@@ -21,6 +22,8 @@ interface Props {
   neighbours: Neighbour[]
   viewBox: string
 }
+
+const MAP_DATA = heatmapMap as Props
 
 const UNVISITED_FILL = '#eef4f2'
 const VISITED_ZERO_FILL = '#dcfce7'
@@ -53,7 +56,8 @@ function fillFor(unit: ProvinceUnit): string {
   )
 }
 
-export default function VietnamMap({ provinces, neighbours, viewBox }: Props) {
+export default function VietnamMap() {
+  const { provinces, neighbours, viewBox } = MAP_DATA
   const containerRef = useRef<HTMLDivElement>(null)
   const [selectedCode, setSelectedCode] = useState<string | null>(null)
   const [hoverCode, setHoverCode] = useState<string | null>(null)

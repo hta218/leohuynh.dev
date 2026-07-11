@@ -8,6 +8,7 @@ import { Commit } from './guestbook-wall/Commit'
 import { Composer } from './guestbook-wall/Composer'
 import { Rail } from './guestbook-wall/Rail'
 import { SignedOutPrompt } from './guestbook-wall/SignedOutPrompt'
+import { WallSkeleton } from './guestbook-wall/WallSkeleton'
 
 /** The guestbook wall — entries as a git commit log with a graph rail. */
 export default function GuestbookWall(props: GuestbookViewProps) {
@@ -28,12 +29,25 @@ export default function GuestbookWall(props: GuestbookViewProps) {
             </span>
           </div>
           <span className="font-mono text-[11px] text-slate-400">
-            {gb.entries.length}
-            {gb.nextCursor ? '+' : ''} commits
+            {gb.loading ? (
+              '… commits'
+            ) : (
+              <>
+                {gb.entries.length}
+                {gb.nextCursor ? '+' : ''} commits
+              </>
+            )}
           </span>
         </div>
 
-        {gb.entries.length === 0 ? (
+        {gb.loading ? (
+          <>
+            <span className="sr-only" role="status">
+              Loading the wall…
+            </span>
+            <WallSkeleton />
+          </>
+        ) : gb.entries.length === 0 ? (
           <div className="flex gap-4">
             <Rail isLast />
             <p className="m-0 pt-px font-mono text-sm text-muted">

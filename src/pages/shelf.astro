@@ -29,11 +29,14 @@ const groupedMovies = movies.reduce<Array<{ rating: number; movies: Movie[] }>>(
   [],
 )
 
-const MOVIES_VISIBLE_LIMIT = 5
+const BOOKS_VISIBLE_LIMIT = 5
+const MOVIES_VISIBLE_LIMIT = 3
+const visibleReadBooks = readBooks.slice(0, BOOKS_VISIBLE_LIMIT)
+const hasMoreReadBooks = readBooks.length > BOOKS_VISIBLE_LIMIT
 const groupedMoviesWithVisibility = groupedMovies.map((group) => {
-  const movieItems = group.movies.map((movie, index) => ({
+  const movieItems = group.movies.slice(0, MOVIES_VISIBLE_LIMIT).map((movie) => ({
     movie,
-    visible: index < MOVIES_VISIBLE_LIMIT,
+    visible: true,
   }))
   return {
     ...group,
@@ -129,8 +132,12 @@ function meta(movie: Movie): string {
             <h3 class="mb-4 font-mono text-xs tracking-wide text-muted uppercase">
               Read
             </h3>
-            <ul class="grid grid-cols-1 gap-3">
-              {readBooks.map((book) => (
+            <ul
+              class="grid grid-cols-1 gap-3"
+              data-books-list
+              data-loaded={visibleReadBooks.length}
+            >
+              {visibleReadBooks.map((book) => (
                 <li>
                   <a
                     href={book.link}
@@ -167,6 +174,17 @@ function meta(movie: Movie): string {
                 </li>
               ))}
             </ul>
+            {hasMoreReadBooks && (
+              <div class="mt-4 text-center">
+                <button
+                  type="button"
+                  class="books-show-more rounded-lg border border-line bg-white px-4 py-2 font-mono text-xs text-code-blue hover:bg-panel2"
+                  data-loaded={visibleReadBooks.length}
+                >
+                  Show more ({readBooks.length - visibleReadBooks.length} more)
+                </button>
+              </div>
+            )}
           </div>
         )
       }
@@ -191,7 +209,11 @@ function meta(movie: Movie): string {
         ) : (
           <div class="space-y-8">
             {groupedMoviesWithVisibility.map((group) => (
-              <section class="movie-group space-y-3" data-rating={group.rating}>
+              <section
+                class="movie-group space-y-3"
+                data-rating={group.rating}
+                data-loaded={group.movieItems.length}
+              >
                 <div class="flex items-end justify-between gap-3 border-b border-line pb-2">
                   <h3 class="m-0 text-[18px] tracking-[-0.03em]">
                     My rating {group.rating}/10
@@ -200,7 +222,10 @@ function meta(movie: Movie): string {
                     {group.movies.length} titles
                   </span>
                 </div>
-                <div class="divide-y divide-line overflow-hidden rounded-2xl border border-line bg-white">
+                <div
+                  class="divide-y divide-line overflow-hidden rounded-2xl border border-line bg-white"
+                  data-movies-list
+                >
                   {group.movieItems.map(({ movie: m, visible }) => (
                     <a
                       href={m.url}
@@ -267,15 +292,225 @@ function meta(movie: Movie): string {
 </BaseLayout>
 
 <script>
-  document.querySelectorAll<HTMLButtonElement>('.movie-group-show-more').forEach((button) => {
-    button.addEventListener('click', () => {
-      const group = button.closest<HTMLElement>(
-        `.movie-group[data-rating="${button.dataset.rating}"]`,
-      )
-      group
-        ?.querySelectorAll('.movie-item.hidden')
-        .forEach((el) => el.classList.remove('hidden'))
+  type ShelfBook = {
+    title: string
+    link: string
+    imageUrl: string
+    authorName: string
+    userRating: number
+    userShelves: string
+  }
+  type ShelfMovie = {
+    title: string
+    url: string
+    poster: string
+    year: string
+    titleType: string
+    genres: string
+    runtime: number
+    directors: string
+    imdbRating: number
+    yourRating: number
+  }
+  type ShelfData = { books: ShelfBook[]; movies: ShelfMovie[] }
+
+  let shelfDataPromise: Promise<ShelfData> | null = null
+
+  function shelfData(): Promise<ShelfData> {
+    shelfDataPromise ??= fetch('/api/shelf.json')
+      .then((response) => {
+        if (!response.ok) throw new Error(`Shelf API ${response.status}`)
+        return response.json() as Promise<ShelfData>
+      })
+      .catch((error) => {
+        shelfDataPromise = null
+        throw error
+      })
+    return shelfDataPromise
+  }
+
+  function textEl<K extends keyof HTMLElementTagNameMap>(
+    tag: K,
+    className: string,
+    text: string,
+  ): HTMLElementTagNameMap[K] {
+    const node = document.createElement(tag)
+    node.className = className
+    node.textContent = text
+    return node
+  }
+
+  function bookItem(book: ShelfBook): HTMLLIElement {
+    const item = document.createElement('li')
+    const link = document.createElement('a')
+    link.href = book.link
+    link.target = '_blank'
+    link.rel = 'noreferrer'
+    link.className =
+      'flex items-center gap-4 rounded-xl border border-line bg-white p-3 no-underline hover:border-code-blue'
+
+    if (book.imageUrl) {
+      const image = document.createElement('img')
+      image.src = book.imageUrl
+      image.alt = book.title
+      image.loading = 'lazy'
+      image.className = 'h-16 w-11 flex-none rounded border border-line object-cover'
+      link.append(image)
+    }
+
+    const body = document.createElement('div')
+    body.className = 'min-w-0 flex-1'
+    body.append(
+      textEl('h4', 'm-0 truncate text-[15px] font-medium text-ink', book.title),
+      textEl('p', 'm-0 truncate font-mono text-xs text-muted', book.authorName),
+    )
+
+    const rating = textEl(
+      'span',
+      'flex flex-none items-center gap-1.5 rounded-md border border-line bg-panel px-2 py-1 font-mono text-xs text-ink',
+      book.userRating > 0 ? `GR ${book.userRating}/5` : 'GR —',
+    )
+    rating.title = book.userRating > 0 ? `My Goodreads rating ${book.userRating}/5` : 'Not rated'
+
+    link.append(body, rating)
+    item.append(link)
+    return item
+  }
+
+  function movieMeta(movie: ShelfMovie): string {
+    return [
+      movie.year,
+      movie.titleType,
+      movie.genres?.split(',')[0],
+      movie.runtime ? `${movie.runtime}m` : undefined,
+    ]
+      .filter(Boolean)
+      .join(' · ')
+  }
+
+  function movieItem(movie: ShelfMovie): HTMLAnchorElement {
+    const link = document.createElement('a')
+    link.href = movie.url
+    link.target = '_blank'
+    link.rel = 'noreferrer'
+    link.className =
+      'movie-item group grid gap-3 p-3 no-underline hover:bg-panel2 sm:grid-cols-[64px_1fr_auto] sm:items-center'
+
+    const poster = document.createElement('div')
+    poster.className = 'h-25 w-16.5 overflow-hidden rounded-lg border border-line bg-panel2 sm:h-23 sm:w-15'
+    if (movie.poster) {
+      const image = document.createElement('img')
+      image.src = movie.poster
+      image.alt = movie.title
+      image.loading = 'lazy'
+      image.className = 'h-full w-full object-cover'
+      poster.append(image)
+    } else {
+      poster.append(textEl('div', 'grid h-full w-full place-items-center font-mono text-[10px] text-muted', 'IMDb'))
+    }
+
+    const body = document.createElement('div')
+    body.className = 'min-w-0'
+    body.append(
+      textEl(
+        'h4',
+        'm-0 truncate text-[15px] font-semibold leading-snug tracking-[-0.01em] text-ink group-hover:text-code-blue',
+        movie.title,
+      ),
+      textEl('p', 'mt-1 mb-0 truncate font-mono text-[11px] text-muted', movieMeta(movie)),
+    )
+    if (movie.directors) {
+      body.append(textEl('p', 'mt-1 mb-0 truncate text-[12px] text-muted', `Directed by ${movie.directors}`))
+    }
+
+    const rating = document.createElement('div')
+    rating.className = 'flex flex-wrap gap-1.5 font-mono text-[11px] sm:justify-end'
+    rating.append(
+      textEl(
+        'span',
+        'rounded-md border border-line bg-[#f5c518] px-2 py-1 text-ink',
+        `IMDb ${movie.imdbRating || '—'}`,
+      ),
+    )
+
+    link.append(poster, body, rating)
+    return link
+  }
+
+  const restoreTimers = new WeakMap<HTMLButtonElement, ReturnType<typeof setTimeout>>()
+
+  async function withLoading(
+    button: HTMLButtonElement,
+    original: string,
+    task: () => Promise<void>,
+  ) {
+    const restoreTimer = restoreTimers.get(button)
+    if (restoreTimer) clearTimeout(restoreTimer)
+    button.disabled = true
+    button.textContent = 'Loading…'
+    try {
+      await task()
       button.remove()
+      restoreTimers.delete(button)
+    } catch {
+      button.disabled = false
+      button.textContent = 'Could not load more — retry'
+      restoreTimers.set(
+        button,
+        setTimeout(() => {
+          button.textContent = original
+          restoreTimers.delete(button)
+        }, 2400),
+      )
+    }
+  }
+
+  document.querySelector<HTMLButtonElement>('.books-show-more')?.addEventListener('click', (buttonEvent) => {
+    const button = buttonEvent.currentTarget as HTMLButtonElement
+    const originalLabel = button.dataset.initialLabel ?? button.textContent ?? ''
+    button.dataset.initialLabel = originalLabel
+    void withLoading(button, originalLabel, async () => {
+      const list = document.querySelector<HTMLUListElement>('[data-books-list]')
+      if (!list) return
+      const visibleLinks = new Set(
+        Array.from(list.querySelectorAll<HTMLAnchorElement>('a[href]')).map(
+          (link) => link.href,
+        ),
+      )
+      const data = await shelfData()
+      const readBooks = data.books.filter(
+        (book) =>
+          !book.userShelves.includes('currently-reading') &&
+          !visibleLinks.has(new URL(book.link, location.href).href),
+      )
+      for (const book of readBooks) list.append(bookItem(book))
+      list.dataset.loaded = String(visibleLinks.size + readBooks.length)
+    })
+  })
+
+  document.querySelectorAll<HTMLButtonElement>('.movie-group-show-more').forEach((button) => {
+    const originalLabel = button.textContent ?? ''
+    button.dataset.initialLabel = originalLabel
+    button.addEventListener('click', () => {
+      void withLoading(button, originalLabel, async () => {
+        const group = button.closest<HTMLElement>('.movie-group')
+        const list = group?.querySelector<HTMLElement>('[data-movies-list]')
+        if (!group || !list) return
+        const rating = Number(button.dataset.rating ?? group.dataset.rating)
+        const visibleLinks = new Set(
+          Array.from(list.querySelectorAll<HTMLAnchorElement>('a[href]')).map(
+            (link) => link.href,
+          ),
+        )
+        const data = await shelfData()
+        const movies = data.movies.filter(
+          (movie) =>
+            movie.yourRating === rating &&
+            !visibleLinks.has(new URL(movie.url, location.href).href),
+        )
+        for (const movie of movies) list.append(movieItem(movie))
+        group.dataset.loaded = String(visibleLinks.size + movies.length)
+      })
     })
   })
 </script>

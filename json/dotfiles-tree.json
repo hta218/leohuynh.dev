@@ -1,0 +1,293 @@
+[
+  {
+    "name": ".agent",
+    "path": ".agent",
+    "type": "dir",
+    "children": [
+      {
+        "name": "rules",
+        "path": ".agent/rules",
+        "type": "dir",
+        "children": [
+          {
+            "name": "coding.md",
+            "path": ".agent/rules/coding.md",
+            "type": "file"
+          },
+          {
+            "name": "commit.md",
+            "path": ".agent/rules/commit.md",
+            "type": "file"
+          },
+          {
+            "name": "communication.md",
+            "path": ".agent/rules/communication.md",
+            "type": "file"
+          },
+          {
+            "name": "never-auto-commit.md",
+            "path": ".agent/rules/never-auto-commit.md",
+            "type": "file"
+          },
+          {
+            "name": "pull-requests.md",
+            "path": ".agent/rules/pull-requests.md",
+            "type": "file"
+          },
+          {
+            "name": "spec-driven-development.md",
+            "path": ".agent/rules/spec-driven-development.md",
+            "type": "file"
+          }
+        ]
+      },
+      {
+        "name": "skills",
+        "path": ".agent/skills",
+        "type": "dir",
+        "children": [
+          {
+            "name": "code-review",
+            "path": ".agent/skills/code-review",
+            "type": "dir",
+            "children": [
+              {
+                "name": "SKILL.md",
+                "path": ".agent/skills/code-review/SKILL.md",
+                "type": "file"
+              }
+            ]
+          },
+          {
+            "name": "commit",
+            "path": ".agent/skills/commit",
+            "type": "dir",
+            "children": [
+              {
+                "name": "SKILL.md",
+                "path": ".agent/skills/commit/SKILL.md",
+                "type": "file"
+              }
+            ]
+          },
+          {
+            "name": "create-task",
+            "path": ".agent/skills/create-task",
+            "type": "dir",
+            "children": [
+              {
+                "name": "SKILL.md",
+                "path": ".agent/skills/create-task/SKILL.md",
+                "type": "file"
+              }
+            ]
+          },
+          {
+            "name": "debug",
+            "path": ".agent/skills/debug",
+            "type": "dir",
+            "children": [
+              {
+                "name": "SKILL.md",
+                "path": ".agent/skills/debug/SKILL.md",
+                "type": "file"
+              }
+            ]
+          },
+          {
+            "name": "explain",
+            "path": ".agent/skills/explain",
+            "type": "dir",
+            "children": [
+              {
+                "name": "SKILL.md",
+                "path": ".agent/skills/explain/SKILL.md",
+                "type": "file"
+              }
+            ]
+          },
+          {
+            "name": "feature-plan",
+            "path": ".agent/skills/feature-plan",
+            "type": "dir",
+            "children": [
+              {
+                "name": "SKILL.md",
+                "path": ".agent/skills/feature-plan/SKILL.md",
+                "type": "file"
+              }
+            ]
+          },
+          {
+            "name": "frontend-design",
+            "path": ".agent/skills/frontend-design",
+            "type": "dir",
+            "children": [
+              {
+                "name": "SKILL.md",
+                "path": ".agent/skills/frontend-design/SKILL.md",
+                "type": "file"
+              }
+            ]
+          },
+          {
+            "name": "handoff",
+            "path": ".agent/skills/handoff",
+            "type": "dir",
+            "children": [
+              {
+                "name": "SKILL.md",
+                "path": ".agent/skills/handoff/SKILL.md",
+                "type": "file"
+              }
+            ]
+          },
+          {
+            "name": "pr-open",
+            "path": ".agent/skills/pr-open",
+            "type": "dir",
+            "children": [
+              {
+                "name": "SKILL.md",
+                "path": ".agent/skills/pr-open/SKILL.md",
+                "type": "file"
+              }
+            ]
+          },
+          {
+            "name": "ship",
+            "path": ".agent/skills/ship",
+            "type": "dir",
+            "children": [
+              {
+                "name": "SKILL.md",
+                "path": ".agent/skills/ship/SKILL.md",
+                "type": "file"
+              }
+            ]
+          },
+          {
+            "name": "work",
+            "path": ".agent/skills/work",
+            "type": "dir",
+            "children": [
+              {
+                "name": "SKILL.md",
+                "path": ".agent/skills/work/SKILL.md",
+                "type": "file"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": ".claude",
+    "path": ".claude",
+    "type": "dir",
+    "children": [
+      {
+        "name": "claude-code-notifier.sh",
+        "path": ".claude/claude-code-notifier.sh",
+        "type": "file"
+      },
+      {
+        "name": "settings.json",
+        "path": ".claude/settings.json",
+        "type": "file"
+      },
+      {
+        "name": "statusline.sh",
+        "path": ".claude/statusline.sh",
+        "type": "file"
+      }
+    ]
+  },
+  {
+    "name": ".copilot",
+    "path": ".copilot",
+    "type": "dir",
+    "children": [
+      {
+        "name": "copilot-cli-notifier.sh",
+        "path": ".copilot/copilot-cli-notifier.sh",
+        "type": "file"
+      },
+      {
+        "name": "settings.json",
+        "path": ".copilot/settings.json",
+        "type": "file"
+      }
+    ]
+  },
+  {
+    "name": ".opencode",
+    "path": ".opencode",
+    "type": "dir",
+    "children": [
+      {
+        "name": "oh-my-opencode.json",
+        "path": ".opencode/oh-my-opencode.json",
+        "type": "file"
+      },
+      {
+        "name": "settings.json",
+        "path": ".opencode/settings.json",
+        "type": "file"
+      },
+      {
+        "name": "tui.json",
+        "path": ".opencode/tui.json",
+        "type": "file"
+      }
+    ]
+  },
+  {
+    "name": ".vscode",
+    "path": ".vscode",
+    "type": "dir",
+    "children": [
+      {
+        "name": "extensions.txt",
+        "path": ".vscode/extensions.txt",
+        "type": "file"
+      },
+      {
+        "name": "keybindings.json",
+        "path": ".vscode/keybindings.json",
+        "type": "file"
+      },
+      {
+        "name": "settings.json",
+        "path": ".vscode/settings.json",
+        "type": "file"
+      }
+    ]
+  },
+  {
+    "name": ".editorconfig",
+    "path": ".editorconfig",
+    "type": "file"
+  },
+  {
+    "name": ".gitconfig",
+    "path": ".gitconfig",
+    "type": "file"
+  },
+  {
+    "name": ".gitignore",
+    "path": ".gitignore",
+    "type": "file"
+  },
+  {
+    "name": ".zshrc",
+    "path": ".zshrc",
+    "type": "file"
+  },
+  {
+    "name": "README.md",
+    "path": "README.md",
+    "type": "file"
+  }
+]

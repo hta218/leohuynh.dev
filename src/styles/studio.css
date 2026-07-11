@@ -98,6 +98,47 @@
   content: "+";
 }
 
+/* Subtle sweeping indicator on the tab bar's bottom edge while an Astro
+ * client-side route swap is pending (see client/nav-pending.ts). */
+.nav-progress {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 40%;
+  height: 2px;
+  background: var(--color-ink);
+  opacity: 0;
+  transform: translateX(-100%);
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+}
+
+html[data-nav-pending="true"] .nav-progress {
+  opacity: 1;
+  animation: nav-progress-sweep 1.1s ease-in-out infinite;
+}
+
+@keyframes nav-progress-sweep {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(60%);
+  }
+  100% {
+    transform: translateX(250%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-nav-pending="true"] .nav-progress {
+    animation: none;
+    opacity: 1;
+    transform: translateX(0);
+    width: 100%;
+  }
+}
+
 @media (min-width: 1024px) {
   .studio-workspace {
     grid-template-columns: 260px minmax(0, 1fr) 360px;

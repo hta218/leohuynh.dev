@@ -1,61 +1,26 @@
 ---
 import PageHeader from '~/components/PageHeader.astro'
-import ModelRow from '~/components/studio/llms/ModelRow.astro'
 import StudioShell from '~/components/studio/StudioShell.astro'
 import BaseLayout from '~/layouts/BaseLayout.astro'
-import { formatApproxUsd, formatTokens } from '~/lib/runtime/llm-format'
-import { fetchTokenBurnFull } from '~/lib/runtime/token-burn'
 
-// SSR so the numbers stay fresh (the summary changes ~once/day per machine).
-// Cache at the edge to keep it cheap without going stale for long.
-export const prerender = false
-Astro.response.headers.set(
-  'cache-control',
-  'public, s-maxage=600, stale-while-revalidate=6000',
-)
+// Keep the route static/cheap. Full token-burn telemetry is loaded after first
+// paint from `/api/token-burn.json?view=full`, so client navigation no longer
+// waits on the private GitHub summary fetch during document render.
+export const prerender = true
 
-const tb = await fetchTokenBurnFull()
-
-// Secondary all-time figures shown beneath the headline token count.
 const HERO_META = [
-  { value: formatApproxUsd(tb.allTime.cost), label: 'spend' },
-  { value: tb.allTime.sessions.toLocaleString(), label: 'sessions' },
-  { value: `${tb.machines.length || '—'}`, label: 'machines' },
+  { key: 'spend', width: 'w-14', label: 'spend' },
+  { key: 'sessions', width: 'w-16', label: 'sessions' },
+  { key: 'machines', width: 'w-8', label: 'machines' },
 ]
 
-// Headline is all-time, so the strip only carries the recent windows.
 const WINDOWS = [
-  { label: 'today', window: tb.today },
-  { label: 'last 7 days', window: tb.last7Days },
-  { label: 'last 30 days', window: tb.last30Days },
+  { key: 'today', label: 'today', width: 'w-14' },
+  { key: 'last7Days', label: 'last 7 days', width: 'w-14' },
+  { key: 'last30Days', label: 'last 30 days', width: 'w-14' },
 ]
 
-// Daily burn chart — cap to the most recent stretch so the bars stay legible.
-const CHART_DAYS = 90
-const series = tb.daily.slice(-CHART_DAYS)
-const maxDailyTokens = Math.max(1, ...series.map((d) => d.tokens))
-const peakIndex = series.reduce(
-  (best, day, i) => (day.tokens > series[best].tokens ? i : best),
-  0,
-)
-const firstDay = series[0]?.date
-const lastDay = series[series.length - 1]?.date
-
-// All-time per-model breakdown. Bars scale against the biggest model; the
-// share (in ModelRow) is against the grand total. The long tail collapses.
-const models = tb.allTimeModels
-const maxModelTokens = Math.max(1, ...models.map((m) => m.tokens))
-const totalModelTokens = models.reduce((sum, m) => sum + m.tokens, 0) || 1
-const VISIBLE_MODELS = 8
-const topModels = models.slice(0, VISIBLE_MODELS)
-const restModels = models.slice(VISIBLE_MODELS)
-
-function costLabel(cost: number): string {
-  return cost > 0 ? formatApproxUsd(cost) : '—'
-}
-
-const lastActivity = tb.lastActivity?.slice(0, 10)
-const machinesLabel = tb.machines.length ? tb.machines.join(', ') : '—'
+const MODEL_SKELETON_ROWS = Array.from({ length: 6 }, (_, index) => index)
 ---
 
 <BaseLayout
@@ -63,212 +28,253 @@ const machinesLabel = tb.machines.length ? tb.machines.join(', ') : '—'
   description="How many tokens I burn coding with AI — all-time spend, sessions, a daily burn chart, and the breakdown by model, read live from my own private usage telemetry."
 >
   <StudioShell active="/llms" crumb="~/leohuynh.dev/llms/">
-    <PageHeader
-      title="LLM token burn"
-      description="Every token I've burned pair-coding with AI agents. Pulled live from my own private usage telemetry — all-time totals, a daily burn chart, and where the tokens actually go, model by model."
-    />
+    <div data-llms-page>
+      <PageHeader
+        title="LLM token burn"
+        description="Every token I've burned pair-coding with AI agents. Pulled live from my own private usage telemetry — all-time totals, a daily burn chart, and where the tokens actually go, model by model."
+      />
 
-    {
-      tb.ok === false && (
-        <p class="mb-8 rounded-2xl border border-line bg-white p-4 font-mono text-[13px] text-muted">
-          telemetry is unavailable right now.
-        </p>
-      )
-    }
+      <p
+        data-llms-error
+        hidden
+        class="mb-8 rounded-2xl border border-line bg-white p-4 font-mono text-[13px] text-muted"
+      >
+        telemetry is unavailable right now.
+      </p>
 
-    {/* ── Hero: all-time headline ────────────────────────────── */}
-    <section class="llms-sec mb-8" style="animation-delay:40ms">
-      <div class="relative overflow-hidden rounded-2xl border border-ink bg-white p-6 shadow-[5px_5px_0_var(--color-ink)] sm:p-8">
-        <span
-          class="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(15,23,42,0.045)_1px,transparent_1px)] bg-size-[26px_100%] opacity-70"
-          aria-hidden="true"></span>
-        <span
-          class="pointer-events-none absolute top-1/2 right-4 hidden -translate-y-1/2 -rotate-6 font-mono text-[180px] leading-none font-bold text-ink/4 select-none sm:block"
-          aria-hidden="true">{'{ }'}</span>
-        <div class="relative">
-          <span class="flex items-center gap-2 font-mono text-[11px] tracking-widest text-muted uppercase">
-            <span class="inline-block h-1.5 w-1.5 rounded-full bg-ink"></span>
-            tokens burned · all-time
-          </span>
-          <p class="m-0 mt-3 text-[clamp(34px,6.4vw,66px)] leading-[0.92] font-semibold tracking-tighter text-ink tabular-nums">
-            {tb.allTime.tokens.toLocaleString()}
-          </p>
-          <dl class="mt-6 grid max-w-md grid-cols-3 gap-px overflow-hidden rounded-xl border border-line bg-line">
-            {
-              HERO_META.map((m) => (
-                <div class="bg-white px-4 py-3">
-                  <dt class="m-0 font-mono text-[10px] tracking-[0.08em] text-muted uppercase">
-                    {m.label}
-                  </dt>
-                  <dd class="m-0 mt-1 text-[19px] tracking-[-0.03em] text-ink tabular-nums">
-                    {m.value}
-                  </dd>
-                </div>
-              ))
-            }
-          </dl>
-        </div>
-      </div>
-    </section>
-
-    {/* ── Recent windows ─────────────────────────────────────── */}
-    <section class="llms-sec mb-12" style="animation-delay:100ms">
-      <div class="mb-3 flex items-center gap-3">
-        <h2 class="m-0 font-mono text-[13px] tracking-widest text-muted uppercase">
-          recent
-        </h2>
-        <span class="h-px flex-1 bg-line" aria-hidden="true"></span>
-      </div>
-      <div class="grid grid-cols-3 gap-px overflow-hidden rounded-2xl border border-line bg-line">
-        {
-          WINDOWS.map(({ label, window }) => (
-            <div class="bg-white p-4">
-              <span class="font-mono text-[10px] tracking-[0.08em] text-muted uppercase">
-                {label}
-              </span>
-              <p class="m-0 mt-2 text-[clamp(18px,2.4vw,22px)] tracking-[-0.03em] text-ink tabular-nums">
-                {formatTokens(window.tokens)}
-              </p>
-              <p class="m-0 mt-1 font-mono text-[11px] text-muted">
-                {window.sessions.toLocaleString()} sess · {costLabel(window.cost)}
-              </p>
-            </div>
-          ))
-        }
-      </div>
-    </section>
-
-    {/* ── Daily burn chart ───────────────────────────────────── */}
-    {
-      series.length > 0 && (
-        <section class="llms-sec mb-12" style="animation-delay:160ms">
-          <div class="mb-3 flex items-center gap-3">
-            <h2 class="m-0 font-mono text-[13px] tracking-widest text-muted uppercase">
-              daily burn
-            </h2>
-            <span class="h-px flex-1 bg-line" aria-hidden="true" />
-            <span class="font-mono text-[11px] text-muted">
-              {series.length}d · peak {formatTokens(maxDailyTokens)}
+      {/* ── Hero: all-time headline ────────────────────────────── */}
+      <section class="llms-sec mb-8" style="animation-delay:40ms">
+        <div class="relative overflow-hidden rounded-2xl border border-ink bg-white p-6 shadow-[5px_5px_0_var(--color-ink)] sm:p-8">
+          <span
+            class="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(15,23,42,0.045)_1px,transparent_1px)] bg-size-[26px_100%] opacity-70"
+            aria-hidden="true"></span>
+          <span
+            class="pointer-events-none absolute top-1/2 right-4 hidden -translate-y-1/2 -rotate-6 font-mono text-[180px] leading-none font-bold text-ink/4 select-none sm:block"
+            aria-hidden="true">{'{ }'}</span>
+          <div class="relative">
+            <span class="flex items-center gap-2 font-mono text-[11px] tracking-widest text-muted uppercase">
+              <span class="inline-block h-1.5 w-1.5 rounded-full bg-ink"></span>
+              tokens burned · all-time
             </span>
-          </div>
-          <div class="rounded-2xl border border-line bg-white p-4 shadow-[4px_4px_0_var(--color-line)]">
-            <div class="relative h-44 pl-11">
-              {[1, 0.5, 0].map((t) => (
-                <div
-                  class="absolute right-0 left-11"
-                  style={`top:${(1 - t) * 100}%`}
-                >
-                  <span class="absolute right-full mr-2 -translate-y-1/2 font-mono text-[9px] text-muted tabular-nums">
-                    {t === 0 ? '0' : formatTokens(maxDailyTokens * t)}
-                  </span>
-                  <span
-                    class="block h-px w-full"
-                    style={
-                      t === 0
-                        ? 'background:var(--color-line)'
-                        : 'border-top:1px dashed var(--color-line)'
-                    }
-                  />
-                </div>
-              ))}
-              <div class="absolute inset-0 left-11 flex items-end gap-px">
-                {series.map((day, i) => {
-                  const h = Math.max(1.5, (day.tokens / maxDailyTokens) * 100)
-                  const isPeak = i === peakIndex
-                  return (
-                    <div class="group relative flex h-full flex-1 items-end">
-                      <div
+            <p
+              data-llms-all-time-tokens
+              class="m-0 mt-3 min-h-[0.92em] min-w-[10ch] text-[clamp(34px,6.4vw,66px)] leading-[0.92] font-semibold tracking-tighter text-ink tabular-nums"
+            >
+              <span
+                class="llms-skeleton inline-block h-[0.72em] w-[10ch] rounded-lg align-baseline"
+                aria-hidden="true"></span>
+              <span class="sr-only">Loading all-time tokens…</span>
+            </p>
+            <dl class="mt-6 grid max-w-md grid-cols-3 gap-px overflow-hidden rounded-xl border border-line bg-line">
+              {
+                HERO_META.map((m) => (
+                  <div class="bg-white px-4 py-3">
+                    <dt class="m-0 font-mono text-[10px] tracking-[0.08em] text-muted uppercase">
+                      {m.label}
+                    </dt>
+                    <dd
+                      data-llms-hero-meta={m.key}
+                      class="m-0 mt-1 min-h-[1.25em] text-[19px] tracking-[-0.03em] text-ink tabular-nums"
+                    >
+                      <span
                         class:list={[
-                          'llms-bar w-full rounded-t-xs transition-colors',
-                          isPeak ? 'bg-ink' : 'bg-ink/45 group-hover:bg-ink/80',
+                          'llms-skeleton inline-block h-[0.9em] rounded align-baseline',
+                          m.width,
                         ]}
-                        style={`height:${h}%;animation-delay:${200 + i * 9}ms`}
-                      />
-                      <span class="pointer-events-none absolute bottom-full left-1/2 z-10 mb-1 hidden -translate-x-1/2 rounded-md border border-ink/15 bg-white px-2 py-1 font-mono text-[10px] whitespace-nowrap text-ink shadow-[2px_2px_0_var(--color-line)] group-hover:block">
-                        {day.date} · {formatTokens(day.tokens)} ·{' '}
-                        {costLabel(day.cost)}
-                      </span>
-                    </div>
-                  )
-                })}
+                        aria-hidden="true"></span>
+                      <span class="sr-only">Loading {m.label}…</span>
+                    </dd>
+                  </div>
+                ))
+              }
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Recent windows ─────────────────────────────────────── */}
+      <section class="llms-sec mb-12" style="animation-delay:100ms">
+        <div class="mb-3 flex items-center gap-3">
+          <h2 class="m-0 font-mono text-[13px] tracking-widest text-muted uppercase">
+            recent
+          </h2>
+          <span class="h-px flex-1 bg-line" aria-hidden="true"></span>
+        </div>
+        <div class="grid grid-cols-3 gap-px overflow-hidden rounded-2xl border border-line bg-line">
+          {
+            WINDOWS.map(({ key, label, width }) => (
+              <div class="bg-white p-4">
+                <span class="font-mono text-[10px] tracking-[0.08em] text-muted uppercase">
+                  {label}
+                </span>
+                <p
+                  data-llms-window-value={key}
+                  class="m-0 mt-2 min-h-[1.2em] text-[clamp(18px,2.4vw,22px)] tracking-[-0.03em] text-ink tabular-nums"
+                >
+                  <span
+                    class:list={[
+                      'llms-skeleton inline-block h-[0.85em] rounded align-baseline',
+                      width,
+                    ]}
+                    aria-hidden="true"></span>
+                  <span class="sr-only">Loading {label} tokens…</span>
+                </p>
+                <p
+                  data-llms-window-meta={key}
+                  class="m-0 mt-1 min-h-[1.25em] font-mono text-[11px] text-muted"
+                >
+                  <span
+                    class="llms-skeleton inline-block h-[0.9em] w-24 rounded align-baseline"
+                    aria-hidden="true"></span>
+                </p>
               </div>
-            </div>
-            <div class="mt-2 flex justify-between pl-11 font-mono text-[10px] text-muted">
-              <span>{firstDay}</span>
-              <span>{lastDay}</span>
-            </div>
-          </div>
-        </section>
-      )
-    }
+            ))
+          }
+        </div>
+      </section>
 
-    {/* ── By model ───────────────────────────────────────────── */}
-    {
-      models.length > 0 && (
-        <section class="llms-sec mb-10" style="animation-delay:220ms">
-          <div class="mb-3 flex items-center gap-3">
-            <h2 class="m-0 font-mono text-[13px] tracking-widest text-muted uppercase">
-              by model
-            </h2>
-            <span class="h-px flex-1 bg-line" aria-hidden="true" />
-            <span class="font-mono text-[11px] text-muted">
-              {models.length} models
+      {/* ── Daily burn chart ───────────────────────────────────── */}
+      <section
+        data-llms-chart-section
+        class="llms-sec mb-12"
+        style="animation-delay:160ms"
+      >
+        <div class="mb-3 flex items-center gap-3">
+          <h2 class="m-0 font-mono text-[13px] tracking-widest text-muted uppercase">
+            daily burn
+          </h2>
+          <span class="h-px flex-1 bg-line" aria-hidden="true"></span>
+          <span class="font-mono text-[11px] text-muted">
+            <span data-llms-chart-count class="inline-block min-w-7">
+              <span
+                class="llms-skeleton inline-block h-[0.9em] w-7 rounded align-baseline"
+                aria-hidden="true"></span>
+            </span>{' '}
+            ·{' '}
+            <span data-llms-chart-peak class="inline-block min-w-16">
+              <span
+                class="llms-skeleton inline-block h-[0.9em] w-16 rounded align-baseline"
+                aria-hidden="true"></span>
             </span>
+          </span>
+        </div>
+        <div class="rounded-2xl border border-line bg-white p-4 shadow-[4px_4px_0_var(--color-line)]">
+          <div class="relative h-44 pl-11">
+            <div class="absolute right-0 left-11" style="top:0%">
+              <span
+                data-llms-chart-scale-max
+                class="absolute right-full mr-2 -translate-y-1/2 font-mono text-[9px] text-muted tabular-nums"
+              >
+                —
+              </span>
+              <span
+                class="block h-px w-full"
+                style="border-top:1px dashed var(--color-line)"></span>
+            </div>
+            <div class="absolute right-0 left-11" style="top:50%">
+              <span
+                data-llms-chart-scale-mid
+                class="absolute right-full mr-2 -translate-y-1/2 font-mono text-[9px] text-muted tabular-nums"
+              >
+                —
+              </span>
+              <span
+                class="block h-px w-full"
+                style="border-top:1px dashed var(--color-line)"></span>
+            </div>
+            <div class="absolute right-0 left-11" style="top:100%">
+              <span class="absolute right-full mr-2 -translate-y-1/2 font-mono text-[9px] text-muted tabular-nums">
+                0
+              </span>
+              <span
+                class="block h-px w-full"
+                style="background:var(--color-line)"></span>
+            </div>
+            <div
+              data-llms-chart-bars
+              class="absolute inset-0 left-11 flex items-end gap-px"
+            >
+            </div>
           </div>
-
-          <div class="overflow-hidden rounded-2xl border border-line bg-white shadow-[4px_4px_0_var(--color-line)]">
-            {topModels.map((model, i) => (
-              <ModelRow
-                model={model}
-                rank={i + 1}
-                maxTokens={maxModelTokens}
-                totalTokens={totalModelTokens}
-              />
-            ))}
-
-            {restModels.length > 0 && (
-              <details class="group/details">
-                <summary class="flex cursor-pointer list-none items-center gap-2 border-t border-line px-4 py-2.5 font-mono text-[11px] tracking-[0.06em] text-muted uppercase transition-colors hover:text-ink">
-                  <span class="transition-transform group-open/details:rotate-90">
-                    ▸
-                  </span>
-                  <span class="group-open/details:hidden">
-                    show {restModels.length} more
-                  </span>
-                  <span class="hidden group-open/details:inline">show less</span>
-                </summary>
-                {restModels.map((model, i) => (
-                  <ModelRow
-                    model={model}
-                    rank={VISIBLE_MODELS + i + 1}
-                    maxTokens={maxModelTokens}
-                    totalTokens={totalModelTokens}
-                  />
-                ))}
-              </details>
-            )}
+          <div class="mt-2 flex justify-between pl-11 font-mono text-[10px] text-muted">
+            <span data-llms-chart-first-day>—</span>
+            <span data-llms-chart-last-day>—</span>
           </div>
-        </section>
-      )
-    }
+        </div>
+      </section>
 
-    {/* ── Provenance ─────────────────────────────────────────── */}
-    <p
-      class="llms-sec font-mono text-[11px] leading-relaxed text-muted"
-      style="animation-delay:280ms"
-    >
-      <span class="text-ink/70">machines</span> {machinesLabel}
-      {
-        lastActivity && (
-          <>
-            {' '}
-            · <span class="text-ink/70">last activity</span> {lastActivity}
-          </>
-        )
-      }
-    </p>
+      {/* ── By model ───────────────────────────────────────────── */}
+      <section
+        data-llms-models-section
+        class="llms-sec mb-10"
+        style="animation-delay:220ms"
+      >
+        <div class="mb-3 flex items-center gap-3">
+          <h2 class="m-0 font-mono text-[13px] tracking-widest text-muted uppercase">
+            by model
+          </h2>
+          <span class="h-px flex-1 bg-line" aria-hidden="true"></span>
+          <span data-llms-model-count class="font-mono text-[11px] text-muted">
+            <span
+              class="llms-skeleton inline-block h-[0.9em] w-16 rounded align-baseline"
+              aria-hidden="true"></span>
+          </span>
+        </div>
+
+        <div
+          data-llms-models
+          class="overflow-hidden rounded-2xl border border-line bg-white shadow-[4px_4px_0_var(--color-line)]"
+        >
+          {
+            MODEL_SKELETON_ROWS.map((row) => (
+              <div class="flex items-center gap-3 border-b border-line px-4 py-2.5 last:border-b-0">
+                <span class="llms-skeleton h-3 w-5 shrink-0 rounded" />
+                <span class="llms-skeleton h-4 w-4 shrink-0 rounded-full" />
+                <span
+                  class:list={[
+                    'llms-skeleton h-4 shrink-0 rounded',
+                    row % 3 === 0 ? 'w-36' : row % 3 === 1 ? 'w-28' : 'w-32',
+                  ]}
+                />
+                <span class="hidden h-1.5 flex-1 overflow-hidden rounded-full bg-line/60 sm:block">
+                  <span
+                    class:list={[
+                      'llms-skeleton block h-full rounded-full',
+                      row === 0 ? 'w-10/12' : row === 1 ? 'w-7/12' : 'w-5/12',
+                    ]}></span>
+                </span>
+                <span class="llms-skeleton ml-auto h-4 w-14 shrink-0 rounded" />
+                <span class="llms-skeleton h-4 w-8 shrink-0 rounded" />
+                <span class="llms-skeleton h-4 w-12 shrink-0 rounded" />
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      {/* ── Provenance ─────────────────────────────────────────── */}
+      <p
+        class="llms-sec font-mono text-[11px] leading-relaxed text-muted"
+        style="animation-delay:280ms"
+      >
+        <span class="text-ink/70">machines</span>{' '}
+        <span data-llms-machines class="inline-block min-h-[1em] min-w-24">
+          <span
+            class="llms-skeleton inline-block h-[0.9em] w-24 rounded align-baseline"
+            aria-hidden="true"></span>
+        </span>
+        <span data-llms-last-activity-wrap hidden>
+          {' '}· <span class="text-ink/70">last activity</span>{' '}
+          <span data-llms-last-activity></span>
+        </span>
+      </p>
+    </div>
   </StudioShell>
 </BaseLayout>
+
+<script>
+  import '~/components/studio/llms/client/hydrate'
+</script>
 
 <style>
   @keyframes llms-rise {
@@ -289,8 +295,26 @@ const machinesLabel = tb.machines.length ? tb.machines.join(', ') : '—'
       transform: scaleY(1);
     }
   }
+  @keyframes llms-skeleton-pulse {
+    0%,
+    100% {
+      opacity: 0.45;
+    }
+    50% {
+      opacity: 0.85;
+    }
+  }
   .llms-sec {
     animation: llms-rise 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .llms-skeleton {
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--color-line) 82%, white),
+      color-mix(in srgb, var(--color-line) 45%, white),
+      color-mix(in srgb, var(--color-line) 82%, white)
+    );
+    animation: llms-skeleton-pulse 1.2s ease-in-out infinite;
   }
   .llms-bar {
     transform-origin: bottom;
@@ -298,7 +322,8 @@ const machinesLabel = tb.machines.length ? tb.machines.join(', ') : '—'
   }
   @media (prefers-reduced-motion: reduce) {
     .llms-sec,
-    .llms-bar {
+    .llms-bar,
+    .llms-skeleton {
       animation: none;
     }
   }
