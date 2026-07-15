@@ -2,11 +2,13 @@
 import PageHeader from '~/components/PageHeader.astro'
 import PostList from '~/components/PostList.astro'
 import StudioShell from '~/components/studio/StudioShell.astro'
-import { getPublishedBlog } from '~/lib/content'
+import { getPublishedBlog, isPrimary } from '~/lib/content'
 import BaseLayout from '~/layouts/BaseLayout.astro'
 import { POSTS_PER_PAGE } from '~/lib/site'
 
-const posts = await getPublishedBlog()
+// Index lists primary-language posts only; translations are reachable via the
+// language switcher on the post's detail page.
+const posts = (await getPublishedBlog()).filter(isPrimary)
 const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE)
 const display = posts.slice(0, POSTS_PER_PAGE)
 ---
