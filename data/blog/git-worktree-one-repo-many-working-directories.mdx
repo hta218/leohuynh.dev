@@ -1,0 +1,153 @@
+---
+title: 'Git worktree: one repo, many working directories'
+lang: 'en'
+date: '2026-07-15'
+draft: false
+summary: 'How git worktree lets you check out multiple branches at the same time — and why it became essential the day I wanted several AI coding agents working on one repo in parallel.'
+tags: ['git', 'git-worktree', 'git-workflows', 'ai-agents']
+authors: ['default']
+---
+
+Here's a problem I ran into recently: I wanted to run 2–3 tasks **in parallel** on the same project — each task handled by its own AI coding agent, each on its own branch. Sounds reasonable, until you realize that every agent wants to `git checkout` its own branch... in the same directory. The moment agent B checks out its branch, it wipes out the files agent A is editing.
+
+Turns out Git solved this problem years ago with a feature most developers never touch: **`git worktree`**.
+
+## How normal Git works (and why the problem exists)
+
+When you clone a repo, you get a directory like this:
+
+```
+myproject/
+├── .git/          ← the "brain": all history, branches, commits, objects
+├── src/           ← the "working directory": the files you see & edit
+├── package.json
+└── ...
+```
+
+The key insight: **`.git/` contains ALL branches**, but the working directory can only show **one branch at a time** — whichever one `HEAD` points to.
+
+When you run `git checkout feat/task-b`, Git doesn't "move you somewhere else" — it **overwrites** the files in your working directory with the snapshot of `feat/task-b`. That's exactly why two agents (or two of you) can't work on two branches in one directory:
+
+```
+                 .git/  (contains both feat/a and fix/b)
+                   |
+                   v
+        working directory  ← can only show 1 branch
+                   ^
+        Agent A is editing feat/a
+        Agent B checks out fix/b  →  boom, A's files get overwritten
+```
+
+## Enter git worktree: one brain, many desks
+
+The idea is dead simple: **one `.git` brain, multiple working directories**. Each working directory has its own branch checked out.
+
+```bash
+# Standing in myproject/ (on main)
+git worktree add ../myproject--feat-a feat/task-a
+git worktree add ../myproject--fix-b  fix/task-b
+```
+
+What you get on disk:
+
+```
+myproject/            ← the "main" worktree, on main
+├── .git/             ← the ONE and only brain, shared
+└── src/...
+
+myproject--feat-a/    ← linked worktree, on feat/task-a
+├── .git              ← note: this is a FILE, not a folder!
+└── src/...
+
+myproject--fix-b/     ← linked worktree, on fix/task-b
+├── .git              ← also a file
+└── src/...
+```
+
+## How it works under the hood
+
+This is the best part. The `.git` **file** in a linked worktree contains exactly one line:
+
+```
+gitdir: /Users/you/myproject/.git/worktrees/myproject--feat-a
+```
+
+It's a **pointer** back to the main repo. Here's what happens when you run a Git command inside a linked worktree:
+
+```
+1. You run `git commit` inside myproject--feat-a/
+        |
+        v
+2. Git reads the .git file → sees "gitdir: ..." → knows where the real brain is
+        |
+        v
+3. Git uses this worktree's OWN HEAD
+   (stored at .git/worktrees/myproject--feat-a/HEAD)
+        |
+        v
+4. The commit is written to the SHARED object database (.git/objects)
+        |
+        v
+5. Every other worktree sees that commit immediately
+   (no push/pull needed — it's the same brain)
+```
+
+In other words: each worktree gets its **own HEAD, its own index (staging area), and its own working files** — but **commits, branches, history, and stash objects are all shared**. Commit in worktree A, then run `git log feat/task-a` in worktree B — it's right there.
+
+A mental model that stuck with me: `.git` is a **central filing cabinet**, and each worktree is a **desk**. Three people sit at three desks, each with a different folder of documents spread out — but everything gets filed back into the same cabinet.
+
+## The commands you actually need
+
+```bash
+# Create a worktree, checking out an existing branch
+git worktree add ../myproject--feat-a feat/task-a
+
+# Create a worktree AND a new branch in one go (the one I use most)
+git worktree add -b feat/task-c ../myproject--feat-c main
+
+# List all worktrees
+git worktree list
+# /Users/you/myproject           abc1234 [main]
+# /Users/you/myproject--feat-a   def5678 [feat/task-a]
+
+# Remove a worktree when done (the BRANCH survives, only the folder goes)
+git worktree remove ../myproject--feat-a
+
+# Clean up metadata if you rm -rf'ed a worktree by hand
+git worktree prune
+```
+
+## The payoff: parallel AI agents on one repo
+
+Back to the original problem. With worktrees, running multiple coding agents in parallel becomes trivial:
+
+```bash
+git worktree add -b feat/task-a ../myproject--feat-a main
+git worktree add -b fix/task-b  ../myproject--fix-b  main
+```
+
+Then open one agent session (Claude Code, Cursor, whatever you use) **per worktree**. Each agent:
+
+- works in its own directory — no file collisions,
+- commits to its own branch — no HEAD fights,
+- and everything lands in the same repo — so you review, merge, and open PRs as usual.
+
+Some tools even automate this: Claude Code, for instance, can spawn subagents with worktree isolation — it creates a temporary worktree per agent and cleans it up automatically if nothing changed.
+
+When a task is done: merge or open a PR from its branch, then `git worktree remove` the folder. Done.
+
+## Gotchas worth knowing
+
+- **A branch can only be checked out in ONE worktree at a time.** If `main` is open in your main worktree, `git worktree add ... main` fails immediately. This is a feature, not a bug — two directories editing one branch would corrupt each other's HEAD.
+- **Only Git-tracked files are shared.** `node_modules/`, `.env`, build caches — anything ignored or untracked lives outside Git, so every worktree needs its own `npm install` and its own copy (or symlink) of `.env`. This is the biggest hidden cost for JS projects.
+- **Remove with `git worktree remove`**, not `rm -rf`. If you already deleted it by hand, run `git worktree prune` to clean up the leftover metadata.
+- **Worktree ≠ clone.** A clone copies the whole brain — more disk, separate history, and you need push/pull to sync. Worktrees share one brain: lighter, and commits are visible across worktrees instantly.
+- Push, pull, and PRs work normally from any worktree — the remote config is shared too.
+
+## Wrap-up
+
+- **One `.git`, many desks** — each worktree is an independent directory with its own HEAD and branch, sharing all history.
+- It's the clean answer to "N agents (or N tasks) in parallel on one repo": one worktree + one branch per task, nobody overwrites anybody.
+- Remember the hidden cost: dependencies and ignored files must be set up per worktree.
+
+If you've been juggling `git stash` + `checkout` every time something urgent interrupts your feature work — try a worktree instead. Your half-finished changes stay exactly where you left them, on their own desk.

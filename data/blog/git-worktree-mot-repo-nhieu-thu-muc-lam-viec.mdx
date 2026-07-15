@@ -1,0 +1,154 @@
+---
+title: 'Git worktree: một repo, nhiều thư mục làm việc'
+lang: 'vi'
+translationOf: 'git-worktree-one-repo-many-working-directories'
+date: '2026-07-15'
+draft: false
+summary: 'Cách git worktree cho phép checkout nhiều nhánh cùng lúc — và vì sao nó trở thành thứ không thể thiếu khi mình muốn chạy nhiều AI coding agent song song trên một repo.'
+tags: ['git', 'git-worktree', 'git-workflows', 'ai-agents']
+authors: ['default']
+---
+
+Gần đây mình gặp một bài toán thế này: muốn chạy 2–3 việc **song song** trên cùng một project — mỗi việc giao cho một AI coding agent, mỗi agent làm trên một nhánh riêng. Nghe rất hợp lý, cho đến khi bạn nhận ra mỗi agent đều muốn `git checkout` nhánh của nó... trong cùng một thư mục. Agent B vừa checkout nhánh của mình là toàn bộ file agent A đang sửa bị đè ngay lập tức.
+
+Hoá ra Git đã giải quyết bài toán này từ nhiều năm trước, bằng một tính năng mà phần lớn dev chưa từng đụng tới: **`git worktree`**.
+
+## Git bình thường hoạt động thế nào (và vì sao có vấn đề)
+
+Khi bạn clone một repo, bạn có một thư mục như thế này:
+
+```
+myproject/
+├── .git/          ← "bộ não": toàn bộ history, branches, commits, objects
+├── src/           ← "working directory": các file bạn đang nhìn thấy & sửa
+├── package.json
+└── ...
+```
+
+Điểm mấu chốt: **`.git/` chứa TẤT CẢ các nhánh**, nhưng working directory chỉ hiển thị được **một nhánh tại một thời điểm** — chính là nhánh mà `HEAD` đang trỏ tới.
+
+Khi bạn chạy `git checkout feat/task-b`, Git không "chuyển bạn sang chỗ khác" — nó **viết đè** các file trong working directory bằng snapshot của nhánh `feat/task-b`. Đây chính là lý do 2 agent (hay 2 phiên bản của chính bạn) không thể làm 2 nhánh cùng lúc trong 1 thư mục:
+
+```
+                 .git/  (chứa cả feat/a lẫn fix/b)
+                   |
+                   v
+        working directory  ← chỉ show được 1 nhánh
+                   ^
+        Agent A đang sửa feat/a
+        Agent B checkout fix/b  →  bùm, file của A bị đè
+```
+
+## Git worktree: một bộ não, nhiều bàn làm việc
+
+Ý tưởng cực kỳ đơn giản: **một bộ não `.git`, nhiều working directory**. Mỗi working directory checkout một nhánh riêng.
+
+```bash
+# Đang đứng ở myproject/ (nhánh main)
+git worktree add ../myproject--feat-a feat/task-a
+git worktree add ../myproject--fix-b  fix/task-b
+```
+
+Kết quả trên ổ đĩa:
+
+```
+myproject/            ← worktree "chính", đang ở main
+├── .git/             ← bộ não DUY NHẤT, dùng chung
+└── src/...
+
+myproject--feat-a/    ← worktree phụ, đang ở feat/task-a
+├── .git              ← chú ý: đây là 1 FILE, không phải folder!
+└── src/...
+
+myproject--fix-b/     ← worktree phụ, đang ở fix/task-b
+├── .git              ← cũng là file
+└── src/...
+```
+
+## Bên trong nó hoạt động ra sao?
+
+Đây là phần hay nhất. **File** `.git` trong worktree phụ chỉ chứa đúng một dòng:
+
+```
+gitdir: /Users/you/myproject/.git/worktrees/myproject--feat-a
+```
+
+Nó là một **con trỏ** chỉ ngược về repo chính. Luồng hoạt động khi bạn chạy lệnh Git trong worktree phụ:
+
+```
+1. Bạn chạy `git commit` trong myproject--feat-a/
+        |
+        v
+2. Git đọc file .git → thấy "gitdir: ..." → biết bộ não thật nằm ở đâu
+        |
+        v
+3. Git dùng HEAD RIÊNG của worktree này
+   (lưu tại .git/worktrees/myproject--feat-a/HEAD)
+        |
+        v
+4. Commit được ghi vào object database CHUNG (.git/objects)
+        |
+        v
+5. Mọi worktree khác NHÌN THẤY commit này ngay lập tức
+   (không cần push/pull gì cả — vì chung một bộ não)
+```
+
+Nói cách khác: mỗi worktree có **HEAD riêng, index (staging area) riêng, working files riêng** — nhưng **commits, branches, history, stash objects đều dùng chung**. Commit ở worktree A, sang worktree B chạy `git log feat/task-a` là thấy liền.
+
+Một cách hình dung mà mình rất thích: `.git` là **một tủ hồ sơ trung tâm**, còn mỗi worktree là **một bàn làm việc**. Ba người ngồi ba bàn, mỗi bàn trải một bộ hồ sơ khác nhau ra làm — nhưng làm xong đều cất về cùng một tủ.
+
+## Những lệnh thực sự cần dùng
+
+```bash
+# Tạo worktree, checkout một nhánh có sẵn
+git worktree add ../myproject--feat-a feat/task-a
+
+# Tạo worktree + tạo nhánh mới trong một lệnh (mình dùng cái này nhiều nhất)
+git worktree add -b feat/task-c ../myproject--feat-c main
+
+# Xem danh sách các worktree
+git worktree list
+# /Users/you/myproject           abc1234 [main]
+# /Users/you/myproject--feat-a   def5678 [feat/task-a]
+
+# Xoá worktree khi xong việc (NHÁNH vẫn còn, chỉ mất thư mục)
+git worktree remove ../myproject--feat-a
+
+# Dọn metadata nếu lỡ rm -rf thư mục bằng tay
+git worktree prune
+```
+
+## Thành quả: chạy AI agent song song trên một repo
+
+Quay lại bài toán ban đầu. Với worktree, chạy nhiều coding agent song song trở nên đơn giản đến bất ngờ:
+
+```bash
+git worktree add -b feat/task-a ../myproject--feat-a main
+git worktree add -b fix/task-b  ../myproject--fix-b  main
+```
+
+Rồi mở một agent session (Claude Code, Cursor, tool nào bạn dùng cũng được) **cho mỗi worktree**. Mỗi agent:
+
+- làm việc trong thư mục riêng — không đè file của nhau,
+- commit vào nhánh riêng — không tranh nhau HEAD,
+- và mọi thứ đều nằm trong cùng một repo — nên review, merge, mở PR như bình thường.
+
+Một số tool còn tự động hoá luôn bước này: Claude Code chẳng hạn, có thể spawn subagent với worktree isolation — nó tự tạo worktree tạm cho mỗi agent và tự dọn nếu không có thay đổi gì.
+
+Xong việc nào: merge hoặc mở PR từ nhánh đó, rồi `git worktree remove` thư mục. Gọn.
+
+## Mấy cái dễ vấp (gotchas)
+
+- **Một nhánh chỉ được checkout ở MỘT worktree tại một thời điểm.** Nếu `main` đang mở ở worktree chính, lệnh `git worktree add ... main` sẽ fail ngay. Đây là feature chứ không phải bug — hai thư mục cùng sửa một nhánh sẽ làm loạn HEAD của nhau.
+- **Chỉ những gì Git quản lý mới được chia sẻ.** `node_modules/`, `.env`, build cache — mọi thứ ignored hoặc untracked đều nằm ngoài Git, nên mỗi worktree phải tự `npm install`, tự copy (hoặc symlink) `.env`. Đây là chi phí ẩn lớn nhất với project JS.
+- **Xoá bằng `git worktree remove`**, đừng `rm -rf` tay. Lỡ xoá tay rồi thì chạy `git worktree prune` để Git dọn metadata còn sót.
+- **Worktree ≠ clone.** Clone là copy cả bộ não — tốn disk hơn, history tách rời, phải push/pull để sync. Worktree dùng chung một bộ não: nhẹ hơn nhiều, và commit thấy nhau ngay lập tức.
+- Push, pull, mở PR từ worktree nào cũng bình thường — remote config cũng dùng chung.
+
+## Tóm lại
+
+- **Một `.git`, nhiều bàn làm việc** — mỗi worktree là một thư mục độc lập với HEAD và nhánh riêng, nhưng chung toàn bộ history.
+- Đây là lời giải gọn gàng cho bài toán "N agent (hay N việc) song song trên một repo": mỗi việc một worktree + một nhánh, không ai đè file của ai.
+- Nhớ chi phí ẩn: dependencies và file ignored phải setup lại cho từng worktree.
+
+Nếu bạn vẫn đang vật lộn với combo `git stash` + `checkout` mỗi lần có việc gấp chen ngang — thử worktree đi. Đống thay đổi dở dang của bạn vẫn nằm nguyên chỗ cũ, trên chiếc bàn riêng của nó.
