@@ -17,6 +17,16 @@ export function isPublished<T extends Draftable>(entry: T): boolean {
   return entry.data.draft !== true
 }
 
+type Translatable = { data: { translationOf?: string } }
+
+/**
+ * Primary-language entries only — lists (index, home, feed, tags) show these;
+ * translations are reachable via the language switcher on the detail page.
+ */
+export function isPrimary<T extends Translatable>(entry: T): boolean {
+  return !entry.data.translationOf
+}
+
 function byDateDesc(
   a: { data: { date: Date } },
   b: { data: { date: Date } },
@@ -54,7 +64,7 @@ export async function getTagCounts(): Promise<Record<string, number>> {
     getPublishedSnippets(),
   ])
   const counts: Record<string, number> = {}
-  for (const entry of [...posts, ...snippets]) {
+  for (const entry of [...posts.filter(isPrimary), ...snippets]) {
     for (const tag of entry.data.tags) {
       const s = ghSlug(tag)
       counts[s] = (counts[s] ?? 0) + 1
@@ -72,7 +82,7 @@ export async function getContentByTag(tag: string) {
   const hasTag = (entry: { data: { tags: string[] } }) =>
     entry.data.tags.map((t) => ghSlug(t)).includes(tag)
   return {
-    posts: posts.filter(hasTag),
+    posts: posts.filter(isPrimary).filter(hasTag),
     snippets: snippets.filter(hasTag),
   }
 }

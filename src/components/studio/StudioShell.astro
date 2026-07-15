@@ -30,9 +30,9 @@ const [posts, snippets, miscNotes] = await Promise.all([
   getCollection('snippets', isPublished),
   getCollection('misc', isPublished),
 ])
-const latestPost = posts.sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
-)[0]
+const latestPost = posts
+  .filter((p) => !p.data.translationOf)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())[0]
 const latestSnippet = snippets.sort((a, b) => b.id.localeCompare(a.id))[0]
 const latestMisc = miscNotes.sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),

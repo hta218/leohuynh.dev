@@ -36,6 +36,11 @@ const blog = defineCollection({
   loader: glob({ pattern: '**/*.mdx', base: './data/blog' }),
   schema: z.object({
     title: z.string(),
+    lang: z.enum(['en', 'vi']).default('en'),
+    // Id of the primary-language post this is a translation of. Unset on the
+    // canonical post; lists (index, home, feed, tags) show only posts where
+    // this is unset — translations are reachable via the language switcher.
+    translationOf: z.string().optional(),
     ...sharedFields,
   }),
 })

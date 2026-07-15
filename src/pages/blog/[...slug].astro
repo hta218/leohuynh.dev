@@ -15,12 +15,20 @@ import BaseLayout from '~/layouts/BaseLayout.astro'
 // Slug parity: id = filename (no nested dirs) → `/blog/<slug>` exactly as legacy.
 export async function getStaticPaths() {
   const posts = await getCollection('blog', isPublished)
-  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }))
+  return posts.map((post) => {
+    const primaryId = post.data.translationOf ?? post.id
+    // Every language variant of the same post: the primary + anything that
+    // points back to it via `translationOf`.
+    const translations = posts
+      .filter((p) => p.id === primaryId || p.data.translationOf === primaryId)
+      .sort((a, b) => a.data.lang.localeCompare(b.data.lang))
+    return { params: { slug: post.id }, props: { post, translations } }
+  })
 }
 
-const { post } = Astro.props
+const { post, translations } = Astro.props
 const { Content } = await render(post)
-const { title, summary, seoTitle, seoDescription, date, lastmod, tags, images, canonicalUrl } =
+const { title, summary, seoTitle, seoDescription, date, lastmod, tags, images, canonicalUrl, lang } =
   post.data
 const metaTitle = seoTitle ?? title
 const metaDescription = seoDescription ?? summary
@@ -42,7 +50,7 @@ const jsonLd = [
     datePublished: date.toISOString(),
     dateModified: lastmod ? new Date(lastmod).toISOString() : undefined,
     keywords: tags,
-    inLanguage: 'en',
+    inLanguage: lang,
   }),
   breadcrumbJsonLd([
     { name: 'Home', url: SITE.siteUrl },
@@ -50,6 +58,26 @@ const jsonLd = [
     { name: title, url: canonical },
   ]),
 ]
+
+// hreflang alternates so search engines know these pages are translations
+// of each other, not unrelated/duplicate content. `x-default` falls back to
+// the primary (non-translated) post.
+const alternates =
+  translations.length > 1
+    ? [
+        ...translations.map((t) => ({
+          hreflang: t.data.lang,
+          href: new URL(`/blog/${t.id}`, SITE.siteUrl).href,
+        })),
+        {
+          hreflang: 'x-default',
+          href: new URL(
+            `/blog/${translations.find((t) => !t.data.translationOf)?.id ?? post.id}`,
+            SITE.siteUrl,
+          ).href,
+        },
+      ]
+    : []
 ---
 
 <BaseLayout
@@ -60,6 +88,8 @@ const jsonLd = [
   ogType="article"
   publishedTime={date.toISOString()}
   modifiedTime={lastmod ? new Date(lastmod).toISOString() : undefined}
+  lang={lang}
+  alternates={alternates}
 >
   <Fragment slot="head">
     {jsonLd.map((data) => <JsonLd data={data} />)}
@@ -85,6 +115,26 @@ const jsonLd = [
               #{tag}
             </a>
           ))
+        }
+        {
+          translations.length > 1 && (
+            <span class="ml-auto flex items-center gap-0.5 rounded-full border border-line bg-panel2 p-0.5">
+              {translations.map((t) =>
+                t.id === post.id ? (
+                  <span class="rounded-full bg-ink px-2.5 py-1 uppercase tracking-wide text-bg">
+                    {t.data.lang}
+                  </span>
+                ) : (
+                  <a
+                    href={`/blog/${t.id}`}
+                    class="rounded-full px-2.5 py-1 uppercase tracking-wide text-muted no-underline transition-colors hover:text-ink"
+                  >
+                    {t.data.lang}
+                  </a>
+                ),
+              )}
+            </span>
+          )
         }
       </div>
       <Content components={{ Twemoji }} />

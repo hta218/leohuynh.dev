@@ -11,9 +11,9 @@ import { siteJsonLd } from '~/lib/seo'
 
 const isPublished = (d: { data: { draft?: boolean } }) => d.data.draft !== true
 
-const posts = (await getCollection('blog', isPublished)).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
-)
+const posts = (await getCollection('blog', isPublished))
+  .filter((p) => !p.data.translationOf)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
 const latest = posts.slice(0, 3)
 
 const dateFmt = new Intl.DateTimeFormat('en-CA') // YYYY-MM-DD

@@ -1,6 +1,10 @@
 import rss from '@astrojs/rss'
 import type { APIContext } from 'astro'
-import { getPublishedBlog, getPublishedSnippets } from '~/lib/content'
+import {
+  getPublishedBlog,
+  getPublishedSnippets,
+  isPrimary,
+} from '~/lib/content'
 import { SITE } from '~/lib/site'
 
 /**
@@ -15,7 +19,9 @@ export async function GET(context: APIContext) {
   ])
 
   const items = [
-    ...posts.map((p) => ({ entry: p, link: `/blog/${p.id}` })),
+    ...posts
+      .filter(isPrimary)
+      .map((p) => ({ entry: p, link: `/blog/${p.id}` })),
     ...snippets.map((s) => ({ entry: s, link: `/gists/${s.id}` })),
   ].sort((a, b) => b.entry.data.date.valueOf() - a.entry.data.date.valueOf())
 
