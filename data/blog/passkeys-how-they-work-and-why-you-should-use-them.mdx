@@ -1,0 +1,81 @@
+---
+title: 'Passkeys: what they are, how they work, and why you should use them'
+lang: 'en'
+date: '2026-07-17'
+draft: false
+summary: 'A passkey is passwordless login: the website keeps a lock (public key), your device keeps the key (private key). The mechanism explained simply, and why you should turn it on.'
+tags: ['passkey', 'webauthn', 'security', 'authentication']
+authors: ['default']
+---
+
+## What is a passkey?
+
+A passkey is **a way to sign in without a password**. Instead of remembering a string of characters and typing it in, your device (phone, laptop) holds a "digital key", and you unlock it with Face ID / fingerprint / your device PIN.
+
+A simple analogy:
+
+> A **password** is like a safe combination — anyone who overhears it can open the safe.
+>
+> A **passkey** is like a physical key in your pocket — the website only keeps the **lock**, never the key. Even if thieves raid the entire website, all they get is a pile of locks. Useless.
+
+Technically, passkeys are built on **asymmetric cryptography** (a public/private key pair) using the WebAuthn/FIDO2 standard — the one standard Apple, Google, and Microsoft all share.
+
+## How it works
+
+**Registration (creating a passkey):**
+
+1. You click "Create passkey" on a website (say, github.com).
+2. Your device generates a **key pair**: a private key and a public key.
+3. **The private key stays on your device** — inside the secure chip (Secure Enclave). It never leaves, and even you can't see it.
+4. **The public key is sent to the server** — that's all the server ever stores.
+
+**Signing in:**
+
+```
+  You click "Sign in with passkey"
+        |
+        v
+  The server sends down a "challenge"
+  (a random string, different every time)
+        |
+        v
+  Your device asks for Face ID / fingerprint
+  → confirms it's really you sitting there
+        |
+        v
+  The device signs the challenge with the PRIVATE KEY
+  → producing a digital signature
+        |
+        v
+  The signature is sent to the server
+        |
+        v
+  The server verifies it with the PUBLIC KEY
+  → it matches = right person → you're signed in
+```
+
+The key point: you **prove you have the key without handing it to anyone**. No "password" ever travels over the network — only a signature of a single-use random string.
+
+As for multiple devices: passkeys sync via iCloud Keychain (Apple) or Google Password Manager, so one created on your iPhone works on your MacBook too. On an unfamiliar machine, you scan a QR code with your phone and you're in.
+
+## Why use it?
+
+1. **A hacked server doesn't matter.** The server only stores your public key — a thing that's public by design. There's no password hash to leak, nothing to crack. Breaches that spill hundreds of millions of passwords, LinkedIn/Yahoo style, become meaningless against passkeys.
+
+2. **Immune to phishing — this is the killer feature.** A passkey is hard-bound to the exact domain that created it. If you land on a fake page like `github-login.evil.com`, the browser simply finds no passkey for that domain — there's nothing to trick you into typing. With a password you can still be fooled into typing it by hand; with a passkey it's technically impossible.
+
+3. **Nothing to remember, no reuse.** One key pair per site, managed by your device. No more sharing one password across 20 sites — where one leak torches all 20.
+
+4. **Faster, and it replaces 2FA.** One Face ID tap and you're done — no typing a password and waiting for an OTP code. A passkey is already two factors in one: something you **have** (the device) + something you **are** (biometrics).
+
+## One thing to keep in mind
+
+If you lose all your devices and sync wasn't on, you can lose your passkeys — which is why most sites still keep a recovery path (email, backup codes). It's also why, for now, passkeys usually live alongside passwords rather than replacing them outright.
+
+## Wrap-up
+
+- The server only keeps the lock (public key); the key (private key) never leaves your device.
+- Signing in means signing a challenge — no secret is ever sent.
+- Passkeys are bound to their domain, so phishing gets nothing.
+
+Next time a website offers to create a passkey, just turn it on.

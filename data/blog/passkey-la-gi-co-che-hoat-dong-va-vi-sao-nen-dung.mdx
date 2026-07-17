@@ -1,0 +1,82 @@
+---
+title: 'Passkey là gì, hoạt động ra sao, và vì sao nên dùng'
+lang: 'vi'
+translationOf: 'passkeys-how-they-work-and-why-you-should-use-them'
+date: '2026-07-17'
+draft: false
+summary: 'Passkey là cách đăng nhập không cần mật khẩu: website giữ ổ khóa (public key), thiết bị của bạn giữ chìa (private key). Giải thích cơ chế thật đơn giản và lý do nên bật nó lên.'
+tags: ['passkey', 'webauthn', 'security', 'authentication']
+authors: ['default']
+---
+
+## Passkey là gì?
+
+Passkey là **cách đăng nhập không cần mật khẩu**. Thay vì bạn nhớ một chuỗi ký tự rồi gõ vào, thiết bị của bạn (điện thoại, laptop) giữ một "chìa khóa số", và bạn mở nó bằng Face ID / vân tay / PIN của máy.
+
+Ví von cho dễ hiểu:
+
+> **Password** giống như mật khẩu két sắt — ai nghe lỏm được là mở được két.
+>
+> **Passkey** giống như chìa khóa vật lý nằm trong túi bạn — website chỉ giữ cái **ổ khóa**, không giữ chìa. Kẻ trộm có cướp được cả website cũng chỉ lấy được một đống ổ khóa, vô dụng.
+
+Về kỹ thuật, passkey dựa trên **mã hóa bất đối xứng** (cặp khóa public/private) theo chuẩn WebAuthn/FIDO2 — chuẩn chung mà Apple, Google, Microsoft cùng dùng.
+
+## Cơ chế hoạt động
+
+**Lúc đăng ký (tạo passkey):**
+
+1. Bạn bấm "Create passkey" trên website (ví dụ github.com).
+2. Thiết bị của bạn tự sinh ra một **cặp khóa**: private key và public key.
+3. **Private key ở lại trong máy bạn** — nằm trong chip bảo mật (Secure Enclave), không bao giờ rời khỏi thiết bị, kể cả bạn cũng không nhìn thấy nó.
+4. **Public key được gửi lên server** — server chỉ lưu cái này.
+
+**Lúc đăng nhập:**
+
+```
+  Bạn bấm "Sign in with passkey"
+        |
+        v
+  Server gửi xuống một "challenge"
+  (chuỗi ngẫu nhiên, mỗi lần một khác)
+        |
+        v
+  Máy bạn hỏi Face ID / vân tay
+  → xác nhận đúng là bạn đang ngồi đó
+        |
+        v
+  Máy dùng PRIVATE KEY ký lên challenge
+  → tạo ra một chữ ký số
+        |
+        v
+  Chữ ký gửi lên server
+        |
+        v
+  Server dùng PUBLIC KEY kiểm tra chữ ký
+  → khớp = đúng người → đăng nhập thành công
+```
+
+Điểm mấu chốt: bạn **chứng minh mình có chìa khóa mà không cần đưa chìa khóa cho ai**. Không có "mật khẩu" nào chạy qua mạng cả — chỉ có chữ ký của một chuỗi ngẫu nhiên dùng một lần.
+
+Còn chuyện nhiều thiết bị: passkey được đồng bộ qua iCloud Keychain (Apple) hoặc Google Password Manager, nên tạo trên iPhone thì MacBook cũng dùng được. Khi đăng nhập trên máy lạ, bạn quét QR code bằng điện thoại là xong.
+
+## Tại sao nên dùng?
+
+1. **Server bị hack cũng không sao.** Server chỉ lưu public key — thứ vốn dĩ công khai. Không có password hash nào để leak, không có gì để crack. Các vụ lộ hàng trăm triệu mật khẩu kiểu LinkedIn/Yahoo trở nên vô nghĩa với passkey.
+
+2. **Miễn nhiễm phishing — đây là điểm ăn tiền nhất.** Passkey bị "khóa cứng" vào đúng domain tạo ra nó. Nếu bạn vào trang giả `github-login.evil.com`, trình duyệt đơn giản là không tìm thấy passkey nào cho domain đó — không có gì để lừa bạn gõ vào. Với password, bạn vẫn có thể bị lừa gõ tay; với passkey thì về mặt kỹ thuật là không thể.
+
+3. **Không phải nhớ gì, không reuse.** Mỗi site một cặp khóa riêng, máy tự quản lý. Hết cảnh dùng chung một password cho 20 trang — lộ một trang là toang cả 20.
+
+4. **Nhanh hơn và thay luôn 2FA.** Một lần chạm Face ID là xong, không cần gõ password rồi chờ mã OTP. Bản thân passkey đã là 2 yếu tố gộp lại: thứ bạn **có** (thiết bị) + thứ bạn **là** (sinh trắc học).
+
+## Điểm cần lưu ý
+
+Nếu mất hết thiết bị và không bật đồng bộ, bạn có thể mất passkey — nên hầu hết các site vẫn giữ phương án khôi phục (email, backup codes). Đây cũng là lý do giai đoạn này passkey thường tồn tại song song với password chứ chưa thay thế hẳn.
+
+## Tóm lại
+
+- Server chỉ giữ ổ khóa (public key), chìa (private key) không bao giờ rời máy bạn.
+- Đăng nhập là ký challenge chứ không gửi bí mật.
+- Passkey gắn chặt domain nên phishing bó tay.
+
+Lần tới thấy website nào mời tạo passkey, cứ bật lên.
