@@ -1,4 +1,5 @@
 import { refreshSpotify } from './spotify'
+import { preserveSpotifyWave } from './spotify-wave'
 
 export const SPOTIFY_REFRESH_INTERVAL = 15 * 1000
 
@@ -83,5 +84,6 @@ const browserSpotifySync = createSpotifySync(
 )
 
 export function syncSpotify() {
+  preserveSpotifyWave()
   browserSpotifySync.start()
 }
