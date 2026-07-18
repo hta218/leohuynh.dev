@@ -69,6 +69,7 @@ async function getSpotifyAccessToken(): Promise<string | null> {
 
   const response = await fetch(TOKEN_ENDPOINT, {
     method: 'POST',
+    cache: 'no-store',
     headers: {
       Authorization: `Basic ${Buffer.from(`${clientId}:${clientSecret}`).toString('base64')}`,
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -95,6 +96,7 @@ export async function fetchSpotifyStatus(): Promise<SpotifyPayload> {
     currentUrl.searchParams.set('additional_types', 'track,episode')
 
     const current = await fetch(currentUrl, {
+      cache: 'no-store',
       headers: { Authorization: `Bearer ${accessToken}` },
       signal: timeoutSignal(),
     })
@@ -113,6 +115,7 @@ export async function fetchSpotifyStatus(): Promise<SpotifyPayload> {
     }
 
     const recent = await fetch(RECENTLY_PLAYED_ENDPOINT, {
+      cache: 'no-store',
       headers: { Authorization: `Bearer ${accessToken}` },
       signal: timeoutSignal(),
     })

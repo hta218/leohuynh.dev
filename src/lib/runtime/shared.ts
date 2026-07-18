@@ -27,3 +27,10 @@ export function jsonHeaders(ttl = 60): HeadersInit {
     'cache-control': `public, s-maxage=${ttl}, stale-while-revalidate=${ttl * 10}`,
   }
 }
+
+export function noStoreJsonHeaders(): HeadersInit {
+  return {
+    'content-type': 'application/json; charset=utf-8',
+    'cache-control': 'private, no-store, max-age=0',
+  }
+}
