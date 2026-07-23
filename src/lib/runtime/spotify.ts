@@ -21,6 +21,11 @@ interface SpotifyApiItem {
   show?: { name?: string; images?: SpotifyApiImage[] }
 }
 
+interface SpotifyAccessTokenResult {
+  accessToken?: string
+  error?: string
+}
+
 function unavailableSpotify(
   error = 'Spotify credentials are not configured.',
 ): SpotifyPayload {
@@ -60,12 +65,31 @@ function normalizeTrack(
   return undefined
 }
 
-async function getSpotifyAccessToken(): Promise<string | null> {
+export async function spotifyTokenFailureMessage(
+  response: Response,
+): Promise<string> {
+  if (response.status === 400) {
+    const data = await response
+      .clone()
+      .json()
+      .catch(() => null)
+
+    if (data?.error === 'invalid_grant') {
+      return 'Spotify authorization needs to be renewed.'
+    }
+  }
+
+  return 'Spotify token refresh failed.'
+}
+
+async function getSpotifyAccessToken(): Promise<SpotifyAccessTokenResult> {
   const clientId = env('SPOTIFY_CLIENT_ID')
   const clientSecret = env('SPOTIFY_CLIENT_SECRET')
   const refreshToken = env('SPOTIFY_REFRESH_TOKEN')
 
-  if (!clientId || !clientSecret || !refreshToken) return null
+  if (!clientId || !clientSecret || !refreshToken) {
+    return { error: 'Spotify credentials are not configured.' }
+  }
 
   const response = await fetch(TOKEN_ENDPOINT, {
     method: 'POST',
@@ -81,23 +105,27 @@ async function getSpotifyAccessToken(): Promise<string | null> {
     signal: timeoutSignal(),
   })
 
-  if (!response.ok) return null
+  if (!response.ok) {
+    return { error: await spotifyTokenFailureMessage(response) }
+  }
 
   const data = (await response.json()) as { access_token?: string }
-  return data.access_token ?? null
+  if (!data.access_token) return { error: 'Spotify token refresh failed.' }
+
+  return { accessToken: data.access_token }
 }
 
 export async function fetchSpotifyStatus(): Promise<SpotifyPayload> {
   try {
-    const accessToken = await getSpotifyAccessToken()
-    if (!accessToken) return unavailableSpotify()
+    const token = await getSpotifyAccessToken()
+    if (!token.accessToken) return unavailableSpotify(token.error)
 
     const currentUrl = new URL(CURRENTLY_PLAYING_ENDPOINT)
     currentUrl.searchParams.set('additional_types', 'track,episode')
 
     const current = await fetch(currentUrl, {
       cache: 'no-store',
-      headers: { Authorization: `Bearer ${accessToken}` },
+      headers: { Authorization: ['Bearer', token.accessToken].join(' ') },
       signal: timeoutSignal(),
     })
 
@@ -116,7 +144,7 @@ export async function fetchSpotifyStatus(): Promise<SpotifyPayload> {
 
     const recent = await fetch(RECENTLY_PLAYED_ENDPOINT, {
       cache: 'no-store',
-      headers: { Authorization: `Bearer ${accessToken}` },
+      headers: { Authorization: ['Bearer', token.accessToken].join(' ') },
       signal: timeoutSignal(),
     })
 
