@@ -1,75 +1,146 @@
 ---
-heading: 'Display your currently playing Spotify track'
-title: 'Display your currently playing Spotify track'
+heading: 'Display Spotify currently playing track'
+title: "How to work with Spotify's API to display currently playing track on a website?"
 date: '2023-04-06'
-lastmod: '2026-07-23'
 icon: 'Spotify'
 draft: false
-summary: 'Generate a Spotify refresh token and use it to display your currently playing track.'
-tags: [spotify, nowplaying, spotify-api, oauth]
+summary: 'Retrieve a Spotify access token to display the currently playing track on your website or application.'
+tags: [spotify, nowplaying, spotify-api, nextjs]
 ---
 
-You need three server-side values to display your currently playing Spotify track:
-
-- `SPOTIFY_CLIENT_ID`
-- `SPOTIFY_CLIENT_SECRET`
-- `SPOTIFY_REFRESH_TOKEN`
+If you want to display your Spotify now playing track on your website, you need to get a token from Spotify.
+This token will be used to get the track information from Spotify API.
 
 ## Create a Spotify app
 
-Create an app in the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard), then add an HTTPS redirect URI such as:
+First, you need to create a Spotify app to get the credentials in order to generate the token.
 
-```text
-https://example.com
+- Go to [Spotify for Developers](https://developer.spotify.com/dashboard/applications) and login with your Spotify account.
+- Click on **Create app** button.
+- Fill the form and with the app name and description.
+- Add a redirect URI. This URI will be used to redirect to your local app after the authentication. For example, `https://example.com`.
+- Click on **Create** button.
+
+After creating the app, navigate to the **Settings** page and copy the `Client ID` and `Client secret`.
+We will use these values in the next step.
+
+![Spotify App](/static/images/spotify-app.png)
+
+## Authentication
+
+Since we only need to generate the token once, we will use the [Authorization Code Flow](https://developer.spotify.com/documentation/web-api/concepts/authorization#authorization-code-flow).
+Navigate to the following URL and replace the `CLIENT_ID` with your Spotify app `Client ID`:
+
+```bash
+https://accounts.spotify.com/authorize?client_id=CLIENT_ID&response_type=code&redirect_uri=https://example.com&scope=user-read-currently-playing
 ```
 
-Replace it with a URL you control. It must match exactly in the dashboard, authorization request, and token exchange.
+Remember to use the same redirect URI that you added to your Spotify app.
+In my case, it's `https://example.com`.
 
-Open the following URL after replacing `CLIENT_ID` and the encoded redirect URI:
+![Spotify auth](/static/images/spotify-auth.png)
 
-```text
-https://accounts.spotify.com/authorize?client_id=CLIENT_ID&response_type=code&redirect_uri=https%3A%2F%2Fexample.com&scope=user-read-currently-playing%20user-read-recently-played
+After the authentication process, you will be redirected to the redirect URI with a `code` query parameter.
+The redirect URI will look like this:
+
+```bash
+https://example.com/?code=a1b2c...i9j0
 ```
 
-Approve access. Spotify will redirect you back with a short-lived `code` query parameter:
+![Spotify code](/static/images/spotify-code.png)
 
-```text
-https://example.com/?code=AQD...
-```
+Save this `code` value, we will use it in the next step.
 
-## Quick option: exchange the code in DevTools
+Next step is to send a POST request to the Spotify API to get the token. We'll simply open a new tab in the browser and send the request using the `fetch` API in the browser developer tools.
 
-This is the fastest option for a one-time personal setup. It temporarily exposes your client secret to your browser, so only use it on your own machine and browser profile. Do not use an online Base64 tool.
+Run this code in the **Console** tab of the browser developer tools:
 
-Open browser DevTools, replace the four values, and run:
+```js:spotify.js {3,18} showLineNumbers
+let data = {
+  grant_type: 'authorization_code',
+  code: 'AQB....GemX',
+  redirect_uri: 'https://example.com',
+}
 
-```js:spotify-auth.js showLineNumbers
-const clientId = 'your_spotify_client_id'
-const clientSecret = 'your_spotify_client_secret'
-const code = 'code_from_the_callback_url'
-const redirectUri = 'https://example.com'
+let formData = []
+for (let prop in data) {
+  let encodedKey = encodeURIComponent(prop)
+  let encodedValue = encodeURIComponent(data[prop])
+  formData.push(encodedKey + '=' + encodedValue)
+}
+formData = formData.join('&')
 
-const basic = btoa(`${clientId}:${clientSecret}`)
-const response = await fetch('https://accounts.spotify.com/api/token', {
+fetch('https://accounts.spotify.com/api/token', {
   method: 'POST',
   headers: {
-    Authorization: `Basic ${basic}`,
+    Authorization: 'Basic <base64 encoded client_id:client_secret>',
     'Content-Type': 'application/x-www-form-urlencoded',
   },
-  body: new URLSearchParams({
-    grant_type: 'authorization_code',
-    code,
-    redirect_uri: redirectUri,
-  }),
+  body: formData,
 })
-
-const token = await response.json()
-if (!response.ok) throw new Error(token.error_description ?? token.error)
-
-console.log(token.refresh_token)
 ```
 
-Copy the refresh token into `.env`, then clear the console:
+Replace the code in line 3 with the `code` value that you saved in the previous step.
+
+Replace the `<base64 encoded client_id:client_secret>` in line 18 with the base64 encoded value of your Spotify app `Client ID` and `Client secret`.
+You can use this [online tool](https://www.base64encode.org/) to encode the value.
+
+![Base64 encode tool](/static/images/spotify-base64-encode.png)
+
+The value format should be `client_id:client_secret`
+
+The request will return a response containing a `refresh_token`, this token is valid indefinitely unless you revoke it or you change the password of your Spotify account.
+
+## Querying the nowplaying track
+
+Now that we have the token, we can use it to fetch the now playing track from Spotify API.
+Use this code to fetch the now playing track in your node server:
+
+```js:spotify.js showLineNumbers
+import fetch from 'isomorphic-unfetch'
+
+let SPOTIFY_TOKEN_API = `https://accounts.spotify.com/api/token`
+let SPOTIFY_NOW_PLAYING_API = `https://api.spotify.com/v1/me/player/currently-playing`
+let SPOTIFY_TOP_TRACKS_API = `https://api.spotify.com/v1/me/top/tracks`
+
+let {
+  SPOTIFY_CLIENT_ID: client_id,
+  SPOTIFY_CLIENT_SECRET: client_secret,
+  SPOTIFY_REFRESH_TOKEN: refresh_token,
+} = process.env
+
+let basic = Buffer.from(`${client_id}:${client_secret}`).toString('base64')
+
+async function getAccessToken() {
+  let response = await fetch(SPOTIFY_TOKEN_API, {
+    method: 'POST',
+    headers: {
+      Authorization: `Basic ${basic}`,
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: new URLSearchParams({
+      grant_type: 'refresh_token',
+      refresh_token,
+    }),
+  })
+
+  return response.json()
+}
+
+export async function getNowPlaying() {
+  let { access_token } = await getAccessToken()
+  let url = new URL(SPOTIFY_NOW_PLAYING_API)
+  url.searchParams.append('additional_types', 'track,episode')
+
+  return fetch(url.toString(), {
+    headers: {
+      Authorization: `Bearer ${access_token}`,
+    },
+  })
+}
+```
+
+Remember to add the required environment variables to your `.env` file.
 
 ```bash:.env showLineNumbers
 SPOTIFY_CLIENT_ID=your_spotify_client_id
@@ -77,106 +148,6 @@ SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
 SPOTIFY_REFRESH_TOKEN=your_spotify_refresh_token
 ```
 
-Never commit `.env`.
+That's it! Now you can use the `getNowPlaying` function to fetch the now playing track from Spotify API.
 
-## Safer option: exchange it locally
-
-If you do not want the client secret to enter your browser, save this optional script as `spotify-auth.ts`. Bun automatically loads your local `.env` file.
-
-```ts:spotify-auth.ts showLineNumbers
-const clientId = process.env.SPOTIFY_CLIENT_ID
-const clientSecret = process.env.SPOTIFY_CLIENT_SECRET
-const redirectUri = process.env.SPOTIFY_REDIRECT_URI
-const code = prompt('Authorization code:')
-
-if (!clientId || !clientSecret || !redirectUri || !code) {
-  throw new Error('Missing Spotify credentials, redirect URI, or code')
-}
-
-const basic = Buffer.from(`${clientId}:${clientSecret}`).toString('base64')
-const response = await fetch('https://accounts.spotify.com/api/token', {
-  method: 'POST',
-  headers: {
-    Authorization: `Basic ${basic}`,
-    'Content-Type': 'application/x-www-form-urlencoded',
-  },
-  body: new URLSearchParams({
-    grant_type: 'authorization_code',
-    code,
-    redirect_uri: redirectUri,
-  }),
-})
-
-const token = (await response.json()) as {
-  error?: string
-  error_description?: string
-  refresh_token?: string
-}
-
-if (!response.ok || !token.refresh_token) {
-  throw new Error(token.error_description ?? token.error ?? 'Token exchange failed')
-}
-
-console.log(`SPOTIFY_REFRESH_TOKEN=${token.refresh_token}`)
-```
-
-Add `SPOTIFY_REDIRECT_URI` to `.env`, then run `bun spotify-auth.ts`. Paste the authorization code when prompted and copy the resulting line back into `.env`.
-
-## Query the currently playing track
-
-Use the refresh token only from server-side code:
-
-```ts:spotify.ts showLineNumbers
-const TOKEN_API = 'https://accounts.spotify.com/api/token'
-const NOW_PLAYING_API = 'https://api.spotify.com/v1/me/player/currently-playing'
-
-async function getAccessToken() {
-  const clientId = process.env.SPOTIFY_CLIENT_ID
-  const clientSecret = process.env.SPOTIFY_CLIENT_SECRET
-  const refreshToken = process.env.SPOTIFY_REFRESH_TOKEN
-
-  if (!clientId || !clientSecret || !refreshToken) {
-    throw new Error('Spotify credentials are not configured')
-  }
-
-  const basic = Buffer.from(`${clientId}:${clientSecret}`).toString('base64')
-  const response = await fetch(TOKEN_API, {
-    method: 'POST',
-    cache: 'no-store',
-    headers: {
-      Authorization: `Basic ${basic}`,
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: new URLSearchParams({
-      grant_type: 'refresh_token',
-      refresh_token: refreshToken,
-    }),
-  })
-
-  if (!response.ok) throw new Error(`Spotify token refresh failed (${response.status})`)
-
-  const token = (await response.json()) as {access_token?: string}
-  if (!token.access_token) throw new Error('Spotify returned no access token')
-
-  return token.access_token
-}
-
-export async function getNowPlaying() {
-  const accessToken = await getAccessToken()
-  const response = await fetch(`${NOW_PLAYING_API}?additional_types=track,episode`, {
-    cache: 'no-store',
-    headers: {Authorization: `Bearer ${accessToken}`},
-  })
-
-  if (response.status === 204) return null
-  if (!response.ok) throw new Error(`Spotify request failed (${response.status})`)
-
-  return response.json()
-}
-```
-
-Return this data through your own server endpoint. For live playback state, use `Cache-Control: private, no-store, max-age=0`, refresh when the page regains focus, and poll every 15–30 seconds while the widget is visible.
-
-When there is no active track, you can optionally call `/v1/me/player/recently-played?limit=1`. That fallback needs the `user-read-recently-played` scope included above.
-
-Refresh tokens can be revoked. If Spotify returns `invalid_grant`, authorize again instead of reporting the credentials as missing.
+Happy playing! <Twemoji emoji="clinking-beer-mugs" />
