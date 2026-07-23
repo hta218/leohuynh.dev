@@ -1,7 +1,7 @@
 import { updateActivity } from './activity'
 import { updateGithub } from './github/heat'
 import { fetchRuntimeJson } from './shared'
-import { refreshSpotify, SPOTIFY_REFRESH_INTERVAL } from './spotify'
+import { syncSpotify } from './spotify-sync'
 import { updateTokenBurn } from './token-burn'
 import type {
   ActivityPayload,
@@ -9,8 +9,6 @@ import type {
   GithubTodayPayload,
   TokenBurnPayload,
 } from './types'
-
-let spotifyTimer: number | null = null
 
 function hydrateGithubActivity(rail: HTMLElement) {
   if (rail.dataset.hydrated === 'true') return
@@ -50,14 +48,8 @@ function hydrateRuntimeRail() {
   hydrateGithubActivity(rail)
   // token-burn is static for the session too — fetch once, independently.
   hydrateTokenBurn(rail)
-  // Spotify is live — refresh now and keep a single interval running.
-  refreshSpotify(rail)
-  if (spotifyTimer === null) {
-    spotifyTimer = window.setInterval(() => {
-      const current = document.querySelector('#runtime-rail')
-      if (current) refreshSpotify(current)
-    }, SPOTIFY_REFRESH_INTERVAL)
-  }
+  // Spotify stays live across persisted-rail navigation and browser focus.
+  syncSpotify()
 }
 
 document.addEventListener('astro:page-load', hydrateRuntimeRail)

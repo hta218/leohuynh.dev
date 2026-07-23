@@ -19,14 +19,17 @@
 }
 
 .eq {
-  display: none;
+  display: inline-flex;
+  visibility: hidden;
+  opacity: 0;
   align-items: flex-end;
   gap: 2px;
   height: 14px;
 }
 
 .eq.is-playing {
-  display: inline-flex;
+  visibility: visible;
+  opacity: 1;
 }
 
 .eq span {
@@ -35,6 +38,11 @@
   border-radius: 9999px;
   background: #1db954;
   animation: eq 0.45s ease-in-out infinite alternate;
+  animation-play-state: paused;
+}
+
+.eq.is-playing span {
+  animation-play-state: running;
 }
 
 .eq span:nth-child(1) {

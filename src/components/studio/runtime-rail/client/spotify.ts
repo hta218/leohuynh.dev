@@ -1,8 +1,6 @@
 import { fetchRuntimeJson } from './shared'
 import type { SpotifyPayload } from './types'
 
-export const SPOTIFY_REFRESH_INTERVAL = 45 * 1000
-
 function spotifyStatusLabel(status: SpotifyPayload['status']): string {
   return status || 'unavailable'
 }
@@ -92,6 +90,8 @@ function updateSpotify(rail: Element, spotify: SpotifyPayload | null) {
 }
 
 export async function refreshSpotify(rail: Element) {
-  const spotify = await fetchRuntimeJson<SpotifyPayload>('/api/spotify.json')
+  const spotify = await fetchRuntimeJson<SpotifyPayload>('/api/spotify.json', {
+    cache: 'no-store',
+  })
   updateSpotify(rail, spotify)
 }
