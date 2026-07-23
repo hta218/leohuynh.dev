@@ -5,7 +5,7 @@ date: '2023-04-06'
 lastmod: '2026-07-23'
 icon: 'Spotify'
 draft: false
-summary: 'Generate a Spotify refresh token safely and use it to display your currently playing track.'
+summary: 'Generate a Spotify refresh token and use it to display your currently playing track.'
 tags: [spotify, nowplaying, spotify-api, oauth]
 ---
 
@@ -15,8 +15,6 @@ You need three server-side values to display your currently playing Spotify trac
 - `SPOTIFY_CLIENT_SECRET`
 - `SPOTIFY_REFRESH_TOKEN`
 
-The client ID can appear in an authorization URL. The client secret and refresh token must stay on your server or local machine.
-
 ## Create a Spotify app
 
 Create an app in the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard), then add an HTTPS redirect URI such as:
@@ -25,57 +23,75 @@ Create an app in the [Spotify Developer Dashboard](https://developer.spotify.com
 https://example.com
 ```
 
-Replace it with a URL you control. The redirect URI must match exactly in the dashboard, authorization request, and token exchange.
+Replace it with a URL you control. It must match exactly in the dashboard, authorization request, and token exchange.
 
-Create a local `.env` file and make sure it is ignored by Git:
+Open the following URL after replacing `CLIENT_ID` and the encoded redirect URI:
+
+```text
+https://accounts.spotify.com/authorize?client_id=CLIENT_ID&response_type=code&redirect_uri=https%3A%2F%2Fexample.com&scope=user-read-currently-playing%20user-read-recently-played
+```
+
+Approve access. Spotify will redirect you back with a short-lived `code` query parameter:
+
+```text
+https://example.com/?code=AQD...
+```
+
+## Quick option: exchange the code in DevTools
+
+This is the fastest option for a one-time personal setup. It temporarily exposes your client secret to your browser, so only use it on your own machine and browser profile. Do not use an online Base64 tool.
+
+Open browser DevTools, replace the four values, and run:
+
+```js:spotify-auth.js showLineNumbers
+const clientId = 'your_spotify_client_id'
+const clientSecret = 'your_spotify_client_secret'
+const code = 'code_from_the_callback_url'
+const redirectUri = 'https://example.com'
+
+const basic = btoa(`${clientId}:${clientSecret}`)
+const response = await fetch('https://accounts.spotify.com/api/token', {
+  method: 'POST',
+  headers: {
+    Authorization: `Basic ${basic}`,
+    'Content-Type': 'application/x-www-form-urlencoded',
+  },
+  body: new URLSearchParams({
+    grant_type: 'authorization_code',
+    code,
+    redirect_uri: redirectUri,
+  }),
+})
+
+const token = await response.json()
+if (!response.ok) throw new Error(token.error_description ?? token.error)
+
+console.log(token.refresh_token)
+```
+
+Copy the refresh token into `.env`, then clear the console:
 
 ```bash:.env showLineNumbers
 SPOTIFY_CLIENT_ID=your_spotify_client_id
 SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
-SPOTIFY_REDIRECT_URI=https://example.com
+SPOTIFY_REFRESH_TOKEN=your_spotify_refresh_token
 ```
 
-## Generate a refresh token
+Never commit `.env`.
 
-Do not exchange the authorization code in browser DevTools. That would expose your client secret to the browser. Base64 also does not encrypt a secret.
+## Safer option: exchange it locally
 
-Instead, save this one-time local script as `spotify-auth.ts`:
+If you do not want the client secret to enter your browser, save this optional script as `spotify-auth.ts`. Bun automatically loads your local `.env` file.
 
 ```ts:spotify-auth.ts showLineNumbers
-import { randomBytes } from 'node:crypto'
-import { createInterface } from 'node:readline/promises'
-
 const clientId = process.env.SPOTIFY_CLIENT_ID
 const clientSecret = process.env.SPOTIFY_CLIENT_SECRET
 const redirectUri = process.env.SPOTIFY_REDIRECT_URI
+const code = prompt('Authorization code:')
 
-if (!clientId || !clientSecret || !redirectUri) {
-  throw new Error('Missing Spotify values in .env')
+if (!clientId || !clientSecret || !redirectUri || !code) {
+  throw new Error('Missing Spotify credentials, redirect URI, or code')
 }
-
-const state = randomBytes(16).toString('hex')
-const authorizeUrl = new URL('https://accounts.spotify.com/authorize')
-authorizeUrl.search = new URLSearchParams({
-  client_id: clientId,
-  response_type: 'code',
-  redirect_uri: redirectUri,
-  scope: 'user-read-currently-playing user-read-recently-played',
-  state,
-}).toString()
-
-console.log(`Open this URL:\n\n${authorizeUrl}\n`)
-
-const terminal = createInterface({input: process.stdin, output: process.stdout})
-const callbackInput = await terminal.question('Paste the full callback URL: ')
-terminal.close()
-
-const callbackUrl = new URL(callbackInput)
-if (callbackUrl.searchParams.get('state') !== state) {
-  throw new Error('Invalid OAuth state')
-}
-
-const code = callbackUrl.searchParams.get('code')
-if (!code) throw new Error('Missing authorization code')
 
 const basic = Buffer.from(`${clientId}:${clientSecret}`).toString('base64')
 const response = await fetch('https://accounts.spotify.com/api/token', {
@@ -91,32 +107,20 @@ const response = await fetch('https://accounts.spotify.com/api/token', {
   }),
 })
 
-if (!response.ok) {
-  throw new Error(`Spotify token exchange failed (${response.status})`)
+const token = (await response.json()) as {
+  error?: string
+  error_description?: string
+  refresh_token?: string
 }
 
-const token = (await response.json()) as {refresh_token?: string}
-if (!token.refresh_token) throw new Error('Spotify did not return a refresh token')
+if (!response.ok || !token.refresh_token) {
+  throw new Error(token.error_description ?? token.error ?? 'Token exchange failed')
+}
 
-const env = await Bun.file('.env').text()
-const refreshToken = `SPOTIFY_REFRESH_TOKEN=${JSON.stringify(token.refresh_token)}`
-const nextEnv = /^SPOTIFY_REFRESH_TOKEN=.*$/m.test(env)
-  ? env.replace(/^SPOTIFY_REFRESH_TOKEN=.*$/m, refreshToken)
-  : `${env.trimEnd()}\n${refreshToken}\n`
-
-await Bun.write('.env', nextEnv)
-console.log('Saved SPOTIFY_REFRESH_TOKEN to .env')
+console.log(`SPOTIFY_REFRESH_TOKEN=${token.refresh_token}`)
 ```
 
-Run it with [Bun](https://bun.sh/):
-
-```bash
-bun spotify-auth.ts
-```
-
-Open the URL printed by the script, approve access, then paste the full redirected URL back into the terminal. The script validates the OAuth state and saves the refresh token directly to `.env` without printing it.
-
-Delete the script if you no longer need it, and never commit `.env`.
+Add `SPOTIFY_REDIRECT_URI` to `.env`, then run `bun spotify-auth.ts`. Paste the authorization code when prompted and copy the resulting line back into `.env`.
 
 ## Query the currently playing track
 
@@ -149,9 +153,7 @@ async function getAccessToken() {
     }),
   })
 
-  if (!response.ok) {
-    throw new Error(`Spotify token refresh failed (${response.status})`)
-  }
+  if (!response.ok) throw new Error(`Spotify token refresh failed (${response.status})`)
 
   const token = (await response.json()) as {access_token?: string}
   if (!token.access_token) throw new Error('Spotify returned no access token')
@@ -173,8 +175,8 @@ export async function getNowPlaying() {
 }
 ```
 
-Return this data through your own server endpoint. For live playback state, send `Cache-Control: private, no-store, max-age=0` and refresh the UI when the page loads, regains focus, or becomes visible. A 15–30 second poll while the widget is visible is usually enough.
+Return this data through your own server endpoint. For live playback state, use `Cache-Control: private, no-store, max-age=0`, refresh when the page regains focus, and poll every 15–30 seconds while the widget is visible.
 
-When Spotify returns no active track, you can optionally call `/v1/me/player/recently-played?limit=1`. That fallback requires the `user-read-recently-played` scope included above.
+When there is no active track, you can optionally call `/v1/me/player/recently-played?limit=1`. That fallback needs the `user-read-recently-played` scope included above.
 
-Refresh tokens can be revoked. If Spotify returns `invalid_grant`, run the authorization script again instead of reporting the credentials as missing.
+Refresh tokens can be revoked. If Spotify returns `invalid_grant`, authorize again instead of reporting the credentials as missing.
