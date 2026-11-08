@@ -4,6 +4,7 @@ export interface GiscusConfig {
   category: string
   categoryId: string
   mapping: 'pathname' | 'url' | 'title' | 'og:title' | 'specific' | 'number'
+  term?: string
   reactionsEnabled: '0' | '1'
   emitMetadata: '0' | '1'
   inputPosition: 'top' | 'bottom'
@@ -19,7 +20,9 @@ function env(name: string): string | undefined {
   )
 }
 
-export function getGiscusConfig(): GiscusConfig | null {
+// Map by post title (not document.title) so discussions keep matching when
+// the site title suffix changes.
+export function getGiscusConfig(term: string): GiscusConfig | null {
   const repo = env('PUBLIC_GISCUS_REPO')
   const repoId = env('PUBLIC_GISCUS_REPOSITORY_ID')
   const category = env('PUBLIC_GISCUS_CATEGORY')
@@ -34,7 +37,8 @@ export function getGiscusConfig(): GiscusConfig | null {
     repoId,
     category,
     categoryId,
-    mapping: 'title',
+    mapping: 'specific',
+    term,
     reactionsEnabled: '0',
     emitMetadata: '0',
     inputPosition: 'bottom',

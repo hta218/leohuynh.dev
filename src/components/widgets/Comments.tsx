@@ -16,6 +16,7 @@ export default function Comments({ config }: { config: GiscusConfig }) {
         category={config.category}
         categoryId={config.categoryId}
         mapping={config.mapping}
+        term={config.term}
         reactionsEnabled={config.reactionsEnabled}
         emitMetadata={config.emitMetadata}
         inputPosition={config.inputPosition}
