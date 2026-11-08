@@ -33,7 +33,7 @@ const dateFmt = new Intl.DateTimeFormat('en-US', {
   month: 'long',
   day: 'numeric',
 })
-const giscusConfig = getGiscusConfig()
+const giscusConfig = getGiscusConfig(title)
 
 const canonical = canonicalUrl ?? new URL(`/gists/${snippet.id}`, SITE.siteUrl).href
 const jsonLd = [
