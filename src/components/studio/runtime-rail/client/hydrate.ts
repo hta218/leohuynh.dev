@@ -1,3 +1,4 @@
+import type { TokenBurnFullPayload } from '~/types/integrations'
 import { updateActivity } from './activity'
 import { updateGithub } from './github/heat'
 import { fetchRuntimeJson } from './shared'
@@ -7,7 +8,6 @@ import type {
   ActivityPayload,
   GithubStreakPayload,
   GithubTodayPayload,
-  TokenBurnPayload,
 } from './types'
 
 function hydrateGithubActivity(rail: HTMLElement) {
@@ -29,14 +29,16 @@ function hydrateGithubActivity(rail: HTMLElement) {
 }
 
 async function hydrateTokenBurn(rail: HTMLElement) {
-  if (rail.dataset.tbHydrated === 'true') return
-  rail.dataset.tbHydrated = 'true'
   // Fetched independently of the GitHub/activity group so a slow token-burn
-  // response never blocks the other rail widgets from rendering.
-  const tokenBurn = await fetchRuntimeJson<TokenBurnPayload>(
-    '/api/token-burn.json',
+  // response never blocks the other rail widgets from rendering. Uses the same
+  // `?view=full` URL as `/llms` so both share one CDN entry and never disagree.
+  const tb = await fetchRuntimeJson<TokenBurnFullPayload>(
+    '/api/token-burn.json?view=full',
   )
-  updateTokenBurn(rail, tokenBurn)
+  // Keep the last good numbers if a refetch on navigation fails.
+  if (!tb && rail.dataset.tbHydrated === 'true') return
+  rail.dataset.tbHydrated = 'true'
+  updateTokenBurn(rail, tb && { ...tb, topModels: tb.ok ? tb.todayModels : [] })
 }
 
 function hydrateRuntimeRail() {
@@ -46,7 +48,8 @@ function hydrateRuntimeRail() {
   // The rail node is persisted across route changes (transition:persist),
   // so the dataset flag survives and prevents re-querying on navigation.
   hydrateGithubActivity(rail)
-  // token-burn is static for the session too — fetch once, independently.
+  // token-burn refreshes on every navigation so the persisted rail never
+  // shows numbers older than the page being viewed.
   hydrateTokenBurn(rail)
   // Spotify stays live across persisted-rail navigation and browser focus.
   syncSpotify()
