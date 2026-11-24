@@ -141,7 +141,7 @@ const groups = [...new Set(movies.map((m) => m.yourRating))].map((rating) => {
           <div data-shelf data-page={MOVIES_PAGE}>
             <div class="mb-5 flex flex-wrap gap-1.5" role="group" aria-label="Filter by my rating">
               <button type="button" class="shelf-chip" data-shelf-filter="all" aria-pressed="true">
-                All <span>{movies.length}</span>
+                All <span class="shelf-chip-count">{movies.length}</span>
               </button>
               {groups.map(({ rating, items }) => (
                 <button
@@ -151,7 +151,7 @@ const groups = [...new Set(movies.map((m) => m.yourRating))].map((rating) => {
                   aria-pressed="false"
                 >
                   <HugeIcon name="star" size={12} class="shelf-star" />
-                  {rating} <span>{items.length}</span>
+                  {rating} <span class="shelf-chip-count">{items.length}</span>
                 </button>
               ))}
             </div>
@@ -331,7 +331,7 @@ const groups = [...new Set(movies.map((m) => m.yourRating))].map((rating) => {
     font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
     color: var(--color-ink);
   }
-  .shelf-chip span {
+  .shelf-chip-count {
     color: var(--color-muted);
   }
   .shelf-chip:hover {
@@ -342,7 +342,7 @@ const groups = [...new Set(movies.map((m) => m.yourRating))].map((rating) => {
     background: var(--color-ink);
     color: #fff;
   }
-  .shelf-chip[aria-pressed='true'] span {
+  .shelf-chip[aria-pressed='true'] .shelf-chip-count {
     color: rgb(255 255 255 / 0.65);
   }
   .shelf-more {
