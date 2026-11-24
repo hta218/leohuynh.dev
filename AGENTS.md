@@ -4,10 +4,10 @@ Guidance for AI coding agents (and humans) working in this repository.
 
 ## Project Overview
 
-Personal blog and portfolio for **leohuynh.dev**, rebuilt as **v4** on **Astro 6**
+Personal blog and portfolio for **leohuynh.dev**, rebuilt as **v4** on **Astro 7**
 (was Next.js + Contentlayer — fully migrated, no Next.js code remains).
 
-- **Framework**: Astro 6 (SSR via the Vercel adapter), React 19 islands
+- **Framework**: Astro 7 (SSR via the Vercel adapter), React 19 islands
 - **Styling**: Tailwind CSS v4 (through `@tailwindcss/vite`, not a config file)
 - **Content**: MDX via `@astrojs/mdx` + Astro content collections (`astro:content`)
 - **Code blocks**: `astro-expressive-code` (owns rendering; runs before MDX)
@@ -22,7 +22,7 @@ Use **bun**. Do NOT introduce `pnpm`/`npm` lockfiles (only `bun.lock` is tracked
 
 ```bash
 bun install            # install deps
-bun dev                # dev server on http://localhost:4321
+bun dev                # dev server on http://localhost:3434
 bun run build          # production build
 bun run preview        # preview the build (no Vercel Functions — see Stats note)
 bun run check          # astro check (also the typecheck script)
