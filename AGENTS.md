@@ -74,6 +74,20 @@ bun run heatmap:refresh   # refresh json/heatmap-map.json from GeoJSON + places
   `/dotfiles/*` file content still fetches GitHub on demand.
 - `json/heatmap-map.json` powers the interactive travel map geometry.
 
+## Refreshing movies (IMDb export)
+
+The `/shelf` movies and the activity rail read the Supabase `movies` table
+(`src/lib/media.ts`). To add newly rated titles:
+
+1. Export ratings from IMDb (Your Ratings → Export) to a CSV, e.g. in `~/Downloads`.
+2. `bun run seed:movies ~/Downloads/<export>.csv` — needs `DATABASE_URL` and
+   `OMDB_API_KEY` in `.env`. Upserts every row, calls OMDB only for titles that
+   are new or missing a poster, and rewrites `json/movies.json` (offline fallback).
+3. Commit the updated `json/movies.json`.
+
+Safe to re-run. Books (Goodreads) have no seed script yet — see the
+`restore-media-seed-tooling` spec.
+
 ## Content
 
 - Posts/snippets are MDX in `data/` and loaded by collections via `glob({ base: './data/... })`.
