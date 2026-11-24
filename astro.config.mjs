@@ -42,7 +42,8 @@ export default defineConfig({
       },
     }),
     mdx(),
-    react(),
+    // Oxc React Compiler memoizes client components, so no useMemo/useCallback.
+    react({ compiler: true }),
     sitemap({
       // `/dotfiles/*` is a GitHub-backed SSR mirror (prerender: false), so it
       // never shows up in the static build output the sitemap scans. List

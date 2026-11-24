@@ -152,7 +152,7 @@ Follow `biome.json` and match surrounding code. In addition:
 - `const` for module-level constants (`ALL_CAPS` for true constants); `let` otherwise.
 - Function declarations (`function foo()`) over arrow consts for top-level functions.
 - Named exports only (Astro route/React component default exports where required are fine).
-- No `useMemo`/`useCallback` — React 19 compiler handles memoization.
+- No `useMemo`/`useCallback` — the React Compiler (`react({ compiler: true })`) handles memoization.
 - File names: kebab-case (`product-card.tsx`); components PascalCase; functions camelCase.
 - Tailwind for styling; use a `cn()` helper for conditional classes, not string templates.
 
