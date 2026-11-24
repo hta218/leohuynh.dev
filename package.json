@@ -38,7 +38,8 @@
     "test": "bun test",
     "seo:check": "node scripts/check-seo-lengths.mjs",
     "dotfiles:refresh": "bun scripts/refresh-dotfiles-tree.ts",
-    "heatmap:refresh": "bun scripts/refresh-heatmap-map.ts"
+    "heatmap:refresh": "bun scripts/refresh-heatmap-map.ts",
+    "seed:movies": "bun scripts/seed-movies.ts"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^7.2.1",

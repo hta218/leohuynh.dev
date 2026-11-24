@@ -2,12 +2,12 @@
 
 | Field            | Value                                       |
 | ---------------- | ------------------------------------------- |
-| **Status**       | draft                                       |
+| **Status**       | in-progress (movies done, books pending)    |
 | **Owner**        | @hta218                                      |
 | **Issue**        | N/A                                         |
-| **Branch**       | `feat/restore-media-seed-tooling`           |
+| **Branch**       | `feat/movies-seed-script`                   |
 | **Created**      | 2026-06-22                                  |
-| **Last Updated** | 2026-06-22                                  |
+| **Last Updated** | 2026-11-24                                  |
 
 ## Original Prompt
 
