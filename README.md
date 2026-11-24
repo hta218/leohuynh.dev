@@ -18,7 +18,7 @@ I started this blog to document and share things I’ve learned and found useful
 
 ## Features
 
-- **Astro 6** with SSR (Vercel adapter) and **React 19** islands
+- **Astro 7** with SSR (Vercel adapter) and **React 19** islands
 - **Tailwind CSS v4** for styling
 - **TypeScript** for better type safety
 - **MDX** with [Astro content collections](https://docs.astro.build/en/guides/content-collections/) for rich content and snippets
