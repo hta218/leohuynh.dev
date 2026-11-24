@@ -19,9 +19,11 @@ interface Props {
   active?: string
   /** breadcrumb shown above the main content, e.g. "~/leohuynh.dev/main" */
   crumb?: string
+  /** skip the content max-width, for full-bleed pages like the heatmap */
+  wide?: boolean
 }
 
-const { active, crumb = '~/leohuynh.dev/main' } = Astro.props
+const { active, crumb = '~/leohuynh.dev/main', wide = false } = Astro.props
 const currentPath = (active ?? Astro.url.pathname.replace(/\/$/, '')) || '/'
 const isPublished = (d: { data: { draft?: boolean } }) => d.data.draft !== true
 
@@ -101,8 +103,10 @@ const { lastCommit, lastCommitDate, lastCommitUrl } = getCommitInfo()
         data-track-region="content"
         data-mobile-panel-background
       >
-        <div class="mb-4.5 font-mono text-xs text-slate-500">{crumb}</div>
-        <slot />
+        <div class:list={[!wide && 'max-w-285']}>
+          <div class="mb-4.5 font-mono text-xs text-slate-500">{crumb}</div>
+          <slot />
+        </div>
       </div>
     </main>
 
