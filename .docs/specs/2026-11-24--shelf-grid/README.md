@@ -2,7 +2,7 @@
 
 | Field            | Value       |
 | ---------------- | ----------- |
-| **Status**       | in-progress |
+| **Status**       | completed   |
 | **Owner**        | @hta218     |
 | **Created**      | 2026-11-24  |
 | **Last Updated** | 2026-11-24  |
